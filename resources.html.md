@@ -4,7 +4,7 @@ title: Redis for Pivotal CF
 
 # Resource requirements for Redis for Pivotal CF
 These are the default resource and IP requirements for installing the tile
-<table>
+<table border="1" class="nice">
 	<tr>
 		<th>Product</th>
 		<th>Resource</th>
