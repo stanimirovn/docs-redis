@@ -4,6 +4,13 @@ title: Redis for Pivotal CF
 
 Release notes for Redis for Pivotal CF
 
+### 1.4.3
+**Release Date: 23rd March 2015**
+
+Features included in this release:
+
+* Updated stemcell to 2889 to resolve [these OpenSSL CVE alerts](http://pivotal.io/security/usn-2537-1)
+
 ### 1.4.2
 **Release Date: 30th January 2015**
 
