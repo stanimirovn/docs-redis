@@ -1,12 +1,12 @@
 ---
-title: Redis for Pivotal CF
+title: Redis for Pivotal Cloud Foundry
 ---
 
-This is documentation for the Redis service for Pivotal CF.
+This is documentation for the [Redis service for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis).
 
 ## Install via Pivotal Operations Manager
 
-To install Redis for Pivotal CF, follow the procedure for installing Pivotal Ops Manager tiles:
+To install Redis for PCF, follow the procedure for installing Pivotal Ops Manager tiles:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
 1. Upload the product file to your Ops Manager installation.
@@ -15,7 +15,7 @@ To install Redis for Pivotal CF, follow the procedure for installing Pivotal Ops
 1. Click **Apply Changes** to install the service.
 
 ## Dependencies
-This product requires Pivotal CF:
+This product requires [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf):
 
 * Elastic Runtime version 1.2 or greater
 * Ops Manager version 1.3 or greater
@@ -64,15 +64,15 @@ $ cf restart my-application
 
 ## Example Application
 
-To help your application developers get started with Redis for Pivotal CF, we have provided an example application, which can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
+To help your application developers get started with Redis for PCF, we have provided an example application, which can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
 ## Feedback
 
-Please provide any bugs, feature requests, or questions to [the Pivotal CF Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
 
 ## Version
 
-This product is based on Redis version 2.8.19. 
+This product is based on Redis version 2.8.19.
 
 ## Further Reading
 

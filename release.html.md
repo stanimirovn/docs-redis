@@ -1,8 +1,8 @@
 ---
-title: Redis for Pivotal CF
+title: Redis for Pivotal Cloud Foundry
 ---
 
-Release notes for Redis for Pivotal CF
+Release notes for [Redis for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis)
 
 ### 1.4.3
 **Release Date: 23rd March 2015**

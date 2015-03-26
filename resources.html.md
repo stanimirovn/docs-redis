@@ -1,8 +1,8 @@
 ---
-title: Redis for Pivotal CF
+title: Redis for Pivotal Cloud Foundry
 ---
 
-# Resource requirements for Redis for Pivotal CF
+# Resource requirements for Redis for PCF
 These are the default resource and IP requirements for installing the tile
 <table border="1" class="nice">
 	<tr>
