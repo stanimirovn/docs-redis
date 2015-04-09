@@ -4,13 +4,13 @@ title: Redis for Pivotal Cloud Foundry
 
 # Backups
 
-You can configure backups to be conducted for each instance, across both service plans. 
+You can configure backups to be run for each instance, across both service plans. 
 
 The key features are:
 
-* Runs at midnight system time every day
+* Runs at midnight system time every day (not configurable)
 * Every instance is backed up, across both service plans
-* You can configure an S3 compatible blobstore as your location
+* You can configure an S3 compatible blobstore as your destination
 * The RDB file from Redis is compressed
 * Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
 * Currently certified and tested against AWS S3 only
