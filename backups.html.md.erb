@@ -1,0 +1,87 @@
+---
+title: Redis for Pivotal Cloud Foundry
+---
+
+# Backups
+
+You can configure backups to be conducted for each instance, across both service plans. 
+
+The key features are:
+
+* Runs at midnight system time every day
+* Every instance is backed up, across both service plans
+* You can configure an S3 compatible blobstore as your location
+* The RDB file from Redis is compressed
+* Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
+* Currently certified and tested against AWS S3 only
+
+## Configuration
+To enable backups to be taken, you need to configure the mandatory options in the `Redis for PCF` tile in OpsManager.
+
+Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu. 
+
+<%= image_tag("backups.jpeg") %>
+
+### Access Key ID 
+This is your Access Key for your Blobstore
+
+**Required?** No - this is optional, dependent upon whether is required by your blobstore
+
+### Secret Access Key 
+This is your Secret associated with your access key id
+
+**Required?** No - this is optional, dependent upon whether is required by your blobstore
+
+### Endpoint URL
+This is the endpoint for your blobstore e.g. `http://s3.amazonaws.com`
+
+**Required?** Yes - If you want to enable backups to be run, you must populate this field. 
+
+### Bucket Name
+Name of the bucket inside your blobstore you wish the files to be stored in.
+
+**Required?** Yes - If you want to enable backups to be run, you must populate this field. 
+
+### Path
+Path inside the bucket
+
+**Required?** No - this is optional, it will default to the root if not specified
+
+### Redis BGSAVE Timeout
+This is the amount of time that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured blobstore. 
+
+You can increase this if required for your setup. 
+
+**Required?** - Yes, this defaults to 600 seconds. 
+
+
+## Manual Backups
+As well as the scheduled backups, it is possible to create a backup of an instance manually by following these steps
+
+* [Follow these steps to login to your OpsManager installation and target the Redis tile deployment](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh)
+* Identify the VM which holds your instance by running `bosh vms`
+  * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`
+  * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`.
+  * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings
+
+An example output from `bosh vms`
+<%= image_tag("bosh_vms.jpeg") %>
+
+* target your redis deployment with `bosh deployment`
+* `bosh ssh` into you desired node
+* execute these commands, dependent upon the service plan
+  * `shared-vm` plan, execute `BROKER_CONFIG_PATH=/var/vcap/jobs/cf-redis-broker/config/backup.yml /var/vcap/packages/cf-redis-broker/bin/backup`
+  * `dedicated-vm` plan, execute `BROKER_CONFIG_PATH=/var/vcap/jobs/dedicated-node/config/backup.yml /var/vcap/packages/cf-redis-broker/bin/backup`
+  * these commands will complete silently and the time taken is dependent upon a combination of the data set size and network transfer speed
+* check your blobstore to confirm the files were transferred
+
+## Restore
+To restore your backup file, to another instance of the `Redis for PCF` tile
+
+* first create the new instance and identify which VM it is located on
+* follow the steps from the Manual Backups section above to SSH into that instance
+* download the backup file to this machine
+* execute this command, dependent upon the service plan`/var/vcap/packages/cf-redis-backup/bin/restore <INSTANCE_ID> <PATH TO BACKUP FILE>`
+  * `shared-vm` plan, execute `RESTORE_CONFIG_PATH="/var/vcap/jobs/cf-redis-broker/config/restore.yml" /var/vcap/packages/cf-redis-broker/bin/restore <instance id> <path to your dump.rdb file>`
+    * to obtain the instance ID look in `/var/vcap/store/cf-redis-broker/redis-data` and your instance ID will be a folder named something like `90bfded5-2e06-43a6-80a5-1504f8339934`
+  * `dedicated-vm` plan, execute `RESTORE_CONFIG_PATH="/var/vcap/jobs/dedicated-node/config/restore.yml" /var/vcap/packages/cf-redis-broker/bin/restore dedicated-vm <path to your dump.rdb file>` 
