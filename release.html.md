@@ -4,6 +4,14 @@ title: Redis for Pivotal Cloud Foundry
 
 Release notes for [Redis for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis)
 
+### 1.4.4
+**Release Date: 14th May 2015**
+
+Features included in this release:
+
+* Support for OpsManager 1.4.0 or greater
+* Support for vSphere or AWS deployments
+
 ### 1.4.3
 **Release Date: 23rd March 2015**
 

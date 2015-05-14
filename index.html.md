@@ -4,6 +4,33 @@ title: Redis for Pivotal Cloud Foundry
 
 This is documentation for the [Redis service for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis).
 
+## Product snapshot
+
+<table border="1" class="nice">
+<tr>
+	<th>Current tile version</th>
+	<th>Released on</th>
+	<th>Software component version</th>
+	<th>Supported migrations</th>
+	<th>vSphere support?</th>
+	<th>AWS support?</th>
+</tr>
+<tr>
+	<td>1.4.4</td>
+	<td>17th May 2015</td>
+	<td>2.8.19</td>
+	<td>
+	From: <br />
+	* 1.4.3 <br />
+	* 1.4.2 <br />
+	* 1.4.1 <br />
+	</td>
+	<td>Yes</td>
+	<td>Yes</td>
+	
+</tr>
+</table>
+
 ## Install via Pivotal Operations Manager
 
 To install Redis for PCF, follow the procedure for installing Pivotal Ops Manager tiles:
@@ -17,8 +44,8 @@ To install Redis for PCF, follow the procedure for installing Pivotal Ops Manage
 ## Dependencies
 This product requires [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf):
 
-* Elastic Runtime version 1.2 or greater
-* Ops Manager version 1.3 or greater
+* Elastic Runtime version 1.4.0 or greater
+* Ops Manager version 1.4.0 or greater
 
 
 ## Available Plans
