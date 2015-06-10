@@ -68,13 +68,6 @@ To install Redis for PCF, follow the procedure for installing Pivotal Ops Manage
 1. Click the newly added tile to review any configurable options.
 1. Click **Apply Changes** to install the service.
 
-## Dependencies
-This product requires [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf):
-
-* Elastic Runtime version 1.4.0 or greater
-* Ops Manager version 1.4.0 or greater
-
-
 ## Available Plans
 
 There are two available plans:
@@ -123,10 +116,6 @@ To help your application developers get started with Redis for PCF, we have prov
 ## Feedback
 
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
-
-## Version
-
-This product is based on Redis version 2.8.19.
 
 ## Further Reading
 
