@@ -6,28 +6,55 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 
 ## Product snapshot
 
+<dl>
+<dt>Current Redis for PCF Details</dt>
+<dd><strong>Version</strong>: 1.4.4 </dd>
+<dd><strong>Release Date</strong>: 17th May 2015</dd>
+<dd><strong>Software component version</strong>: Redis OSS 2.8.19</dd>
+<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.4.x</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.4.x</dd>
+<dd><strong>vSphere support?</strong> Yes</dd>
+<dd><strong>AWS support?</strong> Yes</dd>
+</dl>
+
+## Upgrading to the Latest Version
+
+Consider the following compatibility information before upgrading MongoDB for Pivotal Cloud Foundry. 
+
+<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any version in 1.4.x. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
+
+For more information, refer to the full Product Version Matrix.
+
 <table border="1" class="nice">
 <tr>
-	<th>Current tile version</th>
-	<th>Released on</th>
-	<th>Software component version</th>
-	<th>Supported migrations</th>
-	<th>vSphere support?</th>
-	<th>AWS support?</th>
+  <th>Ops Manager Version</th>
+  <th>Supported Upgrades from Imported Redis Installation</th>
 </tr>
 <tr>
-	<td>1.4.4</td>
-	<td>17th May 2015</td>
-	<td>2.8.19</td>
-	<td>
-	From: <br />
-	* 1.4.3 <br />
-	* 1.4.2 <br />
-	* 1.4.1 <br />
-	</td>
-	<td>Yes</td>
-	<td>Yes</td>
-	
+  <th>1.3.x</th>
+  <td><ul>
+      <li>From 1.3.2 to 1.4.0</li>
+      <li>From 1.3.2 to 1.4.1</li>
+      <li>From 1.3.2 to 1.4.2</li>
+      <br />
+      <li>From 1.4.0 to 1.4.1</li>
+      <li>From 1.4.0 to 1.4.2</li>
+      <li>From 1.4.0 to 1.4.3</li>
+      <br />
+      <li>From 1.4.1 to 1.4.2</li>
+      <li>From 1.4.1 to 1.4.3</li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <th>1.4.x</th>
+  <td><ul>
+      <li>From 1.4.0 to 1.4.4</li>
+      <li>From 1.4.1 to 1.4.4</li>
+      <li>From 1.4.2 to 1.4.4</li>
+      <li>From 1.4.3 to 1.4.4</li>
+    </ul>
+  </td>
 </tr>
 </table>
 
@@ -40,13 +67,6 @@ To install Redis for PCF, follow the procedure for installing Pivotal Ops Manage
 1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
 1. Click the newly added tile to review any configurable options.
 1. Click **Apply Changes** to install the service.
-
-## Dependencies
-This product requires [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf):
-
-* Elastic Runtime version 1.4.0 or greater
-* Ops Manager version 1.4.0 or greater
-
 
 ## Available Plans
 
@@ -96,10 +116,6 @@ To help your application developers get started with Redis for PCF, we have prov
 ## Feedback
 
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
-
-## Version
-
-This product is based on Redis version 2.8.19.
 
 ## Further Reading
 
