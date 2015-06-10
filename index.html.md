@@ -21,7 +21,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 
 Consider the following compatibility information before upgrading MongoDB for Pivotal Cloud Foundry. 
 
-<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to at least 1.4.1. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
+<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any version in 1.4.x. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
 
 For more information, refer to the full Product Version Matrix.
 
@@ -33,18 +33,26 @@ For more information, refer to the full Product Version Matrix.
 <tr>
   <th>1.3.x</th>
   <td><ul>
-      <li>From 1.3.2 to 1.3.3</li>
-      <li>From 1.3.2 to 1.3.4.1</li>
-      <li>From 1.3.3 to 1.3.4.1</li>
+      <li>From 1.3.2 to 1.4.0</li>
+      <li>From 1.3.2 to 1.4.1</li>
+      <li>From 1.3.2 to 1.4.2</li>
+      <br />
+      <li>From 1.4.0 to 1.4.1</li>
+      <li>From 1.4.0 to 1.4.2</li>
+      <li>From 1.4.0 to 1.4.3</li>
+      <br />
+      <li>From 1.4.1 to 1.4.2</li>
+      <li>From 1.4.1 to 1.4.3</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>1.4.x</th>
   <td><ul>
-      <li>From 1.3.2 to 1.4.0</li>
-      <li>From 1.3.3 to 1.4.0</li>
-      <li>From 1.3.4.1 to 1.4.0</li>
+      <li>From 1.4.0 to 1.4.4</li>
+      <li>From 1.4.1 to 1.4.4</li>
+      <li>From 1.4.2 to 1.4.4</li>
+      <li>From 1.4.3 to 1.4.4</li>
     </ul>
   </td>
 </tr>
