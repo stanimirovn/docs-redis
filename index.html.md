@@ -33,16 +33,9 @@ For more information, refer to the full Product Version Matrix.
 <tr>
   <th>1.3.x</th>
   <td><ul>
-      <li>From 1.3.2 to 1.4.0</li>
-      <li>From 1.3.2 to 1.4.1</li>
-      <li>From 1.3.2 to 1.4.2</li>
-      <br />
-      <li>From 1.4.0 to 1.4.1</li>
-      <li>From 1.4.0 to 1.4.2</li>
-      <li>From 1.4.0 to 1.4.3</li>
-      <br />
-      <li>From 1.4.1 to 1.4.2</li>
-      <li>From 1.4.1 to 1.4.3</li>
+      <li>From 1.3.2 to 1.4.0, 1.4.1, 1.4.2</li>
+      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3</li>
+      <li>From 1.4.1 to 1.4.2, 1.4.3</li>
     </ul>
   </td>
 </tr>
