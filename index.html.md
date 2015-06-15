@@ -8,9 +8,9 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 
 <dl>
 <dt>Current Redis for PCF Details</dt>
-<dd><strong>Version</strong>: 1.4.4 </dd>
-<dd><strong>Release Date</strong>: 17th May 2015</dd>
-<dd><strong>Software component version</strong>: Redis OSS 2.8.19</dd>
+<dd><strong>Version</strong>: 1.4.5 </dd>
+<dd><strong>Release Date</strong>: 15th June 2015</dd>
+<dd><strong>Software component version</strong>: Redis OSS 2.8.21</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.4.x</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
@@ -42,10 +42,11 @@ For more information, refer to the full Product Version Matrix.
 <tr>
   <th>1.4.x</th>
   <td><ul>
-      <li>From 1.4.0 to 1.4.4</li>
-      <li>From 1.4.1 to 1.4.4</li>
-      <li>From 1.4.2 to 1.4.4</li>
-      <li>From 1.4.3 to 1.4.4</li>
+      <li>From 1.3.2 to 1.4.5</li>
+      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5</li>
+      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5</li>
+      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5</li>
+      <li>From 1.4.3 to 1.4.4, 1.4.5</li>
     </ul>
   </td>
 </tr>

@@ -4,6 +4,14 @@ title: Redis for Pivotal Cloud Foundry
 
 Release notes for [Redis for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis)
 
+### 1.4.5
+**Release Date: 15th June 2015**
+
+Features included in this release:
+
+* Latest version of Redis 2.8.21 to resolve the Lua sandbox exploit
+* Migration path added from Redis for PCF 1.3.2
+
 ### 1.4.4
 **Release Date: 14th May 2015**
 
