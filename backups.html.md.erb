@@ -53,6 +53,28 @@ You can increase this if required for your setup.
 
 **Required?** - Yes, this defaults to 600 seconds. 
 
+## AWS IAM Policy
+The minimum set of policies required in order to upload the backup files are:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<bucket-name>",
+                "arn:aws:s3:::<bucket-name>/*"
+            ]
+        }
+    ]
+}
+```
+Make sure to replace `<bucket-name>` with your correct value. 
 
 ## Manual Backups
 As well as the scheduled backups, it is possible to create a backup of an instance manually by following these steps
