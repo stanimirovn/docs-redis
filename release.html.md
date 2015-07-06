@@ -23,6 +23,13 @@ Features included in this release:
 * Latest version of Redis 2.8.21 to resolve the Lua sandbox exploit
 * Migration path added from Redis for PCF 1.3.2
 
+Known issues:
+
+* On AWS, this version supports deployments in the US-East region. Multi-region support is coming in a future release.
+* The experimental HTTPS-only feature in Elastic Runtime 1.5 may cause issues with this version of the product. Full support for HTTPS-only traffic is coming in a future release.
+
+<p class="note"><strong>Note</strong>: BOSH Stemcell 2865.1 is required for installation on Ops Manager 1.5.x and above.</p>
+
 ### 1.4.4
 **Release Date: 14th May 2015**
 
