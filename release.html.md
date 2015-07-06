@@ -11,7 +11,7 @@ Features included in this release:
 
 * Support for OpsManager 1.5.x or 1.4.x
 * Support for Elastic Runtime 1.5.x or 1.4.x
-* Support for HTTPS only environments
+* Support for HTTPS-only environments
 * Support for vSphere or AWS Deployments
 * Requires stemcell 2989
 
@@ -72,4 +72,4 @@ Features included in this release:
 
 * General Availability release
 * `development` service plan, providing a redis process on a shared-vm
-  * suitable for development and test workloads
+  * Suitable for development and test workloads
