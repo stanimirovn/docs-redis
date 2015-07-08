@@ -22,7 +22,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 
 Consider the following compatibility information before upgrading Redis for Pivotal Cloud Foundry.
 
-<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any version in 1.4.x. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
+<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any 1.4.x version prior to 1.4.4. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
 
 For more information, refer to the full Product Version Matrix.
 
