@@ -105,6 +105,13 @@ $ cf bind-service my-application redis
 $ cf restart my-application
 ```
 
+## Security
+The following ports & ranges are used in this service:
+
+* Destination port 80 access to the service broker from the cloud controllers
+* Destination port 6379 access to all dedicated nodes from the DEA network(s)
+* Destination ports 32768 to 61000 on the service broker from the DEA network(s). This is only required for the shared service plan.
+
 ## Example Application
 
 To help your application developers get started with Redis for PCF, we have provided an example application, which can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
@@ -116,4 +123,3 @@ Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Fo
 ## Further Reading
 
 * [Official Redis Documentation](http://redis.io/documentation)
-
