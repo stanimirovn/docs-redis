@@ -14,6 +14,7 @@ Features included in this release:
 * Support for HTTPS-only environments
 * Support for vSphere or AWS Deployments
 * Requires stemcell 2989
+* Fixes a bug where credentials are double escaped after upgrading from Redis 1.3.2 and then re-binding existing instances. 
 
 ### 1.4.5
 **Release Date: 15th June 2015**
@@ -25,6 +26,7 @@ Features included in this release:
 
 Known issues:
 
+* Upgrading from Redis 1.3.2 to this version or prior versions and then re-binding an existing instance can cause the credentials to be double escaped. New instances or existing instances without a re-bind are not impacted.
 * On AWS, this version supports deployments in the US-East region. Multi-region support is coming in a future release.
 * The experimental HTTPS-only feature in Elastic Runtime 1.5 may cause issues with this version of the product. Full support for HTTPS-only traffic is coming in a future release.
 
