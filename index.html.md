@@ -15,7 +15,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.5.x, 1.4.x</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
 <dd><strong>AWS support?</strong> Yes</dd>
-<dd><strong>Openstack support?</strong> Yes</dd>
+<dd><strong>OpenStack support?</strong> Yes</dd>
 </dl>
 
 ## Upgrading to the Latest Version
