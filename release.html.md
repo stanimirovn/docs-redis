@@ -4,6 +4,13 @@ title: Redis for Pivotal Cloud Foundry
 
 Release notes for [Redis for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis)
 
+### 1.4.7
+**Release Date: 29th July 2015**
+
+Features included in this release:
+
+* Updated stemcell to 3026 to resolve CVE-2015-3290
+
 ### 1.4.6
 **Release Date: 6th July 2015**
 
@@ -14,7 +21,7 @@ Features included in this release:
 * Support for HTTPS-only environments
 * Support for vSphere or AWS Deployments
 * Requires stemcell 2989
-* Fixes a bug where credentials are double escaped after upgrading from Redis 1.3.2 and then re-binding existing instances. 
+* Fixes a bug where credentials are double escaped after upgrading from Redis 1.3.2 and then re-binding existing instances.
 
 ### 1.4.5
 **Release Date: 15th June 2015**
