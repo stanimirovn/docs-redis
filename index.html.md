@@ -8,8 +8,8 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 
 <dl>
 <dt>Current Redis for PCF Details</dt>
-<dd><strong>Version</strong>: 1.4.7 </dd>
-<dd><strong>Release Date</strong>: 29th July 2015</dd>
+<dd><strong>Version</strong>: 1.4.8 </dd>
+<dd><strong>Release Date</strong>: 2nd September 2015</dd>
 <dd><strong>Software component version</strong>: Redis OSS 2.8.21</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.5.x, 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.5.x, 1.4.x</dd>
@@ -43,13 +43,14 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
 <tr>
   <th>1.5.x and 1.4.x</th>
   <td><ul>
-      <li>From 1.4.0 to 1.4.4, 1.4.5, 1.4.6, 1.4.7</li>
-      <li>From 1.4.1 to 1.4.4, 1.4.5, 1.4.6, 1.4.7</li>
-      <li>From 1.4.2 to 1.4.4, 1.4.5, 1.4.6, 1.4.7</li>
-      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7</li>
-      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7</li>
-      <li>From 1.4.5 to 1.4.6, 1.4.7</li>
-      <li>From 1.4.6 to 1.4.7</li>
+      <li>From 1.4.0 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8</li>
+      <li>From 1.4.1 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8</li>
+      <li>From 1.4.2 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8</li>
+      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8</li>
+      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8</li>
+      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8</li>
+      <li>From 1.4.6 to 1.4.7, 1.4.8</li>
+      <li>From 1.4.7 to 1.4.8</li>
     </ul>
   </td>
 </tr>
