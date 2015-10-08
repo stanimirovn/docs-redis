@@ -12,11 +12,11 @@ Features included in this release:
 * Update stemcell to 3094 to address [USN-2765-1](http://www.ubuntu.com/usn/usn-2765-1/)
 
 Known issues:
-Note one important known issue with the 1.5.6 patch for Openstack deployments. BOSH stemcell v3094, which this version of Elastic Runtime references, has a limiation affecting Openstack users only:
 
-* Elastic Runtime 1.5.6 on Openstack does not work with S3/Swift blobstores.
-* Elastic Runtime 1.5.6 on Openstack users must configure their object storage to use the internal blobstore option.
-* vSphere, AWS and vCloud users are not affected.
+* Note one important known issue with the 1.5.6 patch for Openstack deployments. BOSH stemcell v3094, which this version of Elastic Runtime references, has a limitation affecting Openstack users only:
+  * Elastic Runtime 1.5.6 on Openstack does not work with S3/Swift blobstores.
+  * Elastic Runtime 1.5.6 on Openstack users must configure their object storage to use the internal blobstore option.
+  * vSphere, AWS and vCloud users are not affected.
 
 ### 1.4.8
 **Release Date: 2nd September 2015**
