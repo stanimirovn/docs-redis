@@ -111,7 +111,7 @@ The below steps are manual, these will be replaced by an automated operator frie
 Before restoring your RDB file you must have these pre-requisites:
 
 * Same resource configuration as the instance from which you backed up
-  * The persistent disk should be increased to be `3.5 x size of the RDB file` if it not already so.
+  * The persistent disk should be increased to be at least `3 x size of the RDB file` if it not already so.
   * This is to allow space for the temporary files used during the restore process
 
 To restore your backup file, to another instance of the `Redis for PCF` tile
@@ -119,23 +119,23 @@ To restore your backup file, to another instance of the `Redis for PCF` tile
 1. Create a new instance of the plan that you wish to restore to
 1. Identify the VM which the instance of your plan is located on, by following the steps from the `Manual Backups` section above
 1. `bosh ssh` into the identified VM
-1. copy the RDB file you wish to restore to `/var/vcap/store/` as root or using `sudo`
-1. stop all running `Redis` processed by running `sudo monit stop all`
-1. Identify the location of the master `redis.conf` file with `find /var/vcap/data/jobs/dedicated-node -name redis.conf`
-  1. For example, `/var/vcap/data/jobs/dedicated-node/f0ff6d25683b2ab7b14ee0b4b5eb9bd8e9ce8cfc-d59095917f58e170c252500ed7873cb8c359b757/config/redis.conf`
-1. Open the file identified in an editor such as `vim`
+1. gain root of the machine by running `sudo -i`
+1. copy the RDB file you wish to restore to `/var/vcap/store/`
+1. change the owner of the rdb file to vcap:vcap by running `chown vcap:vcap dump.rdb`
+1. stop all running `Redis` processed by running `monit stop all`
+1. Open the config file `/var/vcap/jobs/dedicated-node/config/redis.conf` in an editor such as `vim`
   1. modify the following value:
     1. from: `appendonly yes`
     1. to: `appendonly no`
   1. exit & save
-1. replace the file `/var/vcap/store/redis/dump.rdb` with the file you copied over in step 4, making sure to retain the filename `dump.rdb`
+1. replace the file `/var/vcap/store/redis/dump.rdb` with the file you copied over in step 4, making sure to retain the filename `dump.rdb` and the file ownership `vcap:vcap` 
 1. confirm the file size of `dump.rdb` is as you expect by running `ls -alh`
-1. restart the processes by running `sudo monit start all`
+1. restart the processes by running `monit start all`
 1. Redis will now load the restored `dump.rdb` file into memory and write it back out to the AOF file
   1. the amount of time this takes will depend upon your dataset size and other factors
   1. to view progress you can use the `redis-cli` and run the `info` command
   1. wait until you see `aof_rewrite_in_progress:0`
-1. stop the running Redis process with `sudo monit stop all`
+1. stop the running Redis process with `monit stop all`
 1. Reverse the configuration changes in step 9 so you have `appendonly yes`
 1. start the processes again with `sudo monit start all`
 1. you have now restored your Redis data
