@@ -4,6 +4,22 @@ title: Redis for Pivotal Cloud Foundry
 
 Release notes for [Redis for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis)
 
+### 1.4.11
+**Release Date: 30th October 2015**
+
+Features included in this release:
+
+* Updated stemcell to 3112
+
+### 1.4.10
+**Release Date: 16th October 2015**
+
+Features included in this release:
+
+* Certified with PCF Suite 1.6
+* Updated stemcell to 3100
+* Updated Redis to 3.0.4
+
 ### 1.4.9
 **Release Date: 7th October 2015**
 
