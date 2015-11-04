@@ -1,13 +1,13 @@
 ---
-title: Redis for Pivotal Cloud Foundry
+title: Redis for Pivotal Cloud Foundry&reg;
 ---
 
-This is documentation for the [Redis service for Pivotal Cloud Foundry](https://network.pivotal.io/products/p-redis).
+This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/p-redis).
 
 ## Product snapshot
 
 <dl>
-<dt>Current Redis for PCF Details</dt>
+<dt>Current Redis for <a href="https://network.pivotal.io/products/pivotal-cf">Pivotal Cloud Foundry&reg;</a> (PCF) Details</dt>
 <dd><strong>Version</strong>: 1.4.11 </dd>
 <dd><strong>Release Date</strong>: 30th October 2015</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.4</dd>
@@ -20,7 +20,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry](https://
 
 ## Upgrading to the Latest Version
 
-Consider the following compatibility information before upgrading Redis for Pivotal Cloud Foundry.
+Consider the following compatibility information before upgrading Redis for Pivotal Cloud Foundry&reg;.
 
 <p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any 1.4.x version prior to 1.4.4. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
 
@@ -123,7 +123,7 @@ To help your application developers get started with Redis for PCF, we have prov
 
 ## Feedback
 
-Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry&reg; Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
 
 ## Further Reading
 
