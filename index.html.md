@@ -8,8 +8,8 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 
 <dl>
 <dt>Current Redis for <a href="https://network.pivotal.io/products/pivotal-cf">Pivotal Cloud Foundry&reg;</a> (PCF) Details</dt>
-<dd><strong>Version</strong>: 1.4.11 </dd>
-<dd><strong>Release Date</strong>: 30th October 2015</dd>
+<dd><strong>Version</strong>: 1.5.0 </dd>
+<dd><strong>Release Date</strong>: 9th November 2015</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.4</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
@@ -41,19 +41,20 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
   </td>
 </tr>
 <tr>
-  <th>1.5.x and 1.4.x</th>
+  <th>1.6.x, 1.5.x and 1.4.x</th>
   <td><ul>
-      <li>From 1.4.0 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.1 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.2 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.4.11</li>
-      <li>From 1.4.9 to 1.4.10, 1.4.11</li>
-      <li>From 1.4.10 to 1.4.11</li>
+      <li>From 1.4.0 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.1 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.2 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.9 to 1.4.10, 1.4.11, 1.5.0</li>
+      <li>From 1.4.10 to 1.4.11, 1.5.0</li>
+      <li>From 1.4.11 to 1.5.0</li>
     </ul>
   </td>
 </tr>
@@ -87,7 +88,7 @@ There are two available plans:
 <td>Development and testing workloads</td>
 <td>Shared VM</td>
 <td>No</td>
-<td>No</td>
+<td>Yes</td>
 </tr>
 
 <tr>
@@ -95,7 +96,7 @@ There are two available plans:
 <td>Production workloads</td>
 <td>Dedicated VM</td>
 <td>No</td>
-<td>No</td>
+<td>Yes</td>
 </tr>
 
 </table>
@@ -116,6 +117,7 @@ The following ports & ranges are used in this service:
 * Destination port 80 access to the service broker from the cloud controllers
 * Destination port 6379 access to all dedicated nodes from the DEA network(s)
 * Destination ports 32768 to 61000 on the service broker from the DEA network(s). This is only required for the shared service plan.
+* Outbound access to your chosen S3 blobstore, typically HTTP 80 or HTTPS 443
 
 ## Example Application
 
