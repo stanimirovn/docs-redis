@@ -87,6 +87,7 @@ It is possible to create a backup of an instance manually by following these ste
   * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings.
 
 An example output from `bosh vms`:
+
 ![OpsManager VMs view](bosh_vms.jpeg)
 
 * Target your redis deployment with `bosh deployment`.
