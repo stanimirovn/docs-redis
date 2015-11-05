@@ -10,7 +10,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 <dt>Current Redis for <a href="https://network.pivotal.io/products/pivotal-cf">Pivotal Cloud Foundry&reg;</a> (PCF) Details</dt>
 <dd><strong>Version</strong>: 1.5.0 </dd>
 <dd><strong>Release Date</strong>: 9th November 2015</dd>
-<dd><strong>Software component version</strong>: Redis OSS 3.0.4</dd>
+<dd><strong>Software component version</strong>: Redis OSS 3.0.5</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
