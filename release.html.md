@@ -4,6 +4,15 @@ title: Redis for Pivotal Cloud Foundry&reg;
 
 Release notes for [Redis for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/p-redis)
 
+### 1.5.0
+**Release Date: 9th November 2015**
+
+Features included in this release:
+
+* Automated backups to an S3 compatible Blobstore
+* All in use instances across both service plans are backed up
+* Validated against AWS S3
+
 ### 1.4.11
 **Release Date: 30th October 2015**
 
@@ -83,17 +92,6 @@ Features included in this release:
 
 * Support for OpsManager 1.4.0 or greater
 * Support for vSphere or AWS deployments
-
-### 1.5.0
-**Release Date: 17th April 2015**
-
-Features included in this release:
-
-* Automated backups to a configured S3 compatible blobstore
-* Support for vSphere & AWS
-* Smoke tests run after a deployment
-* Support for multi availability zone deployments
-
 
 ### 1.4.3
 **Release Date: 23rd March 2015**
