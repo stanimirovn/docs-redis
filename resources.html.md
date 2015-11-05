@@ -19,9 +19,11 @@ These are the default resource and IP requirements for installing the tile
 	<tr>
  		<td>Redis</td>
 	 	<td>Redis Broker</td>
-	 	<td>1</td><td>2</td>
-	 	<td>1024</td><td>4096</td>
-	 	<td>1024</td>
+	 	<td>1</td>
+		<td>2</td>
+	 	<td>3072</td>
+		<td>4096</td>
+	 	<td>9216</td>
 	 	<td>1</td>
 	 	<td>0</td>
  	</tr>
