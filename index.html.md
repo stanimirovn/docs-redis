@@ -125,7 +125,7 @@ To help your application developers get started with Redis for PCF, we have prov
 
 ## Feedback
 
-Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry&reg; Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
 
 ## Further Reading
 
