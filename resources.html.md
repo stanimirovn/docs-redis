@@ -1,5 +1,5 @@
 ---
-title: Redis for Pivotal Cloud Foundry
+title: Redis for Pivotal Cloud Foundry&reg; (PCF)
 ---
 
 # Resource requirements for Redis for PCF
