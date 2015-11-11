@@ -16,6 +16,13 @@ Features included in this release:
 * Smoke tests are run after a deployments
 * Redis 3.0.5
 
+### 1.4.12
+**Release Date: 11th November 2015**
+
+Features included in this release:
+
+* Updated stemcell to 3130. Resolves CVE USN-2806-1.
+
 ### 1.4.11
 **Release Date: 30th October 2015**
 
