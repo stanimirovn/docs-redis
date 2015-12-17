@@ -75,4 +75,4 @@ These are the default resource and IP requirements for installing the tile
 
 #### Notes:
 * The `shared-vm` plan is on the `Redis Broker` resource
-* The `dedicated-vm` plan is on the `Dedicatd Node` resource
+* The `dedicated-vm` plan is on the `Dedicated Node` resource
