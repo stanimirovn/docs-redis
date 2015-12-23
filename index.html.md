@@ -58,6 +58,9 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
       <li>From 1.4.12 to 1.4.13, 1.4.14, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
       <li>From 1.4.13 to 1.4.14, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
       <li>From 1.4.14 to 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.5.0 to 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.5.1 to 1.5.2, 1.5.3</li>
+      <li>From 1.5.2 to 1.5.3</li>
     </ul>
   </td>
 </tr>
