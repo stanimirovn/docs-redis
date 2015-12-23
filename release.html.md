@@ -10,7 +10,7 @@ Release notes for [Redis for Pivotal Cloud Foundry&reg;](https://network.pivotal
 Features included in this release:
 
 * Updated Redis to 3.0.6
-* Updated stemcell to 3153
+* Updated Stemcell to 3153
 
 ### 1.5.2
 **Release Date: 4th December 2015**
