@@ -7,7 +7,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 ## Product snapshot
 
 <dl>
-<dt>Current Redis for <a href="https://network.pivotal.io/products/pivotal-cf">Pivotal Cloud Foundry&reg;</a> (PCF) Details</dt>
+<dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for Pivotal Cloud Foundry&reg; (PCF) Details</dt>
 <dd><strong>Version</strong>: 1.5.4 </dd>
 <dd><strong>Release Date</strong>: 7th January 2015</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.6</dd>
