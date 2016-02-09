@@ -99,7 +99,7 @@ There are two available plans:
 
 <tr>
 <td><b>Shared-VM</b></td>
-<td>Development and testing workloads</td>
+<td>Lighter workloads which do not require dedicated resources</td>
 <td>Shared VM</td>
 <td>No</td>
 <td>Yes</td>
@@ -107,7 +107,7 @@ There are two available plans:
 
 <tr>
 <td><b>Dedicated-VM</b></td>
-<td>Production workloads</td>
+<td>Increased workloads which require dedicated resources</td>
 <td>Dedicated VM</td>
 <td>No</td>
 <td>Yes</td>
