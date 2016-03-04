@@ -1,5 +1,6 @@
 ---
 title: Redis for Pivotal Cloud Foundry&reg; (PCF)
+owner: London Services
 ---
 
 # Resource requirements for Redis for PCF

@@ -1,5 +1,6 @@
 ---
 title: Redis for Pivotal Cloud Foundry&reg;
+owner: London Services
 ---
 
 Release notes for [Redis for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/p-redis)
