@@ -9,11 +9,11 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 
 <dl>
 <dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for Pivotal Cloud Foundry&reg; (PCF) Details</dt>
-<dd><strong>Version</strong>: 1.5.7 </dd>
-<dd><strong>Release Date</strong>: 2nd February 2015</dd>
+<dd><strong>Version</strong>: 1.5.10 </dd>
+<dd><strong>Release Date</strong>: 15th March 2016</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.7</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
-<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
+<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
 <dd><strong>AWS support?</strong> Yes</dd>
 <dd><strong>OpenStack support?</strong> Yes</dd>
@@ -52,7 +52,7 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
 <tr>
 	<th rowspan="6">1.4.x, 1.5.x, and 1.6.x</th>
 	<td rowspan="2">1.40 - 1.4.3</td>
-	<td>1.4.4 - 1.4.18</td>
+	<td>1.4.4 - 1.4.21</td>
 </tr>
 
 <tr>
@@ -60,88 +60,25 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
 </tr>
 
 <tr>
-	<td rowspan="2">1.4.4 - 1.4.17</td>
-	<td> Next 1.4.x version - 1.4.18
+	<td rowspan="2">1.4.4 - 1.4.20</td>
+	<td> Next 1.4.x version - 1.4.21
 </tr>
 
 <tr>
-	<td>1.5.0 - 1.5.7</td>
+	<td>1.5.0 - 1.5.10</td>
 </tr>
 
 <tr>
 	<td>1.4.18</td>
-	<td>1.5.0 - 1.5.7</td>
+	<td>1.5.0 - 1.5.10</td>
 </tr>
 
 <tr>
-  <td>1.5.0 - 1.5.6</td>
-  <td>Next 1.5.x version - 1.5.7</td>
+  <td>1.5.0 - 1.5.9</td>
+  <td>Next 1.5.x version - 1.5.10</td>
 </tr>
 
 </table>
-
-## Install via Pivotal Operations Manager
-
-To install Redis for PCF, follow the procedure for installing Pivotal Ops Manager tiles:
-
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
-1. Upload the product file to your Ops Manager installation.
-1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
-1. Click the newly added tile to review any configurable options.
-1. Click **Apply Changes** to install the service.
-
-## Available Plans
-
-There are two available plans:
-
-<table border="1" class="nice">
-<tr>
-<th><strong>Plan Name</strong></th>
-<th><strong>Suitable for</strong></th>
-<th><strong>Tenancy Model per Instance</strong></th>
-<th><strong>Highly Available</strong></th>
-<th><strong>Backup Functionality</strong></th>
-</tr>
-
-<tr>
-<td><b>Shared-VM</b></td>
-<td>Lighter workloads that do not require dedicated resources</td>
-<td>Shared VM</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-
-<tr>
-<td><b>Dedicated-VM</b></td>
-<td>Increased workloads that require dedicated resources</td>
-<td>Dedicated VM</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-
-</table>
-
-## Provisioning and Binding via Cloud Foundry
-
-Once you have installed the product, it automatically registers itself with your Elastic Runtime. At this point, the product is available to your application developers, either in the Marketplace in the web based console, or via `cf marketplace`. They can add, provision, and bind the service to their applications like any other CF service:
-
-```
-$ cf create-service p-redis shared-vm redis
-$ cf bind-service my-application redis
-$ cf restart my-application
-```
-
-## Security
-The following ports & ranges are used in this service:
-
-* Destination port 80 access to the service broker from the cloud controllers
-* Destination port 6379 access to all dedicated nodes from the DEA network(s)
-* Destination ports 32768 to 61000 on the service broker from the DEA network(s). This is only required for the shared service plan.
-* Outbound access to your chosen S3 blobstore, typically HTTP 80 or HTTPS 443
-
-## Example Application
-
-To help your application developers get started with Redis for PCF, we have provided an example application, which can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
 ## Feedback
 

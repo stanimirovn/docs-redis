@@ -1,5 +1,5 @@
 ---
-title: Redis for Pivotal Cloud Foundry&reg;
+title: Upgrading Redis for Pivotal Cloud Foundry&reg;
 owner: London Services
 ---
 
