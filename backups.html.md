@@ -3,6 +3,7 @@ title: Redis for Pivotal Cloud Foundry&reg;
 owner: London Services
 ---
 
+<a id="backup"></a>
 # Backups
 
 You can configure backups to be run for each instance, across both service plans.
@@ -144,6 +145,7 @@ The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 
 The backup file will be named `dump.rdb`.
 
+<a id="restore"></a>
 ## Restore Locally
 You can choose to restore the RDB file to a local Redis instance.
 

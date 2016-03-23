@@ -1,9 +1,51 @@
 ---
-title: Redis for Pivotal Cloud Foundry&reg;
+title: Redis for Pivotal Cloud Foundry&reg; Release Notes
 owner: London Services
 ---
 
 Release notes for [Redis for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/p-redis)
+
+### 1.5.10
+**Release Date: 15th March 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.10
+
+### 1.4.21
+**Release Date: 15th March 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.10
+
+### 1.5.9
+**Release Date: 25th February 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.9
+
+### 1.4.20
+**Release Date: 24th Feburary 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.9
+
+### 1.5.8
+**Release Date: 19th February 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.8
+
+### 1.4.19
+**Release Date: 19th Feburary 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.8
 
 ### 1.5.7
 **Release Date: 2nd February 2016**
