@@ -1,10 +1,11 @@
 ---
-title: Redis for Pivotal Cloud Foundry&reg;
+title: Maintaining Redis for Pivotal Cloud Foundry&reg;
 owner: London Services
 ---
 
+
 <a id="backup"></a>
-# Backups
+# Creating Backups of Redis Instances
 
 You can configure backups to be run for each instance, across both service plans.
 
@@ -26,12 +27,12 @@ Click on the tile in OpsManager, followed by the `Backups` link on the left hand
 ### Access Key ID
 This is your Access Key for your Blobstore
 
-**Required?** No - this is optional, dependent upon whether is required by your blobstore
+**Required?** No - this is optional, dependent upon whether it is required by your blobstore
 
 ### Secret Access Key
 This is your Secret associated with your access key id
 
-**Required?** No - this is optional, dependent upon whether is required by your blobstore
+**Required?** No - this is optional, dependent upon whether it is required by your blobstore
 
 ### Endpoint URL
 This is the endpoint for your blobstore e.g. `http://s3.amazonaws.com`
@@ -146,13 +147,15 @@ The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 The backup file will be named `dump.rdb`.
 
 <a id="restore"></a>
-## Restore Locally
+## Restore Redis Instance from a Backup
+
+### To a Local System
 You can choose to restore the RDB file to a local Redis instance.
 
 The steps to do this depend on your configuration and setup.
 Refer to the [Redis documentation](http://redis.io/documentation) for more details.
 
-## Restore to PCF
+## To Pivotal Cloud Foundry&reg;
 You can also restore your backup file to another instance of the `Redis for PCF` tile.
 
 The below steps are manual. These will be replaced by an automated, operator-friendly script in a future release of the product.
