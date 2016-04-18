@@ -21,7 +21,6 @@ Data persistence is enabled through the use of `RDB` and `AOF`.
 * The maximum number of instances can be increased from the default 5 to a value of your choosing. If you increase the number of instances that can be run on this single VM, you should consider increasing the resources allocated to the VM. In particular RAM and CPU. You can overcommit to a certain extent, but may start to see performance degradations.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
-* Availability Zones are supported if they are supported by your version of OpsManager. Please see [Using Operations Manager](http://docs.pivotal.io/pivotalcf/customizing/index.html) for more details.
 
 #### Diagram
 
@@ -63,7 +62,6 @@ The persistent disk should be set to be at least the size of the RAM available t
 * When a user provisions an instance, it is marked as in use and taken out of the **pool**.
 * When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
 * This plan can be disabled by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
-* Availability Zones are supported if they are supported by your version of OpsManager. Please see [Using Operations Manager](http://docs.pivotal.io/pivotalcf/customizing/index.html) for more details.
 
 #### Diagram
 
@@ -74,9 +72,11 @@ Limitations with the current `dedicated-vm` plan include:
 
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
 * Cannot scale down the number of VMs on the plan once deployed.
-* Not highly available. Each instance is a single VM with no master/slave setup.
 
+<a id="high-availability"></a>
+## Highly Available Deployments
 
+This plan is not intended for high availability. If your version of OpsManager supports multiple Availability Zones (AZs), instances of the `dedicated-vm` plan can be placed in multiple AZs, but they cannot be configured to act as master/slave nodes or to fail over. In addition, each plan can only have a single broker VM.
 
 <a id="resources"></a>
 ## Default Resources
