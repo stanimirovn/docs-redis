@@ -30,7 +30,6 @@ Data persistence is enabled through the use of `RDB` and `AOF`.
 Limitations with the current `shared-vm` plan include:
 
 * It cannot be scaled beyond a single virtual machine.
-* It has no backup and restore capabilities.
 * The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
   `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
 * Constraining CPU and/or disk usage is not supported.
