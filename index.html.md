@@ -69,11 +69,6 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
 </tr>
 
 <tr>
-	<td>1.4.18</td>
-	<td>1.5.0 - 1.5.10</td>
-</tr>
-
-<tr>
   <td>1.5.0 - 1.5.9</td>
   <td>Next 1.5.x version - 1.5.10</td>
 </tr>
