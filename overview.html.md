@@ -16,6 +16,7 @@ An instance of this plan provisions a single Redis process on a single **shared 
 Data persistence is enabled through the use of `RDB` and `AOF`.
 
 #### Operator Notes
+* This plan deploys a shared VM and a single service broker VM.
 * This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in OpsManager to be `0`.
 * The maximum number of instances can be increased from the default 5 to a value of your choosing. If you increase the number of instances that can be run on this single VM, you should consider increasing the resources allocated to the VM. In particular RAM and CPU. You can overcommit to a certain extent, but may start to see performance degradations.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
@@ -54,15 +55,12 @@ The persistent disk should be set to be at least the size of the RAM available t
 
 #### Operator Notes
 
-These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the `dedicated-vm` plan is requested.
-
-A default deployment will provision `5 instances` of the `dedicated-vm` plan into the **pool**. This number can be increased on the `Resource Config` tab in Ops Manager, either in the initial deployment, or subsequently thereafter. The number of VMs **cannot** be decreased once deployed.
-
-When a user provisions an instance, it is marked as in use and taken out of the **pool**.
-
-When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
-
-This plan can be disabled by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
+* This plan deploys several dedicated Redis VMs and a single service broker VM.
+* These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the `dedicated-vm` plan is requested.
+* A default deployment will provision `5 instances` of the `dedicated-vm` plan into the **pool**. This number can be increased on the `Resource Config` tab in Ops Manager, either in the initial deployment, or subsequently thereafter. The number of VMs **cannot** be decreased once deployed.
+* When a user provisions an instance, it is marked as in use and taken out of the **pool**.
+* When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
+* This plan can be disabled by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
 
 #### Diagram
 
@@ -73,9 +71,11 @@ Limitations with the current `dedicated-vm` plan include:
 
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
 * Cannot scale down the number of VMs on the plan once deployed.
-* Not highly available. Each instance is a single VM with no master / slave setup.
 
+<a id="high-availability"></a>
+## Highly Available Deployments
 
+This plan is not intended for high availability. If your version of OpsManager supports multiple Availability Zones (AZs), instances of the `dedicated-vm` plan can be placed in multiple AZs, but they cannot be configured to act as master/slave nodes or to fail over. In addition, each plan can only have a single broker VM.
 
 <a id="resources"></a>
 ## Default Resources
