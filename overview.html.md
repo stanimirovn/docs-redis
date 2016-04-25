@@ -157,9 +157,10 @@ These are the default resource and IP requirements for installing the tile
 
 <a id="security"></a>
 ## Security
-The following ports & ranges are used in this service:
+The following ports and ranges are used in this service:
 
 * Destination port 80 access to the service broker from the cloud controllers
-* Destination port 6379 access to all dedicated nodes from the DEA network(s)
-* Destination ports 32768 to 61000 on the service broker from the DEA network(s). This is only required for the shared service plan.
-* Outbound access to your chosen S3 blobstore, typically HTTP 80 or HTTPS 443
+* Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
+* Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
+* Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
+
