@@ -3,9 +3,9 @@ title: Monitoring Redis for Pivotal Cloud Foundry&reg;
 owner: London Services
 ---
 
-## Monitoring with Datadog
+## Monitoring 
 
-Pivotal uses Datadog to monitor Redis' performance and health. An example Datadog configuration, displaying the significant metrics outlined below, is available [here](https://github.com/pivotal-cf/metrics-datadog-dashboard).
+Third party monitoring tools can consume Redis metrics to monitor Redis' performance and health. An example Datadog configuration, displaying some of the significant metrics outlined below, is available [here](https://github.com/pivotal-cf/metrics-datadog-dashboard). Pivotal does not endorse any third party solution, including Datadog. Pivotal does not guarantee and will not provide support for the sample dashboard. 
 
 ## Redis metrics
 
