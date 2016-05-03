@@ -118,6 +118,35 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </table>
 
 
+### total\_instances
+
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Total number of dedicated-vm instances of Redis
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>Used in conjunction with <code>available_instances</code>, provides information about used instances.</td>
+</tr>
+</table>
+
+
+### available\_instances
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Number of available dedicated-vm instances of Redis
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>If zero, no more instances available. </td>
+</tr>
+</table>
+
 ## Other metrics
 
 We also expose the following metrics. Please refer to the [Redis documentation](http://redis.io/commands/INFO) for more information about each of these.
