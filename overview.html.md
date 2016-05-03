@@ -5,7 +5,7 @@ owner: London Services
 
 <a id="service"></a>
 ## Service Plan Descriptions
-Both service plans use a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no writes will be possible until memory becomes available. 
+Both service plans use a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. 
 
 * [Shared-VM Plan](#shared)
 * [Dedicated-VM Plan](#dedicated)
