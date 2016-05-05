@@ -23,8 +23,6 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 
 Consider the following compatibility information before upgrading Redis for Pivotal Cloud Foundry&reg;.
 
-<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any 1.4.x version prior to 1.4.4. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
-
 For more information, refer to the full [Product Version Matrix](../compatibility-matrix.pdf).
 
 <table border="1" class="nice">
@@ -37,41 +35,30 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
 	<th>From</th>
 	<th>To</th>
 </tr>
-
 <tr>
-	<th rowspan="2">1.3.x</th>
-	<td>1.3.2</td>
-	<td>1.4.0 - 1.4.2</td>
+    <th rowspan="6">1.5.x, 1.6.x, and 1.7.x</th>
+    <td rowspan="2">1.40 - 1.4.3</td>
+    <td>1.4.4 - 1.4.21</td>
 </tr>
 
 <tr>
-	<td>1.4.0, 1.4.1</td>
-	<td>Next 1.4.x version - 1.4.3</td>
+    <td>1.5.0 - 1.5.7</td>
 </tr>
 
 <tr>
-	<th rowspan="6">1.4.x, 1.5.x, and 1.6.x</th>
-	<td rowspan="2">1.40 - 1.4.3</td>
-	<td>1.4.4 - 1.4.21</td>
+    <td rowspan="2">1.4.4 - 1.4.20</td>
+    <td> Next 1.4.x version - 1.4.21
 </tr>
 
 <tr>
-	<td>1.5.0 - 1.5.7</td>
-</tr>
-
-<tr>
-	<td rowspan="2">1.4.4 - 1.4.20</td>
-	<td> Next 1.4.x version - 1.4.21
-</tr>
-
-<tr>
-	<td>1.5.0 - 1.5.11</td>
+    <td>1.5.0 - 1.5.12</td>
 </tr>
 
 <tr>
   <td>1.5.0 - 1.5.10</td>
-  <td>Next 1.5.x version - 1.5.11</td>
+  <td>Next 1.5.x version - 1.5.12</td>
 </tr>
+
 
 </table>
 
