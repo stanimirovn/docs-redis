@@ -3,7 +3,33 @@ title: Redis for Pivotal Cloud Foundry&reg; Release Notes
 owner: London Services
 ---
 
-Release notes for [Redis for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/p-redis)
+### 1.5.12
+**Release Date: 4th May 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.11, support for Ops Manager 1.7 
+
+### 1.4.23
+**Release Date: 4th May 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3146.11
+
+### 1.5.11
+**Release Date: 20th April 2016**
+
+Features included in this release:
+
+* Updated Golang to 1.5.4, fixed a bug where Redis doesn't always restart cleanly, fixed a bug where some logs not correctly emitted to syslog
+
+### 1.4.22
+**Release Date: 20th April 2016**
+
+Features included in this release:
+
+* Update Golang to 1.5.4 
 
 ### 1.5.10
 **Release Date: 15th March 2016**

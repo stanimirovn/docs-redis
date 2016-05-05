@@ -9,11 +9,11 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 
 <dl>
 <dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for Pivotal Cloud Foundry&reg; (PCF) Details</dt>
-<dd><strong>Version</strong>: 1.5.11 </dd>
+<dd><strong>Version</strong>: 1.5.12 </dd>
 <dd><strong>Release Date</strong>: 20th April 2016</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.7</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x</dd>
-<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x</dd>
+<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.7.x, 1.6.x</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.7.x, 1.6.x</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
 <dd><strong>AWS support?</strong> Yes</dd>
 <dd><strong>OpenStack support?</strong> Yes</dd>
@@ -22,8 +22,6 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 ## Upgrading to the Latest Version
 
 Consider the following compatibility information before upgrading Redis for Pivotal Cloud Foundry&reg;.
-
-<p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade Redis for PCF to any 1.4.x version prior to 1.4.4. This allows Redis for PCF upgrades after you install OpsManager 1.4.x. </p>
 
 For more information, refer to the full [Product Version Matrix](../compatibility-matrix.pdf).
 
@@ -37,41 +35,30 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
 	<th>From</th>
 	<th>To</th>
 </tr>
-
 <tr>
-	<th rowspan="2">1.3.x</th>
-	<td>1.3.2</td>
-	<td>1.4.0 - 1.4.2</td>
+    <th rowspan="6">1.5.x, 1.6.x, and 1.7.x</th>
+    <td rowspan="2">1.40 - 1.4.3</td>
+    <td>1.4.4 - 1.4.21</td>
 </tr>
 
 <tr>
-	<td>1.4.0, 1.4.1</td>
-	<td>Next 1.4.x version - 1.4.3</td>
+    <td>1.5.0 - 1.5.7</td>
 </tr>
 
 <tr>
-	<th rowspan="6">1.4.x, 1.5.x, and 1.6.x</th>
-	<td rowspan="2">1.40 - 1.4.3</td>
-	<td>1.4.4 - 1.4.21</td>
+    <td rowspan="2">1.4.4 - 1.4.20</td>
+    <td> Next 1.4.x version - 1.4.21
 </tr>
 
 <tr>
-	<td>1.5.0 - 1.5.7</td>
-</tr>
-
-<tr>
-	<td rowspan="2">1.4.4 - 1.4.20</td>
-	<td> Next 1.4.x version - 1.4.21
-</tr>
-
-<tr>
-	<td>1.5.0 - 1.5.11</td>
+    <td>1.5.0 - 1.5.12</td>
 </tr>
 
 <tr>
   <td>1.5.0 - 1.5.10</td>
-  <td>Next 1.5.x version - 1.5.11</td>
+  <td>Next 1.5.x version - 1.5.12</td>
 </tr>
+
 
 </table>
 
