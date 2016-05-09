@@ -3,11 +3,9 @@ title: Monitoring Redis for Pivotal Cloud Foundry&reg;
 owner: London Services
 ---
 
-## Monitoring 
+Third-party monitoring tools can consume Redis metrics to monitor Redis performance and health. Pivotal does not endorse or provide support for any third party solution.
 
-Third party monitoring tools can consume Redis metrics to monitor Redis' performance and health. An example Datadog configuration, displaying some of the significant metrics outlined below, is available [here](https://github.com/pivotal-cf/metrics-datadog-dashboard). Pivotal does not endorse any third party solution, including Datadog. Pivotal does not guarantee and will not provide support for the sample dashboard. 
-
-## Redis metrics
+## Redis Metrics
 
 Redis emits a number of metrics that can be used to monitor the health and performance of your Redis deployment.
 
@@ -95,11 +93,11 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 <tr>
   <th>Significance</th>
-  <td>Memory usage will grow in proportion to the number of keys in memory. If the Redis instance is stopped ungracefully, these changes may be lost.</td>
+  <td>Memory usage grows in proportion to the number of keys in memory. If the Redis instance is stopped ungracefully, these changes may be lost.</td>
 </tr>
 <tr>
   <th>Notes</th>
-  <td>Performing a BGSAVE will write these keys to disk and free up memory.</td>
+  <td>Performing a <code>BGSAVE</code> writes these keys to disk and frees up memory.</td>
 </tr>
 </table>
 
@@ -124,7 +122,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Total number of dedicated-vm instances of Redis
+  <td>Total number of <code>dedicated-vm</code> instances of Redis
   </td>
 </tr>
 <tr>
@@ -138,18 +136,18 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of available dedicated-vm instances of Redis
+  <td>Number of available <code>dedicated-vm</code> instances of Redis
   </td>
 </tr>
 <tr>
   <th>Significance</th>
-  <td>If zero, no more instances available. </td>
+  <td>If zero, no more instances are available. </td>
 </tr>
 </table>
 
-## Other metrics
+## Other Metrics
 
-We also expose the following metrics. Please refer to the [Redis documentation](http://redis.io/commands/INFO) for more information about each of these.
+Redis also exposes the following metrics. for more information, see the [Redis documentation](http://redis.io/commands/INFO).
 
 * <code>arch\_bits</code>
 * <code>uptime\_in\_seconds</code>
