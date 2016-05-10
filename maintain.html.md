@@ -204,3 +204,61 @@ space for the temporary files used during the restore process
 1. Confirm no running instances of `redis-server` with `ps aux | grep redis-server`
 1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and change `appendonly` to `yes` and `BGREWRITEAOF` alias to `""`
 1. Run `monit start all`
+
+<a id="recovery"></a>
+# Recovering Redis Instances
+
+In the event of a recovery of Cloud Foundry, it is possible to recover bound
+Redis instances to healthy states that are in sync with Cloud Foundry. There are
+a few caveats to being able to recover previous instance state fully that
+depend on your plan.
+
+## Shared-VM Plan Caveats
+
+* You need a backed up RDB Redis dump file - this would be stored in your S3
+buckets if you have backups configured
+* You need a backed up `/var/vcap/store/cf-redis-broker/redis-data` directory
+from the service broker node (you do not need to backup and `*.aof` or
+`*.rdb` files from subdirectories if you have backups configured)
+
+## Dedicated-VM Plan Caveats
+
+* You need a backed up RDB Redis dump file - this would be stored in your S3
+buckets if you have backups configured
+* You need a backed up `/var/vcap/store/redis/statefile.json` from the service
+broker node
+
+## Note
+
+This procedure assumes that a recovery of service information and service keys
+assigned to instances are restored with a restore of Cloud Foundry.
+
+## Recovery Procedure
+
+After redeploying Redis, take the following steps.
+
+### Shared-VM Plan
+
+1. `bosh ssh` into the service broker node of your Redis deployment
+1. Run `monit stop all && pkill redis-server`
+1. Wait for monit services to enter the `not monitored` state, you can watch
+this with `watch monit summary`
+1. Confirm no running instances of `redis-server` with
+`ps aux | grep redis-server`
+1. Copy the backed up `redis-data` directory into `/var/vcap/store/cf-redis-broker`
+1. Follow the instructions [here](#restore) for your plan, skipping the first
+four steps described here, for restoring your backed up Redis data
+1. Your Redis instance is now recovered
+
+### Dedicated-VM Plan
+
+1. `bosh ssh` into the service broker node of your Redis deployment
+1. Run `monit stop all`
+1. Wait for monit services to enter the `not monitored` state, you can watch
+this with `watch monit summary`
+1. Copy the backed up `/var/vcap/store/cf-redis-broker/statefile.json` and
+ensure ownership and permissions are correct with
+`chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
+1. Follow the instructions [here](#restore) for your plan, skipping the first three steps
+described here, for restoring your backed up Redis data
+1. Your Redis instance is now recovered
