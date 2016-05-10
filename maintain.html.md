@@ -155,13 +155,13 @@ You can choose to restore the RDB file to a local Redis instance.
 The steps to do this depend on your configuration and setup.
 Refer to the [Redis documentation](http://redis.io/documentation) for more details.
 
-## To Pivotal Cloud Foundry&reg;
+### To Pivotal Cloud Foundry&reg;
 
 You can also restore your backup file to another instance of the `Redis for PCF` tile.
 
-The below steps are manual. These will be replaced by an automated, operator-friendly script in a future release of the product.
+The below steps are manual.
 
-Before restoring your RDB file you must have these pre-requisites:
+Before restoring your RDB file you must have these prerequisites:
 
 * Same resource configuration as the instance from which you backed up.
 * The persistent disk should be increased to be `3.5 x size of the RDB file` if it is not already so. This allows
@@ -171,7 +171,7 @@ space for the temporary files used during the restore process
 1. Identify the VM which the instance of your plan is located on by following the steps from the `Manual Backups` section above.
 1. `bosh ssh` into the identified VM.
 
-# Dedicated-VM Plan
+### Dedicated-VM Plan
 
 1. Run `monit stop all`
 1. Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
@@ -187,7 +187,7 @@ space for the temporary files used during the restore process
 1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and change `appendonly` to `yes`
 1. Run `monit start all`
 
-# Shared-VM Plan
+### Shared-VM Plan
 
 1. Run `monit stop all && pkill redis-server`
 1. Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
