@@ -1,5 +1,5 @@
 ---
-title: Installing Redis for PCF&reg;
+title: Installing Redis for PCF
 owner: London Services
 ---
 

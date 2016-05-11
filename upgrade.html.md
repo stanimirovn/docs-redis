@@ -1,5 +1,5 @@
 ---
-title: Upgrading Redis for PCF&reg;
+title: Upgrading Redis for PCF
 owner: London Services
 ---
 

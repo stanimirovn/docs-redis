@@ -1,5 +1,5 @@
 ---
-title: Maintaining Redis for PCF&reg;
+title: Maintaining Redis for PCF
 owner: London Services
 ---
 

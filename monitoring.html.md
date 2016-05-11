@@ -1,5 +1,5 @@
 ---
-title: Monitoring Redis for PCF&reg;
+title: Monitoring Redis for PCF
 owner: London Services
 ---
 

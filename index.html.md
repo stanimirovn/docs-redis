@@ -1,14 +1,14 @@
 ---
-title: Redis for PCF&reg;
+title: Redis for PCF
 owner: London Services
 ---
 
-This is documentation for the [Redis service for PCF&reg;](https://network.pivotal.io/products/p-redis).
+This is documentation for the [Redis service for PCF](https://network.pivotal.io/products/p-redis).
 
 ## Product snapshot
 
 <dl>
-<dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for PCF&reg; (PCF) Details</dt>
+<dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for PCF (PCF) Details</dt>
 <dd><strong>Version</strong>: 1.5.12 </dd>
 <dd><strong>Release Date</strong>: 4th May 2016</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.7</dd>
@@ -21,7 +21,7 @@ This is documentation for the [Redis service for PCF&reg;](https://network.pivot
 
 ## Upgrading to the Latest Version
 
-Consider the following compatibility information before upgrading Redis for PCF&reg;.
+Consider the following compatibility information before upgrading Redis for PCF.
 
 For more information, refer to the full [Product Version Matrix](../compatibility-matrix.pdf).
 

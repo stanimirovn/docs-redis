@@ -1,9 +1,9 @@
 ---
-title: Using Redis for PCF&reg;
+title: Using Redis for PCF
 owner: London Services
 ---
 
-Redis for PCF&reg; can be used both via Pivotal Apps Manager and the CLI, both methods are outlined below. An example application has also been created to help application developers get started with Redis for PCF, and can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
+Redis for PCF can be used both via Pivotal Apps Manager and the CLI, both methods are outlined below. An example application has also been created to help application developers get started with Redis for PCF, and can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
 
 
