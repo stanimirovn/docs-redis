@@ -1,11 +1,14 @@
 ---
-title: Redis for Pivotal Cloud Foundry&reg;
+title: Redis for PCF&reg;
 owner: London Services
 ---
 
+<a id ="config"></a>
+## Redis Configuration 
+Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is maintained at 10000. Replication and event notification are not configured.  
+
 <a id="service"></a>
 ## Service Plan Descriptions
-Both service plans use a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. 
 
 * [Shared-VM Plan](#shared)
 * [Dedicated-VM Plan](#dedicated)

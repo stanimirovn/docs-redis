@@ -1,5 +1,5 @@
 ---
-title: Maintaining Redis for Pivotal Cloud Foundry&reg;
+title: Maintaining Redis for PCF&reg;
 owner: London Services
 ---
 

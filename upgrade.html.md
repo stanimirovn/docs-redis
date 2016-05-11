@@ -1,5 +1,5 @@
 ---
-title: Upgrading Redis for Pivotal Cloud Foundry&reg;
+title: Upgrading Redis for PCF&reg;
 owner: London Services
 ---
 
