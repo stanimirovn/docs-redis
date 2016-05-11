@@ -1,5 +1,5 @@
 ---
-title: Redis for Pivotal Cloud Foundry&reg; Release Notes
+title: Redis for PCF&reg; Release Notes
 owner: London Services
 ---
 

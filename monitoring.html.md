@@ -1,5 +1,5 @@
 ---
-title: Monitoring Redis for Pivotal Cloud Foundry&reg;
+title: Monitoring Redis for PCF&reg;
 owner: London Services
 ---
 

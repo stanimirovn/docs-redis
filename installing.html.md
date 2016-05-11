@@ -1,5 +1,5 @@
 ---
-title: Installing Redis for Pivotal Cloud Foundry&reg;
+title: Installing Redis for PCF&reg;
 owner: London Services
 ---
 
