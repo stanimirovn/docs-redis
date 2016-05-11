@@ -1,14 +1,14 @@
 ---
-title: Redis for Pivotal Cloud Foundry&reg;
+title: Redis for PCF&reg;
 owner: London Services
 ---
 
-This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/p-redis).
+This is documentation for the [Redis service for PCF&reg;](https://network.pivotal.io/products/p-redis).
 
 ## Product snapshot
 
 <dl>
-<dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for Pivotal Cloud Foundry&reg; (PCF) Details</dt>
+<dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for PCF&reg; (PCF) Details</dt>
 <dd><strong>Version</strong>: 1.5.12 </dd>
 <dd><strong>Release Date</strong>: 4th May 2016</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.7</dd>
@@ -21,7 +21,7 @@ This is documentation for the [Redis service for Pivotal Cloud Foundry&reg;](htt
 
 ## Upgrading to the Latest Version
 
-Consider the following compatibility information before upgrading Redis for Pivotal Cloud Foundry&reg;.
+Consider the following compatibility information before upgrading Redis for PCF&reg;.
 
 For more information, refer to the full [Product Version Matrix](../compatibility-matrix.pdf).
 
