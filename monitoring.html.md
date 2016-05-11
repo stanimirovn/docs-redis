@@ -3,7 +3,7 @@ title: Monitoring Redis for Pivotal Cloud Foundry&reg;
 owner: London Services
 ---
 
-Third-party monitoring tools can consume Redis metrics to monitor Redis performance and health. Pivotal does not endorse or provide support for any third party solution.
+Third-party monitoring tools can consume Redis metrics to monitor Redis performance and health. For an example Datadog configuration that displays some of the significant metrics outlined below, see the [CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard). Pivotal does not endorse or provide support for any third party solution.
 
 ## Redis Metrics
 
