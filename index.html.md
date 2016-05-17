@@ -23,7 +23,7 @@ This is documentation for the [Redis service for PCF](https://network.pivotal.io
 
 Consider the following compatibility information before upgrading Redis for PCF.
 
-For more information, refer to the full [Product Version Matrix](../compatibility-matrix.pdf).
+For more information, refer to the full [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
 <table border="1" class="nice">
 <tr>
