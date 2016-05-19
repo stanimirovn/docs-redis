@@ -3,6 +3,20 @@ title: Redis for PCF Release Notes
 owner: London Services
 ---
 
+### 1.5.13
+**Release Date: 19th May 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3232.4  
+
+### 1.4.24
+**Release Date: 19th May 2016**
+
+Features included in this release:
+
+* Update Stemcell to 3232.4  
+
 ### 1.5.12
 **Release Date: 4th May 2016**
 
