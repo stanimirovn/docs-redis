@@ -47,7 +47,7 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 
 <tr>
     <td rowspan="2">1.4.4 - 1.4.20</td>
-    <td> Next 1.4.x version - 1.4.24
+    <td> Next 1.4.x version - 1.4.24</td>
 </tr>
 
 <tr>
