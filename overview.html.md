@@ -39,6 +39,7 @@ Limitations with the current `shared-vm` plan include:
 * The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
   `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
 * Constraining CPU and/or disk usage is not supported.
+* The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
 
 <a id="dedicated"></a>
 ### Dedicated-VM Plan
