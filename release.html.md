@@ -3,6 +3,20 @@ title: Redis for PCF Release Notes
 owner: London Services
 ---
 
+### 1.5.15
+**Release Date: 10th June 2016**
+
+Features included in this release:
+
+* Fix bug with Redis upgrade stalling, introduced in 1.5.11 release 
+
+### 1.4.26
+**Release Date: 10th June 2016**
+
+Features included in this release:
+
+* Fix bug with Redis upgrade stalling, introduced in 1.4.22 release 
+
 ### 1.5.14
 **Release Date: 8th June 2016**
 
