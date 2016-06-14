@@ -3,15 +3,22 @@ title: Redis for PCF Release Notes
 owner: London Services
 ---
 
-### 1.5.15
-**Release Date: 10th June 2016**
+### 1.4.27
+**Release Date: 14th June 2016**
 
 Features included in this release:
 
-* Fix bug with Redis upgrade stalling, introduced in 1.5.11 release 
+* Update stemcell to 3232.8
+
+### 1.5.15
+**Release Date: 14th June 2016**
+
+Features included in this release:
+
+* Update stemcell to 3232.8, fix bug with Redis upgrade stalling, introduced in 1.5.11 release 
 
 ### 1.4.26
-**Release Date: 10th June 2016**
+**Release Date: 13th June 2016**
 
 Features included in this release:
 
