@@ -15,7 +15,7 @@ Features included in this release:
 
 Features included in this release:
 
-* Update stemcell to 3232.8, fix bug with Redis upgrade stalling, introduced in 1.5.11 release 
+* Update stemcell to 3232.8, fix bug with Redis upgrade stalling introduced in 1.5.11 release - KB [here] (https://discuss.zendesk.com/hc/en-us/articles/220952828) 
 
 ### 1.4.26
 **Release Date: 13th June 2016**
