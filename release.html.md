@@ -3,12 +3,20 @@ title: Redis for PCF Release Notes
 owner: London Services
 ---
 
-### 1.4.27
-**Release Date: 14th June 2016**
+### 1.5.16
+**Release Date: 29th June 2016**
 
 Features included in this release:
 
-* Update stemcell to 3232.8
+* Update stemcell to 3232.12 
+
+### 1.4.28
+**Release Date: 29th June 2016**
+
+
+Features included in this release:
+
+* Update stemcell to 3232.12 
 
 ### 1.5.15
 **Release Date: 14th June 2016**
@@ -16,6 +24,13 @@ Features included in this release:
 Features included in this release:
 
 * Update stemcell to 3232.8, fix bug with Redis upgrade stalling introduced in 1.5.11 release - KB [here] (https://discuss.zendesk.com/hc/en-us/articles/220952828) 
+
+### 1.4.27
+**Release Date: 14th June 2016**
+
+Features included in this release:
+
+* Update stemcell to 3232.8
 
 ### 1.4.26
 **Release Date: 13th June 2016**
