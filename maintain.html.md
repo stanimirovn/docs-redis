@@ -192,13 +192,13 @@ space for the temporary files used during the restore process
 1. Run `monit stop all && pkill redis-server`
 1. Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
 1. Confirm no running instances of `redis-server` with `ps aux | grep redis-server`
-1. Restore your Redis backup file to `/var/vcap/store/redis/redis-data/{instance_id}/db/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/redis/redis-data/{instance_id}/db/dump.rdb && chmod 660 /var/vcap/store/redis/redis-data/{instance_id}/db/dump.rdb` (your instance id can be found using the CF API - `cf service {instance name} --guid`)
-1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and change `appendonly` to `no` and `BGREWRITEAOF` alias to `REWRITEAOFTEMP`
+1. Restore your Redis backup file to `/var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb && chmod 660 /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb` (your instance id can be found using the CF API - `cf service {instance name} --guid`)
+1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and change `appendonly` to `no` and `BGREWRITEAOF` alias to `BGREWRITEAOFTEMP`
 1. Run rm -f `/var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/appendonly.aof`
 1. Run `monit start all`
 1. Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
 1. Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOFTEMP`
-1. Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
+1. Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} -p {instance_port} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
 1. Run `monit stop all && pkill redis-server`
 1. Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
 1. Confirm no running instances of `redis-server` with `ps aux | grep redis-server`
