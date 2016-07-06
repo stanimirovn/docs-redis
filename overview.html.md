@@ -179,13 +179,12 @@ Here is a sample ASG that allows access to both shared and dedicated VM instance
 
 <pre class="highlight plaintext">
 <code>
-"[
+[
   {
     "protocol": "tcp",
     "destination": "Specific IPs assigned during deployment. Look in Ops Mgr to determine IPs.",
     "ports": "6379, 32768-61000"
   }
 ]
-"
 </code>
 </pre>
