@@ -173,12 +173,16 @@ The following ports and ranges are used in this service:
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 
 ###Application Security Group###
-To enable access to the Redis tile service, you will need to ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured your deployment. The IP addresses for these can be obtained from Ops Manager and reviewing the resource configuration for the Redis tile. You should ensure the following ports are enabled for the Redis Service broker VM: 32768 - 61000 and for the Dedicated VMs: 6379. For more details on how to set up security groups please see the documentation [here](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). Here is a sample ASG that allows access to both shared and dedicated VM instances.
+To enable access to the Redis tile service, you will need to ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured your deployment. The IP addresses for these can be obtained from Ops Manager and reviewing the resource configuration for the Redis tile. You should ensure the following ports are enabled for the Redis Service broker VM: 32768 - 61000 and for the Dedicated VMs: 6379. For more details on how to set up security groups please see the documentation [here](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). 
 
-[
+Here is a sample ASG that allows access to both shared and dedicated VM instances.
+
+<code>
+"[
   {
       "ports": "6379,32768-61000",
       "protocol": "tcp",
       "destination": "Look in Ops Mgr to determine Redis IPs - specific IPs assigned during deployment"
   }
-] 
+]"
+</code> 
