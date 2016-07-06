@@ -177,12 +177,15 @@ To enable access to the Redis tile service, you will need to ensure your securit
 
 Here is a sample ASG that allows access to both shared and dedicated VM instances.
 
+<pre class="highlight plaintext">
 <code>
 "[
   {
-      "ports": "6379,32768-61000",
-      "protocol": "tcp",
-      "destination": "Look in Ops Mgr to determine Redis IPs - specific IPs assigned during deployment"
+    "protocol": "tcp",
+    "destination": "Specific IPs assigned during deployment. Look in Ops Mgr to determine IPs.",
+    "ports": "6379, 32768-61000"
   }
-]"
-</code> 
+]
+"
+</code>
+</pre>
