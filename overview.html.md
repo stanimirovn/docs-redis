@@ -173,17 +173,38 @@ The following ports and ranges are used in this service:
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 
 ###Application Security Group###
-To enable access to the Redis tile service, you will need to ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured your deployment. The IP addresses for these can be obtained from Ops Manager and reviewing the resource configuration for the Redis tile. You should ensure the following ports are enabled for the Redis Service broker VM: 32768 - 61000 and for the Dedicated VMs: 6379. For more details on how to set up security groups please see the documentation [here](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). 
+To enable access to the Redis tile service, you will need to ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured your deployment. The IP addresses for these can be obtained from Ops Manager and reviewing the resource configuration for the Redis tile. You should ensure the following ports are enabled for the Redis Service broker VM: 32768-61000 and for the Dedicated VMs: 6379. For more details on how to set up security groups please see the documentation [here](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). 
 
-Here is a sample ASG that allows access to both shared and dedicated VM instances.
+<table><thead>
+<tr>
+<th>Destination</th>
+<th>Ports</th>
+<th>Protocol</th>
+<th>Reason</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>REDIS_SERVICE_BROKER_IP</code></td>
+<td>32768-61000</td>
+<td>tcp</td>
+<td>Enable application to access shared vm service instance</td>
+</tr>
+<tr>
+<td><code>REDIS_DEDICATED_VM_INSTANCE_IP</code></td>
+<td>6379</td>
+<td>tcp</td>
+<td>Enable application to access dedicated vm service instance</td>
+</tr>
+</tbody></table>
+Here is a sample ASG that allows access to a dedicated VM instance.
 
 <pre class="highlight plaintext">
 <code>
 [
   {
     "protocol": "tcp",
-    "destination": "Specific IPs assigned during deployment. Look in Ops Mgr to determine IPs.",
-    "ports": "6379, 32768-61000"
+    "destination": <code>REDIS_DEDICATED_VM_INSTANCE_IP</code>",
+    "ports": "6379"
   }
 ]
 </code>
