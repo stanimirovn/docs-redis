@@ -203,7 +203,7 @@ Here is a sample ASG that allows access to a dedicated VM instance.
 [
   {
     "protocol": "tcp",
-    "destination": <code>REDIS_DEDICATED_VM_INSTANCE_IP</code>,
+    "destination": "<code>ASSIGNED_NETWORK</code>",
     "ports": "6379"
   }
 ]
