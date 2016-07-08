@@ -184,13 +184,13 @@ To enable access to the Redis tile service, you will need to ensure your securit
 </tr>
 </thead><tbody>
 <tr>
-<td><code>REDIS_SERVICE_BROKER_IP</code></td>
+<td><code>ASSIGNED_NETWORK</code></td>
 <td>32768-61000</td>
 <td>tcp</td>
 <td>Enable application to access shared vm service instance</td>
 </tr>
 <tr>
-<td><code>REDIS_DEDICATED_VM_INSTANCE_IP</code></td>
+<td><code>ASSIGNED_NETWORK</code></td>
 <td>6379</td>
 <td>tcp</td>
 <td>Enable application to access dedicated vm service instance</td>
