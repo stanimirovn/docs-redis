@@ -205,7 +205,7 @@ Application containers that use instances of the Redis service require the follo
 </tr>
 </tbody></table>
 
-Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Example:
+Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, bind to the `default-running` ASG set and restart your apps. Example:
 
 ```
 [
