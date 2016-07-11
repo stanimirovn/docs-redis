@@ -161,8 +161,11 @@ These are the default resource and IP requirements for installing the tile
 * The `shared-vm` plan is on the `Redis Broker` resource
 * The `dedicated-vm` plan is on the `Dedicated Node` resource
 
-<a id="security"></a>
-## Security
+<a id="security"></a>  
+## Security 
+
+It is recommended that each service run in its own network.
+
 The following ports and ranges are used in this service:
 
 * Destination port 80 access to the service broker from the cloud controllers
@@ -170,4 +173,46 @@ The following ports and ranges are used in this service:
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 
-To enable access to the Redis tile service, you will need to ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured your deployment. The IP addresses for these can be obtained from Ops Manager and reviewing the resource configuration for the Redis tile. You should ensure the following ports are enabled for the Redis Service broker VM: 32768 - 61000 and for the Dedicated VMs: 6379. For more details on how to set up security groups please see the documentation [here](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). 
+###Application Security Groups###
+
+To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
+
+<p class="note"><strong>Note</strong>: Without ASGs, this service will not be usable.</p>
+
+#### Application Container Network Connections 
+
+Application containers that use instances of the Redis service require the following outbound network connections:
+
+<table><thead>
+<tr>
+<th>Destination</th>
+<th>Ports</th>
+<th>Protocol</th>
+<th>Reason</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ASSIGNED_NETWORK</code></td>
+<td>32768-61000</td>
+<td>tcp</td>
+<td>Enable application to access shared vm service instance</td>
+</tr>
+<tr>
+<td><code>ASSIGNED_NETWORK</code></td>
+<td>6379</td>
+<td>tcp</td>
+<td>Enable application to access dedicated vm service instance</td>
+</tr>
+</tbody></table>
+
+Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, bind to the `default-running` ASG set and restart your apps. Example:
+
+```
+[
+  {
+    "protocol": "tcp",
+    "destination": "<code>ASSIGNED_NETWORK</code>",
+    "ports": "6379"
+  }
+]
+```
