@@ -41,7 +41,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 <a id="syslog"></a>
 ## Configuring Syslog Output
 
-It is recommended that operators configure a syslog output.
+Pivotal recommends that operators configure a syslog output.
 
 1. Select the **Syslog** tab to setup the details of your syslog draining.
 1.  Add the Syslog address and Syslog port of your log management tool.
