@@ -5,9 +5,9 @@ owner: London Services
 
 Redis for PCF runs a set of smoke tests during installation to confirm system health. The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>. The tests run as an application instance with a restrictive Application Security Group (ASG).
 
-### Smoke test steps
+### Smoke Test Steps
 
-The smoke-tests perform the following for each available service plan:
+The smoke tests perform the following for each available service plan:
 
 1. Targets the org <code>system</code> and space <code>redis-smoke-tests</code> (creating them if they do not exist)
 1. Creates a restrictive security group, <code>redis-smoke-tests-sg</code>, and binds it to the space
@@ -15,7 +15,7 @@ The smoke-tests perform the following for each available service plan:
 1. Creates a Redis instance and binds it to the CF Redis Example App
 1. Checks that the CF Redis Example App can write to and read from the Redis instance
 
-### Security groups
+### Security Groups
 
 Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`) and delete it once the tests finish. This security group has the following rules:
 
@@ -72,4 +72,4 @@ If errors occur while the smoke tests run, they will be summarised at the end of
 </tr>
 </table>
 
-When encountering an error when running smoke-tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>. Lookout for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
+When encountering an error when running smoke tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>. Lookout for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
