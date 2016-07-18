@@ -1,0 +1,75 @@
+---
+title: Redis for PCF Smoke Tests
+owner: London Services
+---
+
+Redis for PCF runs a set of smoke tests during installation to confirm system health. The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>. The tests run as an application instance with a restrictive Application Security Group (ASG).
+
+### Smoke test steps
+
+The smoke-tests perform the following for each available service plan:
+
+1. Targets the org <code>system</code> and space <code>redis-smoke-tests</code> (creating them if they do not exist)
+1. Creates a restrictive security group, <code>redis-smoke-tests-sg</code>, and binds it to the space
+1. Deploys an instance of the [CF Redis Example App](https://github.com/pivotal-cf/cf-redis-example-app) to this space
+1. Creates a Redis instance and binds it to the CF Redis Example App
+1. Checks that the CF Redis Example App can write to and read from the Redis instance
+
+### Security groups
+
+Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`) and delete it once the tests finish. This security group has the following rules:
+
+```
+[
+    {
+      "protocol": "tcp",
+      "destination": "<dedicated node IP addresses>",
+      "ports": "6379" // Redis dedicated node port
+    },
+    {
+      "protocol": "tcp",
+      "destination": "<broker IP address>",
+      "ports": "32768-61000" // Ephemeral port range (assigned to shared-vm instances)
+    }
+]
+```
+
+This allows outbound traffic from the test app to the Redis shared VM and dedicated VM nodes.
+
+### Troubleshooting
+
+If errors occur while the smoke tests run, they will be summarised at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Failed to target Cloud Foundry</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Your Pivotal Cloud Foundry&reg; is unresponsive</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Examine the detailed error message in the logs and check the <a href="https://docs.pivotal.io/pivotalcf/1-7/customizing/troubleshooting.html">PCF Troubleshooting Guide</a> for advice</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Failed to bind Redis service instance to test app</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Your deployment's broker has not been registered with Pivotal Cloud Foundry&reg;</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Examine the broker-registrar installation step output and troubleshoot any problems.</td>
+</tr>
+</table>
+
+When encountering an error when running smoke-tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>. Lookout for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
