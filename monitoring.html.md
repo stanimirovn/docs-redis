@@ -3,7 +3,19 @@ title: Monitoring Redis for PCF
 owner: London Services
 ---
 
+The PCF firehose exposes Redis metrics.
+
+The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in the Metrics polling interval configuration box.  **Metrics polling interval (min: 10)**.
+
+<%= image_tag("images/metrics_polling.png") %>
+
 Third-party monitoring tools can consume Redis metrics to monitor Redis performance and health. For an example Datadog configuration that displays some of the significant metrics outlined below, see the [CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard). Pivotal does not endorse or provide support for any third party solution.
+
+The emitted metrics follow the format of the example below:
+
+```
+
+origin:"p-redis" eventType:ValueMetric timestamp:1469004313768976243 deployment:"cf-redis" job:"dedicated-node" index:"65325eae-7de3-4ed0-84c4-0f96c1e33987" ip:"10.0.32.9" valueMetric:<name:"/p-redis/info/stats/pubsub_channels" value:0 unit:"" >  
 
 ## Redis Metrics
 
@@ -115,6 +127,19 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
+### mem\_fragmentation\_ratio 
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Ratio of memory allocated by the operating system to the memory requested by Redis
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>A ratio in excess of 1.5 indicates excessive fragmentation, with your Redis instance consuming 150% of the physical memory it requested.</code>.</td>
+</tr>
+</table>
 
 ### total\_instances
 
