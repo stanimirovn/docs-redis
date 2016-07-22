@@ -26,7 +26,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of successful lookups of keys in the main dictionary
+  <td>Number of successful lookups of keys in the main dictionary. "/p-redis/info/stats/keyspace_hits"
   </td>
 </tr>
 <tr>
@@ -44,7 +44,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of unsuccessful lookups of keys in the main dictionary
+  <td>Number of unsuccessful lookups of keys in the main dictionary. "/p-redis/info/stats/keyspace_misses"
   </td>
 </tr>
 <tr>
@@ -62,7 +62,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of bytes allocated by Redis
+  <td>Number of bytes allocated by Redis. "/p-redis/info/memory/used_memory"
   </td>
 </tr>
 <tr>
@@ -71,12 +71,24 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
+### maxmemory
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Maximum number of bytes available in Redis. "/p-redis/info/memory/maxmemory"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>Grows as the number of unsaved keys increases.</td>
+</tr>
 ### blocked_clients
 
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of connected clients pending on a blocking call
+  <td>Number of connected clients pending on a blocking call. "/p-redis/info/clients/blocked_clients"
   </td>
 </tr>
 <tr>
@@ -90,7 +102,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of clients connected to the Redis instance
+  <td>Number of clients connected to the Redis instance. "/p-redis/info/clients/connected_clients"
   </td>
 </tr>
 </table>
@@ -100,7 +112,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of keys currently in memory
+  <td>Number of keys currently in memory. "/p-redis/info/persistence/rdb_changes_since_last_save"
   </td>
 </tr>
 <tr>
@@ -118,7 +130,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Total number of commands processed by Redis
+  <td>Total number of commands processed by Redis. "/p-redis/info/stats/total_commands_processed"
   </td>
 </tr>
 <tr>
@@ -132,7 +144,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Ratio of memory allocated by the operating system to the memory requested by Redis
+  <td>Ratio of memory allocated by the operating system to the memory requested by Redis. "/p-redis/info/memory/mem_fragmentation_ratio"
   </td>
 </tr>
 <tr>
@@ -147,7 +159,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Total number of <code>dedicated-vm</code> instances of Redis
+  <td>Total number of <code>dedicated-vm</code> instances of Redis. "/p-redis/service-broker/dedicated_vm_plan/total_instances"
   </td>
 </tr>
 <tr>
@@ -161,7 +173,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of available <code>dedicated-vm</code> instances of Redis
+  <td>Number of available <code>dedicated-vm</code> instances of Redis. "/p-redis/service-broker/dedicated_vm_plan/total_instances"
   </td>
 </tr>
 <tr>
@@ -170,6 +182,32 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Total number of <code>shared-vm</code> instances of Redis. "/p-redis/service-broker/shared_vm_plan/total_instances"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>Used in conjunction with <code>available_instances</code>, provides information about used instances.</td>
+</tr>
+</table>
+
+
+### available\_instances
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Number of available <code>shared-vm</code> instances of Redis. "/p-redis/service-broker/shared_vm_plan/total_instances"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>If zero, no more instances are available. </td>
+</tr>
+</table>
 ## Other Metrics
 
 Redis also exposes the following metrics. for more information, see the [Redis documentation](http://redis.io/commands/INFO).
