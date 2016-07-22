@@ -83,6 +83,8 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
   <th>Significance</th>
   <td>Grows as the number of unsaved keys increases.</td>
 </tr>
+</table>
+
 ### blocked_clients
 
 <table border='1' class='nice'>
