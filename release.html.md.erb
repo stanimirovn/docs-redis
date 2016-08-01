@@ -3,6 +3,13 @@ title: Redis for PCF Release Notes
 owner: London Services
 ---
 
+### 1.5.17
+**Release Date: 1 August 2016**
+
+Features included in this release:
+
+* Fix bug preventing installation in Ops Manager 1.8  
+
 ### 1.5.16
 **Release Date: 29th June 2016**
 

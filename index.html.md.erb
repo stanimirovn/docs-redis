@@ -9,8 +9,8 @@ This is documentation for the [Redis service for PCF](https://network.pivotal.io
 
 <dl>
 <dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for PCF (PCF) Details</dt>
-<dd><strong>Version</strong>: 1.5.16 </dd>
-<dd><strong>Release Date</strong>: 29th June 2016</dd>
+<dd><strong>Version</strong>: 1.5.17 </dd>
+<dd><strong>Release Date</strong>: 1 August 2016</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.0.7</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.7.x, 1.6.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.7.x, 1.6.x</dd>
@@ -51,12 +51,12 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 </tr>
 
 <tr>
-    <td>1.5.0 - 1.5.16</td>
+    <td>1.5.0 - 1.5.17</td>
 </tr>
 
 <tr>
-  <td>1.5.0 - 1.5.15</td>
-  <td>Next 1.5.x version - 1.5.16</td>
+  <td>1.5.0 - 1.5.16</td>
+  <td>Next 1.5.x version - 1.5.17</td>
 </tr>
 
 
