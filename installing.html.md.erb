@@ -14,8 +14,6 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configure) and [syslog draining](#syslog).
 1. Click **Apply Changes** to install the service.
 
-<a id="configure"></a>
-## Configuring Redis Service Plans
 
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
 
@@ -42,6 +40,8 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 <a id="syslog"></a>
 ## Configuring Syslog Output
+
+Pivotal recommends that operators configure a syslog output.
 
 1. Select the **Syslog** tab to setup the details of your syslog draining.
 1.  Add the Syslog address and Syslog port of your log management tool.
