@@ -17,6 +17,14 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
 
+### Assigning AZ's and Networks
+
+Assigning multiple AZs to Redis jobs will not guarantee high availability.
+
+All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
+
+Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
+
 ### Shared-VM Plan
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
