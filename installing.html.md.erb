@@ -24,9 +24,10 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
     <br />Shared-VM instances run on the Redis Broker.
 
     <br />The memory and instance limits for your Shared-VM Redis instances should depend on the total memory of your Redis broker.
-    When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
-    We recommend you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
-    This is due the amount of memory required to support Redis persistence, and run Redis broker & system tasks.
+    When configuring the maximum number of Redis service instances that can be created, 
+you need to take into account the maximum memory each Redis instance could use in correlation with how much total memory the Redis broker has.
+    Pivotal recommends that you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
+    This is due the amount of memory required to support Redis persistence and run Redis broker and system tasks.
 
     <br />See below for example cases:
 
@@ -37,18 +38,18 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
     		<th>Redis Service Instance Limit</th>
     	</tr>
     	<tr>
-    	 	<td>16GB</td>
-    	 	<td>512MB</td>
+    	 	<td>16 GB</td>
+    	 	<td>512 MB</td>
     	 	<td>14</td>
      	</tr>
       <tr>
-    	 	<td>16GB</td>
-    	 	<td>256MB</td>
+    	 	<td>16 GB</td>
+    	 	<td>256 MB</td>
     	 	<td>28</td>
      	</tr>
       <tr>
-    	 	<td>64GB</td>
-    	 	<td>512MB</td>
+    	 	<td>64 GB</td>
+    	 	<td>512 MB</td>
     	 	<td>56</td>
      	</tr>
     </table>
