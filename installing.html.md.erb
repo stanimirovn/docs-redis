@@ -24,6 +24,7 @@ Assigning multiple AZs to Redis jobs will not guarantee high availability.
 All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
 
 Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
+![Shared-VM Diagram](AZ-assignment.png)
 
 ### Shared-VM Plan
 
