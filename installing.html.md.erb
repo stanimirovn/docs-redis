@@ -21,13 +21,51 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 
-    <br />The memory limit of your Redis instances should depend on the capacity and RAM of your Redis Broker and the number of instances that will be used. By default, the number of instances and memory limit of each instance could lead to 2.5GB of your Redis Broker being used to run your Shared-VM Redis instances.
+    <br />Shared-VM instances run on the Redis Broker.
+
+    <br />The memory and instance limits for your Shared-VM Redis instances should depend on the total memory of your Redis broker.
+    When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
+    We recommend you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
+    This is due the amount of memory required to support Redis persistence, and run Redis broker & system tasks.
+
+    <br />See below for example cases:
+
+    <table border="1" class="nice">
+    	<tr>
+    		<th>Redis Broker Total Memory</th>
+    		<th>Redis Instance Memory Limit</th>
+    		<th>Redis Service Instance Limit</th>
+    	</tr>
+    	<tr>
+    	 	<td>16GB</td>
+    	 	<td>512MB</td>
+    	 	<td>14</td>
+     	</tr>
+      <tr>
+    	 	<td>16GB</td>
+    	 	<td>256MB</td>
+    	 	<td>28</td>
+     	</tr>
+      <tr>
+    	 	<td>64GB</td>
+    	 	<td>512MB</td>
+    	 	<td>56</td>
+     	</tr>
+    </table>
+
+
+    <br />It is possible to configure a larger Redis Service Instance Limit, if you are confident that the majority of the deployed instances will not be using a large amount of their allocated memory, for example in development or test environments.
+    <p class="note"><strong>Note</strong>:
+      This is not supported, and could cause your server to run out of memory.
+      If this happens your users may not be able to write any further data to any Redis instance.
+    </p>
+
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Redis Broker.
-
     <br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk & Persistent Disk made available, as required.
 
 1.  Click the **Save** button.
+
 
 ### Dedicated-VM Plan
 
