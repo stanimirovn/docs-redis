@@ -1,5 +1,5 @@
 ---
-title: Installing Redis for PCF
+title: Installing and Upgrading Redis for PCF
 owner: London Services
 ---
 
@@ -15,6 +15,8 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 1. Click **Apply Changes** to install the service.
 
 
+## Configuring Redis Service Plans
+ 
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
 
 ### Assigning AZ's and Networks
@@ -24,11 +26,16 @@ Assigning multiple AZs to Redis jobs will not guarantee high availability.
 All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
 
 Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
+
 ![Shared-VM Diagram](AZ-assignment.png)
 
-### Shared-VM Plan
+### Shared-VM Plan 
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
+
+1.  Enter the maximum number of instances and the memory limit for each Redis instance.
+
+1.  Click the **Save** button.
 
     <br />Shared-VM instances run on the Redis Broker.
 
@@ -75,11 +82,12 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 1.  Click the **Save** button.
 
-### Dedicated-VM Plan
+### Dedicated-VM Plan - Resource Allocation
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
+The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. The maxmemory value for the Redis process is set to be 45% of the RAM for that instance.
 
 1.  Click the **Save** button.
 
@@ -94,4 +102,41 @@ Pivotal recommends that operators configure a syslog output.
 
     The information required for these fields will be provided by your log management tool.
 
-1.  Click the **Save** button.
+<a id="azs"></a>
+## Assigning AZ's and Networks
+
+Assigning multiple AZs to Redis jobs will not guarantee high availability.
+
+All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
+
+Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
+
+![AZ Assignment Diagram](AZ-assignment.png)
+
+<a id="upgrades"></a>
+## Upgrading Redis for PCF
+
+This product enables a seamless upgrade experience between versions of the product that is deployed through Ops Manager.
+
+The upgrade paths are detailed [here](http://docs.pivotal.io/redis/1-6/index.html) for each released version.
+
+To upgrade the product:
+
+* The Operator should download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis)
+* Upload the new .pivotal file to Ops Manager
+* Upload the stemcell associated with the update (*if required*)
+* Update any new mandatory configuration parameters (*if required*)
+* Press "Apply changes" and the rest of the process is automated
+
+During the upgrade deployment each Redis instance will experience a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup. The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the redis software updated. Stemcells updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster.
+
+Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
+
+Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.
+
+# Release policy
+
+When a new version of Redis is released we aim to release a new version of the product containing this soon after.
+
+Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours. 
+## Installation Steps
