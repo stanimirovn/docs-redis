@@ -1,0 +1,23 @@
+---
+title: For App Developers
+owner: London Services
+---
+
+## Redis Configuration
+Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both RDB and AOF. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
+
+## Using Redis for PCF
+Instructions for creating, binding to, and deleting an instance of the dedicated-VM or shared-VM plan are here http://docs.pivotal.io/redis/1-6/using.html.
+
+ 
+## Getting Started
+
+### PCF Dev
+PCF Dev is a small footprint version of PCF that's small enough to run on a local developer machine. More info here https://pivotal.io/pcf-dev.
+
+### Redis Example App
+Sample ruby code that uses PCF can be found here https://github.com/pivotal-cf/cf-redis-example-app.
+
+### Redis
+To learn more about Redis itself, visit redis.io.
+

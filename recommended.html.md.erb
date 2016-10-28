@@ -1,0 +1,29 @@
+---
+title: Redis for PCF Recommended Usage
+owner: London Services
+---
+
+## Recommended Usage and Limitations of PCF Redis
+
+### Dedicated-VM Plan
+* Each dedicated VM plan instances is deployed to its own VM and is suitable for production workloads.
+* The number of Dedicated-VM plan instances available to developers is set by the operator. There is no known upper limit to the number of instances that can be deployed. 
+* No ability to change the Redis configuration. The `CONFIG` command is disabled.
+* Cannot scale down the number of VMs on the plan once deployed.
+
+### Shared-VM Plan 
+* The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
+* The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of th Redis service broker. Please see the <...> section for more detail. 
+* It cannot be scaled beyond a single virtual machine.
+* The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
+  `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
+* Constraining CPU and/or disk usage is not supported.
+
+### PCF Redis Availability 
+* Redis for PCF 1.6 supports configuring multiple availability zones but this configuration does not provide high availability.
+* Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time. 
+
+### Limits of Redis
+Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle at least 250 million keys per instance.
+Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements. It will most likely be VM memory size that limits your usage.  
+

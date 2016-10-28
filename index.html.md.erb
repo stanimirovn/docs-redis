@@ -5,18 +5,22 @@ owner: London Services
 
 This is documentation for the [Redis service for PCF](https://network.pivotal.io/products/p-redis).
 
+## Redis for PCF
+Redis is an easy to use, high speed key-value store that can be used as a database, cache and message broker. It supports a range of data structures including strings, lists, hashes, sets, bitmaps, hyperloglogs and geospatial indexes. Redis for PCF provides metrics and logging so operators can monitor Redis health. Persistence is provided via RDB and AOF, with backups to an S3 bucket on a configurable schedule.
+
 ## Product snapshot
 
 <dl>
 <dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis</a> for PCF (PCF) Details</dt>
-<dd><strong>Version</strong>: 1.5.18 </dd>
-<dd><strong>Release Date</strong>: 24 August 2016</dd>
+<dd><strong>Version</strong>: 1.6.1 </dd>
+<dd><strong>Release Date</strong>: 23 September 2016</dd>
 <dd><strong>Software component version</strong>: Redis OSS 3.2.1</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.7.x, 1.6.x</dd>
-<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.7.x, 1.6.x</dd>
+<dd><strong>Compatible Ops Manager Version(s)</strong>: 1.8.0</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.8.0</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
-<dd><strong>AWS support?</strong> Yes</dd>
 <dd><strong>OpenStack support?</strong> Yes</dd>
+<dd><strong>AWS support?</strong> Yes</dd>
+<dd><strong>Azure support?</strong> Yes</dd>
 </dl>
 
 ## Upgrading to the Latest Version
@@ -36,9 +40,9 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 	<th>To</th>
 </tr>
 <tr>
-    <th rowspan="6">1.5.x, 1.6.x, and 1.7.x</th>
+    <th rowspan="5">1.5.x, 1.6.x</th>
     <td rowspan="2">1.40 - 1.4.3</td>
-    <td>1.4.4 - 1.4.29</td>
+    <td>1.4.4 - latest 1.4.x version</td>
 </tr>
 
 <tr>
@@ -46,19 +50,28 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 </tr>
 
 <tr>
-    <td rowspan="2">1.4.4 - 1.4.27</td>
-    <td> Next 1.4.x version - 1.4.29</td>
+    <td rowspan="2">1.4.4 - latest 1.4.x version</td>
+    <td> Next 1.4.x version - latest 1.4.x version</td>
 </tr>
 
 <tr>
-    <td>1.5.0 - 1.5.17</td>
+    <td>1.5.0 - latest 1.5.x version</td>
 </tr>
 
 <tr>
-  <td>1.5.0 - 1.5.17</td>
-  <td>Next 1.5.x version - 1.5.18</td>
+  <td>1.5.0 - latest 1.5.x version</td>
+  <td>Next 1.5.x version - latest 1.5.x version</td>
 </tr>
-
+<tr>
+    <th >1.7.x</th>
+    <td>1.5.0 and later versions</td>
+    <td>1.5.1 and later versions</td>
+</tr>
+<tr>
+    <th >1.8.0 and later versions</th>
+    <td>1.5.17 and later versions</td>
+    <td>1.6.0 and later versions</td>
+</tr>
 
 </table>
 
