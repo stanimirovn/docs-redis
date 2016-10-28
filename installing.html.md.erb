@@ -14,12 +14,7 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configure) and [syslog draining](#syslog).
 1. Click **Apply Changes** to install the service.
 
-
-## Configuring Redis Service Plans
- 
-Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
-
-### Assigning AZ's and Networks
+## Assigning AZs and Networks
 
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
 
@@ -28,6 +23,10 @@ All of your Shared-VM instances will run on a single node in just one of the con
 Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
 
 ![Shared-VM Diagram](AZ-assignment.png)
+
+## Configuring Redis Service Plans
+ 
+Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
 
 ### Shared-VM Plan 
 
@@ -96,22 +95,13 @@ The default VM size is small; it is important that the operator set the correct 
 ## Configuring Syslog Output
 
 Pivotal recommends that operators configure a syslog output.
-
-1. Select the **Syslog** tab to setup the details of your syslog draining.
-1.  Add the Syslog address and Syslog port of your log management tool.
+1.  Add the Syslog address, Syslog port and transport protocol of your log management tool.
 
     The information required for these fields will be provided by your log management tool.
 
-<a id="azs"></a>
-## Assigning AZ's and Networks
+1.  Click the **Save** button.
 
-Assigning multiple AZs to Redis jobs will not guarantee high availability.
-
-All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
-
-Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
-
-![AZ Assignment Diagram](AZ-assignment.png)
+![syslog configuration](syslog-forwarding.png)
 
 <a id="backup"></a>
 ## Configuring Backups 
@@ -126,46 +116,46 @@ The key features are:
 * Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
 * Currently certified and tested against AWS S3 only
 
-## Configuration
+### Configuration
 To enable backups to be taken, you need to configure the mandatory options in the `Redis for PCF` tile in OpsManager.
 
 Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
 
 ![View of OpsManager Backup configuration](backups.jpeg)
 
-### Access Key ID
+#### Access Key ID
 This is your Access Key for your Blobstore
 
 **Required?** No - this is optional, dependent upon whether it is required by your blobstore
 
-### Secret Access Key
+#### Secret Access Key
 This is your Secret associated with your access key id
 
 **Required?** No - this is optional, dependent upon whether it is required by your blobstore
 
-### Endpoint URL
+#### Endpoint URL
 This is the endpoint for your blobstore e.g. `https://s3.amazonaws.com`
 
 **Required?** Yes - If you want to enable backups to be run, you must populate this field.
 
-### Bucket Name
+#### Bucket Name
 Name of the bucket inside your blobstore you wish the files to be stored in.
 
 **Required?** Yes - If you want to enable backups to be run, you must populate this field.
 
-### Path
+#### Path
 Path inside the bucket
 
-**Required?** No - this is optional, it will default to the root if not specified
+**Required?** Yes - If you want to enable backups to be run, you must populate this field.
 
-### Redis BGSAVE Timeout
+#### Redis BGSAVE Timeout
 This is the amount of time that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured blobstore.
 
 You can increase this if required for your setup.
 
 **Required?** - Yes, this defaults to 600 seconds.
 
-## AWS IAM Policy
+### AWS IAM Policy
 The minimum set of policies required in order to upload the backup files are:
 
 ```
