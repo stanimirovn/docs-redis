@@ -148,7 +148,7 @@ You can increase this if required for your setup.
 
 **Required?** - Yes, this defaults to 600 seconds.
 
-### AWS IAM Policy
+#### AWS IAM Policy
 The minimum set of policies required in order to upload the backup files are:
 
 ```
@@ -171,7 +171,9 @@ The minimum set of policies required in order to upload the backup files are:
 ```
 Make sure to replace `<bucket-name>` with your correct value.
 
-
+ <a id="azs"></a>
+## Networks, Security, and Assigning AZs 
+                 
 ### Assigning AZs and Networks
 
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
@@ -182,9 +184,7 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ![Shared-VM Diagram](AZ-assignment.png)
 
-                 <a id="azs"></a>
-## Networks, Security, and Assigning AZs 
-
+               
 ### Network Configuration
 
 It is recommended that each service run in its own network.
