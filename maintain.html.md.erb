@@ -1,31 +1,31 @@
 ---
-title: For Operators: Maintaining Redis for PCF
+title: For Operators&#58; Maintaining Redis for PCF
 owner: London Services
 ---
 
-<a id="Best Practice"></a>
-## Best Practices
+## <a id="Best Practice"></a>Best Practices
 
 It is recommended that:
 
-* Resource Allocation - Operators should work with app developers to anticipate memory requirements, and configure VM sizes accordingly. PCF Redis is configured by default with small VMs.
+* Resource Allocation - Operators should work with app developers to anticipate memory requirements, and [configure VM sizes](./installing.html#configuration) accordingly. PCF Redis is configured by default with small VMs.
 * Logs - Operators configure a syslog output. Storing logs in an external service enables operators to readily debug issues both current and historical. 
 * Monitoring - Operators set up a monitoring dashboard for metrics to track the health of their installation. 
-* Backing up data - When using Redis for persistence, operators configure automatic backups so that data can be restored in an emergency. Validating the backed up data with a test restore is advised. 
+* Backing Up Data - When using Redis for persistence, operators configure automatic backups so that data can be restored in an emergency. Validating the backed up data with a test restore is advised. 
 
-<a id="backup"></a>
-## Creating Backups of Redis Instances
+## <a id="backup"></a>Creating Backups of Redis Instances
 
-You can configure automatic backups to be run for each instance, across both service plans. Instructions on configuring back up are here. You can also create manual backups of individual instances.  Instructions for manual backups and manual restores are here FILL IN. 
+You can configure automatic backups to be run for each instance, across both service plans. Instructions on configuring back up are [here](./installing.html#backup). You can also create manual backups of individual instances.  Instructions for manual backups and manual restores are [here](./manual-br.html) FILL IN. 
 
-<a id="metrics"></a>
-## Monitoring Redis for PCF
+## <a id="metrics"></a>Monitoring Redis for PCF
 
 ### Redis Metrics
-Redis for PCF emits Redis metrics via the firehose. Details here FILL IN
+
+Redis for PCF emits Redis metrics via the firehose. Details [here](./monitoring.html) FILL IN
 
 ### Logging
-Syslog can be forwarded to an external log service. Details here FILL IN
+
+Syslog can be forwarded to an external log service. Details [here](./installing.html#syslog) FILL IN
 
 ## Smoke Tests
-PCF Redis has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is <here>. They can be run by the operator via `bosh run errand smoke-tests`.
+
+PCF Redis has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is [here](./smoke-tests.html). They can be run by the operator via `bosh run errand smoke-tests`.

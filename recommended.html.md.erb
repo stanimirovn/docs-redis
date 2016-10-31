@@ -3,7 +3,7 @@ title: Redis for PCF Recommended Usage
 owner: London Services
 ---
 
-## Recommended Usage and Limitations of PCF Redis
+## Recommended Usage
 
 ### Dedicated-VM Plan
 * Each dedicated VM plan instances is deployed to its own VM and is suitable for production workloads.
@@ -19,11 +19,18 @@ owner: London Services
   `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
 * Constraining CPU and/or disk usage is not supported.
 
-### PCF Redis Availability 
-* Redis for PCF 1.6 supports configuring multiple availability zones but this configuration does not provide high availability.
-* Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time. 
+## Limitations of Redis for PCF
 
-### Limits of Redis
+### Availability Using Multiple AZs
+
+Redis for PCF 1.6 supports configuring multiple availability zones but this configuration does not provide high availability.
+
+### Downtime During Redeploys
+
+Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time. 
+
+### Key Count and Memory Size
+
 Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle at least 250 million keys per instance.
 Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements. It will most likely be VM memory size that limits your usage.  
 

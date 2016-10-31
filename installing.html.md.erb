@@ -3,23 +3,21 @@ title: Installing and Upgrading Redis for PCF
 owner: London Services
 ---
 
-<a id="install"></a>
-## Installation Steps
+## <a id="install"></a>Installation Steps
 
 To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops Manager tiles:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 1. Upload the product file to your Ops Manager installation.
 1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
-1. (Optional) Click the newly added tile to configure your [possible service plans](#configure), [syslog draining](#syslog), and [backups](#backups).
+1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backups).
 1. Click **Apply Changes** to install the service.
 
-<a id="configuration"></a>
-## Configuring PCF Redis
+## <a id="configuration"></a>Configuring PCF Redis
 
 ### Configuring Redis Service Plans
  
-Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
+Select the **Redis** tile from the Installation Dashboard to display the configuration page and allocate resources to Redis service plans.
 
 #### Shared-VM Plan 
 
@@ -74,7 +72,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 1.  Click the **Save** button.
 
-#### Dedicated-VM Plan - Resource Allocation
+#### Dedicated-VM Plan
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 
@@ -84,8 +82,7 @@ The default VM size is small; it is important that the operator set the correct 
 1.  Click the **Save** button.
 
 
-<a id="syslog"></a>
-### Configuring Syslog Output
+### <a id="syslog"></a>Configuring Syslog Output
 
 Pivotal recommends that operators configure a syslog output.
 1.  Add the Syslog address, Syslog port and transport protocol of your log management tool.
@@ -96,8 +93,7 @@ Pivotal recommends that operators configure a syslog output.
 
 ![syslog configuration](syslog-forwarding.png)
 
-<a id="backup"></a>
-### Configuring Backups 
+### <a id="backup"></a>Configuring Backups 
 
 You can configure backups to be run for all instances, across both service plans.
 
@@ -171,8 +167,7 @@ The minimum set of policies required in order to upload the backup files are:
 ```
 Make sure to replace `<bucket-name>` with your correct value.
 
-<a id="azs"></a>
-## Networks, Security, and Assigning AZs 
+## <a id="azs"></a>Networks, Security, and Assigning AZs 
                  
 ### Network Configuration
 
@@ -240,13 +235,13 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ![AZ Assignment Diagram](AZ-assignment.png)
 
-<a id="validation"></a>
-## Validating install
+## <a id="validation"></a>Validating Installation
+
 ### Smoke tests
+
 link to smoke-tests.html
                  
-<a id="upgrades"></a>
-## Upgrading Redis for PCF
+## <a id="upgrades"></a>Upgrading Redis for PCF
 
 This product enables a seamless upgrade experience between versions of the product that is deployed through Ops Manager.
 
@@ -272,7 +267,6 @@ When a new version of Redis is released we aim to release a new version of the p
 
 Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours. 
 
-<a id="uninstall"></a>
-## Uninstalling Redis for PCF
+## <a id="uninstall"></a>Uninstalling Redis for PCF
 
 To uninstall Redis for PCF, click on the trashcan icon in the lower right hand corner of the PCF Redis tile in the PCF Ops Manager Installation dashboard. Confirm deletion of the product and click apply changes.

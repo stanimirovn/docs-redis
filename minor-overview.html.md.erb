@@ -5,41 +5,54 @@ owner: London Services
 
 Redis for PCF 1.6 focuses on increased operability, and compatibility with Ops Manager 1.8.  Metrics emitted via the firehose enable operators to monitor service health and usage, and enhanced logging provides a fine-grained history of service usage.
 
-### About PCF Redis 1.6
+## About PCF Redis 1.6
+
+### Enterprise-Ready Checklist
 
 <table border="1" class="nice">
-<tr><td>Dedicated &amp; Shared Plans</td><td>PCF Redis 1.6 provides both dedicated vm and shared vm plans</td>
-<tr><td>Product Upgrades</td><td>PCF Redis 1.6 can be upgraded from 1.5 tiles.</td>
-<tr><td>Upgrade control</td><td>Not supported at present</td>
-<tr><td>Operational Monitoring &amp; Logging</td><td>PCF Redis 1.6 provides metrics for health monitoring and syslog redirection to external log ingestors.</td>
-<tr><td>Alerting</td><td>Not supported at present</td>
-<tr><td>Deployment Smoke Tests</td><td>PCF Redis 1.6 installation and upgrade runs a post deployment BOSH errand that validates basic Redis operations</td>
-<tr><td>Long lived canaries</td><td>Not supported at present</td>
-<tr><td>Backup &amp; Restore</td><td>PCF Redis 1.6 provides automatic backups every 24 hours, and manual restore</td>
-<tr><td>Failure &amp; Recovery Testing</td><td>Not supported at present</td>
+
+<tr><th colspan=2>Plans and Instances</th></tr>
+<tr><td>Dedicated and Shared Plans</td><td>PCF Redis 1.6 provides both dedicated vm and shared vm plans</td>
 <tr><td>Customizable Plans</td><td>The operator can customize the VM and disk size for the dedicated VM plans</td>
-<tr><td>Customizable Instances</td><td>Not supported at present</td>
 <tr><td>Plan Migrations</td><td>Not supported at present</td>
+<tr><td>Customizable Instances</td><td>Not supported at present</td>
+<tr><td>Service Instance Quotas</td><td>Not supported at present</td>
+
+<tr><th colspan=2>Installation and Upgrades</th></tr>
+<tr><td>Product Upgrades</td><td>PCF Redis 1.6 can be upgraded from 1.5 tiles.</td>
+<tr><td>Deployment Smoke Tests</td><td>PCF Redis 1.6 installation and upgrade runs a post deployment BOSH errand that validates basic Redis operations</td>
+<tr><td>Upgrade Control</td><td>Not supported at present</td>
+
+<tr><th colspan=2>Maintenance and Backups</th></tr>
+<tr><td>Operational Monitoring and Logging</td><td>PCF Redis 1.6 provides metrics for health monitoring and syslog redirection to external log ingestors.</td>
+<tr><td>Alerting</td><td>Not supported at present</td>
+<tr><td>Long-Lived Canaries</td><td>Not supported at present</td>
+<tr><td>Failure and Recovery Testing</td><td>Not supported at present</td>
+<tr><td>Backup and Restore</td><td>PCF Redis 1.6 provides automatic backups every 24 hours, and manual restore</td>
+
+<tr><th colspan=2>Scale and Availability</th></tr>
 <tr><td>Scale</td><td>PCF Redis has been tested with X data size</td>
-<tr><td>Encrypted Communication in transit</td><td>PCF Redis 1.6 has been tested successfully with the BOSH IPsec AddOn</td>
-<tr><td>Encrypted Data at rest</td><td>Redis does not provide encrypted data</td>
-<tr><td>Ability to scale up / down</td><td>Operators can scale VMs up, but not down</td>
+<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td>
+<tr><td>Highly Available</td><td>Not supported at present</td>
 <tr><td>Rolling Deployments</td><td>PCF Redis does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td>
 <tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs will not guarantee high availability. All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile. Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.</td>
-<tr><td>Highly Available</td><td>Not supported at present</td>
 <tr><td>Multi Datacenter Support</td><td>Not supported at present</td>
-<tr><td>Service Instance Quotas</td><td>Not supported at present</td>
-</table>
-### Compatibility
 
-<a id="compatibility"></a>
+<tr><th colspan=2>Encryption</th></tr>
+<tr><td>Encrypted Communication in Transit</td><td>PCF Redis 1.6 has been tested successfully with the BOSH IPsec AddOn</td>
+<tr><td>Encrypted Data at Rest</td><td>Redis does not provide encrypted data</td>
+
+</table>
+
+## <a id="compatibility"></a>Compatibility
+
 Redis for PCF 1.6 is not compatible with Ops Manager version 1.7 or earlier. 
 Versions of Redis earlier than 1.5.17 will not work in Ops Manager 1.8, so it is recommended to upgrade to the latest Redis 1.5.x tile before upgrading to Ops Manager 1.8.
 
-### Features
-#### Metrics
+## Features
 
-<a id="metrics"></a>
+### <a id="metrics"></a>Metrics
+
 Redis emits a number of metrics that can be used to monitor the health and performance of your Redis deployment. Redis for PCF 1.6 emits these metrics via the firehose.
 
 The emitted metrics follow the format of the example below:
@@ -52,47 +65,39 @@ The metrics polling interval defaults to 30 seconds. This can be changed by navi
 
 A complete list of metrics is in the <a href="/redis/1-6/monitoring.html">documentation</a>
 
-#### New syslog forwarding protocols
+### <a id="syslog-forwarding"></a>New syslog forwarding protocols
 
-<a id="syslog-forwarding"></a>
 Redis for PCF 1.6 supports new protocols for syslog forwarding: TCP and RELP. The new protocols widen the range of log management tools that can be used. They can be configured on the Syslog tab in Ops Manager.
 ![Metrics configuration](syslog-forwarding.png)
 
 Documentation for syslog forwarding can be found <a href="/redis/1-6/installing.html#syslog">here</a>.
 
-#### Update to Redis 3.2.1
+### <a id="update-redis"></a>Update to Redis 3.2.1
 
-<a id="update-redis"></a>
 Redis for PCF 1.6 uses Redis 3.2.1, enabling app developers to use the new GEO API and BITFIELD command.
 
-#### Extended Logging
+### <a id="extended-logging"></a>Extended Logging
 
-<a id="extended-logging"></a>
 New logging includes service instance creation and deletion: logs are emitted when a service instance is created, via cf create-service p-redis <plan-name> <service-instance-name>, or deleted, via cf delete-service <service-instance-name>.
 
-#### Smoke Tests enhancements
+### <a id="smoke-test-enhancements"></a>Smoke Tests enhancements
 
-<a id="smoke-test-enhancements"></a>
 In Redis for PCF 1.6 smoke tests run in a more restrictive ASG in the ‘system’ org and ‘redis-smoke-test-space’. Smoke Tests run as an application instance; the restrictive ASG reduces security vulnerability. Running the tests in ‘system’ ensures the smoke tests don’t count as a billable application instance.
 
-### Bug Fixes
+## <a id="bug-fixes"></a>Bug Fixes
 
-<a id="bug-fixes"></a>
 Redis for PCF 1.6 fixes an issue with long server names causing Nginx to error, <a href="https://www.pivotaltracker.com/story/show/100807978">as per this tracker story</a>.
 
-### Resolved Security Issues
+## <a id="resolved-security-issues"></a>Resolved Security Issues
 
-<a id="resolved-security-issues"></a>
 Redis for PCF 1.6 uses Golang 1.6.3 as it fixes a HTTPoxy security vulnerability; that particular vulnerability was not present in the product.
 
-### Known Issues
+## <a id="known-issues"></a>Known Issues
 
-<a id="known-issues"></a>
 None
 
-### Other Notes
+## <a id="other-notes"></a>Other Notes
 
-<a id="other-notes"></a>
 Redis for PCF 1.6 supports configuring multiple AZs. However, assigning multiple AZs to Redis jobs will not guarantee high availability. Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly available. Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.-
 
 
