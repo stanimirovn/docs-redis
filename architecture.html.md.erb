@@ -7,12 +7,6 @@ owner: London Services
 ## Redis Configuration 
 Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
 
-<a id ="architecture"></a>
-## PCF Redis Architecture
-This diagram shows how the architecture of the service broker and shared-vm and dedicated-vm plans, and how the user's application binds to a Redis instance. 
-
-![Architecture Diagram](redis-architecture.png)
-
 ### Service Plans
 PCF Redis offers Dedicated VM and Shared VM plans.
 
@@ -31,15 +25,17 @@ PCF Redis offers Dedicated VM and Shared VM plans.
 * When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
 * This plan can be disabled by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
 
+<a id ="architecture"></a>
+## PCF Redis Architecture
+This diagram shows how the architecture of the service broker and shared-vm and dedicated-vm plans, and how the user's application binds to a Redis instance. 
+
+![Architecture Diagram](redis-architecture.png)
+
 <a id ="lifecycle"></a>
 ## PCF Redis Lifecycle
 Here is the lifecycle of PCF Redis, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 <table border="1" class="nice">
-<tr>
-<th>App Developer</th>
-<th>Operator</th>
-<th>PCF Redis</th></tr>
 <tr><th>App developer</th><th>Operator</th><th>PCF Redis</th></tr>
 <tr><td>&nbsp;</td><td>Configures PCF Redis options - VM size, number of shared and dedicated instances, syslog forwarding, backup destination</td><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>Deploys PCF Redis</td><td>&nbsp;</td>	</tr>
