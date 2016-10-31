@@ -174,16 +174,6 @@ Make sure to replace `<bucket-name>` with your correct value.
 <a id="azs"></a>
 ## Networks, Security, and Assigning AZs 
                  
-### Assigning AZs and Networks
-
-Assigning multiple AZs to Redis jobs will not guarantee high availability.
-
-All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
-
-Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
-
-![Shared-VM Diagram](AZ-assignment.png)
-
 ### Network Configuration
 
 It is recommended that each service run in its own network.
@@ -231,11 +221,11 @@ Application containers that use instances of the Redis service require the follo
 
 Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, bind to the `default-running` ASG set and restart your apps. Example:
 
-```
+```json
 [
   {
     "protocol": "tcp",
-    "destination": "ASSIGNED_NETWORK",
+    "destination": "<code>ASSIGNED_NETWORK</code>",
     "ports": "6379"
   }
 ]
