@@ -11,10 +11,13 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 1. Upload the product file to your Ops Manager installation.
 1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
-1. (Optional) Click the newly added tile to configure your [possible service plans](#configure) and [syslog draining](#syslog).
+1. (Optional) Click the newly added tile to configure your [possible service plans](#configure), [syslog draining](#syslog), and [backups](#backups).
 1. Click **Apply Changes** to install the service.
 
-## Assigning AZs and Networks
+<a id="configuration"></a>
+## Configuring PCF Redis
+
+### Assigning AZs and Networks
 
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
 
@@ -24,11 +27,11 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ![Shared-VM Diagram](AZ-assignment.png)
 
-## Configuring Redis Service Plans
+### Configuring Redis Service Plans
  
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and configure the Redis service plans.
 
-### Shared-VM Plan 
+#### Shared-VM Plan 
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 
@@ -81,7 +84,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 1.  Click the **Save** button.
 
-### Dedicated-VM Plan - Resource Allocation
+#### Dedicated-VM Plan - Resource Allocation
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 
@@ -92,7 +95,7 @@ The default VM size is small; it is important that the operator set the correct 
 
 
 <a id="syslog"></a>
-## Configuring Syslog Output
+### Configuring Syslog Output
 
 Pivotal recommends that operators configure a syslog output.
 1.  Add the Syslog address, Syslog port and transport protocol of your log management tool.
@@ -104,7 +107,7 @@ Pivotal recommends that operators configure a syslog output.
 ![syslog configuration](syslog-forwarding.png)
 
 <a id="backup"></a>
-## Configuring Backups 
+### Configuring Backups 
 
 You can configure backups to be run for all instances, across both service plans.
 
@@ -116,34 +119,34 @@ The key features are:
 * Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
 * Currently certified and tested against AWS S3 only
 
-### Configuration
+#### Configuration
 To enable backups to be taken, you need to configure the mandatory options in the `Redis for PCF` tile in OpsManager.
 
 Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
 
 ![View of OpsManager Backup configuration](backups.jpeg)
 
-#### Access Key ID
+##### Access Key ID
 This is your Access Key for your Blobstore
 
 **Required?** No - this is optional, dependent upon whether it is required by your blobstore
 
-#### Secret Access Key
+##### Secret Access Key
 This is your Secret associated with your access key id
 
 **Required?** No - this is optional, dependent upon whether it is required by your blobstore
 
-#### Endpoint URL
+##### Endpoint URL
 This is the endpoint for your blobstore e.g. `https://s3.amazonaws.com`
 
 **Required?** Yes - If you want to enable backups to be run, you must populate this field.
 
-#### Bucket Name
+##### Bucket Name
 Name of the bucket inside your blobstore you wish the files to be stored in.
 
 **Required?** Yes - If you want to enable backups to be run, you must populate this field.
 
-#### Path
+##### Path
 Path inside the bucket
 
 **Required?** Yes - If you want to enable backups to be run, you must populate this field.
