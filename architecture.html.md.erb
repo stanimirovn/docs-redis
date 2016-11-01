@@ -7,11 +7,11 @@ owner: London Services
 
 Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
 
-### Service Plans
+## Service Plans
 
 PCF Redis offers Dedicated VM and Shared VM plans.
 
-#### Shared VM Plan
+### Shared VM Plan
 
 * This plan deploys a shared VM and a single service broker VM.
 * This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in OpsManager to be `0`.
@@ -19,7 +19,7 @@ PCF Redis offers Dedicated VM and Shared VM plans.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
 
-#### Dedicated VM Plan 
+### Dedicated VM Plan 
 
 * This plan deploys several dedicated Redis VMs and a single service broker VM.
 * These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the `dedicated-vm` plan is requested.
