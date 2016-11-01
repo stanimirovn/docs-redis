@@ -15,11 +15,11 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 
 ## <a id="configuration"></a>Configuring PCF Redis
 
-### Configuring Redis Service Plans
+###  <a id="service-plans"></a>Configuring Redis Service Plans
  
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and allocate resources to Redis service plans.
 
-#### Shared-VM Plan 
+####  <a id="shared-vm-config"></a>Shared-VM Plan 
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 
@@ -72,7 +72,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 1.  Click the **Save** button.
 
-#### Dedicated-VM Plan
+####  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 
@@ -167,9 +167,9 @@ The minimum set of policies required in order to upload the backup files are:
 ```
 Make sure to replace `<bucket-name>` with your correct value.
 
-## <a id="azs"></a>Networks, Security, and Assigning AZs 
+### <a id="azs"></a>Networks, Security, and Assigning AZs 
                  
-### Network Configuration
+####  <a id="network-configuration"></a>Network Configuration
 
 It is recommended that each service run in its own network.
 
@@ -182,13 +182,13 @@ The following ports and ranges are used in this service:
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 
-###Application Security Groups###
+####  <a id="asg"></a> Application Security Groups###
 
 To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service will not be usable.</p>
 
-#### Application Container Network Connections 
+##### Application Container Network Connections 
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 
@@ -226,7 +226,7 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
 ]
 ```  
 
-### Assigning AZs
+####  <a id="az-config"></a>Assigning AZs
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
 
 All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
@@ -239,8 +239,8 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ### Smoke tests
 
-link to smoke-tests.html
-                 
+Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="/redis/1-6/smoke-tests.html">here</a>.
+                
 ## <a id="upgrades"></a>Upgrading Redis for PCF
 
 This product enables a seamless upgrade experience between versions of the product that is deployed through Ops Manager.
