@@ -14,7 +14,7 @@ The following ports and ranges are used in this service:
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 
-###Application Security Groups###
+###  <a id="asgs"></a>Application Security Groups###
 
 To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
 
