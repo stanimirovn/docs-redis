@@ -4,15 +4,16 @@ owner: London Services
 ---
 
 General troubleshooting guides for PCF:
-PCF 1.8 http://docs.pivotal.io/pivotalcf/1-8/customizing/troubleshooting.html
-PCF 1.7 https://docs.pivotal.io/pivotalcf/1-7/customizing/troubleshooting.html
-PCF 1.6 http://docs.pivotal.io/pivotalcf/1-6/customizing/troubleshooting.html
 
+* <a href="http://docs.pivotal.io/pivotalcf/1-8/customizing/troubleshooting.html">PCF 1.8 </a>
+* <a href="https://docs.pivotal.io/pivotalcf/1-7/customizing/troubleshooting.html">PCF 1.7 </a>
+* <a href="http://docs.pivotal.io/pivotalcf/1-6/customizing/troubleshooting.html">PCF 1.6</a>
 
-Knowledgebase containing PCF services articles https://discuss.pivotal.io/hc/en-us/sections/200215308-Services. Two Redis-specific articles:
+<a href="https://discuss.pivotal.io/hc/en-us/sections/200215308-Services">Knowledgebase containing PCF services articles </a>
+Two Redis-specific articles:
 
-Can't redeploy PCF Redis if shared-vm persistent disk full - khttps://docs.google.com/document/d/1rRekPr7TxPvPjp9h2Y7p5st__DU_aJxgxv97GYM-8mM/edit
-Issue with upgrading tile - https://discuss.pivotal.io/hc/en-us/articles/220952828-Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue
+* <a href="https://docs.google.com/document/d/1rRekPr7TxPvPjp9h2Y7p5st__DU_aJxgxv97GYM-8mM/edit">Can't redeploy PCF Redis if shared-vm persistent disk full</a>
+* <a href="https://discuss.pivotal.io/hc/en-us/articles/220952828-Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue">Issue with upgrading tile</a>
 
 Other issues you might encounter:
 <table border='1' class='nice'>
@@ -47,9 +48,22 @@ Other issues you might encounter:
 </tr>
 </table>
 
+## Useful Debugging Information
+If you encounter an issue, here is a list of useful information to gather, especially before you perform any destructive operations such as `cf purge-service-offerings` or `bosh delete deployment`. 
 
-## Redis Configuration
-Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both RDB and AOF. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
-
-
+* PCF Redis version
+* Previous PCF Redis version if upgrading
+* Ops Manager version
+* IaaS description
+* For all VMs:
+  * Copy of /var/vcap/sys/log (particularly the broker)
+  * Logs from a forwarded endpoint
+  * `monit summary`
+  * `Full ps aux` - Has monit done its job?
+  * `ps aux | grep redis-serve[r]` - Are Redis instances running?
+  * `df -h` - disk usage
+  * `free -m` - memory usage
+  * `cf m`
+  * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
+  * Copy of /var/vcap/store/cf-redis-broker/statefile.json
 

@@ -1,30 +1,31 @@
 ---
-title: For Operators: Maintaining Redis for PCF
+title: For Operators&#58; Maintaining Redis for PCF
 owner: London Services
 ---
 
-<a id="Best Practice"></a>
-## Best Practice
+## <a id="Best Practice"></a>Best Practices
 
 It is recommended that:
-* <strong>Resource Allocation</strong> - Operators should work with app developers to anticipate memory requirements, and configure VM sizes accordingly. PCF Redis is configured by default with small VMs.
-* <strong>Logs</strong> - Operators configure a syslog output. Storing logs in an external service enables operators to readily debug issues both current and historical. 
-* <strong>Monitoring</strong> - Operators set up a monitoring dashboard for metrics to track the health of their installation. 
-* <strong>Backing up data</strong> - When using Redis for persistence, operators configure automatic backups so that data can be restored in an emergency. Validating the backed up data with a test restore is advised. 
 
-<a id="backup"></a>
-## Creating Backups of Redis Instances
+* Resource Allocation - Operators should work with app developers to anticipate memory requirements, and [configure VM sizes](./installing.html#configuration) accordingly. PCF Redis is configured by default with small VMs.
+* Logs - Operators configure a syslog output. Storing logs in an external service enables operators to readily debug issues both current and historical. 
+* Monitoring - Operators set up a monitoring dashboard for metrics to track the health of their installation. 
+* Backing Up Data - When using Redis for persistence, operators configure automatic backups so that data can be restored in an emergency. Validating the backed up data with a test restore is advised. 
 
-You can configure automatic backups to be run for each instance, across both service plans. Instructions on configuring back up are here <..>.You can also create manual backups of individual instances.  Instructions for manual backups and manual restores are here <..>. 
+## <a id="backup"></a>Creating Backups of Redis Instances
 
-<a id="metrics></a>
-## Monitoring Redis for PCF
+You can configure automatic backups to be run for each instance, across both service plans. Instructions on configuring back up are [here](./installing.html#backup). You can also create manual backups of individual instances.  Instructions for manual backups and manual restores are [here](./manual-br.html) FILL IN. 
+
+## <a id="metrics"></a>Monitoring Redis for PCF
 
 ### Redis Metrics
-Redis for PCF emits Redis metrics via the firehose. Details here <..>.
+
+Redis for PCF emits Redis metrics via the firehose. Details [here](./monitoring.html) FILL IN
 
 ### Logging
-Syslog can be forwarded to an external log service. Details here <..>. i
 
-## Smoke Tests
-PCF Redis has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is <here>. They can be run by the operator via `bosh run errand smoke-tests`.
+Syslog can be forwarded to an external log service. Details [here](./installing.html#syslog) FILL IN
+
+##  <a id="smoke"></a>Smoke Tests
+
+PCF Redis has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is [here](./smoke-tests.html). They can be run by the operator via `bosh run errand smoke-tests`.

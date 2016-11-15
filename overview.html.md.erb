@@ -3,18 +3,16 @@ title: Redis for PCF
 owner: London Services
 ---
 
-<a id ="config"></a>
-## Redis Configuration 
+## <a id ="config"></a>Redis Configuration
+
 Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
 
-<a id="service"></a>
-## Service Plan Descriptions
+## <a id="service"></a>Service Plan Descriptions
 
 * [Shared-VM Plan](#shared)
 * [Dedicated-VM Plan](#dedicated)
 
-<a id="shared"></a>
-### Shared-VM Plan
+### <a id="shared"></a>Shared-VM Plan
 
 An instance of this plan provisions a single Redis process on a single **shared VM** that is suitable for workloads which do not require dedicated hardware.
 
@@ -41,8 +39,7 @@ Limitations with the current `shared-vm` plan include:
 * Constraining CPU and/or disk usage is not supported.
 * The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
 
-<a id="dedicated"></a>
-### Dedicated-VM Plan
+### <a id="dedicated"></a>Dedicated-VM Plan
 
 An instance of this plan, provisions a single Redis process, on a single **dedicated VM**, which is suitable for workloads that require isolation or dedicated hardware.
 
@@ -78,13 +75,11 @@ Limitations with the current `dedicated-vm` plan include:
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
 * Cannot scale down the number of VMs on the plan once deployed.
 
-<a id="high-availability"></a>
-## Highly Available Deployments
+## <a id="high-availability"></a>Highly Available Deployments
 
 Redis for PCF 1.5 does not support configuring multiple availability zones or subnets.
 
-<a id="resources"></a>
-## Default Resources
+## <a id="resources"></a>Default Resources
 
 ### Resource requirements for Redis for PCF
 These are the default resource and IP requirements for installing the tile
@@ -160,9 +155,8 @@ These are the default resource and IP requirements for installing the tile
 #### Notes:
 * The `shared-vm` plan is on the `Redis Broker` resource
 * The `dedicated-vm` plan is on the `Dedicated Node` resource
-
-<a id="security"></a>  
-## Security 
+  
+## <a id="security"></a>Security 
 
 It is recommended that each service run in its own network.
 

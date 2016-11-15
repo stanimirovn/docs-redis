@@ -1,5 +1,5 @@
 ---
-title: For Operators: Manual Backup and Restore of Redis for PCF
+title: For Operators&#58; Manual Backup and Restore of Redis for PCF
 owner: London Services
 ---
 
@@ -70,10 +70,10 @@ The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 
 The backup file will be named `dump.rdb`.
 
-<a id="restore"></a>
-## Restore Redis Instance from a Backup
+## <a id="restore"></a>Restore Redis Instance from a Backup
 
 ### To a Local System
+
 You can choose to restore the RDB file to a local Redis instance.
 
 The steps to do this depend on your configuration and setup.
@@ -129,15 +129,14 @@ space for the temporary files used during the restore process
 1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and change `appendonly` to `yes` and `BGREWRITEAOF` alias to `""`
 1. Run `monit start all`
 
-<a id="recovery"></a>
-# Recovering Redis Instances
+## <a id="recovery"></a>Recovering Redis Instances
 
 In the event of a recovery of Cloud Foundry, it is possible to recover bound
 Redis instances to healthy states that are in sync with Cloud Foundry. There are
 a few caveats to being able to recover previous instance state fully that
 depend on your plan.
 
-## Shared-VM Plan Caveats
+### Shared-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured
@@ -145,23 +144,23 @@ buckets if you have backups configured
 from the service broker node (you do not need to backup and `*.aof` or
 `*.rdb` files from subdirectories if you have backups configured)
 
-## Dedicated-VM Plan Caveats
+### Dedicated-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured
 * You need a backed up `/var/vcap/store/redis/statefile.json` from the service
 broker node
 
-## Note
+### Note
 
 This procedure assumes that a recovery of service information and service keys
 assigned to instances are restored with a restore of Cloud Foundry.
 
-## Recovery Procedure
+### Recovery Procedure
 
 After redeploying Redis, take the following steps.
 
-### Shared-VM Plan
+#### Shared-VM Plan
 
 1. `bosh ssh` into the service broker node of your Redis deployment
 1. Run `monit stop all && pkill redis-server`
@@ -174,7 +173,7 @@ this with `watch monit summary`
 four steps described here, for restoring your backed up Redis data
 1. Your Redis instance is now recovered
 
-### Dedicated-VM Plan
+#### Dedicated-VM Plan
 
 1. `bosh ssh` into the service broker node of your Redis deployment
 1. Run `monit stop all`
