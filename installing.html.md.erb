@@ -22,6 +22,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ####  <a id="shared-vm-config"></a>Shared-VM Plan 
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
+![shared vm config](shared-vm-config.png)
 
 1.  Enter the maximum number of instances and the memory limit for each Redis instance.
 
@@ -75,6 +76,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ####  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
+![dedicated vm config](dedicated-vm-config.png)
 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
 The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. The maxmemory value for the Redis process is set to be 45% of the RAM for that instance.
