@@ -1,11 +1,11 @@
 ---
-title: Example Redis Config File 
+title: Sample Redis Configuration
 owner: London Services
 ---
 
-## Redis Configuration
-An example redis.conf file from a dedicated-vm plan instance is included here. 
+The following is a `redis.conf` file from a Dedicated-VM plan instance:
 
+```
 daemonize yes
 pidfile /var/vcap/sys/run/redis.pid
 port 6379
@@ -70,3 +70,4 @@ rename-command SLAVEOF ""
 rename-command SYNC ""
 requirepass 2f6b3cc5-4dce-427d-893f-0d7c5f6d2590
 maxmemory 1775550873
+```

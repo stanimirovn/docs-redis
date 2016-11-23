@@ -3,65 +3,77 @@ title: Redis for PCF 1.6 Architecture and Lifecycle
 owner: London Services
 ---
 
-## <a id ="config"></a>How PCF Redis configures Redis 
+## <a id ="config"></a>How Redis for PCF Configures Redis 
 
-Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
-A sample redis.conf from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
-##  <a id ="plans"></a>Service Plans
+You should be aware that Redis for PCF configures Redis in the following ways. These configurations cannot be changed.
 
-PCF Redis offers Dedicated VM and Shared VM plans.
++ Redis is configured with a maxmemory-policy of no-eviction. 
+This policy means that when the memory is full, the service does not evict any keys or 
+perform any write operations until memory becomes available. 
 
-### Shared VM Plan
++ Persistence is configured for both `RDB` and `AOF`. 
+The default maximum number of connections, maxclients, is set at 10000 but 
+this number is adjusted by Redis according to the number of file handles available. 
+
++ Replication and event notification are not configured.  
+
+A sample `redis.conf` from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
+
+##  <a id="plans"></a>Service Plans
+
+Redis for PCF offers Dedicated-VM and Shared-VM plans.
+
+### Shared-VM Plan
 
 * This plan deploys a shared VM and a single service broker VM.
-* This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in OpsManager to be `0`.
+* This plan can be disabled by setting the `Max instances limit` on the `Shared-VM plan` tab in OpsManager to be `0`.
 * The maximum number of instances can be increased from the default 5 to a value of your choosing. If you increase the number of instances that can be run on this single VM, you should consider increasing the resources allocated to the VM. In particular RAM and CPU. You can overcommit to a certain extent, but may start to see performance degradations.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
 
-### Dedicated VM Plan 
+### Dedicated-VM Plan 
 
 * This plan deploys several dedicated Redis VMs and a single service broker VM.
-* These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the `dedicated-vm` plan is requested.
-* A default deployment will provision `5 instances` of the `dedicated-vm` plan into the **pool**. This number can be increased on the `Resource Config` tab in Ops Manager, either in the initial deployment, or subsequently thereafter. The number of VMs **cannot** be decreased once deployed.
+* These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the Dedicated-VM plan is requested.
+* A default deployment will provision `5 instances` of the Dedicated-VM plan into the **pool**. This number can be increased on the `Resource Config` tab in Ops Manager, either in the initial deployment, or subsequently thereafter. The number of VMs **cannot** be decreased once deployed.
 * When a user provisions an instance, it is marked as in use and taken out of the **pool**.
 * When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
 * This plan can be disabled by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
 
-## <a id ="architecture"></a>PCF Redis Architecture
+## <a id ="architecture"></a>Redis for PCF Architecture
 
-This diagram shows how the architecture of the service broker and shared-vm and dedicated-vm plans, and how the user's application binds to a Redis instance. 
+This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance. 
 
 ![Architecture Diagram](redis-architecture.png)
 
-## <a id ="lifecycle"></a>PCF Redis Lifecycle
+## <a id ="lifecycle"></a>Redis for PCF Lifecycle
 
-Here is the lifecycle of PCF Redis, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
+Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 TODO convert this to a diagram
 <table border="1" class="nice">
-<tr><th>App developer</th><th>Operator</th><th>PCF Redis</th></tr>
-<tr><td>&nbsp;</td><td>Configures PCF Redis options - VM size, number of shared and dedicated instances, syslog forwarding, backup destination</td><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>Deploys PCF Redis</td><td>&nbsp;</td>	</tr>
+<tr><th>App developer</th><th>Operator</th><th>Redis for PCF</th></tr>
+<tr><td>&nbsp;</td><td>Configures Redis for PCF options - VM size, number of shared and dedicated instances, syslog forwarding, backup destination</td><td>&nbsp;</td>	</tr>
+<tr><td>&nbsp;</td><td>Deploys Redis for PCF</td><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Create service broker VM</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Create requested number of dedicated VM instances</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Create requested number of dedicated-VM instances</td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Broker registers as available in marketplace</td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Run smoke tests</td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Service broker ready</td></tr>
-<tr><td>Creates a shared VM service instance</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
+<tr><td>Creates a shared VM service instance</td><td>&nbsp;</td><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>If the maximum number of instances hasn't been reached, memory in the service broker is allocated and a Redis shared VM instance is created</td></tr>
-<tr><td>Creates a dedicated service instance</td><td>&nbsp;</td>><td>&nbsp;</td>		</tr>
+<tr><td>Creates a dedicated service instance</td><td>&nbsp;</td><td>&nbsp;</td>		</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>If instances available, the service broker allocates an instance to the org and space</td></tr>
-<tr><td>Binds an app to a service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
+<tr><td>Binds an app to a service instance	</td><td>&nbsp;</td><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Redis credentials stored in app's VCAP_SERVICES environment variable</td></tr>
 <tr><td>User's app can talk directly to Redis server inside service instance</td><td>&nbsp;</td>><td>&nbsp;</td>		</tr>
 <tr><td>Unbinds a service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Redis credentials removed from app's VCAP_SERVICES environment variable</td></tr>
 <tr><td>Deletes a shared VM service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>The service instance is deprovisioned and the memory in the service broker is freed.</td></tr>
-<tr><td>Deletes a dedicated VM service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
+<tr><td>Deletes a dedicated-VM service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>The service instance data is flushed and the service instance is returned to the preprovisioned pool for reuse</td></tr>
-<tr><td>&nbsp;</td><td>Deletes PCF Redis</td><td>&nbsp;</td>	</tr>
+<tr><td>&nbsp;</td><td>Deletes Redis for PCF</td><td>&nbsp;</td>	</tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Service broker and all provisioned instances are deleted</td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td><td>Broker deregistrar errand runs cf purge-service</td></tr>
 </table>

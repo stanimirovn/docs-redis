@@ -1,22 +1,33 @@
 ---
-title: For Operators&#58; Best Practices for Operating Redis for PCF
+title: Best Practices for Operating Redis for PCF
 owner: London Services
 ---
 
+[THIS topic repeats info that is elsewhere. Can it be deleted?]
+This topic is for PCF operators. It introduces some best practices, but does not provide details about operation.
+
 ## <a id="Best Practice"></a>Best Practices
 
-It is recommended that:
+Pivotal recommends that operators do the following:
 
-* Resource Allocation - Operators should work with app developers to anticipate memory requirements, and [configure VM sizes](./installing.html#configuration) accordingly. PCF Redis is configured by default with small VMs.
-* Logs - Operators configure a syslog output. Storing logs in an external service enables operators to readily debug issues both current and historical. 
-* Monitoring - Operators set up a monitoring dashboard for metrics to track the health of their installation. 
-* Backing Up Data - When using Redis for persistence, operators configure automatic backups so that data can be restored in an emergency. Validating the backed up data with a test restore is advised. 
+* Resource Allocation — Work with app developers to anticipate memory requirements and to configure VM sizes. 
+Redis for PCF is configured by default with small VMs. For information about configuring VM sizes, 
+see [Configure Redis Service Plans](/redis/1-6/installing.html#configuration).
+* Logs — Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical. 
+* Monitoring — Set up a monitoring dashboard for metrics to track the health of the installation. 
+* Backing Up Data — When using Redis for persistence, configure automatic backups so that data can be restored in an emergency. 
+Validate the backed-up data with a test restore.
 
-## <a id="backup"></a>Creating Backups of Redis Instances
+## <a id="backup"></a>About Creating Backups of Redis Instances
 
-You can configure automatic backups to be run for each instance, across both service plans. Instructions on configuring back up are [here](./installing.html#backup). You can also create manual backups of individual instances.  Instructions for manual backups and manual restores are [here](./manual-br.html) FILL IN. 
+You can back up Redis for PCF instances in two way:
 
-## <a id="metrics"></a>Monitoring Redis for PCF
++ Configure automatic backups to be run for each instance, across both service plans. For information about setting up automatic backups, see [Configure Backups](./installing.html#backup).
++ Create manual backups of individual instances. For information about how to make manual backups of instances, see [Manual Backup and Restore of Redis for PCF](./manual-br.html).
+
+[IT would be helpful here to mention give an example or two about why you would use one instead of the other.]
+
+## <a id="metrics"></a> About Monitoring Redis for PCF
 
 ### Redis Metrics
 
@@ -24,8 +35,19 @@ Redis for PCF emits Redis metrics via the firehose. Details [here](./monitoring.
 
 ### Logging
 
-Syslog can be forwarded to an external log service. Details [here](./installing.html#syslog) 
+Syslog can be forwarded to an external log service.
+
+The following example shows syslog message:
+
+<pre class=terminal>
+Nov 15 17:05:01 10.0.24.10 audispd: [job=dedicated-node index=4]  node=7bfe8b1b-6c
+fd-4d33-b704-c9214ce6bb3e type=USER_ACCT msg=audit(1479229501.290:86): pid=6655 ui
+d=0 auid=4294967295 ses=4294967295 msg='op=PAM:accounting acct="root" exe="/usr/sbi
+n/cron" hostname=? addr=? terminal=cron res=success'
+</pre>
+
+For information about how to set up syslog output, see [Configure Syslog Output](./installing.html#syslog).
 
 ##  <a id="smoke"></a>Smoke Tests
 
-PCF Redis has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is [here](./smoke-tests.html). They can be run by the operator via `bosh run errand smoke-tests`.
+Redis for PCF has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is [here](./smoke-tests.html). They can be run by the operator via `bosh run errand smoke-tests`.
