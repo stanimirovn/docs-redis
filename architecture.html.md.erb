@@ -25,7 +25,7 @@ Redis for PCF offers Dedicated-VM and Shared-VM plans.
 
 ### Shared-VM Plan
 
-* This plan deploys a shared VM and a single service broker VM.
+* This plan deploys a Redis instance inside the service broker VM.
 * This plan can be disabled by setting the `Max instances limit` on the `Shared-VM plan` tab in OpsManager to be `0`.
 * The maximum number of instances can be increased from the default 5 to a value of your choosing. If you increase the number of instances that can be run on this single VM, you should consider increasing the resources allocated to the VM. In particular RAM and CPU. You can overcommit to a certain extent, but may start to see performance degradations.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
@@ -33,7 +33,7 @@ Redis for PCF offers Dedicated-VM and Shared-VM plans.
 
 ### Dedicated-VM Plan 
 
-* This plan deploys several dedicated Redis VMs and a single service broker VM.
+* This plan deploys the operator-configured number of dedicated Redis VMs alongside the service broker VM.
 * These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the Dedicated-VM plan is requested.
 * A default deployment will provision `5 instances` of the Dedicated-VM plan into the **pool**. This number can be increased on the `Resource Config` tab in Ops Manager, either in the initial deployment, or subsequently thereafter. The number of VMs **cannot** be decreased once deployed.
 * When a user provisions an instance, it is marked as in use and taken out of the **pool**.
