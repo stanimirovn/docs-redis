@@ -2,12 +2,17 @@
 title: Redis for PCF Recommended Usage and Limitations
 owner: London Services
 ---
-## Recommended Use Cases
-Redis for PCF can be used as a datastore or cache. It is configured with `maxmemory-policy = noeviction` and RDB and AOF persistence. 
+
+[PLAN for this page is to merge with the introduction architecture page]
+
+## Recommended Use Cases 
+[THIS INFO already appears on index page and on Architecture page.]
+Redis for PCF can be used as a datastore or cache.  [ADDED this to the intro page]
+It is configured with `maxmemory-policy = noeviction` and RDB and AOF persistence. [ALREADY on the architecture page]
 TODO write this section
 
 ## Service Plan Recommended Usage and Limitations
-
+[THIS SHOULD be folded into the list/table about the two plans, the Architecture page, to include the pros and cons of the plans.]
 ### Dedicated-VM Plan
 * Each dedicated VM plan instances is deployed to its own VM and is suitable for production workloads.
 * The number of Dedicated-VM plan instances available to developers is set by the operator. Configurations of up to 100 Dedicated-VM plan instances have been tested.
@@ -26,14 +31,16 @@ TODO write this section
 
 ## Availability Using Multiple AZs
 
+[THIS IS ALREADY in [About Multiple AZs](http://docs-pcf-review.cfapps.io/redis/1-6/minor-overview.html#other-notes).]
 Redis for PCF 1.6 supports configuring multiple availability zones but this configuration does not provide high availability.
 
 ## Downtime During Redeploys
 
-Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time. 
+Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time. [LET'S move this to the page where we tell readers how to change the config or do an upgrade.]
 
 ## Redis Key Count and Memory Size
-
+[WHERE SHOULD this fact about Redis appear? Can we put it [here](index.html#about-redis)]
 Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle at least 250 million keys per instance.
-Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements. It will most likely be VM memory size that limits your usage.  
+Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements.
+VM memory is more likely to be a limiting factor than number of keys that can be handled.
 

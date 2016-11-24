@@ -74,15 +74,13 @@ Review the following table to determine if Redis for PCF v1.6 has the features n
 <tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td>LINK</td></tr>
 <tr><td>Highly Available</td><td>Not supported at present</td><td><em>n/a</em></td></tr>
 <tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td>LINK</td></tr>
-<tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs will not guarantee high availability. 
-All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly available. 
-Each Dedicated-VM instance could be assigned to any of the configured availability zones, 
-however each instance still operates as a single node with no clustering. 
-This separation over availability zones provides no high availability.</td><td>LINK</td></tr>
+<tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
+    <td><a href="#other-notes">About Multiple AZs in Redis for PCF v1.6</a></td></tr>
 <tr><td>Multi Datacenter Support</td><td>Not supported at present</td><td><em>n/a</em></td></tr>
 
 <tr><th colspan=2>Encryption</th><th>More Information</th></tr>
-<tr><td>Encrypted Communication in Transit</td><td>Redis for PCF v1.6 has been tested successfully with the BOSH IPsec AddOn</td><td>LINK</td></tr>
+<tr><td>Encrypted Communication in Transit</td><td>Redis for PCF v1.6 has been tested successfully with the BOSH IPsec Add-on</td>
+    <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec Add-on</td></tr>
 <tr><td>Encrypted Data at Rest</td><td>Redis does not provide encrypted data</td><td><em>n/a</em></td></tr>
 
 </table>
