@@ -50,33 +50,7 @@ This diagram shows how the architecture of the service broker and Shared-VM and 
 
 Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
-TODO convert this to a diagram
-<table border="1" class="nice">
-<tr><th>App developer</th><th>Operator</th><th>Redis for PCF</th></tr>
-<tr><td>&nbsp;</td><td>Configures Redis for PCF options - VM size, number of shared and dedicated instances, syslog forwarding, backup destination</td><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>Deploys Redis for PCF</td><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Create service broker VM</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Create requested number of dedicated-VM instances</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Broker registers as available in marketplace</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Run smoke tests</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Service broker ready</td></tr>
-<tr><td>Creates a shared VM service instance</td><td>&nbsp;</td><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>If the maximum number of instances hasn't been reached, memory in the service broker is allocated and a Redis shared VM instance is created</td></tr>
-<tr><td>Creates a dedicated service instance</td><td>&nbsp;</td><td>&nbsp;</td>		</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>If instances available, the service broker allocates an instance to the org and space</td></tr>
-<tr><td>Binds an app to a service instance	</td><td>&nbsp;</td><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Redis credentials stored in app's VCAP_SERVICES environment variable</td></tr>
-<tr><td>User's app can talk directly to Redis server inside service instance</td><td>&nbsp;</td>><td>&nbsp;</td>		</tr>
-<tr><td>Unbinds a service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Redis credentials removed from app's VCAP_SERVICES environment variable</td></tr>
-<tr><td>Deletes a shared VM service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>The service instance is deprovisioned and the memory in the service broker is freed.</td></tr>
-<tr><td>Deletes a dedicated-VM service instance	</td><td>&nbsp;</td>><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>The service instance data is flushed and the service instance is returned to the preprovisioned pool for reuse</td></tr>
-<tr><td>&nbsp;</td><td>Deletes Redis for PCF</td><td>&nbsp;</td>	</tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Service broker and all provisioned instances are deleted</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>Broker deregistrar errand runs cf purge-service</td></tr>
-</table>
+![Lifecycle Diagram](redis-timeline.png)
 
 
 
