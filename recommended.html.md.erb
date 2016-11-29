@@ -9,7 +9,17 @@ owner: London Services
 [THIS INFO already appears on index page and on Architecture page.]
 Redis for PCF can be used as a datastore or cache.  [ADDED this to the intro page]
 It is configured with `maxmemory-policy = noeviction` and RDB and AOF persistence. [ALREADY on the architecture page]
-TODO write this section
+
+Redis can be used in many different ways, including:
+* Key/value store for strings and more complex data structures including Hashes, Lists, Sets, Sorted Sets 
+* Session cache - persistence enables preservation of state 
+* Full page cache - persistence enables preservation of state
+* Database cache - cache queries 
+* Data ingestion - because Redis is in memory it can ingest data very quickly
+* Message Queues - list and set operations. `PUSH`, `POP`, and blocking queue commands.
+* Leaderboards/Counting - increments and decrements of sets and sorted sets using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, `GETSET`
+* Pub/Sub - built in publish and subscribe operations - `PUBLISH`, `SUBSCRIBE`, `UNSUBSCRIBE`
+
 
 ## Service Plan Recommended Usage and Limitations
 [THIS SHOULD be folded into the list/table about the two plans, the Architecture page, to include the pros and cons of the plans.]
