@@ -2,40 +2,24 @@
 title: Redis for PCF
 owner: London Services
 ---
-## <a id="intro"></a>Introduction
-
-[WHAT IS THE PURPOSE OF THIS TOPIC? What will I learn by reading it?]
 
 ## <a id ="config"></a>Redis Configuration
-
-[WHAT IS THE PURPOSE OF THIS PARAGRAPH?
-Does everyone know what a "maxmemory-policy of no-eviction" is?
-What does it mean to "evict keys"? 
-What is the relationship between a Redis Configuration and "the service"?
-Can this be a bulleted list of key aspects of the Redis configuration that I need to know before I start? 
-Are any of these things configurable? Are you describing out-of-the-box here? for example, can I subsequently
-replication and event notification with Redis for PCF?
-What does it mean to "evict keys"? ]
 
 Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
 
 ## <a id="service"></a>Service Plan Descriptions
 
-[ADD some context about what a Service plan is and why you offer two]
-
-
 * [Shared-VM Plan](#shared)
 * [Dedicated-VM Plan](#dedicated)
-
-[CAN YOU make this into a single table that contrasts the two plans? What is the goal of this section?]
 
 ### <a id="shared"></a>Shared-VM Plan
 
 An instance of this plan provisions a single Redis process on a single **shared VM** that is suitable for workloads which do not require dedicated hardware.
 
-Data persistence is enabled through the use of `RDB` and `AOF`. [HOW does this differ from the info above "Persistence is configured for both `RDB` and `AOF`."]
+Data persistence is enabled through the use of `RDB` and `AOF`.
 
 #### Operator Notes
+
 * This plan deploys a shared VM and a single service broker VM.
 * This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in OpsManager to be `0`.
 * The maximum number of instances can be increased from the default 5 to a value of your choosing. If you increase the number of instances that can be run on this single VM, you should consider increasing the resources allocated to the VM. In particular RAM and CPU. You can overcommit to a certain extent, but may start to see performance degradations.
