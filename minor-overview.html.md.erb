@@ -45,8 +45,8 @@ Review the following table to determine if Redis for PCF v1.6 has the features n
 
 <table border="1" class="nice">
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
-<tr><td>Dedicated and shared plans</td><td>Redis for PCF v1.6 provides both dedicated VM and shared VM plans.</td><td>LINK</td></tr>
-<tr><td>Customizable plans</td><td>For the dedicated VM plan, the operator can customize the VM and disk size.</td></td><td>LINK</td></tr>
+<tr><td>Dedicated and shared plans</td><td>Redis for PCF v1.6 provides both dedicated VM and shared VM plans.</td><td>[Plans](/redis/1-6/architecture.html#plans)</td></tr>
+<tr><td>Customizable plans</td><td>For the dedicated VM plan, the operator can customize the VM and disk size.</td><td>[Configuring](/redis/1-6/installing.html#service-plans)</td></tr>
 
 <tr><th colspan=2>Installation and Upgrades</th><th>More Information</th></tr>
 <tr><td>Product upgrades</td><td>Redis for PCF v1.6 can be upgraded from v1.5 tiles</td>
@@ -62,15 +62,15 @@ Review the following table to determine if Redis for PCF v1.6 has the features n
    and manual restore</td><td><a href="/redis/1-6/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
-<tr><td>Scale</td><td>Redis for PCF has been tested with X data size</td><td>LINK</td></tr>
-<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td>LINK</td></tr>
-<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td>LINK</td></tr>
+<tr><td>Scale</td><td>Redis for PCF has been tested with 60GB</td><td></td></tr>
+<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td>[Configuring](/redis/1-6/installing.html#service-plans)</td></tr>
+<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td>[Upgrades](/redis/1-6/installing.html#upgrades)</td></tr>
 <tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
     <td><a href="#other-notes">About Multiple AZs in Redis for PCF v1.6</a></td></tr>
 
 <tr><th colspan=2>Encryption</th><th>More Information</th></tr>
 <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF v1.6 has been tested successfully with the BOSH IPsec Add-on</td>
-    <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec Add-on</td></tr>
+    <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec Add-on<a/></td></tr>
 <tr><td>Encrypted Data at Rest</td><td>Redis does not provide encrypted data</td><td><em>n/a</em></td></tr>
 
 </table>
