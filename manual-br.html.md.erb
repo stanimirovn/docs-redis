@@ -2,30 +2,148 @@
 title: Manual Backup and Restore of Redis for PCF
 owner: London Services
 ---
+<a id="backup"></a>
+# Creating Backups of Redis Instances
 
-##<id="manual-backups"> Manual Backups
+You can configure backups to be run for each instance, across both service plans.
 
-It is possible to create a backup of an instance manually by following these steps:
+The key features are:
+
+* Runs on a configurable schedule
+* Every instance is backed up, across both service plans
+* The Redis broker statefile is backed up
+* For each backup artefact, a file is created that contains the MD5 checksum for that artefact. This can be used to validate that the artefact is not corrupted.
+* You can configure an S3-compatible blobstore as your destination
+* Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
+* Currently certified and tested against AWS S3 only
+* Backups are labelled with timestamp, instance GUID and plan name
+
+## Configuration
+To enable backups, you will first need to choose your backup destination type. Right now, you can choose from S3, SCP or Google Cloud Storage (GCS).
+
+Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
+
+### S3 backup fields
+
+| Field             | Description                                                                                                                                                                                                                                                                                                                                                                                            | Mandatory/Optional                                               |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| Access Key ID     | The access key for your S3 account                                                                                                                                                                                                                                                                                                                                                                     | Mandatory                                                        |
+| Secret Access Key | The Secret Key associated with your Access Key                                                                                                                                                                                                                                                                                                                                                         | Mandatory                                                        |
+| Endpoint URL      | The endpoint of your S3 account, e.g. `http://s3.amazonaws.com`                                                                                                                                                                                                                                                                                                                                        | Optional, defaults to `http://s3.amazonaws.com` if not specified |
+| Bucket Name       | Name of the bucket you wish the files to be stored in.                                                                                                                                                                                                                                                                                                                                                 | Mandatory                                                        |
+| Path              | Path inside the bucket to save backups to.                                                                                                                                                                                                                                                                                                                                                             | Mandatory                                                        |
+| Backup timeout    | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination                                                                                                                                                                                                                 | Mandatory                                                        |
+| Cron Schedule     | Backups schedule in crontab format.  For example, once daily at 2am is `* 2 * * *`.  Also accepts a pre-defined schedule: any of `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`, or `@every <time>`, where `<time>` is any supported time string (e.g. `1h30m`). For more information, see [the cron package documentation](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules). | Mandatory                                                        |
+
+### AWS IAM Policy
+An AWS IAM policy describes the permissions related to your bucket.
+The minimum set of policies required in order to upload the backup files are:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:ListMultipartUploadParts",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<bucket-name>",
+                "arn:aws:s3:::<bucket-name>/*"
+            ]
+        }
+    ]
+}
+```
+Notes:
+
+* Make sure to replace `<bucket-name>` with your correct values.
+* `s3:CreateBucket` is only required if the S3 bucket does not exist.
+* The additional `s3:CreateBucket` action is also required if the S3 bucket does not exist.
+
+
+### SCP backup fields
+
+| Field                 | Description                                                                                                                                                               | Mandatory/Optional |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| Username              | The username to use for transferring backups to the scp server                                                                                                            | Mandatory          |
+| Private Key           | The private ssh key of the user configured in `Username`                                                                                                                  | Mandatory          |
+| Hostname              | The hostname or IP address of the SCP server                                                                                                                              | Mandatory          |
+| Destination Directory | The path in the scp server, where the backups will be transferred                                                                                                         | Mandatory          |
+| SCP Port              | The scp port of the scp server                                                                                                                                            | Mandatory          |
+| Cron Schedule         | Backups schedule in crontab format. Refer to table for S3 backups for details                                                                                             | Mandatory          |
+| Backup timeout        | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to the scp server | Mandatory          |
+
+### GCS backup fields
+
+PCF Redis uses service account credentials to upload backups to Google Cloud Storage. The service account should have `Storage Admin` permissions. Please refer to the [documentation](https://cloud.google.com/storage/docs/authentication#service_accounts) for details on how to set up a GCP service account.
+
+| Field                       | Description                                                                                                                                                                                                                                                                                      | Mandatory/Optional |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| Project ID                  | GCP Project ID                                                                                                                                                                                                                                                                                   | Mandatory          |
+| Bucket name                 | Name of the bucket you wish the files to be stored in.                                                                                                                                                                                                                                           | Mandatory          |
+| Service account private key | The JSON Secret Key associated with your Service Account. See [documentation](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) for details on how to set up service account keys.                                                                                  | Mandatory          |
+| Cron Schedule               | Backups schedule in crontab format. For example, once daily at 2am is * 2 * * *. Also accepts a pre-defined schedule: any of @yearly, @monthly, @weekly, @daily, @hourly, or @every , where is any supported time string (e.g. 1h30m). For more information, see the cron package documentation. | Mandatory          |
+| Backup timeout              | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination                                                                                                           | Mandatory          |
+
+
+### Azure backup fields
+
+| Field                    | Description                                                                                                                                                                                                                                                                                      | Mandatory/Optional |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| Account                  | Account name                                                                                                                                                                                                                                                                                     | Mandatory          |
+| Azure Storage Access Key | Azure specific credentials required to write to the Azure container                                                                                                                                                                                                                              | Mandatory          |
+| Container name           | Name of the Azure container which will store backup files.                                                                                                                                                                                                                                       | Mandatory          |
+| Destination Directory    | Directory where the backup files will be stored within the Azure container.                                                                                                                                                                                                                      | Mandatory          |
+| Blob Store Base URL      | URL pointing to Azure resource                                                                                                                                                                                                                                                                   | Optional           |
+| Cron Schedule            | Backups schedule in crontab format. For example, once daily at 2am is * 2 * * *. Also accepts a pre-defined schedule: any of @yearly, @monthly, @weekly, @daily, @hourly, or @every , where is any supported time string (e.g. 1h30m). For more information, see the cron package documentation. | Mandatory          |
+| Backup timeout           | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination                                                                                                           | Mandatory          |
+
+#### Notes
+
+For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. Redis' BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.
+
+## Triggering a Manual Backup
+
+<a id="triggering"></a>
+Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. Manual backups can be triggered at any time by following these steps:
 
 * [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log into your Ops Manager installation and target the Redis tile deployment.
 * Identify the VM which holds your instance by running `bosh vms`.
   * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`.
   * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`.
-  * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings. Run `cf env <your-app-name>` to view your application bindings. The `host` field under `credentials` will contain the IP address of the dedicated VM instance. Use `bosh vms` to identify the VM with that IP address. In the `bosh ssh` step select the VM with that name. 
+  * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings.
 
 An example output from `bosh vms`:
 
 ![OpsManager VMs view](bosh_vms.jpeg)
 
-* Target your redis deployment with `bosh deployment`.
-* `bosh ssh` into your desired node.
+* Target the manifest of your deployed Redis with `bosh deployment <path/to/manifest.yml>`. If you do not have this file, you can download it by running `bosh download manifest <deployment-name>`.
+* `bosh ssh` into the node you wish to back up (or the `cf-redis-broker` node in a `shared-vm` plan).
+
+Once you have connected to the node, a manual backup can be triggered with these steps:
+
+1. Switch to root using `sudo -i`.
+1. Run `/var/vcap/jobs/service-backup/bin/manual-backup`
+
+#### Notes
+
+Triggering a manual backup of a large dump.rdb could take sufficiently long that your SSH connection will timeout. Ensure that you have given yourself enough of a timeout to complete the backup.
+
+## Making Your Own Backups
+
+It is possible to create a back up of a Redis instance by hand, bypassing the automated backup tool altogether.
 
 Persistence is enabled on these plans through the use of `RDB` files, using the following Redis config rules:
-```
+<pre>
 save 900 1
 save 300 10
 save 60 10000
-```
+</pre>
 
 ### Shared-VM Plan
 
@@ -37,15 +155,15 @@ On this plan, the `BGSAVE` command is aliased to a random string. This can be ob
 
 #### Steps to Backup
 
-* `bosh ssh` into your desired node. See the above section to identify the correct VM.
-* Change to Root using `sudo -i`.
-* Copy the contents of the `/var/vcap/store/cf-redis-broker` directory to a zip or tar file.
-* Backup the file to your chosen location. You can use `bosh scp {job-name/index} --download /var/vcap/store/cf-redis-broker/redis-data/{instance id}/db/dump.rdb {location}` to copy the file from the service broker VM to another location. For example, `bosh scp cf-redis-broker/0 --download /var/vcap/store/cf-redis-broker/redis-data/{instance id}/db/dump.rdb /tmp` will copy the dump.rdb file to the `/tmp` directory on the local machine.
+1. `bosh ssh` into your desired node. See the above section on [identifying the correct VM](#triggering).
+1. Change to root using `sudo -i`.
+1. Copy the contents of the `/var/vcap/store/cf-redis-broker` directory to a .zip or .tar file.
+1. Backup the folder / compressed file to your chosen location.
 
 The `/var/vcap/store/cf-redis-broker` has sub-directories for each instance created of this plan. The backup file for each instance is called `dump.rdb`.
 
 For example, here are two instances:
-```
+<pre>
 root@66358f3e-3428-46df-9bb3-9acc7770b188:/var/vcap/store/cf-redis-broker# find -type f | xargs ls -1
 ./redis-data/3124f373-e9e2-44e1-ad12-a8865d8978b0/db/dump.rdb
 ./redis-data/3124f373-e9e2-44e1-ad12-a8865d8978b0/redis.conf
@@ -54,7 +172,7 @@ root@66358f3e-3428-46df-9bb3-9acc7770b188:/var/vcap/store/cf-redis-broker# find 
 ./redis-data/62333bf9-f023-4566-b233-6686f26b8f4d/redis.conf
 ./redis-data/62333bf9-f023-4566-b233-6686f26b8f4d/redis-server.pid
 ./statefile.json
-```
+</pre>
 
 ### Dedicated-VM Plan
 
@@ -63,15 +181,17 @@ The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 
 #### Steps to Backup
 
-* `bosh ssh` into your desired node. See the above section to identify the correct VM.
-* Change to Root using `sudo -i`.
-* Copy `/var/vcap/store/redis/dump.rdb` directory to a zip or tar file.
-* Backup the file to your chosen location. You can use `bosh scp {job-name/index} --download /var/vcap/store/redis/dump.rdb {location}` to copy the file from the dedicated VM instance to another location. For example, `bosh scp dedicated-node/0 --download /var/vcap/store/redis/dump.rdb /tmp` will copy the dump.rdb file to the `/tmp` directory on the local machine.
+* `bosh ssh` into your desired node. See the above section on [identifying the correct VM](#triggering).
+* Change to root using `sudo -i`.
+* Copy the contents of the `/var/vcap/store/redis` directory to a .zip or .tar file.
+* Backup the folder / compressed file to your chosen location.
 
-## <a id="restore"></a>Restore Redis Instance from a Backup
+The backup file will be named `dump.rdb`.
+
+<a id="restore"></a>
+## Restore Redis Instance from a Backup
 
 ### To a Local System
-
 You can choose to restore the RDB file to a local Redis instance.
 
 The steps to do this depend on your configuration and setup.
@@ -81,78 +201,142 @@ Refer to the [Redis documentation](http://redis.io/documentation) for more detai
 
 You can also restore your backup file to another instance of the `Redis for PCF` tile.
 
-The below steps are manual.
-
-Before restoring your RDB file you must have these prerequisites:
+#### Prerequisites
 
 * Same resource configuration as the instance from which you backed up.
-* The persistent disk should be increased to be `3.5 x size of the RDB file` if it is not already so. This allows
-space for the temporary files used during the restore process
+* The persistent disk should be increased to be **3.5 x size of the RDB file** if it is not already so. This allows space for the temporary files used during the restore process
+
+To restore your backup file to another instance of the `Redis for PCF` tile:
 
 1. Create a new instance of the plan that you wish to restore to.
-1. Identify the VM which the instance of your plan is located on by following the steps from the `Manual Backups` section above.
-1. `bosh ssh` into the identified VM.
-1. Switch to root user `sudo su`
-1. Follow the steps for Dedicated-VM Plan or Shared-VM Plan below.
+1. Identify the VM which the instance of your plan is located on by following the steps from the `Manual Backups` section above. If you are restoring an instance of `shared-vm`, this VM is the broker VM.
+1. `bosh ssh` into the identified VM. This is the broker VM if restoring a `shared-vm` instance.
 
-1. You must to have access to the service instance password. This can be retrieved using the following command:
-  -  Password: `grep requirepass /var/vcap/store/redis/redis.conf`
-1. Run `monit stop all`
-1. Run `watch monit summary` to wait for monit services to enter the `not monitored` state.
-1. Clean up existing Redis data files:
+`Redis for PCF` version 1.7 and later provides a script to automatically restore data in a newly provisioned Redis instance.
+
+#### Preparation
+1. Transfer your backup RDB file to a local path on the VM (`<path-to-rdb-backup-on-vm>`). `<path-to-rdb-backup-on-vm>` has to be under `/var/vcap/store`.
+1. Switch to root user `sudo su`
+
+### Dedicated-VM Plan
+
+#### Execution
+1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB <path-to-rdb-backup-on-vm>`.
+1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`.
+
+#### Debugging
+
+The data restore script runs the steps listed below. It logs its process along the way and provides helpful messages in case of failure.
+
+The script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
+If a step has failed, resolve the reason that caused it to fail and execute the failed step and every next step manually.
+You can retrieve `{instance_password}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
+
+1. **`StopAll`** <br />
+Run `monit stop all`
+1. **`WaitForStop`** <br />
+Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+1. **`DeleteExistingPersistenceFiles`** <br />
+Clean up existing Redis data files:
   - `rm -f /var/vcap/store/redis/appendonly.aof`
   - `rm -f /var/vcap/store/redis/dump.rdb`
-1. Restore your Redis backup file to `/var/vcap/store/redis/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
-1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
+1. **`CopyBackupFileWithCorrectPermissions`** <br />
+Restore your Redis backup file to `/var/vcap/store/redis/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
+1. **`SetAppendOnly`** <br />
+`Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
   -  `appendonly yes` -> `appendonly no`
-1. Run `monit start all`
-1. Run `watch monit summary` to wait for monit services to enter the `running` state.
-1. Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
-1. Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
-1. Run `monit stop all`
-1. Run `watch monit summary` to wait for monit services to enter the `not monitored` state.
-1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
+1. **`StartAll`** <br />
+Run `monit start all`
+1. **`WaitForStart`** <br />
+Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
+1. **`RewriteAOF`** <br />
+Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
+1. **`RewriteAOF`** <br />
+Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
+1. **`StopAll`** <br />
+Run `monit stop all`
+1. **`WaitForStop`** <br />
+Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+1. **`ChownToUserAndGroup`** <br />
+Set correct owner on `appendonly.aof` by running `chown vcap:vcap /var/vcap/store/redis/appendonly.aof`
+1. **`SetAppendOnly`** <br />
+Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
   -  `appendonly no` -> `appendonly yes`
-1. Run `monit start all`
+1. **`StartAll`** <br />
+Run `monit start all`
 
 ### Shared-VM Plan
 
-1. Make sure you have a service provisioned that you can restore to. The instance ID is required in future steps. You can retrieve this by running `cf service {instance name} --guid`
-1. You must have access to the service instance password and port. This can be retrieved using the following commands:
-  -  Password: `grep requirepass /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/redis.conf`
-  -  Port: `grep port /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/redis.conf`
-1. Run `monit stop all`
-1. Run `watch monit summary` to wait for monit services to enter the `not monitored` state.
-1. Run `pkill redis-server`
-1. Clean up existing Redis data files:
-  - `rm -f /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/appendonly.aof`
-  - `rm -f /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb`
-1. Confirm no running instances of `redis-server` with `ps aux | grep redis-server`
-1. Restore your Redis backup file to `/var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb && chmod 660 /var/vcap/store/cf-redis-broker/redis-data/{instance_id}/db/dump.rdb`
-1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
-  -  `appendonly yes` -> `appendonly no`
-  - `rename-command BGREWRITEAOF ""` -> `rename-command BGREWRITEAOF "BGREWRITEAOFTEMP"`
-1. Run `monit start all`
-1. Run `watch monit summary` to wait for monit services to enter the `running` state.
-1. Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} -p {redis_port} BGREWRITEAOFTEMP`
-1. Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} -p {instance_port} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
-1. Run `monit stop all`
-1. Run `watch monit summary` to wait for monit services to enter the `not monitored` state.
-1. Run `pkill redis-server`
-1. Confirm no running instances of `redis-server` with `ps aux | grep redis-server`
-1. Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
-  - `appendonly no` -> `appendonly yes`
-  - `rename-command BGREWRITEAOF "BGREWRITEAOFTEMP"` -> `rename-command BGREWRITEAOF ""`
-1. Run `monit start all`
+#### Execution
+1. Retrieve `{instance_guid}` by running: `cf service {instance_name} --guid`
+1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB <path-to-rdb-backup-on-vm> --sharedVmGuid {instance_guid}.
+1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`.
 
-## <a id="recovery"></a>Recovering Redis Instances
+
+#### Debugging
+
+The data restore script runs the steps listed below. It logs its process along the way and provides helpful messages in case of failure.
+
+The script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
+If a step has failed, resolve the reason that caused it to fail and execute the failed step and every next step manually.
+You can retrieve `{instance_password}` and `{port}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
+
+
+1. **`StopAll`** <br />
+Run `monit stop all`
+1. **`WaitForStop`** <br />
+Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+1. **`SetConfigCommand`** <br />
+Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and comment out the line:
+  - `rename-command CONFIG "configalias"` -> `#rename-command CONFIG "configalias"`
+1. **`SetRewriteCommand`** <br />
+Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and comment out the line:
+  - `rename-command BGREWRITEAOF ""` -> `#rename-command BGREWRITEAOF ""`
+1. **`DeleteExistingPersistenceFiles`** <br />
+Clean up existing Redis data files if they exist:
+  - `rm -f /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/appendonly.aof`
+  - `rm -f /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb`
+1. **`CopyBackupFileWithCorrectPermissions`** <br />
+Restore your Redis backup file to `/var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb && chmod 660 /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb`
+1. **`SetAppendOnly`** <br />
+Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and make the following line changes:
+  -  `appendonly yes` -> `appendonly no`
+1. **`StartAll`** <br />
+Run `monit start all`
+1. **`WaitForStart`** <br />
+Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
+1. **`RewriteAOF`** <br />
+Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
+1. **`RewriteAOF`** <br />
+Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
+1. **`StopAll`** <br />
+Run `monit stop all`
+1. **`WaitForStop`** <br />
+Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+1. **`ChownToUserAndGroup`** <br />
+Set correct owner on `appendonly.aof` by running `chown vcap:vcap /var/vcap/store/redis/appendonly.aof`
+1. **`SetAppendOnly`** <br />
+Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and make the following line changes:
+  -  `appendonly no` -> `appendonly yes`
+1. **`SetConfigCommand`** <br />
+Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and uncomment the line:
+  `#rename-command CONFIG "configalias"` -> `rename-command CONFIG "configalias"`
+1. **`SetRewriteCommand`** <br />
+Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and uncomment the line:
+  `#rename-command BGREWRITEAOF ""` -> `rename-command BGREWRITEAOF ""`
+1. **`StartAll`** <br />
+Run `monit start all`
+
+
+<a id="recovery"></a>
+# Recovering Redis Instances
 
 In the event of a recovery of Cloud Foundry, it is possible to recover bound
 Redis instances to healthy states that are in sync with Cloud Foundry. There are
 a few caveats to being able to recover previous instance state fully that
 depend on your plan.
 
-### Shared-VM Plan Caveats
+## Shared-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured
@@ -160,19 +344,19 @@ buckets if you have backups configured
 from the service broker node (you do not need to backup and `*.aof` or
 `*.rdb` files from subdirectories if you have backups configured)
 
-### Dedicated-VM Plan Caveats
+## Dedicated-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured
 * You need a backed up `/var/vcap/store/redis/statefile.json` from the service
 broker node
 
-### Note
+## Note
 
 This procedure assumes that a recovery of service information and service keys
 assigned to instances are restored with a restore of Cloud Foundry.
 
-### Recovery Procedure
+## Recovery Procedure
 
 After redeploying Redis, take the following steps.
 
