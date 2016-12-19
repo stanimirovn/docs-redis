@@ -216,6 +216,7 @@ To restore your backup file to another instance of the `Redis for PCF` tile:
 
 #### Preparation
 1. Transfer your backup RDB file to a local path on the VM (`<path-to-rdb-backup-on-vm>`). `<path-to-rdb-backup-on-vm>` has to be under `/var/vcap/store`.
+1. Run `md5sum <path-to-rdb-backup-on-vm>` and compare it against the contents of the `.md5` file named after the backup file. The `.md5` file is located in the same bucket as the original backup file.
 1. Switch to root user `sudo su`
 
 ### Dedicated-VM Plan
