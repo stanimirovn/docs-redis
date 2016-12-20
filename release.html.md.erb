@@ -9,7 +9,7 @@ Features included in this release:
 
 * Update stemcell to 3263.13 to fix security vulnerability.
 * Update golang to 1.7.4
-* Prevent an issue with dataloss when upgrading to Ops Manager 1.7. See https://discuss.pivotal.io/hc/en-us/articles/115000184568-Pivotal-Cloud-Foundry-Redis-service-binding-unbinding-deprovisioning-fails-after-Ops-Manager-upgrade
+* Prevent an issue with dataloss when upgrading to Ops Manager 1.7. Data loss can occur in PCF Redis 1.5 service broker (shared vm instances) when upgrading from OM1.6 to OM1.7, if Ops Manager moves AZs. The persistent disk on the service broker is detached, which means the data for the shared-vm instances and the bindings for all service instances are lost. To avoid this issue, customers can either 1) when upgrading to Ops Manager 1.7, upgrade to 1.7.20 or later as OM 1.7.20 has the fix for the issue or 2) upgrade PCF Redis tile to 1.5.26 or later before upgrading from Ops Manager 1.6.  If data has been  lost, it can be recovered by following the steps here https://discuss.pivotal.io/hc/en-us/articles/115000184568-Pivotal-Cloud-Foundry-Redis-service-binding-unbinding-deprovisioning-fails-after-Ops-Manager-upgrade
 
 ## 1.5.25
 **Release Date: 8 December 2016**
