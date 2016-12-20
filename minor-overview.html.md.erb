@@ -9,15 +9,15 @@ This topic also presents a checklist that you can use to decide if Redis for PCF
 ##<a id="intro"></a> Introduction
 
 Redis for PCF v1.7 focuses on enhanced backup and restore capabilities.  Operators can configure a schedule for backups, as well as a several options for where to put the backup artifacts.  
-The release also includes scripts that can be run by the operator to back up and restore an individual service instance.
+The release also includes scripts that can be run by the operator to back up and restore dedicated-vm or shared-vm service instance.
 
 ## <a id="features"></a>New in This Release
 
 The following features are new in Redis for PCF v1.7 
 
-+ <strong>A choice of destinations for backup artifacts</strong> — Backup artifacts can be sent to 
-+ <strong>Scripts for manual backup and restore</strong> —
-+ <strong>Operator configured backup schedule</strong> —
++ <strong>A choice of destinations for backup artifacts</strong> — Backup artifacts can be sent to AWS S3, SCP, Azure or Google Cloud Storage
++ <strong>Scripts for manual backup and restore</strong> — Scripts for backing up and restoring dedicated and shared vm instances are included in PCF Redis 1.7.
++ <strong>Operator configured backup schedule</strong> — The operator can configure a cron schedule for triggering backups.
 
 ##<a id="checklist"></a> Enterprise-Ready Checklist
 
@@ -38,7 +38,7 @@ Review the following table to determine if Redis for PCF v1.7 has the features n
 <tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
 <tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.7 provides metrics for health monitoring and syslog redirection to external log ingestors.</td>
     <td><a href="/redis/1-7/monitoring.html">Monitoring Redis for PCF</a></td></tr>
-<tr><td>Backup and Restore</td><td>Redis for PCF v1.7 provides automatic backups on a configurable schedue to a variety of destinations, as well as scripts for backup and restore of service instances.  
+<tr><td>Backup and Restore</td><td>Redis for PCF v1.7 provides automatic backups on a configurable schedule to a variety of destinations, as well as scripts for backup and restore of service instances.  
    </td><td><a href="/redis/1-7/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
