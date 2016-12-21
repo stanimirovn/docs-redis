@@ -9,7 +9,7 @@ This topic also presents a checklist that you can use to decide if Redis for PCF
 ##<a id="intro"></a> Introduction
 
 Redis for PCF v1.7 focuses on enhanced backup and restore capabilities.  Operators can configure a schedule for backups, as well as a several options for where to put the backup artifacts.  
-The release also includes scripts that can be run by the operator to back up and restore dedicated-vm or shared-vm service instance.
+The release also includes scripts that can be run by the operator to back up and restore dedicated-vm or shared-vm service instances.
 
 ## <a id="features"></a>New in This Release
 
@@ -42,7 +42,7 @@ Review the following table to determine if Redis for PCF v1.7 has the features n
    </td><td><a href="/redis/1-7/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
-<tr><td>Scale</td><td>Redis for PCF has been tested with 60GB</td><td></td></tr>
+<tr><td>Scale</td><td>Redis for PCF has been tested with 60GB of data</td><td></td></tr>
 <tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="/redis/1-7/installing.html#service-plans">Configuring</a></td></tr>
 <tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="/redis/1-7/installing.html#upgrades">Upgrades</a></td></tr>
 <tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
