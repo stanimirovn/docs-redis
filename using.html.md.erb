@@ -53,15 +53,11 @@ Before creating a Redis instance, it is worth being aware of the two available p
 
 ### Using the CLI
 
-1. Run the following command to view the available service plans.
+1. Run `cf marketplace` to view the available service plans:
 
-    ```
+    <pre class=terminal>
     $ cf marketplace
-    ```
 
-    This should produce the output:
-
-    ```
     Getting services from marketplace in org system / space apps-manager as admin...
     OK
 
@@ -69,20 +65,19 @@ Before creating a Redis instance, it is worth being aware of the two available p
     p-redis          shared-vm, dedicated-vm   Redis service to provide a key-value store
 
     TIP:  Use 'cf marketplace -s SERVICE' to view descriptions of individual plans of a given service.
-    ```
+    </pre>
 
-1. Type the following command to create the service plan:
+1. Run `cf create service` to create the service plan. Include the service plan name as listed in the Services Markeplace and a descriptive name you want to use for the service:
 
-    ```
-    $ cf create-service p-redis <service-plan-name> <service-instance-name>
-    ```
-    The service-plan-name is as seen in the Services marketplace – in this example, “shared-vm” – and the service-instance-name is a descriptive name that you want to use for the service.
+    <pre class=terminal>
+    $ cf create-service p-redis SERVICE-PLAN-NAME SERVICE-INSTANCE-NAME
+    </pre>
+ 
+    <br />For example:
 
-    <br />For example
-
-    ```
+    <pre class=terminal>
     $ cf create-service p-redis shared-vm redis
-    ```
+    </pre>
 
 ## <a id="bind"></a>Binding an Application to the Redis Service
 
@@ -93,45 +88,42 @@ The following procedures describe how to bind a Redis service instance to your P
 1. Select the application that you wish to bind to the service. A page displays showing the already bound services and instances for this application.
 1. Click Bind. A list of available services displays.
 1. Click the Bind button for the Redis service you want to bind to this application.
-1. Using the Pivotal Cloud Foundry CLI, start or restage your application.
+1. Start or restage your app from the command line:
 
-    ```
-    $ cf restage <application-name>
-    ```
+    <pre class=terminal>
+    $ cf restage APPLICATION-NAME
+    </pre>
 
 ### Using the CLI
 
-1. Run the following command to view running service instances.
+1. Run `cf services` to view running service instances.
 
-    ```
+    <pre class=terminal>
     $ cf services
-    ```
-    This should produce the output:
 
-    ```
     Getting services in org system / space apps-manager as admin...
     OK
 
     name                service         plan        bound apps    last operation
     my-redis-instance   p-redis         shared-vm                 create succeeded
-    ```
+    </pre>
 
-1. Run the following command to bind the application to the service instance.
+1. Run `cf bind-service` to bind the application to the service instance.
 
-    ```
-    $ cf bind-service <application-name> <service-instance-name>
-    ```
+    <pre class=terminal>
+    $ cf bind-service APPLICATION-NAME SERVICE-INSTANCE-NAME
+    </pre>
 
     For example:
 
-    ```
+    <pre class=terminal>
     $ cf bind-service my-application redis
-    ```
-1. Restage your application.
+    </pre>
+1. Run `cf restage` to restage your application.
 
-    ```
-    $ cf restage <application-name>
-    ```
+    <pre class=terminal>
+    $ cf restage APPLICATION-NAME
+    </pre>
 
 ## <a id="delete"></a>Deleting a Redis Instance
 
@@ -139,36 +131,34 @@ When you delete a Redis service instance, all applications that are bound to tha
 
 ### Using Pivotal Apps Manager
 
-1. Locate the row under Services that contains the service instance you want to delete and click Delete.
+1. Locate the row under Services that contains the service instance you want to delete and click **Delete**.
 1. If you had applications that were bound to this service, you may need to restage or re-push your application for the application changes to take effect.
 
-    ```
-    $ cf restage <application-name>
-    ```
+    <pre class=terminal>
+    $ cf restage APPLICATION-NAME
+    </pre>
 
 
 ### Using the CLI
 
-1. Run the following command.
+1. Run `cf delete-service` and include the service instance name that you would like to delete. Enter `y` when prompted to confirm.
 
-    ```
-    $ cf delete-service <service-instance-name>
-    ```
-
-    The service-instance-name is that of the service instance that you would like to delete. Enter 'y' when prompted.
+    <pre class=terminal>
+    $ cf delete-service SERVICE-INSTANCE-NAME
+    </pre>
 
     <br />For example:
 
-    ```
+    <pre class=terminal>
     $ cf delete-service my-redis-instance
 
     Really delete the service my-redis-instance?> y
     Deleting service my-redis-instance in org system / space apps-manager as admin...
     OK
-    ```
+    </pre>
 
 1. If you had applications that were bound to this service, you may need to restage or re-push your application for the application changes to take effect.
 
-    ```
-    $ cf restage <application-name>
-    ```
+    <pre class=terminal>
+    $ cf restage APPLICATION-NAME
+    </pre>

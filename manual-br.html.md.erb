@@ -3,10 +3,9 @@ title: Manual Backup and Restore of Redis for PCF
 owner: London Services
 ---
 
-## Triggering a Manual Backup
+## <a id="triggering"></a>Triggering a Manual Backup
 
-<a id="triggering"></a>
-Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. Manual backups can be triggered at any time by following the steps below. The backup artifacts will be sent to the destination configured, in Ops Manager, for automatic backups. 
+Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups. 
 
 * [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log into your Ops Manager installation and target the Redis tile deployment.
 * Identify the VM which holds your instance by running `bosh vms`.
@@ -18,7 +17,7 @@ An example output from `bosh vms`:
 
 ![OpsManager VMs view](bosh_vms.jpeg)
 
-* Target the manifest of your deployed Redis with `bosh deployment <path/to/manifest.yml>`. If you do not have this file, you can download it by running `bosh download manifest <deployment-name>`.
+* Target the manifest of your deployed Redis with `bosh deployment PATH-TO-MANIFEST.yml`. If you do not have this file, you can download it by running `bosh download manifest DEPLOYMENT-NAME`.
 * `bosh ssh` into the node you wish to back up (or the `cf-redis-broker` node in a `shared-vm` plan).
 
 Once you have connected to the node, a manual backup can be triggered with these steps:
@@ -35,7 +34,7 @@ Triggering a manual backup of a large dump.rdb could take sufficiently long that
 It is possible to create a back up of a Redis instance by hand, bypassing the automated backup tool altogether.
 
 Persistence is enabled on these plans through the use of `RDB` files, using the following Redis config rules:
-<pre>
+<pre class=terminal>
 save 900 1
 save 300 10
 save 60 10000
@@ -59,7 +58,7 @@ On this plan, the `BGSAVE` command is aliased to a random string. This can be ob
 The `/var/vcap/store/cf-redis-broker` has sub-directories for each instance created of this plan. The backup file for each instance is called `dump.rdb`.
 
 For example, here are two instances:
-<pre>
+<pre class=terminal>
 root@66358f3e-3428-46df-9bb3-9acc7770b188:/var/vcap/store/cf-redis-broker# find -type f | xargs ls -1
 ./redis-data/3124f373-e9e2-44e1-ad12-a8865d8978b0/db/dump.rdb
 ./redis-data/3124f373-e9e2-44e1-ad12-a8865d8978b0/redis.conf
@@ -84,8 +83,7 @@ The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 
 The backup file will be named `dump.rdb`.
 
-<a id="restore"></a>
-## Restore Redis Instance from a Backup
+## <a id="restore"></a>Restore Redis Instance from a Backup
 
 ### To a Local System
 You can choose to restore the RDB file to a local Redis instance.
@@ -111,15 +109,15 @@ To restore your backup file to another instance of a `Redis for PCF` tile servic
 `Redis for PCF` version 1.7 and later provides a script to automatically restore data in a newly provisioned Redis instance.
 
 #### Preparation
-1. Transfer your backup RDB file to a local path on the VM (`<path-to-rdb-backup-on-vm>`). `<path-to-rdb-backup-on-vm>` has to be under `/var/vcap/store`.
-1. To verify that the RDB file hasn't been corrupted, run `md5sum <path-to-rdb-backup-on-vm>` and compare it against the contents of the `.md5` file named after the backup file. The values should be the same. The `.md5` file is located in the same bucket as the original backup file.
+1. Transfer your backup RDB file to a local path on the VM (`PATH-TO-RDB-BACKUP-ON-VM` has to be under `/var/vcap/store`.
+1. To verify that the RDB file hasn't been corrupted, run `md5sum PATH-TO-RDB-BACKUP-ON-VM` and compare it against the contents of the `.md5` file named after the backup file. The values should be the same. The `.md5` file is located in the same bucket as the original backup file.
 1. Switch to root user `sudo su`
 
 ### Dedicated-VM Plan
 The restore script will restore the data for the specified dedicated-vm instance. 
 
 #### Execution
-1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB <path-to-rdb-backup-on-vm>`.
+1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-BACKUP-ON-VM`.
 1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`.
 
 #### Debugging
@@ -171,7 +169,6 @@ The restore script will restore the data for the specified shared-vm instance.
 1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB <path-to-rdb-backup-on-vm> --sharedVmGuid {instance_guid}.
 1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`.
 
-
 #### Debugging
 
 The data restore script runs the steps listed below. It logs its process along the way and provides helpful messages in case of failure.
@@ -179,7 +176,6 @@ The data restore script runs the steps listed below. It logs its process along t
 The script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
 If a step has failed, resolve the reason that caused it to fail and execute the failed step and every next step manually.
 You can retrieve `{instance_password}` and `{port}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
-
 
 1. **`StopAll`** <br />
 Run `monit stop all`
@@ -226,16 +222,14 @@ Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/re
 1. **`StartAll`** <br />
 Run `monit start all`
 
-
-<a id="recovery"></a>
-# Recovering Redis Instances
+## <a id="recovery"></a>Recovering Redis Instances
 
 In the event of a recovery of Cloud Foundry, it is possible to recover bound
 Redis instances to healthy states that are in sync with Cloud Foundry. There are
 a few caveats to being able to recover previous instance state fully that
 depend on your plan.
 
-## Shared-VM Plan Caveats
+### Shared-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured
@@ -243,23 +237,23 @@ buckets if you have backups configured
 from the service broker node (you do not need to backup and `*.aof` or
 `*.rdb` files from subdirectories if you have backups configured)
 
-## Dedicated-VM Plan Caveats
+### Dedicated-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured
 * You need a backed up `/var/vcap/store/redis/statefile.json` from the service
 broker node
 
-## Note
+### Note
 
 This procedure assumes that a recovery of service information and service keys
 assigned to instances are restored with a restore of Cloud Foundry.
 
-## Recovery Procedure
+### Recovery Procedure
 
 After redeploying Redis, take the following steps.
 
-### Shared-VM Plan
+#### Shared-VM Plan
 
 1. `bosh ssh` into the service broker node of your Redis deployment
 1. Run `monit stop all && pkill redis-server`
@@ -272,7 +266,7 @@ this with `watch monit summary`
 four steps described here, for restoring your backed up Redis data
 1. Your Redis instance is now recovered
 
-### Dedicated-VM Plan
+#### Dedicated-VM Plan
 
 1. `bosh ssh` into the service broker node of your Redis deployment
 1. Run `monit stop all`
