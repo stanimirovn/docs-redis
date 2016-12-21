@@ -99,14 +99,14 @@ Pivotal recommends that operators configure a syslog output.
 <a id="backup"></a>
 ### Creating Backups of Redis Instances
 
-You can configure backups to be run for each instance, across both service plans.
+You can configure backups to be run for all instances, across both service plans.
 
 The key features are:
 
 * Runs on a configurable schedule
 * Every instance is backed up, across both service plans
 * The Redis broker statefile is backed up
-* For each backup artefact, a file is created that contains the MD5 checksum for that artefact. This can be used to validate that the artefact is not corrupted.
+* For each backup artefact, a file is created that contains the MD5 checksum for that artifact. This can be used to validate that the artefact is not corrupted.
 * You can configure AWS S3, SCP, Azure or Google Cloud Storage as your destination
 * Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
 * Backups are labelled with timestamp, instance GUID and plan name
@@ -115,8 +115,10 @@ The key features are:
 To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage. 
 
 Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
+![OpsManager Backups view](redis-backup.png)
 
 ##### S3 backup fields
+![OpsManager Backups S3 view](s3backupoptions.png)
 
 | Field             | Description                                                                                                                                                                                                                                                                                                                                                                                            | Mandatory/Optional                                               |
 |-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -160,6 +162,7 @@ Notes:
 
 
 ##### SCP backup fields
+![OpsManager Backups SCP view](scpbackupoptions.png)
 
 | Field                 | Description                                                                                                                                                               | Mandatory/Optional |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
@@ -172,6 +175,7 @@ Notes:
 | Backup timeout        | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to the scp server | Mandatory          |
 
 ##### GCS backup fields
+![OpsManager Backups GCS view](gcsbackupoptions.png)
 
 PCF Redis uses service account credentials to upload backups to Google Cloud Storage. The service account should have `Storage Admin` permissions. Please refer to the [documentation](https://cloud.google.com/storage/docs/authentication#service_accounts) for details on how to set up a GCP service account.
 
@@ -185,6 +189,7 @@ PCF Redis uses service account credentials to upload backups to Google Cloud Sto
 
 
 ##### Azure backup fields
+![OpsManager Backups Azure view](azurebackupoptions.png)
 
 | Field                    | Description                                                                                                                                                                                                                                                                                      | Mandatory/Optional |
 |--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
