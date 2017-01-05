@@ -20,6 +20,7 @@ The following features are new in Redis for PCF v1.7
 + <strong>Operator configured backup schedule</strong> — The operator can configure a `cron` schedule for triggering backups.
 
 ### Known Issues
++ Upgrade from 1.6 sometimes fails at cf-redis-broker. Clicking `apply changes` again will successfully complete upgrade. 
 + Backup configuration is not preserved when upgrading from PCF Redis 1.5 or 1.6; if backing up to AWS S3, operators will need to re-enter S3 configuration. 
 + The service broker and all shared-vm service instances are unavailable while the manual restore script is being run. 
 + If the manual restore script fails, the Redis service instance that is being restored to is left in an unusable state. 
