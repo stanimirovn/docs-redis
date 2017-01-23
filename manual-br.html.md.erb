@@ -166,7 +166,7 @@ The restore script will restore the data for the specified shared-vm instance.
  
 #### Execution
 1. Retrieve `{instance_guid}` by running: `cf service {instance_name} --guid`
-1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB <path-to-rdb-backup-on-vm> --sharedVmGuid {instance_guid}.
+1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB {path-to-rdb-backup-on-vm} --sharedVmGuid {instance_guid}`.
 1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`.
 
 #### Debugging
