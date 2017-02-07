@@ -11,4 +11,4 @@ Version 1.8 of PCF Redis introduces on demand provisioning of Redis instances ba
 * Medium Cache Plan
 * Large Cache Plan
 
-For each one of the plans, the operator can configure the Plan name, Plan description, Server VM type and Server Disk type, or choose to disable the plan completely.
+For each service plan, the operator can configure the **Plan name**, **Plan description**, **Server VM type** and **Server Disk type**, or choose to disable the plan completely.
