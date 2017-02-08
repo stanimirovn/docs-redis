@@ -157,7 +157,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ![dedicated vm config](dedicated-vm-config.png)
 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
-The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. The Redis server is deployed without maxmemory set; the Redis server will use all available memory. It is recommended the persistent disk be set to 3x the amount of RAM. 
+The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM. 
 
 1.  Click the **Save** button.
 
