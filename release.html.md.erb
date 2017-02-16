@@ -3,6 +3,15 @@ title: Release Notes
 owner: London Services
 ---
 
+## Redis for PCF 1.7.2
+**February 16, 2017**
+#### Compatibility
+In order for Redis for PCF 1.7 to work with PCF 1.8 and later, the operator will need to be able to configure whether TLS is turned on or off for metrics communications. Redis for PCF 1.7.2 adds the ability for the operator to turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration page in Ops Manager. In PCF 1.8, this checkbox must be checked for metrics to be emitted to the firehose. In PCF 1.9, metrics communications are secure by default but will work in a non-secure mode. The checkbox can be off or on. In PCF 1.10+, metrics communications are secure by default so this checkbox must be unchecked for metrics to be emitted to the firehose. 
+#### Features
+No change
+#### Bug Fixes
+No change
+
 ## Redis for PCF 1.7.1
 **January 25, 2017**
 #### Compatibility
