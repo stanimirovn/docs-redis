@@ -5,6 +5,24 @@ owner: London Services
 
 The PCF firehose exposes Redis metrics.
 
+### Configuring Secure Communication
+Redis for PCF v1.7.2 adds the ability for the operator to turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
+page in Ops Manager. You should configure this checkbox for different versions of PCF as follow:
+
+* **PCF v1.8**: This checkbox must be checked for metrics to be emitted to the
+Firehose. 
+
+* **PCF v1.9**: Metrics communications are secure by default but will work in a non-secure mode. 
+
+* **PCF v1.10 and later**: Metrics communications are secure by
+default so this checkbox must be unchecked for metrics to be emitted to the Firehose. 
+
+![Configuring Secure Metrics](Enable-TLS.png)
+
+If this checkbox is incorrectly set, this error will be displayed:
+![Configuring Secure Metrics error](TLS-error.png)
+
+### Polling Interval
 The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in **Metrics polling interval (min: 10)**.  
 
 ![Metrics Polling Interval](metrics_polling.png)
