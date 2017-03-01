@@ -98,7 +98,7 @@ You can also restore your backup file to another instance of the `Redis for PCF`
 #### Prerequisites
 
 * Same resource configuration as the instance from which you backed up.
-* The persistent disk should be increased to be **8 x size of the RDB file** if it is not already so. This allows space for the temporary files used during the restore process
+* Ensure that the persistent disk is large enought to accommodate the temporary files used during the restore process. It should be **3.5x the amount of RAM in the VM**. 
 
 To restore your backup file to another instance of a `Redis for PCF` tile service instance:
 
