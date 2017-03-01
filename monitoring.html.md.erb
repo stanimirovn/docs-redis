@@ -19,7 +19,7 @@ default so this checkbox must be unchecked for metrics to be emitted to the Fire
 
 ![Configuring Secure Metrics](Enable-TLS.png)
 
-If this checkbox is incorrectly set, this error will be displayed:
+If this checkbox is incorrectly set, this error `Cannot generate manifest for product Redis: Error in (( .properties.metrics_disable_etcd_tls.value ? .properties.null_string.value : ..cf.properties.cf_etcd_client_cert.cert_pem )): unknown property "cf_etcd_client_cert" (Product "Redis" / Job: nil)` will be displayed:
 ![Configuring Secure Metrics error](TLS-error.png)
 
 ### Polling Interval
