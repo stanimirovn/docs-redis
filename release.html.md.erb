@@ -46,6 +46,11 @@ No change
 
 No change
 
+<strong> Known Issues</strong>
+
+In order to enable TLS communications for metrics, the addition of a consul agent to all instances was required. This means there are now new open ports required.
+Please make changes to any firewall rules to allow inbound traffic to all Redis vm instances on port `8301`.
+
 ## <a id="1.7.1"></a>Redis for PCF v1.7.1
 
 **January 25, 2017**

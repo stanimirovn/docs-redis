@@ -167,6 +167,7 @@ The following ports and ranges are used in this service:
 * Destination port `6379` access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
 * Destination ports `32768` to `61000` on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP `80` or HTTPS `443`
+* Destination port `8301` access to the consul agent deployed on all redis VMs from the consul server(s).
 
 Please note - The broker port has changed from port `80` to `12350` in version `1.7`. Please ensure you have the appropriate firewall settings.
 
