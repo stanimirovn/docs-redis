@@ -156,17 +156,19 @@ These are the default resource and IP requirements for installing the tile
 #### Notes:
 * The `shared-vm` plan is on the `Redis Broker` resource
 * The `dedicated-vm` plan is on the `Dedicated Node` resource
-  
-## <a id="security"></a>Security 
+
+## <a id="security"></a>Security
 
 It is recommended that each service run in its own network.
 
 The following ports and ranges are used in this service:
 
-* Destination port 80 access to the service broker from the cloud controllers
-* Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
-* Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
-* Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
+* Destination port `12350` access to the service broker from the cloud controllers
+* Destination port `6379` access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
+* Destination ports `32768` to `61000` on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
+* Outbound access to your chosen blobstore, typically HTTP `80` or HTTPS `443`
+
+Please note - The broker port has changed from port `80` to `12350` in version `1.7`. Please ensure you have the appropriate firewall settings.
 
 ###Application Security Groups###
 
