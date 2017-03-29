@@ -99,7 +99,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 <tr>
   <th>Significance</th>
-  <td>Grows as the number of unsaved keys increases.</td>
+  <td>Indicates the max memory available in Redis.</td>
 </tr>
 </table>
 
@@ -193,7 +193,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of available <code>dedicated-vm</code> instances of Redis. "/p-redis/service-broker/dedicated_vm_plan/total_instances"
+  <td>Number of available <code>dedicated-vm</code> instances of Redis. "/p-redis/service-broker/dedicated_vm_plan/available_instances"
   </td>
 </tr>
 <tr>
@@ -202,6 +202,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
+### total\_instances
 
 <table border='1' class='nice'>
 <tr>
@@ -220,7 +221,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
-  <td>Number of available <code>shared-vm</code> instances of Redis. "/p-redis/service-broker/shared_vm_plan/total_instances"
+  <td>Number of available <code>shared-vm</code> instances of Redis. "/p-redis/service-broker/shared_vm_plan/available_instances"
   </td>
 </tr>
 <tr>
