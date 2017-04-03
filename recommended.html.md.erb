@@ -27,6 +27,7 @@ Redis can be used in many different ways, including:
 * The number of Dedicated-VM plan instances available to developers is set by the operator. Configurations of up to 100 Dedicated-VM plan instances have been tested.
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
 * Cannot scale down the number of VMs on the plan once deployed.
+* Cannot scale down the size of VMs on the plan once deployed (this protects against data loss).
 * The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available.
 
 ### Shared-VM Plan 
