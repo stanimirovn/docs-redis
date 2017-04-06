@@ -17,7 +17,7 @@ No change
 
 <strong> Bug Fixes</strong>
 
-Fix an issue with process watcher being restarted every two/three hours, and an issue that was preventing the file from using floating stemcells.
+Fix an issue with process watcher being restarted every two/three hours, and an issue that was preventing the tile from using floating stemcells.
 
 
 ## <a id="1.7.3"></a>Redis for PCF v1.7.3
@@ -37,6 +37,10 @@ No change
 Fix an issue with Redis being restarted every three hours. This issue was introduced in Redis for PCF 1.7.1 and also exists in 1.7.2.
 
 ## <a id="1.7.2"></a>Redis for PCF v1.7.2
+
+<strong> Known Issues </strong>
+
+1.7.3 does not allow for floating stemcells.
 
 **February 16, 2017**
 
@@ -68,6 +72,8 @@ No change
 In order to enable TLS communications for metrics, the addition of a consul agent to all instances was required. This means there are now new open ports required.
 Please make changes to any firewall rules to allow outbound traffic from all Redis vm instances on port `8301`.
 
+1.7.2 does not allow for floating stemcells. 
+
 ## <a id="1.7.1"></a>Redis for PCF v1.7.1
 
 **January 25, 2017**
@@ -92,10 +98,20 @@ Fix issue with very large files being restored.
 
 Upgrade to Golang v1.7.4
 
+<strong> Known Issues </strong>
+
+1.7.1 does not allow for floating stemcells.
+
 ## <a id="1.7.0"></a>Redis for PCF v1.7.0
 
 **December 22, 2016**
 
+<strong> Known Issues </strong>
+
+1.7.0 does not allow for floating stemcells.
+
 Release notes <a href="/redis/1-7/minor-overview.html">here</a>.
+
+
 
 
