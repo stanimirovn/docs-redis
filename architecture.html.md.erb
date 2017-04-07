@@ -1,27 +1,40 @@
 ---
-title: Redis for PCF 1.6 Architecture and Lifecycle
+title: Redis for PCF 1.8 Architecture and Lifecycle
 owner: London Services
 ---
 
-## <a id ="config"></a>How Redis for PCF Configures Redis 
+## <a id ="config"></a>How Redis for PCF Configures Redis
 
-Redis for PCF configures Redis in the following ways. These configurations cannot be changed.
+For On-Demand VMs, certain Redis configurations can be set by the operator during plan configuration,
+ and by the app developer during instance provisioning. Other Redis configurations cannot be changed from the default.
 
-+ Redis is configured with a maxmemory-policy of no-eviction. 
-This policy means that when the memory is full, the service does not evict any keys or 
-perform any write operations until memory becomes available. 
+ + Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`.
+ + App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`, `lua-time-limit`,`slowlog-log-slower-than`,`slowlog-max-len`
 
-+ Persistence is configured for both `RDB` and `AOF`. 
-The default maximum number of connections, maxclients, is set at 10000 but 
-this number is adjusted by Redis according to the number of file handles available. 
-
-+ Replication and event notification are not configured.  
-
+For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
 A sample `redis.conf` from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
+
++ Redis is configured with a `maxmemory-policy` of no-eviction. This policy means that when the memory is full, the service does
+ not evict any keys or perform any write operations until memory becomes available.
+
++ Persistence is configured for both `RDB` and `AOF`.
+
++ The default maximum number of connections, `maxclients`, is set at 10000 but
+this number is adjusted by Redis according to the number of file handles available.
+
++ Replication and event notification are not configured.
+
 
 ##  <a id="plans"></a>Service Plans
 
-Redis for PCF offers Dedicated-VM and Shared-VM plans.
+Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
+
+### On-Demand Plans
+* These plans are operator-configured and enabled. Once enabled, app developers can provision a Redis instance from that plan.
+* You can disable any of the three on-demand plans in the plan's page in OpsManager.
+* The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
+* Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
+* App Developers can 
 
 ### Shared-VM Plan
 
@@ -31,7 +44,7 @@ Redis for PCF offers Dedicated-VM and Shared-VM plans.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
 
-### Dedicated-VM Plan 
+### Dedicated-VM Plan
 
 * This plan deploys the operator-configured number of dedicated Redis VMs alongside the service broker VM.
 * These instances are pre-provisioned during the deployment of the tile from OpsManager into a **pool**. The VMs are provisioned and configured with a Redis process ready to be used when an instance of the Dedicated-VM plan is requested.
@@ -42,7 +55,7 @@ Redis for PCF offers Dedicated-VM and Shared-VM plans.
 
 ## <a id ="architecture"></a>Redis for PCF Architecture
 
-This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance. 
+This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance.
 
 ![Architecture Diagram](redis-architecture.png)
 
@@ -51,6 +64,3 @@ This diagram shows how the architecture of the service broker and Shared-VM and 
 Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 ![Lifecycle Diagram](redis-timeline.png)
-
-
-

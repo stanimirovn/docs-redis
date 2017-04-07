@@ -1,57 +1,53 @@
 ---
-title: Overview of Redis for PCF v1.7
+title: Overview of Redis for PCF v1.8
 owner: London Services
 ---
 
-This topic describes the significant new features in Redis for PCF v1.7. 
+This topic describes the significant new features in Redis for PCF v1.8.
 This topic also presents a checklist that you can use to decide if Redis for PCF is ready to meet your business requirements.
 
 ##<a id="intro"></a> Introduction
 
-Redis for PCF v1.7 focuses on enhanced backup and restore capabilities.  Operators can configure a schedule for backups, as well as a several options for where to put the backup artifacts.  
-The release also includes scripts that can be run by the operator to back up and restore dedicated-vm or shared-vm service instances.
+Redis for PCF v1.8 introduces dynamically provisioned, configurable Redis instances. These instances allow for additional configuration of Redis by both the
+Operator and App Developer, and for App Developers to create Redis instances as needed.
 
 ## <a id="features"></a>New in This Release
 
-The following features are new in Redis for PCF v1.7 
+The following features are new in Redis for PCF v1.8:
 
-+ <strong>A choice of destinations for backup artifacts</strong> — Redis for PCF v1.7 can send backup artifacts to AWS S3, SCP, Azure or Google Cloud Storage
-+ <strong>Scripts for manual backup and restore</strong> — Redis for PCF v1.7 includes scripts for backing up and restoring dedicated and shared VM instances.
-+ <strong>Operator configured backup schedule</strong> — The operator can configure a `cron` schedule for triggering backups.
-
-### Known Issues
-+ Upgrade from 1.6 sometimes fails at cf-redis-broker. Clicking `apply changes` again will successfully complete upgrade. 
-+ Backup configuration is not preserved when upgrading from PCF Redis 1.5 or 1.6; if backing up to AWS S3, operators will need to re-enter S3 configuration. 
-+ The service broker and all shared-vm service instances are unavailable while the manual restore script is being run. 
-+ If the manual restore script fails, the Redis service instance that is being restored to is left in an unusable state. 
-+ The manual restore script can time out on very large files, e.g. larger than 60GB. 
++ <strong>Operator-enabled plans</strong> — Operators can enabled and configure three service plans for dynamically provisioned instances with different memory and disk sizes.
++ <strong>Operator set properties</strong> - Operators can set select Redis properties for each plan.
++ <strong>Quotas</strong> — Operators can set instance quotas for individual plans as well as globally.
++ <strong>App-Developer provisioned instances</strong> — App Developers can provision an Operator-configured plan from the command line.
++ <strong>App-developer set arbitrary parameters</strong> — App developers can set select Redis properties for each instance.
 
 ##<a id="checklist"></a> Enterprise-Ready Checklist
 
-Review the following table to determine if Redis for PCF v1.7 has the features needed to support your enterprise.
+Review the following table to determine if Redis for PCF v1.8 has the features needed to support your enterprise.
 
 <table border="1" class="nice">
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
-<tr><td>Dedicated and shared plans</td><td>Redis for PCF provides both dedicated VM and shared VM plans.</td><td><a href="/redis/1-7/architecture.html#plans">Plans</a></td></tr>
-<tr><td>Customizable plans</td><td>For the dedicated VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/1-7/installing.html#service-plans">Configuring</a></td></tr>
+<tr><td>Dedicated and shared plans</td><td>Redis for PCF provides on-demand instances, dedicated VM and shared VM plans.</td><td><a href="/redis/1-8/architecture.html#plans">Plans</a></td></tr>
+<tr><td>Customizable plans</td><td>For the dedicated VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
 
 <tr><th colspan=2>Installation and Upgrades</th><th>More Information</th></tr>
-<tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.5 and v1.6 tiles</td>
-     <td><a href="/redis/1-7/installing.html#upgrades">Upgrading Redis for PCF</a></td></tr>
-<tr><td>Deployment Smoke Tests</td><td>Redis for PCF installation and upgrade runs 
+<tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.6 and v1.7 tiles</td>
+     <td><a href="/redis/1-8/installing.html#upgrades">Upgrading Redis for PCF</a></td></tr>
+<tr><td>Deployment Smoke Tests</td><td>Redis for PCF installation and upgrade runs
         a post deployment BOSH errand that validates basic Redis operations</td>
-    <td><a href="/redis/1-7/smoke-tests.html">Smoke Tests</a></td></tr>
+    <td><a href="/redis/1-8/smoke-tests.html">Smoke Tests</a></td></tr>
 
 <tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
-<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.7 provides metrics for health monitoring and syslog redirection to external log ingestors.</td>
-    <td><a href="/redis/1-7/monitoring.html">Monitoring Redis for PCF</a></td></tr>
-<tr><td>Backup and Restore</td><td>Redis for PCF v1.7 provides automatic backups on a configurable schedule to a variety of destinations, as well as scripts for backup and restore of service instances.  
-   </td><td><a href="/redis/1-7/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
+<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.8 provides metrics for health monitoring and syslog redirection to external log ingestors.</td>
+    <td><a href="/redis/1-8/monitoring.html">Monitoring Redis for PCF</a></td></tr>
+<tr><td>Backup and Restore</td><td>Redis for PCF v1.8 provides automatic backups on a configurable schedule to a variety of destinations, as well as scripts for backup and restore of service instances.
+</td><td><a href="/redis/1-8/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
 <tr><td>Scale</td><td>Redis for PCF has been tested with 60GB of data</td><td></td></tr>
-<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="/redis/1-7/installing.html#service-plans">Configuring</a></td></tr>
-<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="/redis/1-7/installing.html#upgrades">Upgrades</a></td></tr>
+<tr><td>On-Demand Instances</td><td>Redis for PCF provides up to 50 on-demand instances across plans</td><td></td></tr>
+<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
+<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="/redis/1-8/installing.html#upgrades">Upgrades</a></td></tr>
 <tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
     <td><a href="#other-notes">About Multiple AZs in Redis for PCF</a></td></tr>
 
@@ -64,12 +60,14 @@ Review the following table to determine if Redis for PCF v1.7 has the features n
 
 ## <a id="other-notes"></a>About Multiple AZs in Redis for PCF v1.7
 
-Redis for PCF v1.7 supports configuring multiple AZs. 
-However, assigning multiple AZs to Redis jobs does not guarantee high availability. 
+Redis for PCF v1.8 supports configuring multiple AZs.
+However, assigning multiple AZs to Redis jobs does not guarantee high availability.
 
-+ Shared-VM instances run on a single node in just one of the configured availability zones and are therefore not highly available. 
-+ Dedicated-VM instances can be assigned to any of the configured availability zones. 
-However each instance still operates as a single node with no clustering. 
++ On-Demand plans can be assigned to any of the configured availability zones.
+However each instance still operates as a single node with no clustering.
++ Shared-VM instances run on a single node in just one of the configured availability zones and are therefore not highly available.
++ Dedicated-VM instances can be assigned to any of the configured availability zones.
+However each instance still operates as a single node with no clustering.
 This separation over availability zones provides no high availability.
 
 
@@ -79,4 +77,4 @@ The following table lists where you can find topics related to the information o
 
 | For more information about&hellip; | See&hellip; |
 |----------------------------|-------------|
-|the v1.7 releases       |<a href="/redis/1-7/release.html">Release Notes</a>|
+|the v1.8 releases       |<a href="/redis/1-8/release.html">Release Notes</a>|

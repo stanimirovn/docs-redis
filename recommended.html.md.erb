@@ -3,23 +3,30 @@ title: Redis for PCF Recommended Usage and Limitations
 owner: London Services
 ---
 
-## Recommended Use Cases 
+## Recommended Use Cases
 
-Redis for PCF can be used as a datastore or cache.  
-It is configured with `maxmemory-policy = noeviction` and RDB and AOF persistence.
+Redis for PCF can be used as a datastore or cache.
+On-Demand plans, introduced in Redis for PCF v1.8, are designed for cache-use cases.
+Dedicated-VM and Shared-VM plans are configured with `maxmemory-policy = noeviction` and RDB and AOF persistence.
 
 Redis can be used in many different ways, including:
 
-* Key/value store for strings and more complex data structures including Hashes, Lists, Sets, Sorted Sets 
-* Session cache - persistence enables preservation of state 
+* Key/value store for strings and more complex data structures including Hashes, Lists, Sets, Sorted Sets
+* Session cache - persistence enables preservation of state
 * Full page cache - persistence enables preservation of state
-* Database cache - cache queries 
+* Database cache - cache queries
 * Data ingestion - because Redis is in memory it can ingest data very quickly
 * Message Queues - list and set operations. `PUSH`, `POP`, and blocking queue commands.
 * Leaderboards/Counting - increments and decrements of sets and sorted sets using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, `GETSET`
 * Pub/Sub - built in publish and subscribe operations - `PUBLISH`, `SUBSCRIBE`, `UNSUBSCRIBE`
 
 ## Service Plan Recommended Usage and Limitations
+
+### On-Demand Plans
+* Each on-demand plan instance is deployed to its own VM and is suitable for production workloads.
+* The maximum-number of on-demand plan instances available to developers is set by the operator and enforced on both a global and per-plan level quota.
+* Select Redis configurations can be changed from default.
+* Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 
 ### Dedicated-VM Plan
 
@@ -30,10 +37,10 @@ Redis can be used in many different ways, including:
 * Cannot scale down the size of VMs on the plan once deployed (this protects against data loss).
 * The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available.
 
-### Shared-VM Plan 
+### Shared-VM Plan
 
 * The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
-* The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of the Redis service broker. Please see [Configuring Service Plans](./installing.html#service-plans) for more detail. 
+* The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of the Redis service broker. Please see [Configuring Service Plans](./installing.html#service-plans) for more detail.
 * It cannot be scaled beyond a single virtual machine.
 * The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
   `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
@@ -42,15 +49,14 @@ Redis can be used in many different ways, including:
 
 ## Availability Using Multiple AZs
 
-Redis for PCF 1.6 supports configuring multiple availability zones but this configuration does not provide high availability.
+Redis for PCF 1.8 supports configuring multiple availability zones but this configuration does not provide high availability.
 
 ## Downtime During Redeploys
 
-Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time. 
+Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time.
 
 ## Redis Key Count and Memory Size
 
 Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle at least 250 million keys per instance.
 Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements.
 VM memory is more likely to be a limiting factor than number of keys that can be handled.
-

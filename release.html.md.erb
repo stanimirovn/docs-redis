@@ -2,6 +2,21 @@
 title: Release Notes
 owner: London Services
 ---
-## Redis for PCF 1.7.0
-**December 22, 2016**
-Release notes <a href="/redis/1-7/minor-overview.html">here</a>.
+## Redis for PCF 1.8.0
+**April 25, 2017**
+
+The redis-broker now lists on port `12350`.
+
+TLS is turned on for metric communications.
+
+All Redis instances now have a consul agent co-located for service discovery and DNS.
+This means instances need to be able to listen on port `8301`.
+
+The minimum version of PCF for use with this release is PCF 1.9.
+
+Includes Redis 3.2.8.
+
+
+
+
+Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
