@@ -3,13 +3,39 @@ title: Redis for PCF Service Plans
 owner: London Services
 ---
 
-## <a id ="config"></a>Redis Configuration 
-Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
+## <a id ="config"></a>Redis Configuration
+On-Demand plans are best fit for cache use cases. Certain Redis settings can be configured.
+* Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`. Please see the Operator guide for more detail.
+* App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`, `lua-time-limit`,`slowlog-log-slower-than`,`slowlog-max-l
+
+For Dedicated-VM and Shared-VM plans, Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
 
 ## <a id="service"></a>Service Plan Descriptions
 
+* [On-Demand Plans](#on-demand)
 * [Shared-VM Plan](#shared)
 * [Dedicated-VM Plan](#dedicated)
+
+### <a id="shared"></a>On-Demand plans
+
+On-Demand plans are enabled and configured by the operator. The operator specifies a per plan quota for all instances of that plan and a global quota for all instances across plans.
+
+App Developers can view the available plans in the marketplace and provision an instance from the command line. An intance of an on-demand plan provisions
+a single Redis process on a dedicated VM.
+
+Back ups are not available for On-Demand plans.
+
+#### Operator Notes
+
+* This plan enables Redis instances to be deployed on dedicated VMs. Instances can be deployed until they reach either an opertor-set per-plan quota or global quota.
+* Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) and service broker adapter associated with this plan.
+* Any On-Demand plan can be disabled from the plan page in OpsManager.
+
+Limitations with the current `shared-vm` plan include:
+
+* Operators can update certain plan settings after the plans have been created.
+If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+
 
 ### <a id="shared"></a>Shared-VM Plan
 
@@ -154,8 +180,8 @@ These are the default resource and IP requirements for installing the tile
 #### Notes:
 * The `shared-vm` plan is on the `Redis Broker` resource
 * The `dedicated-vm` plan is on the `Dedicated Node` resource
- 
-## <a id="security"></a> Security 
+
+## <a id="security"></a> Security
 
 It is recommended that each service run in its own network.
 
@@ -172,7 +198,7 @@ To allow this service to have network access you must create [Application Securi
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service will not be usable.</p>
 
-#### Application Container Network Connections 
+#### Application Container Network Connections
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 

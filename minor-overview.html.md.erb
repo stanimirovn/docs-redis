@@ -17,6 +17,7 @@ The following features are new in Redis for PCF v1.8:
 
 + <strong>Operator-enabled plans</strong> — Operators can enabled and configure three service plans for dynamically provisioned instances with different memory and disk sizes.
 + <strong>Operator set properties</strong> - Operators can set select Redis properties for each plan.
++ <strong>Optimized for cache use cases</strong> - The default `maxmemory` setting for these plans is `allkeyslru`. This can be updated by the app developer to other cache options.
 + <strong>Quotas</strong> — Operators can set instance quotas for individual plans as well as globally.
 + <strong>App-Developer provisioned instances</strong> — App Developers can provision an Operator-configured plan from the command line.
 + <strong>App-developer set arbitrary parameters</strong> — App developers can set select Redis properties for each instance.

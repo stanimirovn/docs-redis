@@ -5,11 +5,11 @@ owner: London Services
 
 ## <a id="triggering"></a>Triggering a Manual Backup
 
-Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups. 
+Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups.
 
 * [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log into your Ops Manager installation and target the Redis tile deployment.
 * Identify the VM which holds your instance by running `bosh vms`.
-  * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`. Running `manual-backup` will back up all of the shared-vm instances and the broker state in the `statefile.json` file. 
+  * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`. Running `manual-backup` will back up all of the shared-vm instances and the broker state in the `statefile.json` file.
   * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`. Running `manual-backup` will back up the Redis dump.rdb file for that dedicated-vm instance.
   * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings.
 
@@ -28,6 +28,8 @@ Once you have connected to the node, a manual backup can be triggered with these
 #### Notes
 
 Triggering a manual backup of a large dump.rdb could take sufficiently long that your SSH connection will timeout. Ensure that you have given yourself enough of a timeout to complete the backup.
+
+Back ups are currently not available for On-Demand instances.
 
 ## Making Your Own Backups
 
@@ -98,7 +100,7 @@ You can also restore your backup file to another instance of the `Redis for PCF`
 #### Prerequisites
 
 * Same resource configuration as the instance from which you backed up.
-* Ensure that the persistent disk is large enough to accommodate the temporary files used during the restore process. It should be **3.5x the amount of RAM in the VM**. 
+* Ensure that the persistent disk is large enough to accommodate the temporary files used during the restore process. It should be **3.5x the amount of RAM in the VM**.
 
 To restore your backup file to another instance of a `Redis for PCF` tile service instance:
 
@@ -114,7 +116,7 @@ To restore your backup file to another instance of a `Redis for PCF` tile servic
 1. Switch to root user `sudo su`
 
 ### Dedicated-VM Plan
-The restore script will restore the data for the specified dedicated-vm instance. 
+The restore script will restore the data for the specified dedicated-vm instance.
 
 #### Execution
 1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-BACKUP-ON-VM`.
@@ -162,8 +164,8 @@ Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name 
 Run `monit start all`
 
 ### Shared-VM Plan
-The restore script will restore the data for the specified shared-vm instance. 
- 
+The restore script will restore the data for the specified shared-vm instance.
+
 #### Execution
 1. Retrieve `{instance_guid}` by running: `cf service {instance_name} --guid`
 1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB {path-to-rdb-backup-on-vm} --sharedVmGuid {instance_guid}`.

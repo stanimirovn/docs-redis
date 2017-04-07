@@ -9,12 +9,12 @@ This topic is for PCF operators. It introduces some best practices, but does not
 
 Pivotal recommends that operators do the following:
 
-* Resource Allocation — Work with app developers to anticipate memory requirements and to configure VM sizes. 
-Redis for PCF is configured by default with small VMs. For information about configuring VM sizes, 
+* Resource Allocation — Work with app developers to anticipate memory requirements and to configure VM sizes.
+Redis for PCF is configured by default with small VMs. For information about configuring VM sizes,
 see [Configure Redis Service Plans](/redis/1-6/installing.html#configuration).
-* Logs — Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical. 
-* Monitoring — Set up a monitoring dashboard for metrics to track the health of the installation. 
-* Backing Up Data — When using Redis for persistence, configure automatic backups so that data can be restored in an emergency. 
+* Logs — Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.
+* Monitoring — Set up a monitoring dashboard for metrics to track the health of the installation.
+* Backing Up Data — When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
 Validate the backed-up data with a test restore.
 
 ## <a id="backup"></a>About Creating Backups of Redis Instances
@@ -24,17 +24,32 @@ You can back up Redis for PCF instances in two way:
 + Configure automatic backups to be run for each instance, across both service plans. For information about setting up automatic backups, see [Configure Backups](./installing.html#backup).
 + Create manual backups of individual instances. For information about how to make manual backups of instances, see [Manual Backup and Restore of Redis for PCF](./manual-br.html).
 
+Note that backups are not available for on demand instances.
+
 ## <a id="metrics"></a> About Monitoring Redis for PCF
 
 ### Redis Metrics
 
-Redis for PCF emits Redis metrics via the firehose. Details [here](./monitoring.html) 
+Redis for PCF emits Redis metrics via the firehose. Details [here](./monitoring.html)
 
 ### Logging
 
 Syslog can be forwarded to an external log service.
 
-The following example shows syslog message:
+Syslog for On-Demand instances conforms to RFC5424 standards. This format is as follows:
+
+<pre class=terminal>
+<$PRI>$VERSION $TIMESTAMP $HOST $APP_NAME $PROC_ID $MSG_ID
+[instance@47450 deployment="$DEPLOYMENT" group="$INSTANCE_GROUP"
+ az="$AVAILABILITY_ZONE" id="$ID"] $MESSAGE`
+</pre>
+
+An example:
+<pre class=terminal>
+  <13>1 2017-03-28T15:20:31.490350+00:00 10.0.16.35 redis-server 4951 - [instance@47450 director="us-pws" deployment="service-instance_16c95f89-8d5a-4cb7-839d-79c5d026bd15" group="redis-instance" az="eu-west-1a" id="7f976f34-4105-4475-abbc-5df10e933cfa" ] User requested shutdown
+</pre>
+
+The following example shows syslogs for Dedicated-VM and Shared-VM instances:
 
 <pre class=terminal>
 Nov 15 17:05:01 10.0.24.10 audispd: [job=dedicated-node index=4]  node=7bfe8b1b-6c

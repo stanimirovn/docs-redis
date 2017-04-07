@@ -16,10 +16,33 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 ## <a id="configuration"></a>Configuring PCF Redis
 
 ###  <a id="service-plans"></a>Configure Redis Service Plans
- 
+
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and allocate resources to Redis service plans.
 
-####  <a id="shared-vm-config"></a>Shared-VM Plan 
+####  <a id="on-demand-config"></a>On-Demand Plan
+
+1.  Select the tab with the plan name to configure the plan. Instances of the three opinionated plans are intended to be used as different cache sizes. The operator should configure appropriate memory and disk sizes, according to the use case.
+* **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
+* **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
+* **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk.
+Note that resource configuration options may vary on different IAASs.
+
+1. Configure the following for your plan. The default settings, where applicable, have been pre-configured according to the memory/disk size of each plan
+* Choose to enable or disable the plan for your organization.
+* Set the plan name and description to appear in the service catalog.
+* Select the AZ to deploy the Redis instances from the plan.
+* Select the Server VM type and Server Disk type. We recommend that the **persistent disk should be at least
+3.5x the VM memory**.
+* Change the Redis Client Timeout from the default as needed. Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
+* Change the Redis TCP Keepaplive from the default as needed. Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
+* Change the Max Clients from the default as needed. Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
+* Enable or disable Lua Scripting as needed. The default settig is to have Lua Scripting enabled.
+* Set the plan quota. App Developers can cumulatively only create as many instances as the plan quota allows for.
+![on demand config](on-demand-config.png)
+
+1.  Click the **Save** button.
+
+####  <a id="shared-vm-config"></a>Shared-VM Plan
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 ![shared vm config](shared-vm-config.png)
@@ -79,7 +102,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ![dedicated vm config](dedicated-vm-config.png)
 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
-The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM. 
+The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM.
 
 1.  Click the **Save** button.
 
@@ -99,7 +122,8 @@ Pivotal recommends that operators configure a syslog output.
 
 ### <a id="backup"></a>Creating Backups of Redis Instances
 
-You can configure backups to be run for all instances, across both service plans.
+You can configure backups to be run for all instances, across dedicated-VM and shared-VM service plans.
+Backups are not available for On-Demand instances.
 
 The key features are:
 
@@ -112,7 +136,7 @@ The key features are:
 * Backups are labelled with timestamp, instance GUID and plan name
 
 #### Configuration
-To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage. 
+To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage.
 
 Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
 ![OpsManager Backups view](redis-backup.png)
@@ -206,8 +230,8 @@ PCF Redis uses service account credentials to upload backups to Google Cloud Sto
 For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. Redis' BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.
 
 
-### <a id="azs"></a>Networks, Security, and Assigning AZs 
-                 
+### <a id="azs"></a>Networks, Security, and Assigning AZs
+
 ####  <a id="network-configuration"></a>Network Configuration
 
 The following ports and ranges are used in this service:
@@ -224,7 +248,7 @@ To allow this service to have network access you must create [Application Securi
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
-##### Application Container Network Connections 
+##### Application Container Network Connections
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 
@@ -260,7 +284,7 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
     "ports": "6379"
   }
 ]
-```  
+```
 
 ####  <a id="az-config"></a>Assigning AZs
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
@@ -276,7 +300,7 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 ### Smoke tests
 
 Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="/redis/1-6/smoke-tests.html">here</a>.
-                
+
 ## <a id="upgrades"></a>Upgrading Redis for PCF
 
 This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
@@ -301,7 +325,7 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 When a new version of Redis is released we aim to release a new version of the product containing this soon after.
 
-Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours. 
+Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours.
 
 ## <a id="uninstall"></a>Uninstalling Redis for PCF
 

@@ -13,7 +13,7 @@ The following procedure describes how to create a Redis service instance in the 
 
 ### <a id="plans"></a>Available Plans
 
-Before creating a Redis instance, it is worth being aware of the two available plans:
+Before creating a Redis instance, it is worth being aware of the three available plans:
 
 <table border="1" class="nice">
 <tr>
@@ -23,6 +23,15 @@ Before creating a Redis instance, it is worth being aware of the two available p
 <th><strong>Highly Available</strong></th>
 <th><strong>Backup Functionality</strong></th>
 </tr>
+
+<tr>
+<td><b>On-Demand</b></td>
+<td>Cache uses (small, medium and large)</td>
+<td>Dedicated VM</td>
+<td>No</td>
+<td>No</td>
+</tr>
+
 
 <tr>
 <td><b>Shared-VM</b></td>
@@ -72,7 +81,7 @@ Before creating a Redis instance, it is worth being aware of the two available p
     <pre class=terminal>
     $ cf create-service p-redis SERVICE-PLAN-NAME SERVICE-INSTANCE-NAME
     </pre>
- 
+
     <br />For example:
 
     <pre class=terminal>

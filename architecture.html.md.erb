@@ -8,8 +8,8 @@ owner: London Services
 For On-Demand VMs, certain Redis configurations can be set by the operator during plan configuration,
  and by the app developer during instance provisioning. Other Redis configurations cannot be changed from the default.
 
- + Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`.
- + App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`, `lua-time-limit`,`slowlog-log-slower-than`,`slowlog-max-len`
+ + Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`. Please see the Operator guide for more detail.
+ + App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`, `lua-time-limit`,`slowlog-log-slower-than`,`slowlog-max-len`. Please see the App Developer guide for more detail.
 
 For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
 A sample `redis.conf` from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
@@ -34,7 +34,7 @@ Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
 * You can disable any of the three on-demand plans in the plan's page in OpsManager.
 * The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
-* App Developers can 
+* App Developers can update certain Redis configurations.
 
 ### Shared-VM Plan
 
