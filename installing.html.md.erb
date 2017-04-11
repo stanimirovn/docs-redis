@@ -22,25 +22,29 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ####  <a id="on-demand-config"></a>On-Demand Plan
 
 1.  Select the tab with the plan name to configure the plan. Instances of the three opinionated plans are intended to be used as different cache sizes. The operator should configure appropriate memory and disk sizes, according to the use case.
-* **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
-* **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
-* **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk.
+<br/> **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
+<br/> **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
+<br/> **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk.
 Note that resource configuration options may vary on different IAASs.
 
 1. Configure the following for your plan. The default settings, where applicable, have been pre-configured according to the memory/disk size of each plan
-* Choose to enable or disable the plan for your organization.
-* Set the plan name and description to appear in the service catalog.
-* Select the AZ to deploy the Redis instances from the plan.
-* Select the Server VM type and Server Disk type. We recommend that the **persistent disk should be at least
+
+<br/> Choose to enable or disable the plan for your organization.
+<br/> Set the plan name and description to appear in the service catalog.
+<br/> Select the AZ to deploy the Redis instances from the plan.
+<br/> Select the Server VM type and Server Disk type. We recommend that the **persistent disk should be at least
 3.5x the VM memory**.
-* Change the Redis Client Timeout from the default as needed. Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
-* Change the Redis TCP Keepaplive from the default as needed. Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
-* Change the Max Clients from the default as needed. Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
-* Enable or disable Lua Scripting as needed. The default settig is to have Lua Scripting enabled.
-* Set the plan quota. App Developers can cumulatively only create as many instances as the plan quota allows for.
+<br/> Change the Redis Client Timeout from the default as needed. Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
+<br/> Change the Redis TCP Keepaplive from the default as needed. Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
+<br/> Change the Max Clients from the default as needed. Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
+<br/> Enable or disable Lua Scripting as needed. The default settig is to have Lua Scripting enabled.
+<br/> Set the plan quota. App Developers can create instances until this quota is reached.
 ![on demand config](on-demand-config.png)
 
 1.  Click the **Save** button.
+
+Note: Operators can update certain plan settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+
 
 ####  <a id="shared-vm-config"></a>Shared-VM Plan
 
@@ -299,7 +303,7 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ### Smoke tests
 
-Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="http://docs.pivotal.io/redis/1-6/smoke-tests.html">here</a>.
+Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="/redis/1-6/smoke-tests.html">here</a>.
 
 ## <a id="upgrades"></a>Upgrading Redis for PCF
 
