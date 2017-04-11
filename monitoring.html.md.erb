@@ -6,24 +6,10 @@ owner: London Services
 The PCF firehose exposes Redis metrics.
 
 ### Configuring Secure Communication
-Redis for PCF v1.7.2 adds the ability for the operator to turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
-page in Ops Manager. You should configure this checkbox for different versions of PCF as follow:
 
-* **PCF v1.8**: This checkbox must be checked for metrics to be emitted to the
-Firehose. 
-
-* **PCF v1.9**: Metrics communications are secure by default but will work in a non-secure mode. 
-
-* **PCF v1.10 and later**: Metrics communications are secure by
-default so this checkbox must be unchecked for metrics to be emitted to the Firehose. 
-
-![Configuring Secure Metrics](Enable-TLS.png)
-
-If this checkbox is incorrectly set, this error `Cannot generate manifest for product Redis: Error in (( .properties.metrics_disable_etcd_tls.value ? .properties.null_string.value : ..cf.properties.cf_etcd_client_cert.cert_pem )): unknown property "cf_etcd_client_cert" (Product "Redis" / Job: nil)` will be displayed:
-![Configuring Secure Metrics error](TLS-error.png)
 
 ### Polling Interval
-The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in **Metrics polling interval (min: 10)**.  
+The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in **Metrics polling interval (min: 10)**.
 
 ![Metrics Polling Interval](metrics_polling.png)
 
@@ -38,6 +24,7 @@ origin:"p-redis" eventType:ValueMetric timestamp:1480084323333475533 deployment:
 ## <a id="redis-metrics"></a>Redis Metrics
 
 Redis emits a number of metrics that can be used to monitor the health and performance of your Redis deployment.
+Currently these metrics are only available for dedicated-VM and shared-VM plans.
 
 ### keyspace_hits
 
@@ -159,7 +146,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
-### mem\_fragmentation\_ratio 
+### mem\_fragmentation\_ratio
 
 <table border='1' class='nice'>
 <tr>
@@ -173,9 +160,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
-### total\_instances
-
-
+### total\_instances [Dedicated VM]
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
@@ -189,7 +174,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </table>
 
 
-### available\_instances
+### available\_instances [Dedicated VM]
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
@@ -202,8 +187,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </tr>
 </table>
 
-### total\_instances
-
+### total\_instances [Shared-VM]
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
@@ -217,7 +201,7 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
 </table>
 
 
-### available\_instances
+### available\_instances [Shared-VM]
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Description</th>
@@ -229,8 +213,63 @@ Redis emits a number of metrics that can be used to monitor the health and perfo
   <td>If zero, no more instances are available. </td>
 </tr>
 </table>
-## <a id="other-metrics"></a>Other Metrics
 
+### total\_instances [Across on-demand plans]
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Total number of <code>on-demand</code> instances of Redis available for all plans. "/on-demand-broker/p.redis/total_instances"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>Used in conjunction with <code>total_instances</code>, provides information about used instances.</td>
+</tr>
+</table>
+
+
+### available\_instances [Across on-demand plans]
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Number of available <code>on-demand</code> instances of Redis available for all plans. "/on-demand-broker/p.redis/quota_remaining"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>If zero, no more instances are available. </td>
+</tr>
+</table>
+
+### total\_instances [Per on-demand plan]
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Total number of <code>on-demand</code> instances of Redis available for a specific plan. "/on-demand-broker/p.redis/{plan_name}/total_instances"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>Used in conjunction with <code>total_instances</code>, provides information about used instances per plan.</td>
+</tr>
+</table>
+
+
+### available\_instances [Per on-demand plan]
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Description</th>
+  <td>Number of available <code>on-demand</code> instances of Redis. "/on-demand-broker/p.redis/{plan_name}/quota_remaining"
+  </td>
+</tr>
+<tr>
+  <th>Significance</th>
+  <td>If zero, no more instances are available per plan. </td>
+</tr>
+</table>
+
+
+## <a id="other-metrics"></a>Other Metrics
 Redis also exposes the following metrics. for more information, see the [Redis documentation](http://redis.io/commands/INFO).
 
 * <code>arch\_bits</code>
