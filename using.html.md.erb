@@ -133,27 +133,29 @@ The following procedures describe how to bind a Redis service instance to your P
 
 Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called VCAP_SERVICES.
 An example hash is show below:
-<code>
-{
-  "p-redis": [{
-    "credentials": {
-         "host": "10.0.0.11",
-         "password": "<redacted>",
-         "port": 6379
-    },
-    "label": "p-redis",
-    "name": "redis",
-    "plan": "dedicated-vm",
-    "provider": null,
-    "syslog_drain_url": null,
-    "tags": [
-     "pivotal",
-     "redis"
-    ],
-    "volume_mounts": []
-  }]
-}
-</code>
+<pre>
+  <code>
+  {
+    "p-redis": [{
+      "credentials": {
+           "host": "10.0.0.11",
+           "password": "<redacted>",
+           "port": 6379
+      },
+      "label": "p-redis",
+      "name": "redis",
+      "plan": "dedicated-vm",
+      "provider": null,
+      "syslog_drain_url": null,
+      "tags": [
+       "pivotal",
+       "redis"
+      ],
+      "volume_mounts": []
+    }]
+  }
+  </code>
+</pre>
 
 You can search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.
 
