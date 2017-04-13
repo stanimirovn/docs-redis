@@ -72,7 +72,7 @@ Before creating a Redis instance, it is worth being aware of the two available p
     <pre class=terminal>
     $ cf create-service p-redis SERVICE-PLAN-NAME SERVICE-INSTANCE-NAME
     </pre>
- 
+
     <br />For example:
 
     <pre class=terminal>
@@ -108,6 +108,7 @@ The following procedures describe how to bind a Redis service instance to your P
     my-redis-instance   p-redis         shared-vm                 create succeeded
     </pre>
 
+
 1. Run `cf bind-service` to bind the application to the service instance.
 
     <pre class=terminal>
@@ -119,11 +120,42 @@ The following procedures describe how to bind a Redis service instance to your P
     <pre class=terminal>
     $ cf bind-service my-application redis
     </pre>
+
+
 1. Run `cf restage` to restage your application.
 
     <pre class=terminal>
     $ cf restage APPLICATION-NAME
     </pre>
+
+
+## <a id="vcap-services"></a>Entries in the VCAP_SERVICES Environment Variable
+
+Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called VCAP_SERVICES.
+An example hash is show below:
+<code>
+{
+  "p-redis": [{
+    "credentials": {
+         "host": "10.0.0.11",
+         "password": "<redacted>",
+         "port": 6379
+    },
+    "label": "p-redis",
+    "name": "redis",
+    "plan": "dedicated-vm",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "pivotal",
+     "redis"
+    ],
+    "volume_mounts": []
+  }]
+}
+</code>
+
+You can search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.
 
 ## <a id="delete"></a>Deleting a Redis Instance
 
