@@ -36,6 +36,26 @@ Smoke tests create a new [application security group](https://docs.pivotal.io/pi
 
 This allows outbound traffic from the test app to the Redis shared VM and dedicated VM nodes.
 
+### <a id="resilience"></a>Smoke tests resilience
+
+Smoke tests could fail due to reasons outside of the Redis deployment; for example network latency causing timeouts or the CloudFoundry instance dropping requests.
+
+The smoke tests implement a retry policy for commands issued to CF, for two reasons:
+- to avoid smoke test failures due to temporary issues such as the ones mentioned above
+- to ensure that the service instances and bindings created for testing are cleaned up.
+
+Smoke tests will retry failed commands against CF. They use a linear back-off with a baseline of 0.2 seconds, for a maximum of 30 attempts per command. Therefore, assuming that the first attempt is at 0s and fails instantly, subsequent retries will be at 0.2s, 0.6s, 1.2s and so on until either the command succeeds or the maximum number of attempts is reached.
+
+The linear back-off was selected as a good middle ground between:
+- situations where the system is generally unstable-such as load-balancing issues-where max number of retries are preferred, and
+- situations where the system is suffering from a failure that lasts a few seconds-such as restart of a CloudFoundry VM-where it's preferable to wait before reattempting the command.
+
+#### Considerations
+
+Because of the retry policy described in <a href="resilience">Smoke tests resilience</a>, smoke tests will generally take longer than previous versions of PCF Redis to complete within environments with intermittent failures. If run regularly, e.g. as part of CI, they might last longer than the frequency of the automatic runs, queueing up executions. We recommend adjusting the frequency of the automatic smoke test runs based on the amount of time they take to complete.
+
+The above retry policy does not guard against a more permanent CloudFoundry downtime or network connectivity issues. In this case, commands will fail after the maximum number of attempts and might leave claimed instances behind. We recommend disabling automatic smoke test runs and manually releasing any claimed instances in case of upgrades or scheduled downtimes.
+
 ### Troubleshooting
 
 If errors occur while the smoke tests run, they will be summarised at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
