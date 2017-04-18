@@ -52,7 +52,7 @@ The linear back-off was selected as a good middle ground between:
 
 #### Considerations
 
-Because of the retry policy described in <a href="resilience">Smoke tests resilience</a>, smoke tests will generally take longer than previous versions of PCF Redis to complete within environments with intermittent failures. If run regularly, e.g. as part of CI, they might last longer than the frequency of the automatic runs, queueing up executions. We recommend adjusting the frequency of the automatic smoke test runs based on the amount of time they take to complete.
+Because of the retry policy described in <a href="#resilience">Smoke tests resilience</a>, smoke tests will generally take longer than previous versions of PCF Redis to complete within environments with intermittent failures. If run regularly, e.g. as part of CI, they might last longer than the frequency of the automatic runs, queueing up executions. We recommend adjusting the frequency of the automatic smoke test runs based on the amount of time they take to complete.
 
 The above retry policy does not guard against a more permanent CloudFoundry downtime or network connectivity issues. In this case, commands will fail after the maximum number of attempts and might leave claimed instances behind. We recommend disabling automatic smoke test runs and manually releasing any claimed instances in case of upgrades or scheduled downtimes.
 
