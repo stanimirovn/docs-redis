@@ -8,19 +8,24 @@ This topic also presents a checklist that you can use to decide if Redis for PCF
 
 ##<a id="intro"></a> Introduction
 
-Redis for PCF v1.8 introduces dynamically provisioned, configurable Redis instances. These instances allow for additional configuration of Redis by both the
-Operator and App Developer, and for App Developers to create Redis instances as needed.
+Redis for PCF v1.8 introduces dynamically provisioned, configurable Redis instances. With 1.8, Operators can enable types of plans and App Developers can provision
+instances of those plans from the CLI. Additionally, these instances allow for configuration of select Redis settings by both the
+Operator and App Developer.
 
 ## <a id="features"></a>New in This Release
 
 The following features are new in Redis for PCF v1.8:
 
-+ <strong>Operator-enabled plans</strong> — Operators can enabled and configure three service plans for dynamically provisioned instances with different memory and disk sizes.
-+ <strong>Operator set properties</strong> - Operators can set select Redis properties for each plan.
-+ <strong>Optimized for cache use cases</strong> - The default `maxmemory` setting for these plans is `allkeyslru`. This can be updated by the app developer to other cache options.
-+ <strong>Quotas</strong> — Operators can set instance quotas for individual plans as well as globally.
-+ <strong>App-Developer provisioned instances</strong> — App Developers can provision an Operator-configured plan from the command line.
-+ <strong>App-developer set arbitrary parameters</strong> — App developers can set select Redis properties for each instance.
++ <strong>Operator enabled plans</strong> — Operators can enable and configure three service plans for dynamically provisioned instances with different memory and disk sizes.
++ <strong>Operator set Redis properties</strong> - Operators can set select Redis properties for each plan.
++ <strong>Optimized for cache use cases</strong> - The default `maxmemory` setting for these plans is `allkeyslru`. This can be updated by the App d
+Developer to other cache options.
++ <strong>Quotas</strong> — Operators can set plan-level quotas and a global quota across all on-demand instances.
++ <strong>App Developer provisioned instances</strong> — App Developers can provision an Operator-configured plan from the command line.
++ <strong>App Developer set Redis properties via arbitrary parameters</strong> — App Developers can set select Redis settings for each instance.
+
+## <a id="known_issues"></a>Known Issues
++ A bug with the version of Redis used means that setting `lua-timeout-limit` (which App Developers can now do from the CLI) will not have any effect.
 
 ##<a id="checklist"></a> Enterprise-Ready Checklist
 
@@ -28,8 +33,8 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
 
 <table border="1" class="nice">
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
-<tr><td>Dedicated and shared plans</td><td>Redis for PCF provides on-demand instances, dedicated VM and shared VM plans.</td><td><a href="/redis/1-8/architecture.html#plans">Plans</a></td></tr>
-<tr><td>Customizable plans</td><td>For the dedicated VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
+<tr><td>On-Demand, Dedicated-VM and Shared-VM plans</td><td>Redis for PCF provides on-demand instances, dedicated VM and shared VM plans.</td><td><a href="/redis/1-8/architecture.html#plans">Plans</a></td></tr>
+<tr><td>Customizable plans</td><td>For the On-Demand Plan and Dedicated-VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
 
 <tr><th colspan=2>Installation and Upgrades</th><th>More Information</th></tr>
 <tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.6 and v1.7 tiles</td>
@@ -46,7 +51,7 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
 <tr><td>Scale</td><td>Redis for PCF has been tested with 60GB of data</td><td></td></tr>
-<tr><td>On-Demand Instances</td><td>Redis for PCF provides up to 50 on-demand instances across plans</td><td></td></tr>
+<tr><td>On-Demand Plan</td><td>Redis for PCF provides up to 50 on-demand instances across plans</td><td></td></tr>
 <tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
 <tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="/redis/1-8/installing.html#upgrades">Upgrades</a></td></tr>
 <tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
@@ -59,7 +64,7 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
 </table>
 
 
-## <a id="other-notes"></a>About Multiple AZs in Redis for PCF v1.7
+## <a id="other-notes"></a>About Multiple AZs in Redis for PCF v1.8
 
 Redis for PCF v1.8 supports configuring multiple AZs.
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.

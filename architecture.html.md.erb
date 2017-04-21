@@ -5,11 +5,11 @@ owner: London Services
 
 ## <a id ="config"></a>How Redis for PCF Configures Redis
 
-For On-Demand VMs, certain Redis configurations can be set by the operator during plan configuration,
- and by the app developer during instance provisioning. Other Redis configurations cannot be changed from the default.
+For On-Demand Plans, certain Redis configurations can be set by the operator during plan configuration,
+ and by the App Developer during instance provisioning. Other Redis configurations cannot be changed from the default.
 
- + Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`. Please see the Operator guide for more detail.
- + App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`, `lua-time-limit`,`slowlog-log-slower-than`,`slowlog-max-len`. Please see the App Developer guide for more detail.
+ + Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`. Please see the Operator Guide section of this documentation for more detail.
+ + App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`,`slowlog-log-slower-than`,and `slowlog-max-len`. Please see the App Developer guide of this documentation for more detail.
 
 For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
 A sample `redis.conf` from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
@@ -30,7 +30,7 @@ this number is adjusted by Redis according to the number of file handles availab
 Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
 
 ### On-Demand Plans
-* These plans are operator-configured and enabled. Once enabled, app developers can provision a Redis instance from that plan.
+* These plans are Operator-configured and enabled. Once enabled, App Developers can provision a Redis instance from that plan.
 * You can disable any of the three on-demand plans in the plan's page in OpsManager.
 * The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
