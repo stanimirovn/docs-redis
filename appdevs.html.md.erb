@@ -18,19 +18,19 @@ For On-Demand plans, Redis has default configurations that App Developers can ch
     <td>`maxmemory-policy`</td>
     <td>`allkeys-lru`</td>
     <td>`allkeys-lru`, `noeviction`, `volatile-lru`, `allkeys-random`, `volatile-ttl`</td>
-    <td>Mandatory parameter. Sets the behavior Redis follows when `maxmemory` is reached</td>
+    <td>Sets the behavior Redis follows when `maxmemory` is reached</td>
   </tr>
   <tr>
     <td>`notify-keyspace-events`</td>
     <td>""</td>
     <td>Set a combination of the following characters (e.g., "Elg"): K, E, g, $, l, s, h, z, x, e, A</td>
-    <td>Mandatory parameter. Sets the keyspace notifications for events that affect the Redis data set</td>
+    <td>Sets the keyspace notifications for events that affect the Redis data set</td>
   </tr>
   <tr>
     <td>`lua-time-limit`</td>
     <td>5000</td>
     <td>0-10000</td>
-    <td>Sets the maximum time in milliseconds for a lua script to execute. </td>
+    <td>Sets the maximum time in milliseconds for a lua script to execute.</td>
   </tr>
   <tr>
     <td>`slowlog-log-slower-than`</td>
@@ -46,7 +46,7 @@ For On-Demand plans, Redis has default configurations that App Developers can ch
   </tr>
 </table>
 
-For Dedicated-VM and Shared-VM plans, Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available.
+For Dedicated-VM and Shared-VM plans, Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available.
  Persistence is configured for both RDB and AOF. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available.
  Replication and event notification are not configured.
 
