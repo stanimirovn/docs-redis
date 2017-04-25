@@ -41,12 +41,12 @@ To calculate the maximum IaaS cost/ usage you have configured:
 
 1. For the plan using the largest VM and Disk size, multiply the resource by the quota stated on the plan page.For example, if the plan is using `m4.xlarge` and the plan quota is 10 with a global quota of 15, at most you would be using 10 `m4.xlarge` instances.  If the plan level quota exceeds the global quota, instead multiple the resource by the global quota as this quota supercedes all other quotas.
 1. If (Global Quota - Large Plan Quota) > 0, navigate to the plan using the next largest VM and disk size and multiply the number of remaining instances (Global Quota - Large Plan Quota) by that resource. Continuing from the example above, if the plan is using `m3.medium` and the plan quota is 10 with a global quota of 15, at most you would be using 5 `m3.medium` instances.
-1. Continue this process until the instances provisioned  have reached the Global Quota.
+1. Continue this process until the instances provisioned have reached the Global Quota.
 
 To calculate the current IaaS cost/ usage across On-Demand plans:
 
-1. Current useage can be found by looking at the service broker metrics as [documented here](./monitoring.html#useage)
-1. Multiple the `total_instances` for each plan by that plan's resources. 
+1. Current useage can be found by looking at the service broker metrics as [documented here](./monitoring)
+1. Multiple the `total_instances` for each plan by that plan's resources.
 
 ### Dedicated-VM Plan
 
