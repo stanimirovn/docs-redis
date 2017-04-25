@@ -134,6 +134,37 @@ The following procedures describe how to bind a Redis service instance to your P
     $ cf restage APPLICATION-NAME
     </pre>
 
+    ## <a id="vcap-services"></a>Entries in the VCAP_SERVICES Environment Variable
+
+Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called VCAP_SERVICES.
+An example hash is show below:
+<pre>
+  <code>
+    {
+      "p-redis": [{
+        "credentials": {
+             "host": "10.0.0.11",
+             "password": "<redacted>",
+             "port": 6379
+        },
+        "label": "p-redis",
+        "name": "redis",
+        "plan": "dedicated-vm",
+        "provider": null,
+        "syslog_drain_url": null,
+        "tags": [
+         "pivotal",
+         "redis"
+        ],
+        "volume_mounts": []
+      }]
+    }
+  </code>
+</pre>
+
+You can search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.
+
+
 ## <a id="delete"></a>Deleting a Redis Instance
 
 When you delete a Redis service instance, all applications that are bound to that service are automatically unbound and any data in the service instance is cleared.
