@@ -84,21 +84,21 @@ The default VM size is small; it is important that the operator set the correct 
 1.  Click the **Save** button.
 
 ##  <a id="securecomms"></a>Configuring Secure Communication
-Redis for PCF v1.7.2 adds the ability for the operator to turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
-page in Ops Manager. You should configure this checkbox for different versions of PCF as follow:
+Redis for PCF v1.7.2 lets the operator turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
+page in Ops Manager. Configure this checkbox for different versions of PCF as follows:
 
-* **PCF v1.8**: This checkbox must be checked for metrics to be emitted to the
-Firehose.
+* **PCF v1.8**: Select this checkbox to send metrics to the
+Firehose. 
 
-* **PCF v1.9**: Metrics communications are secure by default but will work in a non-secure mode.
+* **PCF v1.9**: Clear this checkbox to send metrics to the Firehose securely, or select it to send metrics insecurely. 
 
-* **PCF v1.10 and later**: Metrics communications are secure by
-default so this checkbox must be unchecked for metrics to be emitted to the Firehose.
+* **PCF v1.10 and later**: Clear this checkbox to send metrics to the Firehose and avoid errors. 
 
 ![Configuring Secure Metrics](Enable-TLS.png)
 
-If this checkbox is incorrectly set, the following error will be displayed: `Cannot generate manifest for product Redis: Error in (( .properties.metrics_disable_etcd_tls.value ? .properties.null_string.value : ..cf.properties.cf_etcd_client_cert.cert_pem )): unknown property "cf_etcd_client_cert" (Product "Redis" / Job: nil)`
+Setting this checkbox incorrectly can cause a `Cannot generate manifest... unknown property "cf_etcd_client_cert"` error:
 
+![Configuring Secure Metrics error](TLS-error.png)
 
 ### <a id="syslog"></a>Configure Syslog Output
 
