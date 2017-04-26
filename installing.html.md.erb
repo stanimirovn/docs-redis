@@ -16,10 +16,10 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 ## <a id="configuration"></a>Configuring PCF Redis
 
 ###  <a id="service-plans"></a>Configure Redis Service Plans
- 
+
 Select the **Redis** tile from the Installation Dashboard to display the configuration page and allocate resources to Redis service plans.
 
-####  <a id="shared-vm-config"></a>Shared-VM Plan 
+####  <a id="shared-vm-config"></a>Shared-VM Plan
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 ![shared vm config](shared-vm-config.png)
@@ -79,9 +79,25 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ![dedicated vm config](dedicated-vm-config.png)
 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
-The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM. 
+The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM.
 
 1.  Click the **Save** button.
+
+##  <a id="securecomms"></a>Configuring Secure Communication
+Redis for PCF v1.7.2 adds the ability for the operator to turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
+page in Ops Manager. You should configure this checkbox for different versions of PCF as follow:
+
+* **PCF v1.8**: This checkbox must be checked for metrics to be emitted to the
+Firehose.
+
+* **PCF v1.9**: Metrics communications are secure by default but will work in a non-secure mode.
+
+* **PCF v1.10 and later**: Metrics communications are secure by
+default so this checkbox must be unchecked for metrics to be emitted to the Firehose.
+
+![Configuring Secure Metrics](Enable-TLS.png)
+
+If this checkbox is incorrectly set, the following error will be displayed: `Cannot generate manifest for product Redis: Error in (( .properties.metrics_disable_etcd_tls.value ? .properties.null_string.value : ..cf.properties.cf_etcd_client_cert.cert_pem )): unknown property "cf_etcd_client_cert" (Product "Redis" / Job: nil)`
 
 
 ### <a id="syslog"></a>Configure Syslog Output
@@ -95,7 +111,6 @@ Pivotal recommends that operators configure a syslog output.
     ![syslog configuration](syslog-forwarding.png)
 
 1.  Click the **Save** button.
-
 
 ### <a id="backup"></a>Creating Backups of Redis Instances
 
@@ -112,7 +127,7 @@ The key features are:
 * Backups are labelled with timestamp, instance GUID and plan name
 
 #### Configuration
-To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage. 
+To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage.
 
 Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
 ![OpsManager Backups view](redis-backup.png)
@@ -206,8 +221,8 @@ PCF Redis uses service account credentials to upload backups to Google Cloud Sto
 For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. Redis' BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.
 
 
-### <a id="azs"></a>Networks, Security, and Assigning AZs 
-                 
+### <a id="azs"></a>Networks, Security, and Assigning AZs
+
 ####  <a id="network-configuration"></a>Network Configuration
 
 The following ports and ranges are used in this service:
@@ -224,7 +239,7 @@ To allow this service to have network access you must create [Application Securi
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
-##### Application Container Network Connections 
+##### Application Container Network Connections
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 
@@ -260,7 +275,7 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
     "ports": "6379"
   }
 ]
-```  
+```
 
 ####  <a id="az-config"></a>Assigning AZs
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
@@ -276,7 +291,7 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 ### Smoke tests
 
 Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="/redis/1-6/smoke-tests.html">here</a>.
-                
+
 ## <a id="upgrades"></a>Upgrading Redis for PCF
 
 This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
@@ -301,7 +316,7 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 When a new version of Redis is released we aim to release a new version of the product containing this soon after.
 
-Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours. 
+Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours.
 
 ## <a id="uninstall"></a>Uninstalling Redis for PCF
 

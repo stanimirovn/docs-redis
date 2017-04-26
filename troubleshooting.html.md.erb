@@ -28,6 +28,24 @@ General troubleshooting guides for Pivotal Cloud Foundry:
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
+  <td><code>Cannot generate manifest for product Redis: Error in (( .properties.metrics_disable_etcd_tls.value ? .properties.null_string.value : ..cf.properties.cf_etcd_client_cert.cert_pem )): unknown property "cf_etcd_client_cert" (Product "Redis" / Job: nil)</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>You are using PCF 1.10 and did not untick the `Use non-secure communication for metrics` checkbox on the metrics configuration page in Ops Manager. </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Please untick the checkbox and redeploy. See <a href="https://docs.pivotal.io/redis/1-7/installing.html#securecomms">here</a> for more information.</td>
+</tr>
+</table>
+
+
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
   <td><code>Failed to target Cloud Foundry</code>
   </td>
 </tr>
