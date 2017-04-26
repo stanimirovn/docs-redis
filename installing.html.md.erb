@@ -23,6 +23,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 1. Navigate to the On-Demand Service Settings tab. Enter the global quota for all on-demand instances for every on demand plan. Guidance on how to understand the resource implications for on-demand instances.
 Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this must be ticked if an external blob store has been configured for bosh to use.
+![settings](on-demand-settings.png)
 
 1.  Select the tab with the plan name to configure the plan. Instances of the three opinionated plans are intended to be used as different cache sizes. The operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs.
   * **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.

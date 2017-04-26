@@ -41,7 +41,7 @@ To calculate the maximum cost/ usage for each plan:
 
 <pre>max_plan_resources = plan_quota x plan_resources</pre>
 
-To calculate the maximum cost across plans, add together the cost/ usage for each plan, while the number of provisioned instances is less than the global quota.
+To calculate the maximum cost across plans, add together the cost/ usage for each plan, while the quotas sum to less than the global quota.
 
 <pre>
 While (plan_1_quota + plan_2_quota) ≤ global_quota:
