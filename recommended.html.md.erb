@@ -29,24 +29,34 @@ Redis can be used in many different ways, including:
 * The default `maxmemory` policy is `allkeyslru` and can be updated for other cache policies.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 
-#### Resource Useage Planning
+#### Resource Usage Planning
 
 <p class="note">
 Redis On-Demand plans use dedicated VM and disks, which will consume IaaS resources. Operators can set global and plan quotas, but resource usage will vary based on number of On-Demand instances provisioned by App Developers.
 </p>
 
-On-Demand resource usage is managed by both plan and global quotas. Once the number of instances equates the global quota set on your 'On Demand Service Settings' page, no new instances can be provisioned even if the plan quota has not yet been reached. This means that your resource usage can vary as the number and type of instances provisioned changes.
+On-Demand resource usage is managed by both plan and global quotas. Once the number of instances is greater or equal to the global quota set on your 'On Demand Service Settings' page, no new instances can be provisioned even if the plan quota has not yet been reached. This means that resource usage can vary as the number and type of instances provisioned changes.
 
-To calculate the maximum IaaS cost/ usage you have configured:
+To calculate the maximum cost/ usage for each plan:
 
-1. For the plan using the largest VM and Disk size, multiply the resource by the quota stated on the plan page.For example, if the plan is using `m4.xlarge` and the plan quota is 10 with a global quota of 15, at most you would be using 10 `m4.xlarge` instances.  If the plan level quota exceeds the global quota, instead multiple the resource by the global quota as this quota supercedes all other quotas.
-1. If (Global Quota - Large Plan Quota) > 0, navigate to the plan using the next largest VM and disk size and multiply the number of remaining instances (Global Quota - Large Plan Quota) by that resource. Continuing from the example above, if the plan is using `m3.medium` and the plan quota is 10 with a global quota of 15, at most you would be using 5 `m3.medium` instances.
-1. Continue this process until the instances provisioned have reached the Global Quota.
+<math>max_plan_resources = plan_quota x plan_resources (disk, VM)</math>
+
+To calculate the maximum cost across plans:
+
+ This comes from adding together your cost for each plan, until the global quota is reached.
+
+<math>
+While (plan_1_quota + plan_2_quota < global_quota):
+
+max_resources = ( plan_1_quota x plan_1_resources (disk, VM) ) + ( plan_2_quota x plan_2_resources (disk, VM) )
+</math>
 
 To calculate the current IaaS cost/ usage across On-Demand plans:
 
-1. Current useage can be found by looking at the service broker metrics as [documented here](monitoring.html)
-1. Multiple the `total_instances` for each plan by that plan's resources.
+1. Current useage can be found by looking at the service broker metrics as [documented here](monitoring.html#usage)
+1. Multiple the `total_instances` for each plan by that plan's resources. Sum all plans that are active to get your total current usage
+
+<math>current_usage = (plan_1_total_instances x plan_1_resources) + (plan_2_total_instances x plan_2_resources)</math>
 
 ### Dedicated-VM Plan
 
