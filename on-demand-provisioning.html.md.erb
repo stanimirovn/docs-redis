@@ -33,27 +33,27 @@ If the Operator updates the VM size, disk size, or the Redis configuration setti
     <th>Description</th>
   </tr>
   <tr>
-    <td>timeout</td>
+    <td>Redis Client Timeout</td>
     <td>3600</td>
     <td>Server timeout for an idle client specified in seconds (e.g., 3600).</td>
   </tr>
   <tr>
-    <td>tcp-keepalive</td>
+    <td>Redis TCP Keepalive</td>
     <td>60</td>
     <td>The max number of connected clients at the same time.</td>
   </tr>
   <tr>
-    <td>maxclients</td>
+    <td>Max Clients</td>
     <td>1000/5000/10000 (small/medium/large)</td>
     <td>The max number of connected clients at the same time.</td>
   </tr>
   <tr>
-    <td>lua scripting</td>
+    <td>Lua Scripting</td>
     <td>Enabled</td>
     <td>Enable/Disable Lua scripting</td>
   </tr>
   <tr>
-    <td>Plan quota</td>
+    <td>Plan Quota</td>
     <td>20</td>
     <td>Maximum number of Redis service instances for this plan, across all orgs and spaces.</td>
   </tr>
@@ -69,31 +69,25 @@ Application Developers can configure their Redis instances with arbitrary parame
     <th>Description</th>
   </tr>
   <tr>
-    <td>`maxmemory-policy`</td>
-    <td>`allkeys-lru`</td>
-    <td>`allkeys-lru`, `noeviction`, `volatile-lru`, `allkeys-random`, `volatile-ttl`</td>
+    <td><code>maxmemory-policy</code></td>
+    <td><code>allkeys-lru</code></td>
+    <td><code>allkeys-lru</code>, <code>noeviction</code>, <code>volatile-lru</code>, <code>allkeys-random</code>, <code>volatile-ttl</code></td>
     <td>Mandatory parameter. Sets the behavior Redis follows when `maxmemory` is reached</td>
   </tr>
   <tr>
-    <td>`notify-keyspace-events`</td>
+    <td><code>notify-keyspace-events</code></td>
     <td>""</td>
     <td>Set a combination of the following characters (e.g., "Elg"): K, E, g, $, l, s, h, z, x, e, A</td>
-    <td>Mandatory parameter. Sets the keyspace notifications for events that affect the Redis data set</td>
+    <td>Sets the keyspace notifications for events that affect the Redis data set</td>
   </tr>
   <tr>
-    <td>`lua-time-limit`</td>
-    <td>5000</td>
-    <td>0-10000</td>
-    <td>Sets the maximum time in milliseconds for a lua script to execute. </td>
-  </tr>
-  <tr>
-    <td>`slowlog-log-slower-than`</td>
+    <td><code>slowlog-log-slower-than</code></td>
     <td>10000</td>
     <td>0-20000</td>
     <td>Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog.</td>
   </tr>
   <tr>
-    <td>`slowlog-max-len`</td>
+    <td><code>slowlog-max-len</code></td>
     <td>128</td>
     <td>1-2024</td>
     <td>Sets the length (count) of the slowlog queue.</td>
