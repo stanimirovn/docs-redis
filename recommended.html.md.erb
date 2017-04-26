@@ -39,24 +39,23 @@ If the number of on-demand instances is greater than or equal to the Global Quot
 
 To calculate the maximum cost/ usage for each plan:
 
-<code>max_plan_resources = plan_quota x plan_resources (disk, VM)</code>
+<pre>max\_plan\_resources = plan\_quota x plan\_resources (disk, VM)</pre>
 
 To calculate the maximum cost across plans:
 
  This comes from adding together your cost for each plan, until the global quota is reached.
 
-<code>
-While (plan_1_quota + plan_2_quota < global_quota):
-
-max_resources = ( plan_1_quota x plan_1_resources (disk, VM) ) + ( plan_2_quota x plan_2_resources (disk, VM) )
-</code>
+<pre>
+While (plan\_1\_quota + plan\_2\_quota < global\_quota):
+max\_resources = ( plan\_1\_quota x plan\_1\_resources (disk, VM) ) + ( plan\_2\_quota x plan\_2\_resources (disk, VM) )
+</pre>
 
 To calculate the current IaaS cost/ usage across On-Demand plans:
 
-1. Current instances provisioned for all plans can be found by referencing the `total_instance` metric as [documented here](monitoring.html#usage)
-1. Multiple the `total_instance` for each plan by that plan's resources. Sum all plans that are active to get your total current usage
+1. Current instances provisioned for all plans can be found by referencing the `total\_instance` metric as [documented here](monitoring.html#usage)
+1. Multiple the `total\_instance` for each plan by that plan's resources. Sum all plans that are active to get your total current usage
 
-<code>current_usage = (plan_1_total_instances x plan_1_resources) + (plan_2_total_instances x plan_2_resources)</code>
+<pre>current\_usage = (plan\_1\_total\_instances x plan\_1\_resources) + (plan\_2\_total\_instances x plan\_2\_resources)</pre>
 
 ### Dedicated-VM Plan
 
