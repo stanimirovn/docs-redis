@@ -6,7 +6,7 @@ owner: London Services
 ##  <a id="config"></a>Redis Configuration
 Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both RDB and AOF. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
 
-##  <a id="using"></a>Service Plans
+##  Service Plans
 PCF Redis offers Dedicated VM and Shared VM plans. The memory allocated to the plans is determined by the operator at deploy time. For more information on the plans see the [architecture](./architecture.html) and [recommended usage](./recommended.html) pages. 
 
 ##  <a id="using"></a>Using Redis for PCF
