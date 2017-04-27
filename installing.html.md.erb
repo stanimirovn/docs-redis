@@ -25,7 +25,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this must be ticked if an external blob store has been configured for bosh to use.
 ![settings](on-demand-settings.png)
 
-1.  Select the tab with the plan name to configure the plan. Instances of the three opinionated plans are intended to be used as different cache sizes. The operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs.
+1.  Three plans are provided for you. Instances of the three opinionated plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs.
   * **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
   * **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
   + **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br />
