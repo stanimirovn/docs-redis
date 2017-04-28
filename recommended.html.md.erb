@@ -29,7 +29,7 @@ Redis can be used in many different ways, including:
 * The default `maxmemory` policy is `allkeyslru` and can be updated for other cache policies.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 
-#### <a href="resources"></a> Resource Usage Planning for On-Demand plans
+#### <a id="resources"></a> Resource Usage Planning for On-Demand plans
 
 <p class="note">
 Redis On-Demand plans use dedicated VM and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
