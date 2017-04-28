@@ -15,31 +15,25 @@ For On-Demand plans, Redis has default configurations that App Developers can ch
     <th>Description</th>
   </tr>
   <tr>
-    <td>`maxmemory-policy`</td>
-    <td>`allkeys-lru`</td>
-    <td>`allkeys-lru`, `noeviction`, `volatile-lru`, `allkeys-random`, `volatile-ttl`</td>
+    <td><code>maxmemory-policy</code></td>
+    <td><code>allkeys-lru</code></td>
+    <td><code>allkeys-lru</code>, <code>noeviction</code>, <code>volatile-lru</code>, <code>allkeys-random</code>, <code>volatile-ttl</code></td>
     <td>Sets the behavior Redis follows when `maxmemory` is reached</td>
   </tr>
   <tr>
-    <td>`notify-keyspace-events`</td>
+    <td><code>notify-keyspace-events</code></td>
     <td>""</td>
     <td>Set a combination of the following characters (e.g., "Elg"): K, E, g, $, l, s, h, z, x, e, A</td>
     <td>Sets the keyspace notifications for events that affect the Redis data set</td>
   </tr>
   <tr>
-    <td>`lua-time-limit`</td>
-    <td>5000</td>
-    <td>0-10000</td>
-    <td>Sets the maximum time in milliseconds for a lua script to execute.</td>
-  </tr>
-  <tr>
-    <td>`slowlog-log-slower-than`</td>
+    <td><code>slowlog-log-slower-than</code></td>
     <td>10000</td>
     <td>0-20000</td>
     <td>Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog.</td>
   </tr>
   <tr>
-    <td>`slowlog-max-len`</td>
+    <td><code>slowlog-max-len</code></td>
     <td>128</td>
     <td>1-2024</td>
     <td>Sets the length (count) of the slowlog queue.</td>

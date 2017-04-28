@@ -22,26 +22,25 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 ####  <a id="on-demand-config"></a>On-Demand Plans
 
 1. Navigate to the On-Demand Service Settings tab. Enter the global quota for all on-demand instances for every on demand plan. Please review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
-Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this must be ticked if an external blob store has been configured for bosh to use.
+Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this the checkbox must be ticked if an external blob store has been configured for BOSH.
 ![settings](on-demand-settings.png)
 
-1.  Three plans are provided for you. Instances of the three opinionated plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs.
+1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs. <br/>
   * **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
   * **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
-  + **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br />
+  + **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br/>
 
 1. Configure the following settings for your plan. Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
-  * Choose to make the plan active or inactive.
-  * Set the plan name and description as they will appear in the service catalog.
-  * Set the access for the plan: accessible to all orgs/spaces, inaccessible to all orgs/spaces, leave as is (this setting does not modify the permissions that have been previously set and allows for manual access configured from the CLI).
+  * Choose to make the plan active or inactive. An inactive plan does not need any further configuration.
+  * Set the plan name and description. This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
+  * Set the plan quota. App Developers can create instances until this quota is reached.
+  * Set the access for the plan: accessible to all orgs, inaccessible to all orgs, or leave as is (this setting does not modify the permissions that have been previously set and allows for manual access to be configured from the CLI).
   * Select the AZ to deploy the Redis instances from the plan.
-  * Select the Server VM type and Server Disk type. We recommend that the **persistent disk should be at least
-3.5x the VM memory**.
+  * Select the Server VM type and Server Disk type. We recommend that the **persistent disk should be at least 3.5x the VM memory**.
   * Change the Redis Client Timeout from the default as needed. Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
   * Change the Redis TCP Keepaplive from the default as needed. Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
   * Change the Max Clients from the default as needed. Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
   * Enable or disable Lua Scripting as needed. The default settig is to have Lua Scripting enabled.
-  * Set the plan quota. App Developers can create instances until this quota is reached.
 ![on demand config](on-demand-config.png)
 
 1.  Click the **Save** button.
@@ -117,7 +116,7 @@ The default VM size is small; it is important that the operator set the correct 
 ### <a id="syslog"></a>Configure Syslog Output
 
 Pivotal recommends that operators configure a syslog output.
-Note that for On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared-VM plan instances are consistent with their previous format.
+For On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared-VM plan instances are consistent with their previous format.
 
 1.  Add the Syslog address, Syslog port and transport protocol of your log management tool.
 
@@ -131,7 +130,7 @@ Note that for On-Demand instances, all logs follow RFC5424 format. Dedicated-VM 
 ### <a id="backup"></a>Creating Backups of Redis Instances
 
 You can configure backups to be run for all instances, across dedicated-VM and shared-VM service plans.
-Backups are not available for On-Demand instances.
+**Backups are not available for On-Demand instances.**
 
 The key features are:
 
@@ -248,7 +247,9 @@ The following ports and ranges are used in this service:
 * Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
-* Destination port `8301` access to the consul server from the consul agent deployed on all redis VMs.
+* All Redis instances now have a consul agent co-located for service discovery and DNS.
+This means instances need to be able to listen on port `8301`
+* The redis-broker now listens on port `12350`.
 
 ####  <a id="asg"></a> Application Security Groups###
 
