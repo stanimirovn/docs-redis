@@ -24,12 +24,12 @@ Redis can be used in many different ways, including:
 
 ### On-Demand Plans
 * Each on-demand plan instance is deployed to its own VM and is suitable for production workloads.
-* The maximum-number of on-demand plan instances available to developers is set by the operator and enforced on both a global and per-plan level quota.
+* The maximum-number of on-demand plan instances available to developers is set by the operator and enforced on both a global and per-plan level quota. This quota cannot exceed 50.
 * Select Redis configurations can be changed from default.
 * The default `maxmemory` policy is `allkeyslru` and can be updated for other cache policies.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 
-#### Resource Usage Planning for On-Demand plans
+#### <a href="resources"></a> Resource Usage Planning for On-Demand plans
 
 <p class="note">
 Redis On-Demand plans use dedicated VM and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
