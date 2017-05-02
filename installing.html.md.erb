@@ -243,17 +243,17 @@ For each backup destination, the field `Backup timeout` causes backups to fail a
 
 The following ports and ranges are used in this service:
 
-* Destination port 80 access to the service broker from the cloud controllers
+* Destination port 12350 access to the legacy broker from the cloud controllers
+* Destination port 12345 access to the On-Demand broker from the cloud controllers
 * Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 * All Redis instances now have a consul agent co-located for service discovery and DNS.
 This means instances need to be able to listen on port `8301`
-* The redis-broker now listens on port `12350`.
 
 ####  <a id="asg"></a> Application Security Groups###
 
-To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
+To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
@@ -300,6 +300,8 @@ Assigning multiple AZs to Redis jobs will not guarantee high availability.
 
 All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
 
+Each On-Demand instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
+
 Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
 
 ![AZ Assignment Diagram](AZ-assignment.png)
@@ -308,7 +310,7 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ### Smoke tests
 
-Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="https://docs.pivotal.io/redis/1-6/smoke-tests.html">here</a>.
+Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="https://docs.pivotal.io/redis/1-8/smoke-tests.html">here</a>.
 
 ## <a id="upgrades"></a>Upgrading Redis for PCF
 

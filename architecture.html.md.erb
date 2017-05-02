@@ -55,6 +55,28 @@ Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
 * When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
 * You can disable this plan by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
 
+##  <a id="downtime"></a> Downtime for Redis
+
+Downtime is caused by a redeploy of the Redis tile. Here we attempt to clarify what changes will trigger a redeploy.
+
+In Ops Manager, any field that changes the manifest will cause a redeploy of the Redis tile. Any property changes in ERT listed here will trigger downtime for the Redis On-Demand Broker. Note that this list is current at the time of writing (May 2017) but that dependencies with changing products mean that it will change.
+<ul>
+  <li>Consul Server Resource Config (..cf.consul_server.ips)</li>
+  <li>Runtime System Domain ($runtime.system_domain)</li>
+  <li>Disable SSL certificate verification for this environment” in ERT
+(..cf.ha_proxy.skip_cert_verify.value)</li>
+  <li>Runtime Apps Domain ($runtime.apps_domain)</li>
+  <li>NATS Resource Config
+(..cf.nats.ips)</li>
+  <li>Service Networks in OpsManager
+($self.service_network)</li>
+</ul>
+
+
+For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier and changes in v1.8 to the legacy offering (Dedicated-VM and Shared-VM plans), downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
+
+
+
 ## <a id ="architecture"></a>Redis for PCF Architecture for On-Demand Service Plan
 
 This diagram shows how the architecture of the service broker and On Demand plans and how the user's app binds to a Redis instance.

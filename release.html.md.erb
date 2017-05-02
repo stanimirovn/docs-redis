@@ -7,11 +7,11 @@ owner: London Services
 
 **Compatibility**
 
-This release is compat forible with PCF 1.9+.
+This release is compatible with PCF 1.9+.
 
 Includes Redis 3.2.8.
 
-The redis-broker now lists on port `12350`.
+The redis-broker now listens on port `12350`.
 
 The On-Demand Service leverages the [On-Demand Broker v0.15.2](https://docs.pivotal.io/svc-sdk/odb/0-15/release-notes.html)
 
@@ -23,7 +23,6 @@ This means instances need to be able to listen on port `8301`.
 **Known Issues**
 
 `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
-
 
 
 
