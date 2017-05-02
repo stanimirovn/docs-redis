@@ -61,15 +61,15 @@ Downtime is caused by a redeploy of the Redis tile. Here we attempt to clarify w
 
 In Ops Manager, any field that changes the manifest will cause a redeploy of the Redis tile. Any property changes in ERT listed here will trigger downtime for the Redis On-Demand Broker. Note that this list is current at the time of writing (May 2017) but that dependencies with changing products mean that it will change.
 <ul>
-  <li>Consul Server Resource Config (..cf.consul_server.ips)</li>
-  <li>Runtime System Domain ($runtime.system_domain)</li>
+  <li>Consul Server Resource Config (..cf.consul\_server.ips)</li>
+  <li>Runtime System Domain ($runtime.system\_domain)</li>
   <li>Disable SSL certificate verification for this environment” in ERT
-(..cf.ha_proxy.skip_cert_verify.value)</li>
-  <li>Runtime Apps Domain ($runtime.apps_domain)</li>
+(..cf.ha\_proxy.skip\_cert\_verify.value)</li>
+  <li>Runtime Apps Domain ($runtime.apps\_domain)</li>
   <li>NATS Resource Config
 (..cf.nats.ips)</li>
   <li>Service Networks in OpsManager
-($self.service_network)</li>
+($self.service\_network)</li>
 </ul>
 
 
