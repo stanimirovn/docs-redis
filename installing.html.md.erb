@@ -23,6 +23,7 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 1. Navigate to the On-Demand Service Settings tab. Enter the global quota for all on-demand instances for every on demand plan. Please review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
 Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this the checkbox must be ticked if an external blob store has been configured for BOSH.
+<br/>
 ![settings](on-demand-settings.png)
 
 1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs. <br/>
