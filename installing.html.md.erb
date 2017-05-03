@@ -32,21 +32,26 @@ Additionally tick the checkbox to allow for outbound internet access. This is cr
   + **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br/>
 
 1. Configure the following settings for your plan. Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
-  * Choose to make the plan active or inactive. An inactive plan does not need any further configuration.
-  * Set the plan name and description. This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
-  * Set the plan quota. App Developers can create instances until this quota is reached.
-  * Set the access for the plan: accessible to all orgs, inaccessible to all orgs, or leave as is (this setting does not modify the permissions that have been previously set and allows for manual access to be configured from the CLI).
-  * Select the AZ to deploy the Redis instances from the plan.
-  * Select the Server VM type and Server Disk type. We recommend that the **persistent disk should be at least 3.5x the VM memory**.
-  * Change the Redis Client Timeout from the default as needed. Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
-  * Change the Redis TCP Keepaplive from the default as needed. Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
-  * Change the Max Clients from the default as needed. Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
-  * Enable or disable Lua Scripting as needed. The default settig is to have Lua Scripting enabled.
+  * **Make the plan active or inactive** - An inactive plan does not need any further configuration.
+  * **Set plan name and description** - This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
+  * **Set the plan quota** - App Developers can create instances until this quota is reached.
+  * **Set the access for the plan** accessible to all orgs, inaccessible to all orgs, or leave as is (this setting does not modify the permissions that have been previously set and allows for manual access to be configured from the CLI).
+  * **Set the AZ** - This is the AZ in which to deploy the Redis instances from the plan.
+  * **Select the Server VM type and Server Disk type** - We recommend that the **persistent disk should be at least 3.5x the VM memory**.
+  * **Adjust the Redis Client Timeout as needed** - Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
+  * **Adjust the Redis TCP Keepaplive from the default as needed** - Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
+  * **Adjust the Max Clients from the default as needed** - Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
+  * **Enable or disable Lua Scripting as needed** - The default settig is to have Lua Scripting enabled.
 ![on demand config](on-demand-config.png)
 
 1.  Click the **Save** button.
 
-Note: Operators can update certain plan settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
+Note: Operators can update certain settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
+
+
+If you wish to remove any On-Demand Service Plans from your tile:
+1. Navigate to the 'Resource Config' page on the Redis tile. Set the instances for all On-demand broker related jobs to 0 (includes 'Redis On-demand Broker', 'Register On-demand Redis Broker', 'Upgrade all On-demand Redis Service Instances', 'Degregister On-demand Redis Broker', 'On-Demand Broker SmokeTests').
+3. Navigage to the 'Errands' page on the Redis tile. Uncheck the Errands for 'Register On-demand Redis Broker', 'On-demand Broker Smoke Tests', 'Upgrade all On-demand Redis Service Instances' and 'Deregister On-demand Redis Broker'.
 
 
 ####  <a id="shared-vm-config"></a>Shared-VM Plan

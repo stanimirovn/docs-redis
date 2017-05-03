@@ -107,10 +107,6 @@ Application Developers can configure their Redis instances with arbitrary parame
   </tr>
 </table>
 
-## <a id="known_issues"></a>Known Issues
-+ Redis smoke tests currently do not reset CF Service Access after running tests. This means that On-Demand Serivce plans where the Operator has set the CF Service Access to be 'Disabled for all orgs and spaces' will have access reset to 'Limited' with only the redis-smoke-test-org able to access the plan.
-+ `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
-
 ##<a id="checklist"></a> Enterprise-Ready Checklist
 
 Review the following table to determine if Redis for PCF v1.8 has the features needed to support your enterprise.
