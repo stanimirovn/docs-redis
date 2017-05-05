@@ -8,7 +8,7 @@ This topic also presents a checklist that you can use to decide if Redis for PCF
 
 ##<a id="intro"></a> Introduction
 
-Redis for PCF v1.8 introduces the On-Demand Service Plan, which allows for dynamically provisioned, configurable Redis instances. The On-Demand service plan is configured by the Operator and instances of the plan can be created by the App Developer from the CF CLI through the `cf create-service` command. Redis for PCF v1.8 still offers Dedicated-VM and Shared-VM plans, which required the Operator  to specify at install time how many instances to create. The On-Demand service plan was designed to improve the flexibility in how and when instances are created and allows for more efficient and seamless resource use for both Operator and App Developer.
+Redis for PCF v1.8 leverages the [on demand service broker](https://docs.pivotal.io/svc-sdk/odb/0-15/) to provide dynamically provisioned, configurable Redis instances tailored for caching. Redis for PCF v1.8 also packages the p-redis service from the earlier Redis for PCF tiles. The Redis for PCF On-Demand service is designed to improve the flexibility in how and when instances are provisioned and allows for more efficient and seamless resource use for both Operator and App Developer. Additionally, both Operator and App Developer can configure essential Redis settings.
 
 ## <a id="features"></a>New in This Release
 
@@ -19,7 +19,7 @@ The following features are new in Redis for PCF v1.8:
 + <strong>Optimized for cache use cases</strong> - The default `maxmemory` setting for these plans is `allkeyslru`. This can be updated by the App d
 Developer to other cache options.
 + <strong>Quotas</strong> — Operators can set plan-level quotas and a global quota across all on-demand instances.
-+ <strong>App Developer provisioned instances</strong> — App Developers can provision an Operator-configured plan from the command line.
++ <strong>App Developer provisioned instances</strong> — App Developers can create an Operator-configured plan from the command line.
 + <strong>App Developer set Redis properties via arbitrary parameters</strong> — App Developers can set select Redis settings for each instance.
 
 ## <a id="service"></a>On Demand Service Plan Descriptions
