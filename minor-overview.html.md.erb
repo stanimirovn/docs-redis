@@ -85,7 +85,7 @@ Application Developers can configure their Redis instances with arbitrary parame
     <td><code>maxmemory-policy</code></td>
     <td><code>allkeys-lru</code></td>
     <td><code>allkeys-lru</code>, <code>noeviction</code>, <code>volatile-lru</code>, <code>allkeys-random</code>, <code>volatile-ttl</code></td>
-    <td>Mandatory parameter. Sets the behavior Redis follows when `maxmemory` is reached</td>
+    <td>Sets the behavior Redis follows when `maxmemory` is reached</td>
   </tr>
   <tr>
     <td><code>notify-keyspace-events</code></td>
@@ -113,20 +113,20 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
 
 <table border="1" class="nice">
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
-<tr><td>On-Demand, Dedicated-VM and Shared-VM plans</td><td>Redis for PCF provides on-demand instances, dedicated VM and shared VM plans.</td><td><a href="/redis/1-8/architecture.html#plans">Plans</a></td></tr>
+<tr><td>On-Demand, Dedicated-VM and Shared-VM plans</td><td>Redis for PCF provides On-Demand, dedicated VM and shared VM service plans.</td><td><a href="/redis/1-8/architecture.html#plans">Plans</a></td></tr>
 <tr><td>Customizable plans</td><td>For the On-Demand Plan and Dedicated-VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
 
 <tr><th colspan=2>Installation and Upgrades</th><th>More Information</th></tr>
-<tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.6 and v1.7 tiles</td>
+<tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.7 tiles</td>
      <td><a href="/redis/1-8/installing.html#upgrades">Upgrading Redis for PCF</a></td></tr>
 <tr><td>Deployment Smoke Tests</td><td>Redis for PCF installation and upgrade runs
         a post deployment BOSH errand that validates basic Redis operations</td>
     <td><a href="/redis/1-8/smoke-tests.html">Smoke Tests</a></td></tr>
 
 <tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
-<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.8 provides metrics for health monitoring and syslog redirection to external log ingestors.</td>
+<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.8 provides metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
     <td><a href="/redis/1-8/monitoring.html">Monitoring Redis for PCF</a></td></tr>
-<tr><td>Backup and Restore</td><td>Redis for PCF v1.8 provides automatic backups on a configurable schedule to a variety of destinations, as well as scripts for backup and restore of service instances.
+<tr><td>Backup and Restore</td><td>Redis for PCF v1.8 includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
 </td><td><a href="/redis/1-8/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
