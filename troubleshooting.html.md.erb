@@ -3,6 +3,17 @@ title: Troubleshooting On-Demand Redis
 owner: London Services Enablement
 ---
 
+<style>
+    .note.warning {
+        background-color: #fdd;
+        border-color: #fbb
+    }
+
+    .note.warning:before {
+        color: #f99;
+    }
+</style>
+
 This topic provides operators with basic instructions for troubleshooting on-demand Redis for Pivotal Cloud Foundry (PCF).
 Please refer to our [previous documentation](https://docs.pivotal.io/redis/1-7/troubleshooting.html) for troubleshooting the p-redis service (including Dedicated-VMs and Shared-VM Services)
 
@@ -92,7 +103,7 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%= partial '../../redis/odb/tshoot-comp-global-quotas' %>
 
-#### <a id="failing-jobs"></a>Failing Jobs and Unhealthy Instances
+#### <a id="failing-jobs"></a>Failing jobs and unhealthy instances
 
 <%= partial '../../redis/odb/tshoot-comp-failing-jobs' %>
 
@@ -100,7 +111,7 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 Instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks
 
-### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
+### <a id="parse-error"></a> Parse a Cloud Foundry (CF) Error Message
 
 Failed operations (create, update, bind, unbind, delete) result in an error message. You can retrieve the error message later by running the cf CLI command `cf service INSTANCE-NAME`.
 
@@ -119,12 +130,12 @@ Dashboard:
 Last Operation
 Status: create failed
 Message: Instance provisioning failed: There was a problem completing your request.
-     Please contact your operations team providing the following information:
-     service: redis-acceptance,
-     service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089,
-     broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac,
-     task-id: 442,
-     operation: create
+  Please contact your operations team providing the following information:
+  service: redis-acceptance,
+  service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089,
+  broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac,
+  task-id: 442,
+  operation: create
 Started: 2017-03-13T10:16:55Z
 Updated: 2017-03-13T10:17:58Z
 </pre>
@@ -139,11 +150,11 @@ The `broker-request-guid` maps to the portion of the On-Demand Broker log contai
 
 <%= partial '../../redis/odb/tshoot-tech-bosh-cf-access' %>
 
-### <a id="access-broker"></a>Access Broker Logs and VM(s)
+#### <a id="access-broker"></a>Access Broker Logs and VM(s)
 
 <%= partial '../../redis/odb/tshoot-tech-access-broker' %>
 
-### <a id="access-instance"></a>Access Service Instance Logs and VMs
+#### <a id="access-instance"></a>Access Service Instance Logs and VMs
 
 <%= partial '../../redis/odb/tshoot-tech-access-instance' %>
 
@@ -158,10 +169,10 @@ From the BOSH CLI, you can run service broker errands that manage the service br
 
 Before running any of these errands, set the service broker manifest in the BOSH CLI by doing the following:
 
-  1. Run `bosh deployments`.
-  1. In the **Name** column of the output, look or `grep` for a string of the form `p-rabbit-GUID`. This is the unique identifier for the broker in BOSH.
-  1. Run `bosh download manifest RABBIT-BROKER-GUID BROKER-MANIFEST.yml` with the unique string from the previous step and any filename you want to give the broker deployment manifest.
-  1. Run `bosh deployment BROKER-MANIFEST.yml` to select the broker deployment as the one to run broker errands against.
+1. Run `bosh deployments`.
+1. In the **Name** column of the output, look or `grep` for a string of the form `p-rabbit-GUID`. This is the unique identifier for the broker in BOSH.
+1. Run `bosh download manifest RABBIT-BROKER-GUID BROKER-MANIFEST.yml` with the unique string from the previous step and any filename you want to give the broker deployment manifest.
+1. Run `bosh deployment BROKER-MANIFEST.yml` to select the broker deployment as the one to run broker errands against.
 
 #### <a id="register-broker"></a>Register Broker
 
@@ -189,10 +200,10 @@ The errand does the following:
 - Retries any instances in the retry list until all are upgraded.
 
 <p class="note"><strong>Note</strong>:
-  If the operator has made plan config changes but has not run the `upgrade-all-service-instances` errand, because they want to do it at a later time,
-  and an app developer attempts `cf update-service -c {key: value}` before the upgrade happens they will see:
+  If the operator has made plan config changes but has not run the <code>upgrade-all-service-instances</code> errand, because they want to do it at a later time,
+  and an app developer attempts <code>cf update-service -c {key: value}</code> before the upgrade happens they will see:
   <code>
-    There is a pending change to your service instance, you must first run cf update-service <service_name> -c '{"apply-changes": true}', no other arbitrary parameters are allowed
+    There is a pending change to your service instance, you must first run cf update-service SERVICE_NAME -c '{"apply-changes": true}', no other arbitrary parameters are allowed
   </code>
 </p>
 
@@ -200,7 +211,7 @@ The errand does the following:
 
 <%= partial '../../redis/odb/tshoot-tech-delete-all' %>
 
-### <a id="detect-orphans"></a>Orphaned Service Instances
+### <a id="detect-orphans"></a>Detect Orphaned Instances Service Instances
 
 A service instance is defined as ‘orphaned’ when the BOSH deployment for the instance is still running, but the service is no longer registered in Cloud Foundry.
 
@@ -208,7 +219,7 @@ To clean up orphaned instances, perform the following action on each:
 <pre class="terminal">
 $ bosh delete deployment SERVICE-INSTANCE-GUID
 </pre>
-<p class="note warning">
+<p class="note">
 <strong>WARNING: </strong> This may leave IaaS resources in an unusable state.
 </p>
 
