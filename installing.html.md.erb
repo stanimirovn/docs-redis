@@ -49,9 +49,9 @@ Additionally tick the checkbox to allow for outbound internet access. This is cr
 Note: Operators can update certain settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
 
-If you wish to remove any On-Demand Service Plans from your tile:
-1. Navigate to the 'Resource Config' page on the Redis tile. Set the instances for all On-demand broker related jobs to 0 (includes 'Redis On-demand Broker', 'Register On-demand Redis Broker', 'Upgrade all On-demand Redis Service Instances', 'Degregister On-demand Redis Broker', 'On-Demand Broker SmokeTests').
-3. Navigage to the 'Errands' page on the Redis tile. Uncheck the Errands for 'Register On-demand Redis Broker', 'On-demand Broker Smoke Tests', 'Upgrade all On-demand Redis Service Instances' and 'Deregister On-demand Redis Broker'.
+If you wish to remove any On-Demand Service Plans from your tile: <br/>
+1. Navigate to the 'Resource Config' page on the Redis tile. Set the instances for all On-demand broker related jobs to 0 (includes 'Redis On-demand Broker', 'Register On-demand Redis Broker', 'Upgrade all On-demand Redis Service Instances', 'Degregister On-demand Redis Broker', 'On-Demand Broker SmokeTests'). <br/>
+1. Navigate to the 'Errands' page on the Redis tile. Uncheck the Errands for 'Register On-demand Redis Broker', 'On-demand Broker Smoke Tests', 'Upgrade all On-demand Redis Service Instances' and 'Deregister On-demand Redis Broker'.
 
 
 ####  <a id="shared-vm-config"></a>Shared-VM Plan

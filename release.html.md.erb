@@ -24,7 +24,8 @@ This means instances need to be able to listen on port `8301`.
 
 `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
 
-Redis smoketests currently do not reset service access after running tests. This means that On-Demand Serivce plans where the Operator has set the service access for plans set to be 'disable service access' will be reset to 'Limited Access' with only the redis-smoke-test-org able to access the plan.
+Redis smoke tests currently do not reset service access after running tests. This means that On-Demand Serivce plans where the Operator has set the service access for plans set to be 'disable service access' will be reset to 'Limited Access' with only the redis-smoke-test-org able to access the plan.
 
+Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
 Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
