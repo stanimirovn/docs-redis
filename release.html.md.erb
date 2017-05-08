@@ -28,4 +28,6 @@ Redis smoke tests currently do not reset service access after running tests. Thi
 
 Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
+The errand 'Upgrade all On-demand Redis Service Instances' when set to 'When Changed' will not always run when expected. Set the errand 'Upgrade all On-demand Redis Service Instances', located on the errands page, to 'on' to ensure all changes are implemented.
+
 Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
