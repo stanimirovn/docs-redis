@@ -19,33 +19,15 @@ Implemented Redis 3.2.8
 
 Adjusted smoketests to be more resilient to unresponsive factors external to Redis, which will reduce false failures.
 
-<strong> Bug Fixes</strong>
-
-No change
-
-<strong> Known Issues </strong>
-
-
 ## <a id="1.7.4"></a>Redis for PCF v1.7.4
 
 **April 5, 2017**
 
 <strong>Compatibility</strong>
 
-No change. Please note the change to metrics configuration introduced in 1.7.2.
-
-<strong> Features</strong>
-
-No change
-
-<strong> Bug Fixes</strong>
+Please note the change to metrics configuration introduced in 1.7.2.
 
 Fix an issue with process watcher being restarted every two/three hours.
-
-Fix an issue that was preventing the tile from using floating stemcells.
-
-<strong> Known Issues </strong>
-
 
 ## <a id="1.7.3"></a>Redis for PCF v1.7.3
 
@@ -55,19 +37,11 @@ Fix an issue that was preventing the tile from using floating stemcells.
 
 No change. Please note the change to metrics configuration introduced in 1.7.2 as this still applies.
 
-<strong> Features</strong>
-
-No change
-
 <strong> Bug Fixes</strong>
 
 Fix an issue with Redis being restarted every three hours. This issue was introduced in Redis for PCF 1.7.1 and also exists in 1.7.2.
 
 ## <a id="1.7.2"></a>Redis for PCF v1.7.2
-
-<strong> Known Issues </strong>
-
-1.7.3 does not allow for floating stemcells.
 
 **February 16, 2017**
 
@@ -86,32 +60,15 @@ Firehose.
 * **PCF v1.10 and later**: Metrics communications are secure by
 default so this checkbox must be unchecked for metrics to be emitted to the Firehose.
 
-<strong> Features</strong>
-
-No change
-
-<strong> Bug Fixes</strong>
-
-No change
 
 <strong> Known Issues</strong>
 
 In order to enable TLS communications for metrics, the addition of a consul agent to all instances was required. This means there are now new open ports required.
 Please make changes to any firewall rules to allow outbound traffic from all Redis vm instances on port `8301`.
 
-1.7.2 does not allow for floating stemcells.
-
 ## <a id="1.7.1"></a>Redis for PCF v1.7.1
 
 **January 25, 2017**
-
-<strong> Compatibility</strong>
-
-No change
-
-<strong> Features</strong>
-
-No change
 
 <strong> Bug Fixes</strong>
 
@@ -125,16 +82,10 @@ Fix issue with very large files being restored.
 
 Upgrade to Golang v1.7.4
 
-<strong> Known Issues </strong>
-
-1.7.1 does not allow for floating stemcells.
 
 ## <a id="1.7.0"></a>Redis for PCF v1.7.0
 
 **December 22, 2016**
 
-<strong> Known Issues </strong>
-
-1.7.0 does not allow for floating stemcells.
 
 Release notes <a href="/redis/1-7/minor-overview.html">here</a>.
