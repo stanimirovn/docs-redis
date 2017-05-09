@@ -8,7 +8,9 @@ This topic also presents a checklist that you can use to decide if Redis for PCF
 
 ##<a id="intro"></a> Introduction
 
-Redis for PCF v1.8 leverages the [on demand service broker](https://docs.pivotal.io/svc-sdk/odb/0-15/) to provide dynamically provisioned, configurable Redis instances tailored for caching. Redis for PCF v1.8 also packages the p-redis service from the earlier Redis for PCF tiles. The Redis for PCF On-Demand service is designed to improve the flexibility in how and when instances are provisioned and allows for more efficient and seamless resource use for both Operator and App Developer. Additionally, both Operator and App Developer can configure essential Redis settings.
+Redis for PCF v1.8 introduces the On-Demand Service, which provides dedicated instances of configurable Redis instances tailored for caching that App Developers can provision on-demand from the command line. The Redis for PCF On-Demand service is designed to improve the flexibility in how and when instances are provisioned and allows for more efficient and seamless resource use for both Operator and App Developer. Additionally, both Operator and App Developer can configure essential Redis settings. Redis for PCF v1.8 also packages the p-redis service from the earlier Redis for PCF tiles.
+
+Redis for PCF's On-Demand Service leverages the [on-demand service broker](https://docs.pivotal.io/svc-sdk/odb/0-15/).
 
 ## <a id="features"></a>New in This Release
 
