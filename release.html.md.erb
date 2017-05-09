@@ -30,4 +30,7 @@ Redis smoke tests will fail if the number of instances of a certain plan have re
 
 The errand 'Upgrade all On-demand Redis Service Instances' when set to 'When Changed' will not always run when expected. Set the errand 'Upgrade all On-demand Redis Service Instances', located on the errands page, to 'on' to ensure all changes are implemented.
 
+Redis Backups to AWS S3 Limited to Standard Region. Backups are only sent to AWS S3 buckets that have been created in the [US Standard region] (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region), “us-east-1.”
+
+
 Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
