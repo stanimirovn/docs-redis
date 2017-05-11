@@ -31,9 +31,9 @@ Back ups are not available for On-Demand plans.
 * Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) and service broker adapter associated with this plan.
 * Any On-Demand plan can be disabled from the plan page in OpsManager.
 
-Limitations with the current `shared-vm` plan include:
+Limitations with the current `On-Demand` Service include:
 
-* Operators can update certain plan settings after the plans have been created.
+* Operators can update certain plan settings after the plans have been created. To ensure upgrades happen across all instances, set the 'upgrade instances' errand to 'on'.
 If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
 
@@ -99,10 +99,6 @@ Limitations with the current `dedicated-vm` plan include:
 
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
 * Cannot scale down the number of VMs on the plan once deployed.
-
-## <a id="high-availability"></a>Highly Available Deployments
-
-Redis for PCF 1.5 does not support configuring multiple availability zones or subnets.
 
 ## <a id="resources"></a>Default Resources
 

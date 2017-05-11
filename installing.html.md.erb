@@ -36,7 +36,7 @@ Additionally tick the checkbox to allow for outbound internet access. This is cr
   * **Set plan name and description** - This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
   * **Set the plan quota** - App Developers can create instances until this quota is reached.
   * **Set the access for the plan** accessible to all orgs, inaccessible to all orgs, or leave as is (this setting does not modify the permissions that have been previously set and allows for manual access to be configured from the CLI).
-  * **Set the AZ** - This is the AZ in which to deploy the Redis instances from the plan.
+  * **Set the AZ** - This is the AZ in which to deploy the Redis instances from the plan. This must be one of the AZs of the service network (configured in the Ops Manager Director tile). 
   * **Select the Server VM type and Server Disk type** - We recommend that the **persistent disk should be at least 3.5x the VM memory**.
   * **Adjust the Redis Client Timeout as needed** - Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
   * **Adjust the Redis TCP Keepaplive from the default as needed** - Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
