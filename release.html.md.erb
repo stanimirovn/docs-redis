@@ -10,6 +10,8 @@ owner: London Services
 
 This release is compatibles with Stemcells 3363.24+.
 
+The default setting for all post-deploy errands has been set to 'On'. This mitigates the 'When Changed' known issue mentioned in the 1.8.0 Release Notes.
+
 Please refer to compatibility referenced in 1.8.0 release notes below. No other changes have been made.
 
 **Features**
@@ -26,7 +28,9 @@ Allows for Redis backups to all AWS S3 regions.
 
 **Known Issues**
 
-Please refer to known issues in 1.8.0 release notes. No other changes have been made other than the bug fix referenced.
+The default errands specify that the default is 'When Changed' however the true default is 'On'.
+
+Please refer to known issues in 1.8.0 release notes. No other changes have been made other than the bug fixes referenced.
 
 
 ## Redis for PCF v1.8.1
@@ -75,8 +79,6 @@ This means instances need to be able to listen on port `8301`.
 **Known Issues**
 
 `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
-
-Redis smoke tests currently do not reset service access after running tests. This means that On-Demand Serivce plans where the Operator has set the service access for plans set to be 'disable service access' will be reset to 'Limited Access' with only the redis-smoke-test-org able to access the plan.
 
 Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
