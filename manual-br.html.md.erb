@@ -33,6 +33,9 @@ Triggering a manual backup of a large dump.rdb could take sufficiently long that
 
 Back ups are currently not available for On-Demand instances.
 
+1.8.2 enabled access to all AWS S3 regions (previously limited to the standard region, us-east-1). This requires specifying the region of your backup and the signature version used for your region. You can find this information [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region). In most cases the default signature version will be sufficient.
+
+
 ## Making Your Own Backups
 
 It is possible to create a back up of a Redis instance by hand, bypassing the automated backup tool altogether.

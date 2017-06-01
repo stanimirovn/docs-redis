@@ -3,6 +3,32 @@ title: Release Notes
 owner: London Services
 ---
 
+## Redis for PCF v1.8.2
+**June 1, 2017**
+
+**Compatibility**
+
+This release is compatibles with Stemcells 3363.24+.
+
+Please refer to compatibility referenced in 1.8.0 release notes below. No other changes have been made.
+
+**Features**
+
+Requires 2048-bit certificate length on Dedicated VMs .
+
+**Bug Fixes**
+
+Fixes a bug in 1.8.1 where Redis will periodically restart.
+
+Fixes the formatting for the new on-demand service in Apps Manager.
+
+Allows for Redis backups to all AWS S3 regions.
+
+**Known Issues**
+
+Please refer to known issues in 1.8.0 release notes. No other changes have been made other than the bug fix referenced.
+
+
 ## Redis for PCF v1.8.1
 **May 17, 2017**
 
@@ -10,7 +36,7 @@ owner: London Services
 
 This release is compatibles with Stemcells 3363.20+.
 
-Please refer to compatibility reference in 1.8.0 release notes below. No other changes have been made.
+Please refer to compatibility referenced in 1.8.0 release notes below. No other changes have been made.
 
 **Features**
 
@@ -21,6 +47,8 @@ No changes have been made to features. Please see our [overview](https://docs.pi
 Fixes a bug in 1.8.0 that causes a failure to install if the Director has a hostname configured in Ops Manager.
 
 **Known Issues**
+
+A bug exists where Redis will periodically restart.
 
 Please refer to known issues in 1.8.0 release notes. No other changes have been made other than the bug fix referenced.
 
