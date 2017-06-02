@@ -26,7 +26,9 @@ Allows for Redis backups to all AWS S3 regions.
 
 **Known Issues**
 
-The default errands specify that the default is 'When Changed' however the true default is 'On'.
+`lua-timeout-limit`, a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+
+Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
 
 
