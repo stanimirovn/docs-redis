@@ -13,6 +13,12 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backup).
 1. Click **Apply Changes** to install the service.
 
+After installing, be sure to:
+
++ Monitor the health and performance of your Redis instances by setting up [logging] (https://docs.pivotal.io/redis/1-8/installing.html#syslog)
++ Understand the usage of different plans by setting up tracking of [usage metrics] (https://docs.pivotal.io/redis/1-8/monitoring.html) and updating the quota per plan if you run into issues. 
++ Communicate with your App Developers to understand how the plans are meeting their use case. You can update your plans, including resource sizing if your App Developers need to grow beyond the current plan's resource size.
+
 ## <a id="configuration"></a>Configuring PCF Redis
 
 ###  <a id="service-plans"></a>Configure Redis Service Plans
