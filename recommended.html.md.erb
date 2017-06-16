@@ -7,7 +7,7 @@ owner: London Services
 
 Redis for PCF can be used as a datastore or cache.
 On-Demand plans, introduced in Redis for PCF v1.8, are designed for cache use cases.
-Dedicated-VM and Shared-VM plans are configured with `maxmemory-policy = noeviction` and RDB and AOF persistence.
+Dedicated-VM and Shared-VM plans are configured with `maxmemory-policy` = `no-eviction` and RDB and AOF persistence.
 
 Redis can be used in many different ways, including:
 
@@ -26,7 +26,7 @@ Redis can be used in many different ways, including:
 * Each on-demand plan instance is deployed to its own VM and is suitable for production workloads.
 * The maximum-number of on-demand plan instances available to developers is set by the operator and enforced on both a global and per-plan level quota. This quota cannot exceed 50.
 * Select Redis configurations can be changed from default.
-* The default `maxmemory` policy is `allkeyslru` and can be updated for other cache policies.
+* The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 
 #### <a id="resources"></a> Resource Usage Planning for On-Demand plans

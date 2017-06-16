@@ -5,7 +5,7 @@ owner: London Services
 
 ## <a id ="config"></a>Redis Configuration
 
-Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.  
+Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
 
 ## <a id="service"></a>Service Plan Descriptions
 
@@ -156,8 +156,8 @@ These are the default resource and IP requirements for installing the tile
 #### Notes:
 * The `shared-vm` plan is on the `Redis Broker` resource
 * The `dedicated-vm` plan is on the `Dedicated Node` resource
-  
-## <a id="security"></a>Security 
+
+## <a id="security"></a>Security
 
 It is recommended that each service run in its own network.
 
@@ -174,7 +174,7 @@ To allow this service to have network access you must create [Application Securi
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service will not be usable.</p>
 
-#### Application Container Network Connections 
+#### Application Container Network Connections
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 

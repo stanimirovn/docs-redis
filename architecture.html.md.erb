@@ -16,7 +16,7 @@ For On-Demand Plans, certain Redis configurations can be set by the operator dur
 For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
 A sample `redis.conf` from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
 
-+ Redis is configured with a `maxmemory-policy` of no-eviction. This policy means that when the memory is full, the service does
++ Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that when the memory is full, the service does
  not evict any keys or perform any write operations until memory becomes available.
 
 + Persistence is configured for both `RDB` and `AOF`.

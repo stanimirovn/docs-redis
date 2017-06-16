@@ -8,7 +8,7 @@ On-Demand plans are best fit for cache use cases. Certain Redis settings can be 
 * Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`. Please see the Operator guide for more detail.
 * App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`, `lua-time-limit`,`slowlog-log-slower-than`,`slowlog-max-l
 
-For Dedicated-VM and Shared-VM plans, Redis is configured with a maxmemory-policy of no-eviction. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
+For Dedicated-VM and Shared-VM plans, Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available. Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. Replication and event notification are not configured.
 
 ## <a id="service"></a>Service Plan Descriptions
 
