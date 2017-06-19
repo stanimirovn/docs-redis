@@ -7,7 +7,7 @@ owner: London Services
 
 To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops Manager tiles:
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis). Select the latest release from the **Releases:** drop-down list.
 1. Upload the product file to your Ops Manager installation.
 1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backup).
@@ -21,7 +21,7 @@ and updating the quota per plan if you run into issues.
 + Communicate with your App Developers to understand how the plans are meeting their use case. You can update your plans, 
 including resource sizing if your App Developers need to grow beyond the current plan's resource size.
 
-## <a id="configuration"></a>Configuring PCF Redis
+## <a id="configuration"></a>Configure Redis for PCF.
 
 ###  <a id="service-plans"></a>Configure Redis Service Plans
 
@@ -29,8 +29,10 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 ####  <a id="on-demand-config"></a>On-Demand Plans
 
-1. Navigate to the On-Demand Service Settings tab. Enter the global quota for all on-demand instances for every on demand plan. Please review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
-Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this the checkbox must be ticked if an external blob store has been configured for BOSH.
+1. Navigate to the **On-Demand Service Settings** tab. Enter the global quota for all on-demand instances for every on demand plan. 
+
+  Review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
+1. Tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
 <br/>
 ![settings](on-demand-settings.png)
 
