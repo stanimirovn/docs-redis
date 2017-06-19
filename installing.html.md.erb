@@ -36,12 +36,14 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 <br/>
 ![settings](on-demand-settings.png)
 
-1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs. <br/>
+1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs. 
+<br/>
   * **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
   * **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
   + **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br/>
 
 1. Configure the following settings for your plan. Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
+![on demand config](on-demand-config.png)
   * **Make the plan active or inactive** - An inactive plan does not need any further configuration.
   * **Set plan name and description** - This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
   * **Set the plan quota** - App Developers can create instances until this quota is reached.
@@ -52,7 +54,6 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
   * **Adjust the Redis TCP Keepaplive from the default as needed** - Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
   * **Adjust the Max Clients from the default as needed** - Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
   * **Enable or disable Lua Scripting as needed** - The default settig is to have Lua Scripting enabled.
-![on demand config](on-demand-config.png)
 
 1.  Click the **Save** button.
 
