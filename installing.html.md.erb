@@ -7,13 +7,21 @@ owner: London Services
 
 To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops Manager tiles:
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis). Select the latest release from the **Releases:** drop-down list.
 1. Upload the product file to your Ops Manager installation.
 1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backup).
 1. Click **Apply Changes** to install the service.
 
-## <a id="configuration"></a>Configuring PCF Redis
+After installing, be sure to:
+
++ Monitor the health and performance of your Redis instances by setting up [logging] (https://docs.pivotal.io/redis/1-8/installing.html#syslog).
++ Understand the usage of different plans by setting up tracking of [usage metrics] (https://docs.pivotal.io/redis/1-8/monitoring.html) 
+and updating the quota per plan if you run into issues. 
++ Communicate with your App Developers to understand how the plans are meeting their use case. You can update your plans, 
+including resource sizing if your App Developers need to grow beyond the current plan's resource size.
+
+## <a id="configuration"></a>Configure Redis for PCF.
 
 ###  <a id="service-plans"></a>Configure Redis Service Plans
 
@@ -21,17 +29,21 @@ Select the **Redis** tile from the Installation Dashboard to display the configu
 
 ####  <a id="on-demand-config"></a>On-Demand Plans
 
-1. Navigate to the On-Demand Service Settings tab. Enter the global quota for all on-demand instances for every on demand plan. Please review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
-Additionally tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. Additionally, this the checkbox must be ticked if an external blob store has been configured for BOSH.
+1. Navigate to the **On-Demand Service Settings** tab. Enter the global quota for all on-demand instances for every on demand plan. 
+
+  Review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
+1. Tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
 <br/>
 ![settings](on-demand-settings.png)
 
-1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs. <br/>
+1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs. 
+<br/>
   * **cache-small** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
   * **cache-medium** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
   + **cache-large** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br/>
 
 1. Configure the following settings for your plan. Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
+![on demand config](on-demand-config.png)
   * **Make the plan active or inactive** - An inactive plan does not need any further configuration.
   * **Set plan name and description** - This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
   * **Set the plan quota** - App Developers can create instances until this quota is reached.
@@ -42,7 +54,6 @@ Additionally tick the checkbox to allow for outbound internet access. This is cr
   * **Adjust the Redis TCP Keepaplive from the default as needed** - Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
   * **Adjust the Max Clients from the default as needed** - Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
   * **Enable or disable Lua Scripting as needed** - The default settig is to have Lua Scripting enabled.
-![on demand config](on-demand-config.png)
 
 1.  Click the **Save** button.
 
