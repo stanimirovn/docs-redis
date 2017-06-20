@@ -93,11 +93,11 @@ Redis for PCF v1.7.2 lets the operator turn on/off TLS communications for metric
 page in Ops Manager. Configure this checkbox for different versions of PCF as follows:
 
 * **PCF v1.8**: Select this checkbox to send metrics to the
-Firehose. 
+Firehose.
 
-* **PCF v1.9**: Clear this checkbox to send metrics to the Firehose securely, or select it to send metrics insecurely. 
+* **PCF v1.9**: Clear this checkbox to send metrics to the Firehose securely, or select it to send metrics insecurely.
 
-* **PCF v1.10 and later**: Clear this checkbox to send metrics to the Firehose and avoid errors. 
+* **PCF v1.10 and later**: Clear this checkbox to send metrics to the Firehose and avoid errors.
 
 ![Configuring Secure Metrics](Enable-TLS.png)
 
@@ -276,7 +276,7 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
 [
   {
     "protocol": "tcp",
-    "destination": "<code>ASSIGNED_NETWORK</code>",
+    "destination": "ASSIGNED_NETWORK",
     "ports": "6379"
   }
 ]
