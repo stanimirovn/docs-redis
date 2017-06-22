@@ -5,7 +5,7 @@ owner: London Services
 
 ## <a id="install"></a>Download and Install the Tile
 
-To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops Manager tiles:
+To add Redis for PCF to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis). Select the latest release from the **Releases:** drop-down menu.
 1. Upload the product file to your Ops Manager installation.
@@ -21,53 +21,111 @@ and updating the quota per plan if you run into issues.
 + Communicate with your App Developers to understand how the plans are meeting their use case. You can update your plans,
 including resource sizing if your App Developers need to grow beyond the current plan's resource size.
 
-## <a id="configuration"></a>Configure Redis for PCF
+##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
-###  <a id="service-plans"></a>Configure Redis Service Plans
+Select the **Redis** tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
+    ![config overview](redis-config-overview.png)
 
-Select the **Redis** tile from the Installation Dashboard to display the configuration page and allocate resources to Redis service plans.
+###  <a id="on-demand-config"></a>On-Demand Plans
 
-####  <a id="on-demand-config"></a>On-Demand Plans
+1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
+    ![settings](on-demand-settings.png)</br></br>
+    Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
+1. Tick the **Allow outbound internet access from service instances** checkbox. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
+1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
-1. Navigate to the **On-Demand Service Settings** tab. Enter the global quota for all on-demand instances for every on demand plan.
+    You can configure up to three cache plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
+</br>
+</br>
+    The default names of the three cache plans provided reflect that instances of these plans are intended to be used for different cache sizes, as follows:</br></br>
+    * **cache-small** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk
+    * **cache-medium** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk
+    * **cache-large** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk</br>
 
-  Review the guidance on how to understand the [resource implications for on-demand instances] (./recommended.html#resources).
-1. Tick the checkbox to allow for outbound internet access. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
-<br/>
-![settings](on-demand-settings.png)
-
-1.  Three opinionated plans are provided. Instances of these plans are intended to be used as different cache sizes, as reflected in the default settings for the plan. The Operator should configure appropriate memory and disk sizes, according to the use case. Examples are listed below. Note that resource configuration options may vary on different IAASs.
-<br/>
-  * **cache-small** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
-  * **cache-medium** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
-  + **cache-large** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk. <br/>
-
-1. Configure the following settings for your plan. Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
-![on demand config](on-demand-config.png)
-  * **Make the plan active or inactive** — An inactive plan does not need any further configuration.
-  * **Set plan name and description** — This is the information that will appear in the service catalog so specify details that will be relevant to App Developers.
-  * **Set the plan quota** — App Developers can create instances until this quota is reached.
-  * **Set the access for the plan** accessible to all orgs, inaccessible to all orgs, or leave as is (this setting does not modify the permissions that have been previously set and allows for manual access to be configured from the CLI).
-  * **Set the AZ** — This is the AZ in which to deploy the Redis instances from the plan. This must be one of the AZs of the service network (configured in the Ops Manager Director tile).
-  * **Select the Server VM type and Server Disk type** — Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.
-  * **Adjust the Redis Client Timeout as needed** — Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.
-  * **Adjust the Redis TCP Keepaplive from the default as needed** — Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.
-  * **Adjust the Max Clients from the default as needed** — Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
-  * **Enable or disable Lua Scripting as needed** — The default settig is to have Lua Scripting enabled.
+    ![on demand config](on-demand-config.png)
+    Configure the following settings for your cache plan(s). Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
+    <table class="nice">
+          <th>Field</th>
+          <th>Description</th>
+          <tr>
+            <td>**Plan**</td>
+            <td>Select Active or Passive. An inactive plan does not need any further configuration.</td>
+          </tr>
+          <tr>
+            <td>**Plan Name**</td>
+            <td>Enter a name that will appear in the service catalog.</td>
+          </tr>
+          <tr>
+            <td>**Plan Description**</td>
+            <td>Enter a description that will appear in the service catalog. Specify details that will be relevant to App Developers.</td>
+          </tr>
+          <tr>
+            <td>**Plan Quota**</td>
+            <td>App Developers can create instances until this quota is reached.</td>
+          </tr>
+          <tr>
+            <td>**CF Service Access**</td>
+            <td>Select a service access level. This setting does not modify the permissions that have been previously set, and allows for manual access to be configured from the CLI.</td>
+          </tr>
+          <tr>
+            <td>**AZ to deploy Redis instances of this plan**</td>
+            <td>This is the AZ in which to deploy the Redis instances from the plan. This must be one of the AZs of the service network (configured in the Ops Manager Director tile).</td>
+          </tr>
+          <tr>
+            <td>**Server VM type**</td>
+            <td>Select the VM type. Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
+          </tr>
+          <tr>
+            <td>**Server Disk type**</td>
+            <td>Select the disk type. Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
+          </tr>
+          <tr>
+            <td>**Redis Client Timeout**</td>
+            <td>Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600. Adjust this setting as needed.</td>
+          </tr>
+          <tr>
+            <td>**Redis TCP Keepalive**</td>
+            <td>Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60. Adjust this setting as needed.</td>
+          </tr>
+          <tr>
+            <td>**Max Clients**</td>
+            <td>Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large. Adjust this setting as needed.</td>
+          </tr>
+          <tr>
+            <td>**Lua Scripting**</td>
+            <td>Enable or disable Lua Scripting as needed. It is enabled by default.</td>
+          </tr>
+    </table>
 
 1.  Click the **Save** button.
 
-Note:
+#### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
-Operators can update certain settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
+Operators can update certain settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances that are already created. 
+
+Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
+
+#### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
+
+If you wish to remove any On-Demand Service Plans from your tile, do the following: <br/>
+
+1. Navigate to the **Resource Config** page in the Redis for PCF tile. 
+
+1. Set the instances for all On-demand broker related jobs to 0, including:
+    * Redis On-demand Broker 
+    * Register On-demand Redis Broker 
+    * Upgrade all On-demand Redis Service Instances 
+    * Degregister On-demand Redis Broker 
+    * On-Demand Broker SmokeTests**) <br/>
+
+1. Navigate to the **Errands** page on the Redis for PCF tile. Uncheck the errands for:
+    * Register On-demand Redis Broker
+    * On-demand Broker Smoke Tests
+    * Upgrade all On-demand Redis Service Instances
+    * Deregister On-demand Redis Broker
 
 
-If you wish to remove any On-Demand Service Plans from your tile: <br/>
-* Navigate to the 'Resource Config' page on the Redis tile. Set the instances for all On-demand broker related jobs to 0 (includes 'Redis On-demand Broker', 'Register On-demand Redis Broker', 'Upgrade all On-demand Redis Service Instances', 'Degregister On-demand Redis Broker', 'On-Demand Broker SmokeTests'). <br/>
-* Navigate to the 'Errands' page on the Redis tile. Uncheck the Errands for 'Register On-demand Redis Broker', 'On-demand Broker Smoke Tests', 'Upgrade all On-demand Redis Service Instances' and 'Deregister On-demand Redis Broker'.
-
-
-####  <a id="shared-vm-config"></a>Shared-VM Plan
+###  <a id="shared-vm-config"></a>Shared-VM Plan
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 ![shared vm config](shared-vm-config.png)
@@ -121,7 +179,7 @@ If you wish to remove any On-Demand Service Plans from your tile: <br/>
 
 1.  Click the **Save** button.
 
-####  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
+###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 ![dedicated vm config](dedicated-vm-config.png)
@@ -132,7 +190,7 @@ The default VM size is small; it is important that the operator set the correct 
 1.  Click the **Save** button.
 
 
-### <a id="syslog"></a>Configure Syslog Output
+## <a id="syslog"></a>Configure Syslog Output
 
 Pivotal recommends that operators configure a syslog output.
 For On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared-VM plan instances are consistent with their previous format.
@@ -146,9 +204,9 @@ For On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared
 1.  Click the **Save** button.
 
 
-### <a id="azs"></a>Networks, Security, and Assigning AZs
+## <a id="azs"></a>Networks, Security, and Assigning AZs
 
-####  <a id="network-configuration"></a>Network Configuration
+###  <a id="network-configuration"></a>Network Configuration
 
 The following ports and ranges are used in this service:
 
@@ -160,13 +218,13 @@ The following ports and ranges are used in this service:
 * All Redis instances now have a consul agent co-located for service discovery and DNS.
 This means instances need to be able to listen on port `8301`
 
-####  <a id="asg"></a> Application Security Groups###
+###  <a id="asg"></a> Application Security Groups###
 
 To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
-##### Application Container Network Connections
+#### Application Container Network Connections
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 
@@ -204,7 +262,7 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
 ]
 ```
 
-####  <a id="az-config"></a>Assigning AZs
+###  <a id="az-config"></a>Assigning AZs
 Assigning multiple AZs to Redis jobs will not guarantee high availability.
 
 All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
@@ -217,15 +275,13 @@ Each Dedicated-VM instance could be assigned to any of the configured availabili
 
 ## <a id="validation"></a>Validating Installation
 
-### Smoke Tests
-
 Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="https://docs.pivotal.io/redis/1-8/smoke-tests.html">here</a>.
 
 ## <a id="upgrades"></a>Upgrading Redis for PCF
 
 This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
 
-The upgrade paths are detailed [here](http://docs.pivotal.io/redis/1-6/index.html) for each released version.
+The upgrade paths are detailed [here](index.html#upgrading) for each released version.
 
 To upgrade the product:
 
@@ -249,4 +305,7 @@ Where there is a new version of Redis or another dependent software component su
 
 ## <a id="uninstall"></a>Uninstalling Redis for PCF
 
-To uninstall Redis for PCF, click on the trashcan icon in the lower right hand corner of the PCF Redis tile in the PCF Ops Manager Installation dashboard. Confirm deletion of the product and click apply changes.
+To uninstall Redis for PCF, do the following:
+
+1. In the PCF Ops Manager Installation dashboard, click the trash can icon in the lower right hand corner of the Redis for PCF tile. 
+1. Confirm deletion of the product, and then click **Apply Changes**.
