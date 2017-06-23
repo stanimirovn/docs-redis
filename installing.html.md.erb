@@ -26,8 +26,9 @@ including resource sizing if your App Developers need to grow beyond the current
 Select the **Redis** tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
     ![config overview](redis-config-overview.png)
 
-###  <a id="on-demand-config"></a>On-Demand Plans
+###  <a id="on-demand-config"></a>On-Demand Service
 
+1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture_networks). From an IAAS perspective, creation of a service network is identical to any other network you previously created for ops manager tiles. The only change occurs at the ops manager view, where the operator needs to mark it as a “Service Network” to instruct ops manager to not perform IP management in that network. 
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
@@ -102,9 +103,9 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
 Operators can update certain settings after the plans have been created.
-If the Operator updates the VM size, disk size, or the Redis configuration settings 
+If the Operator updates the VM size, disk size, or the Redis configuration settings
 (enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
-these settings will be implemented in all instances that are already created. 
+these settings will be implemented in all instances that are already created.
 
 Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
@@ -112,13 +113,13 @@ Operators should not downsize the VMs or disk size as this can cause data loss i
 
 If you wish to remove any On-Demand Service Plans from your tile, do the following: <br/>
 
-1. Navigate to the **Resource Config** page in the Redis for PCF tile. 
+1. Navigate to the **Resource Config** page in the Redis for PCF tile.
 
 1. Set the instances for all On-demand broker related jobs to 0, including:
-    * Redis On-demand Broker 
-    * Register On-demand Redis Broker 
-    * Upgrade all On-demand Redis Service Instances 
-    * Degregister On-demand Redis Broker 
+    * Redis On-demand Broker
+    * Register On-demand Redis Broker
+    * Upgrade all On-demand Redis Service Instances
+    * Degregister On-demand Redis Broker
     * On-Demand Broker SmokeTests <br/>
 
 1. Navigate to the **Errands** page on the Redis for PCF tile. Uncheck the errands for:
@@ -310,5 +311,5 @@ Where there is a new version of Redis or another dependent software component su
 
 To uninstall Redis for PCF, do the following:
 
-1. In the PCF Ops Manager Installation dashboard, click the trash can icon in the lower right hand corner of the Redis for PCF tile. 
+1. In the PCF Ops Manager Installation dashboard, click the trash can icon in the lower right hand corner of the Redis for PCF tile.
 1. Confirm deletion of the product, and then click **Apply Changes**.

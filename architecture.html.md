@@ -82,21 +82,15 @@ This diagram shows how the architecture of the service broker and On Demand plan
 
 ![On-Demand Architecture Diagram](on-demand-arch.png)
 
-## Redis for PCF Architecture for Dedicated-VM and Shared-VM Service Plans
-
-This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance.
-
-![Architecture Diagram](legacy-arch.png)
-
 ### <a id ="architecture_networks"></a>Default Network and Service Network
 
 Like other on-demand PCF services, on-demand Redis for PCF relies on the BOSH 2.0 ability to dynamically deploy VMs in a dedicated network. The on-demand service broker uses this capability to create single-tenant service instances in a dedicated service network.
 
 On-demand services use the dynamically-provisioned service network to host the single-tenant worker VMs that run as service instances within development spaces. This architecture lets developers provision IaaS resources for their service instances at creation time, rather than the operator pre-provisioning a fixed quantity of IaaS resources when they deploy the service broker.
 
-An on-demand service splits its operations between the default network and the service network. Shared components of the service, such as executive controllers and databases, run centrally on the default network along with the Cloud Controller, UAA, and other PCF components. The worker pool deployed to specific spaces runs on the service network.
+By making services single-tenant, where each instance runs on a dedicated VM rather than sharing VMs with unrelated processes, on-demand services eliminate the “noisy neighbor” problem when one application hogs resources on a shared cluster. Single-tenant services can also support regulatory compliance where sensitive data must be compartmentalized across separate machines. Redis for PCF offers another single-tenant plan, the Dedicated-VM plan, which does not offer the same beneifts
 
-![Architecture Diagram](ODB-architecture.png)
+An on-demand service splits its operations between the default network and the service network. Shared components of the service, such as executive controllers and databases, run centrally on the default network along with the Cloud Controller, UAA, and other PCF components. The worker pool deployed to specific spaces runs on the service network.
 
 ### BOSH 2.0 and the Service Network
 
@@ -105,6 +99,14 @@ Before BOSH 2.0, cloud operators pre-provisioned service instances from Ops Mana
 With BOSH 2.0 dynamic networking and Cloud Foundry asynchronous service provisioning, operators can now define a dynamically-provisioned service network that hosts instances more flexibly. The service network runs separate from the PCF default network. While the default network hosts VMs launched by Ops Manager, the VMs running in the service network are created and provisioned on-demand by BOSH, and BOSH lets the IaaS assign IP addresses to the service instance VMs. Each dynamic network attached to a job instance is typically represented as its own NIC (Network Interface Controller) in the IaaS layer.
 
 Operators enable on-demand services when they deploy PCF, by creating one or more service networks in the Ops Manager Director Create Networks pane and selecting the Service Network checkbox. Designating a network as a service network prevents Ops Manager from creating VMs in the network, leaving instance creation to the underlying BOSH.
+
+![Architecture Diagram](ODB-architecture.png)
+
+## Redis for PCF Architecture for Dedicated-VM and Shared-VM Service Plans
+
+This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance.
+
+![Architecture Diagram](legacy-arch.png)
 
 ## <a id ="lifecycle"></a>Redis for PCF Lifecycle for On-Demand Service Plan
 
