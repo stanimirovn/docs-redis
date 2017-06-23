@@ -31,7 +31,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
-1. Tick the **Allow outbound internet access from service instances** checkbox. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
+1. Enable the **Allow outbound internet access from service instances** checkbox. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
 1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
     You can configure up to three cache plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
@@ -101,7 +101,10 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
-Operators can update certain settings after the plans have been created. If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances that are already created. 
+Operators can update certain settings after the plans have been created.
+If the Operator updates the VM size, disk size, or the Redis configuration settings 
+(enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
+these settings will be implemented in all instances that are already created. 
 
 Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
