@@ -114,27 +114,27 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
 
 <table border="1" class="nice">
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
-<tr><td>On-Demand, Dedicated-VM and Shared-VM plans</td><td>Redis for PCF provides On-Demand, dedicated VM and shared VM service plans.</td><td><a href="/redis/1-8/architecture.html#plans">Plans</a></td></tr>
-<tr><td>Customizable plans</td><td>For the On-Demand Plan and Dedicated-VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
+<tr><td>On-Demand, Dedicated-VM and Shared-VM plans</td><td>Redis for PCF provides On-Demand, dedicated VM and shared VM service plans.</td><td><a href="/redis/architecture.html#plans">Plans</a></td></tr>
+<tr><td>Customizable plans</td><td>For the On-Demand Plan and Dedicated-VM plan, the operator can customize the VM and disk size.</td><td><a href="/redis/installing.html#service-plans">Configuring</a></td></tr>
 
 <tr><th colspan=2>Installation and Upgrades</th><th>More Information</th></tr>
 <tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.7 tiles</td>
-     <td><a href="/redis/1-8/installing.html#upgrades">Upgrading Redis for PCF</a></td></tr>
+     <td><a href="/redis/installing.html#upgrades">Upgrading Redis for PCF</a></td></tr>
 <tr><td>Deployment Smoke Tests</td><td>Redis for PCF installation and upgrade runs
         a post deployment BOSH errand that validates basic Redis operations</td>
-    <td><a href="/redis/1-8/smoke-tests.html">Smoke Tests</a></td></tr>
+    <td><a href="/redis/smoke-tests.html">Smoke Tests</a></td></tr>
 
 <tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
 <tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.8 provides metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
-    <td><a href="/redis/1-8/monitoring.html">Monitoring Redis for PCF</a></td></tr>
+    <td><a href="/redis/monitoring.html">Monitoring Redis for PCF</a></td></tr>
 <tr><td>Backup and Restore</td><td>Redis for PCF v1.8 includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
-</td><td><a href="/redis/1-8/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
+</td><td><a href="/redis/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
 <tr><td>Scale</td><td>Redis for PCF has been tested with 60GB of data</td><td></td></tr>
 <tr><td>On-Demand Plan</td><td>Redis for PCF provides up to 50 on-demand instances across plans</td><td></td></tr>
-<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="/redis/1-8/installing.html#service-plans">Configuring</a></td></tr>
-<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="/redis/1-8/installing.html#upgrades">Upgrades</a></td></tr>
+<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="/redis/installing.html#service-plans">Configuring</a></td></tr>
+<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="/redis/installing.html#upgrades">Upgrades</a></td></tr>
 <tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
     <td><a href="#other-notes">About Multiple AZs in Redis for PCF</a></td></tr>
 
@@ -164,4 +164,4 @@ The following table lists where you can find topics related to the information o
 
 | For more information about&hellip; | See&hellip; |
 |----------------------------|-------------|
-|the v1.8 releases       |<a href="/redis/1-8/release.html">Release Notes</a>|
+|the v1.8 releases       |<a href="/redis/release.html">Release Notes</a>|
