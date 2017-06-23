@@ -28,7 +28,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 
 ###  <a id="on-demand-config"></a>On-Demand Service
 
-1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture). From an IAAS perspective, creation of a service network is identical to any other network you previously created for ops manager tiles. The only change occurs at the ops manager view, where the operator needs to mark it as a “Service Network” to instruct ops manager to not perform IP management in that network. 
+1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture_networks). From an IAAS perspective, creation of a service network is identical to any other network you previously created for ops manager tiles. The only change occurs at the ops manager view, where the operator needs to mark it as a “Service Network” to instruct ops manager to not perform IP management in that network. 
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
