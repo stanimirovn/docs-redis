@@ -5,9 +5,9 @@ owner: London Services
 
 ## Recommended Use Cases
 
-Redis for PCF can be used as a datastore or cache.
+Redis for PCF can be used as a cache or as a datastore.
 On-Demand plans, introduced in Redis for PCF v1.8, are designed for cache use cases.
-Dedicated-VM and Shared-VM plans are configured with `maxmemory-policy` = `no-eviction` and RDB and AOF persistence.
+Dedicated-VM and Shared-VM plans are designed for datastore use cases.
 
 Redis can be used in many different ways, including:
 
@@ -32,7 +32,7 @@ Redis can be used in many different ways, including:
 #### <a id="resources"></a> Resource Usage Planning for On-Demand plans
 
 <p class="note">
-Redis On-Demand plans use dedicated VM and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
+Redis On-Demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
 </p>
 
 If the number of on-demand instances is greater than or equal to the Global Quota set on the 'On Demand Service Settings' page, no new instances can be provisioned.
@@ -57,6 +57,7 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 
 ### Dedicated-VM Plan
 
+* Dedicated-VM plans are configured with `maxmemory-policy` = `no-eviction` and with RDB and AOF persistence.
 * Each dedicated VM plan instances is deployed to its own VM and is suitable for production workloads.
 * The number of Dedicated-VM plan instances available to developers is set by the operator. Configurations of up to 100 Dedicated-VM plan instances have been tested.
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
@@ -66,6 +67,7 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 
 ### Shared-VM Plan
 
+* Shared-VM plans are configured with `maxmemory-policy` = `no-eviction` and with RDB and AOF persistence.
 * The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
 * The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of the Redis service broker. Please see [Configuring Service Plans](./installing.html#service-plans) for more detail.
 * It cannot be scaled beyond a single virtual machine.

@@ -28,7 +28,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 
 ###  <a id="on-demand-config"></a>On-Demand Service
 
-1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture_networks). From an IAAS perspective, creation of a service network is identical to any other network you previously created for ops manager tiles. The only change occurs at the ops manager view, where the operator needs to mark it as a “Service Network” to instruct ops manager to not perform IP management in that network. 
+1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture_networks). From an IAAS perspective, creation of a service network is identical to any other network you previously created for ops manager tiles. The only change occurs at the ops manager view, where the operator needs to mark it as a “Service Network” to instruct ops manager to not perform IP management in that network.
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
@@ -113,20 +113,12 @@ Operators should not downsize the VMs or disk size as this can cause data loss i
 
 If you wish to remove any On-Demand Service Plans from your tile, do the following: <br/>
 
-1. Navigate to the **Resource Config** page in the Redis for PCF tile.
-
-1. Set the instances for all On-demand broker related jobs to 0, including:
-    * Redis On-demand Broker
-    * Register On-demand Redis Broker
-    * Upgrade all On-demand Redis Service Instances
-    * Degregister On-demand Redis Broker
-    * On-Demand Broker SmokeTests <br/>
-
-1. Navigate to the **Errands** page on the Redis for PCF tile. Uncheck the errands for:
+1. Navigate to the **Errands** page on the Redis for PCF tile. Set the following errands to 'off':
     * Register On-demand Redis Broker
     * On-demand Broker Smoke Tests
     * Upgrade all On-demand Redis Service Instances
     * Deregister On-demand Redis Broker
+Currently, to install the 1.8 tile while turning off the on-demand service, the Operator must still configure one of the on-demand plans and create a service network.
 
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
@@ -219,8 +211,9 @@ The following ports and ranges are used in this service:
 * Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
-* All Redis instances now have a consul agent co-located for service discovery and DNS.
-This means instances need to be able to listen on port `8301`
+* All Redis instances now have a consul agent co-located for service discovery and DNS. This means instances need to be able to listen on port `8301`
+* For the on-demand service, the on-demand service broker needs to talk to `bosh director`. This requires firewall rules need to open `8443` and `25555`
+
 
 ###  <a id="asg"></a> Application Security Groups###
 
