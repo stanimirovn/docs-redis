@@ -3,11 +3,9 @@ title: Provisioning Redis instances on demand
 owner: London Services
 ---
 
-Version 1.8 of PCF Redis introduces on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
+Redis for PCF v1.8+ include on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
 
-Prior to PCF Redis 1.8.0, Redis for PCF offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
-
-The improved flexibility in how and when instances are created allows for more efficient and seamless resource use for both Operator and App Developer.
+Redis for PCF v1..8+ still offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
 
 ## <a id="service"></a>On Demand Service Plan Descriptions
 

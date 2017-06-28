@@ -1,27 +1,20 @@
 ---
-title: Overview of Redis for PCF v1.8
+title: Overview of Redis for PCF v1.9
 owner: London Services
 ---
 
-This topic describes the significant new features in Redis for PCF v1.8.
+This topic describes Redis for PCF v1.9.
 This topic also presents a checklist that you can use to decide if Redis for PCF is ready to meet your business requirements.
 
 ##<a id="intro"></a> Introduction
 
-Redis for PCF v1.8 introduces the On-Demand Service, which provides dedicated instances of configurable Redis instances tailored for caching that App Developers can provision on-demand from the command line. The Redis for PCF On-Demand service is designed to improve the flexibility in how and when instances are provisioned and allows for more efficient and seamless resource use for both Operator and App Developer. Additionally, both Operator and App Developer can configure essential Redis settings. Redis for PCF v1.8 also packages the p-redis service from the earlier Redis for PCF tiles.
+Redis for PCF v1.9 is a compatibility release to ensure seamless use of the Redis for PCF product as Ops Manager evolves.
 
-Redis for PCF's On-Demand Service leverages the [on-demand service broker](https://docs.pivotal.io/svc-sdk/odb/0-15/).
+Redis for PCF's On-Demand Service leverages the [on-demand service broker](https://docs.pivotal.io/svc-sdk/odb/).
 
 ## <a id="features"></a>New in This Release
 
-The following features are new in Redis for PCF v1.8:
-
-+ <strong>Operator enabled plans</strong> — Operators can enable and configure three service plans for dynamically provisioned instances with different memory and disk sizes.
-+ <strong>Operator set Redis properties</strong> - Operators can set select Redis properties for each plan.
-+ <strong>Optimized for cache use cases</strong> - The default `maxmemory-policy` setting for these plans is `allkeys-lru`. This can be updated by the App Developer to other cache options.
-+ <strong>Quotas</strong> — Operators can set plan-level quotas and a global quota across all on-demand instances.
-+ <strong>App Developer provisioned instances</strong> — App Developers can create an Operator-configured plan from the command line.
-+ <strong>App Developer set Redis properties via arbitrary parameters</strong> — App Developers can set select Redis settings for each instance.
+Redis for PCF v1.9 maintains compatibility with upcoming OpsManagers. Users will note a slight change in how syslog forwarding is turned off and on via a new toggle.
 
 ## <a id="service"></a>On Demand Service Plan Descriptions
 
@@ -110,7 +103,7 @@ Application Developers can configure their Redis instances with arbitrary parame
 
 ##<a id="checklist"></a> Enterprise-Ready Checklist
 
-Review the following table to determine if Redis for PCF v1.8 has the features needed to support your enterprise.
+Review the following table to determine if Redis for PCF v1.9 has the features needed to support your enterprise.
 
 <table border="1" class="nice">
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
@@ -125,9 +118,9 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
     <td><a href="/redis/smoke-tests.html">Smoke Tests</a></td></tr>
 
 <tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
-<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.8 provides metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
+<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.9 provides metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
     <td><a href="/redis/monitoring.html">Monitoring Redis for PCF</a></td></tr>
-<tr><td>Backup and Restore</td><td>Redis for PCF v1.8 includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
+<tr><td>Backup and Restore</td><td>Redis for PCF v1.9 includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
 </td><td><a href="/redis/manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
@@ -145,9 +138,9 @@ Review the following table to determine if Redis for PCF v1.8 has the features n
 </table>
 
 
-## <a id="other-notes"></a>About Multiple AZs in Redis for PCF v1.8
+## <a id="other-notes"></a>About Multiple AZs in Redis for PCF v1.9
 
-Redis for PCF v1.8 supports configuring multiple AZs.
+Redis for PCF v1.9 supports configuring multiple AZs.
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.
 
 + On-Demand plans can be assigned to any of the configured availability zones.
@@ -164,4 +157,4 @@ The following table lists where you can find topics related to the information o
 
 | For more information about&hellip; | See&hellip; |
 |----------------------------|-------------|
-|the v1.8 releases       |<a href="/redis/release.html">Release Notes</a>|
+|the v1.9 releases       |<a href="/redis/release.html">Release Notes</a>|

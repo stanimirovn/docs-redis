@@ -1,5 +1,5 @@
 ---
-title: Redis for PCF 1.8 Architecture and Lifecycle
+title: Redis for PCF 1.9 Architecture and Lifecycle
 owner: London Services
 ---
 
@@ -73,7 +73,7 @@ In Ops Manager, any field that changes the manifest will cause a redeploy of the
 </ul>
 
 
-For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier and changes in v1.8 to the legacy offering (Dedicated-VM and Shared-VM plans), downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
+For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9, downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
 
 
 ## <a id ="architecture"></a>Redis for PCF Architecture for On-Demand Service Plan

@@ -118,7 +118,7 @@ If you wish to remove any On-Demand Service Plans from your tile, do the followi
     * On-demand Broker Smoke Tests
     * Upgrade all On-demand Redis Service Instances
     * Deregister On-demand Redis Broker
-Currently, to install the 1.8 tile while turning off the on-demand service, the Operator must still configure one of the on-demand plans and create a service network.
+Currently, to install the 1.9 tile while turning off the on-demand service, the Operator must still configure at least one of the on-demand plans and create a service network.
 
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
@@ -212,7 +212,7 @@ The following ports and ranges are used in this service:
 * Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
 * Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
 * All Redis instances now have a consul agent co-located for service discovery and DNS. This means instances need to be able to listen on port `8301`
-* For the on-demand service, the on-demand service broker needs to talk to `bosh director`. This requires firewall rules need to open `8443` and `25555`
+* For the on-demand service, the on-demand service broker needs to talk to `bosh director`. This requires firewall rules need to open TCP `8443` and `25555`
 
 
 ###  <a id="asg"></a> Application Security Groups###
