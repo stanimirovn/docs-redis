@@ -10,8 +10,6 @@ owner: London Services
 
 * This release is compatibles with Stemcells 3363.24+.
 
-* The default setting for all post-deploy errands has been set to 'On'. This mitigates the 'When Changed' known issue mentioned in the 1.8.0 Release Notes.
-
 **Features**
 
 * Requires 2048-bit certificate length on Dedicated VMs.
@@ -27,9 +25,9 @@ owner: London Services
 **Known Issues**
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
-
 * Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
-
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
 
 
 ## Redis for PCF v1.8.1
@@ -52,8 +50,11 @@ owner: London Services
 **Known Issues**
 
 * A bug exists where Redis will periodically restart.
+* `lua-timeout-limit`, a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+* Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
 
-* Please refer to known issues in 1.8.0 release notes. No other changes have been made other than the bug fix referenced.
 
 
 
@@ -76,18 +77,13 @@ owner: London Services
 
 * For the on-demand service, the on-demand Service broker needs to talk to `bosh director`. This requires firewall rules to open TCP `8443` and `25555`.
 
-Op
-
 **Known Issues**
 
-`lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
-
-Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
-
-The errand 'Upgrade all On-demand Redis Service Instances' when set to 'When Changed' will not always run when expected. Set the errand 'Upgrade all On-demand Redis Service Instances', located on the errands page, to 'on' to ensure all changes are implemented.
-
-Redis backups to AWS S3 are limited to standard region. Backups are only sent to AWS S3 buckets that have been created in the [US Standard region] (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region), “us-east-1.”
-
-Fails to install if a hostname has been configured for the Director in Ops Manager.
+* `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+* Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand and should change the defaults from 'When Changed' to 'On'
+* Redis backups to AWS S3 are limited to standard region. Backups are only sent to AWS S3 buckets that have been created in the [US Standard region] (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region), “us-east-1.”
+* Fails to install if a hostname has been configured for the Director in Ops Manager.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
 
 Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
