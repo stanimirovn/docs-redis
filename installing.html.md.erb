@@ -111,15 +111,16 @@ Operators should not downsize the VMs or disk size as this can cause data loss i
 
 #### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
 
-If you wish to remove any On-Demand Service Plans from your tile, do the following: <br/>
+If you wish to remove any On-Demand Service Plans from your tile on a fresh install, do the following: <br/>
 
 1. Navigate to the **Errands** page on the Redis for PCF tile. Set the following errands to 'off':
     * Register On-demand Redis Broker
     * On-demand Broker Smoke Tests
     * Upgrade all On-demand Redis Service Instances
     * Deregister On-demand Redis Broker
-Currently, to install the 1.8 tile while turning off the on-demand service, the Operator must still configure one of the on-demand plans and create a service network.
+1. Currently, to install the 1.8 tile while turning off the on-demand service, the Operator must still configure one of the on-demand plans and create a service network.
 
+Note: This will not work to turn off previously configured service plans.
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
 
