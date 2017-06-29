@@ -14,18 +14,17 @@ owner: London Services
 
 * The On-Demand Service leverages the [On-Demand Broker v0.16.0](https://docs.pivotal.io/svc-sdk/odb/0-16/release-notes.html)
 
-* TLS is turned on for metric communications.
+* Network configuration details can be found on the [installation page](/installing.html#network-configuration)
 
-* All Redis instances now have a consul agent co-located for service discovery and DNS. This means instances need to be able to listen on `8301`.
-
-* For the on-demand service, the on-demand Service broker needs to talk to `bosh director`. This requires firewall rules to open TCP `8443` and `25555`.
-
-Op
 
 **Known Issues**
 
-`lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
+* `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
 
-Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+
+* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
 
 Release notes <a href="/redis/minor-overview.html">here</a>.
