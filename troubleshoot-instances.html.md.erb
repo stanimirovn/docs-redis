@@ -1,0 +1,56 @@
+---
+title: Troubleshooting Instances
+owner: Redis
+---
+
+This topic provides basic instructions for app developers troubleshooting On-Demand Redis for PCF.
+
+## <a id="outages"></a>Temporary Outages
+
+Redis for PCF service instances can become temporarily inaccessible during upgrades and VM or network failures. See [Service Interruptions](./upgrade.html#interruptions) for more information.
+
+## <a id="errors"></a> Errors
+
+You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI) to perform basic operations on a Redis for PCF service instance:
+
+* `cf create`
+* `cf update`
+* `cf bind`
+* `cf unbind`
+* `cf delete`
+
+### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
+
+<%= partial '../../Redis/odb/tshoot-tech-parse-error' %>
+
+### <a id="instance"></a> Retrieve Service Instance Information
+
+1. Log into the space containing the instance or failed instance.
+    <pre class="terminal">
+    $ cf login
+    </pre>
+
+1. If you do not know the name of the service instance, run `cf services` to see a listing of all service instances in the space. The service instances are listed in the `name` column.
+    <pre class="terminal">
+    $ cf services
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service      plan        bound apps    last operation
+    my-instance   p.Redis      db-small                  create succeeded
+    </pre>
+
+1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
+
+1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
+
+### <a id="instance-deployment"></a>Select the BOSH Deployment for a Service Instance
+
+<%= partial '../../Redis/odb/tshoot-tech-instance-deployment' %>
+
+## <a id="kb"></a>Knowledge Base (Community)
+
+<%= partial '../../Redis/odb/tshoot-kb' %>
+
+## <a id="support"></a>File a Support Ticket
+
+<%= partial '../../Redis/odb/tshoot-support-dev' %>
