@@ -80,9 +80,25 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 
 Redis for PCF 1.9 supports configuring multiple availability zones but this configuration does not provide high availability.
 
-## Downtime During Redeploys
+##  <a id="downtime"></a> Downtime During Redeploys
 
-Redeploying PCF Redis for configuration changes or upgrades will result in Redis being inaccessible to apps for a brief period of time.
+Downtime is caused by a redeploy of the Redis tile. Here we attempt to clarify what changes will trigger a redeploy.
+
+In Ops Manager, any field that changes the manifest will cause a redeploy of the Redis tile. Any property changes in ERT listed here will trigger downtime for the Redis On-Demand Broker. Note that this list is current at the time of writing (May 2017) but that dependencies with changing products mean that it will change.
+<ul>
+  <li>Consul Server Resource Config (..cf.consul\_server.ips)</li>
+  <li>Runtime System Domain ($runtime.system\_domain)</li>
+  <li>Disable SSL certificate verification for this environment” in ERT
+(..cf.ha\_proxy.skip\_cert\_verify.value)</li>
+  <li>Runtime Apps Domain ($runtime.apps\_domain)</li>
+  <li>NATS Resource Config
+(..cf.nats.ips)</li>
+  <li>Service Networks in OpsManager
+($self.service\_network)</li>
+</ul>
+
+
+For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9, downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
 
 ## Redis Key Count and Memory Size
 
