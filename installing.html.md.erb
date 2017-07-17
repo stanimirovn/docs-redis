@@ -33,7 +33,7 @@ If you wish to use Redis for PCF without the On-Demand service, you will still n
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
-1. Enable the **Allow outbound internet access from service instances** checkbox. This is critical for service instances to be able to use logs or backups. This the checkbox must be ticked if an external blob store has been configured for BOSH.
+1. Enable the **Allow outbound internet access from service instances** checkbox. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
 1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
     You can configure up to three cache plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
