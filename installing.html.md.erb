@@ -120,7 +120,7 @@ If you wish to remove the On-Demand Service from your tile, do the following: <b
     * Upgrade all On-demand Redis Service Instances
     * Deregister On-demand Redis Broker
 
-Currently, to install the 1.9 tile while turning off the on-demand service, the Operator must still configure at least one of the on-demand plans and create a service network. Instructions to create an empty service network are [here](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
+1. Currently, to install the 1.9 tile while turning off the on-demand service, the Operator must still configure at least one of the on-demand plans and create a service network. Instructions to create an empty service network are [here](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
 
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
@@ -130,13 +130,10 @@ Currently, to install the 1.9 tile while turning off the on-demand service, the 
 
 1.  Enter the maximum number of instances and the memory limit for each Redis instance.
 
-1.  Click the **Save** button.
+    <br />Shared-VM instances run on the Redis Broker. The memory and instance limits for your Shared-VM Redis instances depends on the total memory of your Redis broker.
 
-    <br />Shared-VM instances run on the Redis Broker.
-
-    <br />The memory and instance limits for your Shared-VM Redis instances should depend on the total memory of your Redis broker.
-    When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
-    We recommend you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
+    <br />When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
+    Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
     This is due the amount of memory required to support Redis persistence, and run Redis broker & system tasks.
 
     <br />See below for example cases:
@@ -171,6 +168,7 @@ Currently, to install the 1.9 tile while turning off the on-demand service, the 
       If this happens your users may not be able to write any further data to any Redis instance.
     </p>
 
+1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here](#remove-on-demand).
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Redis Broker.
     <br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk & Persistent Disk made available, as required.
@@ -187,7 +185,7 @@ Currently, to install the 1.9 tile while turning off the on-demand service, the 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
 The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM.
 
-1.  Click the **Save** button.
+1. Click the **Save** button.
 
 1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here] (#remove-on-demand).
 
