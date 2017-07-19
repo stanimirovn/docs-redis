@@ -193,7 +193,7 @@ The default VM size is small; it is important that the operator set the correct 
 Pivotal recommends that operators configure a syslog output.
 For On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared-VM plan instances are consistent with their previous format.
 
-1. Set syslog to on if you wish to use it
+1. Set syslog to on if you wish to use it.
 
 1.  Add the Syslog address, Syslog port and transport protocol of your log management tool.
 
@@ -264,13 +264,9 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
 ```
 
 ###  <a id="az-config"></a>Assigning AZs
-Assigning multiple AZs to Redis jobs will not guarantee high availability.
+As of Redis for PCF 1.9, you can assign multiple AZs to Redis jobs, however this will not guarantee high availability.
 
-All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.
-
-Each On-Demand instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
-
-Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.
+For more information, see [About Multiple AZs in Redis for PCF](minor-overview.html#other-notes).
 
 ![AZ Assignment Diagram](AZ-assignment.png)
 
