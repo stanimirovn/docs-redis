@@ -3,6 +3,23 @@ title: Release Notes
 owner: London Services
 ---
 
+## Redis for PCF v1.9.2
+**July 20, 2017**
+
+**Bug Fixes**
+
+* On-Demand Service instances will correctly pick up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
+
+**Known Issues**
+
+* `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
+
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+
+* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
+
+
+
 ## Redis for PCF v1.9.0
 **June 30, 2017**
 
@@ -14,6 +31,7 @@ owner: London Services
 
 
 **Known Issues**
+
 * New on-demand service instances will not pick up new stemcells beyond 3363.26.
 
 * Upgrades of on-demand service instances from 1.8.0, 1.8.1 and 1.8.2 to 1.9.0 will not take effect.
