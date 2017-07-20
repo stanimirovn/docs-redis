@@ -23,11 +23,17 @@ owner: London Services
 * Allows for Redis backups to all AWS S3 regions.
 
 **Known Issues**
+
 * New on-demand service instances will not pick up new stemcells beyond 3363.24.
+
 * Upgrades of on-demand service instances from 1.8.0 and 1.8.1 to 1.8.2 will not take effect.
+
 * `lua-timeout-limit`, a Redis configuration that is exposed to App Developers through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+
 * Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+
 * The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
 
 
@@ -49,12 +55,19 @@ owner: London Services
 * Fixes a bug in 1.8.0 that causes a failure to install if the Director has a hostname configured in Ops Manager.
 
 **Known Issues**
+
 * New on-demand service instances will not pick up new stemcells beyond 3363.20.
+
 * Upgrades of on-demand service instances from 1.8.0 to 1.8.1 will not take effect.
+
 * A bug exists where the Dedicated-VM service will experience periodic restarts.
+
 * `lua-timeout-limit`, a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+
 * Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+
 * The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
 
 
@@ -78,12 +91,19 @@ owner: London Services
 * For the on-demand service, the on-demand Service broker needs to talk to `bosh director`. This requires firewall rules to open TCP `8443` and `25555`.
 
 **Known Issues**
+
 * New on-demand service instances will not pick up new stemcells beyond the one they were installed with.
+
 * `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+
 * Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+
 * The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand and should change the defaults from 'When Changed' to 'On'
+
 * Redis backups to AWS S3 are limited to standard region. Backups are only sent to AWS S3 buckets that have been created in the [US Standard region] (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region), “us-east-1.”
+
 * Fails to install if a hostname has been configured for the Director in Ops Manager.
+
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
 
 Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
