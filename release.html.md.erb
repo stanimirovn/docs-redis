@@ -10,7 +10,10 @@ owner: London Services
 
 * On-Demand Service instances will correctly pick up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
 
-* On-Demand smoketests will skip if the quota for on-demand service instances has been met. This addresses a prior bug where the smoketests will fail if the quota had been met.
+* On-Demand smoketests will be skipped if the quota for on-demand service instances has been met. This addresses a prior bug where the smoketests would fail if the quota had been met.
+
+* Includes a bug fix in the control script for process-destroyer which prevents process-watcher from restarting periodically (every 10,000 seconds).
+
 
 **Known Issues**
 
@@ -43,6 +46,8 @@ owner: London Services
 
 **Known Issues**
 
+* A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
+
 * New on-demand service instances will not pick up new stemcells beyond 3363.24.
 
 * Upgrades of on-demand service instances from 1.8.0 and 1.8.1 to 1.8.2 will not take effect.
@@ -74,6 +79,8 @@ owner: London Services
 * Fixes a bug in 1.8.0 that causes a failure to install if the Director has a hostname configured in Ops Manager.
 
 **Known Issues**
+
+* A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
 
 * New on-demand service instances will not pick up new stemcells beyond 3363.20.
 
