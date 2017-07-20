@@ -10,6 +10,8 @@ owner: London Services
 
 * On-Demand Service instances will correctly pick up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
 
+* On-Demand smoketests will skip if the quota for on-demand service instances has been met. This addresses a prior bug where the smoketests will fail if the quota had been met.
+
 **Known Issues**
 
 * `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
