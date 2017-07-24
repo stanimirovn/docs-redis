@@ -2,8 +2,25 @@
 title: Redis for PCF Architecture and Lifecycle
 owner: London Services
 ---
+<br><br>
+Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans. This section describes the architecture, lifecycle, and configurations of these plans, as well as networking information for the on-demand service.
 
-## <a id="configurations"></a> How Redis for PCF Configures Redis
+
+## <a id ="architecture"></a>Redis for PCF Architecture for On-Demand Service Plan
+
+### <a id="diagram1"></a> Architecture Diagram for On-Demand Plan
+
+This diagram shows how the architecture of the service broker and On Demand plans and how the user's app binds to a Redis instance.
+
+![On-Demand Architecture Diagram](on-demand-arch.png)
+
+### <a id="on-demand"></a> On-Demand Service Plans
+* These plans are Operator-configured and enabled. Once enabled, App Developers can provision a Redis instance from that plan.
+* You can disable any of the three on-demand plans in the plan's page in OpsManager. See descriptions of the three on-demand plans [here](minor-overview.html#service).
+* The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
+* Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
+* App Developers can update certain Redis configurations.
+
 
 ### <a id="config"></a> Configuration for On-Demand Service Plans
 
@@ -13,32 +30,42 @@ For On-Demand Plans, certain Redis configurations can be set by the operator dur
  + Operator configurable Redis settings include: `timeout`, `tcp-keepalive`, `maxclients` and `lua scripting`. See the Operator Guide section of this documentation for more detail.
  + App-Developer configurable Redis settings include: `maxmemory-policy`, `notify-keyspace-events`,`slowlog-log-slower-than`,and `slowlog-max-len`. See the App Developer guide of this documentation for more detail.
 
-### <a id="config2"></a> Configuration for Dedicated-VM and Shared-VM Service Plans
+### <a id ="lifecycle"></a>Lifecycle for On-Demand Service Plan
 
-For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
-A sample `redis.conf` from a Dedicated-VM plan instance can be viewed on [Sample Redis Configuration] (redisconf.html)
+Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
-+ Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that when the memory is full, the service does
- not evict any keys or perform any write operations until memory becomes available.
-
-+ Persistence is configured for both `RDB` and `AOF`.
-
-+ The default maximum number of connections, `maxclients`, is set at 10000 but
-this number is adjusted by Redis according to the number of file handles available.
-
-+ Replication and event notification are not configured.
+![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)
 
 
-##  <a id="plans"></a>Service Plans
+## <a id="networks"></a>On-Demand Services and Networking
 
-Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
+### <a id="bosh2"></a>BOSH 2.0 and the Service Network
 
-### <a id="on-demand"></a> On-Demand Service Plans
-* These plans are Operator-configured and enabled. Once enabled, App Developers can provision a Redis instance from that plan.
-* You can disable any of the three on-demand plans in the plan's page in OpsManager.
-* The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
-* Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
-* App Developers can update certain Redis configurations.
+<%= partial '../../redis/odb/service_networks' %>
+
+### <a id ="architecture_networks"></a>Default Network and Service Network
+
+Like other on-demand PCF services, on-demand Redis for PCF relies on the BOSH 2.0 ability to dynamically deploy VMs in a dedicated network. The on-demand service broker uses this capability to create single-tenant service instances in a dedicated service network.
+
+<%= partial '../../redis/odb/on_demand_architecture' %>
+
+The diagram below shows worker VMs in an on-demand service instance, such as RabbitMQ for PCF, running on a separate services network, while other components run on the default network.
+
+![Architecture Diagram](ODB-architecture.png)
+
+### <a id="network-rules"></a>Required Networking Rules for On-Demand Services
+
+<%= partial '../../redis/odb/service_networks_table' %>
+
+
+## <a id="arch-dedicated-shared"></a>Redis for PCF Architecture for Dedicated-VM and Shared-VM Service Plans
+
+### <a id="diagram2"></a>Architecture Diagram for Shared and Dedicated Plans
+
+This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance.
+
+![Architecture Diagram](legacy-arch.png)
+
 
 ### <a id="shared-vm"></a> Shared-VM Service Plan
 
@@ -58,45 +85,25 @@ Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
 * You can disable this plan by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
 
 
+### <a id="config2"></a> Configuration for Dedicated-VM and Shared-VM Service Plans
 
-## <a id ="architecture"></a>Redis for PCF Architecture for On-Demand Service Plan
+For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
+A sample `redis.conf` from a Dedicated-VM plan instance is provided [here] (redisconf.html).
 
-This diagram shows how the architecture of the service broker and On Demand plans and how the user's app binds to a Redis instance.
++ Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that when the memory is full, the service does
+ not evict any keys or perform any write operations until memory becomes available.
 
-![On-Demand Architecture Diagram](on-demand-arch.png)
++ Persistence is configured for both `RDB` and `AOF`.
 
-## Redis for PCF Architecture for Dedicated-VM and Shared-VM Service Plans
++ The default maximum number of connections, `maxclients`, is set at 10000 but
+this number is adjusted by Redis according to the number of file handles available.
 
-This diagram shows how the architecture of the service broker and Shared-VM and Dedicated-VM plans and how the user's app binds to a Redis instance.
++ Replication and event notification are not configured.
 
-![Architecture Diagram](legacy-arch.png)
 
-### <a id ="architecture_networks"></a>Default Network and Service Network
-
-Like other on-demand PCF services, on-demand Redis for PCF relies on the BOSH 2.0 ability to dynamically deploy VMs in a dedicated network. The on-demand service broker uses this capability to create single-tenant service instances in a dedicated service network.
-
-On-demand services use the dynamically-provisioned service network to host the single-tenant worker VMs that run as service instances within development spaces. This architecture lets developers provision IaaS resources for their service instances at creation time, rather than the operator pre-provisioning a fixed quantity of IaaS resources when they deploy the service broker.
-
-An on-demand service splits its operations between the default network and the service network. Shared components of the service, such as executive controllers and databases, run centrally on the default network along with the Cloud Controller, UAA, and other PCF components. The worker pool deployed to specific spaces runs on the service network.
-
-![Architecture Diagram](ODB-architecture.png)
-
-### BOSH 2.0 and the Service Network
-
-Before BOSH 2.0, cloud operators pre-provisioned service instances from Ops Manager. This is used in the Redis Dedicated-VM and Shared-VM plan. In the Ops Manager Director Networking pane, they allocated a block of IP addresses for the service instance pool, and under Resource Config they provisioned pool VM resources, specifying the CPU, hard disk, and RAM they would use. All instances had to be provisioned at the same level. With each `create-service` request from a developer, Ops Manager handed out a static IP address from this block, and with each `delete-service` it cleaned up the VM and returned it to the available pool.
-
-With BOSH 2.0 dynamic networking and Cloud Foundry asynchronous service provisioning, operators can now define a dynamically-provisioned service network that hosts instances more flexibly. The service network runs separate from the PCF default network. While the default network hosts VMs launched by Ops Manager, the VMs running in the service network are created and provisioned on-demand by BOSH, and BOSH lets the IaaS assign IP addresses to the service instance VMs. Each dynamic network attached to a job instance is typically represented as its own NIC (Network Interface Controller) in the IaaS layer.
-
-Operators enable on-demand services when they deploy PCF, by creating one or more service networks in the Ops Manager Director Create Networks pane and selecting the Service Network checkbox. Designating a network as a service network prevents Ops Manager from creating VMs in the network, leaving instance creation to the underlying BOSH.
-
-## <a id ="lifecycle"></a>Redis for PCF Lifecycle for On-Demand Service Plan
-
-Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
-
-![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)
-
-## Redis for PCF Lifecycle for Dedicated-VM and Shared-VM Service Plans
+### <a id="lifecycle-dedicated-shared"></a>Lifecycle for Dedicated-VM and Shared-VM Service Plans
 
 Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 ![Lifecycle Diagram](Redis_timeline_legacy.png)
+
