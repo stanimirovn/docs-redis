@@ -18,7 +18,7 @@ For On-Demand plans, Redis has default configurations that App Developers can ch
     <td><code>maxmemory-policy</code></td>
     <td><code>allkeys-lru</code></td>
     <td><code>allkeys-lru</code>, <code>noeviction</code>, <code>volatile-lru</code>, <code>allkeys-random</code>, <code>volatile-ttl</code></td>
-    <td>Sets the behavior Redis follows when `maxmemory` is reached</td>
+    <td>Sets the behavior Redis follows when <code>maxmemory</code> is reached</td>
   </tr>
   <tr>
     <td><code>notify-keyspace-events</code></td>
@@ -41,14 +41,15 @@ For On-Demand plans, Redis has default configurations that App Developers can ch
 </table>
 
 For Dedicated-VM and Shared-VM plans, Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that the once memory is full, the service will not evict any keys and no write operations will be possible until memory becomes available.
- Persistence is configured for both RDB and AOF. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available.
+ Persistence is configured for both RDB and AOF. The default maximum number of connections, `maxclients`, is set at `10000`, but this number is adjusted by Redis according to the number of file handles available.
  Replication and event notification are not configured.
 
 ##  Service Plans
-PCF Redis offers On-Demand, Dedicated-VM and Shared-VM plans. The memory allocated to the plans is determined by the operator at deploy time. For more information on the plans see the [architecture](./architecture.html) and [recommended usage](./recommended.html) pages.
+PCF Redis offers On-Demand, Dedicated-VM, and Shared-VM plans. The memory allocated to the plans is determined by the operator at deploy time. For more information about the plans, see the [architecture](./architecture.html) and [recommended usage](./recommended.html) pages.
 
 ##  <a id="using"></a>Using Redis for PCF
-Instructions for creating, binding to, and deleting an instance of the On-Demand, Dedicated-VM or Shared-VM plan are [here](./using.html).
+
+See the [Using Redis for PCF](./using.html) topic for instructions about creating, binding to, and deleting an instance of the On-Demand, Dedicated-VM, or Shared-VM plan.
 
 ##  <a id="getting-started"></a>Getting Started
 
@@ -56,10 +57,10 @@ Instructions for creating, binding to, and deleting an instance of the On-Demand
 <a href="http://cloud.spring.io/spring-cloud-connectors/spring-cloud-spring-service-connector.html#_redis">Spring Cloud Connectors</a> can connect to PCF Redis. <a href="http://cloud.spring.io/spring-cloud-connectors/spring-cloud-cloud-foundry-connector.html#_redis">Spring Cloud Cloud Foundry connectors</a> will automatically connect to PCF Redis.
 
 ###  <a id="pcf-dev"></a>PCF Dev
-PCF Dev is a small footprint version of PCF that's small enough to run on a local developer machine. More info here https://pivotal.io/pcf-dev.
+PCF Dev is a small footprint version of PCF designed to be small enough to run on a local developer machine. See the [PCF Dev](https://pivotal.io/pcf-dev) documentation for more information.
 
 ###  <a id="example-app"></a>Redis Example App
-Sample ruby code that uses PCF can be found here <a href="https://github.com/pivotal-cf/cf-redis-example-app">https://github.com/pivotal-cf/cf-redis-example-app</a>.
+You can find sample ruby code that uses PCF in the <a href="https://github.com/pivotal-cf/cf-redis-example-app">cf-redis-example-app</a> GitHub repository.
 
 ###  <a id="redis"></a>Redis
 To learn more about Redis itself, visit <a href="http://redis.io">redis.io</a>.
