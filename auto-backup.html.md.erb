@@ -3,7 +3,9 @@ title: Configuring Automated Backups for Redis for PCF
 owner: London Services
 ---
 
-# <a id="backup"></a>Create Backups of Redis Instances
+<strong><%= modified_date %></strong>
+
+## <a id="backup"></a>Create Backups of Redis Instances
 
 You can configure backups to be run for all instances, across dedicated-VM and shared-VM service plans.
 **Backups are not available for On-Demand instances.**
@@ -18,13 +20,13 @@ The key features are:
 * Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
 * Backups are labelled with timestamp, instance GUID and plan name
 
-## Configuration
+## <a id="configuration"></a>Configuration
 To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage.
 
 Click on the tile in OpsManager, followed by the `Backups` link on the left hand menu.
 ![OpsManager Backups view](redis-backup.png)
 
-## S3 backup fields
+## <a id="s3"></a>S3 backup fields
 ![OpsManager Backups S3 view](s3backupoptions.png)
 
 | Field             | Description                                                                                                                                                                                                                                                                                                                                                                                            | Mandatory/Optional                                               |
@@ -37,7 +39,7 @@ Click on the tile in OpsManager, followed by the `Backups` link on the left hand
 | Backup timeout    | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination                                                                                                                                                                                                                 | Mandatory                                                        |
 | Cron Schedule     | Backups schedule in crontab format.  For example, once daily at 2am is `* 2 * * *`.  Also accepts a pre-defined schedule: any of `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`, or `@every <time>`, where `<time>` is any supported time string (e.g. `1h30m`). For more information, see [the cron package documentation](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules). | Mandatory                                                        |
 
-### AWS IAM Policy
+### <a id="aws"></a>AWS IAM Policy
 An AWS IAM policy describes the permissions related to your bucket.
 The minimum set of policies required in order to upload the backup files are:
 
@@ -68,7 +70,7 @@ Notes:
 * The additional `s3:CreateBucket` action is also required if the S3 bucket does not exist.
 
 
-### SCP backup fields
+### <a id="scp"></a>SCP backup fields
 ![OpsManager Backups SCP view](scpbackupoptions.png)
 
 | Field                 | Description                                                                                                                                                               | Mandatory/Optional |
@@ -81,7 +83,7 @@ Notes:
 | Cron Schedule         | Backups schedule in crontab format. Refer to table for S3 backups for details                                                                                             | Mandatory          |
 | Backup timeout        | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to the scp server | Mandatory          |
 
-### GCS backup fields
+### <a id="gcs"></a>GCS backup fields
 ![OpsManager Backups GCS view](gcsbackupoptions.png)
 
 PCF Redis uses service account credentials to upload backups to Google Cloud Storage. The service account should have `Storage Admin` permissions. Please refer to the [documentation](https://cloud.google.com/storage/docs/authentication#service_accounts) for details on how to set up a GCP service account.
@@ -95,7 +97,7 @@ PCF Redis uses service account credentials to upload backups to Google Cloud Sto
 | Backup timeout              | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination                                                                                                           | Mandatory          |
 
 
-### Azure backup fields
+### <a id ="azure"></a>Azure backup fields
 ![OpsManager Backups Azure view](azurebackupoptions.png)
 
 | Field                    | Description                                                                                                                                                                                                                                                                                      | Mandatory/Optional |

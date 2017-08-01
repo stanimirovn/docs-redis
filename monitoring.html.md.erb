@@ -3,10 +3,12 @@ title: Monitoring Redis for PCF
 owner: London Services
 ---
 
+<strong><%= modified_date %></strong>
+
 The PCF firehose exposes Redis metrics. For the On-Demand service plan, instance-level metrics are not available. The available On-Demand service metrics are listed [below](#usage)
 
 
-### Polling Interval
+## <a id="polling"></a> Polling Interval
 The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in **Metrics polling interval (min: 10)**.
 
 ![Metrics Polling Interval](metrics_polling.png)
