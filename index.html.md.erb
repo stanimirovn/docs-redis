@@ -27,6 +27,11 @@ Redis for PCF can be used as a datastore or cache.
 Metrics and logging enable operators to monitor Redis health. Operators can configure scheduled backups to a variety of destinations. There are manual backup and restore scripts for individual service instances.
 New features are regularly introduced. Upgrading Redis for PCF is straightforward and preserves configuration and data.
 
+Redis for PCF versions v1.8+ include on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
+
+Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
+
+
 ##<a id="snapshot"></a> Product Snapshot
 
 <dl>
