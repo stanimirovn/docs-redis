@@ -10,27 +10,9 @@ This tile can be downloaded from [Pivotal Network](https://network.pivotal.io/pr
 
 This documentation:
 
-+ Describes the features and architecture of Redis for PCF
-+ Instructs the PCF operator on how to install, configure, maintain and backup Redis for PCF
-+ Instructs the App developer on how to choose a service plan, create and delete Redis service instances, and bind an app
-
-##<a id="about-redis"></a> About Redis
-
-<strong><em>Redis</em></strong> is an easy to use, high speed key-value store that can be used as a database, cache, and message broker.
-It supports a range of data structures including strings, lists, hashes, sets, bitmaps, hyperloglogs, and geospatial indexes.
-It is easy to install and configure and is popular with engineers as a straightforward NoSQL data store.
-It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
-
-##<a id="about"></a> About Redis for PCF
-<strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
-Redis for PCF can be used as a datastore or cache.
-Metrics and logging enable operators to monitor Redis health. Operators can configure scheduled backups to a variety of destinations. There are manual backup and restore scripts for individual service instances.
-New features are regularly introduced. Upgrading Redis for PCF is straightforward and preserves configuration and data.
-
-Redis for PCF versions v1.8+ include on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
-
-Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
-
++ Describes the features and architecture of Redis for PCF.
++ Instructs the PCF operator on how to install, configure, maintain and backup Redis for PCF.
++ Instructs the App developer on how to choose a service plan, create and delete Redis service instances, and bind an app.
 
 ##<a id="snapshot"></a> Product Snapshot
 
@@ -51,6 +33,87 @@ Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means th
 
 &ast; <em>Ops Manager versions 1.9+ have support for securing metrics and logs
 through loggregator with TLS - this is enabled in Redis for PCF 1.9.</em>
+
+
+##<a id="about-redis"></a> About Redis
+
+<strong><em>Redis</em></strong> is an easy to use, high speed key-value store that can be used as a database, cache, and message broker.
+It supports a range of data structures including strings, lists, hashes, sets, bitmaps, hyperloglogs, and geospatial indexes.
+It is easy to install and configure and is popular with engineers as a straightforward NoSQL data store.
+It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
+
+## <a id="about"></a> About Redis for PCF
+
+<strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
+Redis for PCF can be used as a datastore or cache.
+Metrics and logging enable operators to monitor Redis health. Operators can configure scheduled backups to a variety of destinations. There are manual backup and restore scripts for individual service instances.
+New features are regularly introduced. Upgrading Redis for PCF is straightforward and preserves configuration and data.
+
+### <a id="odb"></a> On-Demand Service
+
+Redis for PCF versions v1.8+ include on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
+
+Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
+
+
+#### <a id="service"></a> Three On-Demand Plans
+
+Redis for PCF offers three on-demand plans as the p.redis service within the PCF Redis tile. Below is a description of each plan as it appears in the cf marketplace and its intended use case.
+
+* **Small Cache Plan**- A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and >3.5GB of persistent disk.
+* **Medium Cache Plan** - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and >10GB of persistent disk.
+* **Large Cache**- A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and >14GB of persistent disk.
+
+For each service plan, the operator can configure the **Plan name**, **Plan description**, **Server VM type** and **Server Disk type**, or choose to disable the plan completely.
+
+### <a id="other-notes"></a>Support for Multiple AZs
+
+As of version 1.9, Redis for PCF supports configuring multiple AZs.
+However, assigning multiple AZs to Redis jobs does not guarantee high availability.
+
++ On-Demand plans can be assigned to any of the configured availability zones.
+However each instance still operates as a single node with no clustering.
++ Shared-VM instances run on a single node in just one of the configured availability zones and are therefore not highly available.
++ Dedicated-VM instances can be assigned to any of the configured availability zones.
+However each instance still operates as a single node with no clustering.
+This separation over availability zones provides no high availability.
+
+##<a id="checklist"></a> Enterprise-Ready Checklist
+
+Review the following table to determine if Redis for PCF has the features needed to support your enterprise.
+
+<table border="1" class="nice">
+<tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
+<tr><td>On-Demand, Dedicated-VM and Shared-VM plans</td><td>Redis for PCF provides On-Demand, dedicated VM and shared VM service plans.</td><td><a href="architecture.html#plans">Plans</a></td></tr>
+<tr><td>Customizable plans</td><td>For the On-Demand Plan and Dedicated-VM plan, the operator can customize the VM and disk size.</td><td><a href="installing.html#service-plans">Configuring</a></td></tr>
+
+<tr><th colspan=2>Installation and Upgrades</th><th>More Information</th></tr>
+<tr><td>Product upgrades</td><td>Redis for PCF can be upgraded from v1.7 tiles</td>
+     <td><a href="installing.html#upgrades">Upgrading Redis for PCF</a></td></tr>
+<tr><td>Deployment Smoke Tests</td><td>Redis for PCF installation and upgrade runs
+        a post deployment BOSH errand that validates basic Redis operations</td>
+    <td><a href="smoke-tests.html">Smoke Tests</a></td></tr>
+
+<tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
+<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.9 provides metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
+    <td><a href="monitoring.html">Monitoring Redis for PCF</a></td></tr>
+<tr><td>Backup and Restore</td><td>Redis for PCF v1.9 includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
+</td><td><a href="manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
+
+<tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
+<tr><td>Scale</td><td>Redis for PCF has been tested with 60GB of data</td><td></td></tr>
+<tr><td>On-Demand Plan</td><td>Redis for PCF provides up to 50 on-demand instances across plans</td><td></td></tr>
+<tr><td>Ability to Scale Up / Down</td><td>Operators can scale VMs up, but not down</td><td><a href="installing.html#service-plans">Configuring</a></td></tr>
+<tr><td>Rolling Deployments</td><td>Redis for PCF does not support rolling deployments because it is single node; the service is unavailable during upgrades.</td><td><a href="installing.html#upgrades">Upgrades</a></td></tr>
+<tr><td>AZ Support</td><td>Assigning multiple AZs to Redis jobs does not guarantee high availability.</td>
+    <td><a href="#other-notes">About Multiple AZs in Redis for PCF</a></td></tr>
+
+<tr><th colspan=2>Encryption</th><th>More Information</th></tr>
+<tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested successfully with the BOSH IPsec Add-on</td>
+    <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec Add-on</a></td></tr>
+
+</table>
+
 
 ##<a id="upgrading"></a> About Upgrading to the Latest Version
 
