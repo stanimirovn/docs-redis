@@ -291,15 +291,18 @@ It is recommended that each service run in its own network.
 
 The following ports and ranges are used in this service:
 
-* Destination port 12350 access to the legacy broker from the cloud controllers
-* Destination port 12345 access to the On-Demand broker from the cloud controllers
-* Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)
-* Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.
-* Destination port 80 access to the service broker from the cloud controllers
-* Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443
-* All Redis instances now have a consul agent co-located for service discovery and DNS. This means instances need to be able to listen on port `8301`
-* For the on-demand service, the on-demand service broker needs to talk to `bosh director`. This requires firewall rules need to open TCP `8443` and `25555`
+| Port                  | Protocol                     | Direction and Network                                                                          | Reason                                                                                                                      |
+|:----------------------|:-----------------------------|:-----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| 8300,8301             | tcp,tcp and udp respectively | inbound to CloudFoundry network, outbound from service broker and service instance networks[1] | communication between the CF consul_server and consul_agents on Redis deployment, used for metrics.                         |
+| 4001                  | tcp                          | inbound to CloudFoundry network, outbound from service broker and service instance networks[1] | used by the Redis metron_agent to forward metrics to the CloudFoundry etcd server.                                          |
+| 12350                 | tcp                          | outbound from CloudFoundry to the cf-redis-broker service broker network                       | (only if using a cf-redis-broker) access to the cf-redis-broker from the cloud controllers.                                 |
+| 12345                 | tcp                          | outbound from CloudFoundry to the on-demand service broker network                             | (only if using an On-Demand service) to provide access to the on-demand service broker from the cloud controllers.          |
+| 6379                  | tcp                          | outbound from CloudFoundry to any service instance networks (dedicated-node and on-demand)     | access to all dedicated nodes and on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
+| 32768-61000           | tcp                          | outbound from CloudFoundry to the cf-redis-broker service broker network                       | From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan. |
+| (typically) 80 or 443 | http or https, respectively  | outbound from any service instance networks                                                    | access to the backup blobstore.                                                                                             |
+| 8443, 25555           | tcp                          | outbound from any on-demand service broker network to the bosh director network                | for the on-demand service, the on-demand service broker needs to talk to `bosh director`                                    |
 
+[1] Typically the service broker network and service instance network(s) are the same.
 
 ###  <a id="asg"></a> Application Security Groups###
 
