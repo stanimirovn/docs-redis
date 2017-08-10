@@ -14,23 +14,6 @@ This documentation:
 + Instructs the PCF operator on how to install, configure, maintain and backup Redis for PCF.
 + Instructs the App developer on how to choose a service plan, create and delete Redis service instances, and bind an app.
 
-##<a id="about-redis"></a> About Redis
-
-<strong><em>Redis</em></strong> is an easy to use, high speed key-value store that can be used as a database, cache, and message broker.
-It supports a range of data structures including strings, lists, hashes, sets, bitmaps, hyperloglogs, and geospatial indexes.
-It is easy to install and configure and is popular with engineers as a straightforward NoSQL data store.
-It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
-
-##<a id="about"></a> About Redis for PCF
-<strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
-Redis for PCF can be used as a datastore or cache.
-Metrics and logging enable operators to monitor Redis health. Operators can configure scheduled backups to a variety of destinations. There are manual backup and restore scripts for individual service instances.
-New features are regularly introduced. Upgrading Redis for PCF is straightforward and preserves configuration and data.
-
-Redis for PCF versions v1.8+ include on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
-
-Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
-
 ##<a id="snapshot"></a> Product Snapshot
 
 <dl>
@@ -51,7 +34,6 @@ Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means th
 &ast; <em>Ops Manager versions 1.9+ have support for securing metrics and logs
 through loggregator with TLS - this is enabled in Redis for PCF 1.9.</em>
 
-
 ##<a id="about-redis"></a> About Redis
 
 <strong><em>Redis</em></strong> is an easy to use, high speed key-value store that can be used as a database, cache, and message broker.
@@ -59,12 +41,15 @@ It supports a range of data structures including strings, lists, hashes, sets, b
 It is easy to install and configure and is popular with engineers as a straightforward NoSQL data store.
 It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
 
-## <a id="about"></a> About Redis for PCF
-
+##<a id="about"></a> About Redis for PCF
 <strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
 Redis for PCF can be used as a datastore or cache.
 Metrics and logging enable operators to monitor Redis health. Operators can configure scheduled backups to a variety of destinations. There are manual backup and restore scripts for individual service instances.
 New features are regularly introduced. Upgrading Redis for PCF is straightforward and preserves configuration and data.
+
+Redis for PCF versions v1.8+ include on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/). This enables an App Developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command. The Operator configures the plan options available to the App Developers.
+
+Redis for PCF v1.8+ still offers Dedicated-VM and Shared-VM plans. This means that an Operator needs to specify at install time how many dedicated VM Redis instances to create.
 
 ### <a id="odb"></a> On-Demand Service
 
