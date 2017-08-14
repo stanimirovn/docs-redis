@@ -36,6 +36,7 @@ Redis for PCF offers On-Demand, Dedicated-VM and Shared-VM plans.
 * You can disable any of the three on-demand plans in the plan's page in OpsManager.
 * The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
+* `maxmemory` in `redis.conf` is set to 45% of the system memory
 * App Developers can update certain Redis configurations.
 
 ### Shared-VM Service Plan
