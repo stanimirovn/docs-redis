@@ -41,6 +41,7 @@ For On-Demand Plans, certain Redis configurations can be set by the operator dur
 
 * This plan enables Redis instances to be deployed on dedicated VMs. Instances can be deployed until they reach either an opertor-set per-plan quota or global quota.
 * Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) and service broker adapter associated with this plan.
+* `maxmemory` in `redis.conf` is set to 45% of the system memory
 * Any On-Demand plan can be disabled from the plan page in OpsManager.
 
 #### Known Limitations for On-Demand Service Plans
