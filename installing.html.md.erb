@@ -216,7 +216,8 @@ For On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared
 
 ###  <a id="network-configuration"></a>Network Configuration
 
-It is recommended that each service run in its own network.
+It is recommended that each type of Redis for PCF service run in its own network. 
+For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
 
 The following ports and ranges are used in this service:
 
