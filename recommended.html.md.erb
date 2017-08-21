@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## Recommended Use Cases
+## <a id="usecases"></a> Recommended Use Cases
 
 Redis for PCF can be used as a cache or as a datastore.
 On-Demand plans, introduced in Redis for PCF v1.8, are designed for cache use cases.
@@ -22,16 +22,16 @@ Redis can be used in many different ways, including:
 * Leaderboards/Counting - increments and decrements of sets and sorted sets using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, `GETSET`
 * Pub/Sub - built in publish and subscribe operations - `PUBLISH`, `SUBSCRIBE`, `UNSUBSCRIBE`
 
-## Service Plan Recommended Usage and Limitations
+## <a id="plan-usage"></a> Service Plan Recommended Usage and Limitations
 
-### On-Demand Plans
+### <a id="ondemand"></a> On-Demand Plans
 * Each on-demand plan instance is deployed to its own VM and is suitable for production workloads.
 * The maximum-number of on-demand plan instances available to developers is set by the operator and enforced on both a global and per-plan level quota. This quota cannot exceed 50.
 * Select Redis configurations can be changed from default.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 
-#### <a id="resources"></a> Resource Usage Planning for On-Demand plans
+#### Resource Usage Planning for On-Demand plans
 
 <p class="note">
 Redis On-Demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
@@ -57,7 +57,7 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 
 <pre>current_usage = (plan_1_total_instances x plan_1_resources) + (plan_2_total_instances x plan_2_resources)</pre>
 
-### Dedicated-VM Plan
+### <a id="dedicated"></a> Dedicated-VM Plan
 
 * Dedicated-VM plans are configured with `maxmemory-policy` = `no-eviction` and with RDB and AOF persistence.
 * Each dedicated VM plan instances is deployed to its own VM and is suitable for production workloads.
@@ -67,7 +67,7 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 * Cannot scale down the size of VMs on the plan once deployed (this protects against data loss).
 * The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available.
 
-### Shared-VM Plan
+### <a id="shared"></a> Shared-VM Plan
 
 * Shared-VM plans are configured with `maxmemory-policy` = `no-eviction` and with RDB and AOF persistence.
 * The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
@@ -78,7 +78,7 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 * Constraining CPU and/or disk usage is not supported.
 * The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available.
 
-## Availability Using Multiple AZs
+## <a id="availability"></a> Availability Using Multiple AZs
 
 Redis for PCF 1.9 supports configuring multiple availability zones but this configuration does not provide high availability.
 
@@ -102,7 +102,7 @@ In Ops Manager, any field that changes the manifest will cause a redeploy of the
 
 For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9, downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
 
-## Redis Key Count and Memory Size
+## <a id="keycount"></a> Redis Key Count and Memory Size
 
 Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle at least 250 million keys per instance.
 Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements.
