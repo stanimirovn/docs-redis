@@ -32,7 +32,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 ###  <a id="on-demand-config"></a>On-Demand Service
 
 1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture_networks). From an IAAS perspective, creation of a service network is identical to any other network previously created for tiles on Ops Manager. The only change is that the Operator needs to mark the network as a “Service Network” in Ops Manager to instruct Ops Manager to not perform IP management in that network.
-If you wish to use Redis for PCF without the On-Demand service, you will still need to create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
+If you want to use Redis for PCF without the On-Demand service, you will still need to create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
@@ -115,7 +115,7 @@ Operators should not downsize the VMs or disk size as this can cause data loss i
 
 #### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
 
-If you wish to remove the On-Demand Service from your tile, do the following: <br/>
+If you want to remove the On-Demand Service from your tile, do the following: <br/>
 
 1. Navigate to the **Errands** page on the Redis for PCF tile. Set the following errands to 'off':
     * Register On-demand Redis Broker
@@ -171,14 +171,14 @@ If you wish to remove the On-Demand Service from your tile, do the following: <b
       If this happens your users may not be able to write any further data to any Redis instance.
     </p>
 
-1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here](#remove-on-demand).
+1. You must disable the On-Demand Service if you do not want to use it. Please see the directions [here](#remove-on-demand).
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Redis Broker.
     <br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk & Persistent Disk made available, as required.
 
 1.  Click the **Save** button.
 
-1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here] (#remove-on-demand).
+1. You must disable the On-Demand Service if you do not want to use it. Please see the directions [here] (#remove-on-demand).
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
@@ -186,11 +186,13 @@ If you wish to remove the On-Demand Service from your tile, do the following: <b
 ![dedicated vm config](dedicated-vm-config.png)
 
     <br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
-The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM.
+The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads.
+Redis maxmemory is set to 45% of RAM.
+Pivotal recommends the persistent disk be set to 3.5x the amount of RAM.
 
 1. Click the **Save** button.
 
-1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here] (#remove-on-demand).
+1. You must disable the On-Demand Service if you do not want to use it. Please see the directions [here] (#remove-on-demand).
 
 ### <a id="resources"></a>Configure Resources for Shared-VM and Dedicated-VM Plans
 
@@ -372,7 +374,7 @@ Follow these steps to configure syslog output:
 
 ###  <a id="network-configuration"></a>Network Configuration
 
-It is recommended that each type of Redis for PCF service run in its own network.
+Pivotal recommends that each type of Redis for PCF service run in its own network.
 For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
 
 The following ports and ranges are used in this service:
