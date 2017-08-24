@@ -349,15 +349,21 @@ Application Developers can configure their Redis instances with arbitrary parame
 Pivotal recommends that operators configure a syslog output.
 For On-Demand instances, all logs follow RFC5424 format. Dedicated-VM and Shared-VM plan instances are consistent with their previous format.
 
-1. Set syslog to on if you wish to use it.
+Follow these steps to configure syslog output:
 
-1.  Add the Syslog address, Syslog port and transport protocol of your log management tool.
+1. Click the Redis for PCF tile to display the configuration page, and then click **Syslog** on the Settings tab.
 
-    The information required for these fields is provided by your log management tool.
+    <br>![syslog configuration](syslog-forwarding3.png)
 
-    ![syslog configuration](syslog-forwarding2.png)
+1. Select the **Yes** radio button.
 
-1.  Click the **Save** button.
+1.  Enter the Syslog address and port, and select the transport protocol of your log management tool. The information required for these fields is provided by your log management tool.
+
+1. Select the format for your logs. RFC 5424 is the suggested format and is standard across PCF services. 
+
+    <br>If you have pre-existing systems that may break with a new format, you may select the legacy format. However, the legacy format will eventually be deprecated.
+
+1.  Click **Save**.
 
 
 ## <a id="azs"></a>Networks, Security, and Assigning AZs
