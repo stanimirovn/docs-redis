@@ -3,6 +3,28 @@ title: Release Notes
 owner: London Services
 ---
 
+## Redis for PCF v1.8.5
+**Aug 29, 2017**
+
+**Bug Fixes**
+
+* Ensures all eviction policies are enforced when memory is full for On-Demand instances.
+
+**Compatibility**
+
+* Uses On Demand Service Broker v0.17.0
+
+
+**Known Issues**
+* `lua-timeout-limit` a Redis configuration that is exposed to App Developers through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
+
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+
+* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
+
+* Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
+
+
 ## Redis for PCF v1.8.4
 **July 20, 2017**
 
