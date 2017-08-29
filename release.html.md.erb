@@ -4,24 +4,24 @@ owner: London Services
 ---
 
 ## Redis for PCF v1.8.5
-**Aug 29, 2017**
+**August 29, 2017**
 
 **Bug Fixes**
 
-* Ensures all eviction policies are enforced when memory is full for On-Demand instances.
+* Ensures all eviction policies are enforced when on-demand instance  memory is full.
 
 **Compatibility**
 
-* Uses On Demand Service Broker v0.17.0
+* Uses On-Demand Service Broker v0.17.0
 
 
 **Known Issues**
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to App Developers through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The `When Changed` option for errands has unexpected behavior. Do not select this choice as an errand.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
@@ -31,22 +31,22 @@ owner: London Services
 
 **Bug Fixes**
 
-* On-Demand Service instances will correctly pick up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
+* On-demand service instances correctly pick up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
 
-* On-Demand smoketests will be skipped if the quota for on-demand service instances has been met. This addresses a prior bug where the smoketests would fail if the quota had been met.
+* On-demand smoke tests are skipped if the quota for on-demand service instances has been met. This addresses a prior bug where the smoke tests would fail if the quota had been met.
 
 * Includes a bug fix in the control script for process-destroyer which prevents process-watcher from restarting periodically (every 10,000 seconds).
 
 
 **Known Issues**
 
-* `lua-timeout-limit` a Redis configuration that is exposed to App Developers through arbitrary Parameters in 1.9,  will not have any effect due to a bug in Redis 3.2.8.
+* `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  do not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The 'When Changed' option for errands has unexpected behavior. Do not select this choice as an errand.
 
-* On-Demand instances may not correctly enforce eviction policies when memory is full.
+* On-demand instances may not correctly enforce eviction policies when memory is full.
 
 
 
@@ -63,7 +63,7 @@ owner: London Services
 
 **Bug Fixes**
 
-* Fixes a bug in 1.8.1 where the Dedicated-VM service will experience periodic restarts.
+* Fixes a bug in v1.8.1 where the Dedicated-VM service experiences periodic restarts.
 
 * Fixes the formatting for the new on-demand service in Apps Manager.
 
@@ -73,19 +73,19 @@ owner: London Services
 
 * A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
 
-* New on-demand service instances will not pick up new stemcells beyond 3363.24.
+* New on-demand service instances do not pick up new stemcells beyond 3363.24.
 
-* Upgrades of on-demand service instances from 1.8.0 and 1.8.1 to 1.8.2 will not take effect.
+* Upgrades of on-demand service instances from v1.8.0 and v1.8.1 to v1.8.2 do not take effect.
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to App Developers through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.8,  do not have any effect due to a bug in Redis v3.2.8.
 
-* Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The 'When Changed' option for errands has unexpected behavior. Do not select this choice as an errand.
 
-* On-Demand instances may not correctly enforce eviction policies when memory is full.
+* On-demand instances may not correctly enforce eviction policies when memory is full.
 
 
 ## Redis for PCF v1.8.1
@@ -95,35 +95,35 @@ owner: London Services
 
 * This release is compatible with Stemcells 3363.20+.
 
-* Please refer to compatibility referenced in 1.8.0 release notes below. No other changes have been made.
+* Please refer to compatibility referenced in v1.8.0 release notes below. No other changes have been made.
 
 **Features**
 
-* No changes have been made to features. Please see our [overview](https://docs.pivotal.io/redis/1-8/minor-overview.html) for the new features in 1.8.
+* No changes have been made to features. Please see our [overview](https://docs.pivotal.io/redis/1-8/minor-overview.html) for the new features in v1.8.
 
 **Bug Fixes**
 
-* Fixes a bug in 1.8.0 that causes a failure to install if the Director has a hostname configured in Ops Manager.
+* Fixes a bug in v1.8.0 that causes a failure to install if the Director has a hostname configured in Ops Manager.
 
 **Known Issues**
 
 * A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
 
-* New on-demand service instances will not pick up new stemcells beyond 3363.20.
+* New on-demand service instances do not pick up new stemcells beyond 3363.20.
 
-* Upgrades of on-demand service instances from 1.8.0 to 1.8.1 will not take effect.
+* Upgrades of on-demand service instances from v1.8.0 to v1.8.1 do not take effect.
 
-* A bug exists where the Dedicated-VM service will experience periodic restarts.
+* A bug exists where the Dedicated-VM service experience periodic restarts.
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.8,  do not have any effect due to a bug in Redis v3.2.8.
 
-* Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The 'When Changed' option for errands has unexpected behavior. Do not select this choice as an errand.
 
-* On-Demand instances may not correctly enforce eviction policies when memory is full.
+* On-demand instances may not correctly enforce eviction policies when memory is full.
 
 
 ## Redis for PCF v1.8.0
@@ -131,13 +131,13 @@ owner: London Services
 
 **Compatibility**
 
-* This release is compatible with PCF 1.9+.
+* This release is compatible with PCF v1.9+.
 
-* Includes Redis 3.2.8.
+* Includes Redis v3.2.8.
 
 * The redis-broker now listens on port `12350`.
 
-* The On-Demand Service leverages the [On-Demand Broker v0.15.2](https://docs.pivotal.io/svc-sdk/odb/0-15/release-notes.html)
+* The on-demand Service leverages the [On-Demand Broker v0.15.2](https://docs.pivotal.io/svc-sdk/odb/0-15/release-notes.html)
 
 * TLS is turned on for metric communications.
 
@@ -147,20 +147,20 @@ owner: London Services
 
 **Known Issues**
 
-* New on-demand service instances will not pick up new stemcells beyond the one they were installed with.
+* New on-demand service instances do not pick up new stemcells beyond the one they were installed with.
 
-* `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in 1.8,  will not have any effect due to a bug in Redis 3.2.8.
+* `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.8,  do not have any effect due to a bug in Redis v3.2.8.
 
-* Redis smoke tests will fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
-* The 'When Changed' option for errands has unexpected behavior. Operators should not select this choice as an errand and should change the defaults from 'When Changed' to 'On'
+* The 'When Changed' option for errands has unexpected behavior. Do not select this choice as an errand and should change the defaults from 'When Changed' to 'On'
 
 * Redis backups to AWS S3 are limited to standard region. Backups are only sent to AWS S3 buckets that have been created in the [US Standard region] (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region), “us-east-1.”
 
 * Fails to install if a hostname has been configured for the Director in Ops Manager.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* On-Demand instances may not correctly enforce eviction policies when memory is full.
+* On-demand instances may not correctly enforce eviction policies when memory is full.
 
 Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
