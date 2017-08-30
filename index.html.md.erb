@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-This is documentation for the Redis for PCF service tile.
+This is documentation for the Redis for Pivotal Cloud Foundry (PCF) service tile.
 This tile can be downloaded from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
 This documentation:
@@ -19,7 +19,7 @@ This documentation:
 <dl>
 <dt>Current <a href="https://network.pivotal.io/products/p-redis">Redis for PCF</a> details</dt>
 <dd><strong>Version</strong>: v1.9.3 </dd>
-<dd><strong>Release date</strong>: 24 Aug 2017</dd>
+<dd><strong>Release date</strong>: Augst 24, 2017</dd>
 <dd><strong>Software component version</strong>: Redis OSS v3.2.8</dd>
 <dd><strong>Compatible Ops Manager version</strong>: v1.10.9+, v1.11.0*</dd>
 <dd><strong>Compatible Elastic Runtime version</strong>: v1.10.9+, v1.11.0</dd>
@@ -31,8 +31,8 @@ This documentation:
 <dd><strong>IPsec support?</strong> Yes</dd>
 </dl>
 
-&ast; <em>Ops Manager versions 1.9+ have support for securing metrics and logs
-through loggregator with TLS - this is enabled in Redis for PCF 1.9.</em>
+&ast; <em>Ops Manager v1.9+ have support for securing metrics and logs
+through loggregator with TLS — this is enabled in Redis for PCF v1.9.</em>
 
 ##<a id="about-redis"></a> About Redis
 
@@ -42,7 +42,7 @@ It is easy to install and configure and is popular with engineers as a straightf
 It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
 
 ##<a id="about"></a> About Redis for PCF
-<strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
+<strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on PCF.
 Redis for PCF can be used as a datastore or cache.
 Metrics and logging enable operators to monitor Redis health. Operators can configure scheduled backups to a variety of destinations. There are manual backup and restore scripts for individual service instances.
 New features are regularly introduced. Upgrading Redis for PCF is straightforward and preserves configuration and data.
@@ -76,10 +76,10 @@ As of v1.9, Redis for PCF supports configuring multiple AZs.
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.
 
 + On-Demand plans can be assigned to any of the configured availability zones.
-However each instance still operates as a single node with no clustering.
+However, each instance still operates as a single node with no clustering.
 + Shared-VM instances run on a single node in just one of the configured availability zones and are therefore not highly available.
 + Dedicated-VM instances can be assigned to any of the configured availability zones.
-However each instance still operates as a single node with no clustering.
+However, each instance still operates as a single node with no clustering.
 This separation over availability zones provides no high availability.
 
 ##<a id="checklist"></a> Enterprise-Ready Checklist
