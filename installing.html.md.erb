@@ -43,9 +43,9 @@ If you want to use Redis for PCF without the On-Demand service, you will still n
 </br>
 </br>
     The default names of the three cache plans provided reflect that instances of these plans are intended to be used for different cache sizes, as follows:</br></br>
-    * **cache-small** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk
-    * **cache-medium** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >7&nbsp;GB of persistent disk
-    * **cache-large** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk</br>
+    * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk
+    * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >7&nbsp;GB of persistent disk
+    * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk</br>
 
     ![on demand config](on-demand-config.png)
     Configure the following settings for your cache plan(s). Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
@@ -288,17 +288,17 @@ The following table describes properties that operators can update in the [confi
   <tr>
     <td><strong>Redis Client Timeout</strong></td>
     <td>3600</td>
-    <td>Server timeout for an idle client specified in seconds (e.g., 3600).</td>
+    <td>Server timeout for an idle client specified in seconds (e.g., 3600)</td>
   </tr>
   <tr>
     <td><strong>Redis TCP Keepalive</strong></td>
     <td>60</td>
-    <td>The max number of connected clients at the same time.</td>
+    <td>The max number of connected clients at the same time</td>
   </tr>
   <tr>
     <td><strong>Max Clients</strong></td>
     <td>1000/5000/10000 (small/medium/large)</td>
-    <td>The max number of connected clients at the same time.</td>
+    <td>The max number of connected clients at the same time</td>
   </tr>
   <tr>
     <td><strong>Lua Scripting</strong></td>
@@ -308,11 +308,11 @@ The following table describes properties that operators can update in the [confi
   <tr>
     <td><strong>Plan Quota</strong></td>
     <td>20</td>
-    <td>Maximum number of Redis service instances for this plan, across all orgs and spaces.</td>
+    <td>Maximum number of Redis service instances for this plan, across all orgs and spaces</td>
   </tr>
 </table>
 
-Application Developers can configure their Redis instances with arbitrary parameters, as shown in the following table. See the <a href="https://redis.io/commands">Redis documentation</a> for more detail.
+App developers can configure their Redis instances with arbitrary parameters, as shown in the following table. See the <a href="https://redis.io/commands">Redis documentation</a> for more detail.
 
 <table border="1" class="nice">
   <tr>
@@ -330,7 +330,7 @@ Application Developers can configure their Redis instances with arbitrary parame
   <tr>
     <td><code>notify-keyspace-events</code></td>
     <td>""</td>
-    <td>Set a combination of the following characters (e.g., "Elg"): K, E, g, $, l, s, h, z, x, e, A</td>
+    <td>Set a combination of the following characters (e.g., <code>Elg</code>): K, E, g, $, l, s, h, z, x, e, A</td>
     <td>Sets the keyspace notifications for events that affect the Redis data set</td>
   </tr>
   <tr>
