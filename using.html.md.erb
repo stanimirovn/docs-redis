@@ -5,9 +5,9 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for PCF can be used both via <a href="http://docs.pivotal.io/pivotalcf/1-11/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI), both methods are outlined below. An example application has also been created to help application developers get started with Redis for PCF, and can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
+Redis for Pivotal Cloud Foundry (PCF) can be used both via <a href="http://docs.pivotal.io/pivotalcf/1-11/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI), both methods are outlined below. An example application has also been created to help application developers get started with Redis for PCF, and can be [downloaded here](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
-See [Redis for PCF Recommended Usage](./recommended.html) for recommendations regarding Redis for PCF service plans, and memory allocation.
+See [Recommended Usage and Limitations](./recommended.html) for recommendations regarding Redis for PCF service plans, and memory allocation.
 
 ## <a id="prereq"></a>Prerequisites
 
@@ -29,8 +29,8 @@ To use Redis for PCF in a PCF app:
 
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log into the org and space that contains the app.
 
-1. Make sure an instance of the Redis for PCF service exists in the same space as the app.
-   - If the space does not already have a Redis for PCF instance, [create](#create) one.
+1. Make sure an instance of the Redis for PCF service exists in the same space as the app.<br><br>
+   - If the space does not already have a Redis for PCF instance, [create](#create) one.<br>
    - If the space already has a Redis for PCF instance, you can [bind](#bind) your app to the existing instance or create a new instance to bind to your app.
 
 2. [Bind](#bind) the app to the Redis for PCF service instance, to enable the app to use Redis.
@@ -42,7 +42,7 @@ For an app to use a service, 1) the service must be available in the Marketplace
 You can confirm both of these using the cf CLI as follows.
 
 1. To find out if a Redis for PCF service is available in the Marketplace:
-   1. Enter `cf marketplace`
+   1. Enter `cf marketplace`.
    1. If the output lists `p.redis` in the `service` column, on-demand Redis for PCF is available. If the output lists `p-redis` in the `service` column, dedicated-VM and shared-VM Redis for PCF is available. If it is not available, ask your operator to install it.
 
     <pre class="terminal">
@@ -56,7 +56,7 @@ You can confirm both of these using the cf CLI as follows.
     </pre>
 
 1. To confirm that a Redis for PCF instance is running in the space
-    1. Enter `cf services`
+    1. Enter `cf services`.
     1. Any `p.redis` listings in the `service` column are service instances of on-demand redis in the space.
 
     <pre class="terminal">
@@ -71,9 +71,9 @@ You can confirm both of these using the cf CLI as follows.
 
 ## <a id='create'></a>Create a Service Instance
 
-### <a id='createcli'></a>Create a Service Instance with the CLI
+### <a id='createcli'></a>Create a Service Instance with the cf CLI
 
-#### Dedicated-VM and Shared-VM service
+#### Dedicated-VM and Shared-VM Service
 
 Dedicated-VM and Shared-VM service instances have been pre-provisioned by the operator. This means, if an instance is available, the app developer can provision it immeditately.
 These plans are both listed under the `p-redis` servive in the marketplace.
@@ -86,7 +86,7 @@ Creating service dedicated-instance in org my-org / space my-space as user<span>
 OK<br>
 </pre>
 
-#### On-Demand service
+#### On-Demand Service
 
 Unlike pre-provisioned services, on-demand instances are created asynchronously, not immediately.
 
@@ -112,41 +112,39 @@ If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.ht
 
 ### <a id='createam'></a>Create a Service Instance with Apps Manager
 
-From within Pivotal Apps Manager, select Marketplace from the left navigation menu under Spaces.
+From within Pivotal Apps Manager, select **Marketplace** from the left navigation menu under Spaces.
 
 ![marketplace](appsman_marketplace.png)
 
-#### Dedicated-VM and Shared-VM service
-
-![marketplace_p-redis](p-redis_marketplace.png)
+#### Dedicated-VM and Shared-VM Service<br><br>
 
 1. Select **Redis** from the displayed tiles in the marketplace.<br>
+  <br>![marketplace_p-redis](p-redis_marketplace.png)
+
 1. Click on the appropriate **Select this plan** button to select the required **Redis Service Plan**.
+  <br><br>![info_p-redis](p-redis-info.png)
 
-![info_p-redis](p-redis-info.png)
-
-1. In the Instance Name field, enter a name that will identify this specific Redis service instance.
-1. From the Add to Space drop-down list, select the space where you or other users will deploy the applications that will bind to the service.
+1. In the **Instance Name** field, enter a name that will identify this specific Redis service instance.
+1. From the **Add to Space** drop-down list, select the space where you or other users will deploy the applications that will bind to the service.
 1. Click the **Add** button.
 
-#### On-Demand service
+#### On-Demand Service<br><br>
 
-![marketplace_predis](predis_marketplace.png)
+1. Select **On-Demand Redis** from the displayed tiles in the marketplace.<br><br>
+  ![marketplace_predis](predis_marketplace.png)
 
-1. Select **On-Demand Redis** from the displayed tiles in the marketplace.
-1. Click on the appropriate **Select this plan** button to select the required **Redis Service Plan**.
+1. Click on the appropriate **Select this plan** button to select the required **Redis Service Plan**.<br><br>
+  ![info_predis](predis_info.png)
 
-![info_predis](predis_info.png)
-
-1. In the Instance Name field, enter a name that will identify this specific Redis service instance.
-1. From the Add to Space drop-down list, select the space where you or other users will deploy the applications that will bind to the service.
+1. In the **Instance Name** field, enter a name that will identify this specific Redis service instance.
+1. From the **Add to Space** drop-down list, select the space where you or other users will deploy the applications that will bind to the service.
 1. Click the **Add** button.
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
 For an app to use a service, you must bind it to a service instance. Do this after you push or re-push the app using `cf push`.
 
-### <a id="bind-cli"></a> Bind a Service Instance with the CLI
+### <a id="bind-cli"></a> Bind a Service Instance with the cf CLI
 
 To bind an app to a Redis for PCF instance use `$ cf bind-service`.
 
@@ -164,7 +162,7 @@ To bind an app to a Redis for PCF instance use `$ cf bind-service`.
 
 1. Enter `cf bind-service APP SERVICE_INSTANCE`
 
-    Where `APP` is the app you want to use the Redis service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
+    where `APP` is the app you want to use the Redis service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
 
     <pre class="terminal">
    $ cf bind-service my-app my-instance<br>
@@ -176,8 +174,8 @@ To bind an app to a Redis for PCF instance use `$ cf bind-service`.
 ### <a id="bind-appsman"></a> Bind a Service Instance with Apps Manager
 
 1. Select the application that you wish to bind to the service. A page displays showing the already bound services and instances for this application.
-1. Click Bind. A list of available services displays.
-1. Click the Bind button for the Redis service you want to bind to this application.
+1. Click **Bind**. A list of available services displays.
+1. Click the **Bind** button for the Redis service you want to bind to this application.
 1. Start or restage your app from the command line:
 
     <pre class=terminal>
@@ -224,10 +222,14 @@ App Developers can customize the following parameters:
   </tr>
 </table>
 
-### <a id="customize-cli"></a> Customize an On-Demand Instance With the CF CLI
+### <a id="customize-cli"></a> Customize an On-Demand Instance With the cf CLI
 
-1. You can customize an instance at create timeby running `cf create-service SERVICE PLAN NAME -c '{"PROPRETY":"SETTING"}'`, or after creating the instance by running `cf update-service NAME -c '{"PROPRETY":"SETTING"}'`.
-For both scenarios, the -c flag requires valid JSON object containing service-specific configuration parameters, provided either in-line or in a file.
+You can customize an instance in two ways:
+
+* While creating the instance, run: <br>`cf create-service SERVICE PLAN NAME -c '{"PROPRETY":"SETTING"}'`
+* After creating the instance, run: <br>`cf update-service NAME -c '{"PROPRETY":"SETTING"}'`
+
+For both scenarios, the `-c` flag requires a valid JSON object containing service-specific configuration parameters, provided either in-line or in a file.
 
 <pre class=terminal>
 $ cf update-service my-instance -c '{"maxmemory-policy":"noeviction", }'
@@ -239,7 +241,7 @@ You can pass through mutliple arbitrary parameters:
 $ cf update-service my-instance -c '{"maxmemory-policy":"noeviction", "notify-keyspace-events":"El"}'
 </pre>
 
-If the update is not successfuly, you will receive a notification that the update failed with the description as to what was wrong. Here is an example where a hyphen is added to the `noeviction` setting.
+If the update is not successful, an error is displayed with a description of what went wrong. Here is an example where a hyphen is added to the `noeviction` setting.
 <pre class=terminal>
 $ cf update-service my-instance -c '{"maxmemory-policy":"no-eviction", "notify-keyspace-events":"El"}'
 Updating service instance my-instance as admin...
@@ -249,13 +251,19 @@ Server error, status code: 502, error code: 10001, message: Service broker error
 
 ### <a id="customize-appsman"></a> Customize an On-Demand Instance with the Apps Manager
 
-1. You can customize an instance at create timeby by clicking 'advanced settings' once you have selected the plan, or after creating the instance by navigating to the instances setting page.
-For both scenarios, enter the property you wish to change and the setting you wish to change it to.
+You can customize an instance in two ways:
 
-![am-create](am-create.png)
-![am_arbitrary_params](am_arbitrary_params.png)
+* While creating the instance, after you select the plan, click **advanced settings**.<br><br>
+  ![am-create](am-create.png)
+* After creating the instance, navigate to the instance's Settings page.<br><br>
+  ![am_arbitrary_params](am_arbitrary_params.png)
 
-If the update is not successfuly, you will receive a notification that the update failed with the description as to what was wrong. Here is an example where we misplaced the hyphen for the `volatile-lru` setting.
+In either of the above cases, do the following:
+
+1. In the parameters fields enter each property you want to change and its new setting. <br>Click the **+** sign to add more parameter fields.
+1. Depending on the page you are on, click either **Add** or **Update**.
+
+If the update is not successful, an error is diplayed with a description of what went wrong. Here is an example where we forgot the hyphen in the `volatile-lru` setting.
 
 ![am-error](am-error.png)
 
@@ -265,36 +273,34 @@ To access the Redis service from your app:
 
 1. Run `cf env APP_NAME` with the name of the app bound to the Redis for PCF instance.
 
-1. In the output, note the connection strings listed in the `VCAP_SERVICES` > `credentials` object for the app.
+2. In the output, note the connection strings listed in the `VCAP_SERVICES` > `credentials` object for the app.
 Example `VCAP_SERVICES`
 
-<pre>
-  <code>
-    {
-      "p-redis": [{
-        "credentials": {
-             "host": "10.0.0.11",
-             "password": "&lt;redacted&gt;",
-             "port": 6379
-        },
-        "label": "p-redis",
-        "name": "redis",
-        "plan": "dedicated-vm",
-        "provider": null,
-        "syslog_drain_url": null,
-        "tags": [
-         "pivotal",
-         "redis"
-        ],
-        "volume_mounts": []
-      }]
-    }
-  </code>
-</pre>
+    ```
+        {
+          "p-redis": [{
+            "credentials": {
+                "host": "10.0.0.11",
+                "password": "<redacted>",
+                "port": 6379
+            },
+            "label": "p-redis",
+            "name": "redis",
+            "plan": "dedicated-vm",
+            "provider": null,
+            "syslog_drain_url": null,
+            "tags": [
+            "pivotal",
+            "redis"
+            ],
+            "volume_mounts": []
+          }]
+        }
+    ```
 
-Note: You can also search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.
+    <p class="note"><strong>Note</strong>: You can also search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.</p>
 
-1. In your app code, call the Redis service using the connection strings.
+3. In your app code, call the Redis service using the connection strings.
 
 For how to code your app to use Redis messaging, see **About Using Pivotal Redis** > **Client Documentation** in the [Redis documentation](https://docs.pivotal.io/p-Redis).
 
@@ -303,7 +309,7 @@ For how to code your app to use Redis messaging, see **About Using Pivotal Redis
 
 When you delete a Redis service instance, all applications that are bound to that service are automatically unbound and any data in the service instance is cleared.
 
-### <a id="cli-delete"></a> Deleting a Redis Instance With the CLI
+### <a id="cli-delete"></a> Deleting a Redis Instance With the cf CLI
 
 1. Run `cf delete-service` and include the service instance name that you would like to delete. Enter `y` when prompted to confirm.
 
@@ -329,9 +335,8 @@ When you delete a Redis service instance, all applications that are bound to tha
 
 ### <a id="appsman"></a> Deleting a Redis Instance With Pivotal Apps Manager
 
-1. Locate the row under Services that contains the service instance you want to delete and click **Delete**.
-
-![am_settings](am_settings.png)
+1. In the service instance's Settings page, click **Delete Service Instance**.
+    <br><br>![am_settings](am_settings.png)
 
 1. If you had applications that were bound to this service, you may need to restage or re-push your application for the application changes to take effect.
 
