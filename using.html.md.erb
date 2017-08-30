@@ -180,6 +180,81 @@ To bind an app to a Redis for PCF instance use `$ cf bind-service`.
     $ cf restage APPLICATION-NAME
     </pre>
 
+### <a id="custom"></a>Customize an On-Demand Service Instance
+
+The On-Demand Service allows operators and app developers to customize certain configuration variables.
+
+Operators can customize the memory size, org and space access, Redis Client Timeout (default 3600 seconds), Redis TCP Keepalive (default 60 seconds), Redis Max Clients (default 1000), and can enable Lua Scripting.
+
+App Developers can customize the following parameters:
+<table border="1" class="nice">
+  <tr>
+    <th>Property</th>
+    <th>Default</th>
+    <th>Options</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>maxmemory-policy</code></td>
+    <td><code>allkeys-lru</code></td>
+    <td><code>allkeys-lru</code>, <code>noeviction</code>, <code>volatile-lru</code>, <code>allkeys-random</code>, <code>volatile-ttl</code></td>
+    <td>Sets the behavior Redis follows when `maxmemory` is reached</td>
+  </tr>
+  <tr>
+    <td><code>notify-keyspace-events</code></td>
+    <td>""</td>
+    <td>Set a combination of the following characters (e.g., "Elg"): K, E, g, $, l, s, h, z, x, e, A</td>
+    <td>Sets the keyspace notifications for events that affect the Redis data set</td>
+  </tr>
+  <tr>
+    <td><code>slowlog-log-slower-than</code></td>
+    <td>10000</td>
+    <td>0-20000</td>
+    <td>Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog.</td>
+  </tr>
+  <tr>
+    <td><code>slowlog-max-len</code></td>
+    <td>128</td>
+    <td>1-2024</td>
+    <td>Sets the length (count) of the slowlog queue.</td>
+  </tr>
+</table>
+
+To customize these settings from the cf CLI:
+
+1. You can customize an instance at create timeby running `cf create-service SERVICE PLAN NAME -c '{"PROPRETY":"SETTING"}'`, or after creating the instance by running `cf update-service NAME -c '{"PROPRETY":"SETTING"}'`.
+For both scenarios, the -c flag requires valid JSON object containing service-specific configuration parameters, provided either in-line or in a file.
+
+<pre class=terminal>
+$ cf update-service my-instance -c '{"maxmemory-policy":"noeviction", }'
+</pre>
+
+You can pass through mutliple arbitrary parameters:
+
+<pre class=terminal>
+$ cf update-service my-instance -c '{"maxmemory-policy":"noeviction", "notify-keyspace-events":"El"}'
+</pre>
+
+If the update is not successfuly, you will receive a notification that the update failed with the description as to what was wrong. Here is an example where a hyphen is added to the `noeviction` setting.
+<pre class=terminal>
+$ cf update-service my-instance -c '{"maxmemory-policy":"no-eviction", "notify-keyspace-events":"El"}'
+Updating service instance my-instance as admin...
+FAILED
+Server error, status code: 502, error code: 10001, message: Service broker error: invalid value "no-eviction" specified for maxmemory-policy
+</pre>
+
+To customize these from Apps Manager:
+
+1. You can customize an instance at create timeby by clicking 'advanced settings' once you have selected the plan, or after creating the instance by navigating to the instances setting page.
+For both scenarios, enter the property you wish to change and the setting you wish to change it to.
+
+![am-create](am-create.png)
+![am_arbitrary_params](am_arbitrary_params.png)
+
+If the update is not successfuly, you will receive a notification that the update failed with the description as to what was wrong. Here is an example where we misplaced the hyphen for the `volatile-lru` setting.
+
+![am-error](am-error.png)
+
 ### <a id="call"></a>Use the Redis Service in Your App
 
 To access the Redis service from your app:
@@ -220,8 +295,6 @@ Note: You can also search for your service by its <code>name</code>, given when 
 For how to code your app to use Redis messaging, see **About Using Pivotal Redis** > **Client Documentation** in the [Redis documentation](https://docs.pivotal.io/p-Redis).
 
 
-
-
 ### <a id="delete"></a>Deleting a Redis Instance
 
 When you delete a Redis service instance, all applications that are bound to that service are automatically unbound and any data in the service instance is cleared.
@@ -253,6 +326,9 @@ When you delete a Redis service instance, all applications that are bound to tha
 ### Using Pivotal Apps Manager
 
 1. Locate the row under Services that contains the service instance you want to delete and click **Delete**.
+
+[am_settings](am_settings.png)
+
 1. If you had applications that were bound to this service, you may need to restage or re-push your application for the application changes to take effect.
 
     <pre class=terminal>
