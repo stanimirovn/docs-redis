@@ -22,11 +22,11 @@ This diagram shows how the architecture of the service broker and On-Demand plan
 ### <a id="on-demand"></a> On-Demand Service Plans
 
 * These plans are Operator-configured and enabled. 
-* Once enabled, App Developers can view the available plans in the marketplace and provision a Redis instance from that plan.
+* Once enabled, app developers can view the available plans in the marketplace and provision a Redis instance from that plan.
 * You can disable any of the three on-demand plans in the plan's page in OpsManager. See descriptions of the three on-demand plans [here](index.html#odb).
 * The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 * Operators can update the plan settings, including the VM size, disk size, and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
-* App Developers can update certain Redis configurations.
+* App developers can update certain Redis configurations.
 * Back ups are not available for On-Demand plans.
 
 
@@ -35,10 +35,10 @@ This diagram shows how the architecture of the service broker and On-Demand plan
 On-Demand plans are best fit for cache use cases.
 
 For On-Demand Plans, certain Redis configurations can be set by the operator during plan configuration,
- and by the App Developer during instance provisioning. Other Redis configurations cannot be changed from the default.
+ and by the app developer during instance provisioning. Other Redis configurations cannot be changed from the default.
 
  + Operator configurable Redis settings include the following: `timeout`, `tcp-keepalive`, `maxclients`, and `lua scripting`. See the Operator Guide section of this documentation for more detail.
- + App-Developer configurable Redis settings include the following: `maxmemory-policy`, `notify-keyspace-events`, `slowlog-log-slower-than`, and `slowlog-max-len`. See the App Developer guide of this documentation for more detail.
+ + App-Developer configurable Redis settings include the following: `maxmemory-policy`, `notify-keyspace-events`, `slowlog-log-slower-than`, and `slowlog-max-len`. See the app developer guide of this documentation for more detail.
 
 #### Operator Notes for On-Demand Service Plans
 
