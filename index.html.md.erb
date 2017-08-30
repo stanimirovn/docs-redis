@@ -25,7 +25,7 @@ This documentation:
     </tr>
     <tr>
         <td>Release date</td>
-        <td>30 June 2017</td>
+        <td>June 30, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -33,11 +33,11 @@ This documentation:
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.10.3+, v1.11.0*</td>
+        <td>v1.10.3+ and v1.11.0*</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.10.3+, v1.11.0</td>
+        <td>v1.10.3+ and v1.11.0</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -49,9 +49,8 @@ This documentation:
     </tr>
 </table>
 
-
-&ast; <em>Ops Manager versions 1.9+ have support for securing metrics and logs
-through loggregator with TLS - this is enabled in Redis for PCF 1.9.</em>
+&ast; <em>Ops Manager v1.9+ have support for securing metrics and logs
+through loggregator with TLS — this is enabled in Redis for PCF v1.9.</em>
 
 
 ##<a id="about-redis"></a> About Redis
@@ -61,6 +60,7 @@ It supports a range of data structures including strings, lists, hashes, sets, b
 It is easy to install and configure and is popular with engineers as a straightforward NoSQL data store.
 It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
 
+<<<<<<< HEAD
 ## <a id="about"></a> About Redis for PCF
 
 <strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
@@ -78,9 +78,9 @@ The Operator configures the plan options available to the app developers.
 
 Redis for PCF offers three on-demand plans as the p.redis service within the PCF Redis tile. Below is a description of each plan as it appears in the cf marketplace and its intended use case.
 
-* **Small Cache Plan** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk.
-* **Medium Cache Plan** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >10&nbsp;GB of persistent disk.
-* **Large Cache** — A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk.
+* **Small Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk.
+* **Medium Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >10&nbsp;GB of persistent disk.
+* **Large Cache**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk.
 
 For each service plan, the operator can configure the **Plan name**, **Plan description**, **Server VM type** and **Server Disk type**, or choose to disable the plan completely.
 
@@ -97,10 +97,10 @@ As of v1.9, Redis for PCF supports configuring multiple AZs.
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.
 
 + On-Demand plans can be assigned to any of the configured availability zones.
-However each instance still operates as a single node with no clustering.
+However, each instance still operates as a single node with no clustering.
 + Shared-VM instances run on a single node in just one of the configured availability zones and are therefore not highly available.
 + Dedicated-VM instances can be assigned to any of the configured availability zones.
-However each instance still operates as a single node with no clustering.
+However, each instance still operates as a single node with no clustering.
 This separation over availability zones provides no high availability.
 
 ##<a id="checklist"></a> Enterprise-Ready Checklist
