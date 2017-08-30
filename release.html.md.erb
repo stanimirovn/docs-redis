@@ -10,11 +10,11 @@ owner: London Services
 
 **Bug Fixes**
 
-* Ensures all eviction policies are enforced when memory is full for On-Demand instances.
+* Ensures all eviction policies are enforced when on-demand instance  memory is full.
 
 **Compatibility**
 
-* Uses On Demand Service Broker v0.17.0
+* Uses On-Demand Service Broker v0.17.0
 
 * Uses a Syslog Migration Release that allows the operator to configure the log format to be either the pre-existing one or RFC 5424. RFC 5424 is the standard formatting across PCF services. The previous format will eventually be deprecated.
 
@@ -22,9 +22,9 @@ owner: London Services
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* The "When Changed" option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
@@ -34,9 +34,9 @@ owner: London Services
 
 **Bug Fixes**
 
-* On-Demand Service instances correctly picks up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
+* On-demand service instances correctly picks up new Redis releases and stemcells when upgraded. This addresses a prior bug where pre-existing instances were not upgrading Redis Releases or Stemcells.
 
-* On-Demand smoketests are skipped if the quota for on-demand service instances has been met. This addresses a prior bug where the smoketests would fail if the quota had been met.
+* On-demand smoke tests are skipped if the quota for on-demand service instances has been met. This addresses a prior bug where the smoke tests would fail if the quota had been met.
 
 * Includes a bug fix in the control script for process-destroyer which prevents process-watcher from restarting periodically (every 10,000 seconds).
 
@@ -47,9 +47,9 @@ owner: London Services
 
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
 
-* The "When Changed" option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
-* On-Demand instances may not correctly enforce eviction policies when memory is full.
+* On-demand instances may not correctly enforce eviction policies when memory is full.
 
 
 ## Redis for PCF v1.9.0
@@ -57,7 +57,7 @@ owner: London Services
 
 * Compatibility: This release is compatible with PCF v1.10.9+.
 
-* The On-Demand Service leverages the [On-Demand Broker v0.16.0](https://docs.pivotal.io/svc-sdk/odb/0-16/release-notes.html)
+* The on-demand service leverages the [On-Demand Broker v0.16.0](https://docs.pivotal.io/svc-sdk/odb/0-16/release-notes.html)
 
 * There is a slight change in how syslog forwarding is turned off and on via a new toggle.
 
@@ -78,6 +78,6 @@ owner: London Services
 
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
 
-* The "When Changed" option for errands has unexpected behavior. Operators should not select this choice as an errand.
+* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
-* On-Demand instances may not correctly enforce eviction policies when memory is full.
+* On-demand instances may not correctly enforce eviction policies when memory is full.

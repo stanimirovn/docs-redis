@@ -72,7 +72,7 @@ To calculate the current IaaS cost/ usage across On-Demand plans:
 * Shared-VM plans are configured with `maxmemory-policy` = `no-eviction` and with RDB and AOF persistence.
 * The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
 * The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of the Redis service broker. Please see [Configuring Service Plans](./installing.html#service-plans) for more detail.
-* It cannot be scaled beyond a single virtual machine.
+* It cannot be scaled beyond a single VM.
 * The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
   `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
 * Constraining CPU and/or disk usage is not supported.
@@ -95,7 +95,7 @@ In Ops Manager, any field that changes the manifest will cause a redeploy of the
   <li>Runtime Apps Domain ($runtime.apps\_domain)</li>
   <li>NATS Resource Config
 (..cf.nats.ips)</li>
-  <li>Service Networks in OpsManager
+  <li>Service Networks in Ops Manager
 ($self.service\_network)</li>
 </ul>
 

@@ -13,6 +13,9 @@ For similar information for the Dedicated-VM and Shared-VM plans, see [Architect
 
 ## <a id ="architecture"></a>Redis for PCF Architecture for On-Demand Service Plan
 
+This section shows an architectural diagram for the On-Demand Plan, lists some key features of the plan,
+and provides some details of what can be configured by operators and app developers.
+
 ### <a id="diagram1"></a> Architecture Diagram for On-Demand Plan
 
 This diagram shows how the architecture of the service broker and On-Demand plans and how the user's app binds to a Redis instance.
@@ -23,7 +26,7 @@ This diagram shows how the architecture of the service broker and On-Demand plan
 
 * These plans are Operator-configured and enabled. 
 * Once enabled, app developers can view the available plans in the marketplace and provision a Redis instance from that plan.
-* You can disable any of the three on-demand plans in the plan's page in OpsManager. See descriptions of the three on-demand plans [here](index.html#odb).
+* You can disable any of the three on-demand plans in the plan's page in Ops Manager. See descriptions of the three on-demand plans [here](index.html#odb).
 * The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 * Operators can update the plan settings, including the VM size, disk size, and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
 * App developers can update certain Redis configurations.
@@ -38,14 +41,14 @@ For On-Demand Plans, certain Redis configurations can be set by the operator dur
  and by the app developer during instance provisioning. Other Redis configurations cannot be changed from the default.
 
  + Operator configurable Redis settings include the following: `timeout`, `tcp-keepalive`, `maxclients`, and `lua scripting`. See the Operator Guide section of this documentation for more detail.
- + App-Developer configurable Redis settings include the following: `maxmemory-policy`, `notify-keyspace-events`, `slowlog-log-slower-than`, and `slowlog-max-len`. See the app developer guide of this documentation for more detail.
+ + App-developer configurable Redis settings include the following: `maxmemory-policy`, `notify-keyspace-events`, `slowlog-log-slower-than`, and `slowlog-max-len`. See the app developer guide of this documentation for more detail.
 
 #### Operator Notes for On-Demand Service Plans
 
 * This plan enables Redis instances to be deployed on dedicated VMs. Instances can be deployed until they reach either an opertor-set per-plan quota or global quota.
 * Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) and service broker adapter associated with this plan.
 * `maxmemory` in `redis.conf` is set to 45% of the system memory
-* Any On-Demand plan can be disabled from the plan page in OpsManager.
+* Any On-Demand plan can be disabled from the plan page in Ops Manager.
 
 #### Known Limitations for On-Demand Service Plans
 
