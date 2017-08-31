@@ -270,7 +270,13 @@ If the update is not successful, an error is diplayed with a description of what
 ## <a id="call"></a>Access the Redis Service
 All Redis for PCF instances are password-protected and require authentication. This is enforced with the `requirepass` directive in the configuration file.
 
-To retrieve this password, create a service-key for your Redis instance using `cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`. Then you can retrieve the password using `cf service-key INSTANCE-NAME SERVICE-KEY-NAME`.
+To retrieve the password, do the following: 
+
+1. Create a service-key for your Redis instance using the command `cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`. 
+
+1. Retrieve the password using the command `cf service-key INSTANCE-NAME SERVICE-KEY-NAME`.
+
+Here is an example of this procedure:
 
 <pre class=terminal>
 $ cf create-service-key my-instance my-key
