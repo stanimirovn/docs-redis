@@ -162,7 +162,7 @@ To bind an app to a Redis for PCF instance use `$ cf bind-service`.
 
 1. Enter `cf bind-service APP SERVICE_INSTANCE`
 
-    where `APP` is the app you want to use the Redis service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
+    Where `APP` is the app you want to use the Redis service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
 
     <pre class="terminal">
    $ cf bind-service my-app my-instance<br>
@@ -176,10 +176,10 @@ To bind an app to a Redis for PCF instance use `$ cf bind-service`.
 1. Select the app that you want to bind to the service. A page displays showing the already bound services and instances for this app.
 1. Click **Bind**. A list of available services displays.
 1. Click the **Bind** button for the Redis service you want to bind to this app.
-1. Start or restage your app from the command line:
+1. Start or restage your app from the command line, for example:
 
     <pre class=terminal>
-    $ cf restage APPLICATION-NAME
+    $ cf restage my-app
     </pre>
 
 ## <a id="custom"></a>Customize an On-Demand Service Instance
@@ -355,19 +355,23 @@ When you delete a Redis service instance, all apps that are bound to that servic
     OK
     </pre>
 
-1. If you had apps that were bound to this service, you may need to restage or re-push your app for the app changes to take effect.
+1. If you had apps that were bound to this service, you might need to restage or re-push your app for the app changes to take effect.
+
+   For example, 
 
     <pre class=terminal>
-    $ cf restage APPLICATION-NAME
+    $ cf restage my-app
     </pre>
 
-### <a id="appsman"></a> Deleting a Redis Instance With Pivotal Apps Manager
+### <a id="appsman"></a> Deleting a Redis Instance with Pivotal Apps Manager
 
-1. In the service instance's Settings page, click **Delete Service Instance**.
+1. In the service instance Settings page, click **Delete Service Instance**.
     <br><br>![am_settings](am_settings.png)
 
-1. If you had apps that were bound to this service, you may need to restage or re-push your app for the app changes to take effect.
+1. If you had apps that were bound to this service, you might need to restage or re-push your app for the app changes to take effect.
+
+   For example,
 
     <pre class=terminal>
-    $ cf restage APPLICATION-NAME
+    $ cf restage my-app
     </pre>
