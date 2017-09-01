@@ -58,8 +58,8 @@ This topic lists troubleshooting information relevant to Redis for PCF.
 ## <a id="debuggin"></a> Useful Debugging Information
 If you encounter an issue, here is a list of useful information to gather, especially before you perform any destructive operations such as `cf purge-service-offerings` or `bosh delete deployment`.
 
-* PCF Redis version
-* Previous PCF Redis version if upgrading
+* Redis for PCF version
+* Previous Redis for PCF version if upgrading
 * Ops Manager version, and previous if upgrading Ops Manager
 * IaaS description
 
@@ -67,14 +67,14 @@ If you encounter an issue, here is a list of useful information to gather, espec
   * The installation logs
   * A copy of all files in `/var/tempest/workspaces/default/deployments`
 
-### For all VMs, unless specified otherwise:
+### For All VMs, Unless Specified Otherwise:
   * Copy of `/var/vcap/sys/log` (particularly the broker)
   * If unable to get logs from disk, logs from a forwarded endpoint
   * `monit summary`
-  * Full `ps aux` - Has monit done its job?
-  * `ps aux | grep redis-serve[r]` - Are Redis instances running?
-  * `df -h` - disk usage
-  * `free -m` - memory usage
+  * Full `ps aux`: Has monit done its job?
+  * `ps aux | grep redis-serve[r]`: Are Redis instances running?
+  * `df -h`: disk usage
+  * `free -m`: memory usage
   * `cf m`
   * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
   * Copy of `/var/vcap/store/cf-redis-broker/statefile.json` (broker only)

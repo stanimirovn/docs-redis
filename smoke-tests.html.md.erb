@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for PCF runs a set of smoke tests during installation to confirm system health. The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>. The tests run as an application instance with a restrictive Application Security Group (ASG).
+Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installation to confirm system health. The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>. The tests run as an application instance with a restrictive Application Security Group (ASG).
 
 ## <a id="steps"></a> Smoke Test Steps
 
@@ -54,9 +54,9 @@ The linear back-off was selected as a good middle ground between:
 
 ### Considerations
 
-Because of the retry policy described in <a href="#resilience">Smoke tests resilience</a>, smoke tests will generally take longer than previous versions of PCF Redis to complete within environments with intermittent failures. If run regularly, e.g. as part of CI, they might last longer than the frequency of the automatic runs, queueing up executions. We recommend adjusting the frequency of the automatic smoke test runs based on the amount of time they take to complete.
+Because of the retry policy described in <a href="#resilience">Smoke tests resilience</a>, smoke tests will generally take longer than previous versions of Redis for PCF to complete within environments with intermittent failures. If run regularly, e.g. as part of CI, they might last longer than the frequency of the automatic runs, queueing up executions. We recommend adjusting the frequency of the automatic smoke test runs based on the amount of time they take to complete.
 
-The above retry policy does not guard against a more permanent CloudFoundry downtime or network connectivity issues. In this case, commands will fail after the maximum number of attempts and might leave claimed instances behind. We recommend disabling automatic smoke test runs and manually releasing any claimed instances in case of upgrades or scheduled downtimes.
+The above retry policy does not guard against a more permanent Cloud Foundry downtime or network connectivity issues. In this case, commands will fail after the maximum number of attempts and might leave claimed instances behind. We recommend disabling automatic smoke test runs and manually releasing any claimed instances in case of upgrades or scheduled downtimes.
 
 ## <a id="troubleshooting"></a> Troubleshooting
 
@@ -70,7 +70,7 @@ If errors occur while the smoke tests run, they will be summarised at the end of
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Your Pivotal Cloud Foundry is unresponsive</td>
+  <td>Your PCF is unresponsive</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -86,7 +86,7 @@ If errors occur while the smoke tests run, they will be summarised at the end of
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Your deployment's broker has not been registered with Pivotal Cloud Foundry</td>
+  <td>Your deployment's broker has not been registered with PCF</td>
 </tr>
 <tr>
   <th>Solution</th>

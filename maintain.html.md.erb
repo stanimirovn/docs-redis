@@ -11,12 +11,12 @@ This topic is for PCF operators. It introduces some best practices, but does not
 
 Pivotal recommends that operators do the following:
 
-* Resource Allocation — Work with app developers to anticipate memory requirements and to configure VM sizes.
+* Resource Allocation: Work with app developers to anticipate memory requirements and to configure VM sizes.
 Redis for PCF is configured by default with small VMs. For information about configuring VM sizes,
 see [Configure Redis Service Plans](https://docs.pivotal.io/redis/1-8/installing.html#configuration).
-* Logs — Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.
-* Monitoring — Set up a monitoring dashboard for metrics to track the health of the installation. On-Demand instances do not yet have instance-level metrics in v1.8+.
-* Backing Up Data — When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
+* Logs: Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.
+* Monitoring: Set up a monitoring dashboard for metrics to track the health of the installation. On-Demand instances do not yet have instance-level metrics in v1.8+.
+* Backing Up Data: When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
 Validate the backed-up data with a test restore. On-Demand instances are configured for cache-uses and are not intended for backups.
 
 ## <a id="backup"></a>About Creating Backups of Redis Instances
