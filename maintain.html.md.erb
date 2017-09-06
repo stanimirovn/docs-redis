@@ -11,11 +11,20 @@ This topic is for PCF operators. It introduces some best practices, but does not
 
 Pivotal recommends that operators follow these guidelines:
 
-* **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes. Instances of Dedicted-VM and Shared-VM services have identical VM sizes. However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota.
-* **Logs**---Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.
-* **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation. On-Demand instances do not yet have instance-level metrics in v1.8+.
-* **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency. Validate the backed-up data with a test restore. On-Demand instances are configured for cache uses and are not intended for backups.
-* **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs. Apps in production should have a dedicated instance to prevent performance issues caused by sharing an instance. The Shared-VM service does not provide a Dedicated-VM per instance and is recommended for development and testing only.
+* **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes.
+    Instances of Dedicted-VM and Shared-VM services have identical VM sizes.
+    However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota.
+* **Logs**---Configure a syslog output.
+    Storing logs in an external service helps operators debug issues both current and historical.
+* **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation.
+    On-Demand instances do not yet have instance-level metrics in v1.8+.
+* **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
+    Validate the backed-up data with a test restore.
+    On-Demand instances are configured for cache uses and are not intended for backups.
+* **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs.
+    Apps in production should have a dedicated instance to prevent performance issues caused by sharing an instance.
+    The Shared-VM service does not provide a Dedicated-VM per instance,
+    and Pivotal recommends that you only use it for development and testing.
 
 ## <a id="backup"></a> Backing up Dedicated-VM and Shared-VM Instances
 
