@@ -9,25 +9,25 @@ This topic is for PCF operators. It introduces some best practices, but does not
 
 ## <a id="Best Practice"></a>Best Practices
 
-Pivotal recommends that operators do the following:
+Pivotal recommends that operators follow these guidelines:
 
-* Resource Allocation: Work with app developers to anticipate memory requirements and to configure VM sizes. Instances of Dedicted-VM and Shared-VM services have identical VM sizes, whereas the On-Demand service allows for three different plans, each with its own VM size and quota, that App Developers can choose from.
-* Logs: Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.
-* Monitoring: Set up a monitoring dashboard for metrics to track the health of the installation. On-Demand instances do not yet have instance-level metrics in v1.8+.
-* Backing Up Data: When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
-* Use: Instances of the On-Demand and Dedicated-VM service run on dedicated VMs. Apps in production should typically have a dedicated instance to prevent from performance issues caused by sharing an instance. Shared-VM service does not provide a Dedicated-VM per instance and is recommended for dev/testing only.
-Validate the backed-up data with a test restore. On-Demand instances are configured for cache-uses and are not intended for backups.
+* **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes. Instances of Dedicted-VM and Shared-VM services have identical VM sizes. However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota.
+* **Logs**---Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.
+* **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation. On-Demand instances do not yet have instance-level metrics in v1.8+.
+* **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency. Validate the backed-up data with a test restore. On-Demand instances are configured for cache uses and are not intended for backups.
+* **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs. Apps in production should have a dedicated instance to prevent performance issues caused by sharing an instance. The Shared-VM service does not provide a Dedicated-VM per instance and is recommended for development and testing only.
 
-## <a id="backup"></a>About Creating Backups of Redis Instances
+## <a id="backup"></a> Backing up Dedicated-VM and Shared-VM Instances
 
 You can back up Redis for PCF instances in two ways for Dedicated-VM and Shared-VM instances:
 
 + Configure automatic backups to be run for each instance, across both service plans. For information about setting up automatic backups, see [Configure Backups](./installing.html#backup).
 + Create manual backups of individual instances. For information about how to make manual backups of instances, see [Manual Backup and Restore of Redis for PCF](./manual-br.html).
 
-Note that automatic backups are not available for on demand instances.
+Backups are not available for On-Demand instances.
 
-## <a id="metrics"></a> About Monitoring Redis for PCF
+
+## <a id="metrics"></a> Monitoring Redis for PCF
 
 ### Redis Metrics
 

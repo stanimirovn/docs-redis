@@ -16,7 +16,7 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding PCF Ops Man
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backup).
 1. Click **Apply Changes** to install the service.
 
-Please see the [network configuration](/installing.html#network-configuration) section for guidance.
+See the [network configuration](./installing.html#network-configuration) section for guidance on the ports and ranges used in the Redis service.
 
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
@@ -364,7 +364,7 @@ Follow these steps to configure syslog output:
 
 ###  <a id="network-configuration"></a>Network Configuration
 
-It is recommended that each type of Redis for PCF service run in its own network.
+Pivotal recommends that each type of Redis for PCF service run in its own network.
 For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
 
 The following ports and ranges are used in this service:
