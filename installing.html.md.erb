@@ -16,13 +16,7 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding PCF Ops Man
 1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backup).
 1. Click **Apply Changes** to install the service.
 
-After installing, be sure to:
-
-+ Monitor the health and performance of your Redis instances by setting up [logging] (https://docs.pivotal.io/redis/1-8/installing.html#syslog).
-+ Understand the usage of different plans by setting up tracking of [usage metrics] (https://docs.pivotal.io/redis/1-8/monitoring.html)
-and updating the quota per plan if you run into issues.
-+ Communicate with your app developers to understand how the plans are meeting their use case. You can update your plans,
-including resource sizing if your app developers need to grow beyond the current plan's resource size.
+Please see the [network configuration](/installing.html#network-configuration) section for guidance.
 
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
@@ -98,7 +92,7 @@ If you wish to use Redis for PCF without the On-Demand service, you will still n
           </tr>
           <tr>
             <td>**Lua Scripting**</td>
-            <td>Enable or disable Lua Scripting as needed. It is enabled by default.</td>
+            <td>Enable or disable Lua Scripting as needed. Pivotal recommends that Lua Scripting be disabled.</td>
           </tr>
     </table>
 
@@ -359,7 +353,7 @@ Follow these steps to configure syslog output:
 
 1.  Enter the Syslog address and port, and select the transport protocol of your log management tool. The information required for these fields is provided by your log management tool.
 
-1. Select the format for your logs. RFC 5424 is the suggested format and is standard across PCF services. 
+1. Select the format for your logs. RFC 5424 is the suggested format and is standard across PCF services.
 
     <br>If you have pre-existing systems that may break with a new format, you may select the legacy format. However, the legacy format will eventually be deprecated.
 
@@ -370,7 +364,7 @@ Follow these steps to configure syslog output:
 
 ###  <a id="network-configuration"></a>Network Configuration
 
-It is recommended that each type of Redis for PCF service run in its own network. 
+It is recommended that each type of Redis for PCF service run in its own network.
 For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
 
 The following ports and ranges are used in this service:
