@@ -63,25 +63,3 @@ The image below shows the lifecycle of Redis for PCF, from an operator installin
 
 ![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)
 
-
-## <a id="networks"></a>On-Demand Services and Networking
-
-### <a id="bosh2"></a>BOSH 2.0 and the Service Network
-
-<%= partial '../../redis/odb/service_networks' %>
-
-### <a id ="architecture_networks"></a>Default Network and Service Network
-
-Like other on-demand PCF services, On-Demand Redis for PCF relies on the BOSH 2.0 ability to dynamically deploy VMs in a dedicated network. The on-demand service broker uses this capability to create single-tenant service instances in a dedicated service network.
-
-<%= partial '../../redis/odb/on_demand_architecture' %>
-
-The diagram below shows worker VMs in an on-demand service instance, such as RabbitMQ for PCF, running on a separate services network, while other components run on the default network.
-
-![Architecture Diagram](ODB-architecture.png)
-
-### <a id="network-rules"></a>Required Networking Rules for On-Demand Services
-
-<%= partial '../../redis/odb/service_networks_table' %>
-
-For a complete list of ports and ranges used in Redis for PCF, see [Network Configuration](./installing.html#network-configuration).
