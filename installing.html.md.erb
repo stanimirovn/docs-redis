@@ -1,5 +1,5 @@
 ---
-title: Installing and Upgrading Redis for PCF
+title: Installing Redis for PCF
 owner: London Services
 ---
 
@@ -442,31 +442,6 @@ For more information, see [About Multiple AZs in Redis for PCF](index.html#other
 
 Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="https://docs.pivotal.io/redis/1-8/smoke-tests.html">here</a>.
 
-## <a id="upgrades"></a>Upgrading Redis for PCF
-
-This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
-
-The upgrade paths are detailed [here](index.html#upgrading) for each released version.
-
-To upgrade the product:
-
-* The Operator should download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis)
-* Upload the new .pivotal file to Ops Manager
-* Upload the stemcell associated with the update (*if required*)
-* Update any new mandatory configuration parameters (*if required*)
-* Press "Apply changes" and the rest of the process is automated
-
-During the upgrade deployment each Redis instance will experience a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup. The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the redis software updated. Stemcells updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster.
-
-Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
-
-Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.
-
-### Release Policy
-
-When a new version of Redis is released we aim to release a new version of the product containing this soon after.
-
-Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours.
 
 ## <a id="uninstall"></a>Uninstalling Redis for PCF
 
