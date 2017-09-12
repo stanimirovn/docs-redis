@@ -13,7 +13,7 @@ To add Redis for PCF to Ops Manager, follow the procedure for adding PCF Ops Man
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis). Select the latest release from the **Releases:** drop-down menu.
 1. Upload the product file to your Ops Manager installation.
 1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
-1. (Optional) Click the newly added tile to configure your [possible service plans](#configuration), [syslog draining](#syslog), and [backups](#backup).
+1. (Optional) Click the newly added tile to configure your [possible service plans](#service-plans), [syslog draining](#syslog), and [backups](maintain.html#backup).
 1. Click **Apply Changes** to install the service.
 
 See the [network configuration](./installing.html#network-configuration) section for guidance on the ports and ranges used in the Redis service.
@@ -29,7 +29,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 If you wish to use Redis for PCF without the On-Demand service, you will still need to create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
-    Review the guidance to understand the [resource implications for on-demand instances] (./recommended.html#resources).
+    Review the guidance to understand the [resource implications for on-demand instances] (./maintain.html#resource).
 1. Enable the **Allow outbound internet access from service instances** checkbox. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
 1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
