@@ -15,15 +15,8 @@ This diagram shows how the architecture of the service broker and Shared-VM and 
 
 ![Architecture Diagram](legacy-arch.png)
 
-## <a id="shared-dedicated"></a> About Shared-VM and Dedicated-VM Service Plans
 
-For Dedicated-VM and Shared-VM plans, Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that once memory is full, the service will not evict any keys, and no write operations will be possible until memory becomes available. 
-
-Persistence is configured for both `RDB` and `AOF`. The default maximum number of connections, maxclients, is set at 10000 but this number is adjusted by Redis according to the number of file handles available. 
-
-Replication and event notification are not configured.
-
-### <a id="shared-vm"></a> Shared-VM Service Plan
+## <a id="shared-vm"></a> Features of the Shared-VM Service Plan
 
 An instance of this plan provisions a single Redis process on a single **shared VM** that is suitable for workloads which do not require dedicated hardware.
 
@@ -33,7 +26,18 @@ An instance of this plan provisions a single Redis process on a single **shared 
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
 
-### <a id="dedicated-vm"></a> Dedicated-VM Service Plan
+### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
+
+Limitations of the `shared-vm` plan include:
+
+* It cannot be scaled beyond a single VM.
+* The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
+  `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
+* Constraining CPU and/or disk usage is not supported.
+* The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
+
+
+## <a id="dedicated-vm"></a> Features of the Dedicated-VM Service Plan
 
 An instance of this plan, provisions a single Redis process, on a single **dedicated VM**, which is suitable for production workloads, and workloads that require isolation or dedicated hardware.
 
@@ -56,6 +60,14 @@ The persistent disk should be set to be at least the size of the RAM available t
 * When a user provisions an instance, it is marked as in use and taken out of the **pool**.
 * When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
 * You can disable this plan by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
+
+### <a id="limits-dedicated"></a> Known Limitations of the Dedicated-VM Service Plan
+
+Limitations of the `dedicated-vm` plan include:
+
+* No ability to change the Redis configuration. The `CONFIG` command is disabled.
+* Cannot scale down the number of VMs on the plan once deployed.
+* Cannot scale down the size of VMs on the plan once deployed (this protects against data loss).
 
 
 ## <a id="config2"></a> Configuration for Dedicated-VM and Shared-VM Service Plans
@@ -84,13 +96,6 @@ this number is adjusted by Redis according to the number of file handles availab
 * The number of Dedicated-VM plan instances available to developers is set by the operator. Configurations of up to 100 Dedicated-VM plan instances have been tested.
 
 
-### <a id="limits-dedicated"></a> Known Limitations of the Dedicated-VM Service Plan
-
-Limitations of the `dedicated-vm` plan include:
-
-* No ability to change the Redis configuration. The `CONFIG` command is disabled.
-* Cannot scale down the number of VMs on the plan once deployed.
-* Cannot scale down the size of VMs on the plan once deployed (this protects against data loss).
 
 ### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
 
@@ -101,16 +106,6 @@ Limitations of the `dedicated-vm` plan include:
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
 * The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of the Redis service broker. Please see [Configuring Service Plans](./installing.html#service-plans) for more detail.
 
-
-### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
-
-Limitations with the current `shared-vm` plan include:
-
-* It cannot be scaled beyond a single VM.
-* The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
-  `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
-* Constraining CPU and/or disk usage is not supported.
-* The Shared-VM plan does not manage 'noisy neighbor' problems so it is not recommended for production apps.
 
 
 ## <a id="lifecycle-dedicated-shared"></a>Lifecycle for Dedicated-VM and Shared-VM Service Plans

@@ -24,6 +24,8 @@ Redis can be used in many different ways, including:
 * Leaderboards/Counting: increments and decrements of sets and sorted sets using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, `GETSET`
 * Pub/Sub: built in publish and subscribe operations: `PUBLISH`, `SUBSCRIBE`, `UNSUBSCRIBE`
 
+For information on Redis for PCF service offerings, see the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html) pages.
+
 
 ## <a id="Best Practice"></a>Best Practices
 
@@ -42,7 +44,7 @@ Pivotal recommends that operators follow these guidelines:
 * **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs.
     Apps in production should have a dedicated instance to prevent performance issues caused by sharing an instance.
     The Shared-VM service does not provide a Dedicated-VM per instance,
-    and Pivotal recommends that you only use it for development and testing. See the service offeringd for the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html)
+    and Pivotal recommends that you only use it for development and testing. See the service offerings for the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html).
 
 
 ## <a id="backup"></a> Backing up Dedicated-VM and Shared-VM Instances
