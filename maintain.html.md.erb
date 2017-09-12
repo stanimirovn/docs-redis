@@ -1,5 +1,5 @@
 ---
-title: Best Practices for Operating Redis for PCF
+title: Introduction for Operators
 owner: London Services
 ---
 
@@ -30,8 +30,8 @@ Pivotal recommends that operators follow these guidelines:
 
 You can back up Redis for PCF instances in two ways for Dedicated-VM and Shared-VM instances:
 
-+ Configure automatic backups to be run for each instance, across both service plans. For information about setting up automatic backups, see [Configure Backups](./installing.html#backup).
-+ Create manual backups of individual instances. For information about how to make manual backups of instances, see [Manual Backup and Restore of Redis for PCF](./manual-br.html).
++ Configure automatic backups to be run for each instance, across both service plans. For information about setting up automatic backups, see [Configuring Automated Backups](./auto-backup.html).
++ Create manual backups of individual instances. For information about how to make manual backups of instances, see [Manually Backing up and Restoring](./manual-br.html).
 
 Backups are not available for On-Demand instances.
 
@@ -40,7 +40,9 @@ Backups are not available for On-Demand instances.
 
 ### Redis Metrics
 
-Redis for PCF emits Redis metrics via the firehose. Details [here](./monitoring.html)
+Redis for PCF emits Redis metrics via the firehose. For details, see [Monitoring and Metrics](./monitoring.html).
+
+
 Metrics are not currently available at the instance-level for On-Demand instances.
 
 ### Logging
@@ -73,4 +75,4 @@ For information about how to set up syslog output, see [Configure Syslog Output]
 
 ##  <a id="smoke"></a>Smoke Tests
 
-Redis for PCF has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is [here](./smoke-tests.html). They can be run by the operator via `bosh run errand smoke-tests`.
+Ops Manager runs Redis for PCF smoke tests as a post-install errand.  The operator can also run the smoke tests errand by using `bosh run errand smoke-tests`. For more information see [Redis for PCF Smoke Tests](./smoke-tests.html).
