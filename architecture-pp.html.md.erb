@@ -35,7 +35,7 @@ An instance of this plan provisions a single Redis process on a single **shared 
 
 ### <a id="dedicated-vm"></a> Dedicated-VM Service Plan
 
-An instance of this plan, provisions a single Redis process, on a single **dedicated VM**, which is suitable for workloads that require isolation or dedicated hardware.
+An instance of this plan, provisions a single Redis process, on a single **dedicated VM**, which is suitable for production workloads, and workloads that require isolation or dedicated hardware.
 
 The following commands are enabled:
 
@@ -81,6 +81,8 @@ this number is adjusted by Redis according to the number of file handles availab
 * When a user provisions an instance, it is marked as in use and taken out of the **pool**.
 * When a user deprovisions an instance, the instance is cleansed of any data and configuration to restore it to a fresh state and placed back into the pool, ready to be used again.
 * This plan can be disabled by setting the number of instances of the `Dedicated node` job in Ops Manager to `0`.
+* The number of Dedicated-VM plan instances available to developers is set by the operator. Configurations of up to 100 Dedicated-VM plan instances have been tested.
+
 
 ### <a id="limits-dedicated"></a> Known Limitations of the Dedicated-VM Service Plan
 
@@ -88,6 +90,7 @@ Limitations of the `dedicated-vm` plan include:
 
 * No ability to change the Redis configuration. The `CONFIG` command is disabled.
 * Cannot scale down the number of VMs on the plan once deployed.
+* Cannot scale down the size of VMs on the plan once deployed (this protects against data loss).
 
 ### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
 
@@ -96,6 +99,8 @@ Limitations of the `dedicated-vm` plan include:
 * The maximum number of instances can be increased from the default 5 to a value of your choosing. If you increase the number of instances that can be run on this single VM, you should consider increasing the resources allocated to the VM. In particular RAM and CPU. You can overcommit to a certain extent, but may start to see performance degradations.
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 * If you decrease the service instance limit, any instances that are running where the count is now greater than the limit are not terminated. They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances. For example if you had a limit of 10 and all were used and reduced this to 8, the two instances will be left running until you terminate them yourself.
+* The number of Shared VM instances available to developers is set by the operator. The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance and the total memory of the Redis service broker. Please see [Configuring Service Plans](./installing.html#service-plans) for more detail.
+
 
 ### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
 
