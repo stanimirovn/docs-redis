@@ -19,7 +19,7 @@ This diagram shows the architecture of the service broker and On Demand plans, a
 
 ## <a id="on-demand"></a> On-Demand Service Plans
 
-On-Demand plans are best fit for cache use cases.
+On-Demand plans are best fit for cache use cases, and are configured as such by default.
 
 Redis for PCF offers three on-demand plans as the `p.redis` service within the PCF Redis tile. Below is a description of each plan as it appears in the cf marketplace and its intended use case.
 
@@ -32,24 +32,24 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 ### <a id="features"></a> Features of On-Demand Service Plans
 
 * Each on-demand plan instance is deployed to its own VM and is suitable for production workloads.
-* Select Redis configurations can be changed from default.
+* Select Redis configurations can be changed from the default.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies. 
 * These plans are Operator-configured and enabled. 
 * Once enabled, app developers can view the available plans in the marketplace and provision a Redis instance from that plan.
-* You can disable any of the three on-demand plans in the plan's page in Ops Manager. See descriptions of the three on-demand plans [here](index.html#odb).
-* The maximum number of instances is managed at by a per-plan and global quota. The maximum number of instances cannot surpass 50.
-* Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created. **Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.**
+* You can disable any of the three on-demand plans in the plan's page in Ops Manager.
+* The maximum number of instances is managed by a per-plan and global quota. The maximum number of instances cannot surpass 50.
+* Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created.
 * App developers can update certain Redis configurations.
 
 ### <a id="limitations"></a> Known Limitations for On-Demand Service Plans
 
 Limitations for the On-Demand Service include:
 
+* Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+
 * Operators can update certain plan settings after the plans have been created. To ensure upgrades happen across all instances, set the **upgrade instances** errand to **On**.
 
 * If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. 
-
-* Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
 * Back ups are not available for On-Demand plans.
 
@@ -70,7 +70,7 @@ For On-Demand Plans, certain Redis configurations can be set by the operator dur
 * `maxmemory` in `redis.conf` is set to 45% of the system memory
 * Any On-Demand plan can be disabled from the plan page in Ops Manager.
 
-## <a id="resource"></a> Resource Usage Planning for On-Demand plans
+## <a id="resource"></a> Resource Usage Planning for On-Demand Plans
 
 <p class="note">
 Redis On-Demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
