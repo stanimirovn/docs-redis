@@ -29,7 +29,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 If you want to use Redis for PCF without the On-Demand service, you will still need to create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
-    Review the guidance to understand the [resource implications for on-demand instances] (./maintain.html#resource).
+    Review the guidance to understand the resource implications for on-demand instances. See [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
 1. Enable the **Allow outbound internet access from service instances** checkbox. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
 1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
