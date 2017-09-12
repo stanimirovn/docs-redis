@@ -31,44 +31,18 @@ Pivotal recommends that operators follow these guidelines:
 
 * **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes.
     Instances of Dedicted-VM and Shared-VM services have identical VM sizes.
-    However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota.
+    However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota. See the service offering for the [On-Demand Plan](./architecture.html) and [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
 * **Logs**---Configure a syslog output.
-    Storing logs in an external service helps operators debug issues both current and historical.
+    Storing logs in an external service helps operators debug issues both current and historical. See [Configure Syslog Output](./installing.html#syslog).
 * **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation.
-    On-Demand instances do not yet have instance-level metrics in v1.8+.
+    On-Demand instances do not yet have instance-level metrics in v1.8+. See [Monitoring Redis for PCF](./monitoring.html).
 * **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
     Validate the backed-up data with a test restore.
-    On-Demand instances are configured for cache uses and are not intended for backups.
+    On-Demand instances are configured for cache uses and are not intended for backups. See [Configuring Automated Backups](./auto-backup.html) and [Manually Backing up and Restoring](./manual-br.html).
 * **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs.
     Apps in production should have a dedicated instance to prevent performance issues caused by sharing an instance.
     The Shared-VM service does not provide a Dedicated-VM per instance,
-    and Pivotal recommends that you only use it for development and testing.
-
-## <a id="resource"></a> Resource Usage Planning for On-Demand plans
-
-<p class="note">
-Redis On-Demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
-</p>
-
-If the number of on-demand instances is greater than or equal to the Global Quota set on the 'On Demand Service Settings' page, no new instances can be provisioned.
-
-To calculate the maximum cost/ usage for each plan:
-
-<pre>max_plan_resources = plan_quota x plan_resources</pre>
-
-To calculate the maximum cost across plans, add together the cost/ usage for each plan, while the quotas sum to less than the global quota.
-
-<pre>
-While (plan_1_quota + plan_2_quota) ≤ global_quota:
-max_resources = (plan_1_quota x plan_1_resources) + ( plan_2_quota x plan_2_resources)
-</pre>
-
-To calculate the current IaaS cost/ usage across On-Demand plans:
-
-1. Current instances provisioned for all plans can be found by referencing the `total_instance` metric as [documented here](monitoring.html#usage)
-1. Multiple the `total_instance` for each plan by that plan's resources. Sum all plans that are active to get your total current usage
-
-<pre>current_usage = (plan_1_total_instances x plan_1_resources) + (plan_2_total_instances x plan_2_resources)</pre>
+    and Pivotal recommends that you only use it for development and testing. See the service offeringd for the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html)
 
 
 ## <a id="backup"></a> Backing up Dedicated-VM and Shared-VM Instances
