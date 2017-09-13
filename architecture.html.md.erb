@@ -13,15 +13,15 @@ For similar information for the Dedicated-VM and Shared-VM plans, see [Architect
 
 ## <a id="diagram1"></a> Architecture Diagram for On-Demand Plan
 
-This diagram shows the architecture of the service broker and On Demand plans, and how the user's app binds to a Redis instance.
+This diagram shows the architecture of the service broker and On Demand plans and how the user's app binds to a Redis instance.
 
 ![On-Demand Architecture Diagram](on-demand-arch.png)
 
 ## <a id="on-demand"></a> On-Demand Service Plans
 
-On-Demand plans are best fit for cache use cases, and are configured as such by default.
+On-Demand plans are best fit for cache use cases and are configured as such by default.
 
-Redis for PCF offers three on-demand plans as the `p.redis` service within the PCF Redis tile. Below is a description of each plan as it appears in the cf marketplace and its intended use case.
+Redis for PCF offers three on-demand plans as the `p.redis` service within the PCF Redis tile. Below is a description of each plan as it appears in the Marketplace and its intended use case.
 
 * **Small Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk.
 * **Medium Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >10&nbsp;GB of persistent disk.
@@ -35,7 +35,7 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 * Select Redis configurations can be changed from the default.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies. 
 * These plans are Operator-configured and enabled. 
-* Once enabled, app developers can view the available plans in the marketplace and provision a Redis instance from that plan.
+* Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * You can disable any of the three on-demand plans in the plan's page in Ops Manager.
 * The maximum number of instances is managed by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 * Operators can update the plan settings, including the VM size, disk size and Redis configuration settings, after the plans have been created.
@@ -73,10 +73,12 @@ For On-Demand Plans, certain Redis configurations can be set by the operator dur
 ## <a id="resource"></a> Resource Usage Planning for On-Demand Plans
 
 <p class="note">
-Redis On-Demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
+Redis On-Demand plans use dedicated VMs and disks, which consume IaaS resources.
+Operators can limit resource usage with Plan Quotas and a Global Quota,
+but resource usage does vary based on number of On-Demand instances provisioned.
 </p>
 
-If the number of on-demand instances is greater than or equal to the Global Quota set on the 'On Demand Service Settings' page, no new instances can be provisioned.
+If the number of on-demand instances is greater than or equal to the Global Quota set on the "On Demand Service Settings" page, no new instances can be provisioned.
 
 To calculate the maximum cost/ usage for each plan:
 
@@ -91,8 +93,9 @@ max_resources = (plan_1_quota x plan_1_resources) + ( plan_2_quota x plan_2_reso
 
 To calculate the current IaaS cost/ usage across On-Demand plans:
 
-1. Current instances provisioned for all plans can be found by referencing the `total_instance` metric as [documented here](monitoring.html#usage)
-1. Multiple the `total_instance` for each plan by that plan's resources. Sum all plans that are active to get your total current usage
+1. Find the current instances provisioned for all plans by referencing the `total_instance` metric as [documented here](monitoring.html#usage).
+1. Multiply the `total_instance` for each plan by that plan's resources.
+   Sum all plans that are active to get your total current usage:
 
 <pre>current_usage = (plan_1_total_instances x plan_1_resources) + (plan_2_total_instances x plan_2_resources)</pre>
 
