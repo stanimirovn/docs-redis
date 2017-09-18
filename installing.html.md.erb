@@ -302,40 +302,7 @@ The following table describes properties that operators can update in the [confi
   </tr>
 </table>
 
-App developers can configure their Redis instances with arbitrary parameters, as shown in the following table. See the <a href="https://redis.io/commands">Redis documentation</a> for more detail.
-
-<table border="1" class="nice">
-  <tr>
-    <th>Property</th>
-    <th>Default</th>
-    <th>Options</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td><code>maxmemory-policy</code></td>
-    <td><code>allkeys-lru</code></td>
-    <td><code>allkeys-lru</code>, <code>noeviction</code>, <code>volatile-lru</code>, <code>allkeys-random</code>, <code>volatile-ttl</code></td>
-    <td>Sets the behavior Redis follows when `maxmemory` is reached</td>
-  </tr>
-  <tr>
-    <td><code>notify-keyspace-events</code></td>
-    <td>""</td>
-    <td>Set a combination of the following characters (e.g., <code>Elg</code>): K, E, g, $, l, s, h, z, x, e, A</td>
-    <td>Sets the keyspace notifications for events that affect the Redis data set</td>
-  </tr>
-  <tr>
-    <td><code>slowlog-log-slower-than</code></td>
-    <td>10000</td>
-    <td>0-20000</td>
-    <td>Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog.</td>
-  </tr>
-  <tr>
-    <td><code>slowlog-max-len</code></td>
-    <td>128</td>
-    <td>1-2024</td>
-    <td>Sets the length (count) of the slowlog queue.</td>
-  </tr>
-</table>
+For settings that app developers can configure, see [Customize an On-Demand Service Instance](./using.html#custom).
 
 
 ## <a id="syslog"></a>Configure Syslog Output
