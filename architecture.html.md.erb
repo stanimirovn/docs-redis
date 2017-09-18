@@ -7,14 +7,14 @@ owner: London Services
 
 
 Redis for PCF offers On-Demand, Dedicated-VM, and Shared-VM service plans. 
-This section describes the architecture, lifecycle, and configurations of the On-Demand plan, 
+This section describes the architecture, lifecycle, and configurations of the on-demand plan, 
 as well as networking information for the on-demand service. 
 For similar information for the Dedicated-VM and Shared-VM plans, see [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html).
 
 
 ## <a id="diagram1"></a> Architecture Diagram for On-Demand Plan
 
-This diagram shows the architecture of the service broker and On Demand plans, and how the user's app binds to a Redis instance.
+This diagram shows the architecture of the service broker and on-demand plans, and how the user's app binds to a Redis instance.
 
 ![On-Demand Architecture Diagram](on-demand-arch.png)
 
@@ -22,7 +22,7 @@ This diagram shows the architecture of the service broker and On Demand plans, a
 
 ### <a id="cacheplans"></a> Three On-Demand Cache Plans
 
-On-Demand plans are best fit for cache use cases and are configured as such by default.
+On-demand plans are best fit for cache use cases and are configured as such by default.
 
 Redis for PCF offers three on-demand plans as the `p.redis` service within the PCF Redis tile. Below is a description of each plan as it appears in the cf marketplace and its intended use case.
 
@@ -35,7 +35,7 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 ### <a id="features"></a> Features of On-Demand Service Plans
 
 * Each on-demand service instance is deployed to its own VM and is suitable for production workloads.
-* The service plans are Operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
+* The service plans are operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * Operators can update the cache plan settings, including the VM size and disk size, after the plans have been created.
 * Operators and app developers can change certain Redis configurations from the default. See [Configuration for On-Demand Service Plans](#config) for more information.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies. 
@@ -44,7 +44,7 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 
 ## <a id="config"></a> Configuration of On-Demand Service Plans
 
-For On-Demand Plans, certain Redis configurations can be set by the operator during plan configuration,
+For on-demand plans, certain Redis configurations can be set by the operator during plan configuration,
  and by the app developer during instance provisioning. Other Redis configurations cannot be changed from the default.
 
 ### <a id="operator"></a> Operator Configurable Redis Settings
@@ -75,11 +75,11 @@ For more information, see [Customize an On-Demand Service Instance](./using.html
 * Instances of the on-demand plan can be deployed until their number reaches either an operator-set per-plan quota or a global quota.
 * Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) and service broker adapter associated with this plan.
 * `maxmemory` in `redis.conf` is set to 45% of the system memory
-* Any On-Demand plan can be disabled from the plan page in Ops Manager.
+* Any on-demand plan can be disabled from the plan page in Ops Manager.
 
 ### <a id="limitations"></a> Known Limitations for On-Demand Service Plans
 
-Limitations for the On-Demand Service include:
+Limitations for the on-demand service include:
 
 * Operators must not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
@@ -89,15 +89,15 @@ Limitations for the On-Demand Service include:
   (enabling Lua Scripting, max-clients, timeout, and TCP keep-alive),
   these settings are implemented in all instances already created. 
 
-* Backups are not available for On-Demand plans.
+* Backups are not available for on-demand plans.
 
 ## <a id="resource"></a> Resource Usage Planning for On-Demand Plans
 
 <p class="note">
-Redis On-Demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of On-Demand instances provisioned.
+Redis on-demand plans use dedicated VMs and disks, which will consume IaaS resources. Operators can limit resource usage with Plan Quotas and a Global Quota, but resource usage will vary based on number of on-demand instances provisioned.
 </p>
 
-If the number of on-demand instances is greater than or equal to the Global Quota set on the 'On Demand Service Settings' page, no new instances can be provisioned.
+If the number of on-demand instances is greater than or equal to the Global Quota set on the **On-Demand Service Settings** page, no new instances can be provisioned.
 
 To calculate the maximum cost/ usage for each plan:
 
@@ -110,7 +110,7 @@ While (plan_1_quota + plan_2_quota) ≤ global_quota:
 max_resources = (plan_1_quota x plan_1_resources) + ( plan_2_quota x plan_2_resources)
 </pre>
 
-To calculate the current IaaS cost/ usage across On-Demand plans:
+To calculate the current IaaS cost/ usage across on-demand plans:
 
 1. Current instances provisioned for all plans can be found by referencing the `total_instance` metric as [documented here](monitoring.html#usage)
 1. Multiple the `total_instance` for each plan by that plan's resources. Sum all plans that are active to get your total current usage
