@@ -5,6 +5,33 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## Redis for PCF v1.9.4
+**September 22, 2017**
+
+**Bug Fixes**
+
+* Lua Scripting is disabled by default for the on-demand service. It was previously enabled by default. Pivotal recommends that Lua Scripting be disabled.
+
+* Allows the on-demand broker resource to be set to 0 or 1. This eases the ability of operators to avoid setting up the on-demand service.
+
+**Compatibility**
+
+* Compatible with PCF v1.10.9+.
+
+* Compatible with stemcells 3445.11+. This is a change from the previous stemcell line of 3363.
+
+**Known Issues**
+
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
+
+* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
+
+* Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
+
+
+
 ## Redis for PCF v1.9.3
 **August 24, 2017**
 
@@ -16,21 +43,29 @@ owner: London Services
 
 * Uses On-Demand Service Broker v0.17.0
 
+* Compatible with PCF v1.10.9+.
+
 * Uses a Syslog Migration Release that allows the operator to configure the log format to be either the pre-existing one or RFC 5424. RFC 5424 is the standard formatting across PCF services. The previous format will eventually be deprecated.
 
 **Known Issues**
+
+* Tile states it is compatible with OM v1.10.3+ but the minimum is v1.10.9+
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services.
 
-* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
 
 ## Redis for PCF v1.9.2
 **July 20, 2017**
+
+** Compatibility **
+
+* Compatible with PCF v1.10.9+.
 
 **Bug Fixes**
 
@@ -43,11 +78,13 @@ owner: London Services
 
 **Known Issues**
 
+* Tile states it is compatible with OM 1.10.3+ but the minimum is 1.10.9+
+
 * `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  do not have any effect due to a bug in Redis v3.2.8.
 
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
 
-* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
 * On-demand instances may not correctly enforce eviction policies when memory is full.
 
@@ -55,7 +92,9 @@ owner: London Services
 ## Redis for PCF v1.9.0
 **Release Date: June 30, 2017**
 
-* Compatibility: This release is compatible with PCF v1.10.9+.
+** Compatibility **
+
+* This release is compatible with PCF v1.10.9+.
 
 * The on-demand service leverages the [On-Demand Broker v0.16.0](https://docs.pivotal.io/svc-sdk/odb/0-16/release-notes.html)
 
@@ -63,6 +102,8 @@ owner: London Services
 
 
 **Known Issues**
+
+* Tile states it is compatible with OM 1.10.3+ but the minimum is 1.10.9+
 
 * New on-demand service instances does not pick up new stemcells beyond 3363.26.
 
@@ -78,6 +119,6 @@ owner: London Services
 
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
 
-* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
 * On-demand instances may not correctly enforce eviction policies when memory is full.
