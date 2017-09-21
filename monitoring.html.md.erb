@@ -231,7 +231,7 @@ A different threshold might be appropriate for specific use cases of no key evic
    <tr>
       <th>Recommended response</th>
       <td>
-      Increase max clients for your instance (if using the on-demand service) or reduce the number of connected cleints.
+      Increase max clients for your instance (if using the on-demand service) or reduce the number of connected clients.
       </td>
    </tr>
 </table>
@@ -277,7 +277,7 @@ However a problem that is causing <code>blocked_clients</code> to rise might oft
         Analysis could include:
         <ul>
 <li>checking the <code>connected_clients</code> metric. <code>blocked_clients</code> would often rise in concert with <code>connected_clients</code>.</li>
-<li>establishing whether the rise in <code>blocked_clients</code> is accompanied by an overall increase in applications connecting to Redis, or by an asymmetry in clients providing and recieving data with blocking commands</li>
+<li>establishing whether the rise in <code>blocked_clients</code> is accompanied by an overall increase in applications connecting to Redis, or by an asymmetry in clients providing and receiving data with blocking commands</li>
 <li>considering whether a change in <code>blocked_clients</code> is most likely caused by oversupply of blocking requests or undersupply of data</li>
 <li>considering whether a change in network latency is delaying the data from source clients</li></ul>
 
@@ -312,7 +312,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    <tr>
       <th>Recommended response</th>
       <td>
-        Restart the Redis server to normalise fragmentation ratio.
+        Restart the Redis server to normalize fragmentation ratio.
       </td>
    </tr>
 </table>
