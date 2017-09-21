@@ -5,26 +5,81 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## Redis for PCF v1.9.0
+## Redis for PCF v1.10.0
 
-**Release Date: June 30, 2017**
+**Release Date: September 29, 2017**
 
-* Compatibility: This release is compatible with PCF 1.10.3+.
+**Features**
 
-* The on-demand service leverages the [On-Demand Broker v0.16.0](https://docs.pivotal.io/svc-sdk/odb/0-16/release-notes.html)
+* Includes metrics for the on-demand service. This enables operators to monitor the health of their Redis instances.
 
-* There is a slight change in how syslog forwarding is turned off and on via a new toggle.
+* Introduces a new format for on-demand metrics. This is the standard format for all services and will eventually replace other formats.
+
+* Uses a new Release for syslog that allows the operator to configure the log format to be either the pre-existing one or RFC 5424. RFC 5424 is the standard format for PCF services. The previous format will eventually be deprecated.
+
+* Lua Scripting defaults to off for all on-demand service plans. Pivotal's security recommendation is to keep Lua Scripting as off.
+
+* Allows the operator to opt-out of the on-demand service without configuring on-demand plans.
+
+**Compatibility**
+
+* Compatible with PCF 1.11 and 1.12
 
 
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3445.11+</td>
+</tr>
+<tr>
+    <td>PCF</td>
+    <td>1.11.*, 1.12.*</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>cf-redis</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>service-backups</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>x</td>
+</tr>
+<tr>
+    <td>loggregator</td>
+    <td>x</td>
+</tr>
+
+</table>
 
 **Known Issues**
 
-* `lua-timeout-limit` a Redis configuration that is exposed to App Developrs through arbitrary Parameters in v1.9,  will not have any effect due to a bug in Redis v3.2.8.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9, does not have any effect due to a bug in Redis v3.2.8.
 
-* Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
+* The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The When Changed option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this choice as an errand.
 
-* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
-
-* On-demand instances may not correctly enforce eviction policies when memory is full.
+* Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
