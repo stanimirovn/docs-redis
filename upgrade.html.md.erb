@@ -68,14 +68,18 @@ For more information, see the [Product Version Matrix](http://docs.pivotal.io/co
     <td>v1.8.0 – latest version</td>
 </tr>
 <tr>
-    <th>v1.10.3 – latest version</th>
+    <th>v1.10.9 – latest version</th>
     <td>v1.7.2 – latest version</td>
     <td>v1.9.0 – latest version</td>
 </tr>
 <tr>
     <th>v1.11.x</th>
-    <td>v1.8.0 – latest version</td>
-    <td>1.9.0 – latest version</td>
+		<td>v1.9.0 – latest version</td>
+    <td>1.10.0 – latest version</td>
+</tr>
+<tr>
+    <th>v1.12.x</th>
+    <td>v1.10.0 – latest version</td>
 </tr>
 
 
@@ -96,13 +100,13 @@ To upgrade Redis for PCF, do the following:
 1. If required, update any new mandatory configuration parameters.
 1. Click **Apply changes**. The rest of the process is automated.
 
-During the upgrade deployment each Redis instance experiences a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup. 
+During the upgrade deployment each Redis instance experiences a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup.
 
 The length of the downtime depends on whether there is a stemcell update to replace the operating system image, or whether the existing VM can simply have the redis software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM, whereas updates without a stemcell update are faster.
 
 Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
 
-Upgrading to a newer version of the product does not cause any loss of data or configuration. 
+Upgrading to a newer version of the product does not cause any loss of data or configuration.
 
 ## <a id="policy"></a> Release Policy
 

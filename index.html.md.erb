@@ -21,11 +21,11 @@ This documentation:
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.9.3</td>
+        <td>v1.10.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>August 24, 2017</td>
+        <td>September 29, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -33,11 +33,11 @@ This documentation:
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.10.9+ and v1.11.0*</td>
+        <td>v1.11.0* and v1.12.0*</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.10.9+ and v1.11.0</td>
+        <td>v1.11.0* and v1.12.0*</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -48,9 +48,6 @@ This documentation:
         <td>Yes</td>
     </tr>
 </table>
-
-&ast; <em>Ops Manager v1.9+ have support for securing metrics and logs
-through loggregator with TLS — this is enabled in Redis for PCF v1.9.</em>
 
 
 ##<a id="about-redis"></a> About Redis
@@ -78,14 +75,14 @@ For more information, see [On-Demand Service Offering](./architecture.html).
 ### <a id="shared-dedicated"></a> Dedicated-VM and Shared-VM Services
 
 Redis for PCF still offers Dedicated-VM and Shared-VM plans.
-With these plans, an Operator specifies at install time how many dedicated VM Redis instances to create. 
+With these plans, an Operator specifies at install time how many dedicated VM Redis instances to create.
 
 For more information about the dedicated-VM and shared-VM service, see
 [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html).
 
 ### <a id="other-notes"></a>Support for Multiple AZs
 
-As of v1.9, Redis for PCF supports configuring multiple AZs.
+Redis for PCF supports configuring multiple AZs.
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.
 
 + On-Demand plans can be assigned to any of the configured availability zones.
@@ -116,9 +113,9 @@ Review the following table to determine if Redis for PCF has the features needed
     <td><a href="smoke-tests.html">Smoke Tests</a></td></tr>
 
 <tr><th colspan=2>Maintenance and Backups</th><th>More Information</th></tr>
-<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF v1.9 provides metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
+<tr><td>Operational Monitoring and Logging</td><td>Redis for PCF metrics for monitoring On-Demand plan usage and quotas and syslog redirection to external log ingestors.</td>
     <td><a href="monitoring.html">Monitoring Redis for PCF</a></td></tr>
-<tr><td>Backup and Restore</td><td>Redis for PCF v1.9 includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
+<tr><td>Backup and Restore</td><td>Redis for PCF includes automatic backups on a configurable schedule to a variety of destinations for Dedicated-VM and Shared-VM plans, as well as scripts for backup and restore of service instances. The On-Demand plan does not offer this.
 </td><td><a href="manual-br.html">Manual Backup and Restore of Redis for PCF</a></td></tr>
 
 <tr><th colspan=2>Scale and Availability</th><th>More Information</th></tr>
