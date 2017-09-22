@@ -33,11 +33,11 @@ This documentation:
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.11.0* and v1.12.0*</td>
+        <td>v1.11.0 and v1.12.0</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.11.0* and v1.12.0*</td>
+        <td>v1.11.0 and v1.12.0</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -68,14 +68,14 @@ New features are regularly introduced. Upgrading Redis for PCF is straightforwar
 
 Redis for PCF v1.8 and later includes on-demand provisioning of Redis instances based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/).
 This enables an app developer to create a Redis instance as needed from the CF CLI through the `cf create-service` command.
-The Operator configures the plan options available to the app developers.
+The operator configures the plan options available to the app developers.
 
 For more information, see [On-Demand Service Offering](./architecture.html).
 
 ### <a id="shared-dedicated"></a> Dedicated-VM and Shared-VM Services
 
 Redis for PCF still offers Dedicated-VM and Shared-VM plans.
-With these plans, an Operator specifies at install time how many dedicated VM Redis instances to create.
+With these plans, an operator specifies at install time how many dedicated VM Redis instances to create.
 
 For more information about the dedicated-VM and shared-VM service, see
 [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html).
