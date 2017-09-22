@@ -7,7 +7,7 @@ owner: London Services
 
 The [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) exposes Redis metrics. You can use third-party monitoring tools to consume Redis metrics to monitor Redis performance and health.
 
-As an example of how to display KPIs and metrics, see the [CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard), which uses [Datadog](https://www.datadoghq.com). Pivotal does not endorse or provide support for any third party solution.
+As an example of how to display KPIs and metrics, see the [CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard), which uses [Datadog](https://www.datadoghq.com). Pivotal does not endorse or provide support for any third-party solution.
 
 ## <a id="polling"></a> Metrics Polling Interval
 The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in **Metrics polling interval (min: 10)**.
@@ -326,7 +326,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    <tr><th colspan="2" style="text-align: center;"><br> info.stats.instantaneous_ops_per_sec <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>The number of commands processed per second by the Redis server. Note the <code>instantaneous_ops_per_sec</code> is calculated as the mean of the recent samples taken by the server. The number of recent samples is hardcoded as 16 in the implementation of Redis.
+      <td>The number of commands processed per second by the Redis server. The <code>instantaneous_ops_per_sec</code> is calculated as the mean of the recent samples taken by the server. The number of recent samples is hardcoded as 16 in the implementation of Redis.
       <br><br>
       <strong>Use</strong>: The higher the commands processed per second, the better the performance of Redis. This is because Redis is single threaded and the commands are processed in sequence. A higher throughput would thus mean faster response per request which is a direct indicator of higher performance. A drop in the number of commands processed per second as compared to historical norms could be a sign of either low command volume or slow commands blocking the system. Low command volume could be normal, or it could be indicative of problems upstream.
       <br><br>
