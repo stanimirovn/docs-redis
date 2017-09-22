@@ -29,7 +29,7 @@ Pivotal recommends that operators continue to fine-tune the alert measures to th
 Pivotal also recommends that operators expand beyond this guidance and create new, installation-specific monitoring
 metrics, thresholds, and alerts based on learning from their own installations.
 
-For a list of all Redis metrics, see [Redis Metrics](#redis-metrics).
+For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics).
 
 ### <a id="Redis-KPIs"></a> Redis for PCF Service KPIs
 
@@ -98,7 +98,7 @@ For a list of all Redis metrics, see [Redis Metrics](#redis-metrics).
 #### <a id="quota-remaining-dedicated-instances"></a> Quota Remaining For Shared-VM and Dedicated-VM Service
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> /p-redis/service-broker/dedicated_vm_plan/available_instances /p-redis/service-broker/shared_vm_plan/available_instances <br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> /p-redis/service-broker/dedicated_vm_plan/available_instances <br>/p-redis/service-broker/shared_vm_plan/available_instances <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
        <td>Number of available instances for the Dedicated-VM serving.
@@ -134,7 +134,7 @@ For a list of all Redis metrics, see [Redis Metrics](#redis-metrics).
    <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td><code>persistent.disk.percent</code> is the percentage of persistent disk being used on a VM. The persistent disk is specified as an IaaS specific disk type with a size. For example, <code>pd-standard</code> on GCP, or <code>st1</code> on AWS, with disk size 5GB. It is a metric relevant to the health of the VM; a percentage of disk usage approaching 100 will cause the VM disk to become unusable as no more files will be allowed to be written.
+      <td>Percentage of persistent disk being used on a VM. The persistent disk is specified as an IaaS-specific disk type with a size. For example, <code>pd-standard</code> on GCP, or <code>st1</code> on AWS, with disk size 5GB. This is a metric relevant to the health of the VM. A percentage of disk usage approaching 100 will cause the VM disk to become unusable as no more files will be allowed to be written.
       <br><br>
       <strong>Use</strong>: Redis is an in-memory data store that uses a persistent disk to backup and restore the dataset in case of upgrades and VM restarts.
       <br><br>
@@ -154,7 +154,7 @@ For a list of all Redis metrics, see [Redis Metrics](#redis-metrics).
    <tr>
       <th>Recommended response</th>
       <td>
-      Operator should ensure that the disk is at least 3.5x VM memory. If it is, then Operator should contact GSS. If it is not, then the Operator should increase disk space.
+      Ensure that the disk is at least 3.5x VM memory. If it is, then contact GSS. If it is not, then then increase disk space.
       </td>
    </tr>
 </table>
@@ -165,8 +165,8 @@ For a list of all Redis metrics, see [Redis Metrics](#redis-metrics).
    <tr><th colspan="2" style="text-align: center;"><br> info.memory.used_memory / info.memory.maxmemory  <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td><code>info.memory.used_memory</code> is a metric of the total number of bytes allocated by Redis using its allocator (either standard libc, jemalloc, or an alternative allocator such as tcmalloc). maxmemory is a configuration option for the total memory made available to the Redis instance. The ratio returns the percentage of used memory out of available memory.
-      <br><br>
+      <td>The ratio of these two metrics returns the percentage of available memory used:<br>
+         <ul><li><code>info.memory.used_memory</code> is a metric of the total number of bytes allocated by Redis using its allocator (either standard libc, jemalloc, or an alternative allocator such as tcmalloc).</li> <li><code>maxmemory</code> is a configuration option for the total memory made available to the Redis instance.</li></ul> 
       <strong>Use</strong>: This is a performance metric that is most critical for Redis instances with a <code>maxmemory-policy</code> of <code>allkeys-lru</code>
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
@@ -175,28 +175,26 @@ For a list of all Redis metrics, see [Redis Metrics](#redis-metrics).
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>Application-specific based on velocity of data flow.
-          <br><br>
-          Some options are:
-          <ol>
-          <li>individual data points</li>
-          <li>average over last 10 minutes</li>
-          <li>maximum of last 10 minutes</li></ol>
+      <td>Application-specific based on velocity of data flow. Some options are:
+      <br><br>
+      <ol>
+      <li>Individual data points---Use if key eviction is in place, for example, in cache use cases.</li>
+      <li>Average over last 10 minutes---Use if this gives you enough detail.</li>
+      <li>Maximum of last 10 minutes</li></ol>
 
-          Factors to consider:<br>
-          1. Usage: if key eviction is in place (e.g. cache use case), (2) gives enough detail. If key eviction is not in place, (1) or (3) give more useful information to ensure that high usage triggers an alert.</td>
+If key eviction is not in place, options 1 or 3 give more useful information to ensure that high usage triggers an alert.</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
       <td><strong>Yellow warning</strong>: 80%
 Not applicable for cache usage. When used as a cache, Redis will typically use up to maxmemory and then evict keys to make space for new entries.
 <br><br>
-A different threshold might be appropriate for specific use cases of no key eviction, to allow for reaction time. Factors to consider:
+A different threshold might be appropriate for specific use cases of no key eviction, to allow for reaction time. Factors to consider:<br><br>
 <ol>
-<li>Traffic load on application. Higher traffic means that Redis memory will fill up faster.</li>
-<li>Average size of data added/ transaction. The more data added to Redis on a single transaction, the faster Redis will fill up its memory.</li></ol>
+<li>Traffic load on application---Higher traffic means that Redis memory will fill up faster.</li>
+<li>Average size of data added/ transaction---The more data added to Redis on a single transaction, the faster Redis will fill up its memory.</li></ol>
 
-<strong>Red critical</strong>: 90%. See warning specific threshold information.
+<strong>Red critical</strong>: 90%. See warning-specific threshold information.
    </tr>
    <tr>
       <th>Recommended response</th>
@@ -211,9 +209,9 @@ A different threshold might be appropriate for specific use cases of no key evic
 <table>
    <tr><th colspan="2" style="text-align: center;"><br> info.clients.connected_clients <br><br></th></tr>
    <tr>
-      <th width="25%">Description</th>
-      Number of clients currently connected to the Redis instance.
-      <td><strong>Use</strong>: Redis does not close client connections. They remain open until closed explicitly by the client or another script. Once the <code>connected_clients</code> reaches <code>maxclients</code>, Redis will stop accepting new connections and begin producing <code>ERR max number of clients reached</code> errors.
+      <th width="25%">Description</th>      
+      <td>Number of clients currently connected to the Redis instance.<br><br>
+         <strong>Use</strong>: Redis does not close client connections. They remain open until closed explicitly by the client or another script. Once the <code>connected_clients</code> reaches <code>maxclients</code>, Redis stops accepting new connections and begins producing <code>ERR max number of clients reached</code> errors.
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: number <br>
@@ -231,7 +229,7 @@ A different threshold might be appropriate for specific use cases of no key evic
    <tr>
       <th>Recommended response</th>
       <td>
-      Increase max clients for your instance (if using the on-demand service) or reduce the number of connected clients.
+      Increase max clients for your instance if using the on-demand service, or reduce the number of connected clients.
       </td>
    </tr>
 </table>
@@ -242,12 +240,17 @@ A different threshold might be appropriate for specific use cases of no key evic
    <tr><th colspan="2" style="text-align: center;"><br> info.clients.blocked_clients <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>The number of clients waiting on a blocking call. Redis provides two types of primitive commands to retrieve items from lists: standard and blocking.<br>
-      The standard commands (LPOP, RPOP, RPOPLPUSH) immediately return an item from a list. If there are no items available the standard pop commands return nil.<br>
-      The blocking commands (BLPOP, BRPOP, BRPOPLPUSH) will wait for an empty list to become non-empty.<br>
-      The client connection will be blocked until an item is added to the lists it is watching. Only the client which made the blocking request is blocked, the Redis server continues to serve other clients. The blocking commands each take an additional <code>timeout</code> argument that is the time in seconds the server will wait on a list before returning nil. A blocking command with timeout <code>0</code> will wait forever. Multiple clients may be blocked waiting for the same list. Details of the blocking commands can be found at: <a href="https://redis.io/commands/blpop">https://redis.io/commands/blpop</a>.
+      <td>The number of clients currently blocked waiting for a blocking request they have made to the Redis server. Redis provides two types of primitive commands to retrieve items from lists: standard and blocking. This metric concerns the blocking commands.<br><br>
+      
+         <strong>Standard Commands</strong><br><br>
+      The standard commands (LPOP, RPOP, RPOPLPUSH) immediately return an item from a list. If there are no items available the standard pop commands return nil.<br><br>
+
+      <strong>Blocking Commands</strong><br><br>
+      The blocking commands (BLPOP, BRPOP, BRPOPLPUSH) wait for an empty list to become non-empty.
+      The client connection is blocked until an item is added to the lists it is watching. Only the client that made the blocking request is blocked, and the Redis server continues to serve other clients. 
+      <br><br>The blocking commands each take a <code>timeout</code> argument that is the time in seconds the server waits for a list before returning nil. A blocking command with timeout <code>0</code> waits forever. Multiple clients may be blocked waiting for the same list. For details of the blocking commands, see: <a href="https://redis.io/commands/blpop">https://redis.io/commands/blpop</a>.
       <br><br>
-      <strong>Use</strong>: Blocking commands can be useful to avoid clients regularly polling the server for new data. The <code>blocked_clients</code> metric is the number of clients currently blocked waiting on a blocking request they have made to the Redis server.
+      <strong>Use</strong>: Blocking commands can be useful to avoid clients regularly polling the server for new data. This metric tells you how many clients are currently blocked due to a blocking command.
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: number <br>
@@ -263,9 +266,9 @@ A different threshold might be appropriate for specific use cases of no key evic
 <ul>
 <li>Many uses will have no need for blocking commands and should expect <code>blocked_clients</code> to always be zero.</li>
 <li> If blocking commands are being used to force a recipient client to wait for a required input, a raised <code>blocked_clients</code> might suggest a problem with the source clients.</li>
-<li> blocked_clients might be expected to be high in situations where Redis is being used for infrequent messaging.</li>
+<li> <code>blocked_clients</code> might be expected to be high in situations where Redis is being used for infrequent messaging.</li>
 </ul>
-If <code>blocked_clients</code> is expected to be non-zero, warnings could be based on change from baseline. A sudden rise in <code>blocked_clients</code> could be caused by source clients failing to provide data required by blocked clients.<br>
+If <code>blocked_clients</code> is expected to be non-zero, warnings could be based on change from baseline. A sudden rise in <code>blocked_clients</code> could be caused by source clients failing to provide data required by blocked clients.<br><br>
       <strong>Red critical</strong>: There is no <code>blocked_clients</code> threshold critical to the function of Redis.
 
 However a problem that is causing <code>blocked_clients</code> to rise might often cause a rise in <code>connected_clients</code>.
@@ -274,12 +277,12 @@ However a problem that is causing <code>blocked_clients</code> to rise might oft
    <tr>
       <th>Recommended response</th>
       <td>
-        Analysis could include:
+        Analysis could include:<br><br>
         <ul>
-<li>checking the <code>connected_clients</code> metric. <code>blocked_clients</code> would often rise in concert with <code>connected_clients</code>.</li>
-<li>establishing whether the rise in <code>blocked_clients</code> is accompanied by an overall increase in applications connecting to Redis, or by an asymmetry in clients providing and receiving data with blocking commands</li>
-<li>considering whether a change in <code>blocked_clients</code> is most likely caused by oversupply of blocking requests or undersupply of data</li>
-<li>considering whether a change in network latency is delaying the data from source clients</li></ul>
+<li>Checking the <code>connected_clients</code> metric. <code>blocked_clients</code> would often rise in concert with <code>connected_clients</code>.</li>
+<li>Establishing whether the rise in <code>blocked_clients</code> is accompanied by an overall increase in applications connecting to Redis, or by an asymmetry in clients providing and receiving data with blocking commands</li>
+<li>Considering whether a change in <code>blocked_clients</code> is most likely caused by oversupply of blocking requests or undersupply of data</li>
+<li>Considering whether a change in network latency is delaying the data from source clients</li></ul>
 
 In general, a rise or change in <code>blocked_clients</code> is more likely to suggest a problem in the network or infrastructure, or in the function of client applications, rather than a problem with the Redis service.
       </td>
@@ -323,7 +326,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    <tr><th colspan="2" style="text-align: center;"><br> info.stats.instantaneous_ops_per_sec <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>The number of commands processed per second by the redis server. Note the <code>instantaneous_ops_per_sec</code> is calculated as the mean of the recent samples taken by the server. The number of recent samples is hardcoded as 16 in the implementation of Redis.
+      <td>The number of commands processed per second by the Redis server. Note the <code>instantaneous_ops_per_sec</code> is calculated as the mean of the recent samples taken by the server. The number of recent samples is hardcoded as 16 in the implementation of Redis.
       <br><br>
       <strong>Use</strong>: The higher the commands processed per second, the better the performance of Redis. This is because Redis is single threaded and the commands are processed in sequence. A higher throughput would thus mean faster response per request which is a direct indicator of higher performance. A drop in the number of commands processed per second as compared to historical norms could be a sign of either low command volume or slow commands blocking the system. Low command volume could be normal, or it could be indicative of problems upstream.
       <br><br>
@@ -337,19 +340,19 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: A drop in the count compared to historical norms could be a sign of either low command volume or slow commands blocking the system. Low command volume could be normal, or it could be indicative of problems upstream. Slow commands could be due to latency issue, a large number of clients being connected to the same instance, memory being swapped out, etc. Thus, the count is possibly a symptom of compromised Redis performance. (Although expected low command volume is a valid case where it is not.)<br>
-      <strong>Red critical</strong>: A very low count or a large drop from previous counts may indicate a downturn in performance that should ensue an investigation. This is unless the low traffic is expected behavior.</td>
+      <td><strong>Yellow warning</strong>: A drop in the count compared to historical norms could be a sign of either low command volume or slow commands blocking the system. Low command volume could be normal, or it could be indicative of problems upstream. Slow commands could be due to a latency issue, a large number of clients being connected to the same instance, memory being swapped out, etc. Thus, the count is possibly a symptom of compromised Redis performance. However, this is not the case when low command volume is expected.<br><br>
+      <strong>Red critical</strong>: A very low count or a large drop from previous counts may indicate a downturn in performance that should result in an investigation. That is unless the low traffic is expected behavior.</td>
    </tr>
    <tr>
       <th>Recommended response</th>
       <td>
-        Drop in the count may be a symptom of compromised Redis performance. The following are possible steps that can be taken in response to this:
+        A drop in the count may be a symptom of compromised Redis performance. The following are possible responses:
    <br><br>
 <ol>
    <li><strong>Identify slow commands using the slowlog:</strong><br>
    Redis logs all the commands that take more than a specified amount of time in slowlog. By default, this time is set to 20ms and the slowlog is allowed a maximum of 120 commands. For the purposes of slowlog, execution time is the time taken by Redis alone and does not account for time spent in I/O. So it would not log slow commands solely due to network latency.
    <br><br>
-   Given that typical commands, including network latency, take about 200microseconds, a 20ms Redis execution time is 100 times slower. This could be indicative of memory management issues wherein Redis pages have been swapped to disk.
+   Given that typical commands, including network latency, take about 200ms, a 20ms Redis execution time is 100 times slower. This could be indicative of memory management issues wherein Redis pages have been swapped to disk.
    <br><br>
    To see all the commands with slow Redis execution times, type <code>slowlog get</code> in the redis-cli.</li>
 
@@ -361,9 +364,9 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    The connected clients metrics can be used to monitor this. This can also be viewed from the redis-cli using the command "info clients".</li>
 
    <li><strong>Limit client connections:</strong><br>
-   This currently defaults to 1000 but depending on the application, you may wish to limit this even further. This can be done be running the command "config set maxclients <value>" in the redis-cli. Connections that exceed the limit will be rejected and closed immediately.</value>
+   This currently defaults to 1000 but depending on the application, you may wish to limit this further. This can be done be running the command "config set maxclients <value>" in the redis-cli. Connections that exceed the limit will be rejected and closed immediately.</value>
    <br><br>
-   Setting maxclients is important to limit the number of unintended client connections and should be set to around 110% to 150% of your expected peak number of connections. In addition, because an error message is returned for failed connection attempts, the maxclient limit warns you that a significant number of unexpected connections are occurring. This will ultimately help maintaining optimal Redis performance.</li>
+   Setting maxclients is important to limit the number of unintended client connections and should be set to around 110% to 150% of your expected peak number of connections. In addition, because an error message is returned for failed connection attempts, the maxclient limit warns you that a significant number of unexpected connections are occurring. This helps maintain optimal Redis performance.</li>
 
    <li><strong>Improve memory management:</strong><br>
    Poor memory can cause increased latency in Redis. If your Redis instance is using more memory than is available, the operating system will swap parts of the redis process from out of phyical memory and onto disk. Swapping will significantly reduce Redis performance since reads from disk are about 5 orders or magnitude slower than reads from physical memory.</li>
@@ -380,9 +383,9 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    <tr><th colspan="2" style="text-align: center;"><br> info.stats.keyspace_hits / info.stats.keyspace_misses <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Hit ratio to determine share of keyspace hits that are successful
+      <td>Hit ratio to determine share of keyspace hits that are successful.
       <br><br>
-      <strong>Use</strong>: A memory fragmentation less than one shows that the memory used by Redis is higher than the OS available memory. In other packagings of redis, large values reflect memory fragmentation. For Redis for PCF, the instances only run Redis meaning that no other processes will be affected by a high fragmentation ratio (e.g., 10 or 11).
+      <strong>Use</strong>: A memory fragmentation less than one shows that the memory used by Redis is higher than the OS available memory. In other packagings of redis, large values reflect memory fragmentation. For Redis for PCF, the instances only run Redis, therefore, no other processes are affected by a high fragmentation ratio (e.g., 10 or 11).
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: ratio <br>
@@ -394,13 +397,12 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: Application-specific. In general depending how an application is using the cache, an expected hit ratio value can vary between 60% to 99% . Also same hit ratio values can mean different things for different applications. Every time an application gets a cache miss it means it will probably go to and fetch the data from a more slow resource. This cache miss cost can be different per application. The application developers might be able to provide a threshold which meaning for the app and its performance<br>
-      <strong>Red critical</strong>: Application-specific (see warning threshold)</td>
-   </tr>
+      <td><strong>Yellow warning</strong>: Application-specific. In general depending how an application is using the cache, an expected hit ratio value can vary between 60% to 99% . Also, the same hit ratio values can mean different things for different applications. Every time an application gets a cache miss, it will probably go to and fetch the data from a slower resource. This cache miss cost can be different per application. The application developers might be able to provide a threshold that is meaningful for the app and its performance<br><br>
+      <strong>Red critical</strong>: Application-specific. See the warning threshold above.
    <tr>
       <th>Recommended response</th>
       <td>
-        Application-specific (see warning threshold section). Work with application developers to understand the performance and cache configuration required for their applications.
+        Application-specific. See the warning threshold above. Work with application developers to understand the performance and cache configuration required for their applications.
       </td>
    </tr>
 </table>
