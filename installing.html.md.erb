@@ -313,7 +313,7 @@ For settings that app developers can configure, see [Customize an On-Demand Serv
 ## <a id="syslog"></a>Configure Syslog Output
 
 Pivotal recommends that operators configure a syslog output. This is to monitor the logs from your Redis deployment to better maintain health and troubleshoot issues.
-For instances of the Redis On-Demand plan, all logs follow (RFC5424)[https://tools.ietf.org/html/rfc5424] format. Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their format to be either their pre-existing format or RFC5424. RFC5424 will eventually be the only supported format.
+For instances of the Redis On-Demand plan, all logs follow [RFC5424](https://tools.ietf.org/html/rfc5424) format. Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their format to be either their pre-existing format or RFC5424. RFC5424 will eventually be the only supported format.
 
 Follow these steps to configure syslog output:
 
@@ -321,7 +321,7 @@ Follow these steps to configure syslog output:
 
     <br>![syslog configuration](syslog-forwarding4.png)
 
-1. Select the **Yes without encryption** radio button or the **Yes with TLS encryption**
+1. Select the **Yes without encryption** radio button or the **Yes with TLS encryption**. To use syslog for on-demand instances you must enable outbound internet access in the 'On-Demand Service Settings' tab.
 
 1. For both options, enter the Syslog address and port, and select the transport protocol of your log management tool (you can only use TLS if you are using encryption). The information required for these fields is provided by your log management tool. Address should be something such as logs.papertrailapp.com and the port will be a number such as 41635.
 
@@ -333,7 +333,7 @@ Follow these steps to configure syslog output:
 
   <br> The permitted peer refers to the remote syslog endpoint you wish to use for your logs. It establishes an encrypted tunnel with the host of your choice.
 
-  <br> TLS CA certificate refers to the trusted certificate authorities for your syslog server. Please note that large cert chains (> 8kb) will fail. 
+  <br> TLS CA certificate refers to the trusted certificate authorities for your syslog server. Please note that large cert chains (> 8kb) will fail.
 
 1.  Click **Save**.
 
