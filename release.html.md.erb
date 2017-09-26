@@ -15,16 +15,15 @@ owner: London Services
 
 * Introduces a new format for on-demand metrics. This is the standard format for all services and will eventually replace other formats.
 
-* Uses a new Release for syslog that allows the operator to configure the log format to be either the pre-existing one or RFC 5424. RFC 5424 is the standard format for PCF services. The previous format will eventually be deprecated.
+* Uses a new release for syslog that allows the operator to configure the log format to be either the pre-existing one or RFC5424. RFC5424 is the standard format for PCF services. The previous format will eventually be deprecated.
+
+* Enables TLS encryption for syslog forwarding.
 
 * Lua Scripting defaults to off for all on-demand service plans. Pivotal's security recommendation is to keep Lua Scripting as off.
 
 * Allows the operator to opt-out of the on-demand service without configuring on-demand plans.
 
 **Compatibility**
-
-* Compatible with PCF 1.11 and 1.12
-
 
 <table border="1" class="nice">
 <tr>
@@ -37,46 +36,50 @@ owner: London Services
 </tr>
 <tr>
     <td>PCF</td>
-    <td>1.11.*, 1.12.*</td>
+    <td>v1.11.x, v1.12.x</td>
 </tr>
 <tr>
-    <td>consul</td>
-    <td>x</td>
-</tr>
-<tr>
-    <td>cf-redis</td>
-    <td>x</td>
+    <td>cf-redis-release</td>
+    <td>v431.0.0</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>x</td>
+    <td>v0.17.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v178.0.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>x</td>
+    <td>v0.162.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>x</td>
+    <td>v1.5.7</td>
 </tr>
 <tr>
-    <td>service-backups</td>
-    <td>x</td>
+    <td>service-backup</td>
+    <td>v18.1.0</td>
 </tr>
 <tr>
     <td>syslog-migration</td>
-    <td>x</td>
+    <td>v9.0.0</td>
 </tr>
 <tr>
     <td>loggregator</td>
-    <td>x</td>
+    <td>v97.0.0</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v3.2.8</td>
 </tr>
 
 </table>
 
 **Known Issues**
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9, does not have any effect due to a bug in Redis v3.2.8.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, does not have any effect due to a bug in Redis v3.2.8.
 
 * The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
