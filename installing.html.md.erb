@@ -310,33 +310,34 @@ The following table describes properties that operators can update in the [confi
 For settings that app developers can configure, see [Customize an On-Demand Service Instance](./using.html#custom).
 
 
-## <a id="syslog"></a>Configure Syslog Output
+## <a id="syslog"></a>Configure Syslog Forwarding
 
-Pivotal recommends that operators configure a syslog output. This is to monitor the logs from your Redis deployment to better maintain health and troubleshoot issues.
-For instances of the Redis On-Demand plan, all logs follow [RFC5424](https://tools.ietf.org/html/rfc5424) format. Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their format to be either their pre-existing format or RFC5424. RFC5424 will eventually be the only supported format.
+Pivotal recommends that operators configure syslog forwarding to a remote destination. Forwarding your system logs to a remote destination enables:
 
-Follow these steps to configure syslog output:
+* Viewing logs from every VM in the Redis for PCF deployment in one place
+* Effective troubleshooting when logs are lost on the source VM
+* Setting up alerts for important error logs to monitor the deployment
 
-1. Click the Redis for PCF tile to display the configuration page, and then click **Syslog** on the Settings tab.
+Follow these steps to configure syslog forwarding:
 
-    <br>![syslog configuration](syslog-forwarding4.png)
+1. Click the Redis for PCF tile to display the configuration page, and then click the **Syslog** tab on the sidebar navigation.
 
-1. Select the **Yes without encryption** radio button or the **Yes with TLS encryption**. To use syslog for on-demand instances you must enable outbound internet access in the 'On-Demand Service Settings' tab.
+    <br>![syslog configuration](syslog-forwarding5.png)
 
-1. For both options, enter the Syslog address and port, and select the transport protocol of your log management tool (you can only use TLS if you are using encryption). The information required for these fields is provided by your log management tool. Address should be something such as logs.papertrailapp.com and the port will be a number such as 41635.
+1. Select the **Yes without encryption** radio button or the **Yes with TLS encryption**.
 
-1. Select the format for your logs. RFC 5424 is the suggested format and is standard across PCF services.
+<p class="note"><strong>Note:</strong> To use syslog for on-demand instances you must enable outbound internet access in the 'On-Demand Service Settings' tab.</p>
 
-    <br>If you have pre-existing systems that may break with a new format, you may select the legacy format. However, the legacy format will eventually be deprecated.
+1. Enter the Syslog address and port, and select the transport protocol of your remote destination (you can only use TCP if you are using TLS encryption). The information required for these fields is provided by your remote destination. Address should be something such as `logs.papertrailapp.com` and the port will be a number such as `41635`.
+
+1. Select the format for your logs. [RFC5424](https://tools.ietf.org/html/rfc5424) is the suggested format. For instances of the Redis On-Demand plan, all logs follow RFC5424 format. Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their log format to be either their legacy format or RFC5424. Pivotal Cloud Foundry is moving towards all syslog consistently using RFC5424 format.
 
 1. For the **Yes with TLS encryption** option, you must also enter a Permitted Peer and a TLS CA certificate.
 
-  <br> The permitted peer refers to the remote syslog endpoint you wish to use for your logs. It establishes an encrypted tunnel with the host of your choice.
-
-  <br> TLS CA certificate refers to the trusted certificate authorities for your syslog server. Please note that large cert chains (> 8kb) will fail.
+    * The Permitted Peer refers to the remote syslog destination. It allows each VM to establish an encrypted tunnel with the remote syslog destination. The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, e.g. `*.example.com`.
+    * TLS CA certificate refers to the trusted certificate authorities for the remote syslog destination. Please note that large certificate chains (> 8kb) are not supported.
 
 1.  Click **Save**.
-
 
 ## <a id="azs"></a>Networks, Security, and Assigning AZs
 
