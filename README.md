@@ -4,7 +4,7 @@
 
 ### Master
 
-This is the main 'going forward' branch, and contains the next unreleased version. 
+This is the main 'going forward' branch, and contains the **next unreleased version**. 
 This branch builds to the <br> <strong>cf-services-edge > redis-edge</strong> pipeline, and does not go to production until release time. <br>
 1. Update this branch for any 'going-forward' changes:
     * New features in next release</br>
@@ -13,7 +13,7 @@ This branch builds to the <br> <strong>cf-services-edge > redis-edge</strong> pi
      
 2. If appropriate cherry-pick or copy your changes from <strong>master</strong> to 'live' branches (in production), for example 1.9.
 
-### Other branches in production (e.g., 1.9) 
+### Other branches in production (e.g., 1.10, 1.9...) 
 
 These branches build to the <strong>cf-services > redis</strong> pipeline, 
 and are manually pushed to production as needed.
