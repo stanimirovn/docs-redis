@@ -8,7 +8,7 @@ owner: London Services
 
 ## <a id="install"></a>Download and Install the Tile
 
-To add Redis for PCF to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
+To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis). Select the latest release from the **Releases:** drop-down menu.
 1. Upload the product file to your Ops Manager installation.
@@ -326,13 +326,18 @@ Follow these steps to configure syslog forwarding:
 
 1. Select either the **Yes without encryption** or the **Yes with TLS encryption** radio button.
 
-<p class="note"><strong>Note:</strong> To use syslog for on-demand instances you must enable outbound internet access in the <strong>On-Demand Service Settings</strong> tab.</p>
+    <p class="note"><strong>Note:</strong> To use syslog for on-demand instances 
+       you must enable outbound internet access in the <strong>On-Demand Service Settings</strong> tab.</p>
 
-1. Enter the Syslog address and port, and select the transport protocol of your remote destination (you can only use TCP if you are using TLS encryption).<br><br>
-  The information required for these fields is provided by your remote destination. **Address** should be something such as `logs.papertrailapp.com`, and the port will be a number such as `41635`.
+1. Enter the Syslog address and port, and select the transport protocol of your remote destination.
+   You can only use TCP if you are using TLS encryption.<br><br>
+   The information required for these fields is provided by your remote destination.
+   **Address** should be something such as `logs.papertrailapp.com`, and the port will be a number such as `41635`.
 
 1. Select the format for your logs. [RFC5424](https://tools.ietf.org/html/rfc5424) is the suggested format.<br><br>
-  For instances of the Redis on-demand plan, all logs follow RFC5424 format. Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their log format to be either their legacy format or RFC5424. Pivotal Cloud Foundry is moving toward all syslogs consistently using RFC5424 format.
+   For instances of the Redis on-demand plan, all logs follow RFC5424 format.
+   Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their log format to be either their legacy format or RFC5424.
+   PCF is moving toward all syslogs consistently using RFC5424 format.
 
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
   * **Permitted Peer** refers to the remote syslog destination. It allows each VM to establish an encrypted tunnel with the remote syslog destination. The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
