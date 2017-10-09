@@ -51,6 +51,8 @@ owner: London Services
 
 **Known Issues**
 
+* The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
+
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
 * The redis-odb service broker listens on `12345`. This is inconsistent with other services.
@@ -73,6 +75,8 @@ owner: London Services
 
 
 **Known Issues**
+
+* The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  do not have any effect due to a bug in Redis v3.2.8.
 
@@ -104,6 +108,8 @@ owner: London Services
 * Allows for Redis backups to all AWS S3 regions.
 
 **Known Issues**
+
+* The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
 
@@ -140,6 +146,8 @@ owner: London Services
 * Fixes a bug in v1.8.0 that causes a failure to install if the Director has a hostname configured in Ops Manager.
 
 **Known Issues**
+
+* The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
 
@@ -180,6 +188,8 @@ owner: London Services
 * For the on-demand service, the on-demand Service broker needs to talk to `bosh director`. This requires firewall rules to open TCP `8443` and `25555`.
 
 **Known Issues**
+
+* The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * New on-demand service instances do not pick up new stemcells beyond the one they were installed with.
 
