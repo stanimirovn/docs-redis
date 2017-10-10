@@ -1,15 +1,19 @@
 ---
-title: Release Notes
+title: Redis for PCF Release Notes
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-## Redis for PCF v1.10.0
+## <a id="view"></a> View Release Notes for Another Version
 
-**Release Date: September 29, 2017**
+To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
-**Features**
+## <a id="1100"></a> v1.10.0
+
+**Release Date: October 10, 2017**
+
+### Features
 
 * Includes metrics for the on-demand service. This enables operators to monitor the health of their Redis instances.
 
@@ -23,7 +27,7 @@ owner: London Services
 
 * Allows the operator to opt-out of the on-demand service without configuring on-demand plans.
 
-**Compatibility**
+### Compatibility
 
 <table border="1" class="nice">
 <tr>
@@ -77,7 +81,7 @@ owner: London Services
 
 </table>
 
-**Known Issues**
+### Known Issues
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, does not have any effect due to a bug in Redis v3.2.8.
 
