@@ -38,9 +38,11 @@ Smoke tests create a new [application security group](https://docs.pivotal.io/pi
 
 This allows outbound traffic from the test app to the Redis shared VM and dedicated VM nodes.
 
+**Note:** Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the `system` org without specifying a space. To enable global default ASGs, use `cf bind-running-security-group`.
+
 ## <a id="resilience"></a>Smoke Tests Resilience
 
-Smoke tests could fail due to reasons outside of the Redis deployment; for example network latency causing timeouts or the CloudFoundry instance dropping requests.
+Smoke tests could fail due to reasons outside of the Redis deployment; for example network latency causing timeouts or the CloudFoundry instance dropping requests. They may also fail because they're being run in the wrong space.
 
 The smoke tests implement a retry policy for commands issued to CF, for two reasons:
 - to avoid smoke test failures due to temporary issues such as the ones mentioned above
