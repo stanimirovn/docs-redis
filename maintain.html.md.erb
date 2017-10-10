@@ -121,3 +121,5 @@ VM memory is more likely to be a limiting factor than number of keys that can be
 ##  <a id="smoke"></a>Smoke Tests
 
 Ops Manager runs Redis for PCF smoke tests as a post-install errand.  The operator can also run the smoke tests errand by using `bosh run errand smoke-tests`. For more information see [Redis for PCF Smoke Tests](./smoke-tests.html).
+
+**Note:** Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the `system` org without specifying a space. To enable global default ASGs, use `cf bind-running-security-group`.
