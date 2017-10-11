@@ -12,3 +12,5 @@ Pivotal recommends that Redis for PCF is run in its own network. For more inform
 Redis for PCF works with the IPsec Add-on for PCF. For information about the IPsec Add-on for PCF, see [Securing Data in Transit with the IPsec Add-on](https://docs.pivotal.io/addon-ipsec/index.html).
 
 To allow this service to have network access you must create Application Security Groups. For more information, see [Networks, Security, and Assigning AZs](./installing.html#azs).
+
+Pivotal recommends that a single Redis for PCF instance is not used for multi-tenancy. A single Redis instance of the On-Demand or Dedicated-VM service should support a single workload. The shared-VM service is designed for multi-tenancy, but it is not considered adequately secure for production use cases.
