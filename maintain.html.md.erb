@@ -63,53 +63,6 @@ Backups are not available for On-Demand instances.
 Redis for PCF emits Redis metrics via the Firehose. For details, see [Monitoring and Metrics](./monitoring.html).
 
 
-### Logging
-
-Syslog can be forwarded to an external log service. 
-
-Syslog for On-Demand instances conforms to RFC5424 standards. This format is as follows:
-
-<pre class=terminal>
-<$PRI>$VERSION $TIMESTAMP $HOST $APP_NAME $PROC_ID $MSG_ID
-[instance@47450 deployment="$DEPLOYMENT" group="$INSTANCE_GROUP"
- az="$AVAILABILITY_ZONE" id="$ID"] $MESSAGE`
-</pre>
-
-An example:
-<pre class=terminal>
-  <13>1 2017-03-28T15:20:31.490350+00:00 10.0.16.35 redis-server 4951 - [instance@47450 director="us-pws" deployment="service-instance_16c95f89-8d5a-4cb7-839d-79c5d026bd15" group="redis-instance" az="eu-west-1a" id="7f976f34-4105-4475-abbc-5df10e933cfa" ] User requested shutdown
-</pre>
-
-The following example shows syslogs for Dedicated-VM and Shared-VM instances:
-
-<pre class=terminal>
-Nov 15 17:05:01 10.0.24.10 audispd: [job=dedicated-node index=4]  node=7bfe8b1b-6c
-fd-4d33-b704-c9214ce6bb3e type=USER_ACCT msg=audit(1479229501.290:86): pid=6655 ui
-d=0 auid=4294967295 ses=4294967295 msg='op=PAM:accounting acct="root" exe="/usr/sbi
-n/cron" hostname=? addr=? terminal=cron res=success'
-</pre>
-
-For information about how to set up syslog output, see [Configure Syslog Output](./installing.html#syslog).
-
-##  <a id="downtime"></a> Downtime During Redeploys
-
-Downtime is caused by a redeploy of the Redis tile. Here we attempt to clarify what changes will trigger a redeploy.
-
-In Ops Manager, any field that changes the manifest will cause a redeploy of the Redis tile. Any property changes in ERT listed here will trigger downtime for the Redis On-Demand Broker. Note that this list is current at the time of writing (May 2017) but that dependencies with changing products mean that it will change.
-<ul>
-  <li>Consul Server Resource Config (..cf.consul\_server.ips)</li>
-  <li>Runtime System Domain ($runtime.system\_domain)</li>
-  <li>Disable SSL certificate verification for this environment” in ERT
-(..cf.ha\_proxy.skip\_cert\_verify.value)</li>
-  <li>Runtime Apps Domain ($runtime.apps\_domain)</li>
-  <li>NATS Resource Config
-(..cf.nats.ips)</li>
-  <li>Service Networks in Ops Manager
-($self.service\_network)</li>
-</ul>
-
-
-For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9, downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
 
 ## <a id="keycount"></a> Redis Key Count and Memory Size
 
