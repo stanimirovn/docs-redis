@@ -12,6 +12,65 @@ This topic describes the enterprise readiness and recommended use cases of the R
 Review the following table to determine if Redis for PCF has the features needed to support your enterprise.
 
 <table border="1" class="nice">
+
+  <tr><th colspan=2>Resilience</th><th>More Information</th></tr>
+  <tr>
+    <td>Availability</td>
+    <td>All Redis for PCF services are single nodes without clustering capabilities. This means that during upgrades there can be from 2-10 minutes of downtime, depending on the nature of the upgrade. Unplanned downtime will effect the Redis service.
+      Redis for PCF has been used successfully in enterprise ready applications that can tolerate downtime. Pre-existing data will not be lost during downtime with the default persistence configuration.
+      Successful applications include those where the downtime is passively handled by the application or applications designed as anti-fragile in which the fail-over logic is written so as to minimize downtime.
+    </td>
+    <td><a href="#use-cases">Customer Use Cases<</td>
+  </tr>
+  <tr>
+    <td>Failure Recovery</td>
+    <td>
+      VM failures and process failures are handled automatically by BOSH and Redis for PCF.
+      Manual back-up and restore instructions are available for all three Redis services.
+      Automatic backup capabilities are enabled for the Dedicated-VM service.
+    </td>
+    <td>
+      <%-#<a> href="https://bosh.io/docs/resurrector.html" BOSH Resurrection </a> Is this the right doc here? Do we have docs for process-%>
+      <a href="./manual-br.html">Manual Backup and Restore Flow </a><br/>
+      <a href="./auto-backup.html">Automatic Backups for Dedicated-VM Service </a><br/>
+    </td>
+  </tr>
+  <tr>
+    <td>Isolation</td>
+    <td>
+      <%-#Do we need to cover network isolation?-%>
+      Isolation is provided when using the On-Demand and Dedicated-VM service. These single nodes are recommended to support individual applications and workflows.
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>Upgrade Planning</td>
+    <td>
+      <%-#More docs need to be written on what is minimum errand set you can run-%>
+      Information for preparing an upgrade and understanding the effects on your Redis for PCF and other services can be found [here](./upgrade.html).
+      Redis for PCF upgrades run a post deployment BOSH errand called smoke tests that validate the success of the upgrade.
+    </td>
+    <td>
+      <a href="./upgrade.html"> Upgrades </a><br/>
+      <a href="./smoke-tests.html"> Smoke Tests >
+    </td>
+  </tr>
+  <tr><th colspan=2>Day 2</th><th>More Information</th></tr>
+  <tr>
+    <td>Alerting</td>
+    <td>
+    Redis for PCF key performance indicators (KPIs) describe the metrics to observe and why, advise on how to monitor Redis for PCF health, and provide guidance on the levels at which alerts should be set up.
+    </td>
+    <td>
+      <a href="./monitoring.html#Redis-KPIs"> KPIs </a><br/>
+    </td>
+  </tr>
+
+
+
+
+
 <tr><th colspan=2>Plans and Instances</th><th>More Information</th></tr>
 <tr><td>On-Demand and Pre-Provisioned Plans</td><td>Redis for PCF provides on-demand, and pre-provisioned dedicated-VM and shared-VM service plans.</td><td><a href="architecture.html">On-Demand Plans</a><br>
 <a href="architecture-pp.html">Pre-provisioned Plans</a></td></tr>
@@ -44,6 +103,8 @@ Review the following table to determine if Redis for PCF has the features needed
 
 </table>
 
+<%-#Not addressed multifoundation-%>
+
 
 ## <a id="other-notes"></a>Support for Multiple AZs
 
@@ -57,4 +118,4 @@ However, each instance still operates as a single node with no clustering.
 However, each instance still operates as a single node with no clustering.
 This separation over availability zones provides no high availability.
 
-##<a id="usecases"></a> Customer Supported Use Cases
+## <a id="use-casess"></a>Customer Use Cases
