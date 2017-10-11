@@ -125,8 +125,13 @@ In Ops Manager, any field that changes the manifest will cause a redeploy of the
 ($self.service\_network)</li>
 </ul>
 
-
 For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9, downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
+
+##  <a id="network-upgrades"></a> Network Changes after Deployment
+
+Pivotal recommends to never change the network that a pre-existing dedicated-vm deployment works with. If the network is changed, existing dedicated-vm instances will have their bindings stop working with new applications able to bind to the existing instance that contains data.
+
+If the services-subnet CIDR range is changed for a tile, existing applications using On-Demand Redis instances will have to unbind and rebind their application to their instance.
 
 ## <a id="policy"></a> Release Policy
 
