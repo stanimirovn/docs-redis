@@ -7,8 +7,12 @@ owner: London Services
 
 ## <a id="security"></a> Security
 
-Pivotal recommends that Redis for PCF is run in its own network. For more information about creating service networks, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-9/customizing/gcp-om-config.html#network).
+Pivotal recommends that Redis for PCF is run in its own network. For more information about creating service networks, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/gcp-om-config.html#network).
 
 Redis for PCF works with the IPsec Add-on for PCF. For information about the IPsec Add-on for PCF, see [Securing Data in Transit with the IPsec Add-on](https://docs.pivotal.io/addon-ipsec/index.html).
 
 To allow this service to have network access you must create Application Security Groups. For more information, see [Networks, Security, and Assigning AZs](./installing.html#azs).
+
+Pivotal recommends that a single Redis for PCF instance is not used for multi-tenancy. A single Redis instance of the On-Demand or Dedicated-VM service should support a single workload. The shared-VM service is designed for multi-tenancy, but it is not considered adequately secure for production use cases.
+
+Pivotal recommends to never change the network that a pre-existing dedicated-vm deployment works with. If the network is changed, existing dedicated-vm instances will have their bindings stop working with new applications able to bind to the existing instance that contains data.
