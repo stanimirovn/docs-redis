@@ -7,27 +7,6 @@ owner: London Services
 
 This topic is for PCF operators. It introduces some best practices, but does not provide details about operation.
 
-## <a id="usecases"></a> Recommended Use Cases
-
-On-Demand plans, introduced in Redis for PCF v1.8, are configured by default for cache use cases.
-Dedicated-VM and Shared-VM plans are designed for datastore use cases.
-
-Redis can be used in many different ways, including:
-
-* Key/value store for strings and more complex data structures including Hashes, Lists, Sets, Sorted Sets
-* Session cache: persistence enables preservation of state
-* Full page cache: persistence enables preservation of state
-* Database cache: cache queries
-* Data ingestion: because Redis is in memory it can ingest data very quickly
-* Message Queues: list and set operations. `PUSH`, `POP`, and blocking queue commands.
-* Leaderboards/Counting: increments and decrements of sets and sorted sets using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, `GETSET`
-* Pub/Sub: built in publish and subscribe operations: `PUBLISH`, `SUBSCRIBE`, `UNSUBSCRIBE`
-
-Successful customer use cases handle the downtime that can occur with the Redis for PCF service.
-For use cases that can tolerate some downtime from Redis for PCF, such as a lookaside cache, successful use cases tolerate the downtime gap.
-For use cases that require a higher level of availability from Redis for PCF, successful applications use an antifragile approach and write more complex failover logic.
-
-For information on Redis for PCF service offerings, see the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html) pages.
 
 ## <a id="Best Practice"></a>Best Practices
 

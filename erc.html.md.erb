@@ -1,13 +1,43 @@
 ---
-title: Enterprise Readiness Criteria for Redis for PCF
+title: Is Redis for PCF Right for your Enterprise
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes the enterprise readiness and recommended use cases of the Redis for PCF service offering.
+This topic provides recommended use cases for Redis for Pivotal Cloud Foundry (PCF), and information for determining the product's enterprise-readiness for your enterprise.
 
-##<a id="checklist"></a> Enterprise-Ready Checklist
+## <a id="usecases"></a> Recommended Use Cases
+
+On-Demand plans, introduced in Redis for PCF v1.8, are configured by default for cache use cases.
+Dedicated-VM and Shared-VM plans are designed for datastore use cases.
+
+Redis can be used in many different ways, including:
+
+* Key/value store for strings and more complex data structures including Hashes, Lists, Sets, Sorted Sets
+* Session cache: persistence enables preservation of state
+* Full page cache: persistence enables preservation of state
+* Database cache: cache queries
+* Data ingestion: because Redis is in memory it can ingest data very quickly
+* Message Queues: list and set operations. `PUSH`, `POP`, and blocking queue commands.
+* Leaderboards/Counting: increments and decrements of sets and sorted sets using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, `GETSET`
+* Pub/Sub: built in publish and subscribe operations: `PUBLISH`, `SUBSCRIBE`, `UNSUBSCRIBE`
+
+Successful customer use cases handle the downtime that can occur with the Redis for PCF service.
+For use cases that can tolerate some downtime from Redis for PCF, such as a lookaside cache, successful use cases tolerate the downtime gap.
+For use cases that require a higher level of availability from Redis for PCF, successful applications use an antifragile approach and write more complex failover logic.
+
+For information on Redis for PCF service offerings, see the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html) pages.
+
+## <a id="offerings"></a> Service Offerings
+
+For descriptions of the three Redis for PCF service offerings, see:
+
+* [On-Demand Service Offering](./architecture.html)
+* [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html)
+
+
+##<a id="checklist"></a> Enterprise-Readiness Checklist
 
 Review the following table to determine if Redis for PCF has the features needed to support your enterprise.
 
@@ -20,8 +50,8 @@ Review the following table to determine if Redis for PCF has the features needed
       Redis for PCF has been used successfully in enterprise ready applications that can tolerate downtime. Pre-existing data will not be lost during downtime with the default persistence configuration.
       Successful applications include those where the downtime is passively handled by the application or applications designed as anti-fragile in which the fail-over logic is written so as to minimize downtime.
     </td>
-    <td><a href="./maintain#usecases">Recommended Use Cases</a></td>
-    <td><a href="#other-notes">About Multiple AZs in Redis for PCF</a></td>
+    <td><a href="#usecases">Recommended Use Cases</a><br><br>
+    <a href="#other-notes">Support for Multiple AZs</a></td>
   </tr>
   <tr>
     <td>Failure Recovery</td>
@@ -123,7 +153,7 @@ Review the following table to determine if Redis for PCF has the features needed
 
 </table>
 
-## <a id="other-notes"></a>Support for Multiple AZs
+### <a id="other-notes"></a>Support for Multiple AZs
 
 Redis for PCF supports configuring multiple AZs.
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.
