@@ -1,0 +1,249 @@
+---
+title: Quickstart Guide for Application Developers
+owner: London Services
+---
+
+## <a id="vcapservices"></a> Environment Variables
+
+Environment variables are how Cloud Foundry communicates with a deployed application about its environment.
+To access the environment variables, bind your application to an instance and run `cf env APP_NAME` from the cf cli.
+
+Example `VCAP_SERVICES`
+
+    ```
+        {
+          "p-redis": [{
+            "credentials": {
+                "host": "10.0.0.11",
+                "password": "<redacted>",
+                "port": 6379
+            },
+            "label": "p-redis",
+            "name": "redis",
+            "plan": "dedicated-vm",
+            "provider": null,
+            "syslog_drain_url": null,
+            "tags": [
+            "pivotal",
+            "redis"
+            ],
+            "volume_mounts": []
+          }]
+        }
+    ```
+
+    <%# this is quite unfinished but am hoping to leave it here so that craig and i can collaborate off a visual %>
+
+
+## <a id="springsession"></a>Spring Session
+
+This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession) and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html) to be specific to Redis for PCF.
+
+This topic describes how to use Redis for PCF as the backend with Spring Session to manage user session information.
+
+### <a id ="spring_dependencies"></a>Updating Dependencies
+
+To use Spring Session, update your dependencies to include spring-session-data-redis. The below example is for Maven.
+
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencies&gt;</span>
+        <span class="comment">&lt;!-- ... --&gt;</span>
+
+        <span class="tag">&lt;dependency&gt;</span>
+                <span class="tag">&lt;groupId&gt;</span>org.springframework.session<span class="tag">&lt;/groupId&gt;</span>
+                <span class="tag">&lt;artifactId&gt;</span>spring-session-data-redis<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;version&gt;</span>1.3.1.RELEASE<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;type&gt;</span>pom<span class="tag">&lt;/type&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+                <span class="tag">&lt;groupId&gt;</span>biz.paluch.redis<span class="tag">&lt;/groupId&gt;</span>
+                <span class="tag">&lt;artifactId&gt;</span>lettuce<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;version&gt;</span>3.5.0.Final<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+                <span class="tag">&lt;groupId&gt;</span>org.springframework<span class="tag">&lt;/groupId&gt;</span>
+                <span class="tag">&lt;artifactId&gt;</span>spring-web<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;version&gt;</span>4.3.4.RELEASE<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;/dependencies&gt;</span></code></pre>
+</div>
+
+
+### <a id ="spring_config"></a>SpringJava Configuration
+
+<p>After adding the required dependencies, we can create our Spring configuration.
+
+The Spring configuration is responsible for creating a Servlet Filter that replaces the <code>HttpSession</code> implementation with an implementation backed by Spring Session.
+Add the following Spring Configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@EnableRedisHttpSession</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Config</span> {
+
+        <span class="annotation">@Bean</span>
+        <span class="directive">public</span> LettuceConnectionFactory connectionFactory() {
+                <span class="keyword">return</span> <span class="keyword">new</span> LettuceConnectionFactory(); <i class="conum" data-value="2"></i><b>(2)</b>
+        }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>@EnableRedisHttpSession</code> annotation creates a Spring Bean with the name of <code>springSessionRepositoryFilter</code> that implements Filter.
+The filter is what is in charge of replacing the <code>HttpSession</code> implementation to be backed by Spring Session.
+In this instance Spring Session is backed by Redis.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>We create a <code>RedisConnectionFactory</code> that connects Spring Session to the Redis Server.
+We configure the connection to connect to localhost on the default port (6379)
+For more information on configuring Spring Data Redis, refer to the <a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/">reference documentation</a>.</td>
+</tr>
+</tbody></table>
+</div><div class="sect1">
+<h2 id="java-servlet-container-initialization"><a class="anchor" href="#java-servlet-container-initialization"></a>Java Servlet Container Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our <a href="#httpsession-spring-configuration">Spring Configuration</a> created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
+The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code> with a custom implementation that is backed by Spring Session.</p>
+</div>
+<div class="paragraph">
+<p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
+Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
+Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code> both of these steps extremely easy.
+You can find an example below:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/java/sample/Initializer.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Initializer</span> <span class="directive">extends</span> AbstractHttpSessionApplicationInitializer { <i class="conum" data-value="1"></i><b>(1)</b>
+
+        <span class="directive">public</span> Initializer() {
+                <span class="local-variable">super</span>(Config.class); <i class="conum" data-value="2"></i><b>(2)</b>
+        }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The name of our class (Initializer) does not matter. What is important is that we extend <code>AbstractHttpSessionApplicationInitializer</code>.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The first step is to extend <code>AbstractHttpSessionApplicationInitializer</code>.
+This ensures that the Spring Bean by the name <code>springSessionRepositoryFilter</code> is registered with our Servlet Container for every request.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>AbstractHttpSessionApplicationInitializer</code> also provides a mechanism to easily ensure Spring loads our <code>Config</code>.</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+
+### <a id ="spring_init"></a>Java Servlet Container Initialization
+
+<div class="sect1">
+<h2 id="java-servlet-container-initialization"><a class="anchor" href="#java-servlet-container-initialization"></a>Java Servlet Container Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our <a href="#httpsession-spring-configuration">Spring Configuration</a> created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
+The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code> with a custom implementation that is backed by Spring Session.</p>
+</div>
+<div class="paragraph">
+<p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
+Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
+Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code> both of these steps extremely easy.
+You can find an example below:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/java/sample/Initializer.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Initializer</span> <span class="directive">extends</span> AbstractHttpSessionApplicationInitializer { <i class="conum" data-value="1"></i><b>(1)</b>
+
+        <span class="directive">public</span> Initializer() {
+                <span class="local-variable">super</span>(Config.class); <i class="conum" data-value="2"></i><b>(2)</b>
+        }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The name of our class (Initializer) does not matter. What is important is that we extend <code>AbstractHttpSessionApplicationInitializer</code>.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The first step is to extend <code>AbstractHttpSessionApplicationInitializer</code>.
+This ensures that the Spring Bean by the name <code>springSessionRepositoryFilter</code> is registered with our Servlet Container for every request.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>AbstractHttpSessionApplicationInitializer</code> also provides a mechanism to easily ensure Spring loads our <code>Config</code>.</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+
+### <a id ="spring_redis"></a>Configuring Redis for PCF as a backend
+
+
+At this stage, Spring Session is now configured to use a Redis instance. To use a Redis for PCF instance, create a `session-replication` tag for the Redis for PCF instance.
+
+`cf update-service redis-instance -t session-replication`
+
+
+
+Spring Session on initialization will try to use the Redis CONFIG command, which has been obfuscated by Redis for PCF for security reasons.
+
+To side-step this flow, you can expose ConfigureRedisAction.NO_OP as a bean
+
+session expiration alerts will not work.
+
+@Bean
+public static ConfigureRedisAction configureRedisAction() {
+    return ConfigureRedisAction.NO_OP;
+}
+
+<< craig to write up the annotations in a github repo >>
+
+https://github.com/cloudfoundry/java-buildpack/blob/master/docs/container-tomcat.md#session-replication
+https://github.com/spring-projects/spring-session/issues/124
+https://github.com/spring-projects/spring-session/tree/master/samples/boot/redis
+https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession
+
+## <a id="example_apps"></a> Example Applications Leveraging Redis for PCF
+
++ redis-example-app
+
++ bitcoin-example-app (yours)
+
++ cf-redis-commander (this is to query your pcf redis instance)
+
+## <a id="Feedback"></a> Example Applications Leveraging Redis for PCF
