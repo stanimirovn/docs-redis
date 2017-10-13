@@ -10,7 +10,7 @@ and information for determining the product's enterprise-readiness for your ente
 
 ## <a id="usecases"></a> Recommended Use Cases
 
-On-demand plans, introduced in Redis for PCF v1.8, are configured by default for cache use cases.
+On-Demand plans, introduced in Redis for PCF v1.8, are configured by default for cache use cases.
 Dedicated-VM and Shared-VM plans are designed for datastore use cases.
 
 Redis can be used in many different ways, including:
@@ -77,7 +77,8 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Isolation</td>
     <td>
       <%-#Do we need to cover network isolation?-%>
-      Isolation is provided when using the On-Demand and Dedicated-VM service. These single nodes are recommended to support individual apps and workflows.
+      Isolation is provided when using the On-Demand and Dedicated-VM service.
+      These single nodes are recommended to support individual apps and workflows.
     </td>
     <td>
     </td>
@@ -97,7 +98,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Resource Planning</td>
     <td>
     Operators can plan the number of VMs and the size of those VMs.
-    For the On-Demand Service, the Operator does this by creating plans with specific VM sizes and quotas for each plan.
+    For the On-Demand service, the Operator does this by creating plans with specific VM sizes and quotas for each plan.
     For the Dedicated-VM and Shared-VM servics, the number and size of VMs are pre-provisioned by the Operator.
     BOSH errands use short-lived VMs that cannot be configured but can be turned on or off.
     </td>
@@ -110,7 +111,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Health Monitoring</td>
     <td>
     The On-Demand service and Dedicated-VM service emit metrics.
-    There include Redis specific metrics and Redis for PCF metrics.
+    These include Redis-specific metrics and Redis for PCF metrics.
     Guidance on critical metrics and alerting levels is captured with the Redis for PCF KPIs.
     </td>
     <td>
@@ -121,7 +122,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Scalability</td>
     <td>
     The operator can scale the size of the Redis for PCF VMs by plan for the On-Demand service and by node for the Dedicated-VM instance.
-    Only upward scaling is supported to prevent data loss.
+    To prevent data loss, only scaling up is supported.
     </td>
     <td>
       <a href="./installing.html#updating-on-demand-service-plans"> Scaling the On-Demand Service </a><br/>
@@ -134,7 +135,8 @@ Review the following table to determine if Redis for PCF has the features needed
     All Redis services emit logs.
     Operators can configure syslog forwarding to a remote destination.
     This enables viewing logs from every VM in the Redis for PCF deployment in one place,
-    effective troubleshooting when logs are lost on the source VM, and setting up alerts for important error logs to monitor the deployment.
+    effective troubleshooting when logs are lost on the source VM,
+    and setting up alerts for important error logs to monitor the deployment.
     </td>
     <td>
       <a href="./installing.html#configure-syslog-forwarding"> Configuring syslog forwarding </a>
@@ -147,14 +149,15 @@ Review the following table to determine if Redis for PCF has the features needed
     The Dedicated-VM and Shared-VM service cannot be customized.
     </td>
     <td>
-      <a href="./installing.html#on-demand-config"> Configuring the on-demand service </a>
+      <a href="./installing.html#on-demand-config"> Configuring the On-Demand service </a>
     </td>
   </tr>
   <tr>
     <td>Upgrades</td>
     <td>
       <%-#More docs need to be written on what is minimum errand set you can run-%>
-      Information for preparing an upgrade and understanding the effects on your Redis for PCF and other services can be found [here](./upgrade.html).
+      For information about preparing an upgrade and about understanding the effects on your Redis for PCF
+      and other services, see <a href="./upgrade.html">Upgrading Redis for PCF</a>.
       Redis for PCF upgrades run a post deployment BOSH errand called smoke tests that validate the success of the upgrade.
     </td>
     <td>
@@ -163,19 +166,19 @@ Review the following table to determine if Redis for PCF has the features needed
     </td>
   </tr>
   <tr><th colspan=2>Encryption</th><th>More Information</th></tr>
-  <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested successfully with the BOSH IPsec Add-on</td>
-      <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec Add-on</a></td></tr>
+  <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested with the IPsec Add-on for PCF.</td>
+      <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a></td></tr>
 
 </table>
 
 ### <a id="other-notes"></a>Support for Multiple AZs
 
-Redis for PCF supports configuring multiple AZs.
+Redis for PCF supports configuring multiple availability zones (AZs).
 However, assigning multiple AZs to Redis jobs does not guarantee high availability.
 
-+ On-Demand plans can be assigned to any of the configured availability zones.
++ On-Demand plans can be assigned to any of the configured AZs.
 However, each instance still operates as a single node with no clustering.
-+ Shared-VM instances run on a single node in just one of the configured availability zones and are therefore not highly available.
-+ Dedicated-VM instances can be assigned to any of the configured availability zones.
++ Shared-VM instances run on a single node in just one of the configured AZs and are therefore not highly available.
++ Dedicated-VM instances can be assigned to any of the configured AZs.
 However, each instance still operates as a single node with no clustering.
-This separation over availability zones provides no high availability.
+This separation over AZs provides no high availability.

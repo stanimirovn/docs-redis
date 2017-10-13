@@ -108,24 +108,33 @@ Ops Manager ensures the instances are updated with the new packages and any conf
 
 Upgrading to a newer version of the product does not cause any loss of data or configuration.
 
-##  <a id="downtime"></a> Downtime During Redis Upgrades and Redeploys
+##  <a id="downtime"></a> Downtime during Redis Upgrades and Redeploys
 
-Downtime is caused by a redeploy of the Redis tile. Here we attempt to clarify what changes will trigger a redeploy.
+Downtime is caused by a redeploy of the Redis for PCF tile. 
+This section clarifies what changes trigger a redeploy.
 
-In Ops Manager, any field that changes the manifest will cause a redeploy of the Redis tile. Any property changes in ERT listed here will trigger downtime for the Redis On-Demand Broker. Note that this list is current at the time of writing (May 2017) but that dependencies with changing products mean that it will change.
+In Ops Manager, any field that changes the manifest causes a redeploy of the Redis for PCF tile.
+
+Any property changes in Elastic Runtime listed below trigger downtime for the Redis On-Demand Broker.
+This list is current as of May 2017 but that dependencies with changing products mean that it will change.
 <ul>
-  <li>Consul Server Resource Config (..cf.consul\_server.ips)</li>
-  <li>Runtime System Domain ($runtime.system\_domain)</li>
-  <li>Disable SSL certificate verification for this environment” in ERT
-(..cf.ha\_proxy.skip\_cert\_verify.value)</li>
-  <li>Runtime Apps Domain ($runtime.apps\_domain)</li>
+  <li>Consul Server Resource Config (<code>..cf.consul\_server.ips</code>)</li>
+  <li>Runtime System Domain (<code>$runtime.system\_domain</code>)</li>
+  <li>Disable SSL certificate verification for this environment” in Elastic Runtime
+(<code>..cf.ha\_proxy.skip\_cert\_verify.value</code>)</li>
+  <li>Runtime Apps Domain (<code>$runtime.apps\_domain</code>)</li>
   <li>NATS Resource Config
-(..cf.nats.ips)</li>
+(<code>..cf.nats.ips</code>)</li>
   <li>Service Networks in Ops Manager
-($self.service\_network)</li>
+(<code>$self.service\_network</code>)</li>
 </ul>
 
-For Redis for PCF v1.8+, downtime for service instances will only occur once the Operator runs `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully. For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9, downtime is enforced as soon as the operator applies the referenced changes to ERT. Any changes to a field on the Redis tile, will cause BOSH to redeploy the legacy Redis Broker and the On-Demand Broker once `upgrade-all-service-instances` is run.
+For Redis for PCF v1.8 and later, downtime for service instances only occurs
+after the operator runs the `upgrade-all-service-instances` BOSH errand after all tile upgrades have completed successfully.
+For Redis for PCF v1.7 and earlier, and the Dedicated-VM and Shared-VM Service in Redis for PCF v1.8 and v1.9,
+downtime is enforced as soon as the operator applies the referenced changes to ERT.
+Any changes to a field on the Redis for PCF tile, cause BOSH to redeploy the legacy Redis Broker
+and the On-Demand Broker after `upgrade-all-service-instances` is run.
 
 ##  <a id="network-upgrades"></a> Network Changes after Deployment
 
