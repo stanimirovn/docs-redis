@@ -108,6 +108,52 @@ Ops Manager ensures the instances are updated with the new packages and any conf
 
 Upgrading to a newer version of the product does not cause any loss of data or configuration.
 
+##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
+
+A redeploy causes downtime of the Redis for PCF tile. 
+This section clarifies what events trigger a redeploy.
+
+### Ops Manager Changes
+
+In Ops Manager, any field that changes the manifest causes a redeploy of the Redis for PCF tile.
+
+### Elastic Runtime Changes
+
+In Elastic Runtime, changes to any of the following properties can trigger downtime:
+<ul>
+  <li><code>..cf.consul\_server.ips</code>---Consul Server Resource Config </li>
+  <li><code>$runtime.system\_domain</code>---Runtime System Domain </li>
+  <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in Elastic Runtime
+</li>
+  <li><code>$runtime.apps\_domain</code>---Runtime Apps Domain </li>
+  <li><code>..cf.nats.ips</code>---NATS Resource Config
+</li>
+  <li><code>$self.service\_network</code>---Service Networks in Ops Manager
+</li>
+</ul>
+
+When the operator applies any of the above changes to Elastic Runtime, downtime is triggered for the following:
+
+* Redis On-Demand Broker in Redis for PCF v1.8 and later
+
+* Dedicated-VM and Shared-VM Services in Redis for PCF v1.9 and earlier
+
+
+### Upgrading all Service Instances
+
+* For Redis for PCF v1.8 and later, downtime for service instances occurs only
+after the operator runs the `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
+
+* Any change to a field on the Redis for PCF tile causes BOSH to redeploy both the legacy
+and the On-Demand Redis Brokers after the operator runs the `upgrade-all-service-instances` errand.
+
+
+##  <a id="network-upgrades"></a> Network Changes after Deployment
+
+Pivotal recommends to never change the network that a pre-existing dedicated-vm deployment works with. If the network is changed, existing dedicated-vm instances will have their bindings stop working with new applications able to bind to the existing instance that contains data.
+
+If the services-subnet CIDR range is changed for a tile, existing applications using On-Demand Redis instances will have to unbind and rebind their application to their instance.
+
 ## <a id="policy"></a> Release Policy
 
 When a new version of Redis is released, Pivotal aims to release a new version of Redis for PCF containing the new Redis version soon after.
