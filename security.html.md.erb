@@ -7,18 +7,23 @@ owner: London Services
 
 ## <a id="security"></a> Security
 
-Pivotal recommends that Redis for PCF is run in its own network.
-For more information about creating service networks, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/gcp-om-config.html#network).
+Pivotal recommends the following best practices for security:
 
-Redis for PCF works with the IPsec Add-on for PCF.
-For information about the IPsec Add-on for PCF, see [Securing Data in Transit with the IPsec Add-on](https://docs.pivotal.io/addon-ipsec/index.html).
-
-To allow this service to have network access you must create Application Security Groups.
+* (Required) To allow this service to have network access you must create Application Security Groups.
 For more information, see [Networks, Security, and Assigning AZs](./installing.html#azs).
 
-Pivotal does not recommend using a single Redis for PCF instance for multi-tenancy.
-A single Redis instance of the On-Demand or Dedicated-VM service should support a single workload.
-The Shared-VM service is designed for multi-tenancy, but it is not considered adequately secure for production use cases.
+* Run Redis for PCF in its own network.
+For more information about creating service networks, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/gcp-om-config.html#network).
 
-Pivotal recommends that you never change the network that a pre-existing Dedicated-VM deployment works with.
-If the network is changed, existing dedicated-vm instances will have their bindings stop working with new applications able to bind to the existing instance that contains data.
+* You can use Redis for PCF with the IPsec Add-on for PCF.
+For information about the IPsec Add-on for PCF, see [Securing Data in Transit with the IPsec Add-on](https://docs.pivotal.io/addon-ipsec/index.html).
+
+* Do not use a single Redis for PCF instance for multi-tenancy.
+A single Redis instance of the On-Demand or Dedicated-VM service should only support a single workload.
+
+* The Shared-VM service is designed for multi-tenancy, but you should not use it for production use cases because it is not considered adequately secure for that purpose.
+
+* Never change the network that a pre-existing Dedicated-VM deployment works with.
+If the network is changed, the bindings for existing Dedicated-VM instances will stop working with new applications able to bind to the existing instance that contains data.
+
+
