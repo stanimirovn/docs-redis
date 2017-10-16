@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for Pivotal Cloud Foundry (PCF) can be used both via <a href="http://docs.pivotal.io/pivotalcf/1-11/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI). Both methods are outlined below. 
+Redis for Pivotal Cloud Foundry (PCF) can be used both via <a href="http://docs.pivotal.io/pivotalcf/1-11/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI). Both methods are outlined below.
 
 You can find an example app has to help you get started with Redis for PCF. Download the example app by clicking [this link](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
@@ -42,7 +42,7 @@ To use Redis for PCF in a PCF app:
 
 For an app to use a service, the following two things must be true:
 
-* The service must be available in the Marketplace for its space. 
+* The service must be available in the Marketplace for its space.
 * An instance of the service must exist in its space.
 
 You can confirm both of these using the cf CLI as follows:
@@ -90,7 +90,7 @@ To create an instance of the Redis for PCF Dedicated-VM of Shared-VM service, ru
 
 where:
 
-* `SERVICE_TYPE` is `dedicated-vm` or `shared-vm`.<br> 
+* `SERVICE_TYPE` is `dedicated-vm` or `shared-vm`.<br>
 * `SERVICE_NAME` is a name for your service instance.
 
 <pre class="terminal">
@@ -318,6 +318,9 @@ This app is not maintained by the Redis for PCF team, and Pivotal cannot guarant
 
 ## <a id="call"></a>Use the Redis Service in Your App
 
+Environment variables are how Cloud Foundry communicates with a deployed application about its environment.
+To access the environment variables, bind your application to an instance and run `cf env APP_NAME` from the cf cli.
+
 To access the Redis service from your app:
 
 1. Run `cf env APP_NAME` with the name of the app bound to the Redis for PCF instance.
@@ -350,8 +353,6 @@ Example `VCAP_SERVICES`
     <p class="note"><strong>Note</strong>: You can also search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.</p>
 
 3. In your app code, call the Redis service using the connection strings.
-
-For information on how to code your app to use Redis messaging, see **About Using Pivotal Redis** > **Client Documentation** in the [Redis documentation](https://docs.pivotal.io/p-Redis).
 
 
 ## <a id="delete"></a>Delete a Redis Instance
