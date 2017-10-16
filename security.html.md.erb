@@ -24,6 +24,7 @@ A single Redis instance of the On-Demand or Dedicated-VM service should only sup
 * The Shared-VM service is designed for multi-tenancy, but you should not use it for production use cases because it is not considered adequately secure for that purpose.
 
 * Never change the network that a pre-existing Dedicated-VM deployment works with.
-If the network is changed, the bindings for existing Dedicated-VM instances will stop working with new applications able to bind to the existing instance that contains data.
-
+If the network is changed, the bindings for the existing Dedicated-VM instances stop working, but these instances still appear as
+available to new apps. Because the existing instances may have data on them, and new apps can bind to them, data may unintentionally be
+leaked to new apps that bind to these instances. 
 
