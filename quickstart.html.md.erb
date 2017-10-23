@@ -6,18 +6,18 @@ owner: London Services
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
 This topic provides some applications to get up and running quickly.
-It also highlights the critical components of each app that allow the application to connect to the Redis 
+It also highlights the critical components of each app that allow the application to connect to the Redis
 instance by reading and parsing the environmental variables provided by VCAP_SERVICES.
 
 ### <a id="java-quickstart"></a> Quickstart Java App
 
 This is a basic java app with the capability to get and set keys in Redis and view configuration information.
-Pre-requistes are [Maven](https://maven.apache.org/install.html), the `cf cli` and access to a cloud 
+Pre-requistes are [Maven](https://maven.apache.org/install.html), the `cf cli` and access to a cloud
 foundry marketplace with p-redis or p.redis.
 
 Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance will work.
 
-```
+<pre class=terminal>
 $ git clone git@github.com:colrich/RedisForPCF-Java-Example.git java_redis_app
 $ cd java_redis_app
 $ mvn package
@@ -25,15 +25,16 @@ $ cf create-service p.redis cache-small redis_instance
 $ cf push redis_example_app -p target/RedisExample-0.0.1-SNAPSHOT.jar
 $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
-```
+</pre>
 
 You can then visit the application in your browser window. The app has three entrypoints:
-+  "/" - gets info about bound redis instance.
-+ "/set" - sets a given key to a given value.
-+ "/get" - gets the value stored at a given key.
+*  "/" - gets info about bound redis instance.
+* "/set" - sets a given key to a given value.
+* "/get" - gets the value stored at a given key.
 
 In the [application code](https://github.com/colrich/RedisForPCF-Java-Example/blob/master/src/main/java/io/pivotal/examples/RedisExample/RedisInfoController.java), the snippet where VCAP_SERVICES is read and parsed is here:
-```
+
+<pre class=terminal>
 @RequestMapping("/")
 public RedisInstanceInfo getInfo() {
     LOG.log(Level.WARNING, "Getting Redis Instance Info in Spring controller...");
@@ -74,23 +75,25 @@ public RedisInstanceInfo getInfo() {
     }
     else return new RedisInstanceInfo();
 }
-```
+</pre>
 
 ### <a id="java-quickstart"></a> Quickstart Ruby App
-
-
+This is a basic node app with the capability to get and set keys in Redis and view configuration information.
+Pre-requistes are the `cf cli` and access to a cloud foundry marketplace with p-redis or p.redis.
 Here we use an instance of the dedicated_vm service, but any p-redis or p.redis instance will work.
-```
+
+<pre class=terminal>
 $ git clone git@github.com:pivotal-cf/cf-redis-example-app.git ruby_redis_app
 $ cd ruby_redis_app
 $ cf create-service p-redis dedicated-vm redis_instance
 $ cf push redis_example_app --no-start
 $ cf bind-service redis_example_app redis_instance
-$ cf start redis_example_app
-```
+$ cf start redis_example_app"
+</pre>
 
 You can then get, set and delete keys:
-```
+
+<pre class=terminal>
 $ export APP=redis-example-app.my-cloud-foundry.com
 $ curl -X PUT $APP/foo -d 'data=bar'
 success
@@ -98,10 +101,11 @@ $ curl -X GET $APP/foo
 bar
 $ curl -X DELETE $APP/foo
 success
-```
+</pre>
 
 In the [application code](https://github.com/pivotal-cf/cf-redis-example-app/blob/master/lib/app.rb), the method where VCAP_SERVICES is read is here:
-```
+
+<pre class=terminal>
 def redis_credentials
   service_name = ENV['service_name'] || "redis"
 
@@ -115,11 +119,11 @@ def redis_credentials
     end
   end
 end
-```
+</pre>
 
 The method where VCAP_SERVICES is parsed is here:
 
-```
+<pre class=terminal>
 def redis_client
   @client ||= Redis.new(
     host: redis_credentials.fetch('host'),
@@ -128,43 +132,132 @@ def redis_client
     timeout: 30
   )
 end
-```
+</pre>
+
+### <a id="node-quickstart"></a> Quickstart Node App
+
+This is a basic node app with the capability to get and set keys in Redis and view configuration information.
+Pre-requistes are the `cf cli` and access to a cloud foundry marketplace with p-redis or p.redis.
+
+Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance will work.
+
+<pre class=terminal>
+$ git clone git@github.com:colrich/RedisForPCF-Node-Example.git nofr_redis_app
+$ cd node_redis_app
+$ cf create-service p.redis cache-small redis_instance
+$ cf push redis_example_app
+$ cf bind-service redis_example_app redis_instance
+$ cf restage redis_example_app
+</pre>
+
+You can then visit the application in your browser window. The app has three entrypoints:
+*  "/" - gets info about bound redis instance.
+* "/set" - sets a given key to a given value.
+* "/get" - gets the value stored at a given key.
+
+In the [application code](https://github.com/colrich/RedisForPCF-Node-Example/blob/master/index.js), the snippet where VCAP_SERVICES is read and parsed is here:
+
+<pre class=terminal>
+// parses the VCAP_SERVICES env var and looks for redis service instances
+function getVcapServices() {
+  var vcstr = process.env.VCAP_SERVICES;
+  if (vcstr != null && vcstr.length > 0 && vcstr != '{}') {
+    console.log("found VCAP_SERVICES: " + vcstr)
+
+    var vcap = JSON.parse(vcstr);
+    if (vcap != null) {
+      if (vcap.hasOwnProperty("p.redis")) {
+        console.log("found redis instance: " + vcap["p.redis"][0].name);
+        return vcap["p.redis"][0]
+      }
+      else if (vcap.hasOwnProperty("p-redis")) {
+        console.log("found redis instance: " + vcap["p-redis"][0].name);
+        return vcap["p-redis"][0]
+      }
+      else {
+        console.log("ERROR: no redis service bound!")
+      }
+    }
+    else {
+      console.log("ERROR: no redis service bound!")
+    }
+  }
+  else {
+    console.log("ERROR: VCAP_SERVICES does not contain a redis block")
+  }
+  return null
+}
+
+// pulls the necessary connection info out of the parsed VCAP_SERVICES block for
+// the redis connection
+function getRedisInfo(vcap) {
+  var info = {}
+  info["host"] = vcap["credentials"]["host"]
+  info["port"] = vcap["credentials"]["port"]
+  info["password"] = vcap["credentials"]["password"]
+  return info
+}
+
+
+// set the port to listen on; for apps in PCF it's important to listen on $PORT (usually 8000)
+app.set('port', (process.env.PORT || 8080))
+
+
+// this method looks in VCAP_SERVICES for a redis service instance and outputs the
+// host / port / password info to the response
+app.get('/', function(request, response) {
+  console.log("Getting Redis connection info from the environment...")
+
+  var vcap = getVcapServices()
+  if (vcap != null) {
+    var info = getRedisInfo(vcap)
+    console.log("connection info: " + info.host + " / " + info.port + " / " + info.password)
+    response.send("connection info: " + info.host + " / " + info.port + " / " + info.password)
+  }
+  else {
+    console.log("ERROR: VCAP_SERVICES does not contain a redis block or no redis bound")
+    response.send("ERROR: VCAP_SERVICES does not contain a redis block or no redis bound")
+  }
+})
+</pre>
 
 
 ## <a id="springsession"></a>Spring Session with Redis for PCF
 
 This topic describes how to use Redis for PCF as the backend with Spring Session to manage user session information.
 
-This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession) 
-and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html) 
+This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession)
+and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html)
 to be specific to Redis for PCF.
 
 #### <a id ="spring_dependencies"></a>Updating Dependencies
 
 To use Spring Session, update your dependencies to include spring-session-data-redis. The below example is for Maven.
 
-pom.xml
-```
-<pre><code><span>&lt;dependencies&gt;</span>
-        <span>&lt;!-- ... --&gt;</span>
-        <span>&lt;dependency&gt;</span>
-                <span>&lt;groupId&gt;</span>org.springframework.session<span>&lt;/groupId&gt;</span>
-                <span>&lt;artifactId&gt;</span>spring-session-data-redis<span>&lt;/artifactId&gt;</span>
-                <span>&lt;version&gt;</span>1.3.1.RELEASE<span>&lt;/version&gt;</span>
-                <span>&lt;type&gt;</span>pom<span>&lt;/type&gt;</span>
-        <span >&lt;/dependency&gt;</span>
-        <span >&lt;dependency&gt;</span>
-                <span >&lt;groupId&gt;</span>biz.paluch.redis<span >&lt;/groupId&gt;</span>
-                <span >&lt;artifactId&gt;</span>lettuce<span >&lt;/artifactId&gt;</span>
-                <span >&lt;version&gt;</span>3.5.0.Final<span >&lt;/version&gt;</span>
-        <span >&lt;/dependency&gt;</span>
-        <span >&lt;dependency&gt;</span>
-                <span >&lt;groupId&gt;</span>org.springframework<span >&lt;/groupId&gt;</span>
-                <span >&lt;artifactId&gt;</span>spring-web<span >&lt;/artifactId&gt;</span>
-                <span >&lt;version&gt;</span>4.3.4.RELEASE<span >&lt;/version&gt;</span>
-        <span >&lt;/dependency&gt;</span>
-<span >&lt;/dependencies&gt;</span></code></pre>
-</div>
+```pom.xml```
+
+<pre class=terminal>
+  <code><span>&lt;dependencies&gt;</span>
+          <span>&lt;!-- ... --&gt;</span>
+          <span>&lt;dependency&gt;</span>
+                  <span>&lt;groupId&gt;</span>org.springframework.session<span>&lt;/groupId&gt;</span>
+                  <span>&lt;artifactId&gt;</span>spring-session-data-redis<span>&lt;/artifactId&gt;</span>
+                  <span>&lt;version&gt;</span>1.3.1.RELEASE<span>&lt;/version&gt;</span>
+                  <span>&lt;type&gt;</span>pom<span>&lt;/type&gt;</span>
+          <span >&lt;/dependency&gt;</span>
+          <span >&lt;dependency&gt;</span>
+                  <span >&lt;groupId&gt;</span>biz.paluch.redis<span >&lt;/groupId&gt;</span>
+                  <span >&lt;artifactId&gt;</span>lettuce<span >&lt;/artifactId&gt;</span>
+                  <span >&lt;version&gt;</span>3.5.0.Final<span >&lt;/version&gt;</span>
+          <span >&lt;/dependency&gt;</span>
+          <span >&lt;dependency&gt;</span>
+                  <span >&lt;groupId&gt;</span>org.springframework<span >&lt;/groupId&gt;</span>
+                  <span >&lt;artifactId&gt;</span>spring-web<span >&lt;/artifactId&gt;</span>
+                  <span >&lt;version&gt;</span>4.3.4.RELEASE<span >&lt;/version&gt;</span>
+          <span >&lt;/dependency&gt;</span>
+  <span >&lt;/dependencies&gt;</span></code>
+</pre>
+
 ```
 
 
@@ -172,7 +265,7 @@ pom.xml
 
 After adding the required dependencies, we can create our Spring configuration.
 
-The Spring configuration is responsible for creating a Servlet Filter that replaces the <code>HttpSession</code> 
+The Spring configuration is responsible for creating a Servlet Filter that replaces the <code>HttpSession</code>
 implementation with an implementation backed by Spring Session.
 Add the following Spring Configuration:
 
@@ -202,27 +295,25 @@ For more information on configuring Spring Data Redis, refer to the <a href="htt
 ### <a id ="spring_config"></a>Java Servlet Container Initialization
 
 <p>Our Spring Configuration created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
-The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code> 
+The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code>
     with a custom implementation that is backed by Spring Session.</p>
 
 <p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
 Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
-Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code> 
+Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>
     both of these steps extremely easy.
 You can find an example below:</p>
 
-
-<div class="title">src/main/java/sample/Initializer.java</div>
+```src/main/java/sample/Initializer.java```
 <pre><code><span>public</span> <span>class</span> <span>Initializer</span> <span>extends</span> AbstractHttpSessionApplicationInitializer { <i data-value="1"></i><b>(1)</b>
 
         <span>public</span> Initializer() {
                 <span>super</span>(Config.class); <i data-value="2"></i><b>(2)</b>
         }
 }</code></pre>
-</div>
 
 <table>
-<tbody><tr>
+<tr>
 <td class="icon">
 <i class="fa icon-note" title="Note"></i>
 </td>
@@ -230,10 +321,8 @@ You can find an example below:</p>
 The name of our class (Initializer) does not matter. What is important is that we extend <code>AbstractHttpSessionApplicationInitializer</code>.
 </td>
 </tr>
-</tbody></table>
+</table>
 
-
-<div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
@@ -245,28 +334,21 @@ This ensures that the Spring Bean by the name <code>springSessionRepositoryFilte
 <td><code>AbstractHttpSessionApplicationInitializer</code> also provides a mechanism to easily ensure Spring loads our <code>Config</code>.</td>
 </tr>
 </tbody></table>
-</div>
-</div>
-</div>
-</div>
 
 ### <a id ="spring_init"></a>Java Servlet Container Initialization
 
 <div class="sect1">
 <h2 id="java-servlet-container-initialization"><a class="anchor" href="#java-servlet-container-initialization"></a>Java Servlet Container Initialization</h2>
-<div class="sectionbody">
-<div class="paragraph">
 <p>Our <a href="#httpsession-spring-configuration">Spring Configuration</a> created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
 The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code> with a custom implementation that is backed by Spring Session.</p>
-</div>
-<div class="paragraph">
+
+
 <p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
 Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
 Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code> both of these steps extremely easy.
 You can find an example below:</p>
-</div>
 
-<div>src/main/java/sample/Initializer.java</div>
+```src/main/java/sample/Initializer.java```
 <pre><code data-lang="java"><span>public</span> <span>class</span> <span>Initializer</span> <span>extends</span> AbstractHttpSessionApplicationInitializer { <i data-value="1"></i><b>(1)</b>
 
         <span>public</span> Initializer() {
@@ -286,7 +368,6 @@ The name of our class (Initializer) does not matter. What is important is that w
 </tr>
 </tbody></table>
 
-<div>
 <table>
 <tbody><tr>
 <td><i data-value="1"></i><b>1</b></td>
@@ -298,20 +379,17 @@ This ensures that the Spring Bean by the name <code>springSessionRepositoryFilte
 <td><code>AbstractHttpSessionApplicationInitializer</code> also provides a mechanism to easily ensure Spring loads our <code>Config</code>.</td>
 </tr>
 </tbody></table>
-</div>
-</div>
-</div>
 
 ### <a id ="spring_redis"></a>Configuring Redis for PCF as a backend
 
-At this stage, Spring Session is now configured to use a Redis instance. 
+At this stage, Spring Session is now configured to use a Redis instance.
 To use a Redis for PCF instance, create a `session-replication` tag for the Redis for PCF instance.
 
 `cf update-service INSTANCE_NAME -t session-replication`
 
 ### <a id ="spring_redis_considerations"></a>Other Considerations
 
-The `RedisHttpSessionConfiguration` will try to use the Redis CONFIG command. 
+The `RedisHttpSessionConfiguration` will try to use the Redis CONFIG command.
 The CONFIG command is not available due to security recommendations.
 
 This feature can be disabled by exposing `ConfigureRedisAction.NO_OP` as a bean:
@@ -324,7 +402,7 @@ public static ConfigureRedisAction configureRedisAction() {
 ```
 
 However, disabling the configuration means that Redis cannot send namespace notifications.
-This functionality is critical for applications that require `SessionDestroyedEvent` to be fired to clean up resources, 
+This functionality is critical for applications that require `SessionDestroyedEvent` to be fired to clean up resources,
 such as for WebSocket applications to ensure open WebSockets are closed when the `HttpSession` expires.
 
 Please provide feedback [here](mailto:"redis–feedback@pivotal.io"), if you would like us to provide a workaround for this use case.
