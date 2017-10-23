@@ -3,6 +3,9 @@ title: Quickstart Guide for Application Developers
 owner: London Services
 ---
 
+## <a id="Feedback"></a> Feedback
+If you would like other quickstart guides or sample use cases with code snippets, please provide feedback with your request [here](mailto:"redis–feedback@pivotal.io").
+
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
 This topic provides some applications to get up and running quickly.
@@ -142,7 +145,7 @@ Pre-requistes are the `cf cli` and access to a cloud foundry marketplace with p-
 Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance will work.
 
 <pre class=terminal>
-$ git clone git@github.com:colrich/RedisForPCF-Node-Example.git nofr_redis_app
+$ git clone git@github.com:colrich/RedisForPCF-Node-Example.git node_redis_app
 $ cd node_redis_app
 $ cf create-service p.redis cache-small redis_instance
 $ cf push redis_example_app
@@ -234,7 +237,7 @@ to be specific to Redis for PCF.
 
 To use Spring Session, update your dependencies to include spring-session-data-redis. The below example is for Maven.
 
-```pom.xml```
+<code>pom.xml</code>
 
 <pre class=terminal>
   <code><span>&lt;dependencies&gt;</span>
@@ -258,10 +261,9 @@ To use Spring Session, update your dependencies to include spring-session-data-r
   <span >&lt;/dependencies&gt;</span></code>
 </pre>
 
-```
 
 
-### <a id ="spring_config"></a>SpringJava Configuration
+### <a id ="spring_config"></a>Spring Java Configuration
 
 After adding the required dependencies, we can create our Spring configuration.
 
@@ -277,6 +279,7 @@ Add the following Spring Configuration:
                 <span>return</span> <span>new</span> LettuceConnectionFactory(); <i data-value="2"></i><b>(2)</b>
         }
 }</code></pre>
+
 <table>
 <tbody><tr>
 <td><i data-value="1"></i><b>1</b></td>
@@ -292,7 +295,8 @@ For more information on configuring Spring Data Redis, refer to the <a href="htt
 </tr>
 </tbody></table>
 
-### <a id ="spring_config"></a>Java Servlet Container Initialization
+
+### <a id ="java_servlet_container_initialization"></a>Java Servlet Container Initialization
 
 <p>Our Spring Configuration created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
 The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code>
@@ -304,7 +308,8 @@ Fortunately, Spring Session provides a utility class named <code>AbstractHttpSes
     both of these steps extremely easy.
 You can find an example below:</p>
 
-```src/main/java/sample/Initializer.java```
+<code>src/main/java/sample/Initializer.java</code>
+
 <pre><code><span>public</span> <span>class</span> <span>Initializer</span> <span>extends</span> AbstractHttpSessionApplicationInitializer { <i data-value="1"></i><b>(1)</b>
 
         <span>public</span> Initializer() {
@@ -338,7 +343,6 @@ This ensures that the Spring Bean by the name <code>springSessionRepositoryFilte
 ### <a id ="spring_init"></a>Java Servlet Container Initialization
 
 <div class="sect1">
-<h2 id="java-servlet-container-initialization"><a class="anchor" href="#java-servlet-container-initialization"></a>Java Servlet Container Initialization</h2>
 <p>Our <a href="#httpsession-spring-configuration">Spring Configuration</a> created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
 The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code> with a custom implementation that is backed by Spring Session.</p>
 
@@ -348,13 +352,16 @@ Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>s
 Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code> both of these steps extremely easy.
 You can find an example below:</p>
 
-```src/main/java/sample/Initializer.java```
-<pre><code data-lang="java"><span>public</span> <span>class</span> <span>Initializer</span> <span>extends</span> AbstractHttpSessionApplicationInitializer { <i data-value="1"></i><b>(1)</b>
+<code>src/main/java/sample/Initializer.java</code>
+
+<pre>
+  <code data-lang="java"><span>public</span> <span>class</span> <span>Initializer</span> <span>extends</span> AbstractHttpSessionApplicationInitializer { <i data-value="1"></i><b>(1)</b>
 
         <span>public</span> Initializer() {
                 <span>super</span>(Config.class); <i data-value="2"></i><b>(2)</b>
         }
 }</code></pre>
+
 
 
 <table>
@@ -385,7 +392,7 @@ This ensures that the Spring Bean by the name <code>springSessionRepositoryFilte
 At this stage, Spring Session is now configured to use a Redis instance.
 To use a Redis for PCF instance, create a `session-replication` tag for the Redis for PCF instance.
 
-`cf update-service INSTANCE_NAME -t session-replication`
+<pre class=terminal>$ cf update-service INSTANCE_NAME -t session-replication</pre>
 
 ### <a id ="spring_redis_considerations"></a>Other Considerations
 
@@ -394,18 +401,15 @@ The CONFIG command is not available due to security recommendations.
 
 This feature can be disabled by exposing `ConfigureRedisAction.NO_OP` as a bean:
 
-```
+<pre><code>
 @Bean
 public static ConfigureRedisAction configureRedisAction() {
     return ConfigureRedisAction.NO_OP;
 }
-```
+</code></pre>
 
 However, disabling the configuration means that Redis cannot send namespace notifications.
 This functionality is critical for applications that require `SessionDestroyedEvent` to be fired to clean up resources,
 such as for WebSocket applications to ensure open WebSockets are closed when the `HttpSession` expires.
 
 Please provide feedback [here](mailto:"redis–feedback@pivotal.io"), if you would like us to provide a workaround for this use case.
-
-## <a id="Feedback"></a> Feedback
-If you would like other quickstart guides, please provide feedback [here](mailto:"redis–feedback@pivotal.io").
