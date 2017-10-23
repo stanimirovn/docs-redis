@@ -25,11 +25,10 @@ Redis can be used in many different ways, including:
   using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, and `GETSET`
 * Pub/Sub: Built in publish and subscribe operations: `PUBLISH`, `SUBSCRIBE`, and `UNSUBSCRIBE`
 
-Successful use cases handle the downtime that can occur with the Redis for PCF service.
-For use cases that can tolerate some downtime from Redis for PCF, such as a lookaside cache,
-successful use cases tolerate the downtime gap.
-For use cases that require a higher level of availability from Redis for PCF,
-successful apps use an anti-fragile approach and write more complex failover logic.
+Successful use cases handle the downtime that occurs with the Redis for PCF service.
+This happens in two ways:
++ For use cases with lower availability requirements, write simple failover logic that enables the app to work while Redis for PCF is down.
++ For use cases with higher availability requirements, write more complex failover logic that enables the app to failover to another singleton Redis for PCF instance.
 
 ## <a id="offerings"></a> Service Offerings
 
