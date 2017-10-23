@@ -25,11 +25,10 @@ Redis can be used in many different ways, including:
   using `ZRANGE`, `ZADD`, `ZREVRANGE`, `ZRANK`, `INCRBY`, and `GETSET`
 * Pub/Sub: Built in publish and subscribe operations: `PUBLISH`, `SUBSCRIBE`, and `UNSUBSCRIBE`
 
-Successful use cases handle the downtime that can occur with the Redis for PCF service.
-For use cases that can tolerate some downtime from Redis for PCF, such as a lookaside cache,
-successful use cases tolerate the downtime gap.
-For use cases that require a higher level of availability from Redis for PCF,
-successful apps use an anti-fragile approach and write more complex failover logic.
+Successful use cases handle the downtime that occurs with the Redis for PCF service.
+This happens in two ways:
++ For use cases with lower availability requirements, write simple failover logic that enables the app to work while Redis for PCF is down.
++ For use cases with higher availability requirements, write more complex failover logic that enables the app to failover to another singleton Redis for PCF instance.
 
 ## <a id="offerings"></a> Service Offerings
 
@@ -51,7 +50,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>All Redis for PCF services are single nodes without clustering capabilities.
         This means that during upgrades can result in 2–10 minutes of downtime,
         depending on the nature of the upgrade.
-        Unplanned downtime effects the Redis service.<br>
+        Unplanned downtime affects the Redis service.<br>
         Redis for PCF has been used successfully in enterprise-ready apps that can tolerate downtime.
         Pre-existing data is not lost during downtime with the default persistence configuration.
         Successful apps include those where the downtime is passively handled by the app or
@@ -99,7 +98,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>
     Operators can plan the number of VMs and the size of those VMs.
     For the On-Demand service, the Operator does this by creating plans with specific VM sizes and quotas for each plan.
-    For the Dedicated-VM and Shared-VM servics, the number and size of VMs are pre-provisioned by the Operator.
+    For the Dedicated-VM and Shared-VM services, the number and size of VMs are pre-provisioned by the Operator.
     BOSH errands use short-lived VMs that cannot be configured but can be turned on or off.
     </td>
     <td>
@@ -166,8 +165,11 @@ Review the following table to determine if Redis for PCF has the features needed
     </td>
   </tr>
   <tr><th colspan=2>Encryption</th><th>More Information</th></tr>
-  <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested with the IPsec Add-on for PCF.</td>
-      <td><a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a></td></tr>
+  <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested with the IPsec Add-on for PCF. Beyond that Redis for PCF does not provide additional encryption on top of Redis.</td>
+      <td>
+        <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a>
+        <a href="https://redis.io/topics/security">OS Redis Security</a>
+      </td></tr>
 
 </table>
 
