@@ -51,7 +51,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>All Redis for PCF services are single nodes without clustering capabilities.
         This means that during upgrades can result in 2–10 minutes of downtime,
         depending on the nature of the upgrade.
-        Unplanned downtime effects the Redis service.<br>
+        Unplanned downtime affects the Redis service.<br>
         Redis for PCF has been used successfully in enterprise-ready apps that can tolerate downtime.
         Pre-existing data is not lost during downtime with the default persistence configuration.
         Successful apps include those where the downtime is passively handled by the app or
@@ -99,7 +99,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>
     Operators can plan the number of VMs and the size of those VMs.
     For the On-Demand service, the Operator does this by creating plans with specific VM sizes and quotas for each plan.
-    For the Dedicated-VM and Shared-VM servics, the number and size of VMs are pre-provisioned by the Operator.
+    For the Dedicated-VM and Shared-VM services, the number and size of VMs are pre-provisioned by the Operator.
     BOSH errands use short-lived VMs that cannot be configured but can be turned on or off.
     </td>
     <td>
