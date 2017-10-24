@@ -28,6 +28,7 @@ $ cf restage redis_example_app
 </pre>
 
 You can then visit the application in your browser window. The app has three entrypoints:
+
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value.
 * "/get" - gets the value stored at a given key.
@@ -236,7 +237,7 @@ To use Spring Session, update your dependencies to include spring-session-data-r
 
 <code>pom.xml</code>
 
-<pre class=terminal>
+<pre>
   <code><span>&lt;dependencies&gt;</span>
           <span>&lt;!-- ... --&gt;</span>
           <span>&lt;dependency&gt;</span>
@@ -413,4 +414,3 @@ If you want a workaround for this use case, send email to [redis-feedback](mailt
 
 If you want other quickstart guides or sample use cases with code snippets,
 send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
-
