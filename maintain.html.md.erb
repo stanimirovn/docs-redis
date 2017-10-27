@@ -32,9 +32,44 @@ Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle
 Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements.
 VM memory is more likely to be a limiting factor than number of keys that can be handled.
 
+## <a id="errands"></a>Errands
+PCF Redis includes the errands listed below.
+### Post-deploy errands
+- `Broker Registrar`
+- `Smoke Tests`
+- `Register On-Demand Broker`
+- `On-Demand Smoke Tests`
+- `Upgrade All On-Demand Service Instances`
+
+### Pre-delete errands
+- `Broker Deregistrar`
+- `Delete All On-Demand Service Instances and Deregister Broker`
+
+These errands are run by default whenever `Apply Changes` is triggered.
+
+### Skipping errand execution during upgrades
+Running the above errands is recommended at any trigger of `Apply Changes`. However this practice can extend the duration of `Apply Changes` by several minutes every time.
+The operator must run all post-deploy errands if the upgrade includes configuration changes in the PCF Redis tile or a new stemcell version.
+
+Assuming this is not the case, this section describes the scenarios where is is safe to omit running some errands.
+
+#### `Broker Registrar`, `Register On-Demand Broker`
+- Required to run them if there are changes in the BOSH director or ERT that would mean that the system domain has changed or the address where the on-demand broker is deployed has changed.
+That's because in the above scenarios, the address where the service brokers are reachable by Cloud Foundry has changed.
+We recommend against changing the cloud configuration in a way that will change the ranges where the PCF Redis tile deploys VMs.
+- Good practice to run them at any change touching the BOSH director tile/ERT.
+- Not necessary to run them if the change only involves other service tiles. Currently PCF Redis does not integrate with other tiles except the director and ERT.
+
+#### `smoke-tests`, `on-demand-broker-smoke-tests`
+- Good practice to run them if the register errands have run.
+
+#### `Upgrade All On-Demand Service Instances`
+- Required to run them if there have been changes in
+- Not necessary to run them if there are no on-demand instances provisioned.
+
 
 ##  <a id="smoke"></a>Smoke Tests
 
-Ops Manager runs Redis for PCF smoke tests as a post-install errand.  The operator can also run the smoke tests errand by using `bosh run errand smoke-tests`. For more information see [Redis for PCF Smoke Tests](./smoke-tests.html).
+Ops Manager runs Redis for PCF smoke tests as a post-install errand. The operator can also run the smoke tests errand by using `bosh run errand smoke-tests`. For more information see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 <p class="note"><strong>Note</strong>: Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the <code>system</code> org without specifying a space. To enable global default ASGs, use <code>cf bind-running-security-group</code>.</p>
