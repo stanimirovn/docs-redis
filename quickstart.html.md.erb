@@ -231,14 +231,19 @@ end
 </pre>
 
 
-
 ## <a id="springsession"></a>Spring Session with Redis for PCF
+
+One common use case of Redis for PCF is management of a user's session information with <a id="https://docs.spring.io/spring-session/docs/current/reference/html5/">Spring Session</a>.
+Spring Session provides an API and implementations with which to manage sessions.
 
 This topic describes how to use Redis for PCF as the backend with Spring Session to manage user session information.
 
+
 This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession)
 and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html)
-to be specific to Redis for PCF.
+and extend to include instructions for use with Redis for PCF.
+
+### <a id="configuring Spring"></a> Setting Up Spring Session
 
 #### <a id ="spring_dependencies"></a>Updating Dependencies
 
@@ -268,7 +273,7 @@ To use Spring Session, update your dependencies to include spring-session-data-r
   <span >&lt;/dependencies&gt;</span></code>
 </pre>
 
-### <a id ="spring_config"></a>Spring Java Configuration
+#### <a id ="spring_config"></a>Spring Java Configuration
 
 After adding the required dependencies, we can create our Spring configuration.
 
@@ -301,7 +306,7 @@ For more information on configuring Spring Data Redis, refer to the <a href="htt
 </tbody></table>
 
 
-### <a id ="java_servlet_container_initialization"></a>Java Servlet Container Initialization
+#### <a id ="java_servlet_container_initialization"></a>Java Servlet Container Initialization
 
 <p>Our Spring Configuration created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
 The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code>
