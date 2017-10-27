@@ -3,19 +3,28 @@ title: Quickstart Guide for Application Developers
 owner: London Services
 ---
 
+This topic provides some sample applications in various languages to demonstrate how to get PCF Redis up and running quickly. It also highlights the critical components of the apps that allow them to connect to a Redis Instance.  Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
+
+Additionally this topic includes advice for setting up Spring Sessions with Redis for PCF.
+
+## <a id="feedback"></a> Feedback
+
+If you have any feedback on this page or want more materials (e.g., other quickstart guides, sample use cases), please send an email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
+
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
-This topic provides some applications to get up and running quickly.
-It also highlights the critical components of each app that allow the application to connect to the Redis
-instance by reading and parsing the environmental variables provided by VCAP_SERVICES.
+All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment. The credentials are available to the application once a Redis for PCF instance is bound to it and are viewable by typing `$cf env {app_name}`.
+
+Prerequisites for these examples include access to a cloud foundry marketplace with `p-redis` or `p.redis`.
+
+For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Dedicated-VM and Shared-VM instances. Any Redis for PCF service and plan will work with the following examples. Available plans and instance types can be viewed with in the cf marketplace.
 
 ### <a id="java-quickstart"></a> Quickstart Java App
 
 This is a basic java app with the capability to get and set keys in Redis and view configuration information.
-Pre-requistes are [Maven](https://maven.apache.org/install.html), the `cf cli` and access to a cloud
-foundry marketplace with p-redis or p.redis.
+Prerequistes include [Maven](https://maven.apache.org/install.html).
 
-Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance will work.
+Here we use a cache-small plan of the `p.redis` service, but any `p-redis` or `p.redis` instance will work.
 
 <pre class=terminal>
 $ git clone git@github.com:colrich/RedisForPCF-Java-Example.git java_redis_app
@@ -30,8 +39,8 @@ $ cf restage redis_example_app
 You can then visit the application in your browser window. The app has three entrypoints:
 
 *  "/" - gets info about bound redis instance.
-* "/set" - sets a given key to a given value.
-* "/get" - gets the value stored at a given key.
+* "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
+* "/get" - gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
 
 In the [application code](https://github.com/colrich/RedisForPCF-Java-Example/blob/master/src/main/java/io/pivotal/examples/RedisExample/RedisInfoController.java), the snippet where VCAP_SERVICES is read and parsed is here:
 
@@ -78,63 +87,6 @@ public RedisInstanceInfo getInfo() {
 }
 </pre>
 
-### <a id="java-quickstart"></a> Quickstart Ruby App
-This is a basic node app with the capability to get and set keys in Redis and view configuration information.
-Pre-requistes are the `cf cli` and access to a cloud foundry marketplace with p-redis or p.redis.
-Here we use an instance of the dedicated_vm service, but any p-redis or p.redis instance will work.
-
-<pre class=terminal>
-$ git clone git@github.com:pivotal-cf/cf-redis-example-app.git ruby_redis_app
-$ cd ruby_redis_app
-$ cf create-service p-redis dedicated-vm redis_instance
-$ cf push redis_example_app --no-start
-$ cf bind-service redis_example_app redis_instance
-$ cf start redis_example_app"
-</pre>
-
-You can then get, set and delete keys:
-
-<pre class=terminal>
-$ export APP=redis-example-app.my-cloud-foundry.com
-$ curl -X PUT $APP/foo -d 'data=bar'
-success
-$ curl -X GET $APP/foo
-bar
-$ curl -X DELETE $APP/foo
-success
-</pre>
-
-In the [application code](https://github.com/pivotal-cf/cf-redis-example-app/blob/master/lib/app.rb), the method where VCAP_SERVICES is read is here:
-
-<pre class=terminal>
-def redis_credentials
-  service_name = ENV['service_name'] || "redis"
-
-  if ENV['VCAP_SERVICES']
-    all_pivotal_redis_credentials = CF::App::Credentials.find_all_by_all_service_tags(['redis', 'pivotal'])
-    if all_pivotal_redis_credentials && all_pivotal_redis_credentials.first
-      all_pivotal_redis_credentials && all_pivotal_redis_credentials.first
-    else
-      redis_service_credentials = CF::App::Credentials.find_by_service_name(service_name)
-      redis_service_credentials
-    end
-  end
-end
-</pre>
-
-The method where VCAP_SERVICES is parsed is here:
-
-<pre class=terminal>
-def redis_client
-  @client ||= Redis.new(
-    host: redis_credentials.fetch('host'),
-    port: redis_credentials.fetch('port'),
-    password: redis_credentials.fetch('password'),
-    timeout: 30
-  )
-end
-</pre>
-
 ### <a id="node-quickstart"></a> Quickstart Node App
 
 This is a basic node app with the capability to get and set keys in Redis and view configuration information.
@@ -153,8 +105,8 @@ $ cf restage redis_example_app
 
 You can then visit the application in your browser window. The app has three entrypoints:
 *  "/" - gets info about bound redis instance.
-* "/set" - sets a given key to a given value.
-* "/get" - gets the value stored at a given key.
+* "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
+* "/get" - gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
 
 In the [application code](https://github.com/colrich/RedisForPCF-Node-Example/blob/master/index.js), the snippet where VCAP_SERVICES is read and parsed is here:
 
@@ -221,6 +173,63 @@ app.get('/', function(request, response) {
   }
 })
 </pre>
+
+### <a id="java-quickstart"></a> Quickstart Ruby App
+This is a basic ruby app with the capability to get and set keys in Redis and view configuration information.
+Here we use an instance of the dedicated_vm service, but any p-redis or p.redis instance will work.
+
+<pre class=terminal>
+$ git clone git@github.com:pivotal-cf/cf-redis-example-app.git ruby_redis_app
+$ cd ruby_redis_app
+$ cf create-service p-redis dedicated-vm redis_instance
+$ cf push redis_example_app --no-start
+$ cf bind-service redis_example_app redis_instance
+$ cf start redis_example_app"
+</pre>
+
+You can then get, set and delete keys:
+
+<pre class=terminal>
+$ export APP=redis-example-app.my-cloud-foundry.com
+$ curl -X PUT $APP/foo -d 'data=bar'
+success
+$ curl -X GET $APP/foo
+bar
+$ curl -X DELETE $APP/foo
+success
+</pre>
+
+In the [application code](https://github.com/pivotal-cf/cf-redis-example-app/blob/master/lib/app.rb), the method where VCAP_SERVICES is read is here:
+
+<pre class=terminal>
+def redis_credentials
+  service_name = ENV['service_name'] || "redis"
+
+  if ENV['VCAP_SERVICES']
+    all_pivotal_redis_credentials = CF::App::Credentials.find_all_by_all_service_tags(['redis', 'pivotal'])
+    if all_pivotal_redis_credentials && all_pivotal_redis_credentials.first
+      all_pivotal_redis_credentials && all_pivotal_redis_credentials.first
+    else
+      redis_service_credentials = CF::App::Credentials.find_by_service_name(service_name)
+      redis_service_credentials
+    end
+  end
+end
+</pre>
+
+The method where VCAP_SERVICES is parsed is here:
+
+<pre class=terminal>
+def redis_client
+  @client ||= Redis.new(
+    host: redis_credentials.fetch('host'),
+    port: redis_credentials.fetch('port'),
+    password: redis_credentials.fetch('password'),
+    timeout: 30
+  )
+end
+</pre>
+
 
 
 ## <a id="springsession"></a>Spring Session with Redis for PCF
@@ -336,53 +345,6 @@ This ensures that the Spring Bean by the name <code>springSessionRepositoryFilte
 </tr>
 </tbody></table>
 
-### <a id ="spring_init"></a>Java Servlet Container Initialization
-
-<div class="sect1">
-<p>Our <a href="#httpsession-spring-configuration">Spring Configuration</a> created a Spring Bean named <code>springSessionRepositoryFilter</code> that implements <code>Filter</code>.
-The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code> with a custom implementation that is backed by Spring Session.</p>
-
-
-<p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
-Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
-Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code> both of these steps extremely easy.
-You can find an example below:</p>
-
-<code>src/main/java/sample/Initializer.java</code>
-
-<pre>
-  <code data-lang="java"><span>public</span> <span>class</span> <span>Initializer</span> <span>extends</span> AbstractHttpSessionApplicationInitializer { <i data-value="1"></i><b>(1)</b>
-
-        <span>public</span> Initializer() {
-                <span>super</span>(Config.class); <i data-value="2"></i><b>(2)</b>
-        }
-}</code></pre>
-
-
-
-<table>
-<tbody><tr>
-<td>
-<i title="Note"></i>
-</td>
-<td>
-The name of our class (Initializer) does not matter. What is important is that we extend <code>AbstractHttpSessionApplicationInitializer</code>.
-</td>
-</tr>
-</tbody></table>
-
-<table>
-<tbody><tr>
-<td><i data-value="1"></i><b>1</b></td>
-<td>The first step is to extend <code>AbstractHttpSessionApplicationInitializer</code>.
-This ensures that the Spring Bean by the name <code>springSessionRepositoryFilter</code> is registered with our Servlet Container for every request.</td>
-</tr>
-<tr>
-<td><i data-value="2"></i><b>2</b></td>
-<td><code>AbstractHttpSessionApplicationInitializer</code> also provides a mechanism to easily ensure Spring loads our <code>Config</code>.</td>
-</tr>
-</tbody></table>
-
 ### <a id ="spring_redis"></a>Configuring Redis for PCF as a backend
 
 At this stage, Spring Session is now configured to use a Redis instance.
@@ -409,8 +371,3 @@ This functionality is critical for applications that require `SessionDestroyedEv
 such as for WebSocket applications to ensure open WebSockets are closed when the `HttpSession` expires.
 
 If you want a workaround for this use case, send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
-
-## <a id="feedback"></a> Feedback
-
-If you want other quickstart guides or sample use cases with code snippets,
-send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
