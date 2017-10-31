@@ -35,45 +35,60 @@ VM memory is more likely to be a limiting factor than number of keys that can be
 ## <a id="errands"></a>Errands
 PCF Redis includes the errands listed below.
 ### Post-deploy errands
-- `Broker Registrar`
+#### `Broker Registrar`
 Registers the cf-redis-broker with CloudFoundry to offer the `p-redis` offering (`shared-vm` and `dedicated-vm` plans).
-- `Smoke Tests`
-Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available. The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances in enabled plans of `p-redis`.
-- `Register On-Demand Broker`
+#### `Smoke Tests`
+Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available. The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
+#### `Register On-Demand Broker`
 Registers the on-demand Redis broker with CloudFoundry to offer the `p.redis` offering (on-demand plans).
-- `On-Demand Smoke Tests`
-Runs lifecycle tests for enabled plans of the `p.redis` offering if there is remaining quota available. The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances in enabled plans of `p.redis`.
-- `Upgrade All On-Demand Service Instances`
-Upgrades on-demand service instances to use the latest service release, stemcell, or updated plan configuration.
+#### `On-Demand Smoke Tests`
+Runs lifecycle tests for enabled plans of the `p.redis` offering if there is remaining quota available. The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
+#### `Upgrade All On-Demand Service Instances`
+Upgrades on-demand service instances to use the latest plan configuration, service releases and stemcell.
+
+The above post-deploy errands are run by default whenever `Apply Changes` is triggered, whether or not there has been a configuration change in the Redis for PCF tile itself.
 
 ### Pre-delete errands
-- `Broker Deregistrar`
+#### `Broker Deregistrar`
 Deregisters the cf-redis-broker.
-- `Delete All On-Demand Service Instances and Deregister Broker`
+#### `Delete All On-Demand Service Instances and Deregister Broker`
 Deletes all on-demand instances and deregisters the on-demand Redis broker.
 
-The above post-deploy errands are run by default whenever `Apply Changes` is triggered.
+The above pre-delete errands are run by default whenever the Redis for PCF tile is deleted.
 
-### Skipping errand execution during upgrades
+### Turning off errand execution
 Running the post-deploy errands is recommended at any trigger of `Apply Changes`. However this practice can extend the duration of `Apply Changes` by several minutes every time.
-If the upgrade includes configuration changes on the PCF Redis tile or a new stemcell version (i.e. the tile will be redeployed when clicking `Apply Changes`), the operator must run all post-deploy errands.
 
-Sometimes the change does not involve configuration specifically on the Redis tile. When that's the case, the following section describes the scenarios where is is safe to omit running some errands.
+#### Changes to Redis for PCF tile configuration
+If the changes include configuration changes on the Redis for PCF tile or a new stemcell version, the operator must run all post-deploy errands.
 
-#### `Broker Registrar`, `Register On-Demand Broker`
-- Required to run them if there are changes in the BOSH director or ERT that would mean that the CF system domain or the address where the on-demand broker is deployed have changed.
-That's because in the above scenarios, the address where the service brokers are reachable by Cloud Foundry has changed.
-We <a href="./upgrade.html#network-upgrades">recommend</a> against changing the cloud configuration in a way that will change the ranges where the PCF Redis tile deploys VMs.
-- Good practice to run them at any change touching the BOSH director tile/ERT.
-- Not necessary to run them if the change only involves other service tiles. Currently PCF Redis does not integrate with other tiles except the director and ERT.
+#### Installing another tile
+When installing another tile that does not make any changes to the bosh director or Elastic Runtime tile, it is not necessary to run any of the Redis for PCF tile's post-deploy errands.
 
-#### `smoke-tests`, `on-demand-broker-smoke-tests`
-- Required to run them if the register errands have run.
+#### Changes to other tiles
+Sometimes the change does not include changes to the Redis for PCF tile's configuration. Then it may not be necessary to run all of the Redis for PCF tile's post-deploy errands.
+
+#### `Broker Registrar`
+- Required to run if the CF system domain is changed in the Elastic Runtime tile.
+- Not necessary to run if the change only involves other tiles except Elastic Runtime tile.
+
+#### `Register On-Demand Broker`
+- Required to run if the network range that the Redis On-demand Broker is deployed in is changed in the bosh director tile.
+- Not necessary to run if the change only involves other tiles except bosh director.
+
+<p class="note">
+We <a href="./upgrade.html#network-upgrades">recommend</a> against changing the bosh Director's network configuration in a way that will change the ranges where the Redis for PCF tile deploys VMs.
+</p>
+
+#### `Smoke Tests` & `On-Demand Smoke Tests`
+- Required to run if their respective register broker errand is required.
+- Required to run both if a newer stemcell minor version is uploaded. The Redis for PCF tile [floats to the newest minor version](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
+- Good practice to run both for any change in the bosh director or Elastic Runtime tile.
+- Not necessary to run either if the change only involves other tiles except Elastic Runtime and bosh director.
 
 #### `Upgrade All On-Demand Service Instances`
-- Required to run them if there have been changes in the stemcell used by the PCF Redis tile.
-- Not necessary to run them if there are no on-demand instances provisioned.
-
+- Required to run if a newer stemcell minor version is uploaded. The Redis for PCF tile [floats to the newest minor version](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
+- Not necessary to run if there are no on-demand instances provisioned.
 
 ##  <a id="smoke"></a>Smoke Tests
 
