@@ -32,9 +32,66 @@ Redis can handle up to 2<sup>32</sup> keys, and was tested in practice to handle
 Every hash, list, set, and sorted set, can hold 2<sup>32</sup> elements.
 VM memory is more likely to be a limiting factor than number of keys that can be handled.
 
+## <a id="errands"></a>Errands
+PCF Redis includes the errands listed below.
+### Post-deploy errands
+#### `Broker Registrar`
+Registers the cf-redis-broker with CloudFoundry to offer the `p-redis` offering (`shared-vm` and `dedicated-vm` plans).
+#### `Smoke Tests`
+Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available. The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
+#### `Register On-Demand Broker`
+Registers the on-demand Redis broker with CloudFoundry to offer the `p.redis` offering (on-demand plans).
+#### `On-Demand Smoke Tests`
+Runs lifecycle tests for enabled plans of the `p.redis` offering if there is remaining quota available. The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
+#### `Upgrade All On-Demand Service Instances`
+Upgrades on-demand service instances to use the latest plan configuration, service releases and stemcell.
+
+The above post-deploy errands are run by default whenever `Apply Changes` is triggered, whether or not there has been a configuration change in the Redis for PCF tile itself.
+
+### Pre-delete errands
+#### `Broker Deregistrar`
+Deregisters the cf-redis-broker.
+#### `Delete All On-Demand Service Instances and Deregister Broker`
+Deletes all on-demand instances and deregisters the on-demand Redis broker.
+
+The above pre-delete errands are run by default whenever the Redis for PCF tile is deleted.
+
+### Turning off errand execution
+Running the post-deploy errands is recommended at any trigger of `Apply Changes`. However this practice can extend the duration of `Apply Changes` by several minutes every time.
+
+#### Changes to Redis for PCF tile configuration
+If the changes include configuration changes on the Redis for PCF tile or a new stemcell version, the operator must run all post-deploy errands.
+
+#### Installing another tile
+When installing another tile that does not make any changes to the bosh director or Elastic Runtime tile, it is not necessary to run any of the Redis for PCF tile's post-deploy errands.
+
+#### Changes to other tiles
+Sometimes the change does not include changes to the Redis for PCF tile's configuration. Then it may not be necessary to run all of the Redis for PCF tile's post-deploy errands.
+
+#### `Broker Registrar`
+- Required to run if the CF system domain is changed in the Elastic Runtime tile.
+- Not necessary to run if the change only involves other tiles except Elastic Runtime tile.
+
+#### `Register On-Demand Broker`
+- Required to run if the network range that the Redis On-demand Broker is deployed in is changed in the bosh director tile.
+- Not necessary to run if the change only involves other tiles except bosh director.
+
+<p class="note">
+We <a href="./upgrade.html#network-upgrades">recommend</a> against changing the bosh Director's network configuration in a way that will change the ranges where the Redis for PCF tile deploys VMs.
+</p>
+
+#### `Smoke Tests` & `On-Demand Smoke Tests`
+- Required to run if their respective register broker errand is required.
+- Required to run both if a newer stemcell minor version is uploaded. The Redis for PCF tile [floats to the newest minor version](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
+- Good practice to run both for any change in the bosh director or Elastic Runtime tile.
+- Not necessary to run either if the change only involves other tiles except Elastic Runtime and bosh director.
+
+#### `Upgrade All On-Demand Service Instances`
+- Required to run if a newer stemcell minor version is uploaded. The Redis for PCF tile [floats to the newest minor version](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
+- Not necessary to run if there are no on-demand instances provisioned.
 
 ##  <a id="smoke"></a>Smoke Tests
 
-Ops Manager runs Redis for PCF smoke tests as a post-install errand.  The operator can also run the smoke tests errand by using `bosh run errand smoke-tests`. For more information see [Redis for PCF Smoke Tests](./smoke-tests.html).
+Ops Manager runs Redis for PCF smoke tests as a post-install errand. The operator can also run the smoke tests errand by using `bosh run errand smoke-tests`. For more information see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 <p class="note"><strong>Note</strong>: Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the <code>system</code> org without specifying a space. To enable global default ASGs, use <code>cf bind-running-security-group</code>.</p>
