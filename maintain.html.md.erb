@@ -46,30 +46,30 @@ Redis for PCF includes the errands listed below.
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service (`shared-vm` and `dedicated-vm` plans).
 
 * **Smoke Tests**---Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available.
-    The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
+    The tests cover provisioning, binding, reading, writing, unbinding, and deprovisioning of service instances.
 
-* **Register On-Demand Broker**---Registers the on-demand Redis broker with PCF to offer the `p.redis` service (on-demand plans)
+* **Register On-Demand Broker**---Registers the on-demand Redis broker with PCF to offer the `p.redis` service (on-demand plans).
 
 * **On-Demand Smoke Tests**---Runs lifecycle tests for enabled plans of the `p.redis` service if there is remaining quota available.
     The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
 
-* **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases and stemcell
+* **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.
 
 The above post-deploy errands are run by default whenever **Apply Changes** is triggered,
 whether or not there has been a configuration change in the Redis for PCF tile itself.
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
-* **Broker Deregistrar**---Deregisters the `cf-redis-broker`
+* **Broker Deregistrar**---Deregisters the `cf-redis-broker`.
 
-* **Delete All On-Demand Service Instances and Deregister Broker**---Deletes all on-demand instances and deregisters the on-demand Redis broker
+* **Delete All On-Demand Service Instances and Deregister Broker**---Deletes all on-demand instances and deregisters the on-demand Redis broker.
 
 The above pre-delete errands are run by default whenever the Redis for PCF tile is deleted.
 
 ### <a id="turning-off"></a> Turning off Post-Deploy Errands
 
-Running the post-deploy errands is recommended at any trigger of **Apply Changes**.
-However this practice can extend the duration of applying changes by several minutes every time.
+Pivotal recommends that you running the post-deploy errands at any trigger of **Apply Changes**.
+However, this practice can extend the duration of applying changes by several minutes every time.
 This section helps you decide when it is safe to skip some post-deploy errands.
 
 #### Changes to Redis for PCF Tile Configuration
@@ -78,13 +78,13 @@ If the changes include configuration changes on the Redis for PCF tile or a new 
 
 #### Installing Another Tile
 
-When installing another tile that does not make any changes to the BOSH director or Elastic Runtime tile,
+When installing another tile that does not make any changes to the BOSH Director or Elastic Runtime tile,
 it is not necessary to run any of the Redis for PCF tile's post-deploy errands.
 
 #### Changes to Other Tiles
 
 Sometimes the change does not include changes to the Redis for PCF tile's configuration.
-Then it may not be necessary to run all of the Redis for PCF tile's post-deploy errands.
+Then it might not be necessary to run all of the Redis for PCF tile's post-deploy errands.
 
 #### Broker Registrar Errand
 
@@ -93,11 +93,12 @@ Then it may not be necessary to run all of the Redis for PCF tile's post-deploy 
 
 #### Register On-Demand Broker Errand
 
-- Required to run if the network range that the Redis On-demand Broker is deployed in is changed in the BOSH director tile.
-- Not necessary to run if the change only involves other tiles except BOSH director.
+- Required to run if the network range that the Redis On-demand Broker is deployed in is changed in the BOSH Director tile.
+- Not necessary to run if the change only involves other tiles except BOSH Director.
 
 <p class="note">
-We <a href="./upgrade.html#network-upgrades">recommend</a> against changing the BOSH Director's network configuration in a way that will change the ranges where the Redis for PCF tile deploys VMs.
+Pivotal <a href="./upgrade.html#network-upgrades">recommends</a> against changing the BOSH Director's network configuration
+in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 </p>
 
 #### Smoke Tests and On-Demand Smoke Tests Errands
@@ -106,8 +107,8 @@ We <a href="./upgrade.html#network-upgrades">recommend</a> against changing the 
 - Required to run both if a newer stemcell minor version is uploaded.
   The Redis for PCF tile floats to the newest minor version.
   For more information, see [Understanding Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
-- Good practice to run both for any change in the BOSH director or Elastic Runtime tile.
-- Not necessary to run either if the change only involves other tiles except Elastic Runtime and BOSH director.
+- Good practice to run both for any change in the BOSH Director or Elastic Runtime tile.
+- Not necessary to run either if the change only involves other tiles except Elastic Runtime and BOSH Director.
 
 #### Upgrade All On-Demand Service Instances Errand
 
