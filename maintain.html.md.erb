@@ -36,7 +36,7 @@ VM memory is more likely to be a limiting factor than number of keys that can be
 
 PCF Redis includes the errands listed below.
 
-### Post-Deploy Errands
+### <a id="post-deploy"></a> Post-Deploy Errands
 
 * **Broker Registrar**---Registers the cf-redis-broker with CloudFoundry to offer the `p-redis` service (`shared-vm` and `dedicated-vm` plans).
 
@@ -50,7 +50,7 @@ PCF Redis includes the errands listed below.
 
 The above post-deploy errands are run by default whenever **Apply Changes** is triggered, whether or not there has been a configuration change in the Redis for PCF tile itself.
 
-### Pre-Delete Errands
+### <a id="pre-delete"></a> Pre-Delete Errands
 
 * **Broker Deregistrar**---Deregisters the `cf-redis-broker`
 
@@ -58,7 +58,7 @@ The above post-deploy errands are run by default whenever **Apply Changes** is t
 
 The above pre-delete errands are run by default whenever the Redis for PCF tile is deleted.
 
-### Turning off Post-Deploy Errands
+### <a id="turning-off"></a> Turning off Post-Deploy Errands
 
 Running the post-deploy errands is recommended at any trigger of **Apply Changes**. However this practice can extend the duration of applying changes by several minutes every time. This section helps you decide when it is safe to skip some post-deploy errands.
 
