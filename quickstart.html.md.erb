@@ -105,9 +105,9 @@ $ cf restage redis_example_app
 
 You can then visit the app in your browser window. The app has three entrypoints:
 
-*  "/" - gets info about bound redis instance.
-* "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
-* "/get" - gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
+*  "/" --- Gets info about bound redis instance
+* "/set" --- Sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
+* "/get" --- Gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
 
 In the [application code](https://github.com/colrich/RedisForPCF-Node-Example/blob/master/index.js), the snippet where VCAP_SERVICES is read and parsed is here:
 
@@ -188,7 +188,7 @@ $ cf bind-service redis_example_app redis_instance
 $ cf start redis_example_app"
 </pre>
 
-You can then get, set and delete keys:
+You can then get, set, and delete keys:
 
 <pre class=terminal>
 $ export APP=redis-example-app.my-cloud-foundry.com
@@ -230,7 +230,6 @@ def redis_client
   )
 end
 </pre>
-
 
 ## <a id="springsession"></a>Spring Session with Redis for PCF
 
