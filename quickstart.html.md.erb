@@ -319,7 +319,7 @@ In order for our <code>Filter</code> to do its magic:
 
 + We need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
 
-Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>, which helps us confirm that these two conditions are being met. 
+Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>, which helps us confirm that these two requirements are met. 
  
 The example below shows how to extend <code>AbstractHttpSessionApplicationInitializer</code>:
 
