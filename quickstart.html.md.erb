@@ -5,11 +5,11 @@ owner: London Services
 
 This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly. It also highlights the critical components of the apps that allow them to connect to a Redis instance.  Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
 
-Additionally this topic includes advice for setting up Spring Sessions with Redis for PCF.
+Additionally, this topic includes advice for setting up Spring Sessions with Redis for PCF.
 
 ## <a id="feedback"></a> Feedback
 
-If you have any feedback on this page or want more materials (e.g., other quickstart guides, sample use cases), please send an email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
+If you have any feedback on this page or want more information (other quickstart guides, sample use cases), please send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
@@ -36,7 +36,7 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the app in your browser window. The app has three entrypoints:
+You can then visit the app in your browser window. The app has three entry points:
 
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -103,7 +103,8 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the app in your browser window. The app has three entrypoints:
+You can then visit the app in your browser window. The app has three entry
+points:
 
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -239,10 +240,9 @@ Spring Session provides an API and implementations with which to manage sessions
 
 This topic describes how to use Redis for PCF as the backend with Spring Session to manage user session information.
 
-
 This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession)
 and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html)
-and extend to include instructions for use with Redis for PCF.
+and extends to include instructions for use with Redis for PCF.
 
 ### <a id="configuring Spring"></a> Setting Up Spring Session
 
