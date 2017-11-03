@@ -5,23 +5,19 @@ owner: London Services
 
 This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly. It also highlights the critical components of the apps that allow them to connect to a Redis instance.  Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
 
-Additionally, this topic includes advice for setting up Spring Sessions with Redis for PCF.
+Additionally this topic includes advice for setting up Spring Sessions with Redis for PCF.
 
 ## <a id="feedback"></a> Feedback
 
-If you have any feedback on this page or want more information about Redis (e.g., other quickstart guides, sample use cases), please send an email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
+If you have any feedback on this page or want more materials (e.g., other quickstart guides, sample use cases), please send an email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
-<<<<<<< HEAD
-All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment. The credentials are available to the application after a Redis for PCF instance is bound to it, and are viewable by typing `$cf env {app_name}`.
-=======
 All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment. The credentials are available to the app once a Redis for PCF instance is bound to it and are viewable by typing `$cf env {app_name}`.
->>>>>>> 92dda18... making additional copyedits! [#152196943]
 
 Prerequisites for these examples include access to a Marketplace with `p-redis` or `p.redis`.
 
-For reference, `p.redis` refers to the Redis service that provides On-Demand instances, and `p-redis` refers to the Redis service that provides Dedicated-VM and Shared-VM instances. Any Redis for PCF service and plan will work with the following examples. Available plans and instance types can be viewed within the cf marketplace.
+For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Dedicated-VM and Shared-VM instances. Any Redis for PCF service and plan will work with the following examples. Available plans and instance types can be viewed with in the cf marketplace.
 
 ### <a id="java-quickstart"></a> Quickstart Java App
 
@@ -40,7 +36,7 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the app in your browser window. The app has three entry points:
+You can then visit the app in your browser window. The app has three entrypoints:
 
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -107,11 +103,7 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-<<<<<<< HEAD
-You can then visit the application in your browser window. The app has three entry points:
-=======
 You can then visit the app in your browser window. The app has three entrypoints:
->>>>>>> 92dda18... making additional copyedits! [#152196943]
 
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -249,8 +241,8 @@ This topic describes how to use Redis for PCF as the backend with Spring Session
 
 
 This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession)
-and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html),
-and is extended to include instructions for use with Redis for PCF.
+and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html)
+and extend to include instructions for use with Redis for PCF.
 
 ### <a id="configuring Spring"></a> Setting Up Spring Session
 
@@ -303,13 +295,13 @@ Add the following Spring Configuration:
 <tbody><tr>
 <td><i data-value="1"></i><b>1</b></td>
 <td>The <code>@EnableRedisHttpSession</code> annotation creates a Spring Bean with the name of <code>springSessionRepositoryFilter</code> that implements Filter.
-The filter is in charge of replacing the <code>HttpSession</code> implementation to be backed by Spring Session.
+The filter is what is in charge of replacing the <code>HttpSession</code> implementation to be backed by Spring Session.
 In this instance Spring Session is backed by Redis.</td>
 </tr>
 <tr>
 <td><i data-value="2"></i><b>2</b></td>
 <td>We create a <code>RedisConnectionFactory</code> that connects Spring Session to the Redis Server.
-We configure the connection to connect to localhost on the default port (6379).
+We configure the connection to connect to localhost on the default port (6379)
 For more information on configuring Spring Data Redis, refer to the <a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/">reference documentation</a>.</td>
 </tr>
 </tbody></table>
@@ -323,7 +315,8 @@ The <code>springSessionRepositoryFilter</code> bean is responsible for replacing
 
 <p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
 Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
-Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>, making both of these steps extremely easy.
+Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>
+    both of these steps extremely easy.
 You can find an example below:</p>
 
 <code>src/main/java/sample/Initializer.java</code>
