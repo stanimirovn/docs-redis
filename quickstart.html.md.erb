@@ -3,7 +3,7 @@ title: Quickstart Guide for Application Developers
 owner: London Services
 ---
 
-This topic provides some sample applications in various languages to demonstrate how to get PCF Redis up and running quickly. It also highlights the critical components of the apps that allow them to connect to a Redis Instance.  Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
+This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly. It also highlights the critical components of the apps that allow them to connect to a Redis instance.  Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
 
 Additionally this topic includes advice for setting up Spring Sessions with Redis for PCF.
 
@@ -13,9 +13,9 @@ If you have any feedback on this page or want more materials (e.g., other quicks
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
-All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment. The credentials are available to the application once a Redis for PCF instance is bound to it and are viewable by typing `$cf env {app_name}`.
+All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment. The credentials are available to the app once a Redis for PCF instance is bound to it and are viewable by typing `$cf env {app_name}`.
 
-Prerequisites for these examples include access to a cloud foundry marketplace with `p-redis` or `p.redis`.
+Prerequisites for these examples include access to a Marketplace with `p-redis` or `p.redis`.
 
 For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Dedicated-VM and Shared-VM instances. Any Redis for PCF service and plan will work with the following examples. Available plans and instance types can be viewed with in the cf marketplace.
 
@@ -36,7 +36,7 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the application in your browser window. The app has three entrypoints:
+You can then visit the app in your browser window. The app has three entrypoints:
 
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -90,7 +90,7 @@ public RedisInstanceInfo getInfo() {
 ### <a id="node-quickstart"></a> Quickstart Node App
 
 This is a basic node app with the capability to get and set keys in Redis and view configuration information.
-Pre-requistes are the `cf cli` and access to a cloud foundry marketplace with p-redis or p.redis.
+Pre-requistes are the `cf cli` and access to a Marketplace with p-redis or p.redis.
 
 Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance will work.
 
@@ -103,7 +103,7 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the application in your browser window. The app has three entrypoints:
+You can then visit the app in your browser window. The app has three entrypoints:
 
 *  "/" - gets info about bound redis instance.
 * "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -373,7 +373,7 @@ public static ConfigureRedisAction configureRedisAction() {
 </code></pre>
 
 However, disabling the configuration means that Redis cannot send namespace notifications.
-This functionality is critical for applications that require `SessionDestroyedEvent` to be fired to clean up resources,
-such as for WebSocket applications to ensure open WebSockets are closed when the `HttpSession` expires.
+This functionality is critical for apps that require `SessionDestroyedEvent` to be fired to clean up resources,
+such as for WebSocket apps to ensure open WebSockets are closed when the `HttpSession` expires.
 
 If you want a workaround for this use case, send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
