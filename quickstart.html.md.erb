@@ -21,13 +21,8 @@ For reference, `p.redis` refers to the Redis service that provides On-Demand ins
 
 ### <a id="java-quickstart"></a> Quickstart Java App
 
-<<<<<<< HEAD
 This is a basic java app with the capability to get and set keys in Redis and view configuration information.
 Prerequistes include [Maven](https://maven.apache.org/install.html).
-=======
-This is a basic Java app with the capability to get and set keys in Redis and view configuration information.
-Prerequisites include [Maven](https://maven.apache.org/install.html).
->>>>>>> 5f1d1f3... Prerequisites
 
 Here we use a cache-small plan of the `p.redis` service, but any `p-redis` or `p.redis` instance will work.
 
@@ -317,13 +312,6 @@ For more information on configuring Spring Data Redis, refer to the <a href="htt
 The <code>springSessionRepositoryFilter</code> bean is responsible for replacing the <code>HttpSession</code>
     with a custom implementation that is backed by Spring Session.</p>
 
-<<<<<<< HEAD
-<p>In order for our <code>Filter</code> to do its magic, Spring needs to load our <code>Config</code> class.
-Last we need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
-Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>
-    both of these steps extremely easy.
-You can find an example below:</p>
-=======
 In order for our <code>Filter</code> to do its magic:
 
 + Spring needs to load our <code>Config</code> class.
@@ -333,7 +321,6 @@ In order for our <code>Filter</code> to do its magic:
 Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>, which helps us confirm that these two requirements are met. 
  
 The example below shows how to extend <code>AbstractHttpSessionApplicationInitializer</code>:
->>>>>>> 1f70690... another tiny text change [#152196943]
 
 <code>src/main/java/sample/Initializer.java</code>
 
