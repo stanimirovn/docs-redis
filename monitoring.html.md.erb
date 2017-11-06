@@ -131,7 +131,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
 #### <a id="persistent-disk-percent"></a> Percent of Persistent Disk Used
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent <br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> disk.persistent.percent <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Percentage of persistent disk being used on a VM. The persistent disk is specified as an IaaS-specific disk type with a size. For example, <code>pd-standard</code> on GCP, or <code>st1</code> on AWS, with disk size 5GB. This is a metric relevant to the health of the VM. A percentage of disk usage approaching 100 will cause the VM disk to become unusable as no more files will be allowed to be written.
@@ -377,10 +377,10 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    </tr>
 </table>
 
-#### <a id="keyspace-hits-keyspace-misses"></a> Keyspace Hits / Keyspace Misses
+#### <a id="keyspace-hits-keyspace-misses"></a> Keyspace Hits / Keyspace Misses + Keyspace Hits
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> info.stats.keyspace_hits / info.stats.keyspace_misses <br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> info.stats.keyspace_hits / info.stats.keyspace_misses + info.stats.keyspace_hits <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Hit ratio to determine share of keyspace hits that are successful.
