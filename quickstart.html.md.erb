@@ -331,28 +331,11 @@ The example below shows how to extend <code>AbstractHttpSessionApplicationInitia
         }
 }</code></pre>
 
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The name of our class (Initializer) does not matter. What is important is that we extend <code>AbstractHttpSessionApplicationInitializer</code>.
-</td>
-</tr>
-</table>
+The name of our class (Initializer) does not matter. What is important is that we extend <code>AbstractHttpSessionApplicationInitializer</code>. Doing this achieves the following:
 
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The first step is to extend <code>AbstractHttpSessionApplicationInitializer</code>.
-This ensures that the Spring Bean by the name <code>springSessionRepositoryFilter</code> is registered with our Servlet Container for every request.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>AbstractHttpSessionApplicationInitializer</code> also provides a mechanism to easily ensure Spring loads our <code>Config</code>.</td>
-</tr>
-</tbody></table>
++ It ensures that the Spring Bean by the name <code>springSessionRepositoryFilter</code> is registered with our Servlet Container for every request.
+
++ It provides a mechanism to easily ensure that Spring loads our <code>Config</code>.
 
 ### <a id ="spring_redis"></a>Configuring Redis for PCF as a backend
 
