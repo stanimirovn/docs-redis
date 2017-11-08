@@ -1,15 +1,17 @@
 ---
-title: Quickstart Guide for Application Developers
+title: Quickstart Guide for App Developers
 owner: London Services
 ---
 
-This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly. It also highlights the critical components of the apps that allow them to connect to a Redis instance.  Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
+This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly. 
+It also highlights the critical components of the apps that allow them to connect to a Redis instance. 
+Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
 
-Additionally this topic includes advice for setting up Spring Sessions with Redis for PCF.
+Additionally, this topic includes advice for setting up Spring Sessions with Redis for PCF.
 
 ## <a id="feedback"></a> Feedback
 
-If you have any feedback on this page or want more materials (e.g., other quickstart guides, sample use cases), please send an email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
+If you have any feedback on this page or want more information (other quickstart guides, sample use cases), please send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
@@ -17,14 +19,14 @@ All apps using Redis for PCF must parse and read the Redis for PCF instance cred
 
 Prerequisites for these examples include access to a Marketplace with `p-redis` or `p.redis`.
 
-For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Dedicated-VM and Shared-VM instances. Any Redis for PCF service and plan will work with the following examples. Available plans and instance types can be viewed with in the cf marketplace.
+For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Dedicated-VM and Shared-VM instances. Any Redis for PCF service and plan works with the following examples. Available plans and instance types can be viewed with in the cf marketplace.
 
 ### <a id="java-quickstart"></a> Quickstart Java App
 
-This is a basic java app with the capability to get and set keys in Redis and view configuration information.
-Prerequistes include [Maven](https://maven.apache.org/install.html).
+This is a basic Java app with the capability to get and set keys in Redis and view configuration information.
+Prerequisites include [Maven](https://maven.apache.org/install.html).
 
-Here we use a cache-small plan of the `p.redis` service, but any `p-redis` or `p.redis` instance will work.
+Here we use a cache-small plan of the `p.redis` service, but any `p-redis` or `p.redis` instance works.
 
 <pre class=terminal>
 $ git clone git@github.com:colrich/RedisForPCF-Java-Example.git java_redis_app
@@ -36,11 +38,11 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the app in your browser window. The app has three entrypoints:
+You can then visit the app in your browser window. The app has three entry points:
 
-*  "/" - gets info about bound redis instance.
-* "/set" - sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
-* "/get" - gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
+*  "/" --- Gets info about a bound Redis instance
+* "/set" --- Sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
+* "/get" --- Gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
 
 In the [application code](https://github.com/colrich/RedisForPCF-Java-Example/blob/master/src/main/java/io/pivotal/examples/RedisExample/RedisInfoController.java), the snippet where VCAP_SERVICES is read and parsed is here:
 
@@ -92,7 +94,7 @@ public RedisInstanceInfo getInfo() {
 This is a basic node app with the capability to get and set keys in Redis and view configuration information.
 Prerequisites are the `cf cli` and access to a Marketplace with p-redis or p.redis.
 
-Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance will work.
+Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance works.
 
 <pre class=terminal>
 $ git clone git@github.com:colrich/RedisForPCF-Node-Example.git node_redis_app
@@ -103,7 +105,8 @@ $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
 </pre>
 
-You can then visit the app in your browser window. The app has three entrypoints:
+You can then visit the app in your browser window. The app has three entry
+points:
 
 *  "/" --- Gets info about bound redis instance
 * "/set" --- Sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
@@ -177,7 +180,7 @@ app.get('/', function(request, response) {
 
 ### <a id="java-quickstart"></a> Quickstart Ruby App
 This is a basic ruby app with the capability to get and set keys in Redis and view configuration information.
-Here we use an instance of the dedicated_vm service, but any p-redis or p.redis instance will work.
+Here we use an instance of the dedicated_vm service, but any p-redis or p.redis instance works.
 
 <pre class=terminal>
 $ git clone git@github.com:pivotal-cf/cf-redis-example-app.git ruby_redis_app
@@ -238,10 +241,9 @@ Spring Session provides an API and implementations with which to manage sessions
 
 This topic describes how to use Redis for PCF as the backend with Spring Session to manage user session information.
 
-
 This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession)
 and [quickstart guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html)
-and extend to include instructions for use with Redis for PCF.
+and extends to include instructions for use with Redis for PCF.
 
 ### <a id="configuring Spring"></a> Setting Up Spring Session
 
@@ -291,7 +293,7 @@ Add the following Spring Configuration:
 }</code></pre>
 
 <table>
-<tbody><tr>
+<tr>
 <td><i data-value="1"></i><b>1</b></td>
 <td>The <code>@EnableRedisHttpSession</code> annotation creates a Spring Bean with the name of <code>springSessionRepositoryFilter</code> that implements Filter.
 The filter is what is in charge of replacing the <code>HttpSession</code> implementation to be backed by Spring Session.
@@ -303,8 +305,7 @@ In this instance Spring Session is backed by Redis.</td>
 We configure the connection to connect to localhost on the default port (6379)
 For more information on configuring Spring Data Redis, refer to the <a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/">reference documentation</a>.</td>
 </tr>
-</tbody></table>
-
+</table>
 
 #### <a id ="java_servlet_container_initialization"></a>Java Servlet Container Initialization
 
@@ -337,16 +338,16 @@ The name of our class (Initializer) does not matter. What is important is that w
 
 + It provides a mechanism to easily ensure that Spring loads our <code>Config</code>.
 
-### <a id ="spring_redis"></a>Configuring Redis for PCF as a backend
+### <a id ="spring_redis"></a>Configuring Redis for PCF as a Backend
 
 At this stage, Spring Session is now configured to use a Redis instance.
-To use a Redis for PCF instance, create a `session-replication` tag for the Redis for PCF instance.
+To use a Redis for PCF instance, create a `session-replication` tag for it.
 
 <pre class=terminal>$ cf update-service INSTANCE_NAME -t session-replication</pre>
 
 ### <a id ="spring_redis_considerations"></a>Other Considerations
 
-The `RedisHttpSessionConfiguration` will try to use the Redis CONFIG command.
+The `RedisHttpSessionConfiguration` tries to use the Redis CONFIG command.
 The CONFIG command is not available due to security recommendations.
 
 This feature can be disabled by exposing `ConfigureRedisAction.NO_OP` as a bean:
