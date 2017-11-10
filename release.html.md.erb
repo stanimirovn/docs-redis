@@ -12,9 +12,9 @@ owner: London Services
 
 **Known Issues**
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand run-rule.
 
 
 ## Redis for PCF v1.8.6
@@ -34,7 +34,7 @@ owner: London Services
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
@@ -59,7 +59,7 @@ owner: London Services
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
@@ -84,7 +84,7 @@ owner: London Services
 
 * `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  do not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
@@ -125,7 +125,7 @@ owner: London Services
 
 * Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
@@ -165,7 +165,7 @@ owner: London Services
 
 * Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand.
 
@@ -187,7 +187,7 @@ owner: London Services
 
 * TLS is turned on for metric communications.
 
-* All Redis instances now have a consul agent co-located for service discovery and DNS. This means instances need to be able to listen on `8301`.
+* All Redis instances now have a consul agent co-located for service discovery and DNS. This means instances must be able to listen on port `8301`.
 
 * For the on-demand service, the on-demand Service broker needs to talk to `bosh director`. This requires firewall rules to open TCP `8443` and `25555`.
 
@@ -207,8 +207,6 @@ owner: London Services
 
 * Fails to install if a hostname has been configured for the Director in Ops Manager.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * On-demand instances may not correctly enforce eviction policies when memory is full.
-
-Release notes <a href="/redis/1-8/minor-overview.html">here</a>.
