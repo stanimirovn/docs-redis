@@ -20,9 +20,9 @@ owner: London Services
 
 **Known Issues**
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand run-rule.
 
 
 ## Redis for PCF v1.9.4
@@ -44,7 +44,7 @@ owner: London Services
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
@@ -75,7 +75,7 @@ owner: London Services
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
@@ -106,7 +106,7 @@ owner: London Services
 
 * `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  do not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services and will be addressed in a future release.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
@@ -143,7 +143,7 @@ owner: London Services
 
 * Redis smoke tests fail if the number of instances of a certain plan have reached the global quota. Either remove the smoke tests errand or increase your quota.
 
-* The redis-odb service broker listens on `12345`. This is inconsistent with other services and will be addressed in a future release.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services and will be addressed in a future release.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
 
