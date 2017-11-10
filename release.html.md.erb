@@ -20,10 +20,13 @@ owner: London Services
 
 **Known Issues**
 
-* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`.
+  This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand run-rule.
-
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html).
+  Do not select this choice as an errand run-rule.
+  For more information about this unexpected behavior,
+  see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ## Redis for PCF v1.9.4
 **September 22, 2017**
@@ -44,9 +47,13 @@ owner: London Services
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`.
+  This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html). Do not select this choice as an errand.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html).
+  Do not select this choice as an errand run-rule.
+  For more information about this unexpected behavior,
+  see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
