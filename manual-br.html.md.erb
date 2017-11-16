@@ -44,7 +44,7 @@ An example output from `bosh vms`:
 ![OpsManager VMs view](bosh_vms.jpeg)
 </ol>
 
-#### BOSH CLI v2: Connecting to the node
+#### BOSH CLI v2: Triggering a manual backup
 
 This procedure is for v2 of the BOSH CLI. 
 
@@ -52,7 +52,9 @@ This procedure is for v2 of the BOSH CLI.
 1. Switch to root using `sudo -i`.
 1. Run `/var/vcap/jobs/service-backup/bin/manual-backup` to trigger a manual backup.
 
-#### BOSH CLI v1: Connecting to the node
+#### BOSH CLI v1: Triggering a manual backup
+
+This procedure is for v1 of the BOSH CLI.
 
 1. Target the manifest of your deployed Redis with `bosh deployment PATH-TO-MANIFEST.yml`. If you do not have this file, you can download it by running `bosh download manifest DEPLOYMENT-NAME`.
 1. `bosh ssh` into the node you wish to back up (or the `cf-redis-broker` node in a `shared-vm` plan).
