@@ -30,25 +30,35 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
 
 Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups.
 
-* [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log in to your Ops Manager installation and target the Redis tile deployment.
-* Identify the VM which holds your instance by running `bosh vms`.
-  * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`. Running `manual-backup` will back up all of the shared-VM instances and the broker state in the `statefile.json` file.
-  * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`. Running `manual-backup` will back up the Redis dump.rdb file for that dedicated-VM instance.
-  * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings.
-
+<ol>
+<li>[Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log in to your Ops Manager installation and target the Redis tile deployment.</li>
+<li>Identify the VM which holds your instance by running <code>bosh vms</code>.<br />
+<ol>
+  <li>For the <code>shared-vm</code> plan this will be the job name containing <code>cf-redis-broker</code>. Running <code>manual-backup</code> will back up all of the shared-VM instances and the broker state in the <code>statefile.json</code> file.</li>
+  <li>For the <code>dedicated-vm</code> plan this will be the job name containing <code>dedicated-node</code>. Running <code>manual-backup</code> will back up the Redis dump.rdb file for that dedicated-VM instance.</li>
+  <li>You can identify the exact node for your <code>dedicated-vm</code> service instance by comparing the IP Address from your application bindings.</li>
+</ol>
+</li>
 An example output from `bosh vms`:
 
 ![OpsManager VMs view](bosh_vms.jpeg)
+</ol>
+
+#### BOSH CLI v2: Connecting to the node
+
+This procedure is for v2 of the BOSH CLI. 
+
+Connect to the node you wish to back up with `bosh -d DEPLOYMENT-NAME ssh`.
+
+#### BOSH CLI v1: Connecting to the node
 
 * Target the manifest of your deployed Redis with `bosh deployment PATH-TO-MANIFEST.yml`. If you do not have this file, you can download it by running `bosh download manifest DEPLOYMENT-NAME`.
 * `bosh ssh` into the node you wish to back up (or the `cf-redis-broker` node in a `shared-vm` plan).
 
-After you have connected to the node, a manual backup can be triggered with these steps:
+After you connect to the node, trigger a manual backup with these steps:
 
 1. Switch to root using `sudo -i`.
 1. Run `/var/vcap/jobs/service-backup/bin/manual-backup`
-
-<p class="note"><strong>Note:</strong> This procedure is the same for v1 and v2 of the BOSH CLI.</p>
 
 #### Notes
 
