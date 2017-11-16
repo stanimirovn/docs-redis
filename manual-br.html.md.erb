@@ -31,7 +31,7 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
 Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups.
 
 <ol>
-<li>[Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log in to your Ops Manager installation and target the Redis tile deployment.</li>
+<li><a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">Log in to Ops Manager</a> and target the Redis tile deployment.</li>
 <li>Identify the VM which holds your instance by running <code>bosh vms</code>.<br />
 <ol>
   <li>For the <code>shared-vm</code> plan this will be the job name containing <code>cf-redis-broker</code>. Running <code>manual-backup</code> will back up all of the shared-VM instances and the broker state in the <code>statefile.json</code> file.</li>
