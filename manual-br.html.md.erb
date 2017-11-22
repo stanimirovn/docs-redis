@@ -33,7 +33,7 @@ Backups of your Redis deployment will automatically occur per the Cron Schedule 
 <ol>
 <li><a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">Log in to Ops Manager</a> and target the Redis tile deployment.</li>
 <li>Identify the VM which holds your instance by running <code>bosh vms</code>.<br/> 
-<p class="note">For v2 of the BOSH CLI, run <code>bosh2 vms</code>.</p>
+<p class="note"><strong>Note:</strong> For v2 of the BOSH CLI, run <code>bosh2 vms</code>.</p>
 <ol>
   <li>For the <code>shared-vm</code> plan this will be the job name containing <code>cf-redis-broker</code>. Running <code>manual-backup</code> will back up all of the shared-VM instances and the broker state in the <code>statefile.json</code> file.</li>
   <li>For the <code>dedicated-vm</code> plan this will be the job name containing <code>dedicated-node</code>. Running <code>manual-backup</code> will back up the Redis dump.rdb file for that dedicated-VM instance.</li>
