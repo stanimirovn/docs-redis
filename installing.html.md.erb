@@ -32,9 +32,7 @@ If you wish to use Redis for PCF without the On-Demand service, you will still n
     Review the guidance to understand the resource implications for on-demand instances. See [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
 1. Select the **Allow outbound internet access from service instances** checkbox. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. 
-      Consult your Ops Manager administrator to ensure that your IaaS allows outbound traffic to the external networks you need. 
-      You can check whether a specific VM has external internet access by checking the <strong>Resource Config</strong> settings tab. 
-      VMs with external internet access have the <code>Internet Connected</code> checkbox ticked.</p>
+      Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
     You can configure up to three cache plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
