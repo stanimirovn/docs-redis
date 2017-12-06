@@ -288,3 +288,46 @@ ensure ownership and permissions are correct with
 1. Follow the instructions [here](#restore) for your plan, skipping the first three steps
 described here, for restoring your backed up Redis data.
 1. Your Redis instance is now recovered.
+
+## <a id="recovery"></a>Move data from a dedicated to on-demand instance
+
+For the following it is assumed that you already have a cf created dedicated and on-demand instance.
+The flow is:
+1. Identify and take a manual or automatic backup of the dedicated instance.
+1. Identify the deployment of the on-demand service
+1. Copy the rdb file created in step 1 to the instance identified in step 2
+1. Run the manual restore command on the on-demand instance
+
+### Identify an on-demand instance
+
+Using the cf cli find your service instance guid:
+
+```
+cf service <SERVICE_NAME> --guid
+```
+
+There should be a corresponding bosh deployment with the above guid in the name
+`service-instance_<GUID>`.
+
+You can ssh to the service-instance via:
+```
+bosh -d service-instance_<GUID> ssh
+```
+
+### Move dump file onto an on-demand instance
+You can move your backed up rdb file from your local machine to a service instance via `bosh scp`.
+We cannot scp a file directly into `/var/vcap/store` which is required for the restore script so this is a two step process.
+
+```
+bosh -d service-instance_<GUID> scp dump.rdb :/tmp/dump.rdb
+bosh -d service-instance_<GUID> ssh --command "sudo mv /tmp/dump.rdb /var/vcap/store/dump.rdb"
+```
+
+### Restore an on-demand instance
+1. ssh onto the on-demand service instance
+1. Run `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb`
+1. Tail the logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to show the progress. Eventually you should see a message that Redis data restore completed successfully
+
+### Debugging
+* Run the restore script with logLevel set to debug `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb --logLevel DEBUG`
+* Be aware that if the script only partially runs, it may have stopped other processes. Use `monit` to start them if needed.
