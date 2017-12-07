@@ -16,7 +16,7 @@ Backups of your Redis deployment will automatically occur per the Cron Schedule 
 * Identify the VM which holds your instance by running `bosh vms`.
   * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`. Running `manual-backup` will back up all of the shared-VM instances and the broker state in the `statefile.json` file.
   * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`. Running `manual-backup` will back up the Redis dump.rdb file for that dedicated-VM instance.
-  * You can identify the exact node for your `dedicated-vm` service instance by comparing the IP Address from your application bindings.
+  * You can identify the exact VM for your `dedicated-vm` service instance by comparing the IP Address from your application bindings. The IP can be found by running `cf env <APP_BOUND_TO_REDIS_INSTANCE>` and finding the corresponding host IP to your service instance. If you don't have an app bound to the dedicated instance, a service key can yield the host `cf create-service-key <DEDICATED_SERVICE_INSTANCE> mykey && cf service-key <DEDICATED_SERVICE_INSTANCE> mykey`
 
 An example output from `bosh vms`:
 
@@ -29,6 +29,7 @@ After you have connected to the node, a manual backup can be triggered with thes
 
 1. Switch to root using `sudo -i`.
 1. Run `/var/vcap/jobs/service-backup/bin/manual-backup`
+  * Note: This will only succeed if you have configured backups in the tile
 
 #### Notes
 
