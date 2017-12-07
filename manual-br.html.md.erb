@@ -326,7 +326,6 @@ bosh -d service-instance_<GUID> ssh --command "sudo mv /tmp/dump.rdb /var/vcap/s
 ### Restore an on-demand instance
 1. ssh onto the on-demand service instance
 1. Run `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb`
-1. Tail the logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to show the progress. Eventually you should see a message that Redis data restore completed successfully
 
 ### Debugging
 * Run the restore script with logLevel set to debug `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb --logLevel DEBUG`
