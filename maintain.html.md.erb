@@ -68,7 +68,7 @@ The above pre-delete errands are run by default whenever the Redis for PCF tile 
 
 ### <a id="turning-off"></a> Turning off Post-Deploy Errands
 
-Pivotal recommends that you running the post-deploy errands at any trigger of **Apply Changes**.
+Pivotal recommends that you run the post-deploy errands at any trigger of **Apply Changes**.
 However, this practice can extend the duration of applying changes by several minutes every time.
 This section helps you decide when it is safe to skip some post-deploy errands.
 
@@ -121,7 +121,18 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 ##  <a id="smoke"></a>Smoke Tests
 
 Ops Manager runs Redis for PCF smoke tests as a post-install errand.
-The operator can also run the smoke tests errand by running the command `bosh run errand smoke-tests`.
+You can also run the smoke tests errand using the following procedure:
+
+1. Retrieve the GUID of the service instance. For how to retrieve the GUID, follow the procedure in [Retrieve Service Instance Information](./troubleshoot-instances.html#instance).
+
+1. Run the smoke tests errand by running one of the following commands depending on your Ops Manager version:
+
+| Ops Manager Version | BOSH Command |
+|---------------------|-----------------|
+| 1.10 and earlier | `bosh run errand smoke-tests`. |
+| 1.11 and 1.12 | `bosh2 -d p-redis-GUID run-errand smoke-tests`|
+| 2.0 | `bosh -d p-redis-GUID run-errand smoke-tests` |
+
 For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 <p class="note"><strong>Note</strong>: Smoke tests fail unless you enable global default application security groups (ASGs).
