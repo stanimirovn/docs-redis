@@ -5,27 +5,26 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note</strong>: This topic applies only to Dedicated-VM and Shared-VM service plans.<br />
-These docs use the [BOSH v2 cli](https://bosh.io/docs/cli-v2.html), available as `bosh2` in the OpsManager versions 1.11+.
+<p class="note"><strong>Note</strong>: These docs use the [BOSH v2 cli](https://bosh.io/docs/cli-v2.html), available as `bosh2` in the OpsManager versions 1.11+.
 </p>
 
 
 
-## <a id="triggering"></a>Triggering a Manual Backup
+## <a id="triggering"></a>Triggering a Manual Backup for shared-vm, dedicated-vm
 
 Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups.
 
-* [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log in to your Ops Manager installation and target the Redis tile deployment.
-* Identify the VM which holds your instance by running `bosh2 vms`.
+1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to ssh onto your Ops Manager installation.
+1. [Retrieve](maintain.html#identify-p-redis) the deployment name of the installed Redis for PCF tile.
+1. Identify the node which holds your instance by running `bosh2 vms`.
   * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`. Running `manual-backup` will back up all of the shared-VM instances and the broker state in the `statefile.json` file.
   * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`. Running `manual-backup` will back up the Redis dump.rdb file for that dedicated-VM instance.
-  * You can identify the exact VM for your `dedicated-vm` service instance by comparing the IP Address from your application bindings. The IP can be found by running `cf env <APP_BOUND_TO_REDIS_INSTANCE>` and finding the corresponding host IP to your service instance. If you don't have an app bound to the dedicated instance, a service key can yield the host `cf create-service-key <DEDICATED_SERVICE_INSTANCE> mykey && cf service-key <DEDICATED_SERVICE_INSTANCE> mykey`
+  * You can identify the exact node for your `dedicated-vm` or on-demand service instance by comparing the IP Address from your application bindings. The IP can be found by running `cf env <APP_BOUND_TO_REDIS_INSTANCE>` and finding the corresponding host IP to your service instance. If you don't have an app bound to the dedicated instance, a service key can yield the host `cf create-service-key <DEDICATED_SERVICE_INSTANCE> mykey && cf service-key <DEDICATED_SERVICE_INSTANCE> mykey`
 
 An example output from `bosh2 vms`:
 
 ![OpsManager VMs view](bosh_vms.png)
 
-* [Retrieve](maintain.html#identify-p-redis) the deployment name of the installed product.
 * `bosh2 -d <redis-deployment-name> ssh <node>`, where `<node>` is the instance VM you wish to back up, or the `cf-redis-broker` node for a `shared-vm` instance.
 
 After you have connected to the node, a manual backup can be triggered with these steps:
@@ -33,6 +32,16 @@ After you have connected to the node, a manual backup can be triggered with thes
 1. Switch to root using `sudo -i`.
 1. Run `/var/vcap/jobs/service-backup/bin/manual-backup`
   * Note: This will only succeed if you have configured backups in the tile
+
+## <a id="triggering-on-demand"></a>Triggering a Manual Backup for an on-demand instance
+
+On-demand instances do not yet support backing up to a remote endpoint. However you can create a snapshot of the data on the instance by following the below steps:
+
+1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to ssh onto your Ops Manager installation.
+1. Identify your service instance guid by running `cf service <ON_DEMAND_SERVICE_INSTANCE> --guid`. The deployment name will be `service-instance_<ON_DEMAND_SERVICE_INSTANCE_GUID>`.
+1. SSH onto your service instance with `bosh2 -d service-instance_<ON_DEMAND_SERVICE_INSTANCE_GUID> ssh`. There is no need to specify the instance because each service instance deployment contains only a single instance.
+1. Create a snapshot by running `sudo /var/vcap/jobs/redis-backup/bin/backup --snapshot`
+This should create a new rdb file in `/var/vcap/store/redis-backup`.
 
 #### Notes
 
