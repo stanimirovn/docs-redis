@@ -31,7 +31,7 @@ If you wish to use Redis for PCF without the On-Demand service, you will still n
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the resource implications for on-demand instances. See [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
 1. Select the **Allow outbound internet access from service instances** checkbox. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
-  <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. 
+  <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
@@ -330,7 +330,7 @@ Follow these steps to configure syslog forwarding:
 
 1. Select either the **Yes without encryption** or the **Yes with TLS encryption** radio button.
 
-    <p class="note"><strong>Note:</strong> To use syslog for on-demand instances 
+    <p class="note"><strong>Note:</strong> To use syslog for on-demand instances
        you must enable outbound internet access in the <strong>On-Demand Service Settings</strong> tab.</p>
 
 1. Enter the Syslog address and port, and select the transport protocol of your remote destination.
@@ -367,7 +367,7 @@ The following ports and ranges are used in this service:
 | 6379                  | TCP                          | Outbound from CloudFoundry to any service instance networks (dedicated-node and on-demand)     | Access to all dedicated nodes and on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
 | 32768-61000           | TCP                          | Outbound from CloudFoundry to the cf-redis-broker service broker network                       | From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan. |
 | 80 or 443<br>(Typically) | http or https<br>respectively  | Outbound from any service instance networks                                                    | Access to the backup blobstore                                                                                             |
-| 8443<br>25555           | TCP                          | Outbound from any on-demand service broker network to the bosh director network                | For the on-demand service, the on-demand service broker needs to talk to `bosh director`                                    |
+| 8443<br>25555           | TCP                          | Outbound from any on-demand service broker network to the bosh director network                | For the on-demand service, the on-demand service broker needs to talk to the BOSH director                                    |
 
 \* Typically the service broker network and service instance network(s) are the same.
 
