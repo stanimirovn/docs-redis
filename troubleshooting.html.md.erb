@@ -56,11 +56,19 @@ This topic lists troubleshooting information relevant to Redis for PCF.
 </table>
 
 ## <a id="debugging"></a> Useful Debugging Information
-If you encounter an issue, here is a list of useful information to gather, especially before you perform any destructive operations such as `cf purge-service-offerings` or `bosh2 -d SERVICE-INSTANCE-DEPLOYMENT delete-deployment`.
 
-* Redis for PCF version
-* Previous Redis for PCF version if upgrading
-* Ops Manager version, and previous if upgrading Ops Manager
+If you encounter an issue, here is a list of useful information to gather,
+especially before you perform any destructive operations such as `cf purge-service-offerings`
+or `bosh2 -d SERVICE-INSTANCE-DEPLOYMENT delete-deployment`.
+
+Before debugging, ensure you know the following about your PCF deployment:
+
+* The version of Redis for PCF
+
+* If upgrading, the previous of Redis for PCF
+
+* Ops Manager version, and, if upgrading, the previous version of Ops Manager
+
 * IaaS description
 
 ### From OpsManager:
