@@ -124,16 +124,11 @@ Ops Manager runs Redis for PCF smoke tests as a post-install errand.
 You can also run the smoke tests errand using the following procedure:
 
 1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps: 
-  - From the OpsManager UI, click on the Redis for PCF tile. 
-  - Copy the part of the URL that starts with "p-redis-".
+  1. From the OpsManager UI, click on the Redis for PCF tile. 
+  1. Copy the part of the URL that starts with "p-redis-".
 
-1. Run the smoke tests errand by running one of the following commands depending on your Ops Manager version:
-
-    | Ops Manager Version | BOSH Command                                                |
-    |:--------------------|:------------------------------------------------------------|
-    | 1.10 and earlier    | `bosh run errand smoke-tests`.                              |
-    | 1.11 and 1.12       | `bosh2 -d REDIS-DEPLOYMENT-NAME run-errand smoke-tests` |
-    | 2.0                 | `bosh -d REDIS-DEPLOYMENT-NAME run-errand smoke-tests`  |
+1. Run the smoke tests errand: <br>
+`bosh2 -d REDIS-DEPLOYMENT-NAME run-errand smoke-tests`
 
 For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
