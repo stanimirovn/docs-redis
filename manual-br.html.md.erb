@@ -6,33 +6,71 @@ owner: London Services
 <strong><%= modified_date %></strong>
 
 <p class="note"><strong>Note</strong>: This topic applies only to Dedicated-VM and Shared-VM service plans.<br />
-These docs use the [BOSH v2 cli](https://bosh.io/docs/cli-v2.html), available as `bosh2` in the OpsManager versions 1.11+.
+This topic uses the <a href="https://bosh.io/docs/cli-v2.html">BOSH v2 cli</a>, available as <code>bosh2</code> in the OpsManager versions 1.11 and later.
 </p>
 
 
 
 ## <a id="triggering"></a>Triggering a Manual Backup
 
-Backups of your Redis deployment will automatically occur per the Cron Schedule you set in your deployment. You can trigger manual backups at any time by following the steps below. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups.
+Backups of your Redis deployment will occur automatically per the Cron Schedule you set in your deployment. You can trigger manual backups at any time. For the <code>shared-vm</code> plan, running <code>manual-backup</code> will back up all of the <code>shared-VM</code> instances and the broker state in the <code>statefile.json</code> file. For the <code>dedicated-vm</code> plan, running <code>manual-backup</code> will back up the Redis dump.rdb file for that <code>dedicated-VM</code> instance. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups. To trigger a manual backup follow the steps below:
 
-* [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to log in to your Ops Manager installation and target the Redis tile deployment.
-* Identify the VM which holds your instance by running `bosh2 vms`.
-  * For the `shared-vm` plan this will be the job name containing `cf-redis-broker`. Running `manual-backup` will back up all of the shared-VM instances and the broker state in the `statefile.json` file.
-  * For the `dedicated-vm` plan this will be the job name containing `dedicated-node`. Running `manual-backup` will back up the Redis dump.rdb file for that dedicated-VM instance.
-  * You can identify the exact VM for your `dedicated-vm` service instance by comparing the IP Address from your application bindings. The IP can be found by running `cf env <APP_BOUND_TO_REDIS_INSTANCE>` and finding the corresponding host IP to your service instance. If you don't have an app bound to the dedicated instance, a service key can yield the host `cf create-service-key <DEDICATED_SERVICE_INSTANCE> mykey && cf service-key <DEDICATED_SERVICE_INSTANCE> mykey`
+<ol>
+  <li>
+    Log in to your Ops Manager installation and target the Redis tile deployment. For how to do this, follow the steps in <a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">SSH into Ops Manager</a>.
+  </li>
+  <li>
+    Identify the node which holds the instance you want to back up by running <code>bosh2 vms</code>.  
+    <ul>
+      <li>
+        For the <code>shared-vm</code> plan, this will be the job name containing <code>cf-redis-broker</code>. 
+      </li>
+      <li>
+        For the <code>dedicated-vm</code> plan, this will be the job name containing <code>dedicated-node</code>. 
+      </li>
+    </ul>
+      
+  An example output from <code>bosh2 vms</code>:
+  <img src="images/bosh_vms.png" alt="OpsManager VM view">
 
-An example output from `bosh2 vms`:
-
-![OpsManager VMs view](bosh_vms.png)
-
-* [Retrieve](maintain.html#identify-p-redis) the deployment name of the installed product.
-* `bosh2 -d <redis-deployment-name> ssh <node>`, where `<node>` is the instance VM you wish to back up, or the `cf-redis-broker` node for a `shared-vm` instance.
-
-After you have connected to the node, a manual backup can be triggered with these steps:
-
-1. Switch to root using `sudo -i`.
-1. Run `/var/vcap/jobs/service-backup/bin/manual-backup`
-  * Note: This will only succeed if you have configured backups in the tile
+  </li>
+  <li> 
+    If you have <code>dedicated-vm</code> service instances, identify the exact instance node by comparing the IP address from your application bindings to the corresponding IP address in the output of step 2.
+    To find the IP address for your bound applications:<br>
+    <ul>
+      <li>
+        Run <code>cf env APP-BOUND-TO-REDIS-INSTANCE</code>
+      </li>
+      <li>
+        If you do not have an app bound to the dedicated instance, run the following command to create a service key and retrieve the host IP address:<br>
+        <code>cf create-service-key DEDICATED-SERVICE-INSTANCE mykey && cf service-key DEDICATED-SERVICE-INSTANCE mykey</code>
+      </li>
+    </ul>
+  </li>
+  <li> 
+    Retrieve the deployment name of the installed product. To find the deployment name, do the following steps: 
+    <ol type="a">
+      <li>From the OpsManager UI, click on the Redis for PCF tile. </li>
+      <li>Copy the part of the URL that starts with "p-redis-". </li>
+    </ol>
+  </li>
+  <li>
+    Run the following command to BOSH <code>ssh</code> into the node: <br> 
+    <code>bosh2 -d REDIS-DEPLOYMENT-NAME ssh NODE</code><br><br>
+    Where: 
+    <ul>
+      <li>For a <code>shared-vm</code> instance, <code>NODE</code> is the <code>cf-redis-broker</code> node.</li>
+      <li>For a <code>dedicated-vm</code> instance, <code>NODE</code> is the instance node you want to back up.</li>
+   </ul>
+ </li>
+  <li>
+    Switch to root using `sudo -i`.
+  </li>
+  <li>
+    Run <code>/var/vcap/jobs/service-backup/bin/manual-backup</code>.
+  </li>
+ </ol>
+<p class="note"><strong>Note: </strong>This will only succeed if you have configured backups in the tile</p>
 
 #### Notes
 
@@ -90,10 +128,10 @@ The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 
 #### Steps to Backup
 
-* `bosh2 ssh` into your desired node. See the above section on [identifying the correct VM](#triggering).
-* Change to root using `sudo -i`.
-* Copy the contents of the `/var/vcap/store/redis` directory to a .zip or .tar file.
-* Backup the folder / compressed file to your chosen location.
+1. `bosh2 ssh` into your desired node. See the above section on [identifying the correct VM](#triggering).
+1. Change to root using `sudo -i`.
+1. Copy the contents of the `/var/vcap/store/redis` directory to a .zip or .tar file.
+1. Backup the folder / compressed file to your chosen location.
 
 The backup file will be named `dump.rdb`.
 
