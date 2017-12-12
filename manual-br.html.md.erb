@@ -6,16 +6,25 @@ owner: London Services
 <strong><%= modified_date %></strong>
 
 <p class="note"><strong>Note</strong>: This topic applies only to Dedicated-VM and Shared-VM service plans.<br />
-This topic uses the <a href="https://bosh.io/docs/cli-v2.html">BOSH v2 cli</a>, available as <code>bosh2</code> in the OpsManager versions 1.11 and later.
+This topic uses the <a href="https://bosh.io/docs/cli-v2.html">BOSH CLI v2</a>,
+available as <code>bosh2</code> in the Ops Manager v1.11 and later.
 </p>
 
-## <a id="triggering"></a>Triggering a Manual Backup for shared-vm, dedicated-vm
+## <a id="triggering"></a>Trigger a Manual Backup for a Shared-VM or Dedicated-VM Plan
 
-Backups of your Redis deployment will occur automatically per the Cron Schedule you set in your deployment. You can trigger manual backups at any time. For the <code>shared-vm</code> plan, running <code>manual-backup</code> will back up all of the <code>shared-VM</code> instances and the broker state in the <code>statefile.json</code> file. For the <code>dedicated-vm</code> plan, running <code>manual-backup</code> will back up the Redis dump.rdb file for that <code>dedicated-VM</code> instance. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups. To trigger a manual backup follow the steps below:
+Backups of your Redis deployment will occur automatically per the Cron Schedule you set in your deployment.
+You can trigger manual backups at any time.
+For the <code>shared-vm</code> plan, running <code>manual-backup</code> backs up all of the <code>shared-VM</code> instances
+and the broker state in the <code>statefile.json</code> file.
+For the <code>dedicated-vm</code> plan, running <code>manual-backup</code> backs up the Redis `dump.rdb` file
+for that <code>dedicated-VM</code> instance.
+The backup artifacts are sent to the destination configured in Ops Manager for automatic backups.
+To trigger a manual backup follow the steps below:
 
 <ol>
   <li>
-    Log in to your Ops Manager installation and target the Redis tile deployment. For how to do this, follow the steps in <a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">SSH into Ops Manager</a>.
+    Log in to your Ops Manager installation and target the Redis tile deployment.
+    For how to do this, follow the steps in <a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">SSH into Ops Manager</a>.
   </li>
   <li>
     Identify the node which holds the instance you want to back up by running <code>bosh2 vms</code>.  
@@ -33,14 +42,16 @@ Backups of your Redis deployment will occur automatically per the Cron Schedule 
 
   </li>
   <li> 
-    If you have <code>dedicated-vm</code> service instances, identify the exact instance node by comparing the IP address from your application bindings to the corresponding IP address in the output of step 2.
-    To find the IP address for your bound applications:<br>
+    If you have <code>dedicated-vm</code> service instances,
+    identify the exact instance node by comparing the IP address from your application bindings to the corresponding IP address in the output of step 2.
+    To find the IP address for your bound apps:<br>
     <ul>
       <li>
         Run <code>cf env APP-BOUND-TO-REDIS-INSTANCE</code>
       </li>
       <li>
-        If you do not have an app bound to the dedicated instance, run the following command to create a service key and retrieve the host IP address:<br>
+        If you do not have an app bound to the dedicated instance,
+        run the following command to create a service key and retrieve the host IP address:<br>
         <code>cf create-service-key DEDICATED-SERVICE-INSTANCE mykey && cf service-key DEDICATED-SERVICE-INSTANCE mykey</code>
       </li>
     </ul>
@@ -68,25 +79,32 @@ Backups of your Redis deployment will occur automatically per the Cron Schedule 
     Run <code>/var/vcap/jobs/service-backup/bin/manual-backup</code>.
   </li>
  </ol>
-<p class="note"><strong>Note: </strong>This will only succeed if you have configured backups in the tile</p>
+<p class="note"><strong>Note: </strong>This only succeeds if you have configured backups in the tile.</p>
 
-## <a id="triggering-on-demand"></a>Triggering a Manual Backup for an on-demand instance
+## <a id="triggering-on-demand"></a>Trigger a Manual Backup for an On-Demand Instance
 
-On-demand instances do not yet support backing up to a remote endpoint. However you can create a snapshot of the data on the instance by following the below steps:
+On-demand instances do not yet support backing up to a remote endpoint.
+However, you can create a snapshot of the data on the instance by following the below steps:
 
-1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to ssh onto your Ops Manager installation.
-1. Identify your service instance guid by running `cf service <ON_DEMAND_SERVICE_INSTANCE> --guid`. The deployment name will be `service-instance_<ON_DEMAND_SERVICE_INSTANCE_GUID>`.
-1. SSH onto your service instance with `bosh2 -d service-instance_<ON_DEMAND_SERVICE_INSTANCE_GUID> ssh`. There is no need to specify the instance because each service instance deployment contains only a single instance.
+1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to SSH onto your Ops Manager installation.
+1. Identify your service instance guid by running `cf service ON-DEMAND-SERVICE-INSTANCE --guid`.
+   The deployment name will be `service-instance_ON-DEMAND-SERVICE-INSTANCE-GUID`.
+1. SSH onto your service instance with `bosh2 -d service-instance_ON-DEMAND-SERVICE-INSTANCE-GUID ssh`.
+   There is no need to specify the instance because each service instance deployment contains only a single instance.
 1. Create a snapshot by running `sudo /var/vcap/jobs/redis-backup/bin/backup --snapshot`
 This should create a new rdb file in `/var/vcap/store/redis-backup`.
 
 #### Notes
 
-Triggering a manual backup of a large dump.rdb could take sufficiently long that your SSH connection will timeout. Ensure that you have given yourself enough of a timeout to complete the backup.
+Triggering a manual backup of a large dump.rdb can take so long that your SSH connection times out. 
+Ensure that you have given yourself enough of a timeout to complete the backup.
 
 Back ups are currently not available for On-Demand instances.
 
-As of v1.8.2, backups can be to all AWS S3 regions (previously limited to the standard region, us-east-1). This requires specifying the region of your backup and the signature version used for your region. You can find this information [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region). In most cases the default signature version will be sufficient.
+As of v1.8.2, backups can be to all AWS S3 regions (previously limited to the standard region, us-east-1).
+This requires specifying the region of your backup and the signature version used for your region.
+You can find this information [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
+In most cases, the default signature version is sufficient.
 
 
 ## Making Your Own Backups
@@ -102,20 +120,27 @@ save 60 10000
 
 ### Shared-VM Plan
 
-You can either take the latest RDB file held on disk, which is generated by the above the rules, or trigger a recent update by using the `redis-cli` to trigger a `BGSAVE`. Credentials to log in to the `redis-cli` can be obtained from `VCAP_SERVICES` for your bound application.
+You can either take the latest RDB file held on disk, which is generated by the above the rules,
+or trigger a recent update by using the `redis-cli` to trigger a `BGSAVE`.
+Credentials to log in to the `redis-cli` can be obtained from `VCAP_SERVICES` for your bound app.
 
 The `redis-cli` is located in `/var/vcap/packages/redis/bin/redis-cli`.
 
-On this plan, the `BGSAVE` command is aliased to a random string. This can be obtained from Ops Manager in the credentials tab.
+On this plan, the `BGSAVE` command is aliased to a random string.
+This can be obtained from Ops Manager in the credentials tab.
 
 #### Steps to Backup
 
 1. `bosh2 ssh` into your desired node. See the above section on [identifying the correct VM](#triggering).
+
 1. Change to root using `sudo -i`.
+
 1. Copy the contents of the `/var/vcap/store/cf-redis-broker` directory to a .zip or .tar file.
+
 1. Backup the folder / compressed file to your chosen location.
 
-The `/var/vcap/store/cf-redis-broker` has sub-directories for each instance created of this plan. The backup file for each instance is called `dump.rdb`.
+The `/var/vcap/store/cf-redis-broker` has sub-directories for each instance created of this plan.
+The backup file for each instance is called `dump.rdb`.
 
 For example, here are two instances:
 <pre class=terminal>
@@ -131,14 +156,19 @@ root@66358f3e-3428-46df-9bb3-9acc7770b188:/var/vcap/store/cf-redis-broker# find 
 
 ### Dedicated-VM Plan
 
-You can either take the latest RDB file on disk, as generated by the above rules, or trigger a more recent RDB file by executing the `BGSAVE` command using the `redis-cli`. Credentials can be obtained from the `VCAP_SERVICES` from your bound application.
+You can either take the latest RDB file on disk, as generated by the above rules,
+or trigger a more recent RDB file by executing the `BGSAVE` command using the `redis-cli`.
+Credentials can be obtained from the `VCAP_SERVICES` from your bound app.
 The `redis-cli` can be found in `/var/vcap/packages/redis/bin/redis-cli`.
 
 #### Steps to Backup
 
 1. `bosh2 ssh` into your desired node. See the above section on [identifying the correct VM](#triggering).
+
 1. Change to root using `sudo -i`.
+
 1. Copy the contents of the `/var/vcap/store/redis` directory to a .zip or .tar file.
+
 1. Backup the folder / compressed file to your chosen location.
 
 The backup file will be named `dump.rdb`.
@@ -146,10 +176,11 @@ The backup file will be named `dump.rdb`.
 ## <a id="restore"></a>Restore Redis Instance from a Backup
 
 ### To a Local System
+
 You can choose to restore the RDB file to a local Redis instance.
 
 The steps to do this depend on your configuration and setup.
-Refer to the [Redis documentation](http://redis.io/documentation) for more details.
+For more information, see the [Redis documentation](http://redis.io/documentation).
 
 ### To Pivotal Cloud Foundry
 
@@ -158,76 +189,111 @@ You can also restore your backup file to another instance of the `Redis for PCF`
 #### Prerequisites
 
 * Same resource configuration as the instance from which you backed up.
-* Ensure that the persistent disk is large enough to accommodate the temporary files used during the restore process. It should be **3.5x the amount of RAM in the VM**.
+
+* Ensure that the persistent disk is large enough to accommodate the temporary files used during the restore process.
+  It should be **3.5x the amount of RAM in the VM**.
 
 To restore your backup file to another instance of a `Redis for PCF` tile service instance:
 
-1. Create a new instance of the plan that you wish to restore to.
-1. Identify the VM which the instance of your plan is located on by following the steps from the `Manual Backups` section above. If you are restoring an instance of `shared-vm`, this VM is the broker VM.
+1. Create a new instance of the plan that you want to restore to.
+
+1. Identify the VM which the instance of your plan is located on by following the steps from the `Manual Backups` section above.
+   If you are restoring an instance of `shared-vm`, this VM is the broker VM.
+
 1. `bosh2 ssh` into the identified VM. This is the broker VM if restoring a `shared-vm` instance.
 
 Redis for PCF v1.7 and later provides a script to automatically restore data in a newly provisioned Redis instance.
 
 #### Preparation
 1. Transfer your backup RDB file to a local path on the VM (`PATH-TO-RDB-BACKUP-ON-VM` has to be under `/var/vcap/store`.
-1. To verify that the RDB file hasn't been corrupted, run `md5sum PATH-TO-RDB-BACKUP-ON-VM` and compare it against the contents of the `.md5` file named after the backup file. The values should be the same. The `.md5` file is located in the same bucket as the original backup file.
+
+1. To verify that the RDB file hasn't been corrupted, run `md5sum PATH-TO-RDB-BACKUP-ON-VM`
+   and compare it against the contents of the `.md5` file named after the backup file.
+   The values should be the same.
+   The `.md5` file is located in the same bucket as the original backup file.
+
 1. Switch to root user `sudo su`
 
 ### Dedicated-VM Plan
-The restore script will restore the data for the specified dedicated-VM instance.
+
+The restore script restores the data for the specified dedicated-VM instance.
 
 #### Execution
+
 1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-BACKUP-ON-VM`
-1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`
+
+1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress.
+   When the data restore has been successfully completed, you see the message `Redis data restore completed successfully`.
 
 #### Debugging
 
-The data restore script runs the steps listed below. It logs its process along the way and provides helpful messages in case of failure.
+The data restore script runs the steps listed below.
+It logs its process along the way and provides helpful messages in case of failure.
 
 The script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
 If a step has failed, resolve the reason that caused it to fail and execute the failed step and every next step manually.
 You can retrieve `{instance_password}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
 
 1. **`StopAll`** <br />
-Run `monit stop all`
+   Run `monit stop all`
+
 1. **`WaitForStop`** <br />
-Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+   Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+
 1. **`DeleteExistingPersistenceFiles`** <br />
 Clean up existing Redis data files:
   - `rm -f /var/vcap/store/redis/appendonly.aof`
   - `rm -f /var/vcap/store/redis/dump.rdb`
+
 1. **`CopyBackupFileWithCorrectPermissions`** <br />
-Restore your Redis backup file to `/var/vcap/store/redis/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
+   Restore your Redis backup file to `/var/vcap/store/redis/dump.rdb`
+   and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
+
 1. **`SetAppendOnly`** <br />
-`Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
+   `Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
   -  `appendonly yes` -> `appendonly no`
+
 1. **`StartAll`** <br />
-Run `monit start all`
+   Run `monit start all`
+
 1. **`WaitForStart`** <br />
-Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
+   Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
+
 1. **`RewriteAOF`** <br />
-Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
+   Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
+
 1. **`RewriteAOF`** <br />
-Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
+   Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"`
+   until `aof_rewrite_in_progress` is `0`
+
 1. **`StopAll`** <br />
-Run `monit stop all`
+   Run `monit stop all`
+
 1. **`WaitForStop`** <br />
-Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+   Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+
 1. **`ChownToUserAndGroup`** <br />
-Set correct owner on `appendonly.aof` by running `chown vcap:vcap /var/vcap/store/redis/appendonly.aof`
+   Set correct owner on `appendonly.aof` by running `chown vcap:vcap /var/vcap/store/redis/appendonly.aof`
+
 1. **`SetAppendOnly`** <br />
-Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
-  -  `appendonly no` -> `appendonly yes`
+   Edit the template Redis config file with `vim $(find /var/vcap/data/jobs/ -name redis.conf)` and make the following line changes:
+     -  `appendonly no` -> `appendonly yes`
+
 1. **`StartAll`** <br />
-Run `monit start all`
+   Run `monit start all`
 
 ### Shared-VM Plan
+
 The restore script will restore the data for the specified shared-VM instance.
 
 #### Execution
+
 1. Retrieve `{instance_guid}` by running: `cf service {instance_name} --guid`
+
 1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB {path-to-rdb-backup-on-vm} --sharedVmGuid {instance_guid}`
-1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress. When the data restore has been successfully completed, you will see the message `Redis data restore completed successfully`
+
+1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress.
+   When the data restore has been successfully completed, you see the message `Redis data restore completed successfully`
 
 #### Debugging
 
@@ -238,51 +304,74 @@ If a step has failed, resolve the reason that caused it to fail and execute the 
 You can retrieve `{instance_password}` and `{port}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
 
 1. **`StopAll`** <br />
-Run `monit stop all`
+   Run `monit stop all`
+
 1. **`WaitForStop`** <br />
-Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+   Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+
 1. **`SetConfigCommand`** <br />
-Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and comment out the line:
+   Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and comment out the line:
   - `rename-command CONFIG "configalias"` -> `#rename-command CONFIG "configalias"`
+
 1. **`SetRewriteCommand`** <br />
-Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and comment out the line:
+   Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and comment out the line:
   - `rename-command BGREWRITEAOF ""` -> `#rename-command BGREWRITEAOF ""`
+
 1. **`DeleteExistingPersistenceFiles`** <br />
-Clean up existing Redis data files if they exist:
+   Clean up existing Redis data files if they exist:
   - `rm -f /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/appendonly.aof`
   - `rm -f /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb`
-1. **`CopyBackupFileWithCorrectPermissions`** <br />
-Restore your Redis backup file to `/var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb` and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb && chmod 660 /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb`
-1. **`SetAppendOnly`** <br />
-Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and make the following line changes:
-  -  `appendonly yes` -> `appendonly no`
-1. **`StartAll`** <br />
-Run `monit start all`
-1. **`WaitForStart`** <br />
-Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
-1. **`RewriteAOF`** <br />
-Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
-1. **`RewriteAOF`** <br />
-Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"` until `aof_rewrite_in_progress` is `0`
-1. **`StopAll`** <br />
-Run `monit stop all`
-1. **`WaitForStop`** <br />
-Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
-1. **`ChownToUserAndGroup`** <br />
-Set correct owner on `appendonly.aof` by running `chown vcap:vcap /var/vcap/store/redis/appendonly.aof`
-1. **`SetAppendOnly`** <br />
-Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and make the following line changes:
-  -  `appendonly no` -> `appendonly yes`
-1. **`SetConfigCommand`** <br />
-Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and uncomment the line:
-  `#rename-command CONFIG "configalias"` -> `rename-command CONFIG "configalias"`
-1. **`SetRewriteCommand`** <br />
-Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf` and uncomment the line:
-  `#rename-command BGREWRITEAOF ""` -> `rename-command BGREWRITEAOF ""`
-1. **`StartAll`** <br />
-Run `monit start all`
 
-## <a id="recovery"></a>Recovering Redis Instances
+1. **`CopyBackupFileWithCorrectPermissions`** <br />
+   Restore your Redis backup file to `/var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb`
+   and correct the owner and permissions with `chown vcap:vcap /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb && chmod 660 /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/db/dump.rdb`
+
+1. **`SetAppendOnly`** <br />
+   Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf`
+   and make the following line changes:
+  -  `appendonly yes` -> `appendonly no`
+
+1. **`StartAll`** <br />
+   Run `monit start all`
+
+1. **`WaitForStart`** <br />
+   Wait for monit services to enter the `running` state, you can watch this with `watch monit summary`
+
+1. **`RewriteAOF`** <br />
+   Run `/var/vcap/packages/redis/bin/redis-cli -a {instance_password} BGREWRITEAOF`
+
+1. **`RewriteAOF`** <br />
+   Run `watch "/var/vcap/packages/redis/bin/redis-cli -a {instance_password} INFO | grep aof_rewrite_in_progress"`
+   until `aof_rewrite_in_progress` is `0`
+
+1. **`StopAll`** <br />
+   Run `monit stop all`
+
+1. **`WaitForStop`** <br />
+   Wait for monit services to enter the `not monitored` state, you can watch this with `watch monit summary`
+
+1. **`ChownToUserAndGroup`** <br />
+   Set correct owner on `appendonly.aof` by running `chown vcap:vcap /var/vcap/store/redis/appendonly.aof`
+
+1. **`SetAppendOnly`** <br />
+   Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf`
+   and make the following line changes:
+  -  `appendonly no` -> `appendonly yes`
+
+1. **`SetConfigCommand`** <br />
+   Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf`
+   and uncomment the line:
+  `#rename-command CONFIG "configalias"` -> `rename-command CONFIG "configalias"`
+
+1. **`SetRewriteCommand`** <br />
+   Edit the template Redis config file with `vim /var/vcap/store/cf-redis-broker/redis-data/{instance_guid}/redis.conf`
+   and uncomment the line:
+  `#rename-command BGREWRITEAOF ""` -> `rename-command BGREWRITEAOF ""`
+
+1. **`StartAll`** <br />
+   Run `monit start all`
+
+## <a id="recovery"></a>Recover Redis Instances
 
 In the event of a recovery of Cloud Foundry, it is possible to recover bound
 Redis instances to healthy states that are in sync with Cloud Foundry. There are
@@ -293,14 +382,17 @@ depend on your plan.
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured.
+
 * You need a backed up `/var/vcap/store/cf-redis-broker/redis-data` directory
 from the service broker node. You do not need to backup and `*.aof` or
+
 `*.rdb` files from subdirectories if you have backups configured.
 
 ### Dedicated-VM Plan Caveats
 
 * You need a backed up RDB Redis dump file - this would be stored in your S3
 buckets if you have backups configured.
+
 * You need a backed up `/var/vcap/store/redis/statefile.json` from the service
 broker node.
 
@@ -329,54 +421,67 @@ four steps described here, for restoring your backed up Redis data.
 #### Dedicated-VM Plan
 
 1. `bosh2 ssh` into the service broker node of your Redis deployment.
+
 1. Run `monit stop all`
+
 1. Wait for monit services to enter the `not monitored` state, you can watch
 this with `watch monit summary`
+
 1. Copy the backed up `/var/vcap/store/cf-redis-broker/statefile.json` and
 ensure ownership and permissions are correct with
 `chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
+
 1. Follow the instructions [here](#restore) for your plan, skipping the first three steps
 described here, for restoring your backed up Redis data.
+
 1. Your Redis instance is now recovered.
 
-## <a id="recovery"></a>Move data from a dedicated to on-demand instance
+## <a id="recovery"></a>Move Data from a Dedicated to On-Demand Instance
 
 For the following it is assumed that you already have a cf created dedicated and on-demand instance.
 The flow is:
+
 1. Identify and take a manual or automatic backup of the dedicated instance.
-1. Identify the deployment of the on-demand service
-1. Copy the rdb file created in step 1 to the instance identified in step 2
-1. Run the manual restore command on the on-demand instance
 
-### Identify an on-demand instance
+1. Identify the deployment of the on-demand service.
 
-Using the cf cli find your service instance guid:
+1. Copy the rdb file created in step 1 to the instance identified in step 2.
+
+1. Run the manual restore command on the on-demand instance.
+
+### Identify an On-Demand Instance
+
+Using the cf CLI find your service instance guid:
 
 ```
-cf service <SERVICE_NAME> --guid
+cf service SERVICE-NAME --guid
 ```
 
 There should be a corresponding bosh deployment with the above guid in the name
-`service-instance_<GUID>`.
+`service-instance_GUID`.
 
-You can ssh to the service-instance via:
+You can SSH to the service-instance via:
 ```
-bosh -d service-instance_<GUID> ssh
+bosh -d service-instance_GUID ssh
 ```
 
 ### Move dump file onto an on-demand instance
 You can move your backed up rdb file from your local machine to a service instance via `bosh scp`.
-We cannot scp a file directly into `/var/vcap/store` which is required for the restore script so this is a two step process.
+You cannot scp a file directly into `/var/vcap/store` which is required for the restore script so this is a two step process.
 
 ```
-bosh -d service-instance_<GUID> scp dump.rdb :/tmp/dump.rdb
-bosh -d service-instance_<GUID> ssh --command "sudo mv /tmp/dump.rdb /var/vcap/store/dump.rdb"
+bosh -d service-instance_GUID scp dump.rdb :/tmp/dump.rdb
+bosh -d service-instance_GUID ssh --command "sudo mv /tmp/dump.rdb /var/vcap/store/dump.rdb"
 ```
 
-### Restore an on-demand instance
-1. ssh onto the on-demand service instance
+### Restore an On-Demand Instance
+
+1. SSH onto the on-demand service instance.
+
 1. Run `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb`
 
 ### Debugging
+
 * Run the restore script with logLevel set to debug `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb --logLevel DEBUG`
-* Be aware that if the script only partially runs, it may have stopped other processes. Use `monit` to start them if needed.
+* Be aware that if the script only partially runs, it may have stopped other processes.
+  Use `monit` to start them if needed.
