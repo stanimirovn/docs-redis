@@ -9,9 +9,7 @@ owner: London Services
 This topic uses the <a href="https://bosh.io/docs/cli-v2.html">BOSH v2 cli</a>, available as <code>bosh2</code> in the OpsManager versions 1.11 and later.
 </p>
 
-
-
-## <a id="triggering"></a>Triggering a Manual Backup
+## <a id="triggering"></a>Triggering a Manual Backup for shared-vm, dedicated-vm
 
 Backups of your Redis deployment will occur automatically per the Cron Schedule you set in your deployment. You can trigger manual backups at any time. For the <code>shared-vm</code> plan, running <code>manual-backup</code> will back up all of the <code>shared-VM</code> instances and the broker state in the <code>statefile.json</code> file. For the <code>dedicated-vm</code> plan, running <code>manual-backup</code> will back up the Redis dump.rdb file for that <code>dedicated-VM</code> instance. The backup artifacts will be sent to the destination configured in Ops Manager for automatic backups. To trigger a manual backup follow the steps below:
 
@@ -71,6 +69,16 @@ Backups of your Redis deployment will occur automatically per the Cron Schedule 
   </li>
  </ol>
 <p class="note"><strong>Note: </strong>This will only succeed if you have configured backups in the tile</p>
+
+## <a id="triggering-on-demand"></a>Triggering a Manual Backup for an on-demand instance
+
+On-demand instances do not yet support backing up to a remote endpoint. However you can create a snapshot of the data on the instance by following the below steps:
+
+1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to ssh onto your Ops Manager installation.
+1. Identify your service instance guid by running `cf service <ON_DEMAND_SERVICE_INSTANCE> --guid`. The deployment name will be `service-instance_<ON_DEMAND_SERVICE_INSTANCE_GUID>`.
+1. SSH onto your service instance with `bosh2 -d service-instance_<ON_DEMAND_SERVICE_INSTANCE_GUID> ssh`. There is no need to specify the instance because each service instance deployment contains only a single instance.
+1. Create a snapshot by running `sudo /var/vcap/jobs/redis-backup/bin/backup --snapshot`
+This should create a new rdb file in `/var/vcap/store/redis-backup`.
 
 #### Notes
 
