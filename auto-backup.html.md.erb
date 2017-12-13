@@ -8,7 +8,7 @@ owner: London Services
 ## <a id="backup"></a>Creating Backups of Redis Instances
 
 You can configure backups to be run for all instances, across dedicated-VM and shared-VM service plans.
-**Backups are not available for On-Demand instances.**
+**Automatic Backups are not available for On-Demand instances.**
 
 The key features are:
 
@@ -113,4 +113,3 @@ Redis for PCF uses service account credentials to upload backups to Google Cloud
 #### Notes
 
 For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. Redis' BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.
-

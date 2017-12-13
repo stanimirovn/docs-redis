@@ -5,9 +5,9 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for PCF offers On-Demand, Dedicated-VM, and Shared-VM service plans. 
-This section describes the architecture, lifecycle, and configurations of the on-demand plan, 
-as well as networking information for the on-demand service. 
+Redis for PCF offers On-Demand, Dedicated-VM, and Shared-VM service plans.
+This section describes the architecture, lifecycle, and configurations of the on-demand plan,
+as well as networking information for the on-demand service.
 For similar information for the Dedicated-VM and Shared-VM plans, see [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html).
 
 
@@ -37,7 +37,7 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 * The service plans are operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * Operators can update the cache plan settings, including the VM size and disk size, after the plans have been created.
 * Operators and app developers can change certain Redis configurations from the default. See [Configuration for On-Demand Service Plans](#config) for more information.
-* The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies. 
+* The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
 * The maximum number of instances is managed by a per-plan and global quota. The maximum number of instances cannot surpass 50.
 
 
@@ -50,7 +50,7 @@ For on-demand plans, certain Redis configurations can be set by the operator dur
 
 The Redis settings that an operator can configure in the tile UI include:
 
-* Redis Client Timeout 
+* Redis Client Timeout
 * Redis TCP Keepalive
 * Max Clients
 * Lua Scripting
@@ -67,7 +67,7 @@ The Redis settings that an app developer can configure include:
 * `slowlog-log-slower-than`
 * `slowlog-max-len`.
 
-For more information, see [Customize an On-Demand Service Instance](./using.html#custom). 
+For more information, see [Customize an On-Demand Service Instance](./using.html#custom).
 
 ### <a id="opnotes"></a> Operator Notes for On-Demand Service Plans
 
@@ -86,9 +86,9 @@ Limitations for the On-Demand Service include:
 
 * If the operator updates the VM size, disk size, or the Redis configuration settings
   (enabling Lua Scripting, max-clients, timeout, and TCP keep-alive),
-  these settings are implemented in all instances already created. 
+  these settings are implemented in all instances already created.
 
-* Backups are not available for on-demand plans.
+* Automatic backups are not available for on-demand plans.
 
 ## <a id="resource"></a> Resource Usage Planning for On-Demand Plans
 
@@ -125,5 +125,3 @@ To calculate the current IaaS cost/ usage across on-demand plans:
 Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 ![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)
-
-
