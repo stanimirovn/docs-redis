@@ -5,20 +5,24 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note</strong>: This topic applies only to Dedicated-VM and Shared-VM service plans.<br />
+<p class="note"><strong>Note</strong>: 
 This topic uses the <a href="https://bosh.io/docs/cli-v2.html">BOSH CLI v2</a>,
 available as <code>bosh2</code> in the Ops Manager v1.11 and later.
 </p>
 
 ## <a id="triggering"></a>Trigger a Manual Backup for a Shared-VM or Dedicated-VM Plan
 
-Backups of your Redis deployment will occur automatically per the Cron Schedule you set in your deployment.
-You can trigger manual backups at any time.
-For the <code>shared-vm</code> plan, running <code>manual-backup</code> backs up all of the <code>shared-VM</code> instances
+Backups of your Redis deployment occur automatically according to the Cron Schedule you set in your deployment.
+You can also trigger manual backups at any time.
+
+* For the shared-VM plan, running manual backup backs up all of the shared-VM instances
 and the broker state in the <code>statefile.json</code> file.
-For the <code>dedicated-vm</code> plan, running <code>manual-backup</code> backs up the Redis `dump.rdb` file
-for that <code>dedicated-VM</code> instance.
+
+* For the dedicated-vm plan, running manual backup backs up the Redis `dump.rdb` file
+for that dedicated-VM instance.
+
 The backup artifacts are sent to the destination configured in Ops Manager for automatic backups.
+
 To trigger a manual backup follow the steps below:
 
 <ol>
@@ -44,7 +48,7 @@ To trigger a manual backup follow the steps below:
   <li> 
     If you have <code>dedicated-vm</code> service instances,
     identify the exact instance node by comparing the IP address from your application bindings to the corresponding IP address in the output of step 2.
-    To find the IP address for your bound apps:<br>
+    To find the IP address for your bound apps:<br><br>
     <ul>
       <li>
         Run <code>cf env APP-BOUND-TO-REDIS-INSTANCE</code>
@@ -83,25 +87,24 @@ To trigger a manual backup follow the steps below:
 
 ## <a id="triggering-on-demand"></a>Trigger a Manual Backup for an On-Demand Instance
 
+<p class="note"><strong>Note: </strong> Automatic backups are not available for on-demand instances.</p>
+
 On-demand instances do not yet support backing up to a remote endpoint.
 However, you can create a snapshot of the data on the instance by following the below steps:
 
 1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to SSH onto your Ops Manager installation.
-1. Identify your service instance guid by running `cf service ON-DEMAND-SERVICE-INSTANCE --guid`.
-   The deployment name will be `service-instance_ON-DEMAND-SERVICE-INSTANCE-GUID`.
-1. SSH onto your service instance with `bosh2 -d service-instance_ON-DEMAND-SERVICE-INSTANCE-GUID ssh`.
-   There is no need to specify the instance because each service instance deployment contains only a single instance.
-1. Create a snapshot by running `sudo /var/vcap/jobs/redis-backup/bin/backup --snapshot`
-This should create a new rdb file in `/var/vcap/store/redis-backup`.
+1. Identify your service instance GUID by running `cf service SERVICE_INSTANCE_NAME --guid`.
+1. Using the GUID you identified above, SSH onto your service instance by running `bosh2 -d service-instance_GUID ssh`.
+1. Create a snapshot by running `sudo /var/vcap/jobs/redis-backup/bin/backup --snapshot`.
+
+    This creates a new `rdb` file in `/var/vcap/store/redis-backup`.
 
 #### Notes
 
-Triggering a manual backup of a large dump.rdb can take so long that your SSH connection times out. 
+* Triggering a manual backup of a large `dump.rdb` file can take so long that your SSH connection times out. 
 Ensure that you have given yourself enough of a timeout to complete the backup.
 
-Back ups are currently not available for On-Demand instances.
-
-As of v1.8.2, backups can be to all AWS S3 regions (previously limited to the standard region, us-east-1).
+* As of Redis for PCF v1.8.2, backups can be to all AWS S3 regions.
 This requires specifying the region of your backup and the signature version used for your region.
 You can find this information [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
 In most cases, the default signature version is sufficient.
@@ -438,34 +441,38 @@ described here, for restoring your backed up Redis data.
 
 ## <a id="recovery"></a>Move Data from a Dedicated to On-Demand Instance
 
-For the following it is assumed that you already have a cf created dedicated and on-demand instance.
+For the following it is assumed that you already have a cf-created dedicated and on-demand instance.
 The flow is:
 
-1. Identify and take a manual or automatic backup of the dedicated instance.
+1. Take a manual or automatic backup of the dedicated instance.
 
 1. Identify the deployment of the on-demand service.
 
-1. Copy the rdb file created in step 1 to the instance identified in step 2.
+1. Copy the `rdb` file created in step 1 to the instance identified in step 2.
 
 1. Run the manual restore command on the on-demand instance.
 
+### Take a Backup of the Dedicated or Shared VM Instance
+
+To do a manual backup follow the procedure in [Trigger a Manual Backup for a Shared-VM or Dedicated-VM Plan](#triggering). You will need the `rdb` file from this backup.
+
 ### Identify an On-Demand Instance
 
-Using the cf CLI find your service instance guid:
+Using the cf CLI find your service instance GUID:
 
 ```
 cf service SERVICE-NAME --guid
 ```
 
-There should be a corresponding bosh deployment with the above guid in the name
-`service-instance_GUID`.
+There should be a corresponding BOSH deployment with the above GUID with its name in the format
+`SERVICE-INSTANCE_GUID`.
 
 You can SSH to the service-instance via:
 ```
-bosh -d service-instance_GUID ssh
+bosh2 -d service-instance_GUID ssh
 ```
 
-### Move dump file onto an on-demand instance
+### Move Dump File to an On-Demand Instance
 You can move your backed up rdb file from your local machine to a service instance via `bosh scp`.
 You cannot scp a file directly into `/var/vcap/store` which is required for the restore script so this is a two step process.
 
@@ -482,6 +489,6 @@ bosh -d service-instance_GUID ssh --command "sudo mv /tmp/dump.rdb /var/vcap/sto
 
 ### Debugging
 
-* Run the restore script with logLevel set to debug `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb --logLevel DEBUG`
-* Be aware that if the script only partially runs, it may have stopped other processes.
+* Run the restore script with `logLevel` set to `DEBUG`: `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb --logLevel DEBUG`
+* If the script only partially runs, it may have stopped other processes.
   Use `monit` to start them if needed.
