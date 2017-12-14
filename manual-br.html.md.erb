@@ -1,5 +1,5 @@
 ---
-title: Manually Backing up and Restoring Redis for PCF
+title: Manually Backing Up and Restoring Redis for PCF
 owner: London Services
 ---
 
@@ -47,7 +47,7 @@ However, you can create a snapshot of the data on the instance by following the 
 * For the shared-VM plan, running manual backup backs up all of the shared-VM instances
 and the broker state in the <code>statefile.json</code> file.
 
-* For the dedicated-vm plan, running manual backup backs up the Redis `dump.rdb` file
+* For the dedicated-VM plan, running manual backup backs up the Redis `dump.rdb` file
 for that dedicated-VM instance.
 
 The backup artifacts are sent to the destination configured in Ops Manager for automatic backups.
@@ -62,10 +62,11 @@ To trigger a manual backup for dedicated-VM or shared-VM service follow the step
     Identify the node which holds the instance you want to back up by running <code>bosh2 vms</code>.
     <ul>
       <li>
-        For the <code>shared-vm</code> plan, this will be the job name containing <code>cf-redis-broker</code>.
+        For the <code>shared-vm</code> plan, this is the job name containing <code>cf-redis-broker</code>. 
       </li>
       <li>
-        For the <code>dedicated-vm</code> plan, this will be the job name containing <code>dedicated-node</code>.
+        For the <code>dedicated-vm</code> plan, this is the job name containing <code>dedicated-node</code>. 
+
       </li>
     </ul>
 
@@ -134,7 +135,6 @@ If needed, identify the instance node with the following steps:
 * Triggering a manual backup of a large `dump.rdb` file can take so long that your SSH connection times out.
 Ensure that you have given yourself enough of a timeout to complete the backup.
 
-
 ## <a id="restore"></a>Restore Redis Instance from a Backup
 
 ### To a Local System
@@ -146,7 +146,7 @@ For more information, see the [Redis documentation](http://redis.io/documentatio
 
 ### To Pivotal Cloud Foundry
 
-You can also restore your backup file to another instance of the `Redis for PCF` tile.
+You can also restore your backup file to another instance of the Redis for PCF tile.
 
 #### Prerequisites
 
@@ -155,7 +155,7 @@ You can also restore your backup file to another instance of the `Redis for PCF`
 * Ensure that the persistent disk is large enough to accommodate the temporary files used during the restore process.
   It should be **3.5x the amount of RAM in the VM**.
 
-To restore your backup file to another instance of a `Redis for PCF` tile service instance:
+To restore your backup file to another instance of a Redis for PCF tile service instance:
 
 1. Create a new instance of the plan that you want to restore to.
 
@@ -246,7 +246,7 @@ Clean up existing Redis data files:
 
 ### Shared-VM Plan
 
-The restore script will restore the data for the specified shared-VM instance.
+The restore script restores the data for the specified shared-VM instance.
 
 #### Execution
 
@@ -413,7 +413,8 @@ The flow is:
 
 ### Take a Backup of the Dedicated or Shared VM Instance
 
-To do a manual backup follow the procedure in [Trigger a Manual Backup for a Shared-VM or Dedicated-VM Plan](#triggering). You will need the `rdb` file from this backup.
+To do a manual backup follow the procedure in [Trigger a Manual Backup for a Shared-VM or Dedicated-VM Plan](#triggering).
+You need the RDB file from this backup.
 
 ### Identify an On-Demand Instance
 
