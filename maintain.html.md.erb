@@ -23,11 +23,10 @@ Pivotal recommends that operators follow these guidelines:
 * **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation.
 * **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
     Validate the backed-up data with a test restore.
-    On-Demand instances are configured for cache uses and are not intended for backups.
     See [Configuring Automated Backups](./auto-backup.html) and [Manually Backing up and Restoring](./manual-br.html).
 * **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs.
-    Apps in production should have a dedicated instance to prevent performance issues caused by sharing an instance.
-    The Shared-VM service does not provide a Dedicated-VM per instance,
+    Apps in production should have a dedicated or on-demand instance to prevent performance issues caused by sharing an instance.
+    The Shared-VM service shares a VM across many instances,
     and Pivotal recommends that you only use it for development and testing.
     See the service offerings for the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html).
 
@@ -123,8 +122,8 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 Ops Manager runs Redis for PCF smoke tests as a post-install errand.
 You can also run the smoke tests errand using the following procedure:
 
-1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps: 
-  1. From the Ops Manager UI, click the Redis for PCF tile. 
+1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
+  1. From the Ops Manager UI, click the Redis for PCF tile.
   1. Copy the part of the URL that starts with "p-redis-".
 
 1. Run the smoke tests errand: <br>

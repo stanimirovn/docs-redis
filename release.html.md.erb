@@ -15,19 +15,17 @@ To view the release notes for another product version, select the version from t
 
 ### Features
 
-* Supports Pivotal Cloud Foundry (PCF) v2.0. In PCF v2.0, the _Elastic Runtime_ tile is renamed the _Pivotal Application Service_ tile. 
+* All releases within tile use SHA-2 checksums.
 
-* Includes metrics for the on-demand service. This enables operators to monitor the health of their Redis instances.
+* Tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) to decrease errand run time and VM footprint for PCF 2.0+.
 
-* Introduces a new format for on-demand metrics. This is the standard format for all services and will eventually replace other formats.
+* Users can manually backup and restore data to on-demand instances.
 
-* Uses a new release for syslog that allows the operator to configure the log format to be either the pre-existing one or RFC5424. RFC5424 is the standard format for PCF services. The previous format will eventually be deprecated.
+* Data from dedicated-VM service instances can be migrated to on-demand service instances.
 
-* Enables TLS encryption for syslog forwarding.
+* Reduced permissions to least priveleged user and lowest permissions for all Redis files for the on-demand service.
 
-* Lua Scripting defaults to off for all on-demand service plans. Pivotal's security recommendation is to keep Lua Scripting as off.
-
-* Allows the operator to opt-out of the on-demand service without configuring on-demand plans.
+* Introduces defaults for on-demand VM and disk sizes, encouraging correct configuration and sizing of plans.
 
 ### Compatibility
 
@@ -38,15 +36,15 @@ To view the release notes for another product version, select the version from t
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>3445.11+</td>
+    <td>3445.19+</td>
 </tr>
 <tr>
-    <td>PCF</td>
+    <td>PCF (_Elastic Runtime_ tile is renamed _Pivotal Application Service_ tile)</td>
     <td>v1.11.x and v1.12.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v431.0.0</td>
+    <td>v432.0.0</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
@@ -58,19 +56,19 @@ To view the release notes for another product version, select the version from t
 </tr>
 <tr>
     <td>routing</td>
-    <td>v0.162.0</td>
+    <td>v0.165.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>v1.5.7</td>
+    <td>v1.5.10</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>v18.1.0</td>
+    <td>v18.1.8</td>
 </tr>
 <tr>
     <td>syslog-migration</td>
-    <td>v9.0.0</td>
+    <td>v10.0.0</td>
 </tr>
 <tr>
     <td>loggregator</td>
