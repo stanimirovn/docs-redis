@@ -7,19 +7,19 @@ owner: London Services
 
 ## <a id="backup"></a>Creating Backups of Redis Instances
 
-You can configure backups to be run for all instances, across on-demand, dedicated-VM and shared-VM service plans.
+You can configure automatic backups for all service plan types: on-demand, dedicated-VM, and shared-VM.
 
 The key features are:
 
-* Runs on a configurable schedule
-* Every instance is backed up, across both service plans
-* The Redis broker statefile is backed up
+* Backups run on a configurable schedule.
+* Every instance is backed up.
+* The Redis broker statefile is backed up.
 * For each backup artefact, a file is created that contains the MD5 checksum for that artifact. This can be used to validate that the artefact is not corrupted.
-* You can configure AWS S3, SCP, Azure or Google Cloud Storage as your destination
-* Data from Redis is flushed to disk, before the backup is started by running a `BGSAVE` on each instance
+* You can configure AWS S3, SCP, Azure or Google Cloud Storage as your destination.
+* Data from Redis is flushed to disk before the backup is started by running a `BGSAVE` on each instance.
 * Backups are labelled:
-  * dedicated-VM, shared-VM: with timestamp, instance GUID and plan name. Files stored by date
-  * on-demand: with timestamp and plan name. Files are stored by deployment, then date.
+  * For dedicated-VM and shared-VM plans: with timestamp, instance GUID and plan name. Files are stored by date.
+  * For on-demand plans: with timestamp and plan name. Files are stored by deployment, then date.
 
 ## <a id="configuration"></a>Configuring Backups
 To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage.
