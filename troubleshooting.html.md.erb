@@ -5,22 +5,277 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+In this topic:
+
+* [About the BOSH CLI](#about-cli)
+* [Useful Debugging Information](#debugging)
+* [How to Retrieve a Service Instance GUID](#guid)
+* [Troubleshooting Errors](#errors)
+    * [Failed Install](#install-fail)
+    * [Cannot Create or Delete Service Instances](#cannot-create-delete)
+    * [Broker Request Timeouts](#timeouts)
+    * [Cannot Bind to or Unbind from Service Instances](#cannot-bind)
+    * [Cannot Connect to a Service Instance](#cannot-connect)
+    * [Upgrade All Instances Fails](#upgrade-all-fails)
+    * [Missing Logs and Metrics](#missing-logs)
+* [Troubleshooting Components](#components)
+    * [BOSH problems](#bosh)
+    * [Configuration](#bosh-config)
+    * [Authentication](#auth)
+    * [Networking](#network)
+    * [Quotas](#quotas)
+* [Techniques for Troubleshooting](#techniques)
+    * [Parse a Cloud Foundry (CF) Error Message](#parse-error)
+    * [Access Broker and Instance Logs and VMs](#bosh-cf-access)
+    * [Run Service Broker Errands to Manage Brokers and Instances](#broker-errands)
+    * [Select the BOSH Deployment for a Service Instance](#instance-deployment)
+    * [Get Admin Credentials for a Service Instance](#instance-creds)
+    * [Reinstall a Tile](#reinstall)
+    * [View Resource Saturation and Scaling](#view-resources)
+    * [Identify Service Instance Owner](#id-instance-owner)
+    * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
+* [Knowledge Base Articles](#Knowledge)
+* [Other Issues](#other)
+
+
 This topic lists troubleshooting information relevant to Redis for PCF.
 
-## <a id="Knowledge"></a> Knowledge Base Articles
+<a id="about-cli"></a><h2>About the BOSH CLI</h2>
+The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
 
-<a href="https://discuss.pivotal.io/hc/en-us/sections/200215308-Services"> Pivotal Knowledge Base</a> articles specifically about Redis for PCF:
+This topic provides examples of using each version of the BOSH CLI. Consult the table below to determine which version of the CLI is supported for your installation.
 
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/115010154387"> Create an Empty Service Network to use the Redis Tile without enabling the On-Demand Service </a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/222006747-Pivotal-Cloud-Foundry-Redis-full-disk-scaling-issue">Can't redeploy PCF Redis if shared-vm persistent disk full</a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/220952828-Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue">Issue with upgrading tile</a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/230513247-Pivotal-Cloud-Foundry-Redis-Deploy-Fails-to-Complete">Issue with deploy failing</a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/235256867-Pivotal-Cloud-Foundry-Redis-Instance-Alive-after-Successful-De-provisioning">Redis Instance Alive after Successful De-provisioning</a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/115005023508">PCF Redis dedicated instance fails to persist to disk</a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/115007564767">Redis error when saving changes after a back to AWS S3: Error: Access Denied for bucket'</a>
-* <a href="https://discuss.pivotal.io/hc/en-us/articles/115007592848"> Internet access disabled for tile and instances</a>
+<table class="nice">
+    <th>PCF Version</th>
+    <th>BOSH CLI Version</th>
+    <tr>
+        <td>1.10</td>
+        <td>CLI v1</td>
+    </tr>
+    <tr>
+        <td>1.11</td>
+        <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
+    </tr>
+    <tr>
+        <td>1.12 and later</td>
+        <td>CLI v2</td>
+    </tr>
+</table>
 
-## <a id="other"></a> Other Issues
+<a id="debugging"></a><h2> Useful Debugging Information</h2>
+
+If you encounter an issue, here is a list of useful information to gather,
+especially before you perform any destructive operations such as `cf purge-service-offerings`
+or `bosh2 -d SERVICE-INSTANCE-DEPLOYMENT delete-deployment`.
+
+Before debugging, ensure you know the following about your PCF deployment:
+
+* The version of Redis for PCF
+
+* If upgrading, the previous of Redis for PCF
+
+* Ops Manager version, and, if upgrading, the previous version of Ops Manager
+
+* IaaS description
+
+### From OpsManager:
+  * The installation logs
+  * A copy of all files in `/var/tempest/workspaces/default/deployments`
+
+### For All VMs, Unless Specified Otherwise:
+  * Copy of `/var/vcap/sys/log` (particularly the broker)
+  * If unable to get logs from disk, logs from a forwarded endpoint
+  * `monit summary`
+  * Full `ps aux`: Has monit done its job?
+  * `ps aux | grep redis-serve[r]`: Are Redis instances running?
+  * `df -h`: disk usage
+  * `free -m`: memory usage
+  * `cf m`
+  * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
+  * Copy of `/var/vcap/store/cf-redis-broker/statefile.json` (broker only)
+
+
+<a id="guid"></a><h2>How to Retrieve a Service instance GUID</h2>
+
+<%= partial '../../redis/odb/retrieve-guid' %>
+
+
+<a id="errors"><h2></a>Troubleshooting Errors</h2>
+
+Start here if you are responding to a specific error or error messages.
+
+<a id="install-fail"></a><h3>Failed Install</h3>
+
+<%= partial '../../redis/odb/tshoot-err-install-fail' %>
+
+<a id="cannot-create-delete"></a><h3>Cannot Create or Delete Service Instances</h3>
+
+<%= partial '../../redis/odb/tshoot-err-cannot-create-delete' %>
+
+<a id="timeouts"></a><h3>Broker Request Timeouts</h3>
+
+<%= partial '../../redis/odb/tshoot-err-timeouts' %>
+
+<a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
+
+<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4> 
+
+<%= partial '../../redis/odb/tshoot-err-instance-not-exist' %>
+
+<a id="other-errors"></a><h4>Other Errors</h4>
+
+<%= partial '../../redis/odb/tshoot-err-other-errors' %>
+
+<a id="cannot-connect"><h3></a>Cannot Connect to a Service Instance</h3>
+
+<%= partial '../../redis/odb/tshoot-err-cannot-connect' %>
+
+<a id="upgrade-all-fails"><h3></a>Upgrade All Instances Fails</h3>
+
+<%= partial '../../redis/odb/tshoot-err-upgrade-all-fails' %>
+
+<a id="missing-logs"><h3></a>Missing Logs and Metrics</h3>
+
+<%= partial '../../redis/odb/tshoot-err-missing-logs' %>
+
+
+<a id="components"></a><h2>Troubleshooting Components</h2>
+
+Guidance on checking for and fixing issues in on-demand service components.
+
+<a id="bosh"></a><h3>BOSH problems</h3>
+
+<a id="no-bosh-uuid"></a><h4>Missing BOSH Director UUID</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-no-bosh-uuid' %>
+
+<a id="large-queue"></a><h4>Large BOSH Queue</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-large-queue' %>
+
+<a id="bosh-config"></a><h3>Configuration</h3>
+
+<a id="bosh-instance-fail"></a><h4>Service instances in failing state</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-bosh-instance-fail' %>
+
+<a id="auth"></a><h3>Authentication</h3>
+
+<a id="uaa-change"></a><h4>UAA Changes</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-uaa-change' %>
+
+<a id="network"></a><h3>Networking</h3>
+
+<%= partial '../../redis/odb/tshoot-comp-network' %>
+
+<a id="broker-to-instances"></a><h4>Validate Service Broker Connectivity to Service Instances</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-broker-to-instances' %>
+
+<a id="app-to-instances"></a><h4>Validate App Access to Service Instance</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-app-to-instances' %>
+
+<a id="quotas"></a><h3>Quotas</h3>
+
+<a id="plan-quotas"></a><h4>Plan Quota issues</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-plan-quotas' %>
+
+<a id="global-quotas"></a><h4>Global Quota Issues</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-global-quotas' %>
+
+<a id="failing-jobs"></a><h4>Failing jobs and unhealthy instances</h4>
+
+<%= partial '../../redis/odb/tshoot-comp-failing-jobs' %>
+
+<a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
+
+This section contains instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks.
+
+<a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-parse-error' %>
+
+<a id="bosh-cf-access"></a><h3>Access Broker and Instance Logs and VMs</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-bosh-cf-access' %>
+
+<a id="access-broker"></a><h4>Access Broker Logs and VM(s)</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-access-broker' %>
+
+<a id="access-instance"></a><h4>Access Service Instance Logs and VMs</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-access-instance' %>
+
+<a id="broker-errands"></a><h3>Run Service Broker Errands to Manage Brokers and Instances</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-broker-errands' %>
+
+<a id="register-broker"></a><h4>Register Broker</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-register-broker' %>
+
+<a id="deregister-broker"></a><h4>Deregister Broker</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-deregister-broker' %>
+
+<a id="upgrade-all"></a><h4>Upgrade All Service Instances</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-upgrade-all' %>
+
+<a id="delete-all"></a><h4>Delete All Service Instances</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-delete-all' %>
+
+<a id="detect-orphans"></a><h4>Detect Orphaned Instances Service Instances</h4>
+
+<%= partial '../../redis/odb/tshoot-tech-detect-orphans' %>
+
+<a id="instance-deployment"></a><h3>Select the BOSH Deployment for a Service Instance</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-instance-deployment' %>
+
+<a id="instance-creds"></a><h3>Get Admin Credentials for a Service Instance</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-instance-creds' %>
+
+<a id="reinstall"></a><h3>Reinstall a Tile</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-reinstall' %>
+
+<a id="view-resources"></a><h3>View Resource Saturation and Scaling</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-view-resources' %>
+
+<a id="id-instance-owner"></a><h3>Identify Service Instance Owner</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-id-instance-owner' %>
+
+<a id="monitor-quota"></a><h3>Monitor Quota Saturation and Service Instance Count</h3>
+
+<%= partial '../../redis/odb/tshoot-tech-monitor-quota' %>
+
+
+<a id="Knowledge"></a><h2>Knowledge Base Articles</h2>
+
+The following are <a href="https://discuss.pivotal.io/hc/en-us/sections/200215308-Services"> Pivotal Knowledge Base</a> articles about Redis for PCF:<br><br>
+
+<ul>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/115010154387"> Create an Empty Service Network to use the Redis Tile without enabling the On-Demand Service </a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/222006747-Pivotal-Cloud-Foundry-Redis-full-disk-scaling-issue">Can't redeploy PCF Redis if shared-vm persistent disk full</a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/220952828-Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue">Issue with upgrading tile</a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/230513247-Pivotal-Cloud-Foundry-Redis-Deploy-Fails-to-Complete">Issue with deploy failing</a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/235256867-Pivotal-Cloud-Foundry-Redis-Instance-Alive-after-Successful-De-provisioning">Redis Instance Alive after Successful De-provisioning</a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/115005023508">PCF Redis dedicated instance fails to persist to disk</a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/115007564767">Redis error when saving changes after a back to AWS S3: Error: Access Denied for bucket'</a></li>
+  <li><a href="https://discuss.pivotal.io/hc/en-us/articles/115007592848"> Internet access disabled for tile and instances</a></li>
+</ul>
+
+<a id="other"></a><h2>Other Issues</h2>
 
 
 <table border='1' class='nice'>
@@ -55,26 +310,3 @@ This topic lists troubleshooting information relevant to Redis for PCF.
 </tr>
 </table>
 
-## <a id="debuggin"></a> Useful Debugging Information
-If you encounter an issue, here is a list of useful information to gather, especially before you perform any destructive operations such as `cf purge-service-offerings` or `bosh delete deployment`.
-
-* Redis for PCF version
-* Previous Redis for PCF version if upgrading
-* Ops Manager version, and previous if upgrading Ops Manager
-* IaaS description
-
-### From OpsManager:
-  * The installation logs
-  * A copy of all files in `/var/tempest/workspaces/default/deployments`
-
-### For All VMs, Unless Specified Otherwise:
-  * Copy of `/var/vcap/sys/log` (particularly the broker)
-  * If unable to get logs from disk, logs from a forwarded endpoint
-  * `monit summary`
-  * Full `ps aux`: Has monit done its job?
-  * `ps aux | grep redis-serve[r]`: Are Redis instances running?
-  * `df -h`: disk usage
-  * `free -m`: memory usage
-  * `cf m`
-  * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
-  * Copy of `/var/vcap/store/cf-redis-broker/statefile.json` (broker only)
