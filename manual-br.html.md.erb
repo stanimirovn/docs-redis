@@ -11,12 +11,12 @@ available as <code>bosh2</code> in the Ops Manager v1.11 and later.
 </p>
 
 ## <a id="identify"></a>Identify your target Redis instances
-### <a id="identify-odb"></a>On-Demand
+### <a id="identify-odb"></a>Identify On-Demand
 1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to SSH onto your Ops Manager installation.
 1. Identify your service instance GUID by running `cf service SERVICE_INSTANCE_NAME --guid`.
 1. Using the GUID you identified above, SSH onto your service instance by running `bosh2 -d service-instance_<GUID> ssh`.
 
-### <a id="identify-dedicated"></a>Dedicated-VM
+### <a id="identify-dedicated"></a>Identify Dedicated-VM
 1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
     * From the OpsManager UI, click on the Redis for PCF tile.
     * Copy the part of the URL that starts with "p-redis-".
@@ -31,7 +31,7 @@ available as <code>bosh2</code> in the Ops Manager v1.11 and later.
     1. In the output of the previous command there should be an IP address shown which corresponds to an IP address show in `bosh2 vms`
 1. Ssh onto the vm `bosh2 -d REDIS-DEPLOYMENT-NAME ssh dedicated-node/<identifier>`.
 
-### <a id="identify-shared"></a>Shared-VM
+### <a id="identify-shared"></a>Identify Shared-VM
 1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
     * From the OpsManager UI, click on the Redis for PCF tile.
     * Copy the part of the URL that starts with "p-redis-".
@@ -51,14 +51,14 @@ Ensure that you have given yourself enough of a timeout to complete the backup.
 
 ## <a id="restore"></a>Restore Redis Instance from a Backup
 
-### To a Local System
+### <a id="restore-to-local-system"></a>To a Local System
 
 You can choose to restore the RDB file to a local Redis instance.
 
 The steps to do this depend on your configuration and setup.
 For more information, see the [Redis documentation](http://redis.io/documentation).
 
-### To Pivotal Cloud Foundry
+### <a id="restore-to-pcf"></a>To Pivotal Cloud Foundry
 
 You can also restore your backup file to another instance of the Redis for PCF tile. It can be the same or a different plan.
 
@@ -233,23 +233,25 @@ Redis instances to healthy states that are in sync with Cloud Foundry. There are
 a few caveats to being able to recover previous instance state fully that
 depend on your plan.
 
-### Shared-VM Plan Caveats
+### Shared-VM Requirements
 
-* You need a backed up RDB Redis dump file - this would be stored in your S3
-buckets if you have backups configured.
+* You need a backed up RDB Redis dump file - this would be stored in your remote backup destination configured in the tile (e.g. S3 bucket).
 
 * You need a backed up `/var/vcap/store/cf-redis-broker/redis-data` directory
 from the service broker node. You do not need to backup and `*.aof` or
 
 `*.rdb` files from subdirectories if you have backups configured.
 
-### Dedicated-VM Plan Caveats
+### Dedicated-VM Requirements
 
-* You need a backed up RDB Redis dump file - this would be stored in your S3
-buckets if you have backups configured.
+* You need a backed up RDB Redis dump file - this would be stored in your remote backup destination configured in the tile (e.g. S3 bucket).
 
 * You need a backed up `/var/vcap/store/redis/statefile.json` from the service
 broker node.
+
+### On-Demand Requirements
+
+* You need a backed up RDB Redis dump file - this would be stored in your remote backup destination configured in the tile (e.g. S3 bucket).
 
 ### Note
 
@@ -257,8 +259,6 @@ This procedure assumes that a recovery of service information and service keys
 assigned to instances are restored with a restore of Cloud Foundry.
 
 ### Recovery Procedure
-
-After redeploying Redis, take the following steps.
 
 #### Shared-VM Plan
 
@@ -291,42 +291,10 @@ described here, for restoring your backed up Redis data.
 
 1. Your Redis instance is now recovered.
 
-## <a id="recovery"></a>Move Data from a Dedicated to On-Demand Instance
+#### On-Demand Plan
+1. Identify your target service-instance
+1. Restore your backup file.
 
-For the following it is assumed that you already have a cf-created dedicated and on-demand instance.
-The flow is:
-
-1. Take a manual or automatic backup of the dedicated instance.
-
-1. Identify the deployment of the on-demand service.
-
-1. Copy the `rdb` file created in step 1 to the instance identified in step 2.
-
-1. Run the manual restore command on the on-demand instance.
-
-### Take a Backup of the Dedicated or Shared VM Instance
-
-To do a manual backup follow the procedure in [Trigger a Manual Backup for a Shared-VM or Dedicated-VM Plan](#make-backup).
-You need the RDB file from this backup.
-
-
-### Move Dump File to an On-Demand Instance
-You can move your backed up rdb file from your local machine to the service instance [identified](identify-odb) via `bosh scp`.
-You cannot scp a file directly into `/var/vcap/store` which is required for the restore script so this is a two step process.
-
-```
-bosh -d service-instance_GUID scp dump.rdb :/tmp/dump.rdb
-bosh -d service-instance_GUID ssh --command "sudo mv /tmp/dump.rdb /var/vcap/store/dump.rdb"
-```
-
-### Restore an On-Demand Instance
-
-1. SSH onto the on-demand service instance.
-
-1. Run `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb`
-
-### Debugging
-
-* Run the restore script with `logLevel` set to `DEBUG`: `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB /var/vcap/store/dump.rdb --logLevel DEBUG`
-* If the script only partially runs, it may have stopped other processes.
-  Use `monit` to start them if needed.
+If your previous on-demand service-instance deployment does not exist:
+1. Create a new service-instances and restore your backup file
+1. Clean up any old service-instances and bind the new service-instance to your app
