@@ -60,7 +60,7 @@ For more information, see the [Redis documentation](http://redis.io/documentatio
 
 ### To Pivotal Cloud Foundry
 
-You can also restore your backup file to another instance of the Redis for PCF tile.
+You can also restore your backup file to another instance of the Redis for PCF tile. It can be the same or a different plan.
 
 #### Prerequisites
 
@@ -73,15 +73,10 @@ To restore your backup file to another instance of a Redis for PCF tile service 
 
 1. Create a new instance of the plan that you want to restore to.
 
-1. Identify the VM which the instance of your plan is located on by following the steps from the `Manual Backups` section above.
-   If you are restoring an instance of `shared-vm`, this VM is the broker VM.
-
-1. `bosh2 ssh` into the identified VM. This is the broker VM if restoring a `shared-vm` instance.
-
-Redis for PCF v1.7 and later provides a script to automatically restore data in a newly provisioned Redis instance.
+1. Identify and ssh to the VM which the instance of your plan is located on by following the steps from the [Identify](#identify) section above.
 
 #### Preparation
-1. Transfer your backup RDB file to a local path on the VM (`PATH-TO-RDB-BACKUP-ON-VM` has to be under `/var/vcap/store`.
+1. Transfer your backup RDB file to a local path on the VM (`PATH-TO-RDB-BACKUP-ON-VM` has to be under `/var/vcap/store` directory.
 
 1. To verify that the RDB file hasn't been corrupted, run `md5sum PATH-TO-RDB-BACKUP-ON-VM`
    and compare it against the contents of the `.md5` file named after the backup file.
@@ -90,25 +85,27 @@ Redis for PCF v1.7 and later provides a script to automatically restore data in 
 
 1. Switch to root user `sudo su`
 
-### Dedicated-VM Plan
+### On-Demand and Dedicated-VM Plan
 
-The restore script restores the data for the specified dedicated-VM instance.
+Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-BACKUP-ON-VM`
 
-#### Execution
+### Shared-VM Plan
 
-1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-BACKUP-ON-VM`
+1. Retrieve `{instance_guid}` by running: `cf service {instance_name} --guid`
 
-1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress.
-   When the data restore has been successfully completed, you see the message `Redis data restore completed successfully`.
+1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB {path-to-rdb-backup-on-vm} --sharedVmGuid {instance_guid}`
 
-#### Debugging
 
-The data restore script runs the steps listed below.
+### Debugging Restore
+If the restore fails partway through, you may need to manually run some commands to get the instance back into a healthy state.
+ 
 It logs its process along the way and provides helpful messages in case of failure.
 
-The script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
+The logs are at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
 If a step has failed, resolve the reason that caused it to fail and execute the failed step and every next step manually.
 You can retrieve `{instance_password}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
+
+#### On-demand and Dedicated-VM
 
 1. **`StopAll`** <br />
    Run `monit stop all`
@@ -158,26 +155,8 @@ Clean up existing Redis data files:
 1. **`StartAll`** <br />
    Run `monit start all`
 
-### Shared-VM Plan
 
-The restore script restores the data for the specified shared-VM instance.
-
-#### Execution
-
-1. Retrieve `{instance_guid}` by running: `cf service {instance_name} --guid`
-
-1. Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB {path-to-rdb-backup-on-vm} --sharedVmGuid {instance_guid}`
-
-1. Tail the script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log` to see progress.
-   When the data restore has been successfully completed, you see the message `Redis data restore completed successfully`
-
-#### Debugging
-
-The data restore script runs the steps listed below. It logs its process along the way and provides helpful messages in case of failure.
-
-The script logs at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
-If a step has failed, resolve the reason that caused it to fail and execute the failed step and every next step manually.
-You can retrieve `{instance_password}` and `{port}` through the binding to your service instance: `cf service-key {instance_name} {key_name}`
+#### Shared-VM
 
 1. **`StopAll`** <br />
    Run `monit stop all`
