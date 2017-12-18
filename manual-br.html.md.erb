@@ -29,7 +29,7 @@ available as <code>bosh2</code> in the Ops Manager v1.11 and later.
       run the following command to create a service key:<br>
       <code>cf create-service-key DEDICATED-SERVICE-INSTANCE mykey && cf service-key DEDICATED-SERVICE-INSTANCE mykey</code>
     1. In the output of the previous command there should be an IP address shown which corresponds to an IP address show in `bosh2 vms`
-1. Ssh onto the vm `bosh2 -d REDIS-DEPLOYMENT-NAME ssh dedicated-node/<identifier>`. 
+1. Ssh onto the vm `bosh2 -d REDIS-DEPLOYMENT-NAME ssh dedicated-node/<identifier>`.
 
 ### <a id="identify-shared"></a>Shared-VM
 1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
@@ -98,7 +98,7 @@ Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-BACKUP-ON-
 
 ### Debugging Restore
 If the restore fails partway through, you may need to manually run some commands to get the instance back into a healthy state.
- 
+
 It logs its process along the way and provides helpful messages in case of failure.
 
 The logs are at `/var/vcap/sys/log/redis-backups/redis-backups.log`. <br />
