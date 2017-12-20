@@ -1,0 +1,16 @@
+bosh -d cf-redis vms
+Using environment 'https://104.155.21.32:25555' as client 'ops_manager'
+
+Task 12550. Done
+
+Deployment 'cf-redis'
+
+Instance                                              Process State  AZ              IPs        VM CID                                   VM Type
+cf-redis-broker/84eed657-d414-471c-9a88-e4190cbc7ec6  running        europe-west1-b  10.0.8.7   vm-7835eaac-44b2-4526-531d-8d4fb21d0bb3  medium
+dedicated-node/1feef771-69bb-416b-8ded-a9209b3f0e7b   running        europe-west1-b  10.0.8.8   vm-4d55ef0b-98ac-4efd-46b5-a0d1591bccb0  medium
+dedicated-node/644b829f-ba43-4cf3-9f42-671caade83ec   running        europe-west1-b  10.0.8.9   vm-31f1ea1b-786e-4aa5-52fe-db22006044ae  medium
+dedicated-node/c32df62d-38bb-44a5-9d80-8c76614f6e53   running        europe-west1-b  10.0.8.10  vm-3d55c1b8-10ae-4e98-4c68-8f6f6ec819ce  medium
+
+4 vms
+
+Succeeded
