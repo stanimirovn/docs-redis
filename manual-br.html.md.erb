@@ -12,7 +12,7 @@ available as <code>bosh2</code> in the Ops Manager v1.11 and later.
 
 ## <a id="deploy-name"></a> Find the Redis Deployment Name
 
-To identify your Redis for PCF deployment name, do the following:
+To identify your Redis for Pivotal Cloud Foundry (PCF) deployment name, do the following:
 
 1. In the Ops Manager installation dashboard, click the Redis for PCF tile.
 1. The deployment name is the part of the URL starting with p-redis and ending with a GUID. For example:
@@ -44,7 +44,7 @@ Where: `SERVICE_INSTANCE_NAME` is the name chosen when running the `cf create se
 The example output lists several `dedicated node` instances:
   <pre class="terminal">
     bosh -d cf-redis vms
-    Using environment 'https://100.155.99.99:99999' as client 'ops_manager'
+    Using environment 'https<span>:</span>//100.155.99.99:99999' as client 'ops_manager'
 
     Task 12550. Done
 
@@ -78,9 +78,9 @@ The example output lists several `dedicated node` instances:
 
 ## <a id="make-backup"></a>Make a Manual Backup 
 
-You can create a snapshot which creates an rdb file locally, or create a snapshot and send it to the remote backup destination.
+You can create a snapshot which creates an RDB file locally, or create a snapshot and send it to the remote backup destination.
 
-* To create a snapshot only, run: `sudo /var/vcap/jobs/redis-backups/bin/backup --snapshot`. This creates a new rdb file in `/var/vcap/store/redis-backup`<br><br>
+* To create a snapshot only, run: `sudo /var/vcap/jobs/redis-backups/bin/backup --snapshot`. This creates a new RDB file in `/var/vcap/store/redis-backup`<br><br>
 
 * To create a snapshot and send it to the pre-configured remote backup destination, run `sudo /var/vcap/jobs/service-backup/bin/manual-backup`. <br>
   You must have enabled and pre-configured this destination in the **Backups** tab of the Redis for PCF settings. For example:<br>
@@ -98,7 +98,7 @@ You can also restore your backup file to another instance of the Redis for PCF t
 * The instance you are restoring to must have the same resource configuration as the instance you backed up.
 
 * Ensure that the persistent disk is large enough to handle the temporary files used during the restore process.
-It should be **3.5x the amount of RAM in the VM**.
+  It should be **3.5x the amount of RAM in the VM**.
 
 
 
@@ -124,7 +124,7 @@ It should be **3.5x the amount of RAM in the VM**.
 
 Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-FILE`
 
-### <a id="restore-shared"> Restore to a Shared-VM Plan
+### <a id="restore-shared"></a> Restore to a Shared-VM Plan
 
 1. Retrieve the GUID for the instance you want to restore to by running: <br>`cf service SERVICE-INSTANCE-NAME --guid`
 
@@ -267,14 +267,14 @@ Clean up existing Redis data files:
 
 ## <a id="restore-to-local-system"></a>Restore an RDB File to Any Redis Server
 
-You can choose to restore the RDB file to any Redis instance outside of Pivotal Cloud Foundry.
+You can choose to restore the RDB file to any Redis instance outside of PCF.
 
 For information on how Redis handles RDB files, see [Redis Persistence](http://redis.io/documentation).
 
-## <a id="recovery"></a>Recover Redis Instances While Recovering Cloud Foundry
+## <a id="recovery"></a>Recover Redis Instances While Recovering PCF
 
-In the event of a recovery of Cloud Foundry, it is possible to recover bound
-Redis instances to healthy states that are in sync with Cloud Foundry. There are
+In the event of a recovery of PCF, it is possible to recover bound
+Redis instances to healthy states that are in sync with PCF. There are
 a few requirements for fully recovering a previous instance state, depending on your plan.
 
 ### Shared-VM Recovery Requirements
@@ -301,7 +301,7 @@ broker node
 
 <p class="note"><strong>Note</strong>:
 The procedures below assumes that a recovery of service information and service keys
-assigned to instances are restored with a restore of Cloud Foundry.</p>
+assigned to instances are restored with a restore of PCF.</p>
 
 #### Recover a Shared-VM Plan
 
@@ -312,7 +312,8 @@ this with `watch monit summary`.
 1. Confirm there are no running instances of `redis-server` by running
 `ps aux | grep redis-server`.
 1. Copy the backed up `redis-data` directory into `/var/vcap/store/cf-redis-broker`.
-1. Follow the instructions in [Restore a Redis for PCF Instance from a Backup](#restore) for your plan, to restore your backed up Redis-data. 
+1. Follow the instructions in [Restore a Redis for PCF Instance from a Backup](#restore) above for your plan,
+   to restore your backed up Redis data. 
 1. Your Redis instance is now recovered.
 
 #### Recover a Dedicated-VM Plan
@@ -333,9 +334,10 @@ ensure ownership and permissions are correct with
 1. Your Redis instance is now recovered.
 
 #### Recover an On-Demand Plan
-1. Identify your target service-instance
+1. Identify your target service-instance.
 1. Restore your backup file.
 
 If your previous on-demand service-instance deployment does not exist:
-1. Create a new service-instances and restore your backup file
-1. Clean up any old service-instances and bind the new service-instance to your app
+
+1. Create a new service-instances and restore your backup file.
+1. Clean up any old service-instances and bind the new service-instance to your app.
