@@ -18,7 +18,7 @@ available as <code>bosh2</code> in the Ops Manager v1.11 and later.
 
 ### <a id="identify-dedicated"></a>Identify Dedicated-VM
 1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
-    * From the OpsManager UI, click on the Redis for PCF tile.
+    * From the Ops Manager UI, click on the Redis for PCF tile.
     * Copy the part of the URL that starts with "p-redis-".
 1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to SSH onto your Ops Manager installation.
 1. Identify the node which holds the instance you want to back up by running `bosh2 -d REDIS-DEPLOYMENT-NAME vms`.
@@ -33,7 +33,7 @@ available as <code>bosh2</code> in the Ops Manager v1.11 and later.
 
 ### <a id="identify-shared"></a>Identify Shared-VM
 1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
-    * From the OpsManager UI, click on the Redis for PCF tile.
+    * From the Ops Manager UI, click on the Redis for PCF tile.
     * Copy the part of the URL that starts with "p-redis-".
 1. [Follow these steps](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) to SSH onto your Ops Manager installation.
 1. Ssh onto the broker VM `bosh2 -d REDIS-DEPLOYMENT-NAME ssh cf-redis-broker`
