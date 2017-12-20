@@ -15,7 +15,7 @@ The key features are:
 * Every instance is backed up.
 * The Redis broker statefile is backed up.
 * For each backup artefact, a file is created that contains the MD5 checksum for that artifact. This can be used to validate that the artefact is not corrupted.
-* You can configure AWS S3, SCP, Azure or Google Cloud Storage as your destination.
+* You can configure AWS S3, SCP, Azure, or Google Cloud Storage as your destination.
 * Data from Redis is flushed to disk before the backup is started by running a `BGSAVE` on each instance.
 * Backups are labelled:
   * For dedicated-VM and shared-VM plans: with timestamp, instance GUID and plan name. Files are stored by date.
