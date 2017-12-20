@@ -15,15 +15,15 @@ To view the release notes for another product version, select the version from t
 
 ### Features
 
-* All releases within tile use SHA-2 checksums.
+* All releases used within the tile use SHA-2 checksums.
 
-* Tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) to decrease errand run time and VM footprint for PCF 2.0+.
+* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) to decrease errand run time and VM footprint for PCF 2.0+.
 
 * Users can manually backup and restore data to on-demand instances.
 
 * Data from dedicated-VM service instances can be migrated to on-demand service instances.
 
-* Reduced permissions to least priveleged user and lowest permissions for all Redis files for the on-demand service.
+* For security reasons, the permissions for all Redis files for the on-demand service have been reduced to least privileged user and lowered to minimum needed.
 
 * Introduces defaults for on-demand VM and disk sizes, encouraging correct configuration and sizing of plans.
 
