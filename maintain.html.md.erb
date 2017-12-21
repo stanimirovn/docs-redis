@@ -120,7 +120,8 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 ##  <a id="smoke"></a>Smoke Tests
 
 Ops Manager runs Redis for PCF smoke tests as a post-install errand.
-The operator can also run the smoke tests errand by running the command `bosh run errand smoke-tests`.
+The operator can also run the smoke tests errand by running the command:<br> 
+`bosh2 -d REDIS-DEPLOYMENT-NAME run-errand smoke-tests`<br><br>
 For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 <p class="note"><strong>Note</strong>: Smoke tests fail unless you enable global default application security groups (ASGs).
