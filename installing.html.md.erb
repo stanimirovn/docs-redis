@@ -26,7 +26,10 @@ including resource sizing if your App Developers need to grow beyond the current
 Select the **Redis** tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
     ![config overview](redis-config-overview.png)
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.8, Redis for PCF requires that you define and select a service network for all service plans described below. However, if you are not using the on-demand service, you can create an empty service network by following instructions in <a href="https://discuss.pivotal.io/hc/en-us/articles/115010154387"> this Knowledge Base article</a>.</p>
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.8,
+Redis for PCF requires that you define and select a service network for all service plans described below.
+However, if you are not using the on-demand service, you can create an empty service network by following instructions in
+<a href="https://discuss.pivotal.io/hc/en-us/articles/115010154387"> this Knowledge Base article</a>.</p>
 
 ###  <a id="on-demand-config"></a>On-Demand Service
 
@@ -126,7 +129,8 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     * Upgrade all On-demand Redis Service Instances
     * Deregister On-demand Redis Broker
 
-1. Create an empty service network. For instructions, see this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
+1. Create an empty service network.
+   For instructions, see this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
 
 1. Go to each of the three Cache Plan pages on the Redis for PCF tile, and set each cache plan to **Plan Inactive**. For example:
   ![cache plan inactive](cache-plan-inactive.png)
@@ -134,7 +138,10 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
 
-1. As of Redis for PCF v1.8, you must create a separate service network. If you wish to use Redis for PCF without the On-Demand service, you can create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile. Select the empty service network in the **Assign AZs and Networks** tab.
+1. As of Redis for PCF v1.8, you must create a separate service network.
+   To use Redis for PCF without the On-Demand service,
+   create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
+   Select the empty service network in the **Assign AZs and Networks** tab.
 
 1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
 ![shared vm config](shared-vm-config.png)
@@ -192,7 +199,10 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
-1. As of Redis for PCF v1.8, you must create a separate service network. If you wish to use Redis for PCF without the On-Demand service, you can create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile. Select the empty service network in the **Assign AZs and Networks** tab.
+1. As of Redis for PCF v1.8, you must create a separate service network.
+   To use Redis for PCF without the On-Demand service,
+   create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
+   Select the empty service network in the **Assign AZs and Networks** tab.
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 ![dedicated vm config](dedicated-vm-config.png)
@@ -307,7 +317,12 @@ This product enables a reliable upgrade experience between versions of the produ
 
 The upgrade paths are detailed [here](index.html#upgrading) for each released version.
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.8, Redis for PCF requires that you define and select a service network for all service plans types. Therefore, you must create a service network if you are upgrading to v1.8. However, if you are not using the on-demand service, you can create an empty service network by following instructions in <a href="https://discuss.pivotal.io/hc/en-us/articles/115010154387"> this Knowledge Base article</a>.</p>
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.8,
+Redis for PCF requires that you define and select a service network for all service plans types.
+Therefore, you must create a service network if you are upgrading to v1.8.
+However, if you are not using the on-demand service,
+you can create an empty service network by following instructions in
+<a href="https://discuss.pivotal.io/hc/en-us/articles/115010154387"> this Knowledge Base article</a>.</p>
 
 To upgrade the product:
 
