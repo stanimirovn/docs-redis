@@ -36,9 +36,12 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 * Each on-demand service instance is deployed to its own VM and is suitable for production workloads.
 * The service plans are operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * Operators can update the cache plan settings, including the VM size and disk size, after the plans have been created.
-* Operators and app developers can change certain Redis configurations from the default. See [Configuration for On-Demand Service Plans](#config) for more information.
+* Operators and app developers can change certain Redis configurations from the default. 
+See [Configuration for On-Demand Service Plans](#config) for more information.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
-* The maximum number of instances is managed by a per-plan and global quota. The maximum number of instances cannot surpass 50.
+* The maximum number of instances is managed by a per-plan and global quota. 
+The maximum number of instances cannot surpass 50.
+For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 
 ## <a id="config"></a> Configuration of On-Demand Service Plans
@@ -71,9 +74,12 @@ For more information, see [Customize an On-Demand Service Instance](./using.html
 
 ### <a id="opnotes"></a> Operator Notes for On-Demand Service Plans
 
-* Instances of the on-demand plan can be deployed until their number reaches either an operator-set per-plan quota or a global quota.
-* Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) and service broker adapter associated with this plan.
-* `maxmemory` in `redis.conf` is set to 45% of the system memory
+* Instances of the on-demand plan can be deployed until their number reaches 
+either an operator-set per-plan quota or a global quota. 
+For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
+* Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) 
+and service broker adapter associated with this plan.
+* `maxmemory` in `redis.conf` is set to 45% of the system memory.
 * Any on-demand plan can be disabled from the plan page in Ops Manager.
 
 ### <a id="limitations"></a> Known Limitations for On-Demand Service Plans
@@ -89,36 +95,6 @@ Limitations for the On-Demand Service include:
   these settings are implemented in all instances already created.
 
 * Automatic backups are not available for on-demand plans.
-
-## <a id="resource"></a> Resource Usage Planning for On-Demand Plans
-
-<p class="note">
-Redis on-demand plans use dedicated VMs and disks, which consume IaaS resources.
-Operators can limit resource usage with Plan Quotas and a Global Quota,
-but resource usage does vary based on number of on-demand instances provisioned.
-</p>
-
-If the number of on-demand instances is greater than or equal to the Global Quota set on the **On-Demand Service Settings** page, no new instances can be provisioned.
-
-To calculate the maximum cost/ usage for each plan:
-
-<pre>max_plan_resources = plan_quota x plan_resources</pre>
-
-To calculate the maximum cost across plans, add together the cost/ usage for each plan, while the quotas sum to less than the global quota.
-
-<pre>
-While (plan_1_quota + plan_2_quota) ≤ global_quota:
-max_resources = (plan_1_quota x plan_1_resources) + ( plan_2_quota x plan_2_resources)
-</pre>
-
-To calculate the current IaaS cost/ usage across on-demand plans:
-
-1. Find the current instances provisioned for all plans by referencing the `total_instance` metric as [documented here](monitoring.html#usage).
-1. Multiply the `total_instance` for each plan by that plan's resources.
-   Sum all plans that are active to get your total current usage:
-
-<pre>current_usage = (plan_1_total_instances x plan_1_resources) + (plan_2_total_instances x plan_2_resources)</pre>
-
 
 ## <a id ="lifecycle"></a>Lifecycle for On-Demand Service Plan
 
