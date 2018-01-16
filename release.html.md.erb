@@ -11,23 +11,27 @@ To view the release notes for another product version, select the version from t
 
 ## <a id="1110"></a> v1.11.0
 
-**Release Date:  XX, 2018**
+**Release Date:  January 19, 2018**
 
 ### Features
 
-* The on-demand service is now at feature parity with the dedicated-VM service. The dedicated-VM service will be deprecated. Please move applications to using the on-demand service.
+* The on-demand service is now at feature parity with the dedicated-VM service. 
+The dedicated-VM service will be deprecated. Please move applications to using the on-demand service.
 
 * All releases used within the tile use SHA-2 checksums.
 
-* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) to decrease errand run time and VM footprint for PCF 2.0+.
+* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) 
+to decrease errand run time and VM footprint for Pivotal Cloud Foundry (PCF) 2.0 and later.
 
-* Users can backup and restore data to on-demand instances (manually and automatically).
+* Users can manually and automatically back up and restore data to on-demand instances.
 
-* For security reasons, the permissions for all Redis files for the on-demand service have been reduced to least privileged user and lowered to minimum needed.
+* For security reasons, the permissions for all Redis files for the on-demand 
+service have been reduced to least privileged user and lowered to minimum needed.
 
 * Defaults for on-demand VM and disk sizes encourage correct configuration and sizing of plans.
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, has been disabled for security concerns.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, 
+has been disabled for security concerns.
 
 ### Compatibility
 
@@ -41,7 +45,7 @@ To view the release notes for another product version, select the version from t
     <td>3445.22+</td>
 </tr>
 <tr>
-    <td>PCF (<em>Elastic Runtime</em> tile is renamed <em>Pivotal Application Service</em> tile)</td>
+	<td>PCF<sup>*</sup></td>
     <td>v1.12.x and v2.0.x</td>
 </tr>
 <tr>
@@ -82,6 +86,8 @@ To view the release notes for another product version, select the version from t
 </tr>
 
 </table>
+
+<sup>*</sup>Elastic Runtime is renamed Pivotal Application Service (PAS)
 
 ### Known Issues
 
