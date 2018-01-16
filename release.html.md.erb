@@ -11,21 +11,23 @@ To view the release notes for another product version, select the version from t
 
 ## <a id="1110"></a> v1.11.0
 
-**Release Date: December XX, 2017**
+**Release Date:  XX, 2018**
 
 ### Features
+
+* The on-demand service is now at feature parity with the dedicated-VM service. The dedicated-VM service will be deprecated. Please move applications to using the on-demand service.
 
 * All releases used within the tile use SHA-2 checksums.
 
 * The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) to decrease errand run time and VM footprint for PCF 2.0+.
 
-* Users can manually backup and restore data to on-demand instances.
-
-* Data from dedicated-VM service instances can be migrated to on-demand service instances.
+* Users can backup and restore data to on-demand instances (manually and automatically).
 
 * For security reasons, the permissions for all Redis files for the on-demand service have been reduced to least privileged user and lowered to minimum needed.
 
 * Defaults for on-demand VM and disk sizes encourage correct configuration and sizing of plans.
+
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, has been disabled for security concerns.
 
 ### Compatibility
 
@@ -36,7 +38,7 @@ To view the release notes for another product version, select the version from t
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>3445.19+</td>
+    <td>3445.22+</td>
 </tr>
 <tr>
     <td>PCF (<em>Elastic Runtime</em> tile is renamed <em>Pivotal Application Service</em> tile)</td>
@@ -48,23 +50,23 @@ To view the release notes for another product version, select the version from t
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.17.0</td>
+    <td>v0.19.0</td>
 </tr>
 <tr>
     <td>consul</td>
-    <td>v178.0.0</td>
+    <td>v191.0.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>v0.165.0</td>
+    <td>v0.169.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>v1.5.10</td>
+    <td>v1.5.11</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>v18.1.8</td>
+    <td>v18.1.9</td>
 </tr>
 <tr>
     <td>syslog-migration</td>
@@ -72,7 +74,7 @@ To view the release notes for another product version, select the version from t
 </tr>
 <tr>
     <td>loggregator</td>
-    <td>v97.0.0</td>
+    <td>v101.3</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
@@ -83,10 +85,6 @@ To view the release notes for another product version, select the version from t
 
 ### Known Issues
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, does not have any effect due to a bug in Redis v3.2.8.
-
 * The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
-
-* Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
