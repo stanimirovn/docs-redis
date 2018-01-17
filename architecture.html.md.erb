@@ -36,10 +36,10 @@ For each service plan, the operator can configure the **Plan name**, **Plan desc
 * Each on-demand service instance is deployed to its own VM and is suitable for production workloads.
 * The service plans are operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * Operators can update the cache plan settings, including the VM size and disk size, after the plans have been created.
-* Operators and app developers can change certain Redis configurations from the default. 
+* Operators and app developers can change certain Redis configurations from the default.
 See [Configuration for On-Demand Service Plans](#config) for more information.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
-* The maximum number of instances is managed by a per-plan and global quota. 
+* The maximum number of instances is managed by a per-plan and global quota.
 The maximum number of instances cannot surpass 50.
 For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
@@ -74,12 +74,12 @@ For more information, see [Customize an On-Demand Service Instance](./using.html
 
 ### <a id="opnotes"></a> Operator Notes for On-Demand Service Plans
 
-* Instances of the on-demand plan can be deployed until their number reaches 
-either an operator-set per-plan quota or a global quota. 
+* Instances of the on-demand plan can be deployed until their number reaches
+either an operator-set per-plan quota or a global quota.
 For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
-* Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/) 
+* Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/)
 and service broker adapter associated with this plan.
-* `maxmemory` in `redis.conf` is set to 45% of the system memory.
+* `maxmemory` in `redis.conf` is set to 45% of the system memory. 
 * Any on-demand plan can be disabled from the plan page in Ops Manager.
 
 ### <a id="limitations"></a> Known Limitations for On-Demand Service Plans
