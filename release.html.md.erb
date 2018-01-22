@@ -5,6 +5,26 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## Redis for PCF v1.9.6
+**January 22, 2018**
+
+**Compatibility**
+
+* Compatible with stemcells 3445.22+.
+
+* Compatible with service-metrics [v1.5.11](https://docs.pivotal.io/svc-sdk/service-metrics/1-5/release-notes.html), service-backup [v18.1.9](https://docs.pivotal.io/svc-sdk/service-backup/18-1/release-notes.html),on-demand service broker [v0.19.0](http://docs.pivotal.io/svc-sdk/odb/0-19/release-notes.html). 
+
+
+**Known Issues**
+
+* The redis-odb service broker listens on port `12345`.
+  This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+  Do not select this choice as an errand run-rule.
+  For more information about this unexpected behavior,
+  see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
 ## Redis for PCF v1.9.5
 **November 10, 2017**
 
