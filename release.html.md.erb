@@ -74,10 +74,13 @@ has been disabled for security concerns.
 
 ### Known Issues
 
-* The redis-odb service broker listens on 12345. This is inconsistent with other services but has no effect on tile operations.
+* The redis-odb service broker listens on port `12345`. 
+This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
-
+* The **When Changed** option for errands has unexpected behavior. 
+Do not select this choice as an errand run-rule. 
+For more information about this unexpected behavior, see 
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ## <a id="1100"></a> v1.10.1
 
