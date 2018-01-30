@@ -18,6 +18,66 @@ Select the latest release from the **Releases** drop-down menu.
 
 See the [network configuration](./installing.html#network-configuration) section for guidance on the ports and ranges used in the Redis service.
 
+## <a id="azs"></a>Assign AZs and Networks
+
+To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
+
+![AZ Assignment Diagram](AZ-assignment.png)
+
+###  <a id="az-config"></a>Assign AZs
+
+As of Redis for PCF 1.9, you can assign multiple AZs to Redis jobs, however this will not guarantee high availability.
+For more information, see [Support for Multiple AZs](erc.html#other-notes).
+
+To assign AZs, do the following:
+
+1. In the **Assign AZs and Networks** tab, make your selections under **Place singleton jobs in** and **Balance other jobs in**.
+1. Click **Save**.
+
+
+###  <a id="network-configuration"></a>Select Networks
+
+* **To use the Redis for PCF on-demand service**
+
+    You must use a [service network] (./odnetworking.html#architecture_networks) with the on-demand service. 
+    From an IAAS perspective, creating a service network is identical to creating any other network 
+    created for tiles on Ops Manager. The only difference is that the Operator must mark the 
+    network as a “Service Network” in Ops Manager to prevent Ops Manager from performing IP management in that network.
+
+* **To use Redis for PCF without the on-demand service**
+
+    If you want to use Redis for PCF without the on-demand service, you must still create an 
+    [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
+
+
+Pivotal recommends that each type of Redis for PCF service run in its own network.
+For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
+
+To select networks, do the following:
+
+1. In the **Assign AZs and Networks** tab, select a **Network**.
+1. If using the on-demand service, select a **Service Network**. 
+Otherwise, select an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
+
+#### Port Ranges Used in Redis for PCF
+
+The following ports and ranges are used in Redis for PCF:
+
+| Port                  | Protocol                     | Direction and Network                                                                          | Reason                                                                                                                      |
+|:----------------------|:-----------------------------|:-----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| 8300<br>8301             | TCP<br>TCP and UDP | Inbound to CloudFoundry network, outbound from service broker and service instance networks* | Communication between the CF consul\_server and consul\_agents on Redis deployment; used for metrics                         |
+| 8202                  | TCP                          | Inbound to CloudFoundry network, outbound from service broker and service instance networks* | Used by the Redis metron_agent to forward metrics to the CloudFoundry etcd server                                          |
+| 12350                 | TCP                          | Outbound from CloudFoundry to the cf-redis-broker service broker network                       | (Only if using a cf-redis-broker) Access to the cf-redis-broker from the cloud controllers.                                 |
+| 12345                 | TCP                          | Outbound from CloudFoundry to the on-demand service broker network                             | (Only if using an On-Demand service) For access to the on-demand service broker from the cloud controllers          |
+| 6379                  | TCP                          | Outbound from CloudFoundry to any service instance networks (dedicated-node and on-demand)     | Access to all dedicated nodes and on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
+| 32768-61000           | TCP                          | Outbound from CloudFoundry to the cf-redis-broker service broker network                       | From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan. |
+| 80 or 443<br>(Typically) | http or https<br>respectively  | Outbound from any service instance networks                                                    | Access to the backup blobstore                                                                                             |
+| 8443<br>25555           | TCP                          | Outbound from any on-demand service broker network to the BOSH Director network                | For the on-demand service, the on-demand service broker needs to talk to the BOSH Director                                    |
+
+\* Typically the service broker network and service instance network(s) are the same.
+
+
+
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
 Select the **Redis** tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
@@ -25,8 +85,6 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
 
-1. Create a [service network] (https://docs.pivotal.io/redis/1-8/architecture.html#architecture_networks). From an IAAS perspective, creation of a service network is identical to any other network previously created for tiles on Ops Manager. The only change is that the Operator needs to mark the network as a “Service Network” in Ops Manager to instruct Ops Manager to not perform IP management in that network.
-If you wish to use Redis for PCF without the On-Demand service, you will still need to create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
     ![settings](on-demand-settings.png)</br></br>
     Review the guidance to understand the resource implications for on-demand instances. See [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
@@ -206,6 +264,8 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 ### <a id="resources"></a>Configure Resources for Shared-VM and Dedicated-VM Plans
 
+To configure resources for the Shared-VM and Dedicated-VM plans, click the **Resource Config** settings tab on the Redis for PCF tile.
+
 The following are the default resource and IP requirements for Redis for PCF when using the Shared-VM or Dedicated-VM plans:
 <table border="1" class="nice">
   <tr>
@@ -363,35 +423,15 @@ Follow these steps to configure syslog forwarding:
 
 1.  Click **Save**.
 
-## <a id="azs"></a>Networks, Security, and Assigning AZs
 
-###  <a id="network-configuration"></a>Network Configuration
 
-Pivotal recommends that each type of Redis for PCF service run in its own network.
-For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
-
-The following ports and ranges are used in this service:
-
-| Port                  | Protocol                     | Direction and Network                                                                          | Reason                                                                                                                      |
-|:----------------------|:-----------------------------|:-----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| 8300<br>8301             | TCP<br>TCP and UDP | Inbound to CloudFoundry network, outbound from service broker and service instance networks* | Communication between the CF consul\_server and consul\_agents on Redis deployment; used for metrics                         |
-| 8202                  | TCP                          | Inbound to CloudFoundry network, outbound from service broker and service instance networks* | Used by the Redis metron_agent to forward metrics to the CloudFoundry etcd server                                          |
-| 12350                 | TCP                          | Outbound from CloudFoundry to the cf-redis-broker service broker network                       | (Only if using a cf-redis-broker) Access to the cf-redis-broker from the cloud controllers.                                 |
-| 12345                 | TCP                          | Outbound from CloudFoundry to the on-demand service broker network                             | (Only if using an On-Demand service) For access to the on-demand service broker from the cloud controllers          |
-| 6379                  | TCP                          | Outbound from CloudFoundry to any service instance networks (dedicated-node and on-demand)     | Access to all dedicated nodes and on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
-| 32768-61000           | TCP                          | Outbound from CloudFoundry to the cf-redis-broker service broker network                       | From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan. |
-| 80 or 443<br>(Typically) | http or https<br>respectively  | Outbound from any service instance networks                                                    | Access to the backup blobstore                                                                                             |
-| 8443<br>25555           | TCP                          | Outbound from any on-demand service broker network to the BOSH Director network                | For the on-demand service, the on-demand service broker needs to talk to the BOSH Director                                    |
-
-\* Typically the service broker network and service instance network(s) are the same.
-
-###  <a id="asg"></a> Application Security Groups###
+##  <a id="asg"></a> Application Security Groups
 
 To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
-#### Application Container Network Connections
+### Application Container Network Connections
 
 Application containers that use instances of the Redis service require the following outbound network connections:
 
@@ -417,7 +457,8 @@ Application containers that use instances of the Redis service require the follo
 </tr>
 </tbody></table>
 
-Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, bind to the `default-running` ASG set and restart your apps. Example:
+Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, 
+to give all started apps access, bind to the `default-running` ASG set and restart your apps. Example:
 
 ```json
 [
@@ -429,12 +470,6 @@ Create an ASG called `redis-app-containers` with the above configuration and bin
 ]
 ```
 
-###  <a id="az-config"></a>Assigning AZs
-As of Redis for PCF 1.9, you can assign multiple AZs to Redis jobs, however this will not guarantee high availability.
-
-For more information, see [About Multiple AZs in Redis for PCF](index.html#other-notes).
-
-![AZ Assignment Diagram](AZ-assignment.png)
 
 ## <a id="validation"></a>Validating Installation
 
