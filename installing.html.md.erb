@@ -14,11 +14,12 @@ owner: London Services
 
 To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-redis). Select the latest release from the **Releases:** drop-down menu.
-1. Upload the product file to your Ops Manager installation.
-1. Click **Add** next to the uploaded product description in the Available Products view to add this product to your staging area.
-1. (Optional) Click the newly added tile to configure your [possible service plans](#service-plans), [syslog draining](#syslog), and [backups](maintain.html#backup).
-1. Click **Apply Changes** to install the service.
+1. Download the Redis for PCF file from [Pivotal Network](https://network.pivotal.io/products/p-redis). 
+Select the latest release from the **Releases** drop-down menu.
+1. In the PCF Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
+1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
+1. To configure Redis for PCF, click the newly added tile.
+1. After completing the required configuration, click **Apply Changes** to install the service.
 
 See the [network configuration](./installing.html#network-configuration) section for guidance on the ports and ranges used in the Redis service.
 
