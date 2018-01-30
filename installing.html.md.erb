@@ -5,11 +5,6 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note</strong>: For Redis for PCF v1.11, 
-  the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated. 
-    Pivotal recommends using the on-demand service plan.</p>
-
 ## <a id="install"></a>Download and Install the Tile
 
 To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
@@ -185,6 +180,11 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     <br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk & Persistent Disk made available, as required.
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
+
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+    the on-demand service is at feature parity with the dedicated-VM service.
+    The dedicated-VM service plan will be deprecated. 
+    Pivotal recommends using the on-demand service plan.</p>
 
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 ![dedicated vm config](dedicated-vm-config.png)
