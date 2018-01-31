@@ -5,6 +5,10 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+This topic describes the process of installing the Redis for PCF.
+It covers tasks from downloading the file from the Pivotal Network
+through to verifying the installation after configuration.
+
 ## <a id="install"></a>Download and Install the Tile
 
 To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
@@ -16,7 +20,7 @@ Select the latest release from the **Releases** drop-down menu.
 1. To configure Redis for PCF, click the newly added tile.
 1. After completing the required configuration, click **Apply Changes** to install the service.
 
-See the [network configuration](./installing.html#network-configuration) section for guidance on the ports and ranges used in the Redis service.
+For guidance on ports and ranges used in the Redis service, see [Select Networks](#network-configuration) below.
 
 ## <a id="azs"></a>Assign AZs and Networks
 
@@ -26,7 +30,7 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ###  <a id="az-config"></a>Assign AZs
 
-As of Redis for PCF 1.9, you can assign multiple AZs to Redis jobs, however this will not guarantee high availability.
+As of Redis for PCF v1.9, you can assign multiple AZs to Redis jobs, however this does not guarantee high availability.
 For more information, see [Support for Multiple AZs](erc.html#other-notes).
 
 To assign AZs, do the following:
@@ -41,7 +45,7 @@ To assign AZs, do the following:
 
     You must use a [service network] (./odnetworking.html#architecture_networks) with the on-demand service. 
     From an IAAS perspective, creating a service network is identical to creating any other network 
-    created for tiles on Ops Manager. The only difference is that the Operator must mark the 
+    created for tiles on Ops Manager. The only difference is that the operator must mark the 
     network as a “Service Network” in Ops Manager to prevent Ops Manager from performing IP management in that network.
 
 * **To use Redis for PCF without the on-demand service**
@@ -81,7 +85,8 @@ The following ports and ranges are used in Redis for PCF:
 
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
-Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
+Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page,
+and allocate resources to Redis service plans.</br></br>
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
 
@@ -91,13 +96,15 @@ The maximum number of instances you set for all your on-demand plans combined ca
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 1. Select the **Allow outbound internet access from service instances** checkbox. 
-You must tick this checkbox to allow external log forwarding, send backup artifacts to external destinations, and communicate with an external BOSH blob store.
+   You must tick this checkbox to allow external log forwarding, send backup artifacts to external destinations,
+   and communicate with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
-    You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
+    You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
+    Resource configuration options may vary on different IAASs.
 </br>
 </br>
     The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:</br></br>
@@ -107,13 +114,15 @@ You must tick this checkbox to allow external log forwarding, send backup artifa
 
     ![on demand config](on-demand-config.png) <a id="planconfig"></a>
     
-1. Configure the following settings for your on-demand plan(s). Any pre-populated default settings are pre-configured according to the memory and disk size of each plan.
+1. Configure the following settings for your on-demand plan(s).
+   Any pre-populated default settings are pre-configured according to the memory and disk size of each plan.
     <table class="nice">
           <th>Field</th>
           <th>Description</th>
           <tr>
             <td>**Plan**</td>
-            <td><strong>Select Plan Active</strong> or <strong>Plan Inactive</strong>. An inactive plan does not need any further configuration.</td>
+            <td><strong>Select Plan Active</strong> or <strong>Plan Inactive</strong>.
+                An inactive plan does not need any further configuration.</td>
           </tr>
           <tr>
             <td>**Plan Name**</td>
@@ -121,7 +130,8 @@ You must tick this checkbox to allow external log forwarding, send backup artifa
           </tr>
           <tr>
             <td>**Plan Description**</td>
-            <td>Enter a description that will appear in the Marketplace. Specify details that will be relevant to app developers.</td>
+            <td>Enter a description that will appear in the Marketplace.
+                Specify details that will be relevant to app developers.</td>
           </tr>
           <tr>
             <td>**Plan Quota**</td>
@@ -130,35 +140,47 @@ You must tick this checkbox to allow external log forwarding, send backup artifa
           </tr>
           <tr>
             <td>**CF Service Access**</td>
-            <td>Select a service access level. This setting does not modify the permissions that have been previously set, and allows for manual access to be configured from the CLI.</td>
+            <td>Select a service access level.
+                This setting does not modify the permissions that have been previously set,
+                and allows for manual access to be configured from the CLI.</td>
           </tr>
           <tr>
             <td>**AZ to deploy Redis instances of this plan**</td>
-            <td>This is the AZ in which to deploy the Redis instances from the plan. This must be one of the AZs of the service network (configured in the Ops Manager Director tile).</td>
+            <td>This is the AZ in which to deploy the Redis instances from the plan.
+                This must be one of the AZs of the service network (configured in the Ops Manager Director tile).</td>
           </tr>
           <tr>
             <td>**Server VM type**</td>
-            <td>Select the VM type. Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
+            <td>Select the VM type.
+                Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
           </tr>
           <tr>
             <td>**Server Disk type**</td>
-            <td>Select the disk type. Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
+            <td>Select the disk type.
+                Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
           </tr>
           <tr>
             <td>**Redis Client Timeout**</td>
-            <td>This field refers to the server timeout for an idle client specified in seconds. The default setting is 3600. Adjust this setting as needed.</td>
+            <td>This field refers to the server timeout for an idle client specified in seconds.
+                The default setting is 3600.
+                Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Redis TCP Keepalive**</td>
-            <td>Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60. Adjust this setting as needed.</td>
+            <td>Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients.
+                The default setting is 60.
+                Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Max Clients**</td>
-            <td>Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large. Adjust this setting as needed.</td>
+            <td>Max Clients refers to the maximum number of clients that can be connected at any one time.
+                Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
+                Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Lua Scripting**</td>
-            <td>Enable or disable Lua Scripting as needed. Pivotal recommends that Lua Scripting be disabled.</td>
+            <td>Enable or disable Lua Scripting as needed.
+                Pivotal recommends that Lua Scripting be disabled.</td>
           </tr>
     </table>
 
@@ -167,11 +189,12 @@ You must tick this checkbox to allow external log forwarding, send backup artifa
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
 Operators can update certain settings after the plans have been created.
-If the Operator updates the VM size, disk size, or the Redis configuration settings
+If the operator updates the VM size, disk size, or the Redis configuration settings
 (enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
-these settings will be implemented in all instances that are already created.
+these settings are implemented in all instances that are already created.
 
-Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances. Additionally, Operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
+Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+Additionally, operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
 #### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
 
@@ -185,9 +208,11 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     * Upgrade all On-demand Redis Service Instances
     * Deregister On-demand Redis Broker
 
-1. Create an empty service network. For instructions, see this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
+1. Create an empty service network.
+   For instructions, see this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
 
-1. Go to each of the three On-Demand Plan pages on the Redis for PCF tile, and set each plan to **Plan Inactive**. For example:
+1. Go to each of the three On-Demand Plan pages on the Redis for PCF tile, and set each plan to **Plan Inactive**.
+   For example:
   ![cache plan inactive](cache-plan-inactive.png)
 
 
@@ -274,7 +299,8 @@ For more information, see [Configure Resources for Shared-VM and Dedicated-VM Pl
 1. Click **Save**.
 
 1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
-Click the tab for each on-demand plan, and select **Plan Inactive**. See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand).
+Click the tab for each on-demand plan, and select **Plan Inactive**.
+See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand).
 
 For more information on configuring resources, see below.
 
@@ -360,7 +386,8 @@ The following are the default resource and IP requirements for Redis for PCF whe
 
 You can update certain plan settings after the plans have been created.
 If you update the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), 
-these settings are implemented in all instances already created. You must not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+these settings are implemented in all instances already created.
+You must not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
 The following table describes properties you can update in the [plan configuration page](#planconfig).
 
@@ -403,7 +430,8 @@ For settings that app developers can configure, see [Customize an On-Demand Serv
 
 ## <a id="syslog"></a>Configure Syslog Forwarding
 
-Pivotal recommends that operators configure syslog forwarding to a remote destination. Forwarding your system logs to a remote destination lets you:
+Pivotal recommends that operators configure syslog forwarding to a remote destination.
+Forwarding your system logs to a remote destination lets you:
 
 * View logs from every VM in the Redis for PCF deployment in one place.
 * Effectively troubleshooting when logs are lost on the source VM.
@@ -430,20 +458,23 @@ To configure syslog forwarding, do the following:
 
 1. Select the format for your logs. [RFC5424](https://tools.ietf.org/html/rfc5424) is the suggested format.<br><br>
    For instances of the Redis on-demand plan, all logs follow RFC5424 format.
-   Instances of the Dedicated-VM and Shared-VM plans allow for the Operator to select their log format to be either their legacy format or RFC5424.
+   Instances of the Dedicated-VM and Shared-VM plans allow for the operator to select their log format to be either their legacy format or RFC5424.
    PCF is moving toward all syslogs consistently using RFC5424 format.
 
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
-  * **Permitted Peer** refers to the remote syslog destination. It allows each VM to establish an encrypted tunnel with the remote syslog destination. 
+  * **Permitted Peer** refers to the remote syslog destination.
+    It allows each VM to establish an encrypted tunnel with the remote syslog destination. 
   The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
-  * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination. Large certificate chains (> 8kb) are not supported.
+  * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination.
+    Large certificate chains (> 8kb) are not supported.
 
 1.  Click **Save**.
 
 
 ## <a id="apply"></a> Apply Changes from Your Configuration
 
-Your installation is not complete until you apply your configuration changes. Follow the steps below:
+Your installation is not complete until you apply your configuration changes.
+Follow the steps below:
 
 1. Return to the Ops Manager Installation Dashboard.
 
