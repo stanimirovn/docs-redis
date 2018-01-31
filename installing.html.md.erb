@@ -50,12 +50,13 @@ To assign AZs, do the following:
     [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
 
 
-Pivotal recommends that each type of Redis for PCF service run in its own network.
-For example, run a Redis for PCF on-demand service on a separate network from a Redis for PCF shared-VM service.
 
 To select networks, do the following:
 
-1. In the **Assign AZs and Networks** tab, select a **Network**.
+1. In the **Assign AZs and Networks** tab, select a **Network**.<br><br>
+    Pivotal recommends that each type of PCF service run in its own network.
+    For example, run Redis for PCF on a separate network from RabbitMQ for PCF.
+
 1. If using the on-demand service, select a **Service Network**. 
 Otherwise, select an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
 
@@ -80,11 +81,12 @@ The following ports and ranges are used in Redis for PCF:
 
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
-Select the **Redis** tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
+Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
 
-1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
+1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. 
+The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.</br></br>
     ![settings](redis-odservice-settings.png)</br></br>
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
@@ -93,7 +95,7 @@ You must tick this checkbox to allow external log forwarding, send backup artifa
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 
-1. To configure a plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
+1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
     You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
 </br>
@@ -123,7 +125,7 @@ You must tick this checkbox to allow external log forwarding, send backup artifa
           </tr>
           <tr>
             <td>**Plan Quota**</td>
-            <td>App developers can create instances until this quota is reached.
+            <td>Enter the maximum number of instances of this plan that app developers can create.
               For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td>
           </tr>
           <tr>
@@ -191,18 +193,22 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
 
-1.  Select the **Shared-VM Plan** tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
+1.  Select the **Shared-VM Plan** tab.
 ![shared vm config](shared-vm-config.png)
 
-1.  Enter the maximum number of instances and the memory limit for each Redis instance.
+1.  Configure these fields:<br><br>
+      * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance
+      * **Redis Service Instance Limit**---Maximum number of shared-VM instances
 
-    <br />Shared-VM instances run on the Redis Broker. The memory and instance limits for your Shared-VM Redis instances depends on the total memory of your Redis broker.
+    Shared-VM instances run on the Redis broker. 
+    The memory and instance limits for instances of these plans depend on the total memory of your Redis broker.
 
-    <br />When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
-    Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
-    This is due the amount of memory required to support Redis persistence, and run Redis broker & system tasks.
+    <br />When configuring these limits, 
+    take into account the maximum memory each Redis shared-VM instance could use compared to how much total memory the Redis broker has.
+    Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all shared-VM instances combined.
+    This is due to the amount of memory required to support Redis persistence, and run Redis broker and system tasks.
 
-    <br />See below for example cases:
+    <br />Here are some examples for setting these limits:
 
     <table border="1" class="nice">
     	<tr>
@@ -228,18 +234,22 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     </table>
 
 
-    <br />It is possible to configure a larger Redis Service Instance Limit, if you are confident that the majority of the deployed instances will not be using a large amount of their allocated memory, for example in development or test environments.
-    <p class="note"><strong>Note</strong>:
-      This is not supported, and could cause your server to run out of memory.
-      If this happens your users may not be able to write any further data to any Redis instance.
+    <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
+      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
+      for example in development or test environments. <br><br>However, doing this is not supported, and could cause your server to run out of memory,
+      preventing users from writing any more data to any Redis shared-VM instance.
     </p>
 
-1. Click the **Save** button.
+1. Click **Save**.
 
-1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here](#remove-on-demand).
+1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
+Click the tab for each on-demand plan, and select **Plan Inactive**. See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand).
 
-1.  Select the **Resource Config** tab to change the allocation of resources for the Redis Broker.
-    <br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk & Persistent Disk made available, as required.
+1. To change the allocation of resources for the Redis broker, click the **Resource Config** tab.
+    <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan. 
+    From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk and Persistent Disk made available, as needed.
+
+For more information, see [Configure Resources for Shared-VM and Dedicated-VM Plans](#resources).
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
@@ -248,26 +258,32 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     The dedicated-VM service plan will be deprecated. 
     Pivotal recommends using the on-demand service plan.</p>
 
-1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
+1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 ![dedicated vm config](dedicated-vm-config.png)
 <br>
   - The default configuration creates 5 dedicated nodes. 
-  Each node is capable of running one Redis instance.
-  - You can increase or decrease the number of dedicated nodes, the size of the 
-  Persistent and Ephemeral Disks, and the CPU and RAM, as required.
-  - The default VM size is small. It is important that the operator set the correct 
+  Each node can run one Redis dedicated-VM instance.
+  - You can change the number of dedicated nodes, the size of the 
+  Persistent and Ephemeral Disks, and the CPU and RAM, as needed.
+  - The default VM size is small. It is important that you set the correct 
   VM size to handle anticipated loads. 
   - Redis is allowed up to 45% of the total system RAM. This is set through the `maxmemory` configuration. 
   The app can use 100% of `maxmemory`, which would be up to 45% of the system RAM. 
   - Pivotal recommends the persistent disk be set to 3.5x the amount of RAM.
 
-1. Click the **Save** button.
+1. Click **Save**.
 
-1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here] (#remove-on-demand).
+1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
+Click the tab for each on-demand plan, and select **Plan Inactive**. See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand).
+
+For more information on configuring resources, see below.
 
 ### <a id="resources"></a>Configure Resources for Shared-VM and Dedicated-VM Plans
 
 To configure resources for the Shared-VM and Dedicated-VM plans, click the **Resource Config** settings tab on the Redis for PCF tile.
+
+* The Shared-VM plan is on the **Redis Broker** resource.
+* The Dedicated-VM plan is on the **Dedicated Node** resource.
 
 The following are the default resource and IP requirements for Redis for PCF when using the Shared-VM or Dedicated-VM plans:
 <table border="1" class="nice">
@@ -339,18 +355,14 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
 </table>
 
-#### Notes:
-* The `shared-vm` plan is on the `Redis Broker` resource
-* The `dedicated-vm` plan is on the `Dedicated Node` resource
 
 ### <a id="configurations"></a>Additional Redis Configurations
 
-The operator can configure further properties per plan beyond memory and disk sizes. Appropriate defaults have been pre-configured according to the memory/disk size of each plan.
+You can update certain plan settings after the plans have been created.
+If you update the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), 
+these settings are implemented in all instances already created. You must not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
-Operators can update certain plan settings after the plans have been created.
-If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
-
-The following table describes properties that operators can update in the [plan configuration page](#planconfig).
+The following table describes properties you can update in the [plan configuration page](#planconfig).
 
 <table border="1" class="nice">
   <tr>
@@ -391,29 +403,30 @@ For settings that app developers can configure, see [Customize an On-Demand Serv
 
 ## <a id="syslog"></a>Configure Syslog Forwarding
 
-Pivotal recommends that operators configure syslog forwarding to a remote destination. Forwarding your system logs to a remote destination enables:
+Pivotal recommends that operators configure syslog forwarding to a remote destination. Forwarding your system logs to a remote destination lets you:
 
-* Viewing logs from every VM in the Redis for PCF deployment in one place
-* Effective troubleshooting when logs are lost on the source VM
-* Setting up alerts for important error logs to monitor the deployment
+* View logs from every VM in the Redis for PCF deployment in one place.
+* Effectively troubleshooting when logs are lost on the source VM.
+* Set up alerts for important error logs to monitor the deployment.
 
 All logs follow RFC5424 format.
 
-Follow these steps to configure syslog forwarding:
+To configure syslog forwarding, do the following:
 
-1. Click the Redis for PCF tile to display the configuration page, and then click the **Syslog** tab on the sidebar navigation.
+1. Click the Redis for PCF tile to display the configuration page, and then click the **Syslog** tab.
 
     <br>![syslog configuration](syslog-forwarding5.png)
 
-1. Select either the **Yes without encryption** or the **Yes with TLS encryption** radio button.
+1. Select either **Yes without encryption** or **Yes with TLS encryption**.
 
-    <p class="note"><strong>Note:</strong> To use syslog for on-demand instances
-       you must enable outbound internet access in the <strong>On-Demand Service Settings</strong> tab.</p>
+    <p class="note"><strong>Note:</strong> To use syslog forwarding for on-demand instances
+       you must select the <a href="#on-demand-config"> Allow outbound internet access from service instances</a> 
+       checkbox in the <strong>On-Demand Service Settings</strong> tab.</p>
 
-1. Enter the Syslog address and port, and select the transport protocol of your remote destination.
+1. Enter the Syslog **Address** and **Port**, and select the **Transport protocol** of your remote destination.
    You can only use TCP if you are using TLS encryption.<br><br>
    The information required for these fields is provided by your remote destination.
-   **Address** should be something such as `logs.papertrailapp.com`, and the port will be a number such as `41635`.
+   **Address** should be something such as `logs.papertrailapp.com`, and **Port** will be a number such as `41635`.
 
 1. Select the format for your logs. [RFC5424](https://tools.ietf.org/html/rfc5424) is the suggested format.<br><br>
    For instances of the Redis on-demand plan, all logs follow RFC5424 format.
@@ -437,17 +450,18 @@ Your installation is not complete until you apply your configuration changes. Fo
 2. Click **Apply Changes**.
 
 
-##  <a id="asg"></a> Application Security Groups
+##  <a id="asg"></a> Create Application Security Groups
 
-To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). 
+To allow this service to have network access, 
+you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). 
 Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. 
-You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
+You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
 ### Application Container Network Connections
 
-Application containers that use instances of the Redis service require the following outbound network connections:
+Application containers that use instances of the Redis for PCF service require the following outbound network connections:
 
 <table><thead>
 <tr>
@@ -487,8 +501,8 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating Installation
 
-Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. 
-Smoke tests are described <a href="https://docs.pivotal.io/redis/1-8/smoke-tests.html">here</a>.
+Smoke tests run as part of Redis for PCF installation to validate that the install succeeded. 
+For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 
 ## <a id="uninstall"></a>Uninstalling Redis for PCF
