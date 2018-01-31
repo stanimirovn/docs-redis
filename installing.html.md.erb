@@ -81,42 +81,45 @@ The following ports and ranges are used in Redis for PCF:
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
 Select the **Redis** tile in the Ops Manager Installation Dashboard to display the configuration page, and allocate resources to Redis service plans.</br></br>
-    ![config overview](redis-config-overview.png)
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
 
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. The maximum number of instances you set for all your cache plans combined cannot exceed this number.</br></br>
-    ![settings](on-demand-settings.png)</br></br>
-    Review the guidance to understand the resource implications for on-demand instances. See [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
-1. Select the **Allow outbound internet access from service instances** checkbox. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
+    ![settings](redis-odservice-settings.png)</br></br>
+    For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
+
+1. Select the **Allow outbound internet access from service instances** checkbox. 
+You must tick this checkbox to allow external log forwarding, send backup artifacts to external destinations, and communicate with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
-1. Click **Cache Plan 1**, **2**, or **3** to configure it.</br></br>
 
-    You can configure up to three cache plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
+1. To configure a plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
+
+    You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s). Resource configuration options may vary on different IAASs.
 </br>
 </br>
-    The default names of the three cache plans provided reflect that instances of these plans are intended to be used for different cache sizes, as follows:</br></br>
+    The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:</br></br>
     * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk
     * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >10&nbsp;GB of persistent disk
     * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk</br>
 
-    ![on demand config](on-demand-config.png)
-    Configure the following settings for your cache plan(s). Any pre-populated default settings have been pre-configured according to the memory/disk size of each plan.
+    ![on demand config](on-demand-config.png) <a id="planconfig"></a>
+    
+1. Configure the following settings for your on-demand plan(s). Any pre-populated default settings are pre-configured according to the memory and disk size of each plan.
     <table class="nice">
           <th>Field</th>
           <th>Description</th>
           <tr>
             <td>**Plan**</td>
-            <td>Select Active or Passive. An inactive plan does not need any further configuration.</td>
+            <td><strong>Select Plan Active</strong> or <strong>Plan Inactive</strong>. An inactive plan does not need any further configuration.</td>
           </tr>
           <tr>
             <td>**Plan Name**</td>
-            <td>Enter a name that will appear in the service catalog.</td>
+            <td>Enter a name that will appear in the Marketplace.</td>
           </tr>
           <tr>
             <td>**Plan Description**</td>
-            <td>Enter a description that will appear in the service catalog. Specify details that will be relevant to app developers.</td>
+            <td>Enter a description that will appear in the Marketplace. Specify details that will be relevant to app developers.</td>
           </tr>
           <tr>
             <td>**Plan Quota**</td>
@@ -141,7 +144,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
           </tr>
           <tr>
             <td>**Redis Client Timeout**</td>
-            <td>Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600. Adjust this setting as needed.</td>
+            <td>This field refers to the server timeout for an idle client specified in seconds. The default setting is 3600. Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Redis TCP Keepalive**</td>
@@ -157,7 +160,7 @@ Select the **Redis** tile in the Ops Manager Installation Dashboard to display t
           </tr>
     </table>
 
-1.  Click the **Save** button.
+1.  Click **Save**.
 
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
@@ -182,7 +185,7 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 1. Create an empty service network. For instructions, see this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
 
-1. Go to each of the three Cache Plan pages on the Redis for PCF tile, and set each cache plan to **Plan Inactive**. For example:
+1. Go to each of the three On-Demand Plan pages on the Redis for PCF tile, and set each plan to **Plan Inactive**. For example:
   ![cache plan inactive](cache-plan-inactive.png)
 
 
@@ -347,7 +350,7 @@ The operator can configure further properties per plan beyond memory and disk si
 Operators can update certain plan settings after the plans have been created.
 If the Operator updates the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), these settings will be implemented in all instances already created. Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
-The following table describes properties that operators can update in the [configuration page](installing.html#service-plans).
+The following table describes properties that operators can update in the [plan configuration page](#planconfig).
 
 <table border="1" class="nice">
   <tr>
@@ -418,16 +421,27 @@ Follow these steps to configure syslog forwarding:
    PCF is moving toward all syslogs consistently using RFC5424 format.
 
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
-  * **Permitted Peer** refers to the remote syslog destination. It allows each VM to establish an encrypted tunnel with the remote syslog destination. The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
+  * **Permitted Peer** refers to the remote syslog destination. It allows each VM to establish an encrypted tunnel with the remote syslog destination. 
+  The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
   * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination. Large certificate chains (> 8kb) are not supported.
 
 1.  Click **Save**.
 
 
+## <a id="apply"></a> Apply Changes from Your Configuration
+
+Your installation is not complete until you apply your configuration changes. Follow the steps below:
+
+1. Return to the Ops Manager Installation Dashboard.
+
+2. Click **Apply Changes**.
+
 
 ##  <a id="asg"></a> Application Security Groups
 
-To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
+To allow this service to have network access you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). 
+Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. 
+You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
@@ -473,7 +487,8 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating Installation
 
-Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="https://docs.pivotal.io/redis/1-8/smoke-tests.html">here</a>.
+Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. 
+Smoke tests are described <a href="https://docs.pivotal.io/redis/1-8/smoke-tests.html">here</a>.
 
 
 ## <a id="uninstall"></a>Uninstalling Redis for PCF
