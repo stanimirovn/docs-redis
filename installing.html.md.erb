@@ -44,7 +44,7 @@ To assign AZs, do the following:
 * **To use the Redis for PCF on-demand service**
 
     You must use a [service network] (./odnetworking.html#architecture_networks) with the on-demand service. 
-    From an IAAS perspective, creating a service network is identical to creating any other network 
+    From an IaaS perspective, creating a service network is identical to creating any other network 
     created for tiles on Ops Manager. The only difference is that the operator must mark the 
     network as a “Service Network” in Ops Manager to prevent Ops Manager from performing IP management in that network.
 
@@ -85,7 +85,7 @@ The following ports and ranges are used in Redis for PCF:
 
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
-Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page,
+Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page
 and allocate resources to Redis service plans.</br></br>
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
@@ -96,7 +96,7 @@ The maximum number of instances you set for all your on-demand plans combined ca
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 1. Select the **Allow outbound internet access from service instances** checkbox. 
-   You must tick this checkbox to allow external log forwarding, send backup artifacts to external destinations,
+   You must select this checkbox to allow external log forwarding, send backup artifacts to external destinations,
    and communicate with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
@@ -104,7 +104,7 @@ The maximum number of instances you set for all your on-demand plans combined ca
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
     You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
-    Resource configuration options may vary on different IAASs.
+    Resource configuration options may vary on different IaaSs.
 </br>
 </br>
     The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:</br></br>
@@ -193,7 +193,7 @@ If the operator updates the VM size, disk size, or the Redis configuration setti
 (enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
 these settings are implemented in all instances that are already created.
 
-Operators should not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+Operators should not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
 Additionally, operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
 #### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
@@ -261,20 +261,21 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
     <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
       if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
-      for example in development or test environments. <br><br>However, doing this is not supported, and could cause your server to run out of memory,
+      for example in development or test environments. <br><br>However, doing this is not supported, and can cause your server to run out of memory,
       preventing users from writing any more data to any Redis shared-VM instance.
     </p>
 
 1. Click **Save**.
 
 1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
-Click the tab for each on-demand plan, and select **Plan Inactive**. See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand).
+Click the tab for each on-demand plan, and select **Plan Inactive**.
+See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
 
 1. To change the allocation of resources for the Redis broker, click the **Resource Config** tab.
     <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan. 
-    From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk and Persistent Disk made available, as needed.
+    From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk, and Persistent Disk made available, as needed.
 
-For more information, see [Configure Resources for Shared-VM and Dedicated-VM Plans](#resources).
+For more information, see [Configure Resources for Shared-VM and Dedicated-VM Plans](#resources) below.
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
@@ -286,7 +287,7 @@ For more information, see [Configure Resources for Shared-VM and Dedicated-VM Pl
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 ![dedicated vm config](dedicated-vm-config.png)
 <br>
-  - The default configuration creates 5 dedicated nodes. 
+  - The default configuration creates five dedicated nodes. 
   Each node can run one Redis dedicated-VM instance.
   - You can change the number of dedicated nodes, the size of the 
   Persistent and Ephemeral Disks, and the CPU and RAM, as needed.
@@ -300,7 +301,7 @@ For more information, see [Configure Resources for Shared-VM and Dedicated-VM Pl
 
 1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
 Click the tab for each on-demand plan, and select **Plan Inactive**.
-See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand).
+See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
 
 For more information on configuring resources, see below.
 
@@ -387,9 +388,9 @@ The following are the default resource and IP requirements for Redis for PCF whe
 You can update certain plan settings after the plans have been created.
 If you update the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), 
 these settings are implemented in all instances already created.
-You must not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
+You must not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
 
-The following table describes properties you can update in the [plan configuration page](#planconfig).
+The following table describes properties you can update in the [plan configuration page](#planconfig), shown above.
 
 <table border="1" class="nice">
   <tr>
@@ -447,7 +448,7 @@ To configure syslog forwarding, do the following:
 
 1. Select either **Yes without encryption** or **Yes with TLS encryption**.
 
-    <p class="note"><strong>Note:</strong> To use syslog forwarding for on-demand instances
+    <p class="note"><strong>Note:</strong> To use syslog forwarding for on-demand instances,
        you must select the <a href="#on-demand-config"> Allow outbound internet access from service instances</a> 
        checkbox in the <strong>On-Demand Service Settings</strong> tab.</p>
 
@@ -466,7 +467,7 @@ To configure syslog forwarding, do the following:
     It allows each VM to establish an encrypted tunnel with the remote syslog destination. 
   The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
   * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination.
-    Large certificate chains (> 8kb) are not supported.
+    Large certificate chains (> 8&nbsp;kb) are not supported.
 
 1.  Click **Save**.
 
