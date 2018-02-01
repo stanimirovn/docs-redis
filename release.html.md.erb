@@ -15,22 +15,22 @@ To view the release notes for another product version, select the version from t
 
 ### Features
 
-* The on-demand service is now at feature parity with the dedicated-VM service. 
+* The on-demand service is now at feature parity with the dedicated-VM service.
 The dedicated-VM service will be deprecated. Please move apps to the on-demand service.
 
 * All releases used within the tile use SHA-2 checksums.
 
-* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) 
+* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html)
 to decrease errand runtime and VM footprint for Pivotal Cloud Foundry (PCF) v2.0 and later.
 
 * Users can manually and automatically back up and restore data to on-demand instances.
 
-* For security reasons, the permissions for all Redis files for the on-demand 
+* For security reasons, the permissions for all Redis files for the on-demand
 service have been reduced to least privileged user and lowered to minimum needed.
 
 * Defaults for on-demand VM and disk sizes encourage correct configuration and sizing of plans.
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, 
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters,
 has been disabled for security concerns.
 
 ### Compatibility
@@ -90,6 +90,8 @@ has been disabled for security concerns.
 \* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
 
 ### Known Issues
+
+* The errands for Redis for PCF v1.11.0 may not run successfully on some PCF v1.12 environments. The underlying cause is being investigated and a 1.11.1 patch will be released shortly.
 
 * The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
