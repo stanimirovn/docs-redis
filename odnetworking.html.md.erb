@@ -25,7 +25,9 @@ The diagram below shows worker VMs in an on-demand service instance, such as Rab
 
 <%= partial '../../redis/odb/service_networks_table' %>
 
-Regardless of the specific network layout, the operator must ensure network rules are set up so that connections are open as described in the table below. 
+<br>
+Regardless of the specific network layout, the operator must ensure network 
+rules are set up so that connections are open as described in the table below. 
 
 <table class="nice">
 	<th>This component...</th>
@@ -54,9 +56,11 @@ Regardless of the specific network layout, the operator must ensure network rule
 		<td><strong>ODB</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>Specific to the service (such as RabbitMQ for PCF). May be one or more ports.</td>
+		<td>Specific to the service (such as RabbitMQ for PCF). 
+			May be one or more ports.</td>
 		<td>One-way</td>
-		<td>This connection is for administrative tasks. Avoid opening general use, app-specific ports for this connection.</td>
+		<td>This connection is for administrative tasks. 
+			Avoid opening general use, app-specific ports for this connection.</td>
 	</tr>
 	<tr>
 		<td><strong>ODB</strong></td>
@@ -91,8 +95,9 @@ Regardless of the specific network layout, the operator must ensure network rule
 		</td>
 		<td>4222</td>
 		<td>Two-way</td>
-		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM. The BOSH Agent initiates the connection with the BOSH Director.<br>
-		The default port is not configurable.  </td>
+		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM. 
+			The BOSH Agent initiates the connection with the BOSH Director.<br>
+			The default port is not configurable.  </td>
 	</tr>
 	<tr>
 		<td><strong>Deployed apps on PAS (or Elastic Runtime) </strong></td>
@@ -100,7 +105,8 @@ Regardless of the specific network layout, the operator must ensure network rule
 		</td>
 		<td>Specific to the service. May be one or more ports.</td>
 		<td>One-way</td>
-		<td>This connection is for general use, app-specific tasks. Avoid opening administrative ports for this connection.</td>
+		<td>This connection is for general use, app-specific tasks. 
+			Avoid opening administrative ports for this connection.</td>
 	</tr>
 	<tr>
 		<td><strong>PAS (or Elastic Runtime) </strong></td>
@@ -108,9 +114,12 @@ Regardless of the specific network layout, the operator must ensure network rule
 		</td>
 		<td>8080</td>
 		<td>One-way</td>
-		<td>This port may be different for individual services. This port may also be configurable by the operator if allowed by the tile developer.</td>
+		<td>This port may be different for individual services. 
+			This port may also be configurable by the operator if allowed by the 
+			tile developer.</td>
 	</tr>
 </table>
 
-For a complete list of ports and ranges used in Redis for PCF, see [Network Configuration](./installing.html#network-configuration).
+For a complete list of ports and ranges used in Redis for PCF, see 
+[Network Configuration](./installing.html#network-configuration).
 
