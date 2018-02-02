@@ -9,6 +9,15 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
+## <a id="1100"></a> v1.10.3
+
+**Release Date: February 2, 2018**
+
+### Fixes
+
+* Fixes a bug with the properties migration logic, which blocked tile upgrades in some PCF installations.
+
+
 ## <a id="1100"></a> v1.10.2
 
 **Release Date: January 22, 2018**
@@ -81,6 +90,8 @@ This is inconsistent with other services, but has no effect on tile operations.
 Do not select this choice as an errand run-rule. 
 For more information about this unexpected behavior, see 
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 ## <a id="1100"></a> v1.10.1
 
@@ -223,3 +234,5 @@ For more information about this unexpected behavior, see
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
