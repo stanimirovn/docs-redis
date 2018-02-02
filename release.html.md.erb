@@ -5,6 +5,14 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## Redis for PCF v1.9.7
+**January 29, 2018**
+
+**Bug Fixes**
+
+* Fixes a bug with the properties migration logic, which blocked tile upgrades in some PCF installations.
+
+
 ## Redis for PCF v1.9.6
 **January 22, 2018**
 
@@ -18,6 +26,8 @@ owner: London Services
 
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The redis-odb service broker listens on port `12345`.
   This is inconsistent with other services.
@@ -41,6 +51,8 @@ owner: London Services
 * Compatible with stemcells 3445.16+.
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The redis-odb service broker listens on port `12345`.
   This is inconsistent with other services.
@@ -66,6 +78,8 @@ owner: London Services
 * Compatible with stemcells 3445.11+. This is a change from the previous stemcell line of 3363.
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
@@ -97,6 +111,8 @@ owner: London Services
 * Uses a Syslog Migration Release that allows the operator to configure the log format to be either the pre-existing one or RFC 5424. RFC 5424 is the standard formatting across PCF services. The previous format will eventually be deprecated.
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
@@ -132,6 +148,8 @@ owner: London Services
 
 **Known Issues**
 
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * Tile states it is compatible with OM 1.10.3+ but the minimum is 1.10.9+
@@ -161,6 +179,8 @@ owner: London Services
 
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
