@@ -475,22 +475,44 @@ Redis also exposes the following metrics. for more information, see the [Redis d
 
 This section describes a method for calculating and monitoring Redis Service uptime.
 
-There are many methods to detect and calculate service availability. We use a method based on expecting metrics to be emitted regularily by each service instance. The exact precision and configuration of this method depends on the [metrics polling interval](#polling) configured for the service.
+There are many methods to detect and calculate service availability. 
+Pivotal recommends a method that uses metrics emitted regularly by each service instance. 
+The exact precision and configuration of this method depends on the [metrics polling interval](#polling) 
+configured for the service.
 
-We use Datadog as an example third-party metrics dashboard service. Pivotal does not endorse or provide support for any third-party solution.
+Pivotal uses Datadog as an example third-party metrics dashboard service. 
+Pivotal does not endorse or provide support for any third-party solution.
 
 ### Calculating Uptime using Expected Metrics
-Every interval, each Redis service instance emits approximately 50 different metrics, [listed here](#kpi). All of these metrics are only emitted if the Redis Server process is running. They are all always emitted every interval. It is possible to detect downtime by counting the number of metrics received and comparing this to the number of metrics expected. Using this method, the value of the metrics are ignored. Redis is considered available if a selected metric is received, regardless of the value of that metric.
+Every interval, each Redis service instance emits approximately 50 different metrics, listed under
+[Key Performance Indicators](#kpi). 
+All of these metrics are only emitted if the Redis Server process is running. 
+They are emitted at every interval. 
+You can detect downtime by counting the number of metrics received and 
+comparing it to the number of metrics expected. This method ignores the values of the metrics. 
+Redis is considered available if a selected metric is received, regardless of its value.
 
-When metrics are eventually visulised they are aggregated across time to reduce the number of points on the graph. In many visulisation services the default method for aggregation is by taking the _average_ value across a period. Unfortunately this does not conserve the number of metrics received in a period.
+When metrics are visualized, they are aggregated across time to reduce 
+the number of points on the graph. In many visualization services the default method 
+for aggregation is by taking the _average_ value across a period. 
+Unfortunately this does not conserve the number of metrics received in a period.
 
-In Datadog it is possible to specify a 'rollup' command. This instructs Datadog to change how it aggregates data. We can request the _count_ rather than the average value.
-In Datadog a graph displays approximately 200 points. If the graph is displaying uptime across a day, we expect 2880 metrics (one every 30 seconds). By default these will be divided into 200 periods, and the graph will show the average value of the metric for each interval.
-With 'rollup(count)' Datadog will  provide the number of the metrics in each period instead of the average value. In this way the 'rollup(count)' command transforms the data by ignoring the actual value of each metric in favour of the number of metrics.
+In Datadog it is possible to specify a 'rollup' command. 
+This instructs Datadog to change how it aggregates data. 
+We can request the _count_ rather than the average value.
+In Datadog a graph displays approximately 200 points. 
+If the graph is displaying uptime across a day, we expect 2880 metrics (one every 30 seconds). 
+By default these will be divided into 200 periods, and the graph will show the 
+average value of the metric for each interval.
+With 'rollup(count)' Datadog will  provide the number of the metrics in each 
+period instead of the average value. In this way the 'rollup(count)' command 
+transforms the data by ignoring the actual value of each metric in favour of the number of metrics.
 
-In this example we have chosen the <code>pubsub\_channels</code> metric because it is obvious that the value of this metric has no bearing on Redis uptime.
+In this example we have chosen the <code>pubsub\_channels</code> metric because 
+it is obvious that the value of this metric has no bearing on Redis uptime.
 
-Graphs in Datadog can be described in JSON. The following JSON describes a graph of daily percentage uptime:
+Graphs in Datadog can be described in JSON. The following JSON describes a graph 
+of daily percentage uptime:
 ```
 {
   "viz": "timeseries",
@@ -516,9 +538,11 @@ Graphs in Datadog can be described in JSON. The following JSON describes a graph
 }
 ```
 ![Datadog graph of redis service uptime per day](redis-service-uptime-per-day-datadog.png)
-- `cf-redis` is the name of the PCF Redis deployment
-- `datadog.nozzle.p_redis.p_redis_info_stats_pubsub_channels` is the name of the metric
-- `avg: ... {ip}` requests the average of the aggregated metric for each IP address. Because each redis instance has a different IP, this has the effect of drawing a line for each service instance.
+
+- `cf-redis` is the name of the PCF Redis deployment.
+- `datadog.nozzle.p_redis.p_redis_info_stats_pubsub_channels` is the name of the metric.
+- `avg: ... {ip}` requests the average of the aggregated metric for each IP address. 
+Because each redis instance has a different IP, this has the effect of drawing a line for each service instance.
 - There was a long period of downtime on January 7th/8th.
 - Uptime on the last day is not accurate because the metrics count from the day-so-far is averaged across the expected metrics for a full day. This is because Datadog aggregates based on true days (0000-2400) rather than the last 24 hours.
 
