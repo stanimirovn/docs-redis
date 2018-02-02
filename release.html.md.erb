@@ -3,6 +3,14 @@ title: Release Notes
 owner: London Services
 ---
 
+
+## Redis for PCF v1.8.8
+**February 2, 2018**
+
+**Bug Fixes**
+
+* Fixes a bug with the properties migration logic, which blocked tile upgrades in some PCF installations.
+
 ## Redis for PCF v1.8.7
 **November 9, 2017**
 
@@ -11,6 +19,8 @@ owner: London Services
 * Uses Redis OS 3.2.11
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The redis-odb service broker listens on port `12345`.
   This is inconsistent with other services.
@@ -35,6 +45,8 @@ owner: London Services
 * Compatible with stemcells of 3445.11+
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
 
@@ -63,6 +75,8 @@ owner: London Services
 
 **Known Issues**
 
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  does not have any effect due to a bug in Redis v3.2.8.
@@ -88,6 +102,8 @@ owner: London Services
 
 **Known Issues**
 
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * `lua-timeout-limit` a Redis configuration that is exposed to app developers through arbitrary parameters in v1.9,  do not have any effect due to a bug in Redis v3.2.8.
@@ -112,6 +128,8 @@ owner: London Services
 * Requires 2048-bit certificate length on Dedicated VMs.
 
 **Bug Fixes**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * Fixes a bug in v1.8.1 where the Dedicated-VM service experiences periodic restarts.
 
@@ -159,6 +177,8 @@ owner: London Services
 
 **Known Issues**
 
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
 * A bug exists in the control script for process-destroyer which causes process-watcher to restart periodically (every 10,000 seconds). The bug won't cause problems outside of making it more difficult to distinguish real issues reported by monit.
@@ -200,6 +220,8 @@ owner: London Services
 * For the on-demand service, the on-demand Service broker needs to talk to `bosh director`. This requires firewall rules to open TCP `8443` and `25555`.
 
 **Known Issues**
+
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The on-demand broker cannot be set to 0. This means that the instructions for disabling the on-demand service cannot be followed.
 
