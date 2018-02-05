@@ -516,7 +516,7 @@ it is obvious that the value of this metric has no bearing on Redis uptime.
 Graphs in Datadog can be described in JSON. The following JSON describes a graph 
 of daily percentage uptime:
 
- <pre class="terminal">
+```
 {
   "viz": "timeseries",
   "status": "done",
@@ -539,7 +539,7 @@ of daily percentage uptime:
     "max": "100"
   }
 }
-</pre>
+```
 
 ![Datadog graph of redis service uptime per day](redis-service-uptime-per-day-datadog.png)
 
@@ -552,6 +552,7 @@ Because each redis instance has a different IP, this has the effect of drawing a
 
 
 One limitation of this calculation is that it assumes it is always possible to divide the received metrics into periods 86400 seconds long. This means that a very long period of downtime will be rounded down to 86400 seconds. We can avoid this error by dividing the count in each period by the length of the period. The following JSON demonstrates this. The interval between aggregated metrics is given by the Datadog `dt` command. The graph should be identical unless there is a period of downtime longer than the rollup aggregation interval.
+
 ```
 {
   "viz": "timeseries",
