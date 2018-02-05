@@ -12,6 +12,25 @@ owner: London Services
 
 * Fixes a bug that blocked tile upgrades in some PCF installations.
 
+**Compatibility**
+
+* Compatible with stemcells 3445.22+.
+
+* Compatible with [Service Metrics v1.5.11](https://docs.pivotal.io/svc-sdk/service-metrics/1-5/index.html),
+  [Service Backups for PCF v18.1.9](https://docs.pivotal.io/svc-sdk/service-backup/18-1/index.html),
+  and [On-Demand Service Broker v0.19.0](http://docs.pivotal.io/svc-sdk/odb/0-19/index.html). 
+
+
+**Known Issues**
+
+* The redis-odb service broker listens on port `12345`.
+  This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+  Do not select this choice as an errand run-rule.
+  For more information about this unexpected behavior,
+  see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
 
 ## Redis for PCF v1.9.6
 **January 22, 2018**
