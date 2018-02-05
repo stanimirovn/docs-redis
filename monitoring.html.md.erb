@@ -493,27 +493,30 @@ comparing it to the number of metrics expected. This method ignores the values o
 Redis is considered available if a selected metric is received, regardless of its value.
 
 When metrics are visualized, they are aggregated across time to reduce 
-the number of points on the graph. In many visualization services the default method 
-for aggregation is by taking the _average_ value across a period. 
+the number of points on a graph. In many visualization services the default method 
+for aggregation is to take the average value across a period. 
 Unfortunately this does not conserve the number of metrics received in a period.
 
-In Datadog it is possible to specify a 'rollup' command. 
-This instructs Datadog to change how it aggregates data. 
-We can request the _count_ rather than the average value.
 In Datadog a graph displays approximately 200 points. 
-If the graph is displaying uptime across a day, we expect 2880 metrics (one every 30 seconds). 
-By default these will be divided into 200 periods, and the graph will show the 
+If the graph is displaying uptime across a day, 
+the expected number of metrics is 2880 - one every 30 seconds. 
+By default, these are divided into 200 intervals, and the graph shows the 
 average value of the metric for each interval.
-With 'rollup(count)' Datadog will  provide the number of the metrics in each 
-period instead of the average value. In this way the 'rollup(count)' command 
-transforms the data by ignoring the actual value of each metric in favour of the number of metrics.
+However, you can specify a `rollup` command. 
+This instructs Datadog to change how it aggregates data 
+by providing the count rather than the average value.
+With `rollup(count)` Datadog provides the number of the metrics in each 
+interval instead of the average value. In this way, 
+the 'rollup(count)' command transforms the data by ignoring 
+the actual value of each metric in favour of the number of metrics.
 
 In this example we have chosen the <code>pubsub\_channels</code> metric because 
 it is obvious that the value of this metric has no bearing on Redis uptime.
 
 Graphs in Datadog can be described in JSON. The following JSON describes a graph 
 of daily percentage uptime:
-```
+
+ <pre class="terminal">
 {
   "viz": "timeseries",
   "status": "done",
@@ -536,7 +539,8 @@ of daily percentage uptime:
     "max": "100"
   }
 }
-```
+</pre>
+
 ![Datadog graph of redis service uptime per day](redis-service-uptime-per-day-datadog.png)
 
 - `cf-redis` is the name of the PCF Redis deployment.
