@@ -4,8 +4,8 @@ owner: London Services
 ---
 
 
-## Redis for PCF v1.8.8
-**February 2, 2018**
+## Redis for PCF v1.8.9
+**February 7, 2018**
 
 **Bug Fixes**
 
@@ -16,6 +16,24 @@ owner: London Services
 * Uses Redis OS 3.2.11
 
 **Known Issues**
+
+* The redis-odb service broker listens on port `12345`.
+  This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+  Do not select this choice as an errand run-rule.
+  For more information about this unexpected behavior,
+  see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+## Redis for PCF v1.8.8
+**February 2, 2018**
+
+**Compatibility**
+
+* Uses Redis OS 3.2.11
+
+**Known Issues**
+* Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
 * The redis-odb service broker listens on port `12345`.
   This is inconsistent with other services.
