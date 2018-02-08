@@ -148,16 +148,18 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 1.  Enter the maximum number of instances and the memory limit for each Redis instance.
 
-1.  Click the **Save** button.
+    Shared-VM instances run on the Redis broker. 
+    The memory and instance limits for instances of these plans depend on the total memory of your Redis broker. 
+    
+    <br>Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all shared-VM instances combined.
+    This is due to the amount of memory required to support Redis persistence and to run Redis broker and system tasks.
 
-    <br />Shared-VM instances run on the Redis Broker.
-
-    <br />The memory and instance limits for your Shared-VM Redis instances should depend on the total memory of your Redis broker.
-    When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
-    We recommend you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
-    This is due the amount of memory required to support Redis persistence, and run Redis broker & system tasks.
-
-    <br />See below for example cases:
+    <br />To configure these limits, 
+    estimate the maximum memory that could be used by all your Redis shared-VM instances combined. Make sure that figure does not exceed
+    45% of the total memory of the Redis broker. If that figure is higher than 45% of the Redis broker memory, 
+    you can either increase the broker memory or decrease the number of Redis instances.
+    
+    <br />Here are some examples for setting these limits:
 
     <table border="1" class="nice">
     	<tr>
@@ -193,7 +195,7 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 1.  Select the **Resource Config** tab to change the allocation of resources for the Redis Broker.
     <br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk & Persistent Disk made available, as required.
 
-1.  Click the **Save** button.
+1.  Click **Save**.
 
 1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here] (https://docs.pivotal.io/redis/1-8/installing.html#removing-on-demand-service-plans).
 
