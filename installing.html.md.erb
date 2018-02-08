@@ -134,13 +134,18 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 1.  Enter the maximum number of instances and the memory limit for each Redis instance.
 
-    <br />Shared-VM instances run on the Redis Broker. The memory and instance limits for your Shared-VM Redis instances depends on the total memory of your Redis broker.
+    Shared-VM instances run on the Redis broker. 
+    The memory and instance limits for instances of these plans depend on the total memory of your Redis broker. 
+    
+    <br>Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all shared-VM instances combined.
+    This is due to the amount of memory required to support Redis persistence and to run Redis broker and system tasks.
 
-    <br />When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
-    Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all Redis instances.
-    This is due the amount of memory required to support Redis persistence, and run Redis broker & system tasks.
-
-    <br />See below for example cases:
+    <br />To configure these limits, 
+    estimate the maximum memory that could be used by all your Redis shared-VM instances combined. Make sure that figure does not exceed
+    45% of the total memory of the Redis broker. If that figure is higher than 45% of the Redis broker memory, 
+    you can either increase the broker memory or decrease the number of Redis instances.
+    
+    <br />Here are some examples for setting these limits:
 
     <table border="1" class="nice">
     	<tr>
