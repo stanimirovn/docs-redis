@@ -542,12 +542,17 @@ of daily percentage uptime:
 }
 ```
 
-![Datadog graph of redis service uptime per day](redis-service-uptime-per-day-datadog.png)
+In the sample above, notice:
 
 - `cf-redis` is the name of the PCF Redis deployment.
 - `datadog.nozzle.p_redis.p_redis_info_stats_pubsub_channels` is the name of the metric.
 - `avg: ... {ip}` requests the average of the aggregated metric for each IP address. 
 Because each redis instance has a different IP, this has the effect of drawing a line for each service instance.
+
+![Datadog graph of redis service uptime per day](redis-service-uptime-per-day-datadog.png)
+
+The graph above shows that:
+
 - There was a long period of downtime on January 7th/8th.
 - Uptime on the last day is not accurate because the metrics count from the day-so-far is averaged across the expected metrics for a full day. This is because Datadog aggregates based on true days (0000-2400) rather than the last 24 hours.
 
@@ -582,19 +587,27 @@ One limitation of this calculation is that it assumes it is always possible to d
 This graph is available on the [CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard).
 
 #### Limitations of this method
-- We assume that every metric emitted by a healthy PCF Redis service instance will be recieved by the metrics aggregation service.
-- We assume that if Redis is emitting metrics from the INFO command, the process is also responding to other commands such as GET and SET.
+- It assumes that every metric emitted by a healthy PCF Redis service instance will be recieved by the metrics aggregation service.
+- It assumes that if Redis is emitting metrics from the INFO command, the process is also responding to other commands such as GET and SET.
 - Downtime of less than the metrics polling interval cannot be detected. Periods of downtime are rounded up to the nearest interval. Overall uptime may therefore be slightly underestimated.
 - Downtime in the last period on the graph is not accurate.
 
-
 ### Alternative methods for calculating availability
 #### Redis Uptime in Seconds metric
-- Redis provides a metric <code>uptime\_in\_seconds</code>.
-- The value is the number of seconds the Redis process has been running for since the last restart. A graph of this value has a distinctive saw-tooth pattern with a fall at each period of downtime. It would be possible to compute very accurate Redis uptime using this metric. Unfortunately this is beyond the scope of popular metrics aggregation services.
+Redis provides a metric called <code>uptime\_in\_seconds</code>.
+
+The value of this metric is the number of seconds 
+that the Redis process has been running since the last restart. 
+A graph of this value has a distinctive saw-tooth pattern 
+with a drop at each period of downtime. It would be possible to compute 
+very accurate Redis uptime using this metric. Unfortunately, this is beyond the scope 
+of popular metrics aggregation services.
 
 #### App Polling
-- An independant App could be written that from time to time makes a connection to a Redis service instance and tests whether the service is up.
-- This might provide more specific information about Redis availability, such as whether a specific command is available.
-- A shorter polling interval could be used to increase sensativity.
-- This method relies on the App being up to detect when Redis is down.
+An independant app could be written to periodically make a connection to a Redis service instance 
+and test whether the service is up. This might provide more specific information about Redis availability, 
+such as whether a specific command is available. A shorter polling interval 
+could be used to increase sensitivity.
+<p class="note"><strong>Note</strong>:
+This method would rely on the app being up to detect that Redis is down.</p>
+
