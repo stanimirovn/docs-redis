@@ -484,31 +484,31 @@ Pivotal uses Datadog as an example third-party metrics dashboard service.
 Pivotal does not endorse or provide support for any third-party solution.
 
 ### Calculating Uptime using Expected Metrics
-Every interval, each Redis service instance emits approximately 50 different metrics, listed under
+Every interval, each Redis service instance emits approximately 50 different metrics, as described in
 [Key Performance Indicators](#kpi). 
-All of these metrics are only emitted if the Redis Server process is running. 
-They are emitted at every interval. 
+All of these metrics are only emitted if the Redis Server process is running.  
 You can detect downtime by counting the number of metrics received and 
 comparing it to the number of metrics expected. This method ignores the values of the metrics. 
 Redis is considered available if a selected metric is received, regardless of its value.
 
-When metrics are visualized, they are aggregated across time to reduce 
-the number of points on a graph. In many visualization services the default method 
-for aggregation is to take the average value across a period. 
-Unfortunately this does not conserve the number of metrics received in a period.
+#### Default Aggregation Method: Measuring Metric Value
+When graphs are used to visualize metrics, the metrics are aggregated across time. 
+This reduces the number of points on the graph. In many visualization services, the default method 
+for aggregation is to take the average value across a period of time. 
+However, this does not reduce the actual number of metrics received in a period.
 
-In Datadog a graph displays approximately 200 points. 
+#### Alternative Aggregation Method: Measuring Number of Metrics
+In Datadog, a graph displays approximately 200 points. 
 If the graph is displaying uptime across a day, 
-the expected number of metrics is 2880 - one every 30 seconds. 
+the expected number of metrics is 2880: one every 30 seconds. 
 By default, these are divided into 200 intervals, and the graph shows the 
 average value of the metric for each interval.
-However, you can specify a `rollup` command. 
-This instructs Datadog to change how it aggregates data 
-by providing the count rather than the average value.
+However, you can change your method of measurement using the `rollup` command. 
+This command instructs Datadog to change how it aggregates data. 
 With `rollup(count)` Datadog provides the number of the metrics in each 
-interval instead of the average value. In this way, 
+interval instead of the average value of those metrics. In this way, 
 the 'rollup(count)' command transforms the data by ignoring 
-the actual value of each metric in favour of the number of metrics.
+the value of each metric in favor of the actual number of metrics.
 
 In this example we have chosen the <code>pubsub\_channels</code> metric because 
 it is obvious that the value of this metric has no bearing on Redis uptime.
