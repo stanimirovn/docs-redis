@@ -483,7 +483,7 @@ configured for the service.
 Pivotal uses Datadog as an example third-party metrics dashboard service. 
 Pivotal does not endorse or provide support for any third-party solution.
 
-### Calculating Uptime using Expected Metrics
+### <a id="uptime_expected_metrics"></a>Calculating Uptime using Expected Metrics
 Every interval, each Redis service instance emits approximately 50 different metrics, as described in
 [Key Performance Indicators](#kpi). 
 All of these metrics are only emitted if the Redis Server process is running.  
@@ -510,7 +510,7 @@ interval instead of the average value of those metrics. In this way,
 the 'rollup(count)' command transforms the data by ignoring 
 the value of each metric in favor of the actual number of metrics.
 
-####Example Graph: Measuirng pubsub_channels metric
+#### Example Graph: Measuirng pubsub_channels metric
 In this example we have chosen the <code>pubsub\_channels</code> metric because 
 it is obvious that the value of this metric has no bearing on Redis uptime.
 
@@ -592,7 +592,7 @@ This graph is available on the [CF Redis example dashboard](https://github.com/p
 - Downtime of less than the metrics polling interval cannot be detected. Periods of downtime are rounded up to the nearest interval. Overall uptime may therefore be slightly underestimated.
 - Downtime in the last period on the graph is not accurate.
 
-### Alternative methods for calculating availability
+### <a id="alternative_calculations"></a>Alternative methods for calculating availability
 #### Redis Uptime in Seconds metric
 Redis provides a metric called <code>uptime\_in\_seconds</code>.
 
