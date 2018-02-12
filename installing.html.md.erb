@@ -227,22 +227,26 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
       * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance
       * **Redis Service Instance Limit**---Maximum number of shared-VM instances
 
-    Shared-VM instances run on the Redis broker. 
-    The memory and instance limits for instances of these plans depend on the total memory of your Redis broker. 
+    Shared-VM instances run on the Redis broker VM, so 
+    the memory and instance limits for instances of this plan depend on the total system memory of your Redis broker VM. 
     
-    <br>Pivotal recommends you only allow up to 45% of your Redis broker's total memory to be used by all shared-VM instances combined.
+    <br>Pivotal recommends you only allow up to 45% of the Redis broker VM's total system memory to be used by all shared-VM instances combined.
     This is due to the amount of memory required to support Redis persistence and to run Redis broker and system tasks.
 
-    <br />To configure these limits, 
-    estimate the maximum memory that could be used by all your Redis shared-VM instances combined. Make sure that figure does not exceed
-    45% of the total memory of the Redis broker. If that figure is higher than 45% of the Redis broker memory, 
-    you can either increase the broker memory or decrease the number of Redis instances.
+    <br />To configure the limits in these fields, 
+    estimate the maximum memory that could be used by all your Redis shared-VM instances combined. 
+    If that figure is higher than 45% of the Redis broker 
+    VM's total system memory, you can do one of the following:<br><br>
+    <ul>
+      <li>Decrease the **Redis Instance Memory Limit**.</li>
+      <li>Decrease the number of instances in **Redis Service Instance Limit**.</li>
+    </ul>
     
-    <br />Here are some examples for setting these limits:
+    Here are some examples for setting these limits:
 
     <table border="1" class="nice">
     	<tr>
-    		<th>Redis Broker Total Memory</th>
+    		<th>Redis Broker VM Total Memory</th>
     		<th>Redis Instance Memory Limit</th>
     		<th>Redis Service Instance Limit</th>
     	</tr>
@@ -292,15 +296,15 @@ For more information, see [Configure Resources for Shared-VM and Dedicated-VM Pl
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 ![dedicated vm config](dedicated-vm-config.png)
 <br>
-  - The default configuration creates five dedicated nodes. 
+  - The default configuration creates five dedicated nodes (VMs). 
   Each node can run one Redis dedicated-VM instance.
-  - You can change the number of dedicated nodes, the size of the 
-  Persistent and Ephemeral Disks, and the CPU and RAM, as needed.
+  - You can change the number of dedicated nodes, and configure the size of the 
+  persistent and ephemeral disks, and the CPU and RAM for each node.
   - The default VM size is small. It is important that you set the correct 
   VM size to handle anticipated loads. 
-  - Redis is allowed up to 45% of the total system RAM. This is set through the `maxmemory` configuration. 
-  The app can use 100% of `maxmemory`, which would be up to 45% of the system RAM. 
-  - Pivotal recommends the persistent disk be set to 3.5x the amount of RAM.
+  - A Redis dedicated-VM instance is allowed up to 45% of the total system RAM on the VM. You can set this with the `maxmemory` configuration. 
+  The app can use 100% of `maxmemory`, that is, up to 45% of the system RAM. 
+  - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
 
 1. Click **Save**.
 
