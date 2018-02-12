@@ -194,15 +194,15 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
 ![dedicated vm config](dedicated-vm-config.png)
 <br>
-  - The default configuration creates 5 dedicated nodes. 
-  Each node is capable of running one Redis instance.
-  - You can increase or decrease the number of dedicated nodes, the size of the 
-  Persistent and Ephemeral Disks, and the CPU and RAM, as required.
-  - The default VM size is small. It is important that the operator set the correct 
+  - The default configuration creates five dedicated nodes (VMs). 
+  Each node can run one Redis dedicated-VM instance.
+  - You can change the number of dedicated nodes, and configure the size of the 
+  persistent and ephemeral disks, and the CPU and RAM for each node.
+  - The default VM size is small. It is important that you set the correct 
   VM size to handle anticipated loads. 
-  - Redis is allowed up to 45% of the total system RAM. This is set through the `maxmemory` configuration. 
-  The app can use 100% of `maxmemory`, which would be up to 45% of the system RAM. 
-  - Pivotal recommends the persistent disk be set to 3.5x the amount of RAM.
+  - A Redis dedicated-VM instance is allowed up to 45% of the total system RAM on the VM. You can set this with the `maxmemory` configuration. 
+  The app can use 100% of `maxmemory`, that is, up to 45% of the system RAM. 
+  - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
 
 1. Click the **Save** button.
 
