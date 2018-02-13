@@ -146,8 +146,11 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     <ul>
       <li>Decrease the **Redis Instance Memory Limit**.</li>
       <li>Decrease the number of instances in **Redis Service Instance Limit**.</li>
+      <li>Increase the RAM for the Redis Broker in the **Resource Config** shown below.</li>
     </ul>
     
+    ![redis broker resource](redis-broker-resource.png)
+
     Here are some examples for setting these limits:
 
     <table border="1" class="nice">
@@ -191,8 +194,13 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
-1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
-![dedicated vm config](dedicated-vm-config.png)
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+    the on-demand service is at feature parity with the dedicated-VM service.
+    The dedicated-VM service plan will be deprecated. 
+    Pivotal recommends using the on-demand service plan.</p>
+
+1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
+<a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
 <br>
   - The default configuration creates five dedicated nodes (VMs). 
   Each node can run one Redis dedicated-VM instance.
