@@ -161,8 +161,11 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     <ul>
       <li>Decrease the **Redis Instance Memory Limit**.</li>
       <li>Decrease the number of instances in **Redis Service Instance Limit**.</li>
+      <li>Increase the RAM for the Redis Broker in the **Resource Config** shown below.</li>
     </ul>
     
+    ![redis broker resource](redis-broker-resource.png)
+
     Here are some examples for setting these limits:
 
     <table border="1" class="nice">
@@ -210,8 +213,8 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
    create an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
    Select the empty service network in the **Assign AZs and Networks** tab.
 
-1.  Select the **Resource Config** tab to change the allocation of resources for the Dedicated Node.
-![dedicated vm config](dedicated-vm-config.png)
+1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
+<a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
 <br>
   - The default configuration creates five dedicated nodes (VMs). 
   Each node can run one Redis dedicated-VM instance.
