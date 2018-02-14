@@ -253,8 +253,8 @@ See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-deman
 
 <p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated. 
-    Pivotal recommends using the on-demand service plan.</p>
+    The dedicated-VM service plan will be deprecated.
+    Pivotal recommends using the on-demand service plan. See these instructions to [disable Shared-VM and Dedicated-VM Plans](#disable-shared-dedicated). </p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 <a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
@@ -410,10 +410,26 @@ VM's total system memory, you can do one of the following:
       preventing users from writing any more data to any Redis shared-VM instance.
   </p>
 
+### <a id="disable-shared-dedicated"></a>Disable Shared and Dedicated VM Plans
+
+You can disable Shared and Dedicated VM Plans by doing the following while configuring Redis tile:
+
+* In the 'Shared-VM Plan' tab, set 'Redis Service instance Limit' to 0.
+* Ensure at least one On-Demand plan is active.
+* In the 'Errands' tab:
+  * Set 'Broker Registrar' to Off
+  * Set 'Smoke Tests' to Off
+  * Set 'Broker Deregistrar' to Off
+  * Leave all four On-Demand errands On.
+* In the 'Resource Config' tab
+  * Set 'Dedicated Node' instances to 0.
+  * Decrease 'Redis Broker' Persistent disk type to the smallest size available.
+  * Decrease 'Redis Broker' VM type to the smallest size available.
+
 ### <a id="configurations"></a>Additional Redis Configurations
 
 You can update certain plan settings after the plans have been created.
-If you update the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive), 
+If you update the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
 these settings are implemented in all instances already created.
 You must not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
 
