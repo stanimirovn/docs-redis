@@ -149,7 +149,7 @@ The maximum number of instances you set for all your on-demand plans combined ca
           <tr>
             <td>**AZ to deploy Redis instances of this plan**</td>
             <td>This is the AZ in which to deploy the Redis instances from the plan.
-                This must be one of the AZs of the service network (configured in the Ops Manager Director tile).</td>
+                This must be one of the AZs of the service network (configured in the BOSH Director tile).</td>
           </tr>
           <tr>
             <td>**Server VM type**</td>
@@ -240,8 +240,10 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     <ul>
       <li>Decrease the **Redis Instance Memory Limit**.</li>
       <li>Decrease the number of instances in **Redis Service Instance Limit**.</li>
+      <li>Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
+          <img src="./images/redis-broker-resource.png"></li>
     </ul>
-    
+
     Here are some examples for setting these limits:
 
     <table border="1" class="nice">
@@ -294,7 +296,7 @@ For more information, see [Configure Resources for Shared-VM and Dedicated-VM Pl
     Pivotal recommends using the on-demand service plan.</p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
-![dedicated vm config](dedicated-vm-config.png)
+<a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
 <br>
   - The default configuration creates five dedicated nodes (VMs). 
   Each node can run one Redis dedicated-VM instance.
