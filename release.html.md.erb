@@ -13,13 +13,17 @@ To view the release notes for another product version, select the version from t
 
 **Release Date:  February 14, 2018**
 
+<p class="note warning"><strong>CAUTION</strong>: If you are upgrading from v1.11.0 or v1.11.1 you may need to take manual steps 
+    to avoid data loss. 
+    See this <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Knowledge Base article</a>.<br><br>
+
+    It is safe to upgrade directly from v1.10.</p>
+
+
 ### Bug Fixes
 
 * Fixes a bug where upgrading the Redis for PCF tile may cause the broker to change availability zone and orphan its disk.
 
-* **Caution:** If you are upgrading from v1.11.0 or v1.11.1 manual steps may need to be taken to avoid data loss. See Knowledge Base article here: https://discuss.pivotal.io/hc/en-us/articles/360000939573
-
-	* It is safe to upgrade directly from 1.10.*.
 
 
 ## <a id="1111"></a> v1.11.1
@@ -94,9 +98,13 @@ due to incompatibility with some PCF v1.12 installations.
 
 * The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) 
+in what changes trigger the errand. Do not select this option for errands.
 
-* For some IAASs and Multi AZ configurations, the dedicated and shared vm broker may shift AZs when upgrading to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. Shared vm instances will be lost and dedicated vms may be overwritten. Manual steps may need to be taken to avoid data loss. See Knowledge Base article here: https://discuss.pivotal.io/hc/en-us/articles/360000939573
+* For some IAASs and Multi AZ configurations, the dedicated and shared-VM broker may shift AZs when upgrading 
+to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. In this case, shared-VM instances are lost and 
+dedicated VMs may be overwritten. You may need to take manual steps to avoid data loss. 
+See this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/360000939573).
 
 ## <a id="1110"></a> v1.11.0
 
@@ -187,4 +195,7 @@ has been disabled for security concerns.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
 
-* For some IAASs and Multi AZ configurations, the dedicated and shared vm broker may shift AZs when upgrading to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. Shared vm instances will be lost and dedicated vms may be overwritten. Manual steps may need to be taken to avoid data loss. See Knowledge Base article here: https://discuss.pivotal.io/hc/en-us/articles/360000939573
+* For some IAASs and Multi AZ configurations, the dedicated and shared-VM broker may shift AZs when upgrading 
+to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. In this case, shared-VM instances are lost and 
+dedicated VMs may be overwritten. You may need to take manual steps to avoid data loss. 
+See this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/360000939573).
