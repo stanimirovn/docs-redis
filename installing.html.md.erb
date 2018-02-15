@@ -226,7 +226,7 @@ to support Redis persistence and to run Redis broker and system tasks.
 
 To configure the limits in these fields, estimate the maximum memory that could be used 
 by all your Redis shared-VM instances combined. If that figure is higher than 45% of the Redis broker 
-VM's total system memory, you can do one of the following:<br>
+VM's total system memory, you can do one of the following:<br><br>
     <ul>
       <li>Decrease the **Redis Instance Memory Limit**.</li>
       <li>Decrease the number of instances in **Redis Service Instance Limit**.</li>
@@ -234,30 +234,29 @@ VM's total system memory, you can do one of the following:<br>
           <img src="./images/redis-broker-resource.png"></li>
     </ul>
 
-   Here are some examples for setting these limits:
-
     <table border="1" class="nice">
+    	<tr>
+    		<th>Redis Broker VM Total Memory</th>
+    		<th>Redis Instance Memory Limit</th>
+    		<th>Redis Service Instance Limit</th>
+    	</tr>
+    	<tr>
+    	 	<td>16&nbsp;GB</td>
+    	 	<td>512&nbsp;MB</td>
+    	 	<td>14</td>
+     	</tr>
       <tr>
-        <th>Redis Broker VM Total Memory</th>
-        <th>Redis Instance Memory Limit</th>
-        <th>Redis Service Instance Limit</th>
-      </tr>
+    	 	<td>16&nbsp;GB</td>
+    	 	<td>256&nbsp;MB</td>
+    	 	<td>28</td>
+     	</tr>
       <tr>
-        <td>16&nbsp;GB</td>
-        <td>512&nbsp;MB</td>
-        <td>14</td>
-      </tr>
-      <tr>
-        <td>16&nbsp;GB</td>
-        <td>256&nbsp;MB</td>
-        <td>28</td>
-      </tr>
-      <tr>
-        <td>64&nbsp;GB</td>
-        <td>512&nbsp;MB</td>
-        <td>56</td>
-      </tr>
+    	 	<td>64&nbsp;GB</td>
+    	 	<td>512&nbsp;MB</td>
+    	 	<td>56</td>
+     	</tr>
     </table>
+
 
     <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
       if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
