@@ -219,23 +219,24 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 ### <a id="memory-limits"></a>Memory Limits for Redis VM Instances
 
-    <br>Pivotal recommends being aware of memory limits before you configure shared or dedicated VM instances. 
-    The best practice is to allow only up to 45% of the Redis broker VM’s total system memory to be used 
-    by all shared-VM instances combined. This is due to the amount of memory required to support Redis persistence 
-    and to run Redis broker and system tasks.
+Pivotal recommends being aware of memory limits before you configure shared or dedicated VM instances. 
+The best practice is to allow only up to 45% of the Redis broker VM’s total system memory to be used 
+by all shared-VM instances combined. This is due to the amount of memory required to support Redis persistence 
+and to run Redis broker and system tasks.
 
-    <br />To configure the limits in these fields, 
-    estimate the maximum memory that could be used by all your Redis shared-VM instances combined. 
-    If that figure is higher than 45% of the Redis broker 
-    VM's total system memory, you can do one of the following:<br><br>
-    <ul>
-      <li>Decrease the **Redis Instance Memory Limit**.</li>
-      <li>Decrease the number of instances in **Redis Service Instance Limit**.</li>
-      <li>Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
-          <img src="./images/redis-broker-resource.png"></li>
-    </ul>
+To configure the limits in these fields, 
+estimate the maximum memory that could be used by all your Redis shared-VM instances combined. 
+If that figure is higher than 45% of the Redis broker 
+VM's total system memory, you can do one of the following:
 
-    Here are some examples for setting these limits:
+  + Decrease the **Redis Instance Memory Limit**.
+  + Decrease the number of instances in **Redis Service Instance Limit**.
+  + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
+
+<img src="./images/redis-broker-resource.png">
+
+
+  Here are some examples for setting these limits:
 
     <table border="1" class="nice">
       <tr>
