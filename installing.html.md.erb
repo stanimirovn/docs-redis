@@ -233,12 +233,11 @@ VM's total system memory, you can do one of the following:
   + Decrease the number of instances in **Redis Service Instance Limit**.
   + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
 
-<img src="./images/redis-broker-resource.png">
-
+    <img src="./images/redis-broker-resource.png">
 
   Here are some examples for setting these limits:
 
-    <table border="1" class="nice">
+  <table border="1" class="nice">
       <tr>
         <th>Redis Broker VM Total Memory</th>
         <th>Redis Instance Memory Limit</th>
@@ -259,14 +258,14 @@ VM's total system memory, you can do one of the following:
         <td>512&nbsp;MB</td>
         <td>56</td>
       </tr>
-    </table>
+  </table>
 
 
-    <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
+  <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
       if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
       for example in development or test environments. <br><br>However, doing this is not supported, and can cause your server to run out of memory,
       preventing users from writing any more data to any Redis shared-VM instance.
-    </p>
+  </p>
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan
 
