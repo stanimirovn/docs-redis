@@ -188,6 +188,11 @@ The maximum number of instances you set for all your on-demand plans combined ca
 
 1.  Click **Save**.
 
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
+    the On-Demand service is at feature parity with the Dedicated-VM service.
+    The Dedicated-VM service plan will be deprecated.
+    Pivotal recommends disabling the Shared-VM and Dedicated-VM service plans. See these instructions to <a href="disable-shared-dedicated">disable Shared-VM and Dedicated-VM Plans</a>. </p>
+
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
 Operators can update certain settings after the plans have been created.
@@ -270,47 +275,48 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     </table>
 
 
-    <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
-      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
+    <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>,
+      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory,
       for example in development or test environments. <br><br>However, doing this is not supported, and can cause your server to run out of memory,
       preventing users from writing any more data to any Redis shared-VM instance.
     </p>
 
 1. Click **Save**.
 
-1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
+1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive.
 Click the tab for each on-demand plan, and select **Plan Inactive**.
 See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
 
 1. To change the allocation of resources for the Redis broker, click the **Resource Config** tab.
-    <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan. 
+    <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan.
     From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk, and Persistent Disk made available, as needed.
 
 For more information, see [Configure Resources for Shared-VM and Dedicated-VM Plans](#resources) below.
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
-    the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated.
-    Pivotal recommends using the on-demand service plan. See these instructions to [disable Shared-VM and Dedicated-VM Plans](#disable-shared-dedicated). </p>
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
+    the On-Demand service is at feature parity with the Dedicated-VM service.
+    The Dedicated-VM service plan will be deprecated.
+    Pivotal recommends using the On-Demand service plan. See these instructions to <a href="disable-shared-dedicated">disable Shared-VM and Dedicated-VM Plans</a>. </p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 <a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
 <br>
-  - The default configuration creates five dedicated nodes (VMs). 
+  - The default configuration creates five dedicated nodes (VMs).
   Each node can run one Redis dedicated-VM instance.
-  - You can change the number of dedicated nodes, and configure the size of the 
+  - You can change the number of dedicated nodes, and configure the size of the
   persistent and ephemeral disks, and the CPU and RAM for each node.
-  - The default VM size is small. It is important that you set the correct 
-  VM size to handle anticipated loads. 
-  - A Redis dedicated-VM instance is allowed up to 45% of the total system RAM on the VM. You can set this with the `maxmemory` configuration. 
-  The app can use 100% of `maxmemory`, that is, up to 45% of the system RAM. 
+  - The default VM size is small. It is important that you set the correct
+  VM size to handle anticipated loads.
+  - A Redis dedicated-VM instance is allowed up to 45% of the total system RAM on the VM. You can set this with the `maxmemory` configuration.
+  The app can use 100% of `maxmemory`, that is, up to 45% of the system RAM.
   - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
 
 1. Click **Save**.
 
-1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
+
+1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive.
 Click the tab for each on-demand plan, and select **Plan Inactive**.
 See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
 
@@ -393,7 +399,7 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
 </table>
 
-### <a id="disable-shared-dedicated"></a>Disable Shared and Dedicated VM Plans
+### <a id="disable-shared-dedicated" ></a>Disable Shared and Dedicated VM Plans
 
 You can disable Shared and Dedicated VM Plans by doing the following while configuring Redis tile:
 
