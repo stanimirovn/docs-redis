@@ -217,12 +217,15 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
    For example:
   ![cache plan inactive](cache-plan-inactive.png)
 
-### <a id="memory-limits"></a>Memory Limits for Redis VM Instances
+### <a id="memory-limits"></a>Memory Limits for Dedicated VM and Shared VM Instances
 
-Pivotal recommends being aware of memory limits before you configure shared or dedicated VM instances. 
-The best practice is to allow only up to 45% of the Redis broker VM’s total system memory to be used 
-by all shared-VM instances combined. This is due to the amount of memory required to support Redis persistence 
-and to run Redis broker and system tasks.
+Pivotal recommends being aware of memory limits before you configure shared or dedicated VM instances.
+
+With dedicated-VM plans, there is one Redis service instance on each VM. 
+The maximum memory an instance of these plans can use should be at most 45% of the VM's memory.
+
+With shared-VM plans, several Redis service instances share the VM, and the Redis broker also runs on this VM. 
+Therefore, the memory used by all the shared-vm instances combined must be at most 45% of the memory of the Redis broker VM.
 
 To configure the limits in these fields, 
 estimate the maximum memory that could be used by all your Redis shared-VM instances combined. 
