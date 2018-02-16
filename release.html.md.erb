@@ -25,6 +25,68 @@ To view the release notes for another product version, select the version from t
 
 * Fixes a bug where upgrading the Redis for PCF tile may cause the broker to change availability zone and orphan its disk.
 
+### Compatibility
+
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3445.24+</td>
+</tr>
+<tr>
+	<td>PCF<sup>*</sup></td>
+    <td>v1.12.x and v2.0.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v432.0.0</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.19.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v191.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.169.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.11</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.9</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v10.0.0</td>
+</tr>
+<tr>
+    <td>loggregator</td>
+    <td>v101.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v3.2.11</td>
+</tr>
+
+</table>
+
+\* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
+
+### Known Issues
+
+* The redis-odb service broker listens on 12345. This is inconsistent with other services.
+
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html)
+in what changes trigger the errand. Do not select this option for errands.
 
 
 ## <a id="1111"></a> v1.11.1
