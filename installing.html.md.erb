@@ -405,25 +405,40 @@ The following are the default resource and IP requirements for Redis for PCF whe
 
 You can disable Shared and Dedicated VM Plans by doing the following while configuring Redis tile:
 
-* In the 'Shared-VM Plan' tab, set 'Redis Service instance Limit' to 0.
-* Ensure at least one On-Demand plan is active.
-* In the 'Errands' tab:
-  * Set 'Broker Registrar' to Off
-  * Set 'Smoke Tests' to Off
-  * Set 'Broker Deregistrar' to Off
-  * Leave all four On-Demand errands On.
-* In the 'Resource Config' tab
-  * Set 'Dedicated Node' instances to 0.
-  * Decrease 'Redis Broker' Persistent disk type to the smallest size available.
-  * Decrease 'Redis Broker' VM type to the smallest size available.
+1. Ensure at least one On-Demand plan is active.
 
+1. In the **Shared-VM Plan** tab:
+  1. Set **Redis Service Instance Limit** to 0.
+  1. Click **Save**.
+
+1. In the **Errands** tab:
+  1. Set **Broker Registrar** to Off.
+  1. Set **Smoke Tests** to Off.
+  1. Set **Broker Deregistrar** to Off.
+  1. Leave all four On-Demand errands On. 
+  1. Click **Save**.
+
+1. In the **Resource Config** tab:
+  1. Decrease **Redis Broker** Persistent disk type to the smallest size available.
+  1. Decrease **Redis Broker** VM type to the smallest size available.
+  1. Set **Dedicated Node** Instances to 0.
+  1. Click **Save**.
 
 ### <a id="configurations"></a>Additional Redis Configurations
 
 You can update certain plan settings after the plans have been created.
-If you update the VM size, disk size, or the Redis configuration settings (enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
-these settings are implemented in all instances already created.
-You must not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
+Updates to the following are implemented in all current instances:
+
+* VM size 
+* Disk size
+* Redis configuration settings:
+  * Enabling Lua Scripting 
+  * Max-clients 
+  * Timeout 
+  * TCP keep-alive
+
+<p class="warning note"><strong>WARNING: </strong>You must not downsize the VMs 
+  or disk size because this can cause data loss in pre-existing instances.</p>
 
 The following table describes properties you can update in the [plan configuration page](#planconfig), shown above.
 
