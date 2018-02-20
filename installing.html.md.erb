@@ -228,7 +228,7 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
     Shared-VM instances run on the same VM that Redis broker runs on. Therefore, 
     the memory and instance limits for instances of this plan depend on the total system memory of your Redis broker VM.
-    For details, see [Memory Limits for Redis VM Instances](#memory-limits).  
+    For more information, see [Memory Limits for Redis VM Instances](#memory-limits) below.  
 
 1. Click **Save**.
 
@@ -240,7 +240,7 @@ See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-deman
     <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan. 
     From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk, and Persistent Disk made available, as needed.
 
-For more information, see [Configure Resources for Shared-VM and Dedicated-VM Plans](#resources) below.
+  For more information, see [Configure Resources for Shared-VM and Dedicated-VM Plans](#resources) below.
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
@@ -357,7 +357,7 @@ With dedicated-VM plans, there is one Redis service instance on each VM.
 The maximum memory an instance of these plans can use should be at most 45% of the VM's memory.
 
 #### Memory Limits for Shared-VM Plans
-Additional calculation is required in order to configure memory limits for shared-VM plans. 
+Additional calculation is required to configure memory limits for shared-VM plans. 
 With these plans, several service instances share the VM, and the Redis broker also runs on this same VM. 
 Therefore, the memory used by all the shared-vm instances combined should be at most 45% of the memory of the Redis broker VM.
 
