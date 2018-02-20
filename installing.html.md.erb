@@ -355,6 +355,28 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
 </table>
 
+### <a id="disable-shared-dedicated"></a>Disable Shared and Dedicated VM Plans
+
+You can disable Shared and Dedicated VM Plans by doing the following while configuring Redis tile:
+
+1. Ensure at least one On-Demand plan is active.
+
+1. Configure the following tabs:<br><br>
+  * **Shared-VM Plan**:<br>
+    a. Set **Redis Service Instance Limit** to 0.<br>
+    b. Click **Save**.<br><br>
+  * **Errands**:<br>
+    a. Set **Broker Registrar** to Off.<br>
+    b. Set **Smoke Tests** to Off.<br>
+    c. Set **Broker Deregistrar** to Off.<br>
+    d. Leave all four On-Demand errands On. <br>
+    e. Click **Save**.<br><br>
+  * **Resource Config**:<br>
+    a. Decrease **Redis Broker** Persistent disk type to the smallest size available.<br>
+    b. Decrease **Redis Broker** VM type to the smallest size available.<br>
+    c. Set **Dedicated Node** Instances to 0.<br>
+    d. Click **Save**.<br>
+
 ### <a id="memory-limits"></a>Memory Limits for Dedicated-VM and Shared-VM Plans
 
 Pivotal recommends being aware of memory limits before you configure shared or dedicated VM instances.
@@ -410,47 +432,21 @@ VM's total system memory, you can do one of the following:
       preventing users from writing any more data to any Redis shared-VM instance.
   </p>
 
-### <a id="disable-shared-dedicated"></a>Disable Shared and Dedicated VM Plans
-
-You can disable Shared and Dedicated VM Plans by doing the following while configuring Redis tile:
-
-1. Ensure at least one On-Demand plan is active.
-
-<<<<<<< HEAD
-=======
-1. In the **Shared-VM Plan** tab:
-  1. Set **Redis Service Instance Limit** to 0.
-  1. Click **Save**.
-
-1. In the **Errands** tab:
-  1. Set **Broker Registrar** to Off.
-  1. Set **Smoke Tests** to Off.
-  1. Set **Broker Deregistrar** to Off.
-  1. Leave all four On-Demand errands On. 
-  1. Click **Save**.
-
-1. In the **Resource Config** tab:
-  1. Decrease **Redis Broker** Persistent disk type to the smallest size available.
-  1. Decrease **Redis Broker** VM type to the smallest size available.
-  1. Set **Dedicated Node** Instances to 0.
-  1. Click **Save**.
-
->>>>>>> 09cbbff... PR edits
 ### <a id="configurations"></a>Additional Redis Configurations
 
 You can update certain plan settings after the plans have been created.
-Updates to the following are implemented in all current instances:
+Updates to the settings for the components below are implemented in all existing instances:
 
 * VM size 
 * Disk size
 * Redis configuration settings:
-  * Enabling Lua Scripting 
+  * Lua Scripting 
   * Max-clients 
   * Timeout 
   * TCP keep-alive
 
 <p class="warning note"><strong>WARNING: </strong>You must not downsize the VMs 
-  or disk size because this can cause data loss in pre-existing instances.</p>
+  or disk size. This can cause data loss in pre-existing instances.</p>
 
 The following table describes properties you can update in the [plan configuration page](#planconfig), shown above.
 
