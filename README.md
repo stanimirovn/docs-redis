@@ -20,7 +20,7 @@ and are manually pushed to production as needed.
 <br>
 1. Update the branches in production as necessary to expose high priority content changes you made to the <strong>master</strong> branch,
  that also apply to live branches. <br><br>
-    Example: If you forgot to document a 1.9 feature, document it first in the <strong>master</strong> branch, 
+    Example: If you forgot to document a v1.9 feature, document it first in the <strong>master</strong> branch, 
     then cherry-pick the change to the 1.9 branch in production.
     
 2. Fix doc bugs that affect customers in the live branches, after you've fixed them in the <strong>master</strong> branch first.
@@ -35,6 +35,5 @@ and are manually pushed to production as needed.
     
     Do the cherry-pick immediately to lessen the chances of conflicts. 
     Otherwise, you may need to resolve conflicts in order to complete the cherry-pick. 
-    
     
 5. Do a `git push` after the cherry-pick is complete.<br><br>
