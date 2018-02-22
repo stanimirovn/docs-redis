@@ -359,6 +359,20 @@ Example `VCAP_SERVICES`
 
 3. In your app code, call the Redis service using the connection strings.
 
+## <a id="sharing"></a>Sharing the redis instance with another space (beta)
+
+Sharing a service instance allows apps in different spaces to access the same Redis instance. This is an experimental feature. See the [full docs](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) on the feature.
+Tile operators must enable this behavior and a cf admin must turn it on.
+
+To share an instance:
+`cf v3-share-service REDIS-SERVICE-INSTANCE -s OTHER-SPACE [-o OTHER-ORG]`
+
+To unshare an instance:
+`cf v3-unshare-service REDIS-SERVICE-INSTANCE -s OTHER-SPACE [-o OTHER-ORG]`
+
+<p class="warning"><strong>Warning</strong>:
+Redis only has one password and password rotation does not occur on unshare. After unsharing a service, any bound apps will continue to have access to the Redis instance until the apps are restaged.
+</p>
 
 ## <a id="delete"></a>Delete a Redis Instance
 

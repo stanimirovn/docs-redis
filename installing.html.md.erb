@@ -103,6 +103,13 @@ The maximum number of instances you set for all your on-demand plans combined ca
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 
+1. Redis for PCF allows the operator to optionally configure [service instance sharing](http://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html). Turning on sharing enables this experimental feature for all on-demand instances.
+
+
+<p class="note"><strong>Note</strong>: To enable this feature a user with admin privileges must run `cf enable-feature-flag service_instance_sharing`.
+ There is some nonobvious behavior attached to unsharing service instances. See [docs](./using.html#sharing) for further explanation.
+</p>
+
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
     You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
