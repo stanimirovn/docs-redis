@@ -229,6 +229,159 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 
 1. You must disable the On-Demand Service if you do not wish to use it. Please see the directions [here] (https://docs.pivotal.io/redis/1-8/installing.html#removing-on-demand-service-plans).
 
+### <a id="resources"></a>Configure Resources for Dedicated-VM and Shared-VM Plans
+
+To configure resources for the Shared-VM and Dedicated-VM plans, click the **Resource Config** settings tab on the Redis for PCF tile.
+
+* The Shared-VM plan is on the **Redis Broker** resource.
+* The Dedicated-VM plan is on the **Dedicated Node** resource.
+
+The following are the default resource and IP requirements for Redis for PCF when using the Shared-VM or Dedicated-VM plans:
+<table border="1" class="nice">
+  <tr>
+    <th>Product</th>
+    <th>Resource</th>
+    <th>Instances</th>
+    <th>CPU</th>
+    <th>Ram</th>
+    <th>Ephemeral</th>
+    <th>Persistent</th>
+    <th>Static IP</th>
+    <th>Dynamic IP</th>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>Redis Broker</td>
+    <td>1</td>
+    <td>2</td>
+    <td>3072</td>
+    <td>4096</td>
+    <td>9216</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>Dedicated Node</td>
+    <td>5</td>
+    <td>2</td>
+    <td>1024</td>
+    <td>4096</td>
+    <td>4096</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>Broker Registrar</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1024</td>
+    <td>2048</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>Broker De-Registrar</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1024</td>
+    <td>2048</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>Compliation</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1024</td>
+    <td>4096</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+</table>
+
+### <a id="disable-shared-dedicated"></a>Disable Shared and Dedicated VM Plans
+
+You can disable Shared and Dedicated VM Plans by doing the following while configuring Redis tile:
+
+1. Ensure at least one On-Demand plan is active.
+
+1. Configure the following tabs:<br><br>
+  * **Shared-VM Plan**:<br>
+    a. Set **Redis Service Instance Limit** to 0.<br>
+    b. Click **Save**.<br><br>
+  * **Errands**:<br>
+    a. Set **Broker Registrar** to Off.<br>
+    b. Set **Smoke Tests** to Off.<br>
+    c. Set **Broker Deregistrar** to Off.<br>
+    d. Leave all four On-Demand errands On. <br>
+    e. Click **Save**.<br><br>
+  * **Resource Config**:<br>
+    a. Decrease **Redis Broker** Persistent disk type to the smallest size available.<br>
+    b. Decrease **Redis Broker** VM type to the smallest size available.<br>
+    c. Set **Dedicated Node** Instances to 0.<br>
+    d. Click **Save**.<br>
+
+### <a id="memory-limits"></a>Memory Limits for Dedicated-VM and Shared-VM Plans
+
+Pivotal recommends being aware of memory limits before you configure shared or dedicated VM instances.
+
+#### Memory Limits for Dedicated-VM Plans
+With dedicated-VM plans, there is one Redis service instance on each VM. 
+The maximum memory an instance of these plans can use should be at most 45% of the VM's memory.
+
+#### Memory Limits for Shared-VM Plans
+Additional calculation is required to configure memory limits for shared-VM plans. 
+With these plans, several service instances share the VM, and the Redis broker also runs on this same VM. 
+Therefore, the memory used by all the shared-vm instances combined should be at most 45% of the memory of the Redis broker VM.
+
+To configure the limits in these fields, 
+estimate the maximum memory that could be used by all your Redis shared-VM instances combined. 
+If that figure is higher than 45% of the Redis broker 
+VM's total system memory, you can do one of the following:
+
+  + Decrease the **Redis Instance Memory Limit**.
+  + Decrease the number of instances in **Redis Service Instance Limit**.
+  + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
+
+    <img src="./images/redis-broker-resource.png">
+
+  Here are some examples for setting these limits:
+
+  <table border="1" class="nice">
+      <tr>
+        <th>Redis Broker VM Total Memory</th>
+        <th>Redis Instance Memory Limit</th>
+        <th>Redis Service Instance Limit</th>
+      </tr>
+      <tr>
+        <td>16&nbsp;GB</td>
+        <td>512&nbsp;MB</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <td>16&nbsp;GB</td>
+        <td>256&nbsp;MB</td>
+        <td>28</td>
+      </tr>
+      <tr>
+        <td>64&nbsp;GB</td>
+        <td>512&nbsp;MB</td>
+        <td>56</td>
+      </tr>
+  </table>
+
+  <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
+      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
+      for example in development or test environments. <br><br>However, this practice is not supported and can cause your server to run out of memory,
+      preventing users from writing any more data to any Redis shared-VM instance.
+  </p>
 
 ## <a id="syslog"></a>Configure Syslog Output
 
