@@ -9,6 +9,74 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
+## <a id="1100"></a> v1.10.5
+
+**Release Date: March 7, 2018**
+
+### Compatibility
+
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3468.25+</td>
+</tr>
+<tr>
+	<td>PCF</td>
+    <td>v1.11.x and v1.12.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v431.5.0</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.19.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v187.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.163.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.11</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.9</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v10.0.0</td>
+</tr>
+<tr>
+    <td>loggregator</td>
+    <td>v97.0</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v3.2.11</td>
+</tr>
+
+</table>
+
+### Known Issues
+
+* The redis-odb service broker listens on port `12345`.
+This is inconsistent with other services, but has no effect on tile operations.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
 ## <a id="1100"></a> v1.10.4
 
 **Release Date: February 7, 2018**
