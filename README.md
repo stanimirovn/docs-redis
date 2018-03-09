@@ -1,6 +1,6 @@
 # docs-redis
 
-## Update documentation using the branches as follows:
+## Update documentation using the branches as described below:
 
 ### Master
 
