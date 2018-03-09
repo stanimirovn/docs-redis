@@ -362,11 +362,11 @@ Example `VCAP_SERVICES`
 
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
 
-<p class="note"><strong>Note</strong>:This is an experimental feature.</p>
+<p class="note"><strong>Note</strong>: This is an experimental feature.</p>
 
 Sharing a service instance allows apps in different spaces to access the same Redis instance. 
 Tile operators must enable this behavior and a cf admin must turn it on.
-For more information on this feature, 
+For more information about this feature, 
 see [Sharing Service Instances (Beta)](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
 
 ### Share a Redis Service Instance
@@ -383,7 +383,7 @@ Where:
 
 ### Unshare a Redis Service Instance
 
-<p class="note warning"><strong>Warning</strong>: Redis only has one password and password rotation does not occur on unshare. 
+<p class="note warning"><strong>WARNING</strong>: Redis only has one password and password rotation does not occur on unshare. 
 After unsharing a service, any bound apps continue to have access to the Redis instance until the apps are restaged.</p>
 
 To unshare an instance, run the following command:
