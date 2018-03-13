@@ -343,9 +343,9 @@ PCF Redis uses service account credentials to upload backups to Google Cloud Sto
 | Cron Schedule            | Backups schedule in crontab format. For example, once daily at 2am is * 2 * * *. Also accepts a pre-defined schedule: any of @yearly, @monthly, @weekly, @daily, @hourly, or @every , where is any supported time string (e.g. 1h30m). For more information, see the cron package documentation. | Mandatory          |
 | Backup timeout           | The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination                                                                                                           | Mandatory          |
 
-###### Notes
 
-For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. Redis' BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.
+For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. 
+Redis' BGSAVE will continue, but backups will not be uploaded to destinatons if this timeout is reached.
 
 
 ### <a id="azs"></a>Networks, Security, and Assigning AZs
