@@ -9,29 +9,23 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
-## <a id="1110"></a> v1.11.0
+## <a id="1110"></a> v1.12.0
 
-**Release Date:  January 25, 2018**
+**Release Date: XXXX XX, 2018**
 
 ### Features
 
-* The on-demand service is now at feature parity with the dedicated-VM service. 
-The dedicated-VM service will be deprecated. Please move apps to the on-demand service.
+* Redis version packaged has been updated to 4.0.8,
+see [Redis release notes](http://download.redis.io/redis-stable/00-RELEASENOTES) for more details on features introduced.
 
-* All releases used within the tile use SHA-2 checksums.
+* Experimental feature added to on demand instances to allow sharing a redis instance with another space.
+See [Sharing the redis instance with another space](./using.html#sharing) for more information on the feature.
 
-* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) 
-to decrease errand runtime and VM footprint for Pivotal Cloud Foundry (PCF) v2.0 and later.
+* Removed tile limit on the maximum number of on-demand instances that can be deployed.
 
-* Users can manually and automatically back up and restore data to on-demand instances.
+* Tile deployment no longer fails if there are no shared system domains specified.
 
-* For security reasons, the permissions for all Redis files for the on-demand 
-service have been reduced to least privileged user and lowered to minimum needed.
-
-* Defaults for on-demand VM and disk sizes encourage correct configuration and sizing of plans.
-
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, 
-has been disabled for security concerns.
+* The Redis Appendonly File is optimised upon Redis restart for more efficient disk usage.
 
 ### Compatibility
 
@@ -42,11 +36,11 @@ has been disabled for security concerns.
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>3445.22+</td>
+    <td>3468.27+</td>
 </tr>
 <tr>
 	<td>PCF<sup>*</sup></td>
-    <td>v1.12.x and v2.0.x</td>
+    <td>v2.0.x and v2.1.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
