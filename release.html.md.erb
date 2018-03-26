@@ -11,7 +11,7 @@ To view the release notes for another product version, select the version from t
 
 ## <a id="1110"></a> v1.12.0
 
-**Release Date: XXXX XX, 2018**
+**Release Date: March 30, 2018**
 
 ### Features
 
@@ -21,11 +21,15 @@ see [Redis release notes](http://download.redis.io/redis-stable/00-RELEASENOTES)
 * Experimental feature added to on demand instances to allow sharing a redis instance with another space.
 See [Sharing the redis instance with another space](./using.html#sharing) for more information on the feature.
 
-* Removed tile limit on the maximum number of on-demand instances that can be deployed.
+* Removed limit on the maximum number of on-demand instances that can be deployed from the tile.
 
-* Tile deployment no longer fails if there are no shared system domains specified.
+* The Redis Appendonly File is optimised for size upon Redis restart for more efficient disk usage.
 
-* The Redis Appendonly File is optimised upon Redis restart for more efficient disk usage.
+* Tile deployment no longer fails if there are no shared system domains. Smoke tests now push test apps to a space called `pivotal-services` in the `system` org using the system domain.
+
+* Support stemcells without thp kernel modules.
+
+* Collocated errands added back in for faster deployments.
 
 ### Compatibility
 
@@ -44,11 +48,11 @@ See [Sharing the redis instance with another space](./using.html#sharing) for mo
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v432.0.0</td>
+    <td>v433.0.0</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.19.0</td>
+    <td>v0.20.0</td>
 </tr>
 <tr>
     <td>consul</td>
@@ -76,7 +80,7 @@ See [Sharing the redis instance with another space](./using.html#sharing) for mo
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v3.2.8</td>
+    <td>v4.0.8</td>
 </tr>
 
 </table>
