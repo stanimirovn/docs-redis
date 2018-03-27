@@ -9,29 +9,27 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
-## <a id="1110"></a> v1.11.0
+## <a id="1110"></a> v1.12.0
 
-**Release Date:  January 25, 2018**
+**Release Date: March 29, 2018**
 
 ### Features
 
-* The on-demand service is now at feature parity with the dedicated-VM service. 
-The dedicated-VM service will be deprecated. Please move apps to the on-demand service.
+* Redis version packaged has been updated to 4.0.8,
+see [Redis release notes](http://download.redis.io/redis-stable/00-RELEASENOTES) for more details on features introduced.
 
-* All releases used within the tile use SHA-2 checksums.
+* Experimental feature added to on demand instances to allow sharing a redis instance with another space.
+See [Sharing the redis instance with another space](./using.html#sharing) for more information on the feature.
 
-* The tile uses [colocated errands](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) 
-to decrease errand runtime and VM footprint for Pivotal Cloud Foundry (PCF) v2.0 and later.
+* Removed limit on the maximum number of on-demand instances that can be deployed from the tile.
 
-* Users can manually and automatically back up and restore data to on-demand instances.
+* The Redis Appendonly File is optimised for size upon Redis restart for more efficient disk usage.
 
-* For security reasons, the permissions for all Redis files for the on-demand 
-service have been reduced to least privileged user and lowered to minimum needed.
+* Tile deployment no longer fails if there are no shared system domains. Smoke tests now push test apps to a space called `pivotal-services` in the `system` org using the system domain.
 
-* Defaults for on-demand VM and disk sizes encourage correct configuration and sizing of plans.
+* Support stemcells without thp kernel modules.
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, 
-has been disabled for security concerns.
+* Collocated errands added back in for faster deployments.
 
 ### Compatibility
 
@@ -42,19 +40,19 @@ has been disabled for security concerns.
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>3445.22+</td>
+    <td>3468.27+</td>
 </tr>
 <tr>
 	<td>PCF<sup>*</sup></td>
-    <td>v1.12.x and v2.0.x</td>
+    <td>v2.0.x and v2.1.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v432.0.0</td>
+    <td>v433.0.0</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.19.0</td>
+    <td>v0.20.0</td>
 </tr>
 <tr>
     <td>consul</td>
@@ -82,7 +80,7 @@ has been disabled for security concerns.
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v3.2.8</td>
+    <td>v4.0.8</td>
 </tr>
 
 </table>
