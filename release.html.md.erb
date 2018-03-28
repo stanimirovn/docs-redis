@@ -28,12 +28,12 @@ For more information on this feature, see
 * There is no longer a limit on the maximum number of on-demand instances that 
 can be deployed from the Redis for PCF tile.
 
-* The Redis Appendonly File is optimised for size upon Redis restart for more efficient disk usage.
+* The Redis append-only file is optimized for size when Redis restarts for more efficient disk usage.
 
-* Tile deployment no longer fails if there are no shared system domains. 
-Smoke tests now push test apps to a space called `pivotal-services` in the `system` org using the system domain.
+* Tile deployment no longer fails if there are no shared system domains because
+smoke tests now use the system domain.
 
-* Supports stemcells without THP kernel modules.
+* Supports stemcells without Transparent Huge Pages (THP) kernel modules.
 
 * Reintroduces collocated errands for faster deployments.
 
