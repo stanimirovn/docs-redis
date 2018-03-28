@@ -37,6 +37,16 @@ smoke tests now use the system domain.
 
 * Reintroduces collocated errands for faster deployments.
 
+### Known Issues
+
+* The redis-odb service broker listens on 12345. 
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior. 
+Do not select this choice as an errand run-rule. 
+For more information about this unexpected behavior, see 
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
 ### Compatibility
 
 <table border="1" class="nice">
@@ -93,12 +103,3 @@ smoke tests now use the system domain.
 
 \* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
 
-### Known Issues
-
-* The redis-odb service broker listens on 12345. 
-This is inconsistent with other services.
-
-* The **When Changed** option for errands has unexpected behavior. 
-Do not select this choice as an errand run-rule. 
-For more information about this unexpected behavior, see 
-[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
