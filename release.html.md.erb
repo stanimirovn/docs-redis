@@ -79,6 +79,11 @@ Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
+* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
+  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
+  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
 ## <a id="1100"></a> v1.10.4
 
 **Release Date: February 7, 2018**
@@ -151,6 +156,11 @@ Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
+* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
+  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
+  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
 ## <a id="1100"></a> v1.10.3
 
 **Release Date: February 2, 2018**
@@ -220,6 +230,11 @@ For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
+* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
+  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
+  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## <a id="1100"></a> v1.10.2
 
@@ -295,6 +310,11 @@ For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
+* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
+  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
+  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## <a id="1100"></a> v1.10.1
 
@@ -439,3 +459,8 @@ For more information about this unexpected behavior, see
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
+
+* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
+  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
+  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
