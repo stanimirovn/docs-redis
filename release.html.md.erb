@@ -79,8 +79,8 @@ Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
-  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
+  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
   check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
   This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
@@ -156,8 +156,8 @@ Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
-  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
+  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
   check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
   This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
@@ -221,18 +221,18 @@ For more information about this unexpected behavior, see
 
 ### Known Issues
 
-* The redis-odb service broker listens on port `12345`. 
+* The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has unexpected behavior. 
-Do not select this choice as an errand run-rule. 
-For more information about this unexpected behavior, see 
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
-* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
-  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
+  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
   check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
   This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
@@ -301,18 +301,18 @@ has been disabled for security concerns.
 
 ### Known Issues
 
-* The redis-odb service broker listens on port `12345`. 
+* The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has unexpected behavior. 
-Do not select this choice as an errand run-rule. 
-For more information about this unexpected behavior, see 
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
-* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
-  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
+  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
   check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
   This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
@@ -460,7 +460,7 @@ For more information about this unexpected behavior, see
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
-* Default persistance is set to full persistance where an AOF file grows and is not automatically optimised at any lifecycle stage,
-  this can lead to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
+* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
+  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
   check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
   This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
