@@ -29,10 +29,10 @@ This release updates the stemcell verison.
   For more information about this unexpected behavior,
   see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.8
 **February 7, 2018**
@@ -60,10 +60,10 @@ This release updates the stemcell verison.
   For more information about this unexpected behavior,
   see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.7
 **February 2, 2018**
@@ -89,10 +89,10 @@ This release updates the stemcell verison.
   For more information about this unexpected behavior,
   see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.6
 **January 22, 2018**
@@ -118,10 +118,10 @@ This release updates the stemcell verison.
   For more information about this unexpected behavior,
   see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.5
 **November 10, 2017**
@@ -148,10 +148,10 @@ This release updates the stemcell verison.
   For more information about this unexpected behavior,
   see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.4
 **September 22, 2017**
@@ -184,10 +184,10 @@ This release updates the stemcell verison.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.3
 **August 24, 2017**
@@ -223,11 +223,10 @@ This release updates the stemcell verison.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
-
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.2
 **July 20, 2017**
@@ -264,10 +263,10 @@ This release updates the stemcell verison.
 
 * On-demand instances may not correctly enforce eviction policies when memory is full.
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ## Redis for PCF v1.9.0
 **Release Date: June 30, 2017**
@@ -310,7 +309,7 @@ This release updates the stemcell verison.
 
 * On-demand instances may not correctly enforce eviction policies when memory is full.
 
-* Default persistance is set to full persistance using an AOF file, if an instance is restarted frequently (e.g. for upgrades) then this file can grow significantly
-  leading to very large persistant disk usage. If you find that your Redis instance has significantly larger persistant disk usage than expected,
-  check the size of your `appendonly.aof` file to verify if this is the source of the usage (usually at `/var/vcap/store/redis`).
-  This can then be mitigated by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
