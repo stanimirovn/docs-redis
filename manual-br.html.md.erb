@@ -327,7 +327,12 @@ this with `watch monit summary`
 
 1. Copy the backed up `/var/vcap/store/cf-redis-broker/statefile.json` and
 ensure ownership and permissions are correct with
-`chown vcap:vcap /var/vcap/store/redis/dump.rdb && chmod 660 /var/vcap/store/redis/dump.rdb`
+`chown vcap:vcap /var/vcap/store/cf-redis-broker/statefile.json && chmod 660 /var/vcap/store/cf-redis-broker/statefile.json`
+
+1. Run `monit start all`
+
+1. Wait for monit services to enter the `running` state, you can watch
+this with `watch monit summary`
 
 1. Follow the instructions in [Restore a Redis for PCF Instance from a Backup](#restore) for your plan, to restore your backed up Redis data.
 
