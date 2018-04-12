@@ -122,13 +122,13 @@ You can also restore your backup file to another instance of the Redis for PCF t
 
 ### <a id="restore-od"></a> Restore to an On-Demand or Dedicated-VM Plan
 
-Run `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-FILE`
+Run `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-FILE`
 
 ### <a id="restore-shared"></a> Restore to a Shared-VM Plan
 
 1. Retrieve the GUID for the instance you want to restore to by running: <br>`cf service SERVICE-INSTANCE-NAME --guid`
 
-1. Use the GUID you found above in this command:<br> `/var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-FILE --sharedVmGuid GUID`
+1. Use the GUID you found above in this command:<br> `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-FILE --sharedVmGuid GUID`
 
 
 ## <a id="debug"></a> Debugging Restore
@@ -141,7 +141,7 @@ The sections below list the restore process steps and related messages that appe
 
 You can retrieve the `INSTANCE-PASSWORD` through the binding to your service instance: `cf service-key SERVICE-INSTANCE-NAME SERVICE-KEY-NAME`
 
-
+Note that these debugging steps will require running as a superuser.
 
 ### <a id="restore-steps1"></a> Restore Process Steps for On-Demand and Dedicated-VM Instances
 
