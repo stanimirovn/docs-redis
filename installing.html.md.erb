@@ -55,15 +55,13 @@ You can use Redis for PCF with or without using the on-demand service.
 
 * **To use the Redis for PCF on-demand service**
 
-    You must use a [service network] (./odnetworking.html#architecture_networks) with the on-demand service. 
-    From an IaaS perspective, creating a service network is identical to creating any other network 
-    created for tiles on Ops Manager. The only difference is that the operator must mark the 
-    network as a “Service Network” in Ops Manager to prevent Ops Manager from performing IP management in that network.
+    A network must be selected for on-demand service in which the service instances will be created.
+    This option is available under the **Assign AZs and Networks** tab as a drop selection **Service Network**.
 
-* **To use Redis for PCF without the on-demand service**
+<p class="note"><strong>Note</strong>: Previously, Ops Manager required a specific network to be designated as the "Service Network" in order to reserve IPs
+    for the on-demand service. As of v2.1, Ops Manager no longer manages IPs in this way and all networks are available to be
+    used as a "Service Network".</p>
 
-    If you want to use Redis for PCF without the on-demand service, you must still create an 
-    [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387) to install the tile.
 
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
 
