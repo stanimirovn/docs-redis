@@ -18,6 +18,8 @@ In this topic:
     * [Cannot Connect to a Service Instance](#cannot-connect)
     * [Upgrade All Instances Fails](#upgrade-all-fails)
     * [Missing Logs and Metrics](#missing-logs)
+    * [Syslog Errors](#syslog-errors) 
+    * [Redis Client Errors](#redis-client-errors)
 * [Troubleshooting Components](#components)
     * [BOSH problems](#bosh)
     * [Configuration](#bosh-config)
@@ -138,6 +140,33 @@ Start here if you are responding to a specific error or error messages.
 
 <%= partial '../../redis/odb/tshoot-err-missing-logs' %>
 
+<a id="syslog-errors"></a><h4>Syslog Errors</h4>
+
+Redis for PCF can be configured with [remote syslog forwarding](installing.html#syslog). The syslog is formatted with RFC5424. The metadata will depend on your deployment. The 'message' component and solutions to some Redis log errors are mentioned below:
+
+1. `Short write while writing to the AOF file`, `Opening the temp file for AOF rewrite in rewriteAppendOnlyFile(): No space left on device`, and `Background AOF rewrite terminated with error` This is logged when the Redis server is unable to append to the AOF. A possible reason is that the persistent disk is full.
+  * Short-term Solution: 
+    1. SSH into the affected Redis instance
+    2. Disable AOF persistence by running `redis-cli CONFIG SET appendonly no`
+    3. Delete the /var/vcap/store/redis/appendonly.aof file
+    4. Gracefully restart the running Redis process with `$ kill -HUP <REDIS-SERVER-PID>`
+    5. Re-enable AOF persistence by running `redis-cli CONFIG SET appendonly yes`
+  * Long-term Solution: Older versions of the Redis for PCF tile configured AOF on by default. Upgrading to the latest tile (1.12+) turns off AOF persistence.
+
+2. `Background saving error` or `Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device`. This could occur if the Redis appendonly file is taking up all the space (see the solutions immediately above), or when the disk size has been configured too small.
+  * Solution: The disk size for Redis for PCF On-Demand service instances must be at least 1.5x the RAM.
+
+<a id="redis-client-errors"></a><h4>Redis Client Errors</h4>
+
+There are certain errors that Redis does not record in the logs. Instead, an error is returned to the Redis client. The Redis protocol represents errors as sinple strings beginning with a '-' byte.
+
+1. `-ERR max number of clients reached`
+  * This is most often caused by Apps inadvertently opening multiple client connections to Redis. This should usually be resolved by sharing or pooling Redis connections within an App.
+  * Redis for PCF configures Redis to accept 10000 client connections. This can be confirmed by running the `INFO` command via the Redis cli.
+2. `-OOM command not allowed when used memory > 'maxmemory'.`
+  * This occurs when the Redis server has reached its maxmemory limit. Consider changing your maxmemory-policy. This can be updated via the `cf update-service` arbitrary parameters.
+3. `-ERR` when running `redis-cli SAVE`, or issuing the save command via another redis client.
+  * This uninformative error can be caused when the Redis Server's disk is full. A more informative message is logged. See [Syslog Errors](#syslog-errors).
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
