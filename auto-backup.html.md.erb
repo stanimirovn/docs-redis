@@ -19,14 +19,17 @@ Automated backups have the following features:
 * Data from Redis is flushed to disk before the backup is started by running a `BGSAVE` on each instance.
 * You can configure Amazon Web Services (AWS) S3, SCP, Azure, or Google Cloud Storage (GCS) as your destination.
 
-### <a id='backup-files'></a>Backup Files
+## <a id='backup-files'></a>Backup Files
 
 When Redis for PCF runs an automated backup, it labels the backups in the following ways:
 
-* For dedicated-VM and shared-VM plans, backups are labeled with timestamp, instance GUID, and plan name. Files are stored by date.
-* For on-demand plans, backups are labeled with timestamp and plan name. Files are stored by deployment, then date.
+* For dedicated-VM and shared-VM plans, backups are labeled with timestamp, instance GUID, and plan name.
+  Files are stored by date.
+* For on-demand plans, backups are labeled with timestamp and plan name.
+  Files are stored by deployment, then date.
 
-For each backup artifact, Redis for PCF creates a file that contains the MD5 checksum for that artifact. This can be used to validate that the artifact is not corrupted.
+For each backup artifact, Redis for PCF creates a file that contains the MD5 checksum for that artifact.
+This can be used to validate that the artifact is not corrupted.
 
 ## <a id="about-configuration"></a>About Configuring Backups
 
@@ -35,14 +38,17 @@ Redis for PCF automatically backs up databases to external storage.
 * **How and where**: There are four options for how automated backups transfer backup data and where the data saves to:
 
     * [Option 1: Back Up with AWS](#aws): Redis for PCF runs an AWS S3 client that saves backups to an S3 bucket.
-    * [Option 2: Back Up with SCP](#scp): Redis for PCF runs an SCP command that secure-copies backups to a VM or physical machine operating outside of PCF. 
+    * [Option 2: Back Up with SCP](#scp): Redis for PCF runs an SCP command
+      that secure-copies backups to a VM or physical machine operating outside of PCF. 
     SCP stands for secure copy protocol, and offers a way to securely transfer files between two hosts. 
     The operator provisions the backup machine separately from their PCF installation. 
     This is the fastest option.
     * [Option 3: Back Up to GCS](#gcs): Redis for PCF runs an GCS SDK that saves backups to an Google Cloud Storage bucket.
     * [Option 4: Back Up to Azure](#azure): Redis for PCF runs an Azure SDK that saves backups to an Azure storage account.
 
-* **When**: Backups follow a schedule that you specify with a [cron](http://godoc.org/github.com/robfig/cron) expression.
+* **When**: Backups follow a schedule that you specify with a cron expression.
+
+    For general information about cron, see [package cron](http://godoc.org/github.com/robfig/cron).
 
 To configure automated backups, follow the procedures below according to the option you choose for external storage.
 
@@ -62,7 +68,8 @@ You must apply a minimal policy that lets the user account upload backups to you
 Do the following to create a policy and access key:
 
 1. Navigate to the AWS Console and log in.
-1. To create a new custom policy, go to **IAM > Policies > Create Policy > Create Your Own Policy** and paste in the following permissions:
+1. To create a new custom policy, go to **IAM > Policies > Create Policy > Create Your Own Policy**
+   and paste in the following permissions:
 
     ```
     {
@@ -90,7 +97,8 @@ Do the following to create a policy and access key:
 
 1. (Recommended) Create a new user for Redis for PCF and record its Access Key ID and Secret Access Key, the user credentials.
 
-1. (Recommended) Attach the policy you created to the AWS user account that Redis for PCF will use to access S3. Go to **IAM > Policies > Policy Actions > Attach**.
+1. (Recommended) Attach the policy you created to the AWS user account that Redis for PCF will use to access S3.
+   Go to **IAM > Policies > Policy Actions > Attach**.
 
 ### <a id='aws-config-om'></a> Configure Backups in Ops Manager
 
@@ -108,8 +116,8 @@ Do the following to connect Redis for PCF to your S3 account:
     | Secret Access Key | The Secret Key associated with your Access Key                                                                                                                                                                                                                                                                                                                                                         | Mandatory                                                        |
     | Endpoint URL      | The endpoint of your S3 account, such as `http://s3.amazonaws.com`                                                                                                                                                                                                                                                                                                                                        | Optional, defaults to `http://s3.amazonaws.com` if not specified |
     | Bucket Name       | Name of the bucket where to store the backup                                                                                                                                                                                                                                                                                                                                                 | Mandatory                                                        |
-    | Path              | Path inside the bucket to save backups to                                                                                                                                                                                                                                                                                                                                                             | Mandatory                                                        |
-    | Backup timeout    | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to your configured destination. If the timeout is reached, `BGSAVE` will continue but backups will fail and not be uploaded.                                                                                                                                                                                                                 | Mandatory                                                        |
+    | Bucket Path              | Path inside the bucket to save backups to                                                                                                                                                                                                                                                                                                                                                             | Mandatory                                                        |
+    | Backup timeout    | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to your configured destination. If the timeout is reached, `BGSAVE` continues but backups fail and are not uploaded.                                                                                                                                                                                                                 | Mandatory                                                        |
     | Cron Schedule     | Backups schedule in crontab format. For example, once daily at 2am is `* 2 * * *`. This field also accepts a pre-defined schedule, such as `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`, or `@every TIME`, where `TIME` is any supported time string, such as `1h30m`. For more information, see the cron package [documentation](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules). | Mandatory                                                        |
 1. Click **Save**.
 
@@ -122,12 +130,15 @@ To back up your database using SCP, complete the following procedures:
 
 ### <a id="scp-keys"></a>(Recommended) Create a Public and Private Key Pair
 
-Redis for PCF accesses a remote host as a user with a private key for authentication. Pivotal recommends that this user and key pair be solely for Redis for PCF.
+Redis for PCF accesses a remote host as a user with a private key for authentication.
+Pivotal recommends that this user and key pair be solely for Redis for PCF.
 
 Do the following to create a new public and private key pair for authenticating:
 
-1. Determine the remote host that you will be using to store backups for Redis for PCF. Ensure that the Redis service instances can access the remote host.
-    <p class="note"><strong>Note</strong>: Pivotal recommends using a VM outside the PCF deployment for the destination of SCP backups. As a result you might need to enable public IPs for the Redis VMs.</p>
+1. Determine the remote host that you will be using to store backups for Redis for PCF.
+   Ensure that the Redis service instances can access the remote host.
+    <p class="note"><strong>Note</strong>: Pivotal recommends using a VM outside the PCF deployment for the destination of SCP backups. 
+    As a result you might need to enable public IPs for the Redis VMs.</p>
 1. Create a new user for Redis for PCF on the destination VM.
 1. Create a new public and private key pair for authenticating as the above user on the destination VM.
 
@@ -149,7 +160,7 @@ Do the following to connect Redis for PCF to your destination VM:
     | Destination Directory | The path in the SCP server, where the backups will be transferred                                                                                                         | Mandatory          |
     | SCP Port              | The SCP port of the SCP server                                                                                                                                            | Mandatory          |
     | Cron Schedule         | Backups schedule in crontab format. For example, once daily at 2am is `* 2 * * *`. This field also accepts a pre-defined schedule, such as `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`, or `@every TIME`, where `TIME` is any supported time string, such as `1h30m`. For more information, see the cron package [documentation](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules).                                                                                             | Mandatory          |
-    | Backup timeout        | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to the SCP server. If the timeout is reached, `BGSAVE` will continue but backups will fail and not be uploaded. | Mandatory          |
+    | Backup timeout        | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to the SCP server. If the timeout is reached, `BGSAVE` continues but backups fail and are not uploaded. | Mandatory          |
 1. Click **Save**.
 
 ## <a id="gcs"></a>Option 3: Back Up with GCS
@@ -189,7 +200,7 @@ Do the following to connect Redis for PCF to GCS:
     | Bucket name                 | Name of the bucket where to store the backup                                                                                                                                                                                                                                           | Mandatory          |
     | Service account private key | The JSON secret key associated with your service account                                                                                  | Mandatory          |
     | Cron Schedule               | Backups schedule in crontab format. For example, once daily at 2am is `* 2 * * *`. This field also accepts a pre-defined schedule, such as `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`, or `@every TIME`, where `TIME` is any supported time string, such as `1h30m`. For more information, see the cron package [documentation](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules). | Mandatory          |
-    | Backup timeout              | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to your configured destination. If the timeout is reached, `BGSAVE` will continue but backups will fail and not be uploaded.                                                                                                           | Mandatory          |
+    | Backup timeout              | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to your configured destination. If the timeout is reached, `BGSAVE` continues but backups fail and are not uploaded.                                                                                                           | Mandatory          |
 1. Click **Save**.
 
 ## <a id ="azure"></a>Back Up to Azure
@@ -206,11 +217,11 @@ Do the following to back up your database to an Azure storage account:
     |--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
     | Account                  | Account name                                                                                                                                                                                                                                                                                     | Mandatory          |
     | Azure Storage Access Key | Azure specific credentials required to write to the Azure container                                                                                                                                                                                                                              | Mandatory          |
-    | Container name           | Name of the Azure container where to store the backup                                                                                                                                                                                                                                       | Mandatory          |
+    | Container Name           | Name of the Azure container where to store the backup                                                                                                                                                                                                                                       | Mandatory          |
     | Destination Directory    | Directory within the Azure container to store the backup files to                                                                                                                                  | Mandatory          |
     | Blob Store Base URL      | URL pointing to Azure resource                                                                                                                                                                                                                                                                   | Optional           |
     | Cron Schedule            | Backups schedule in crontab format. For example, once daily at 2am is `* 2 * * *`. This field also accepts a pre-defined schedule, such as `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`, or `@every TIME`, where `TIME` is any supported time string, such as `1h30m`. For more information, see the cron package [documentation](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules). | Mandatory          |
-    | Backup timeout           | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to your configured destination. If the timeout is reached, `BGSAVE` will continue but backups will fail and not be uploaded.                                                                                                           | Mandatory          |
+    | Backup timeout           | The amount of time, in seconds, that the backup process waits for the `BGSAVE` command to complete on your instance before transferring the RDB file to your configured destination. If the timeout is reached, `BGSAVE` continues but backups fail and are not uploaded.                                                                                                           | Mandatory          |
 
 1. Click **Save**.
 
