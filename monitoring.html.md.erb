@@ -67,7 +67,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
 #### <a id="quota-remaining-od-instances"></a> Quota Remaining For On-Demand Service
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> total_instances <br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> quota_remaining <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
        <td>Number of available instances across all On-Demand Services and for a specific On-Demand plan.
@@ -95,11 +95,47 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
    </tr>
 </table>
 
+#### <a id="total-dedicated-instances"></a> Total Instances For Shared-VM and Dedicated-VM Service
+
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
+    the on-demand service is at feature parity with the dedicated-VM service.
+    The dedicated-VM service plan will be deprecated.
+    Pivotal recommends using the on-demand service plan.</p>
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> /p-redis/service-broker/dedicated_vm_plan/total_instances <br>/p-redis/service-broker/shared_vm_plan/total_instances <br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Total instances provisioned for Shared-VM and Dedicated-VM Services.
+      <br><br>
+      <strong>Use</strong>: Track total of Shared-VM and Dedicated-VM instances available for app developers.
+      <br><br>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: count<br>
+      <strong>Frequency</strong>: 30s (default), 10s (configurable minimum)<br></td>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Application-specific</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: N/A  <br>
+      <strong>Red critical</strong>: N/A </td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>
+      N/A
+      </td>
+   </tr>
+</table>
+
 #### <a id="quota-remaining-dedicated-instances"></a> Quota Remaining For Shared-VM and Dedicated-VM Service
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated. 
+    The dedicated-VM service plan will be deprecated.
     Pivotal recommends using the on-demand service plan.</p>
 
 <table>
