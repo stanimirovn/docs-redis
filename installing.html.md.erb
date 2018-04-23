@@ -52,18 +52,15 @@ To assign AZs, do the following:
 ###  <a id="network-configuration"></a>Select Networks
 
 You can use Redis for PCF with or without using the on-demand service.
-
-* **To use the Redis for PCF on-demand service**
-
-    A network must be selected for on-demand service in which the service instances will be created.
-    This option is available under the **Assign AZs and Networks** tab as a drop selection **Service Network**.
-
-<p class="note"><strong>Note</strong>: Previously, Ops Manager required a specific network to be designated as the "Service Network" in order to reserve IPs
-    for the on-demand service. As of v2.1, Ops Manager no longer manages IPs in this way and all networks are available to be
-    used as a "Service Network".</p>
-
-
+To use the Redis for PCF on-demand service, you must select a network in which 
+the service instances are created. 
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
+
+<p class="note"><strong>Note</strong>: 
+  In Ops Manager v2.0 and earlier, a specific network was designated as the 
+  Service Network to reserve IPs for the on-demand service.
+  As of Ops Manager v2.1, IPs are no longer managed in this way. All networks
+  are now available to use as a Service Network.</p>
 
 To select networks, do the following:
 
