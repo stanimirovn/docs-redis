@@ -18,8 +18,8 @@ In this topic:
     * [Cannot Connect to a Service Instance](#cannot-connect)
     * [Upgrade All Instances Fails](#upgrade-all-fails)
     * [Missing Logs and Metrics](#missing-logs)
-    * [Syslog Errors](#syslog-errors) 
-    * [Redis Client Errors](#redis-client-errors)
+    * [Error Messages Logged in Syslog](#syslog-errors) 
+    * [Error Messages from the Redis Client](#redis-client-errors)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
     * [Configuration](#bosh-config)
@@ -140,33 +140,134 @@ Start here if you are responding to a specific error or error messages.
 
 <%= partial '../../redis/odb/tshoot-err-missing-logs' %>
 
-<a id="syslog-errors"></a><h4>Syslog Errors</h4>
+<a id="syslog-errors"></a><h3>Error Messages Logged in Syslog</h3>
 
-Redis for PCF can be configured with [remote syslog forwarding](installing.html#syslog). The syslog is formatted with RFC5424. The metadata will depend on your deployment. The 'message' component and solutions to some Redis log errors are mentioned below:
+Redis for PCF can be configured with <a href="installing.html#syslog">remote syslog forwarding</a>. 
+The syslog is formatted with RFC5424. 
+The metadata depends on your deployment.<br><br>
 
-1. `Short write while writing to the AOF file`, `Opening the temp file for AOF rewrite in rewriteAppendOnlyFile(): No space left on device`, and `Background AOF rewrite terminated with error` This is logged when the Redis server is unable to append to the AOF. A possible reason is that the persistent disk is full.
-  * Short-term Solution: 
-    1. SSH into the affected Redis instance
-    2. Disable AOF persistence by running `redis-cli CONFIG SET appendonly no`
-    3. Delete the /var/vcap/store/redis/appendonly.aof file
-    4. Gracefully restart the running Redis process with `$ kill -HUP <REDIS-SERVER-PID>`
-    5. Re-enable AOF persistence by running `redis-cli CONFIG SET appendonly yes`
-  * Long-term Solution: Older versions of the Redis for PCF tile configured AOF on by default. Upgrading to the latest tile (1.12+) turns off AOF persistence.
+This section helps to troubleshoot the following errors logged in syslog:<br><br>
 
-2. `Background saving error` or `Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device`. This could occur if the Redis appendonly file is taking up all the space (see the solutions immediately above), or when the disk size has been configured too small.
-  * Solution: The disk size for Redis for PCF On-Demand service instances must be at least 1.5x the RAM.
+<ul>
+  <li><a href="#disk-full">Redis server is unable to append to the AOF</a></li>
+  <li><a href="#disk-size">Background saving error/Failed opening the RDB file dump.rdb</a></li>
+</ul>
 
-<a id="redis-client-errors"></a><h4>Redis Client Errors</h4>
+<a id="disk-full"></a><h4>Redis server is unable to append to the AOF</h4>
 
-There are certain errors that Redis does not record in the logs. Instead, an error is returned to the Redis client. The Redis protocol represents errors as sinple strings beginning with a '-' byte.
+<strong>Symptom</strong><br>
 
-1. `-ERR max number of clients reached`
-  * This is most often caused by Apps inadvertently opening multiple client connections to Redis. This should usually be resolved by sharing or pooling Redis connections within an App.
-  * Redis for PCF configures Redis to accept 10000 client connections. This can be confirmed by running the `INFO` command via the Redis cli.
-2. `-OOM command not allowed when used memory > 'maxmemory'.`
-  * This occurs when the Redis server has reached its maxmemory limit. Consider changing your maxmemory-policy. This can be updated via the `cf update-service` arbitrary parameters.
-3. `-ERR` when running `redis-cli SAVE`, or issuing the save command via another redis client.
-  * This uninformative error can be caused when the Redis Server's disk is full. A more informative message is logged. See [Syslog Errors](#syslog-errors).
+One of the following error messages is logged:<br>
+
+<pre class="terminal">Short write while writing to the AOF file</pre> 
+<pre class="terminal">Opening the temp file for AOF rewrite in rewriteAppendOnlyFile(): No space left on device</pre>
+<pre class="terminal">Background AOF rewrite terminated with error</pre><br>
+
+<strong>Explanation</strong><br>
+
+This is logged when the Redis server is unable to append to the Redis append-only file (AOF). 
+The persistent disk might be full.<br><br> 
+
+<strong>Solution</strong><br>
+
+For a short term solution, do the following:<br><br>
+
+<ol>
+  <li>SSH into the affected Redis instance.</li>
+  <li>Run <code>redis-cli CONFIG SET appendonly no</code> to disable AOF persistence.</li>
+  <li>Delete the <code>/var/vcap/store/redis/appendonly.aof</code> file.</li>
+  <li>Run <code>kill -HUP REDIS-SERVER-PID</code> to restart the Redis process.</li>
+  <li>Run <code>redis-cli CONFIG SET appendonly yes</code> to re-enable AOF persistence.</li>
+</ol>
+
+For a long term solution, upgrade to Redis for PCF v1.12 or later.
+In older versions of the Redis for PCF tile, AOF persistence is enabled by default. 
+Upgrading to the latest version of the tile disables AOF persistence.
+
+
+<a id="disk-size"></a><h4>Background saving error/Failed opening the RDB file dump.rdb</h4>
+
+<strong>Symptom</strong><br>
+
+One of the following error messages is logged:<br>
+
+<pre class="terminal">Background saving error</pre> 
+<pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre><br>
+
+<strong>Explanation</strong><br>
+
+This might be logged if the Redis AOF uses all the disk space 
+(see <a href="disk-ful">Error 1</a>), or when the configured disk size is too small.<br><br>
+
+<strong>Solution</strong><br> 
+
+The disk size for Redis for PCF on-demand service instances must be at least 1.5x the RAM.
+
+<a id="redis-client-errors"></a><h3>Error Messages from the Redis Client</h3>
+
+Certain errors are returned to the Redis client instead of being recorded in the logs. 
+The Redis protocol represents errors as simple strings beginning with a <code>-</code> byte. <br><br>
+
+This section helps to troubleshoot the following errors: <br><br>
+<ul>
+  <li><a href="#max-clients">Maximum Number of Clients Reached</a></li>
+  <li><a href="#maxmemory">Maxmemory Limit Reached</a></li>
+  <li><a href="#err">Error When Running the Save Command</a></li>
+</ul>
+
+
+<a id="max-clients"></a><h4>Maximum Number of Clients Reached</h4>
+
+<strong>Symptom</strong><br>
+
+You receive the following error message:<br>
+
+<pre class="terminal">-ERR max number of clients reached</pre><br>
+
+<strong>Explanation</strong><br>
+
+This is usually caused by apps opening multiple client connections to Redis.<br><br>
+
+<strong>Solution</strong><br>
+
+Share or pool Redis connections within an app.
+Redis for PCF configures Redis to accept 10000 client connections. 
+This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
+
+
+<a id="maxmemory"></a><h4>Maxmemory Limit Reached</h4>
+
+<strong>Symptom</strong><br>
+
+You receive the following error message:<br>
+
+<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre><br>
+
+<strong>Explanation</strong><br>
+
+This occurs when the Redis server has reached its <code>maxmemory</code> limit. <br><br>
+
+<strong>Solution</strong><br>
+
+Consider changing your maxmemory-policy. 
+You can update this using the <code>cf update-service</code> parameters.
+
+
+<a id="err"></a><h4>Error When Running the Save Command</h4>
+
+<strong>Symptom</strong><br>
+
+You receive the error message <code>-ERR</code> when running <code>redis-cli SAVE</code>, 
+or issuing the save command using another Redis client.<br><br>
+
+<strong>Explanation</strong><br>
+
+This error might occur when the Redis server's disk is full.<br><br>
+
+<strong>Solution</strong><br>
+
+A more informative message might be logged in the syslog.
+For more information, see <a href="#syslog-errors">Syslog Errors</a>.
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
