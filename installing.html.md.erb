@@ -97,24 +97,27 @@ and allocate resources to Redis service plans.</br></br>
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
 
-1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**. 
+1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**.
 The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.</br></br>
     ![settings](redis-odservice-settings.png)</br></br>
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
-1. Select the **Allow outbound internet access from service instances** checkbox. 
+1. Select the **Allow outbound internet access from service instances** checkbox.
    You must select this checkbox to allow external log forwarding, send backup artifacts to external destinations,
    and communicate with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 
 1. (Optional) Select the checkbox to enable **Service Instance Sharing**.
-   This is a Beta feature. 
+   This is a Beta feature.
    Turning on sharing enables this experimental feature for all on-demand instances.
-    <p class="note"><strong>Note</strong>: To enable this feature a user with admin privileges 
-  must run <code>cf enable-feature-flag service\_instance\_sharing</code>. 
+    <p class="note"><strong>Note</strong>: To enable this feature a user with admin privileges
+  must run <code>cf enable-feature-flag service\_instance\_sharing</code>.
  For information about this feature, see [Sharing a Redis Instance with Another Space (Beta)](./using.html#sharing).
   </p>
+
+1. (Optional) Allow parallel upgrades
+  Use this setting to configure the maximum number of Redis service instances that will be upgraded at the same time. When "Apply Changes" is initiated, the On-Demand broker will upgrade all service instances. By default each instance is upgraded serially. Parallel upgrades reduces the time taken to apply changes. Multiple redis service instances will be concurrently unavailable during the upgrade.
 
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
