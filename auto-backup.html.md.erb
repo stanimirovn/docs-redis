@@ -28,7 +28,9 @@ When Redis for PCF runs an automated backup, it labels the backups in the follow
 * For on-demand plans, backups are labeled with timestamp and plan name.
   Files are stored by deployment, then date.
 
-For each backup artifact, Redis for PCF creates a file that contains the MD5 checksum for that artifact.
+Backups are stored as `.rdb` files.
+
+For each backup artifact, Redis for PCF also creates a file that contains the MD5 checksum for that artifact.
 This can be used to validate that the artifact is not corrupted.
 
 ## <a id="about-configuration"></a>About Configuring Backups
