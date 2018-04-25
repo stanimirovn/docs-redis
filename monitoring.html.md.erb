@@ -380,27 +380,52 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
         A drop in the count may be a symptom of compromised Redis performance. The following are possible responses:
    <br><br>
 <ol>
-   <li><strong>Identify slow commands using the slowlog:</strong><br>
-   Redis logs all the commands that take more than a specified amount of time in slowlog. By default, this time is set to 20ms and the slowlog is allowed a maximum of 120 commands. For the purposes of slowlog, execution time is the time taken by Redis alone and does not account for time spent in I/O. So it would not log slow commands solely due to network latency.
-   <br><br>
-   Given that typical commands, including network latency, take about 200ms, a 20ms Redis execution time is 100 times slower. This could be indicative of memory management issues wherein Redis pages have been swapped to disk.
-   <br><br>
-   To see all the commands with slow Redis execution times, type <code>slowlog get</code> in the redis-cli.</li>
+   <li>
+      <strong>Identify slow commands using the slowlog:</strong><br>
+      Redis logs all the commands that take more than a specified amount of time in slowlog. 
+      By default, this time is set to 20ms and the slowlog is allowed a maximum of 120 commands. 
+      For the purposes of slowlog, execution time is the time taken by Redis alone and does not account for time spent in I/O. 
+      So it would not log slow commands solely due to network latency.
+      <br><br>
+      Given that typical commands, including network latency, take about 200ms, a 20ms Redis execution time is 100 times slower. 
+      This could be indicative of memory management issues wherein Redis pages have been swapped to disk.
+      <br><br>
+      To see all the commands with slow Redis execution times, type <code>slowlog get</code> in the redis-cli.
+   </li>
 
-   <li><strong>Monitor client connections:</strong><br>
-   Because Redis is single threaded, one process services requests from all clients. As the number of clients grows, the percentage of resource time given to each client decreases and each client spends an increasing time waiting for their share of Redis server time.
-   <br><br>
-   Monitoring the number of clients may be important because there may be applications creating connections that you did not expect or your application may not be efficiently closing unused connections.
-   <br><br>
-   The connected clients metrics can be used to monitor this. This can also be viewed from the redis-cli using the command "info clients".</li>
+   <li>
+      <strong>Monitor client connections:</strong><br>
+      Because Redis is single threaded, one process services requests from all clients. 
+      As the number of clients grows, the percentage of resource time given to each 
+      client decreases and each client spends an increasing time waiting for their share of Redis server time.
+      <br><br>
+      Monitoring the number of clients may be important because there may be applications 
+      creating connections that you did not expect or your application may not be efficiently closing unused connections.
+      <br><br>
+      The connected clients metrics can be used to monitor this. 
+      This can also be viewed from the redis-cli using the command <code>info clients</code>.</li>
 
-   <li><strong>Limit client connections:</strong><br>
-   This currently defaults to 10000 but depending on the application, you may wish to limit this further. This can be done be running the command "CONFIG SET maxclients <value>" in the redis-cli. For On-Demand service instances this can be configured in OpsManager for each plan. Connections that exceed the limit will be rejected and closed immediately.</value>
-   <br><br>
-   Setting maxclients is important to limit the number of unintended client connections and should be set to around 110% to 150% of your expected peak number of connections. In addition, because an error message is returned for failed connection attempts, the maxclient limit warns you that a significant number of unexpected connections are occurring. This helps maintain optimal Redis performance.</li>
+      <li><strong>Limit client connections:</strong><br>
+      This currently defaults to 10000, but depending on the application, you may want to limit this further. 
+      To do this, run <code>CONFIG SET maxclients NUMBER-OF-CONNECTIONS</code> in the redis-cli.
+      You can configure this for On-Demand service instances in Ops Manager. 
+      Connections that exceed the limit are rejected and closed immediately.
+      <br><br>
+      It is important to set <code>maxclients</code> to limit the number of unintended client connections. 
+      Set <code>maxclients</code> to 110% to 150% of your expected peak number of connections. 
+      In addition, because an error message is returned for failed connection attempts, 
+      the maxclient limit warns you that a significant number of unexpected connections are occurring. 
+      This helps maintain optimal Redis performance.
+   </li>
 
-   <li><strong>Improve memory management:</strong><br>
-   Poor memory can cause increased latency in Redis. If your Redis instance is using more memory than is available, the operating system will swap parts of the redis process from out of phyical memory and onto disk. Swapping will significantly reduce Redis performance since reads from disk are about 5 orders or magnitude slower than reads from physical memory.</li>
+   <li>
+      <strong>Improve memory management:</strong><br>
+      Poor memory can cause increased latency in Redis. 
+      If your Redis instance is using more memory than is available, 
+      the operating system will swap parts of the redis process from out of phyical memory and onto disk. 
+      Swapping will significantly reduce Redis performance since reads from disk are 
+      about 5 orders or magnitude slower than reads from physical memory.
+   </li>
 </ol>
 
 

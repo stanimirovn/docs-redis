@@ -43,9 +43,12 @@ A sample `redis.conf` from a Dedicated-VM plan instance is provided [here] (redi
 
 + Persistence is configured for both `RDB` and `AOF`.
 
-+ The default maximum number of connections, `maxclients`, is set at 10000.
-This number may be truncated by Redis when running on a system with a low maximum number of file descriptors.
-The actual setting on your redis service instances can be retrieved with the Redis command: `CONFIG GET maxclients`. The Redis command `CONFIG SET maxclients` can be used to temporarily redus `maxclients` but it can't be increased above 10000. There is no way to to configure shared and dedicated plans to use a custom limit.
++ By default, the maximum number of connections, `maxclients`, is set at 10000.
+Redis might reduce this number when run on a system with a low maximum number of file descriptors.
+You can retrieve the actual setting on your Redis service instances with the Redis command `CONFIG GET maxclients`. 
+You can use the Redis command `CONFIG SET maxclients` to temporarily reduce `maxclients`, 
+but you cannot increase it above 10000.
+There is no way to to configure shared and dedicated plans to use a custom limit.
 
 + Replication and event notification are not configured.
 
