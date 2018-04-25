@@ -39,7 +39,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
    <tr><th colspan="2" style="text-align: center;"><br> total_instances <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Total instances provisioned by application developers across all On-Demand Services and for a specific On-Demand plan
+      <td>Total instances provisioned by app developers across all On-Demand Services and for a specific On-Demand plan
       <br><br>
       <strong>Use</strong>: Track instance use by app developers.
       <br><br>
@@ -116,7 +116,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>Application-specific</td>
+      <td>App-specific</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
@@ -216,7 +216,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>Application-specific based on velocity of data flow. Some options are:
+      <td>App-specific based on velocity of data flow. Some options are:
       <br><br>
       <ol>
       <li>Individual data points---Use if key eviction is in place, for example, in cache use cases.</li>
@@ -232,7 +232,7 @@ Not applicable for cache usage. When used as a cache, Redis will typically use u
 <br><br>
 A different threshold might be appropriate for specific use cases of no key eviction, to allow for reaction time. Factors to consider:<br><br>
 <ol>
-<li>Traffic load on application---Higher traffic means that Redis memory will fill up faster.</li>
+<li>Traffic load on app---Higher traffic means that Redis memory will fill up faster.</li>
 <li>Average size of data added/ transaction---The more data added to Redis on a single transaction, the faster Redis will fill up its memory.</li></ol>
 
 <strong>Red critical</strong>: 90%. See warning-specific threshold information.
@@ -240,7 +240,7 @@ A different threshold might be appropriate for specific use cases of no key evic
    <tr>
       <th>Recommended response</th>
       <td>
-      No action assuming the maxmemory policy set meets your applications needs. If the maxmemory policy does not persist data as you wish, either coordinate a backup cadence or update your maxmemory policy if using the on-demand Redis service.
+      No action assuming the maxmemory policy set meets your apps needs. If the maxmemory policy does not persist data as you wish, either coordinate a backup cadence or update your maxmemory policy if using the on-demand Redis service.
       </td>
    </tr>
 </table>
@@ -264,8 +264,8 @@ A different threshold might be appropriate for specific use cases of no key evic
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: Application-specific. When connected clients reaches max clients, no more clients can connect. This alert should be at the level where it can tell you that your application has scaled to a certain level and may require action.<br>
-      <strong>Red critical</strong>: Application-specific. When connected clients reaches max clients, no more clients can connect. This alert should be at the level where it can tell you that your application has scaled to a certain level and may require action.</td>
+      <td><strong>Yellow warning</strong>: App-specific. When connected clients reaches max clients, no more clients can connect. This alert should be at the level where it can tell you that your app has scaled to a certain level and may require action.<br>
+      <strong>Red critical</strong>: App-specific. When connected clients reaches max clients, no more clients can connect. This alert should be at the level where it can tell you that your app has scaled to a certain level and may require action.</td>
    </tr>
    <tr>
       <th>Recommended response</th>
@@ -299,7 +299,7 @@ A different threshold might be appropriate for specific use cases of no key evic
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>Application-specific. Change from baseline may be more significant than actual value.</td>
+      <td>App-specific. Change from baseline may be more significant than actual value.</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
@@ -321,11 +321,11 @@ However a problem that is causing <code>blocked_clients</code> to rise might oft
         Analysis could include:<br><br>
         <ul>
 <li>Checking the <code>connected_clients</code> metric. <code>blocked_clients</code> would often rise in concert with <code>connected_clients</code>.</li>
-<li>Establishing whether the rise in <code>blocked_clients</code> is accompanied by an overall increase in applications connecting to Redis, or by an asymmetry in clients providing and receiving data with blocking commands</li>
+<li>Establishing whether the rise in <code>blocked_clients</code> is accompanied by an overall increase in apps connecting to Redis, or by an asymmetry in clients providing and receiving data with blocking commands</li>
 <li>Considering whether a change in <code>blocked_clients</code> is most likely caused by oversupply of blocking requests or undersupply of data</li>
 <li>Considering whether a change in network latency is delaying the data from source clients</li></ul>
 
-In general, a rise or change in <code>blocked_clients</code> is more likely to suggest a problem in the network or infrastructure, or in the function of client applications, rather than a problem with the Redis service.
+In general, a rise or change in <code>blocked_clients</code> is more likely to suggest a problem in the network or infrastructure, or in the function of client apps, rather than a problem with the Redis service.
       </td>
    </tr>
 </table>
@@ -409,14 +409,14 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
       As the number of clients grows, the percentage of resource time given to each 
       client decreases and each client spends an increasing time waiting for their share of Redis server time.
       <br><br>
-      Monitoring the number of clients may be important because there may be applications 
-      creating connections that you did not expect or your application may not be efficiently closing unused connections.
+      Monitoring the number of clients may be important because there may be apps 
+      creating connections that you did not expect or your app may not be efficiently closing unused connections.
       <br><br>
       The connected clients metrics can be used to monitor this. 
       This can also be viewed from the redis-cli using the command <code>info clients</code>.</li>
 
       <li><strong>Limit client connections:</strong><br>
-      This currently defaults to 10000, but depending on the application, you may want to limit this further. 
+      This currently defaults to 10000, but depending on the app, you may want to limit this further. 
       To do this, run <code>CONFIG SET maxclients NUMBER-OF-CONNECTIONS</code> in the redis-cli.
       You can configure this for On-Demand service instances in Ops Manager. 
       Connections that exceed the limit are rejected and closed immediately.
@@ -459,16 +459,16 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>Application-specific</td>
+      <td>App-specific</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: Application-specific. In general depending how an application is using the cache, an expected hit ratio value can vary between 60% to 99% . Also, the same hit ratio values can mean different things for different applications. Every time an application gets a cache miss, it will probably go to and fetch the data from a slower resource. This cache miss cost can be different per application. The application developers might be able to provide a threshold that is meaningful for the app and its performance<br><br>
-      <strong>Red critical</strong>: Application-specific. See the warning threshold above.
+      <td><strong>Yellow warning</strong>: App-specific. In general depending how an app is using the cache, an expected hit ratio value can vary between 60% to 99% . Also, the same hit ratio values can mean different things for different apps. Every time an app gets a cache miss, it will probably go to and fetch the data from a slower resource. This cache miss cost can be different per app. The app developers might be able to provide a threshold that is meaningful for the app and its performance<br><br>
+      <strong>Red critical</strong>: App-specific. See the warning threshold above.
    <tr>
       <th>Recommended response</th>
       <td>
-        Application-specific. See the warning threshold above. Work with application developers to understand the performance and cache configuration required for their applications.
+        App-specific. See the warning threshold above. Work with app developers to understand the performance and cache configuration required for their apps.
       </td>
    </tr>
 </table>
