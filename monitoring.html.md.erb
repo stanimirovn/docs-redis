@@ -405,7 +405,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    The connected clients metrics can be used to monitor this. This can also be viewed from the redis-cli using the command "info clients".</li>
 
    <li><strong>Limit client connections:</strong><br>
-   This currently defaults to 1000 but depending on the application, you may wish to limit this further. This can be done be running the command "config set maxclients <value>" in the redis-cli. Connections that exceed the limit will be rejected and closed immediately.</value>
+   This currently defaults to 10000 but depending on the application, you may wish to limit this further. This can be done be running the command "CONFIG SET maxclients <value>" in the redis-cli. For On-Demand service instances this can be configured in OpsManager for each plan. Connections that exceed the limit will be rejected and closed immediately.</value>
    <br><br>
    Setting maxclients is important to limit the number of unintended client connections and should be set to around 110% to 150% of your expected peak number of connections. In addition, because an error message is returned for failed connection attempts, the maxclient limit warns you that a significant number of unexpected connections are occurring. This helps maintain optimal Redis performance.</li>
 

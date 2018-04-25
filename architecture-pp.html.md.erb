@@ -48,8 +48,9 @@ A sample `redis.conf` from a Dedicated-VM plan instance is provided [here] (redi
 
 + Persistence is configured for both `RDB` and `AOF`.
 
-+ The default maximum number of connections, `maxclients`, is set at 10000 but
-this number is adjusted by Redis according to the number of file handles available.
++ The default maximum number of connections, `maxclients`, is set at 10000.
+This number may be truncated by Redis when running on a system with a low maximum number of file descriptors.
+The actual setting on your redis service instances can be retrieved with the Redis command: `CONFIG GET maxclients`. The Redis command `CONFIG SET maxclients` can be used to temporarily redus `maxclients` but it can't be increased above 10000. There is no way to to configure shared and dedicated plans to use a custom limit.
 
 + Replication and event notification are not configured.
 
@@ -147,4 +148,3 @@ Limitations of the `shared-vm` plan include:
 Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 ![Lifecycle Diagram](Redis_timeline_legacy.png)
-
