@@ -142,12 +142,13 @@ Start here if you are responding to a specific error or error messages.
 
 <a id="syslog-errors"></a><h3>Error Messages Logged in Syslog</h3>
 
-Redis for PCF can be configured with <a href="installing.html#syslog">remote syslog forwarding</a>. 
-The syslog is formatted with RFC5424. 
-The metadata depends on your deployment.<br><br>
+You can configure Redis for PCF with remote syslog forwarding. 
+For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>. 
 
-This section helps to troubleshoot the following errors logged in syslog:<br><br>
+<br><br>
 
+This section helps to troubleshoot the following errors logged in syslog:
+<br><br>
 <ul>
   <li><a href="#disk-full">Redis server is unable to append to the AOF</a></li>
   <li><a href="#disk-size">Background saving error/Failed opening the RDB file dump.rdb</a></li>
@@ -161,16 +162,18 @@ One of the following error messages is logged:<br>
 
 <pre class="terminal">Short write while writing to the AOF file</pre> 
 <pre class="terminal">Opening the temp file for AOF rewrite in rewriteAppendOnlyFile(): No space left on device</pre>
-<pre class="terminal">Background AOF rewrite terminated with error</pre><br>
+<pre class="terminal">Background AOF rewrite terminated with error</pre>
+<br>
 
 <strong>Explanation</strong><br>
 
 This is logged when the Redis server is unable to append to the Redis append-only file (AOF). 
-The persistent disk might be full.<br><br> 
+The disk might be full.
+<br><br> 
 
 <strong>Solution</strong><br>
 
-For a short term solution, do the following:<br><br>
+For a short-term solution, do the following:<br><br>
 
 <ol>
   <li>SSH into the affected Redis instance.</li>
@@ -180,7 +183,7 @@ For a short term solution, do the following:<br><br>
   <li>Run <code>redis-cli CONFIG SET appendonly yes</code> to re-enable AOF persistence.</li>
 </ol>
 
-For a long term solution, upgrade to Redis for PCF v1.12 or later.
+For a long-term solution, upgrade to Redis for PCF v1.12 or later.
 In older versions of the Redis for PCF tile, AOF persistence is enabled by default. 
 Upgrading to the latest version of the tile disables AOF persistence.
 
@@ -192,23 +195,29 @@ Upgrading to the latest version of the tile disables AOF persistence.
 One of the following error messages is logged:<br>
 
 <pre class="terminal">Background saving error</pre> 
-<pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre><br>
+<pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
+<br>
 
 <strong>Explanation</strong><br>
 
-This might be logged if the Redis AOF uses all the disk space 
-(see <a href="disk-ful">Error 1</a>), or when the configured disk size is too small.<br><br>
+This might be logged when the configured disk size is too small, 
+or if the Redis AOF uses all the disk space.
+<br><br>
 
 <strong>Solution</strong><br> 
 
-The disk size for Redis for PCF on-demand service instances must be at least 1.5x the RAM.
+Configure the disk to at least 1.5x the RAM. 
+Otherwise, if the AOF is using all the disk space, see <a href="#disk-full">Redis server is unable to append to the AOF</a>. 
+ 
+
 
 <a id="redis-client-errors"></a><h3>Error Messages from the Redis Client</h3>
 
 Certain errors are returned to the Redis client instead of being recorded in the logs. 
-The Redis protocol represents errors as simple strings beginning with a <code>-</code> byte. <br><br>
+The Redis protocol represents errors as simple strings beginning with a '-' character. <br><br>
 
-This section helps to troubleshoot the following errors: <br><br>
+This section helps to troubleshoot the following errors: 
+<br><br>
 <ul>
   <li><a href="#max-clients">Maximum Number of Clients Reached</a></li>
   <li><a href="#maxmemory">Maxmemory Limit Reached</a></li>
@@ -220,13 +229,15 @@ This section helps to troubleshoot the following errors: <br><br>
 
 <strong>Symptom</strong><br>
 
-You receive the following error message:<br>
+Developers receive an error such as:<br>
 
-<pre class="terminal">-ERR max number of clients reached</pre><br>
+<pre class="terminal">-ERR max number of clients reached</pre>
+<br>
 
 <strong>Explanation</strong><br>
 
-This is usually caused by apps opening multiple client connections to Redis.<br><br>
+This is usually caused by apps opening multiple client connections to Redis.
+<br><br>
 
 <strong>Solution</strong><br>
 
@@ -239,13 +250,15 @@ This can be confirmed by running the <code>INFO</code> command using the Redis C
 
 <strong>Symptom</strong><br>
 
-You receive the following error message:<br>
+Developers receive an error such as:<br>
 
-<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre><br>
+<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre>
+<br>
 
 <strong>Explanation</strong><br>
 
-This occurs when the Redis server has reached its <code>maxmemory</code> limit. <br><br>
+This occurs when the Redis server has reached its <code>maxmemory</code> limit. 
+<br><br>
 
 <strong>Solution</strong><br>
 
@@ -257,16 +270,20 @@ You can update this using the <code>cf update-service</code> parameters.
 
 <strong>Symptom</strong><br>
 
-You receive the error message <code>-ERR</code> when running <code>redis-cli SAVE</code>, 
-or issuing the save command using another Redis client.<br><br>
+Developers receive the following error message when running <code>redis-cli SAVE</code>, 
+or issuing the save command using another Redis client:
+
+<pre class="terminal">-ERR</pre>
+<br>
 
 <strong>Explanation</strong><br>
 
-This error might occur when the Redis server's disk is full.<br><br>
+This might occur when the Redis server's disk is full.
+<br><br>
 
 <strong>Solution</strong><br>
 
-A more informative message might be logged in the syslog.
+A more informative message may be logged in the syslog.
 For more information, see <a href="#syslog-errors">Syslog Errors</a>.
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
