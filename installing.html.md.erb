@@ -99,7 +99,7 @@ and allocate resources to Redis service plans.</br></br>
 
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**.
 The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.</br></br>
-    ![settings](redis-odservice-settings.png)</br></br>
+    ![settings](redis-odservice-settings.png)<br><br>
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 1. Select the **Allow outbound internet access from service instances** checkbox.
@@ -116,8 +116,14 @@ The maximum number of instances you set for all your on-demand plans combined ca
  For information about this feature, see [Sharing a Redis Instance with Another Space (Beta)](./using.html#sharing).
   </p>
 
-1. (Optional) Allow parallel upgrades
-  Use this setting to configure the maximum number of Redis service instances that will be upgraded at the same time. When "Apply Changes" is initiated, the On-Demand broker will upgrade all service instances. By default each instance is upgraded serially. Parallel upgrades reduces the time taken to apply changes. Multiple redis service instances will be concurrently unavailable during the upgrade.
+1. (Optional) Use the **Maximum Parallel Upgrades** field to configure the 
+maximum number of Redis service instances that can be upgraded at the same time. 
+  When you click **Apply Changes**, the on-demand broker upgrades all service instances. 
+  By default, each instance is upgraded serially. 
+  Allowing parallel upgrades reduces the time taken to apply changes. 
+  <p class="note"><strong>Note</strong>: 
+    Multiple Redis service instances will be concurrently unavailable during the upgrade.
+  </p>
 
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
