@@ -12,7 +12,7 @@ The book repo uses these branches:
 
 **Note:** We only document to the second digit of the release number, for example, 1.x, not 1.x.x. So if a doc change is needed for a new patch 1.x.x, it will be included in the docs for 1.x.
 
-### Master - Use for NEXT UNRELEASED VERSION.
+### Master - Use for next unreleased version.
 
 All documentation for the next unreleased version of Redis is in `master`. 
 
@@ -22,7 +22,7 @@ Always make changes you want carried forward in the master branch. This includes
 * Doc bug fixes
 * Doc reorganization or enhancement
 
-### Live Branches - In Production (Public)
+### Live Branches In Production (Public)
 
 * **1.6 - 1.12**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-12/) and production (https://docs.pivotal.io/redis/1-12/)
 * **1.5**: This branch is no longer in use because the docs no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
@@ -37,10 +37,10 @@ Always make changes you want carried forward in the master branch. This includes
 
 ## Pipelines
 
-**Edge Pipeline**
+**Edge Pipeline**<br>
 The `master` branch builds to the <br> <strong>cf-services-edge > redis-edge</strong> pipeline, and does not go to production until release time: [Edge pipeline](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge). <br>
 
-**Production Pipeline**
+**Production Pipeline**<br>
 All live branches build to the <strong>cf-services > redis</strong> pipeline, 
 and are manually pushed to production as needed: [Production pipeline](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
