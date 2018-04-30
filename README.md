@@ -1,28 +1,39 @@
 # Redis for PCF Docs
 
-## Branch Management
+## Where is the book repo?
+https://github.com/pivotal-cf/docs-book-redis
 
-**MASTER** - Use for the NEXT UNRELEASED VERSION.
+The book repo uses these branches:
+
+* **Edge** builds from the **master** content branch in this repo.
+* **Master** builds from the **-live** content branches in this repo.
+
+## Branches in this (content) repo
+
+**Note:** We only document to the second digit of the release number, for example, 1.x, not 1.x.x. So if a doc change is needed for a new patch 1.x.x, it will be included in the docs for 1.x.
+
+### Master - Use for NEXT UNRELEASED VERSION.
 
 All documentation for the next unreleased version of Redis is in `master`. 
 
-ALWAYS make changes you want carried forward in this branch. This includes:
+Always make changes you want carried forward in the master branch. This includes:
 
 * Unreleased features
 * Doc bug fixes
 * Doc reorganization or enhancement
 
-**Cherry picking to and from MASTER**
-
-1. Always cherry-pick any changes to live branches into **master** if you want those changes carried forward.
-
-2. If necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate live branch below.
-
-**Live Branches**
+### Live Branches - In Production (Public)
 
 * **1.6 - 1.12**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-12/) and production (https://docs.pivotal.io/redis/1-12/)
 * **1.5**: This branch is no longer in use because the docs no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
 * **1.4**: This branch is no longer in use because the docs no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.4.pdf.
+
+### Cherry picking to and from MASTER
+
+1. Always cherry-pick any changes to live branches into **master** if you want those changes carried forward.
+
+2. If necessary, immediately cherry-pick/copy changes from **master** that you want to push immediately to production into the appropriate live branch above.
+
 
 ## Pipelines
 
@@ -31,7 +42,7 @@ The `master` branch builds to the <br> <strong>cf-services-edge > redis-edge</st
 
 **Production Pipeline**
 All live branches build to the <strong>cf-services > redis</strong> pipeline, 
-and are manually pushed to production as needed: [Production pipeline[(https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
+and are manually pushed to production as needed: [Production pipeline](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## How to Cherry-pick from one Branch to Another
 1. Make changes in the first branch (usually `master`), commit them, and then push them to the repo.
