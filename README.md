@@ -12,7 +12,7 @@ The book repo uses these branches:
 
 **Note:** We only document to the second digit of the release number, for example, 1.x, not 1.x.x. So if a doc change is needed for a new patch 1.x.x, it will be included in the docs for 1.x.
 
-### Master - Use for next unreleased version.
+### Master - Use for next unreleased version
 
 All documentation for the next unreleased version of Redis is in `master`. 
 
