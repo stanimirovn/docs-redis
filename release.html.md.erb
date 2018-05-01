@@ -90,7 +90,7 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* The redis-odb will fail if arbitrary parameters are changed in an update-service command.
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
 ## <a id="1112"></a> v1.11.2
 
