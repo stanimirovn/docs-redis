@@ -5,33 +5,32 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## <a id="bbr"></a>Backup and Restore with the BBR Command Line Tool
 
-BOSH Backup and Restore (BBR) is a command-line tool for backing up and restoring BOSH deployments. It offers a standardised 
+This topic describes how to use the BOSH Backup and Restore (BBR) command-line tool for backing up and restoring BOSH deployments. BBR offers a standardised 
 way to backup and restore the BOSH Director and BOSH Deployments that support it. 
 If you have already set up BBR for your PAS deployment, you may find it easier to use 
 BBR to back up your Redis service instances, in addition to, or instead of, using automated service backups. 
 For more information see [Configuring Automated Service Backups](./auto-backup.html)
 
-<p class="note"><strong>Note</strong>: Only On-Demand Redis service instances have support for BBR,
+<p class="note"><strong>Note</strong>: Only on-demand Redis service instances have support for BBR,
   for backup and restore of dedicated and shared instances see <a href="./auto-backup.html">Configuring Automated Backups for Redis for PCF</a>.</p>
 
 
 ## <a id="prepare"></a>Prepare to Use BBR
 
-In order to prepare to take a backup of PCF and On-Demand Redis for PCF, BBR must be installed. If you do not already have it installed, 
+In order to prepare to take a backup of Pivotal Cloud Foundry (PCF) and on-demand Redis for PCF, BBR must be installed. If you do not already have it installed, 
 follow the instructions in 
 <a href="https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#prepare">Step 1-6: Prepare to Create Your Backup</a> in the BBR docs.
 
 
-<p class="note"><strong>Note</strong>: When deciding on the disk size for the Jumpbox bear in mind 
+<p class="note"><strong>Note</strong>: When deciding on the disk size for the Jumpbox remember 
 that the Redis backup artifact is roughly 1/10 of the RAM usage of the Redis instance.</p>
 
-Take note of the BOSH director IP and path to server certificate.
+Take note of the BOSH Director IP and path to server certificate.
 
 ### <a id="identify"></a>Identify Your Redis Deployments
 
-You will need the names of your Redis Service Instances to perform backups on them. 
+You will need the names of your Redis service instances to perform backups on them. 
 They can be obtained by running the following from your jumpbox:
 
 ```
@@ -52,84 +51,84 @@ For more information, see [Ensure BOSH Director Certificate Availability](https:
 
 Take note of the resulting Redis service instance deployment names.
 
-## <a id="backup"></a>BBR Backup Procedure
+## <a id="backup"></a>Back up Using BBR
 
-Once you have set up your jumpbox and obtained the credentials for your BOSH director, you are ready to begin backing up.
+Once you have set up your jumpbox and obtained the credentials for your BOSH Director, follow these steps to do a BBR backup:
 
-### <a id="pcf-backup"></a>Step 1: Back up Pivotal Cloud Foundry
+1. Back up PCF.
 
-For a complete backup of your system, first back up your OpsManager installation settings, 
-BOSH director and your PAS, as detailed in [the Pivotal BBR Documentation](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#procedure)
+	This includes backing up your OpsManager installation settings, 
+	BOSH Director and PAS, as detailed in [the Pivotal BBR Documentation](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#procedure).
 
-<p class="note"><strong>Note</strong>: For a full restore of Redis service 
-instances to be valid, you must have a backup of the BOSH Director and PAS.</p>
+	<p class="note"><strong>Note</strong>: For a full restore of Redis service 
+	instances to be valid, you must have a backup of the BOSH Director and PAS.</p>
 
-### <a id="redis-backup"></a>Step 2: Backup each Redis Service Instance
+1. Backup each Redis service instance:
 
-From your jumpbox run:
+	From your jumpbox run the following.
 
-```
-$ BOSH_CLIENT_SECRET=BOSH-CLIENT-PASSWORD \
-bbr deployment \
---target BOSH-DIRECTOR-IP \
---username BOSH-CLIENT \
---ca-cert PATH-TO-BOSH-SERVER-CERTIFICATE \
---deployment REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME \
-backup
-```
-<p class="note"><strong>Note</strong>: Type <code>BOSH_CLIENT_SECRET</code> in capitals as written above.</p>
+	```
+	$ BOSH_CLIENT_SECRET=BOSH-CLIENT-PASSWORD \
+	bbr deployment \
+	--target BOSH-DIRECTOR-IP \
+	--username BOSH-CLIENT \
+	--ca-cert PATH-TO-BOSH-SERVER-CERTIFICATE \
+	--deployment REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME \
+	backup
+	```
+	<p class="note"><strong>Note</strong>: Type <code>BOSH_CLIENT_SECRET</code> in capitals as written above.</p>
+	* `BOSH-CLIENT`, `BOSH-CLIENT-PASSWORD`: These are the client credentials you retrieved in [Preparing to Use BBR](#prepare).
+	* `REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME`: This is the deployment name for the on-demand Redis service instance you are backing up.
 
-* `BOSH-CLIENT`, `BOSH-CLIENT-PASSWORD`: These are the client credentials you retrieved in [Preparing to Use BBR](#prepare).
-* `REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME`: This is the deployment name for the On-Demand Redis Service Instance you are backing up.
+1. Follow the steps given in the [After Taking the Backups](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#after) 
+step of the BBR documentation. 
 
-### <a id="after-backup"></a>Step 3: Post-Backup
+	Make sure to do this for the backup artifacts for all of your service instances as well as your BOSH Director and PAS.
 
-Follow the steps given in the [After Taking the Backups](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#after) 
-step of the BBR documentation, making sure to do so for the backup artifacts for all of your Service Instances as well as your BOSH Director and PAS.
+## <a id="restore"></a>Restore Using BBR
 
-## <a id="restore"></a>BBR Restore Procedure
+Follow these steps:
 
-To restore On-Demand Redis Service Instance data follow the procedure 
+1. To restore on-demand Redis service instance data, follow the procedure 
 for [Restoring PCF from Backup with BBR](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/restore-pcf-bbr.html) in full.
 
-<p class="note"><strong>Note</strong>: Ensure that as part of 
-	<a href="https://docs.pivotal.io/pivotalcf/customizing/backup-restore/restore-pcf-bbr.html#artifacts-jumpbox">Step 6: Transfer Artifacts to Jumpbox</a>
-you transfer your Redis Service Instance artifacts.</p>
+	<p class="note"><strong>Note</strong>: Ensure that as part of 
+		<a href="https://docs.pivotal.io/pivotalcf/customizing/backup-restore/restore-pcf-bbr.html#artifacts-jumpbox">Step 6: Transfer Artifacts to Jumpbox</a>you transfer your Redis service instance artifacts.</p>
 
-Then for each Redis Service Instance artefact run the following command from your jumpbox:
+1. For each Redis service instance artifact run the following command from your jumpbox:
 
-```
-$ BOSH_CLIENT_SECRET=BOSH-CLIENT-PASSWORD \
-bbr deployment \
---target BOSH-DIRECTOR-IP \
---username BOSH-CLIENT \
---ca-cert PATH-TO-BOSH-SERVER-CERTIFICATE \
---deployment REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME \
-restore --artifact-path PATH-TO-SERVICE-INSTANCE-ARTIFACT
-```
-Where:<br>
-`PATH-TO-SERVICE-INSTANCE-ARTIFACT` is the path to the artifact for the instance that you are currently restoring. 
-By default the artifact directory includes the deployment name and timestamp.
+	```
+	$ BOSH_CLIENT_SECRET=BOSH-CLIENT-PASSWORD \
+		bbr deployment \
+	--target BOSH-DIRECTOR-IP \
+	--username BOSH-CLIENT \
+	--ca-cert PATH-TO-BOSH-SERVER-CERTIFICATE \
+	--deployment REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME \
+	restore --artifact-path PATH-TO-SERVICE-INSTANCE-ARTIFACT
+	```
+	Where:<br>
+	`PATH-TO-SERVICE-INSTANCE-ARTIFACT` is the path to the artifact for the instance that you are currently restoring. 
+	By default the artifact directory includes the deployment name and timestamp.
 
-If a restore fails due to there being no deployment of the name specified then the likelihood is that 
+If a restore fails due to there being no deployment of the name specified, then it is likely that 
 you are in the [Backup Artifact for a Non-Existant Service Instance](#no-cc-record) inconsistent state and can skip the restore for that artifact.
 
-<p class="note"><strong>Note</strong>: If you have a backup artefact (a <code>dump.rdb</code> file) from any source besides a BBR backup, you can also use it in this restore procedure. </p>
+<p class="note"><strong>Note</strong>: If you have a backup artifact (a <code>dump.rdb</code> file) from any source besides a BBR backup, you can also use it in this restore procedure. </p>
 
 ## <a id="inconsistancies"></a>Possible Inconsistent States
 
-Due to there being no lock on the On-Demand Redis broker during the backup process it is possible for the backups of 
-the PAS and Service Instances to be out of sync if an app developer creates or deletes an on-demand 
-Redis service in between the PAS backup and Redis Service Instance backups.
+Due to there being no lock on the on-demand Redis broker during the backup process it is possible for the backups of 
+the PAS and service instances to be out of sync if an app developer creates or deletes an on-demand 
+Redis service in between the PAS backup and Redis service instance backups.
 
 ### <a id="no-restore-data"></a>No Backup Artifact for a Service Instance
 
-If an on-demand Redis service was deleted in between the backup of the PAS and the Redis Service Instances then 
-this will result in there being no backup artifact for a deployed Service Instance. This can be resolved by 
+If an on-demand Redis service was deleted in between the backup of the PAS and the Redis service instances then 
+this will result in there being no backup artifact for a deployed service instance. This can be resolved by 
 deleting the service (which had already been deleted during the backup process so presumably not wanted).
 
 ### <a id="no-cc-record"></a>Backup Artifact for a Non-Existant Service Instance
 
 If an on-demand Redis service was created in between the backup of the PAS and the Redis Service 
-Instances then this will result in there being a backup artifact which has no corresponding deployed Service Instance. 
+Instances then this will result in there being a backup artifact which has no corresponding deployed service instance. 
 In this case there is no action to take beyond skipping the restore of this artifact. The app developer who created the service can simply recreate it.
