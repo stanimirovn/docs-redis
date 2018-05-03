@@ -24,9 +24,16 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Live Branches In Production (Public)
 
-* **1.6 - 1.12**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-12/) and production (https://docs.pivotal.io/redis/1-12/)
-* **1.5**: This branch is no longer in use because the docs no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
-* **1.4**: This branch is no longer in use because the docs no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.4.pdf.
+* **1.12**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-12/) and production (https://docs.pivotal.io/redis/1-12/)
+* **1.11**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-11/) and production (https://docs.pivotal.io/redis/1-11/)
+* **1.10**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-10/) and production (https://docs.pivotal.io/redis/1-10/)
+* **1.9**: This branch is no longer in use because the docs are no longer live.PDF available at https://docs.pivotal.io/archives/redis-1.9.pdf.
+* **1.8**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-8/) and production (https://docs.pivotal.io/redis/1-8/)
+* **1.7**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-7/) and production (https://docs.pivotal.io/redis/1-7/)
+* **1.6**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-6/) and production (https://docs.pivotal.io/redis/1-6/)
+* **1.5**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
+* **1.5**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
+* **1.4**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.4.pdf.
 
 ### Cherry picking to and from MASTER
 
