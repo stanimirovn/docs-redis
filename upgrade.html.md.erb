@@ -148,11 +148,16 @@ after the operator runs the `upgrade-all-service-instances` BOSH errand, after a
 and the On-Demand Redis Brokers after the operator runs the `upgrade-all-service-instances` errand.
 
 
-##  <a id="network-upgrades"></a> Network Changes after Deployment
+## <a id="network-upgrades"></a> Network Changes after Deployment
 
-Pivotal recommends to never change the network that a pre-existing dedicated-vm deployment works with. If the network is changed, existing dedicated-vm instances will have their bindings stop working with new applications able to bind to the existing instance that contains data.
+### <a id="network-upgrades-dedicated-vms"></a> Dedicated VMs
+Pivotal recommends to never change the network that a pre-existing dedicated-vm deployment works with. If the network is changed, existing dedicated-vm instances will have their bindings stop working with new apps able to bind to the existing instance that contains data.
 
-If the services-subnet CIDR range is changed for a tile, existing applications using On-Demand Redis instances will have to unbind and rebind their application to their instance.
+### <a id="network-upgrades-on-demand"></a> On Demand Service Instances
+If the services-subnet CIDR range is changed for a tile, existing apps using On-Demand Redis instances will have to unbind and rebind their app to their instance.
+
+If there are no dedicated-vm instances, it is safe to change the service-network. New on-demand service instances will be placed into the new network, but existing on-demand VMs will not be moved. If there is a need to move the data in on-demand Redis instances to a new network, new instances should be created, the data manually migrated, then the old instances deleted.
+In a similar way, changing the availability zone for an on-demand plan will only apply to new on-demand instances, and will not alter existing instances.
 
 ## <a id="policy"></a> Release Policy
 
