@@ -30,7 +30,7 @@ Always make changes you want carried forward in the master branch. This includes
 * **1.9**: This branch is no longer in use because the docs are no longer live.PDF available at https://docs.pivotal.io/archives/redis-1.9.pdf.
 * **1.8**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-8/) and production (https://docs.pivotal.io/redis/1-8/)
 * **1.7**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-7/) and production (https://docs.pivotal.io/redis/1-7/)
-* **1.6**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-6/) and production (https://docs.pivotal.io/redis/1-6/)
+* **1.6**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.6.pdf.
 * **1.5**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
 * **1.5**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.5.pdf.
 * **1.4**: This branch is no longer in use because the docs are no longer live. PDF available at https://docs.pivotal.io/archives/redis-1.4.pdf.
