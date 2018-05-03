@@ -19,7 +19,6 @@ In this topic:
     * [Upgrade All Instances Fails](#upgrade-all-fails)
     * [Missing Logs and Metrics](#missing-logs)
     * [Error Messages Logged in Syslog](#syslog-errors) 
-    * [Error Messages from the Redis Client](#redis-client-errors)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
     * [Configuration](#bosh-config)
@@ -128,11 +127,11 @@ For more information, see <a href="installing.html#syslog">Configure Syslog Forw
 This section helps to troubleshoot the following errors logged in syslog:
 <br><br>
 <ul>
-  <li><a href="#disk-full">Redis server is unable to append to the AOF</a></li>
-  <li><a href="#disk-size">Background saving error/Failed opening the RDB file dump.rdb</a></li>
+  <li><a href="#disk-full">AOF Write or Rewrite Errors</a></li>
+  <li><a href="#disk-size">Saving Error</a></li>
 </ul>
 
-<a id="disk-full"></a><h4>Redis server is unable to append to the AOF</h4>
+<a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4>
 
 <strong>Symptom</strong><br>
 
@@ -166,7 +165,7 @@ In older versions of the Redis for PCF tile, AOF persistence is enabled by defau
 Upgrading to the latest version of the tile disables AOF persistence.
 
 
-<a id="disk-size"></a><h4>Background saving error/Failed opening the RDB file dump.rdb</h4>
+<a id="disk-size"></a><h4>Saving Error</h4>
 
 <strong>Symptom</strong><br>
 
@@ -184,85 +183,17 @@ or if the Redis AOF uses all the disk space.
 
 <strong>Solution</strong><br> 
 
-Configure the disk to at least 1.5x the RAM. 
-Otherwise, if the AOF is using all the disk space, see <a href="#disk-full">Redis server is unable to append to the AOF</a>. 
- 
-
-
-<a id="redis-client-errors"></a><h3>Error Messages from the Redis Client</h3>
-
-Certain errors are returned to the Redis client instead of being recorded in the logs. 
-The Redis protocol represents errors as simple strings beginning with a '-' character. <br><br>
-
-This section helps to troubleshoot the following errors: 
-<br><br>
-<ul>
-  <li><a href="#max-clients">Maximum Number of Clients Reached</a></li>
-  <li><a href="#maxmemory">Maxmemory Limit Reached</a></li>
-  <li><a href="#err">Error When Running the Save Command</a></li>
-</ul>
-
-
-<a id="max-clients"></a><h4>Maximum Number of Clients Reached</h4>
-
-<strong>Symptom</strong><br>
-
-Developers receive an error such as:<br>
-
-<pre class="terminal">-ERR max number of clients reached</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-This is usually caused by apps opening multiple client connections to Redis.
-<br><br>
-
-<strong>Solution</strong><br>
-
-Share or pool Redis connections within an app.
-Redis for PCF configures Redis to accept 10000 client connections. 
-This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
-
-
-<a id="maxmemory"></a><h4>Maxmemory Limit Reached</h4>
-
-<strong>Symptom</strong><br>
-
-Developers receive an error such as:<br>
-
-<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-This occurs when the Redis server has reached its <code>maxmemory</code> limit. 
-<br><br>
-
-<strong>Solution</strong><br>
-
-Consider changing your maxmemory-policy. 
-You can update this using the <code>cf update-service</code> parameters.
-
-
-<a id="err"></a><h4>Error When Running the Save Command</h4>
-
-<strong>Symptom</strong><br>
-
-Developers receive the following error message when running <code>redis-cli SAVE</code>, 
-or issuing the save command using another Redis client:
-
-<pre class="terminal">-ERR</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-This might occur when the Redis server's disk is full.
-<br><br>
-
-<strong>Solution</strong><br>
-
-A more informative message may be logged in the syslog.
-For more information, see <a href="#syslog-errors">Syslog Errors</a>.
+<ol>
+  <li>Ensure the disk is configured to at least 1.5x the RAM.</li>
+  <li>Check if the AOF is using too much disk space by doing the following:
+    <ol>
+      <li>BOSH <code>ssh</code> into the affected service instance VM.</li><br>
+      <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li><br>
+      <li>If the <code>appendonly.aof</code> file is large, follow the instuctions 
+        in <a href="#disk-full">AOF Write or Rewrite Errors</a>.</li>
+    </ol>
+  </li>
+</ol>
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
