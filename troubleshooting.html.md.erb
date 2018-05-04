@@ -183,8 +183,10 @@ or if the Redis AOF uses all the disk space.
 
 <strong>Solution</strong><br> 
 
+To prevent this error, do the following:
+
 <ol>
-  <li>Ensure the disk is configured to at least 1.5x the RAM.</li>
+  <li>Ensure the disk is configured to at least 1.5 times the RAM.</li>
   <li>Check if the AOF is using too much disk space by doing the following:
     <ol>
       <li>BOSH <code>ssh</code> into the affected service instance VM.</li><br>
