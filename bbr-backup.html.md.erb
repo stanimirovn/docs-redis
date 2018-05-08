@@ -117,8 +117,8 @@ and can skip the restore for that artifact.
 
 ## <a id="inconsistancies"></a>Possible Inconsistent States
 
-Because the On-Demand Redis broker is not locked during the backup process,
-the backups of the PAS and service instances can be out of sync if an app developer creates or deletes an on-demand 
+Because the Redis On-Demand broker is not locked during the backup process,
+the backups of the PAS and service instances can be out of sync if an app developer creates or deletes an on-demand
 Redis service between the PAS backup and Redis service instance backups.
 
 ### <a id="no-restore-data"></a>No Backup Artifact for a Service Instance
