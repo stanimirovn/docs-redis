@@ -7,39 +7,20 @@ owner: London Services
 
 ## <a id="1130"></a> v1.13.0
 
-**Release Date: March 29, 2018**
+**Release Date: XXX XX, 2018**
 
 ### Features
 
-* Updates the packaged OSS Redis version to v4.0.8. 
-For more information about new features in Redis v4.0.8, see the 
-[Redis release notes](http://download.redis.io/redis-stable/00-RELEASENOTES).
-
-* Introduces an experimental feature for on-demand instances that allows a Redis 
-instance to be shared with another space.
-For more information on this feature, see 
-[Sharing a Redis Instance with Another Space (Beta)](./using.html#sharing).
-
-* There is no longer a limit on the maximum number of on-demand instances that 
-can be deployed from the Redis for PCF tile.
-
-* The Redis append-only file is optimized for size when Redis restarts for more efficient disk usage.
-
-* Tile deployment no longer fails if there are no shared system domains because
-smoke tests now use the system domain.
-
-* Supports stemcells without Transparent Huge Pages (THP) kernel modules.
-
-* Reintroduces collocated errands for faster deployments.
+* In the CF Marketplace, "On-Demand Redis" is renamed to "Redis On-Demand" to make it more consistent and searchable.
 
 ### Known Issues
 
 * The redis-odb service broker listens on port `12345`. 
 This is inconsistent with other services.
 
-* The **When Changed** option for errands has unexpected behavior. 
-Do not select this choice as an errand run-rule. 
-For more information about this unexpected behavior, see 
+* The **When Changed** option for errands has unexpected behaviour.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behaviour, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ### Compatibility
