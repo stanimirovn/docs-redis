@@ -6,15 +6,48 @@ owner: London Services
 <strong><%= modified_date %></strong>
 
 This topic describes how to configure automated backups in Redis for Pivotal Cloud Foundry (PCF). 
-These procedures support on-demand, shared-VM, and dedicated-VM services.
 
-For on-demand Redis services, you can also use BOSH Backup and Restore (BBR) for backups. 
+## <a id="comparison"></a>Comparison of the Available Backup Methods
+
+Redis for PCF provides two backup methods, which can be used together or alone:
+
+* BOSH Backup and Restore (BBR) - <em>preferred</em>
+* Automated service backups
+
 If you have already set up BBR for your Pivotal Application Service (PAS) deployment, 
 you might find it easier to use BBR to back up your on-demand Redis service instances, in addition to
 or instead of, using automated service backups. 
+
+The table below summarizes the differences between the two methods:
+
+<table class="nice">
+    <col width="15%">
+    <col width="20%">
+    <col width="65%">
+    <th>Backup Method</th>
+    <th>Supported Services</th>
+    <th>What is Backed Up</th>
+    <tr>
+        <td>BBR</td>
+        <td>On-demand</td>
+        <td><ul><li>Data stored in Redis</li>
+            <li>Manifest used to deploy service instance</li>
+            <li>Certain additional configuration including:
+         plan settings such as <strong>Redis Client Timeout</strong>, and arbitrary parameters such as <code>maxmemory-policy</code></li></ul></td>
+     </tr>
+     <tr>
+        <td>Automated service backups</td>
+        <td><ul><li>On-demand</li><li>Shared-VM</li><li>Dedicated-VM</li></ul></td>
+        <td>Data stored in Redis</td>
+    </tr>
+</table>
+
+<p class="note"><strong>Note</strong>: Neither backup method backs up other manual changes made to service instances, 
+either via SSH, or with the redis client <code>config</code> command.</p>
+
 For more information, see [BOSH Backup and Restore (BBR) for On-Demand Redis for PCF](./bbr-backup.html).
 
-## <a id="backup"></a>About Automated Backups
+## <a id="backup"></a>About Automated Service Backups
 
 You can configure automatic backups for all service plan types: on-demand, dedicated-VM, and shared-VM.
 
