@@ -33,7 +33,7 @@ The table below summarizes the differences between the two methods:
         <td><ul><li>Data stored in Redis</li>
             <li>Manifest used to deploy service instance</li>
             <li>Certain additional configuration including:
-         plan settings such as <strong>Redis Client Timeout</strong>, and arbitrary parameters such as <code>maxmemory-policy</code></li></ul></td>
+         plan settings such as <strong>Redis Client Timeout</strong> and arbitrary parameters such as <code>maxmemory-policy</code></li></ul></td>
      </tr>
      <tr>
         <td>Automated service backups</td>
@@ -43,7 +43,7 @@ The table below summarizes the differences between the two methods:
 </table>
 
 <p class="note"><strong>Note</strong>: Neither backup method backs up other manual changes made to service instances, 
-either via SSH, or with the redis client <code>config</code> command.</p>
+either via SSH or with the redis client <code>config</code> command.</p>
 
 For more information, see [BOSH Backup and Restore (BBR) for On-Demand Redis for PCF](./bbr-backup.html).
 
