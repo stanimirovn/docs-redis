@@ -158,28 +158,32 @@ and the on-demand Redis Brokers after the operator runs the `upgrade-all-service
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
 
-This section explains how changing the network after deploying Redis for PCF 
-affects instances and apps. 
+This section explains how changing the network after deploying Redis for PCF
+affects instances and apps.
 
-### <a id="network-upgrades-dedicated-vms"></a> Dedicated VMs
+### <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated & Shared VMs
 
-Pivotal discourages changing the network that a pre-existing dedicated-VM deployment works with. 
-If the network is changed, app bindings for existing dedicated-VM instances might stop working. 
-Also, VMs might be reallocated as new service instances, without their data being cleaned, 
+Pivotal discourages changing the network that a pre-existing dedicated-VM deployment or shared-VM deployment works with.
+The network is configured in the "Assign AZs and Networks" tab of the Redis tile.
+The "Network" drop-down applies to shared and dedicated VM services.
+A network can also be changed by altering the CIDR in the Ops Manager Director tile.
+If the network is changed, app bindings for existing dedicated-VM and shared-VM instances might stop working.
+Also, dedicated-VMs might be reallocated as new service instances, without their data being cleaned,
 resulting in a data leak between apps.
 
 ### <a id="network-upgrades-on-demand"></a> On Demand Service Instances
 
-If the service network Classless Inter-Domain Routing (CIDR) range is changed for a tile, 
-you must unbind and rebind existing apps to the on-demand Redis instance.
+Networks are configured in the "Assign AZs and Networks" tab of the Redis tile.
+The "Service Network" drop-down applies to on-demand service instances.
+A network can also be changed by altering the CIDR in the Ops Manager Director tile.
 
-If there are no dedicated-VM instances, it is safe to change the service network. 
-New on-demand service instances are placed into the new network, 
-but existing on-demand service instances are not moved. 
+If the service network is changed for a tile, you must unbind and rebind existing apps to the on-demand Redis instance.
+New on-demand service instances are placed into the new network,
+but existing on-demand service instances are not moved.
 If you need to move the data in on-demand Redis instances to a new network:
 create a new instance, migrate the data manually, and delete the old instance.
 
-Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances, 
+Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances,
 and does not alter existing instances.
 
 ## <a id="policy"></a> Release Policy
