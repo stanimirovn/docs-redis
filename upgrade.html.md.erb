@@ -161,9 +161,11 @@ and the on-demand Redis Brokers after the operator runs the `upgrade-all-service
 This section explains how changing the network after deploying Redis for PCF
 affects instances and apps.
 
-### <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated & Shared VMs
+### <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated and Shared VMs
 
-To change the network for dedicated-VM and shared-VM services, click **Assign RZs and Networks** in the Redis tile configuration and use the **Network** dropdown menu. The network applies to both shared-VM and dedicated-VM services.
+To change the network for dedicated-VM and shared-VM services,
+click **Assign AZs and Networks** in the Redis for PCF tile configuration and use the **Network** dropdown.
+The network applies to both shared-VM and dedicated-VM services.
 
 You can also change the network by altering the CIDR in the Ops Manager Director tile.
 
@@ -175,7 +177,9 @@ resulting in a data leak between apps.
 
 ### <a id="network-upgrades-on-demand"></a> On-Demand Service Instances
 
-To change the service network for on-demand service instances, click **Assign AZs and Networks** in the Redis tile configuration and use the **Service Network** dropdown menu. The service network applies to on-demand service instances.
+To change the service network for on-demand service instances,
+click **Assign AZs and Networks** in the Redis tile configuration and use the **Service Network** dropdown.
+The service network applies to on-demand service instances.
 
 You can also change the service network by altering the CIDR in the Ops Manager Director tile.
 
@@ -185,7 +189,7 @@ New on-demand service instances are placed into the new service network,
 but existing on-demand service instances are not moved.
 If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
 
-Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances,
+Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances
 and does not alter existing instances.
 
 ## <a id="policy"></a> Release Policy
