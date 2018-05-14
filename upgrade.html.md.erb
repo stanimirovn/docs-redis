@@ -153,25 +153,27 @@ affects instances and apps.
 
 ### <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated & Shared VMs
 
+To change the network for dedicated-VM and shared-VM services, click **Assign RZs and Networks** in the Redis tile configuration and use the **Network** dropdown menu. The network applies to both shared-VM and dedicated-VM services.
+
+You can also change the network by altering the CIDR in the Ops Manager Director tile.
+
 Pivotal discourages changing the network that a pre-existing dedicated-VM deployment or shared-VM deployment works with.
-The network is configured in the "Assign AZs and Networks" tab of the Redis tile.
-The "Network" drop-down applies to shared and dedicated VM services.
-A network can also be changed by altering the CIDR in the Ops Manager Director tile.
+
 If the network is changed, app bindings for existing dedicated-VM and shared-VM instances might stop working.
-Also, dedicated-VMs might be reallocated as new service instances, without their data being cleaned,
+Dedicated-VMs might also be reallocated as new service instances without their data being cleaned,
 resulting in a data leak between apps.
 
-### <a id="network-upgrades-on-demand"></a> On Demand Service Instances
+### <a id="network-upgrades-on-demand"></a> On-Demand Service Instances
 
-Networks are configured in the "Assign AZs and Networks" tab of the Redis tile.
-The "Service Network" drop-down applies to on-demand service instances.
-A network can also be changed by altering the CIDR in the Ops Manager Director tile.
+To change the service network for on-demand service instances, click **Assign AZs and Networks** in the Redis tile configuration and use the **Service Network** dropdown menu. The service network applies to on-demand service instances.
 
-If the service network is changed for a tile, you must unbind and rebind existing apps to the on-demand Redis instance.
-New on-demand service instances are placed into the new network,
+You can also change the service network by altering the CIDR in the Ops Manager Director tile.
+
+If you change the service network, you must unbind and rebind existing apps to the on-demand Redis instance.
+
+New on-demand service instances are placed into the new service network,
 but existing on-demand service instances are not moved.
-If you need to move the data in on-demand Redis instances to a new network:
-create a new instance, migrate the data manually, and delete the old instance.
+If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
 
 Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances,
 and does not alter existing instances.
