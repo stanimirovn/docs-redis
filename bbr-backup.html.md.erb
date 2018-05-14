@@ -54,18 +54,15 @@ To obtain the instance deployment names, do the following:
 	For more information, see [Ensure BOSH Director Certificate Availability](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/system-setup-bbr.html#root-ca-cert).
 	<p class="note"><strong>Note</strong>: In the command above, <code>BOSH_CLIENT</code> is not a variable.</p>
 
+    For example:
 
-**Example Command**
-
-```
+    <pre class="terminal">
 $ BOSH_CLIENT=p-redis-eb12345cb7a123450f08 \
 BOSH_CLIENT_SECRET=338b012345d987bb24b5f \
 bosh -e 10.0.0.5 \
 --ca-cert /var/example/workspaces/default/root_ca_certificate \ 
 --column name \
-deployments
-
-```
+deployments </pre>
 
 ## <a id="backup"></a>Back Up Using BBR
 
@@ -97,9 +94,9 @@ Follow these steps:
 	* `REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME`: This is the deployment name for the on-demand Redis service instance you are backing up.
 	<p class="note"><strong>Note</strong>: In the above command, <code>BOSH\_CLIENT\_SECRET</code> is not a variable.</p>
 
-	**Example Command**
+    For example:
 
-	```
+    <pre class="terminal">
 	$ BOSH_CLIENT_SECRET=KJsdgKJj12345ljk83Hufy12345b6-34n4 \
 	bbr deployment \
 	--target 10.0.0.5 \
@@ -108,7 +105,7 @@ Follow these steps:
 	--deployment service-instance_40b123e4a-be1c-1232-ad31-123e01b7d169 \
 	backup
 
-	```
+    </pre>
 
 1. Follow the steps given in the [After Taking the Backups](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#after) 
 step of the BBR documentation. 
@@ -141,9 +138,9 @@ for [Restoring PCF from Backup with BBR](https://docs.pivotal.io/pivotalcf/custo
 	By default the artifact directory includes the deployment name and timestamp.
 	<p class="note"><strong>Note</strong>: In the above command, <code>BOSH\_CLIENT\_SECRET</code> is not a variable.</p>
 
-	**Example Command**
+    For example:
 
-	```
+    <pre class="terminal">
 	$ BOSH_CLIENT_SECRET=KJsdgKJj12345jk83Hufy12345b6-34n4 \
     bbr deployment \
 	--target 10.0.0.5 \
@@ -151,8 +148,7 @@ for [Restoring PCF from Backup with BBR](https://docs.pivotal.io/pivotalcf/custo
 	--ca-cert /var/example/workspaces/default/root_ca_certificate \
 	--deployment service-instance_40b12e4a-be1c-1232-ad31-12345e01b7d123 \
 	restore --artifact-path /tmp/service-instance_40b12e4a-be1c-1232-ad31-12345e01b7d169_1234503T141538Z
-
-	```
+    </pre>
 
 If a restore fails because there is no deployment of the name specified, then 
 you are likely in the [Backup Artifact for a Non-Existent Service Instance](#no-cc-record) inconsistent state
