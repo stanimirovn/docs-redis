@@ -32,30 +32,44 @@ Record the BOSH Director IP and path to server certificate.
 
 ### <a id="identify"></a>Identify Your Redis Deployments
 
-You need the names of your Redis service instances to perform backups on them. 
-They can be obtained by running the following from your jumpbox:
+You need the names of your Redis service instances to back up and restore them. 
+
+To obtain the instance deployment names, do the following:
+
+1. Run the following from your jumpbox, and record the resulting names.
+
+	```
+	$ BOSH_CLIENT=REDIS-BOSH-CLIENT \
+	BOSH_CLIENT_SECRET=REDIS-BOSH-PASSWORD \
+	bosh -e BOSH-DIRECTOR-IP \
+	--ca-cert PATH-TO-BOSH-SERVER-CERTIFICATE \ 
+	--column name \
+	deployments
+	```
+	Where:
+	* `REDIS-BOSH-CLIENT`, `REDIS-BOSH-PASSWORD`: To find these in the Ops Manager Installation Dashboard, click the Redis for PCF tile, navigate to the 
+	**Credentials** tab, and click **UAA Client Credentials**. Note the `Redis BOSH UAA` credentials.
+	* `BOSH-DIRECTOR-IP`: You retrieved this value in [Step 1-6: Prepare to Create Your Backup](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#prepare).
+	* `PATH-TO-BOSH-SERVER-CERTIFICATE`: This is the path to the Certificate Authority (CA) certificate for the BOSH Director. 
+	For more information, see [Ensure BOSH Director Certificate Availability](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/system-setup-bbr.html#root-ca-cert).
+	<p class="note"><strong>Note</strong>: In the command above, <code>BOSH_CLIENT</code> is not a variable.</p>
+
+
+**Example Command**
 
 ```
-$ BOSH_CLIENT=REDIS-BOSH-CLIENT \
-BOSH_CLIENT_SECRET=REDIS-BOSH-PASSWORD \
-bosh -e BOSH-DIRECTOR-IP \
---ca-cert PATH-TO-BOSH-SERVER-CERTIFICATE \ 
+$ BOSH_CLIENT=p-redis-eb12345cb7a123450f08 \
+BOSH_CLIENT_SECRET=338b012345d987bb24b5f \
+bosh -e 10.0.0.5 \
+--ca-cert /var/example/workspaces/default/root_ca_certificate \ 
 --column name \
 deployments
+
 ```
-<p class="note"><strong>Note</strong>: Type <code>BOSH_CLIENT</code> in capitals as written above.</p>
-
-* `REDIS-BOSH-CLIENT`, `REDIS-BOSH-PASSWORD`: From the Ops Manager Installation Dashboard, click Redis, navigate to the 
-Credentials tab, and click UAA Client Credentials to retrieve the Redis BOSH UAA credentials.
-* `BOSH-DIRECTOR-IP`: You retrieved this value in [Step 1-6: Prepare to Create Your Backup](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#prepare).
-* `PATH-TO-BOSH-SERVER-CERTIFICATE`: This is the path to the Certificate Authority (CA) certificate for the BOSH Director. 
-For more information, see [Ensure BOSH Director Certificate Availability](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/system-setup-bbr.html#root-ca-cert).
-
-Record the resulting Redis service instance deployment names.
 
 ## <a id="backup"></a>Back Up Using BBR
 
-After you have set up your jumpbox and obtained the credentials for your BOSH Director, you are ready to begin backing up.
+Follow these steps:
 
 1. Back up PCF.
 
@@ -78,9 +92,23 @@ After you have set up your jumpbox and obtained the credentials for your BOSH Di
 	--deployment REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME \
 	backup
 	```
-	<p class="note"><strong>Note</strong>: Type <code>BOSH_CLIENT_SECRET</code> in capitals as written above.</p>
+	Where:
 	* `BOSH-CLIENT`, `BOSH-CLIENT-PASSWORD`: These are the client credentials you retrieved in [Preparing to Use BBR](#prepare).
 	* `REDIS-SERVICE-INSTANCE-DEPLOYMENT-NAME`: This is the deployment name for the on-demand Redis service instance you are backing up.
+	<p class="note"><strong>Note</strong>: In the above command, <code>BOSH\_CLIENT\_SECRET</code> is not a variable.</p>
+
+	**Example Command**
+
+	```
+	$ BOSH_CLIENT_SECRET=KJsdgKJj12345ljk83Hufy12345b6-34n4 \
+	bbr deployment \
+	--target 10.0.0.5 \
+	--username ops_manager \
+	--ca-cert /var/example/workspaces/default/root_ca_certificate \
+	--deployment service-instance_40b123e4a-be1c-1232-ad31-123e01b7d169 \
+	backup
+
+	```
 
 1. Follow the steps given in the [After Taking the Backups](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#after) 
 step of the BBR documentation. 
@@ -111,6 +139,20 @@ for [Restoring PCF from Backup with BBR](https://docs.pivotal.io/pivotalcf/custo
 	Where:<br>
 	`PATH-TO-SERVICE-INSTANCE-ARTIFACT` is the path to the artifact for the instance that you are currently restoring. 
 	By default the artifact directory includes the deployment name and timestamp.
+	<p class="note"><strong>Note</strong>: In the above command, <code>BOSH\_CLIENT\_SECRET</code> is not a variable.</p>
+
+	**Example Command**
+
+	```
+	$ BOSH_CLIENT_SECRET=KJsdgKJj12345jk83Hufy12345b6-34n4 \
+    bbr deployment \
+	--target 10.0.0.5 \
+	--username ops_manager \
+	--ca-cert /var/example/workspaces/default/root_ca_certificate \
+	--deployment service-instance_40b12e4a-be1c-1232-ad31-12345e01b7d123 \
+	restore --artifact-path /tmp/service-instance_40b12e4a-be1c-1232-ad31-12345e01b7d169_1234503T141538Z
+
+	```
 
 If a restore fails because there is no deployment of the name specified, then 
 you are likely in the [Backup Artifact for a Non-Existent Service Instance](#no-cc-record) inconsistent state
