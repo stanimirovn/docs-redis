@@ -126,6 +126,19 @@ maximum number of Redis service instances that can be upgraded at the same time.
     Multiple Redis service instances will be concurrently unavailable during the upgrade.
   </p>
 
+1. (Optional) Select the checkbox to enable **Secure Service Instance Credentials with Runtime CredHub**.
+  This will secure your on-demand service instance credentials using Runtime CredHub.
+  <p class="note">
+    <strong>Note 1</strong>:
+    For this feature to work you must also enable it in PAS.
+    For instructions, see <a href="https://docs.pivotal.io/pivotalcf/2-0/opsguide/secure-si-creds.html#pas-config">Step 1: Configure the PAS Tile</a>.
+    After deploying the tile, notify developers that they must unbind and rebind existing service instances to secure their credentials with CredHub.
+    <br><br>
+    <strong>Note 2</strong>:
+    This is a beta feature. Use it at your own risk in non-production environments.
+    If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.
+  </p>
+
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
     You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
