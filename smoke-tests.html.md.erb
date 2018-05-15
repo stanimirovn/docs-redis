@@ -12,9 +12,10 @@ Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installat
 The smoke tests perform the following for each available service plan:
 
 1. Targets the org <code>system</code> and space <code>redis-smoke-tests</code> (creating them if they do not exist)
-1. Creates a restrictive security group, <code>redis-smoke-tests-sg</code>, and binds it to the space
 1. Deploys an instance of the [CF Redis Example App](https://github.com/pivotal-cf/cf-redis-example-app) to this space
 1. Creates a Redis instance and binds it to the CF Redis Example App
+1. Creates a service key to retrieve the Redis instance IP
+1. Creates a restrictive security group, <code>redis-smoke-tests-sg</code>, and binds it to the space
 1. Checks that the CF Redis Example App can write to and read from the Redis instance
 
 ## <a id="security-groups"></a> Security Groups
@@ -53,8 +54,6 @@ The linear back-off was selected as a good middle ground between:
 - situations where the system is suffering from a failure that lasts a few seconds-such as restart of a CloudFoundry VM-where it's preferable to wait before reattempting the command.
 
 ### Considerations
-
-Because of the retry policy described in <a href="#resilience">Smoke tests resilience</a>, smoke tests will generally take longer than previous versions of Redis for PCF to complete within environments with intermittent failures. If run regularly, e.g. as part of CI, they might last longer than the frequency of the automatic runs, queueing up executions. We recommend adjusting the frequency of the automatic smoke test runs based on the amount of time they take to complete.
 
 The above retry policy does not guard against a more permanent Cloud Foundry downtime or network connectivity issues. In this case, commands will fail after the maximum number of attempts and might leave claimed instances behind. We recommend disabling automatic smoke test runs and manually releasing any claimed instances in case of upgrades or scheduled downtimes.
 
