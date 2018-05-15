@@ -20,7 +20,7 @@ The smoke tests perform the following for each available service plan:
 
 ## <a id="security-groups"></a> Security Groups
 
-Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`) and delete it once the tests finish. This security group has the following rules:
+Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`) and delete it after the tests finish. This security group has the following rules:
 
 ```
 [
@@ -37,29 +37,40 @@ Smoke tests create a new [application security group](https://docs.pivotal.io/pi
 ]
 ```
 
-This allows outbound traffic from the test app to the Redis shared VM and dedicated VM nodes.
+This allows outbound traffic from the test app to the Redis shared-VM and dedicated-VM nodes.
 
 ## <a id="resilience"></a>Smoke Tests Resilience
 
-Smoke tests could fail due to reasons outside of the Redis deployment; for example network latency causing timeouts or the CloudFoundry instance dropping requests. They may also fail because they're being run in the wrong space.
+Smoke tests could fail due to reasons outside of the Redis deployment; for example network latency causing timeouts
+or the Cloud Foundry instance dropping requests.
+They might also fail because they are being run in the wrong space.
 
 The smoke tests implement a retry policy for commands issued to CF, for two reasons:
-- to avoid smoke test failures due to temporary issues such as the ones mentioned above
-- to ensure that the service instances and bindings created for testing are cleaned up.
+- To avoid smoke test failures due to temporary issues such as the ones mentioned above
+- To ensure that the service instances and bindings created for testing are cleaned up.
 
-Smoke tests will retry failed commands against CF. They use a linear back-off with a baseline of 0.2 seconds, for a maximum of 30 attempts per command. Therefore, assuming that the first attempt is at 0s and fails instantly, subsequent retries will be at 0.2s, 0.6s, 1.2s and so on until either the command succeeds or the maximum number of attempts is reached.
+Smoke tests retry failed commands against CF.
+They use a linear back-off with a baseline of 0.2 seconds, for a maximum of 30 attempts per command.
+Therefore, assuming that the first attempt is at 0s and fails instantly,
+subsequent retries are at 0.2s, 0.6s, 1.2s and so on until either the command succeeds or the maximum number of attempts is reached.
 
 The linear back-off was selected as a good middle ground between:
-- situations where the system is generally unstable-such as load-balancing issues-where max number of retries are preferred, and
-- situations where the system is suffering from a failure that lasts a few seconds-such as restart of a CloudFoundry VM-where it's preferable to wait before reattempting the command.
+- Situations where the system is generally unstable-such as load-balancing issues-where max number of retries are preferred, and
+- Situations where the system is suffering from a failure that lasts a few seconds-such as restart of a Cloud Foundry VM
+  where it is preferable to wait before reattempting the command.
 
 ### Considerations
 
-The above retry policy does not guard against a more permanent Cloud Foundry downtime or network connectivity issues. In this case, commands will fail after the maximum number of attempts and might leave claimed instances behind. We recommend disabling automatic smoke test runs and manually releasing any claimed instances in case of upgrades or scheduled downtimes.
+The above retry policy does not guard against a more permanent Cloud Foundry downtime or network connectivity issues.
+In this case, commands fail after the maximum number of attempts and might leave claimed instances behind.
+Pivotal recommends disabling automatic smoke test runs and manually releasing any claimed instances
+in case of upgrades or scheduled downtimes.
 
 ## <a id="troubleshooting"></a> Troubleshooting
 
-If errors occur while the smoke tests run, they will be summarised at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
+If errors occur while the smoke tests run, they are summarised at the end of the errand log output.
+Detailed logs can be found where the failure occurs.
+Some common failures are listed below.
 
 <table border='1' class='nice'>
 <tr>
@@ -93,4 +104,6 @@ If errors occur while the smoke tests run, they will be summarised at the end of
 </tr>
 </table>
 
-When encountering an error when running smoke tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>. Lookout for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
+When encountering an error when running smoke tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests,
+for example, <code>Failed to target Cloud Foundry</code>.
+Lookout for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
