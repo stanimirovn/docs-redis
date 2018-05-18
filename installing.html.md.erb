@@ -214,11 +214,15 @@ maximum number of Redis service instances that can be upgraded at the same time.
 
 #### <a id="secure-credentials"></a>(Optional) Enabling Secure Service Instance Credentials for On-Demand Redis
 
-To secure your on-demand service instance credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller Database (CCDB), perform the following steps:
-  1. Configure the Pivotal Application Service (PAS) tile to support securing service instance credentials in runtime CredHub. See [Step 1: Configure the PAS Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
-  1. After deploying the tile, notify developers that they must unbind and rebind existing service instances to secure their credentials with CredHub.
-    <p class="note"><strong>Note</strong>:
-    This is a beta feature. Use it at your own risk in non-production environments. Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+To secure your on-demand service instance credentials in runtime 
+[CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller 
+Database (CCDB), do the following:
+
+<p class="note"><strong>Note</strong>:
+This is a beta feature. Use it at your own risk in non-production environments. Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+
+1. Configure the Pivotal Application Service (PAS) tile to support securing service instance credentials in runtime CredHub. See [Step 1: Configure the PAS Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
+1. After deploying the tile, notify developers that they must unbind and rebind existing service instances to secure their credentials with CredHub.
 
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
