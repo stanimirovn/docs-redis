@@ -11,11 +11,11 @@ owner: London Services
 
 ### Minor Features
 
-* Permisssions are more strict for service related files and directories,
-specifically those relating to the redis.conf and redis pid files.
+* Permissions are stricter for service-related files and directories,
+specifically those relating to the `redis.conf` and Redis `pid` files.
 
-* Update service display name for On-Demand Redis Service to "Redis On-Demand"
-in Apps Manager marketplace.
+* Updates service display name for On-Demand Redis Service to "Redis On-Demand"
+in the Apps Manager marketplace.
 
 ### Fixes
 
@@ -25,12 +25,12 @@ in Apps Manager marketplace.
 
 ### Known Issues
 
-* The redis-odb service broker listens on port `12345`.
+* The `redis-odb` service broker listens on port `12345`.
 This is inconsistent with other services.
 
-* The **When Changed** option for errands has unexpected behaviour.
+* The **When Changed** option for errands has unexpected behavior.
 Do not select this choice as an errand run-rule.
-For more information about this unexpected behaviour, see
+For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ## <a id="1120"></a> v1.12.0
