@@ -11,7 +11,8 @@ owner: London Services
 
 ### Minor Features
 
-* Permisssions are more strict for service related files and directories.
+* Permisssions are more strict for service related files and directories,
+specifically those relating to the redis.conf and redis pid files.
 
 * Update service display name for On-Demand Redis Service to "Redis On-Demand"
 in Apps Manager marketplace.
@@ -19,6 +20,8 @@ in Apps Manager marketplace.
 ### Fixes
 
 * Fixes an intermittent issue that can cause executing a restore to fail.
+
+* It is now possible to update the arbitrary parameters of a service instance in an `update-service` command.
 
 ### Known Issues
 
@@ -29,8 +32,6 @@ This is inconsistent with other services.
 Do not select this choice as an errand run-rule.
 For more information about this unexpected behaviour, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
-
-* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
 ## <a id="1120"></a> v1.12.0
 
