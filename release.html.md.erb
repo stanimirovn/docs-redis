@@ -23,6 +23,8 @@ in the Apps Manager marketplace.
 
 * It is now possible to update the arbitrary parameters of a service instance in an `update-service` command.
 
+* Upgrades and stemcell bumps no longer fail with unresponsive or down shared-vms.
+
 ### Known Issues
 
 * The `redis-odb` service broker listens on port `12345`.
@@ -32,6 +34,8 @@ This is inconsistent with other services.
 Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* AOF rewrite does not occur in drain script for shared-vms.
 
 ## <a id="1120"></a> v1.12.0
 
@@ -73,6 +77,10 @@ For more information about this unexpected behaviour, see
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
 * Executing a restore may fail to complete and leave the CONFIG command unaliased.
+
+* Running upgrades and stemcell bumps will fail if any shared-vms are down or unresponsive
+
+* AOF rewrite does not occur in drain script for shared-vms.
 
 ### Compatibility
 
