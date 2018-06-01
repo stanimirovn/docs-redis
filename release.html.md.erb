@@ -11,15 +11,19 @@ owner: London Services
 
 ### Features
 
+New features and changes in this release:
+
 * In the Marketplace, "On-Demand Redis" is renamed to "Redis On-Demand" to make it more consistent and searchable.
 
 * Added beta support for securing credentials in runtime CredHub.
 Credentials are stored in a central repository and are restricted to components that need them.
 
-* Added support for configuration options for the upgrade all service instances errand.
+* Added configuration options for the upgrade all service instances errand.
 This includes maximum parallel upgrades, number of canaries and canary selection parameters.
 
 ### Known Issues
+
+This release has the following issues:
 
 * The redis-odb service broker listens on port `12345`. 
 This is inconsistent with other services.
@@ -30,6 +34,8 @@ For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ### Compatibility
+
+The following components are compatible with this release:
 
 <table border="1" class="nice">
 <tr>

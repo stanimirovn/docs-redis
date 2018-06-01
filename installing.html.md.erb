@@ -126,23 +126,27 @@ maximum number of Redis service instances that can be upgraded at the same time.
     Multiple Redis service instances will be concurrently unavailable during the upgrade.
   </p>
 
-1. (Optional) Use the **Number of Canaries to run before proceeding with upgrade**
-and **Specify Org and Space that Canaries will be selected from?** fields to specify
-settings for upgrade canaries. Canaries are service instances that are upgraded first.
-If any canaries fail to upgrade, the upgrade will be halted. This can be limited in number
-and/or can be limited by org and space. If you wish to use all canaries in an org and space,
-the number of canaries can be set to 0 and all service instances in that org and space will be upgraded first.<br><br>
-  ![canary-options](canary-options.png)<br><br>
+1. (Optional) Use the **Number of Canaries to run before proceeding with upgrade** field
+and the **Specify Org and Space that Canaries will be selected from?** options to specify
+settings for upgrade canaries. 
+Canaries are service instances that are upgraded first.
+The upgrade fails if any canaries fail to upgrade. <br><br>
+Canaries can be limited by number and by org and space. 
+If you want to use all service instances in an org and space as canaries,
+set the number of canaries zero. This upgrades all service instances in the selected org and space first.<br><br>
+  ![canary-options](canary-options.png)
   <p class="note"><strong>Note</strong>:
-    If you specify that canaries should be limited to a certain org and space but no service instances exist, the upgrade will fail.
+    If you specify that canaries should be limited to an org and space that has
+    no service instances, the upgrade fails.
   </p>
   <p class="note"><strong>Note</strong>:
-    The canary upgrades will still follow the Maximum Parallel Upgrades settings,
-    if you specify 3 canaries but only a Maximum Parallel Upgrades of 2 then 2 canaries will run followed by the third.
+    Canary upgrades comply with the Maximum Parallel Upgrades settings.
+    If you specify three canaries and a Maximum Parallel Upgrades of two, 
+    then two canaries upgrade, followed by the third.
   </p>
-  <p class="note"><strong>Note</strong>:
-    For information about this feature, see [Upgrade All Service Instances](https://docs.pivotal.io/svc-sdk/odb/operating.html#upgrade-all-instances).
-  </p>
+For information about this feature, see `canaries` in 
+[Upgrade All Service Instances](https://docs.pivotal.io/svc-sdk/odb/operating.html#upgrade-all-instances)
+in the On-Demand Services SDK documentation.
 
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
