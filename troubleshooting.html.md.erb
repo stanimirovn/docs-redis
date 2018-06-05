@@ -19,6 +19,7 @@ In this topic:
     * [Upgrade All Instances Fails](#upgrade-all-fails)
     * [Missing Logs and Metrics](#missing-logs)
     * [Error Messages Logged in Syslog](#syslog-errors) 
+    * [Error Backing Up](#backup-errors)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
     * [Configuration](#bosh-config)
@@ -196,6 +197,24 @@ To prevent this error, do the following:
     </ol>
   </li>
 </ol>
+
+<a id="backup-errors"></a><h3>Error Backing Up</h3>
+
+<a id="server-down"></a><h4>Redis Server Down</h4>
+
+<strong>Symptom</strong><br>
+
+The following error messages is logged:<br>
+<pre class="terminal">Backup has failed. Redis must be running for a backup to run</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+This is logged if a backup has been initiated against a redis server that is down.
+<br><br>
+
+<strong>Solution</strong><br>
+Ensure that the redis server being backup is running. This can be done by running `bosh restart` against the affected service instance VM.
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
