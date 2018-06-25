@@ -6,13 +6,20 @@ https://github.com/pivotal-cf/docs-book-redis
 The book repo uses these branches:
 
 * **Edge** builds from the **master** content branch in this repo.
-* **Master** builds from the **-live** content branches in this repo.
+* **Master** builds from the **live** content branches in this repo.
 
 ## Branches in this (content) repo
 
 **Note:** We only document to the second digit of the release number, for example, 1.x, not 1.x.x. So if a doc change is needed for a new patch 1.x.x, it will be included in the docs for 1.x.
 
-### Master - Use for next unreleased version
+### Master - Use for the next unreleased version
+
+| Branch name | Use for… |
+|-------------| ------|
+| master      | 1.14 (unreleased)
+| 1.13         | 1.13 (cut but not released, publishes to "edge" pipeline) |
+| 1.12        | 1.12 (live) |
+| etc.        | etc. |
 
 All documentation for the next unreleased version of Redis is in `master`. 
 
