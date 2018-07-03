@@ -360,6 +360,21 @@ Example `VCAP_SERVICES`
 
 3. In your app code, call the Redis service using the connection strings.
 
+## <a id="logging"></a> Accessing Redis Metrics for On-Demand Service Instances(Beta)
+
+As of Redis for PCF v1.13+, the On-Demand service supports the Log Cache Loggregator feature that is enabled by default as of [PAS v2.2+](https://docs.pivotal.io/pivotalcf/2-2/pcf-release-notes/runtime-rn.html#log-cache).
+This enables app devs to tail metrics for On-Demand service instances.
+To install the CF CLI plugin run:
+```
+cf install-plugin -r CF-Community "log-cache"
+```
+To access a service instance's metrics, run:
+```
+cf tail <SERVICE-INSTANCE-NAME>
+```
+Information about the metrics output is [here](https://docs.pivotal.io/redis/monitoring.html#Redis-KPIs).
+For more information on how to enable Log Cache and for more information on `cf tail` see <a href="https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache">here</a>
+
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
 
 <p class="note"><strong>Note</strong>: This is an experimental feature.</p>
