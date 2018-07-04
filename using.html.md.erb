@@ -356,24 +356,37 @@ Example `VCAP_SERVICES`
         }
     ```
 
-    <p class="note"><strong>Note</strong>: You can also search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.</p>
+    <p class="note"><strong>Note</strong>: You can also search for your service 
+      by its <code>name</code>, given when creating the service instance, or 
+      dynamically via the <code>tags</code> or <code>label</code> properties.</p>
 
 3. In your app code, call the Redis service using the connection strings.
 
-## <a id="logging"></a> Accessing Redis Metrics for On-Demand Service Instances(Beta)
+## <a id="logging"></a> Access Redis Metrics for On-Demand Service Instances (Beta)
 
-The Log Cache Loggregator feature that is enabled by default as of [PAS v2.2+](https://docs.pivotal.io/pivotalcf/2-2/pcf-release-notes/runtime-rn.html#log-cache).
-This enables app devs to tail metrics for On-Demand service instances.
-To install the CF CLI plugin run:
-```
-cf install-plugin -r CF-Community "log-cache"
-```
-To access a service instance's metrics, run:
-```
-cf tail <SERVICE-INSTANCE-NAME>
-```
-Information about the metrics output is [here](https://docs.pivotal.io/redis/monitoring.html#Redis-KPIs).
-For more information on how to enable Log Cache and for more information on `cf tail` see <a href="https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache">here</a>
+To access metrics for on-demand service instances, you can use Loggregator's Log 
+Cache feature with the Log Cache CLI plugin.
+Log Cache is enabled by default in Pivotal Application Service (PAS) v2.2. 
+
+For more information about the metrics output, see [Redis for PCF Service KPIs](./monitoring.html#Redis-KPIs).
+
+To access metrics for on-demand service instances, do the following:
+
+1. Install the cf CLI plugin, by running:
+
+    ```
+    cf install-plugin -r CF-Community "log-cache"
+    ```
+
+1. Access a service instance's metrics, by running:
+
+    ```
+    cf tail SERVICE-INSTANCE-NAME
+    ```
+
+For more information about how to enable Log Cache and about the `cf tail` command, 
+see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).
+
 
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
 

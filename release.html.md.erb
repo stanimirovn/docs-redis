@@ -21,8 +21,10 @@ Credentials are stored in a central repository and are restricted to components 
 * Added configuration options for the `upgrade-all-service-instances` errand.
 This includes maximum parallel upgrades, number of canaries, and canary selection parameters by org and space.
 
-* Added support for the [Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache)
-CF CLI plugin which enables app devs to tail logs for a specific On-Demand service instance using `cf tail`.
+* (Beta) Added support for the Log Cache cf CLI plugin, which enables developers 
+to access logs for an on-demand service instance using the command `cf tail`. 
+For more information, see [Access Redis Metrics for On-Demand Service Instances 
+(Beta)](./using.html#logging)
 
 ### Known Issues
 
