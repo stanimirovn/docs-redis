@@ -13,18 +13,16 @@ owner: London Services
 
 New features and changes in this release:
 
-* In the Marketplace, "On-Demand Redis" is renamed to "Redis On-Demand" to make it more consistent and searchable.
-
-* Added beta support for securing credentials in runtime CredHub.
-Credentials are stored in a central repository and are restricted to components that need them.
-
-* Added configuration options for the `upgrade-all-service-instances` errand.
-This includes maximum parallel upgrades, number of canaries, and canary selection parameters by org and space.
-
-* (Beta) Added support for the Log Cache cf CLI plugin, which enables developers 
-to access logs for an on-demand service instance using the command `cf tail`. 
-For more information, see [Access Redis Metrics for On-Demand Service Instances 
+* (Beta) Added support for the Log Cache cf CLI plugin, which enables developers
+to access logs for an on-demand service instance using the command `cf tail`.
+For more information, see [Access Redis Metrics for On-Demand Service Instances
 (Beta)](./using.html#logging)
+
+* Added checkbox in the tile that will allow operators to remove all dedicated nodes,
+ahead of the upcoming full removal of support for dedicated nodes. Note that for
+users on PCF 2.2 when the checkbox has been ticked but before hitting **Apply Changes**
+the Resource Config tab will display warnings and no changes can be made in it,
+this warning can be safely ignored.
 
 ### Known Issues
 
