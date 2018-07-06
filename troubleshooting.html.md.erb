@@ -7,8 +7,8 @@ owner: London Services
 
 In this topic:
 
-* [About the BOSH CLI](#about-cli)
 * [Useful Debugging Information](#debugging)
+* [About the Redis CLI](#about-cli)
 * [How to Retrieve a Service Instance GUID](#guid)
 * [Troubleshooting Errors](#errors)
     * [Failed Install](#install-fail)
@@ -72,6 +72,20 @@ Before debugging, ensure you know the following about your PCF deployment:
   * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
   * Copy of `/var/vcap/store/cf-redis-broker/statefile.json` (broker only)
 
+<a id="about-cli"></a><h2>About the Redis CLI</h2>
+
+The `redis-cli` is the command line tool used to access a redis server.
+The `redis-cli` can be used for CRUD actions as well as setting configuration values.
+For further details see the [official redis-cli documentation](https://redis.io/topics/rediscli).
+
+The redis-cli on a service instance can be located at
+`/var/vcap/packages/redis/bin/redis-cli`. In order to access the redis server
+you will need the port and password, this can be retrieved by generating a
+service key and then providing the values to the `redis-cli`. For example:
+  * `cf create-service-key service-name service-key`
+  * Retrieve the service key to see the values `cf service-key service-name service-key`
+  * SSH onto the service instance and connect to the redis server `/var/vcap/packages/redis/bin/redis-cli -p PORT -a PASS`
+  * You are then in the `redis-cli` [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode)
 
 <a id="guid"></a><h2>How to Retrieve a Service instance GUID</h2>
 
