@@ -362,13 +362,11 @@ Example `VCAP_SERVICES`
 
 3. In your app code, call the Redis service using the connection strings.
 
-## <a id="logging"></a> Access Redis Metrics for On-Demand Service Instances (Beta)
+## <a id="logging"></a> Access Redis Metrics for On-Demand Service Instances
 
 To access metrics for on-demand service instances, you can use Loggregator's Log 
 Cache feature with the Log Cache CLI plugin.
 Log Cache is enabled by default in Pivotal Application Service (PAS) v2.2. 
-
-For more information about the metrics output, see [Redis for PCF Service KPIs](./monitoring.html#Redis-KPIs).
 
 To access metrics for on-demand service instances, do the following:
 
@@ -383,6 +381,16 @@ To access metrics for on-demand service instances, do the following:
     ```
     cf tail SERVICE-INSTANCE-NAME
     ```
+    <br>
+  For example:
+
+    <pre class="terminal">
+    $ cf tail my-instance
+    Retrieving logs for service sc in org system / space pivotal-services as admin...
+
+      2018-07-03T09:54:14.84+0100 [sc] GAUGE info.clients.blocked_clients:0.000000 metric info.clients.client_biggest_input_buf:0.000000 metric ...
+    </pre>
+  For more information about the metrics output, see [Redis for PCF Service KPIs](./monitoring.html#Redis-KPIs).
 
 For more information about how to enable Log Cache and about the `cf tail` command, 
 see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).
