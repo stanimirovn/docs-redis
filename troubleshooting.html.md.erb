@@ -76,20 +76,37 @@ Before debugging, ensure you know the following about your PCF deployment:
 
 <a id="about-cli"></a><h2>About the Redis CLI</h2>
 
-The `redis-cli` is the command line tool used to access a redis server.
-The `redis-cli` can be used for CRUD actions as well as setting configuration values.
-For further details see the [official redis-cli documentation](https://redis.io/topics/rediscli).
+The redis-cli is the command line tool used to access a Redis server.
+You can use the redis-cli for create, read, update, and delete (CRUD) actions 
+as well as setting configuration values.
+For more information about the redis-cli, see [redis-cli, the Redis command 
+line interface](https://redis.io/topics/rediscli) in the Redis documentation.
 
-The redis-cli on a service instance can be located at
-`/var/vcap/packages/redis/bin/redis-cli`. In order to access the redis server
-you will need the port and password, this can be retrieved by generating a
-service key and then providing the values to the `redis-cli`. For example:
-  * `cf create-service-key service-name service-key`
-  * Retrieve the service key to see the values `cf service-key service-name service-key`
-  * SSH onto the service instance and connect to the redis server `/var/vcap/packages/redis/bin/redis-cli -p PORT -a PASS`
-  * You are then in the `redis-cli` [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode)
+To access the redis server you need the port and password for your service 
+instance and the location of the redis-cli `/var/vcap/packages/redis/bin/redis-cli`.
 
-<a id="guid"></a><h2>How to Retrieve a Service instance GUID</h2>
+To enable the redis-cli to access the Redis server, do the the following:
+
+1. Create a service key for your Redis service instance by running:
+
+    ```
+    cf create-service-key SERVICE-NAME SERVICE-KEY-NAME
+    ```
+
+1. Retrieve the password and port number by running:
+
+    ```
+    cf service-key SERVICE-NAME SERVICE-KEY-NAME
+    ```
+
+1. SSH into the service instance and connect to the Redis server by running:
+
+    ```
+    /var/vcap/packages/redis/bin/redis-cli -p PORT -a PASSWORD
+    ```
+  You are then in the `redis-cli` [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode)
+
+<a id="guid"></a><h2>How to Retrieve a Service Instance GUID</h2>
 
 <%= partial '../../redis/odb/retrieve-guid' %>
 
