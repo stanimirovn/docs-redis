@@ -5,14 +5,15 @@ https://github.com/pivotal-cf/docs-book-redis
 
 The book repo uses these branches:
 
-* **Edge** builds from the **master** content branch in this repo.
-* **Master** builds from the **-live** content branches in this repo.
+* **Edge** builds from the **master** content branch in this repo. Pipeling [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
+* **Master** builds from the published content branches in this repo (1.12, 1.11, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## Branches in this (content) repo
 
-**Note:** We only document to the second digit of the release number, for example, 1.x, not 1.x.x. So if a doc change is needed for a new patch 1.x.x, it will be included in the docs for 1.x.
-
 ### Master - Use for next unreleased version
+
+**NOTE:** The **1.13** branch is not yet released, and the **master** branch is for 1.14. Therefore, the edge pipeline publishes both
+1.13 and 1.14 docs. When 1.13 releases, it will be moved to the production pipeline.
 
 All documentation for the next unreleased version of Redis is in `master`. 
 
