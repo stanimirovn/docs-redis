@@ -45,33 +45,15 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 
 1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
 
-### <a id="instance-credentials"></a> Retrieve Service Instance Credentials
+### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
 
 If you want to access the Redis server for troubleshooting,
 you can create a new service-key to retrieve Redis instance credentials.
 Pivotal recommends that you use this key for troubleshooting only, and that you
 delete the key after troubleshooting.
-To retrieve the credentials, do the following:
 
-1. Create a service-key for your Redis instance using the command
-`cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`.
+For instructions on how to retrieve the password, see [Retrieve the Password for a Redis Service Instance](./using.html#call).
 
-1. Retrieve the credentials using the command
-`cf service-key INSTANCE-NAME SERVICE-KEY-NAME`.
-
-For example:
-<pre class="terminal">
-$ cf create-service-key my-redis-instance my-key
-Creating service key my-key for service instance my-redis-instance as admin...
-OK
-$ cf service-key my-redis-instance my-key
-Getting key my-key for service instance my-redis-instance as admin...
-{
- "host": "10.0.8.4",
- "password": "f14505af-b944-428c-ac74-0fd4c17b11aa",
- "port": 6379
-}
-</pre>
 
 ## <a id="redis-client-errors"></a>Error Messages from the Redis Client
 
