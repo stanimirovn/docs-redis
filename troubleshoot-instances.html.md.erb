@@ -48,9 +48,10 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 ### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
 
 If you want to access the Redis server for troubleshooting,
-you can create a new service-key to retrieve Redis instance credentials.
-Pivotal recommends that you use this key for troubleshooting only, and that you
-delete the key after troubleshooting.
+you can find a Redis service instance password by creating a new service key.
+
+<p class="note"><strong>Note:</strong> Pivotal recommends that you use this key for troubleshooting only, and that you
+delete the key after troubleshooting by using the command <code>cf delete-service-key SERVICE-INSTANCE KEY-NAME</code>.</p>
 
 For instructions on how to retrieve the password, see [Retrieve the Password for a Redis Service Instance](./using.html#call).
 
