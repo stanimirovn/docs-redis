@@ -9,6 +9,89 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the dropdown at the top of this page.
 
+## <a id="1113"></a> v1.11.4
+
+**Release Date: July 16, 2018**
+
+<p class="note warning"><strong>WARNING</strong>: If you are upgrading from v1.11.0 or v1.11.1,
+    you might need to take manual steps to avoid data loss.
+    See this Knowledge Base article,
+    <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Redis Tile Upgrade to v1.11.0 or v1.11.1 May Result in Loss of Persistent Data</a>.<br><br>
+
+    It is safe to upgrade directly from v1.10.</p>
+
+This release updates the packaged golang version to 1.10.3.
+
+### Compatibility
+
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3468.51+</td>
+</tr>
+<tr>
+	<td>PCF<sup>*</sup></td>
+    <td>v1.12.x and v2.0.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v432.1.0</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.19.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v192.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.169.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.11</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.9</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v10.0.0</td>
+</tr>
+<tr>
+    <td>loggregator</td>
+    <td>v101.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v3.2.11</td>
+</tr>
+
+</table>
+
+\* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
+
+### Known Issues
+
+* The redis-odb service broker listens on 12345. This is inconsistent with other services.
+
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html)
+in what changes trigger the errand. Do not select this option for errands.
+
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
 ## <a id="1113"></a> v1.11.3
 
 **Release Date:  March 7, 2018**
