@@ -26,11 +26,13 @@ To view the release notes for another product version, select the version from t
 
 * This release updates the packaged golang to v1.10.3.
 
-* The default persistance for on-demand instances is now partial persitance
-(using RDB files) this is also a fix for the previous issue around disk usage
-inflation from frequent instance restarts.
+### Fixed Issues
 
-* Fixes an intermittent issue that can cause executing a restore to fail.
+* The default persistence for on-demand instances is now partial persistence using RDB files. 
+This fixes the issue of disk usage inflation from frequent instance restarts.
+
+* Fixes an intermittent issue that can cause executing a restore to fail and leave 
+the `CONFIG` command unaliased.
 
 ### Compatibility
 
@@ -182,7 +184,7 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
-* Executing a restore may fail to complete and leave the CONFIG command unaliased.
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
 ## <a id="1112"></a> v1.11.2
 
@@ -196,7 +198,7 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
     It is safe to upgrade directly from v1.10.</p>
 
 
-### Bug Fixes
+### Fixed Issues
 
 * Fixes a bug where upgrading the Redis for PCF tile may cause the broker to change availability zone and orphan its disk.
 
@@ -268,13 +270,13 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Executing a restore may fail to complete and leave the CONFIG command unaliased.
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
 ## <a id="1111"></a> v1.11.1
 
 **Release Date:  February 2, 2018**
 
-### Bug Fixes
+### Fixed Issues
 
 * This release reverts implementation of the colocated errands feature for the Redis for PCF v1.11 line,
 due to incompatibility with some PCF v1.12 installations.
@@ -352,7 +354,7 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Executing a restore may fail to complete and leave the CONFIG command unaliased.
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
 ## <a id="1110"></a> v1.11.0
 
@@ -453,4 +455,4 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Executing a restore may fail to complete and leave the CONFIG command unaliased.
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
