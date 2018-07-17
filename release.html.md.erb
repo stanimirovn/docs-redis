@@ -9,6 +9,96 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the dropdown at the top of this page.
 
+## <a id="1114"></a> v1.11.4
+
+**Release Date: July 16, 2018**
+
+<p class="note warning"><strong>WARNING</strong>: If you are upgrading from v1.11.0 or v1.11.1,
+    you might need to take manual steps to avoid data loss.
+    See this Knowledge Base article,
+    <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Redis Tile Upgrade to v1.11.0 or v1.11.1
+        May Result in Loss of Persistent Data</a>.<br><br>
+
+    It is safe to upgrade directly from v1.10.</p>
+
+
+### Features
+
+* This release updates the packaged golang to v1.10.3.
+
+### Fixed Issues
+
+* The default persistence for on-demand instances is now partial persistence using RDB files. 
+This fixes the issue of disk usage inflation from frequent instance restarts.
+
+* Fixes an intermittent issue that can cause executing a restore to fail and leave 
+the `CONFIG` command unaliased.
+
+### Compatibility
+
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3468.51+</td>
+</tr>
+<tr>
+	<td>PCF<sup>*</sup></td>
+    <td>v1.12.x and v2.0.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v432.1.0</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.19.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v192.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.169.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.11</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.9</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v10.0.0</td>
+</tr>
+<tr>
+    <td>loggregator</td>
+    <td>v101.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v3.2.11</td>
+</tr>
+
+</table>
+
+\* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
+
+### Known Issues
+
+* The redis-odb service broker listens on 12345. This is inconsistent with other services.
+
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html)
+in what changes trigger the errand. Do not select this option for errands.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
 ## <a id="1113"></a> v1.11.3
 
 **Release Date:  March 7, 2018**
@@ -19,6 +109,8 @@ To view the release notes for another product version, select the version from t
     <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Redis Tile Upgrade to v1.11.0 or v1.11.1 May Result in Loss of Persistent Data</a>.<br><br>
 
     It is safe to upgrade directly from v1.10.</p>
+
+### Features
 
 This release updates the stemcell verison.
 
@@ -94,6 +186,9 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
 
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
+
+
 ## <a id="1112"></a> v1.11.2
 
 **Release Date:  February 14, 2018**
@@ -106,7 +201,7 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
     It is safe to upgrade directly from v1.10.</p>
 
 
-### Bug Fixes
+### Fixed Issues
 
 * Fixes a bug where upgrading the Redis for PCF tile may cause the broker to change availability zone and orphan its disk.
 
@@ -180,11 +275,13 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
 
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
+
 ## <a id="1111"></a> v1.11.1
 
 **Release Date:  February 2, 2018**
 
-### Bug Fixes
+### Fixed Issues
 
 * This release reverts implementation of the colocated errands feature for the Redis for PCF v1.11 line,
 due to incompatibility with some PCF v1.12 installations.
@@ -263,6 +360,8 @@ check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 * Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
+
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
 ## <a id="1110"></a> v1.11.0
 
@@ -364,3 +463,5 @@ check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 * Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
+
+* Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
