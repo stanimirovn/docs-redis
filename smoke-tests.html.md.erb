@@ -12,9 +12,10 @@ Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installat
 The smoke tests perform the following for each available service plan:
 
 1. Targets the org <code>system</code> and space <code>redis-smoke-tests</code> (creating them if they do not exist)
-1. Creates a restrictive security group, <code>redis-smoke-tests-sg</code>, and binds it to the space
 1. Deploys an instance of the [CF Redis Example App](https://github.com/pivotal-cf/cf-redis-example-app) to this space
 1. Creates a Redis instance and binds it to the CF Redis Example App
+1. Creates a service key to retrieve the Redis instance IP
+1. Creates a restrictive security group, <code>redis-smoke-tests-sg</code>, and binds it to the space
 1. Checks that the CF Redis Example App can write to and read from the Redis instance
 
 ## <a id="security-groups"></a> Security Groups
