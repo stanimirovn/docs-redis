@@ -16,14 +16,21 @@ To view the release notes for another product version, select the version from t
 <p class="note warning"><strong>WARNING</strong>: If you are upgrading from v1.11.0 or v1.11.1,
     you might need to take manual steps to avoid data loss.
     See this Knowledge Base article,
-    <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Redis Tile Upgrade to v1.11.0 or v1.11.1 
+    <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Redis Tile Upgrade to v1.11.0 or v1.11.1
         May Result in Loss of Persistent Data</a>.<br><br>
 
     It is safe to upgrade directly from v1.10.</p>
 
+
 ### Features
 
-This release updates the packaged golang to v1.10.3.
+* This release updates the packaged golang to v1.10.3.
+
+* The default persistance for on-demand instances is now partial persitance
+(using RDB files) this is also a fix for the previous issue around disk usage
+inflation from frequent instance restarts.
+
+* Fixes an intermittent issue that can cause executing a restore to fail.
 
 ### Compatibility
 
@@ -87,11 +94,6 @@ This release updates the packaged golang to v1.10.3.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html)
 in what changes trigger the errand. Do not select this option for errands.
-
-* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
-leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
-check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
-If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
@@ -180,6 +182,8 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
+
 ## <a id="1112"></a> v1.11.2
 
 **Release Date:  February 14, 2018**
@@ -264,6 +268,7 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
 
 ## <a id="1111"></a> v1.11.1
 
@@ -346,6 +351,8 @@ See this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/3
 leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
 
 ## <a id="1110"></a> v1.11.0
 
@@ -445,3 +452,5 @@ See this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/3
 leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
