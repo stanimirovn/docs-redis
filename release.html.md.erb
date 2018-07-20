@@ -5,17 +5,26 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## <a id="113"></a> v1.13
 
-### <a id="1131"></a> v1.13.1
+## <a id="1131"></a> v1.13.1
 
 **Release Date: July 19, 2018**
 
-#### Features
+### Features
 
-* This release updates the packaged golang version to 1.10.3.
+New features and changes in this release:
 
-#### Known Issues
+* In the Marketplace, "On-Demand Redis" is renamed to "Redis On-Demand" to make it more consistent and searchable.
+
+* Added beta support for securing credentials in runtime CredHub.
+Credentials are stored in a central repository and are restricted to components that need them.
+
+* Added configuration options for the `upgrade-all-service-instances` errand.
+This includes maximum parallel upgrades, number of canaries, and canary selection parameters by org and space.
+
+* Updated the packaged golang version to 1.10.3.
+
+### Known Issues
 
 This release has the following issues:
 
@@ -27,7 +36,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-#### Compatibility
+### Compatibility
 
 The following components are compatible with this release:
 
