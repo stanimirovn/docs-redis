@@ -79,14 +79,17 @@ Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
-leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
-check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+* Default persistence is set to full persistence using an AOF file. 
+If an instance is restarted frequently --for example, for upgrades--this file can grow significantly,
+leading to very large persistent disk usage. 
+If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file, usually at `/var/vcap/store/redis`, to verify that this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 ## <a id="1104"></a> v1.10.4
 
@@ -160,12 +163,15 @@ Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
-leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
-check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+* Default persistence is set to full persistence using an AOF file. 
+If an instance is restarted frequently--for example, for upgrades--this file can grow significantly,
+leading to very large persistent disk usage. 
+If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify that this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 ## <a id="1103"></a> v1.10.3
 
@@ -237,12 +243,16 @@ For more information about this unexpected behavior, see
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
-* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
-leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
-check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+* Default persistence is set to full persistence using an AOF file. 
+If an instance is restarted frequently--for example, for upgrades--this file can grow significantly,
+leading to very large persistent disk usage. 
+If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file, usually at `/var/vcap/store/redis`,
+to verify that this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 ## <a id="1102"></a> v1.10.2
 
@@ -319,12 +329,16 @@ For more information about this unexpected behavior, see
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
-* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
-leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
-check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+* Default persistence is set to full persistence using an AOF file. 
+If an instance is restarted frequently--for example, for upgrades--this file can grow significantly,
+leading to very large persistent disk usage. 
+If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file, usually at `/var/vcap/store/redis`,
+to verify that this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures.
+For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 ## <a id="1101"></a> v1.10.1
 
@@ -392,13 +406,17 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * Includes metrics for the on-demand service. This enables operators to monitor the health of their Redis instances.
 
-* Introduces a new format for on-demand metrics. This is the standard format for all services and will eventually replace other formats.
+* Introduces a new format for on-demand metrics. 
+This is the standard format for all services and will eventually replace other formats.
 
-* Uses a new release for syslog that allows the operator to configure the log format to be either the pre-existing one or RFC5424. RFC5424 is the standard format for PCF services. The previous format will eventually be deprecated.
+* Uses a new release for syslog that allows the operator to configure the log format to be either the pre-existing one or RFC5424. 
+RFC5424 is the standard format for PCF services. 
+The previous format will eventually be deprecated.
 
 * Enables TLS encryption for syslog forwarding.
 
-* Lua Scripting defaults to off for all on-demand service plans. Pivotal's security recommendation is to keep Lua Scripting turned off.
+* Lua Scripting defaults to off for all on-demand service plans. 
+Pivotal's security recommendation is to keep Lua Scripting turned off.
 
 * Allows the operator to opt-out of the on-demand service without configuring on-demand plans.
 
@@ -458,19 +476,26 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 ### Known Issues
 
-* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, does not have any effect due to a bug in Redis v3.2.8.
+* `lua-timeout-limit`, a Redis configuration that is exposed to app developers through arbitrary parameters, 
+does not have any effect due to a bug in Redis v3.2.8.
 
-* The redis-odb service broker listens on 12345. This is inconsistent with other services.
+* The redis-odb service broker listens on 12345. 
+This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) 
+in what changes trigger the errand. 
+Do not select this option for errands.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
 
-* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
-leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
-check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+* Default persistence is set to full persistence using an AOF file. 
+If an instance is restarted frequently--for example, for upgrades--this file can grow significantly,
+leading to very large persistent disk usage. 
+If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file, usually at `/var/vcap/store/redis`, to verify that this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue, see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
