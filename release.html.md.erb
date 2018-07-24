@@ -184,7 +184,9 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
-* Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue,
+see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
@@ -273,7 +275,9 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue,
+see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
@@ -359,7 +363,9 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue,
+see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
@@ -462,6 +468,8 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to 'off' on plans with preexisting instances can cause upgrade errand failures. See [this article](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error) for information on how to resolve this.
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+For information about resolving this issue,
+see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
