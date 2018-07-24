@@ -9,6 +9,23 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the dropdown at the top of this page.
 
+## <a id="1115"></a> v1.11.5
+
+**Release Date: July 24, 2018**
+
+### Fixes
+
+* Fixes previous version not working with any 3468 stemcell version.
+
+### Known Issues
+
+* The redis-odb service broker listens on 12345. This is inconsistent with other services.
+
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html)
+in what changes trigger the errand. Do not select this option for errands.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
 ## <a id="1114"></a> v1.11.4
 
 **Release Date: July 16, 2018**
@@ -98,6 +115,8 @@ the `CONFIG` command unaliased.
 in what changes trigger the errand. Do not select this option for errands.
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
+* Can only be installed with specific stemcell version: 3468.54.
 
 ## <a id="1113"></a> v1.11.3
 
