@@ -4,6 +4,24 @@ owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
+## <a id="1123"></a> v1.12.3
+
+**Release Date: July 24, 2018**
+
+### Fixes
+
+* Fixes previous version not working with any 3468 stemcell version.
+
+### Known Issues
+
+* The `redis-odb` service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
 ## <a id="1122"></a> v1.12.2
 
 **Release Date: July 20, 2018**
@@ -29,6 +47,8 @@ This is inconsistent with other services.
 Do not select this choice as an errand run-rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* Can only be installed with specific stemcell version, 3468.54.
 
 <table border="1" class="nice">
 <tr>
