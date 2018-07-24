@@ -43,6 +43,9 @@ Redis for PCF includes the errands listed below.
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service (`shared-vm` and `dedicated-vm` plans).
+  As of Redis for PCF v1.14 this disables service access to the `dedicated-vm` plan for non-admin app developers.
+
+* **Remove Deprecated Functionality**--- Disables service access to the `dedicated-vm` plan for non-admin app developers. Available as of Redis for PCF v1.14.
 
 * **Smoke Tests**---Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available.
     The tests cover provisioning, binding, reading, writing, unbinding, and deprovisioning of service instances.
@@ -90,6 +93,10 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 - Required to run if the CF system domain is changed in the PAS (or Elastic Runtime) tile.
 - Not necessary to run if the change only involves other tiles except PAS (or Elastic Runtime) tile.
+
+#### Remove Deprecated Functionality
+
+- Only needs to be run once to disable service access to the `dedicated-vm` plan for non-admin app developers.
 
 #### Register On-Demand Broker Errand
 

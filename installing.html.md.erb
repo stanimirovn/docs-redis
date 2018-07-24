@@ -353,7 +353,15 @@ VM's total system memory, you can do one of the following:
 <p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
     the on-demand service is at feature parity with the dedicated-VM service.
     The dedicated-VM service plan will be deprecated.
-    Pivotal recommends using the on-demand service plan. See these instructions to [disable Shared-VM and Dedicated-VM Plans](#disable-shared-dedicated). </p>
+    Pivotal recommends using the on-demand service plan.
+    See these instructions to [disable Shared-VM and Dedicated-VM Plans](./installing.html#disable-shared-dedicated).
+    <br>
+    <br>
+    In addition, as of Redis for PCF v1.14, operators can disable access to the
+    dedicated-vm plan for non-admin app developers by enabling the "Remove Deprecated
+    Functionality" errand as part of an install. This same process will occur as part
+    of running the "Broker Registrar" errand.
+</p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 <a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
