@@ -239,9 +239,7 @@ To secure your on-demand service instance credentials in runtime
 [CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller 
 Database (CCDB), do the following:
 
-<p class="note"><strong>Note</strong>:
-This is a beta feature. Use it at your own risk in non-production environments. 
-Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+<p class="note"><strong>Note</strong>: This is a beta feature. Use it at your own risk in non-production environments. Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 
 1. Configure the Pivotal Application Service (PAS) tile to support securing service 
 instance credentials in runtime CredHub. 
@@ -348,19 +346,20 @@ VM's total system memory, you can do one of the following:
       preventing users from writing any more data to any Redis shared-VM instance.
   </p>
 
-###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
+###<a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+<p class="note"><strong>Note</strong>: In Redis for PCF v1.11 and later, 
     the on-demand service is at feature parity with the dedicated-VM service.
     The dedicated-VM service plan will be deprecated.
     Pivotal recommends using the on-demand service plan.
-    See these instructions to [disable Shared-VM and Dedicated-VM Plans](./installing.html#disable-shared-dedicated).
+    For instructions on disabling these plans, 
+    see <a href="#disable-shared-dedicated">Disable Shared and Dedicated VM Plans</a> below.
     <br>
     <br>
-    In addition, as of Redis for PCF v1.14, operators can disable access to the
-    dedicated-vm plan for non-admin app developers by enabling the "Remove Deprecated
-    Functionality" errand as part of an install. This same process will occur as part
-    of running the "Broker Registrar" errand.
+    In addition, in Redis for PCF v1.14 and later, operators can disable access to the
+    dedicated-VM plan for non-admin app developers by enabling the "Remove Deprecated
+    Functionality" errand as during tile configuration. 
+    This process also occurs when the "Broker Registrar" errand runs.
 </p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
