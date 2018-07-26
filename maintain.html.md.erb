@@ -14,7 +14,7 @@ It introduces some best practices, but does not provide details about operation.
 Pivotal recommends that operators follow these guidelines:
 
 * **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes.
-    Instances of Dedicted-VM and Shared-VM services have identical VM sizes.
+    Instances of Dedicated-VM and Shared-VM services have identical VM sizes.
     However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota.
     See the service offering for the [On-Demand Plan](./architecture.html) and [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
 * **Logs**---Configure a syslog output.
@@ -42,12 +42,15 @@ Redis for PCF includes the errands listed below.
 
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
-* **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service (`shared-vm` and `dedicated-vm` plans).
-  As of Redis for PCF v1.14 this disables service access to the `dedicated-vm` plan for non-admin app developers.
+* **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service,
+  that is, the shared-VM and dedicated-VM plans.
+  The Broker Registrar errand also includes the Remove Deprecated Functionality errand.
+  It disables service access to the dedicated-VM plan for non-admin app developers.
 
-* **Remove Deprecated Functionality**--- Disables service access to the `dedicated-vm` plan for non-admin app developers. Available as of Redis for PCF v1.14.
+* **Remove Deprecated Functionality**---Disables service access to the dedicated-VM plan
+    for non-admin app developers.
 
-* **Smoke Tests**---Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available.
+* **Smoke Tests**---Runs lifecycle tests for shared-VM and dedicated-VM plans if these have been enabled and there is remaining quota available.
     The tests cover provisioning, binding, reading, writing, unbinding, and deprovisioning of service instances.
 
 * **Register On-Demand Broker**---Registers the on-demand Redis broker with PCF to offer the `p.redis` service (on-demand plans).
@@ -81,7 +84,7 @@ If the changes include configuration changes on the Redis for PCF tile or a new 
 #### Installing Another Tile
 
 When installing another tile that does not make any changes to the BOSH Director
-or the Pivotal Application Service (PAS) or Elastic Runtime tile,
+or the Pivotal Application Service (PAS),
 it is not necessary to run any of the Redis for PCF tile's post-deploy errands.
 
 #### Changes to Other Tiles
@@ -91,12 +94,14 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 #### Broker Registrar Errand
 
-- Required to run if the CF system domain is changed in the PAS (or Elastic Runtime) tile.
-- Not necessary to run if the change only involves other tiles except PAS (or Elastic Runtime) tile.
+- Required to run if the CF system domain is changed in the PAS tile.
+- Not necessary to run if the change only involves other tiles except PAS tile.
 
-#### Remove Deprecated Functionality
+#### Remove Deprecated Functionality Errand
 
-- Only needs to be run once to disable service access to the `dedicated-vm` plan for non-admin app developers.
+- Run this errand to prepare for deprecation of support for dedicated nodes.
+- Only needs to be run once to disable service access to the dedicated-VM plan for non-admin app developers.
+- Not needed if the Broker Registrar errand has been run.
 
 #### Register On-Demand Broker Errand
 
@@ -114,8 +119,8 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 - Required to run both if a newer stemcell minor version is uploaded.
   The Redis for PCF tile floats to the newest minor version.
   For more information, see [Understanding Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
-- Good practice to run both for any change in the BOSH Director or PAS (or Elastic Runtime) tile.
-- Not necessary to run either if the change only involves other tiles except PAS (or Elastic Runtime) and BOSH Director.
+- Good practice to run both for any change in the BOSH Director or PAS tile.
+- Not necessary to run either if the change only involves other tiles except PAS and BOSH Director.
 
 #### Upgrade All On-Demand Service Instances Errand
 

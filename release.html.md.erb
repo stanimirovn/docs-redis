@@ -13,13 +13,19 @@ owner: London Services
 
 New features and changes in this release:
 
-* Adds support for the Log Cache cf CLI plugin, which enables developers
+* Support for the Log Cache cf CLI plugin, which enables developers
 to access logs for an on-demand service instance using the command `cf tail`.
 For more information, see [Access Redis Metrics for On-Demand Service Instances](./using.html#logging).
 
-* Adds a **Remove Deprecated Functionality** errand, to disables service access
-to dedicated-vms for space-developer users ahead of the upcoming removal of
-support for dedicated nodes.
+* A new **Remove Deprecated Functionality** errand disables service access
+to  the dedicated-VM plan for non-admin app developers.
+Run this errand to prepare for deprecation of support for dedicated nodes.
+For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
+
+* In addition to registering the cf-redis-broker with PCF,
+the **Broker Registrar** errand now disables service access to 
+the dedicated-VM plan for non-admin app developers.
+For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * Adds a **Delete All Dedicated Instances** checkbox to the tile in the
 **Warning - Deprecating Dedicated** tab, for operators to remove all dedicated
