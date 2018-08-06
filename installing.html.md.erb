@@ -40,7 +40,7 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ###  <a id="az-config"></a>Assign AZs
 
-As of Redis for PCF v1.9, you can assign multiple AZs to Redis jobs, however this does not guarantee high availability.
+In Redis for PCF v1.9 and later, you can assign multiple AZs to Redis jobs, however this does not guarantee high availability.
 For more information, see [Support for Multiple AZs](erc.html#other-notes).
 
 To assign AZs, do the following:
@@ -59,7 +59,7 @@ For more information, see [Networking for On-Demand Services](./odnetworking.htm
 <p class="note"><strong>Note</strong>: 
   In Ops Manager v2.0 and earlier, a specific network was designated as the 
   Service Network to reserve IPs for the on-demand service.
-  As of Ops Manager v2.1, IPs are no longer managed in this way. All networks
+  In Ops Manager v2.1 and later, IPs are no longer managed in this way. All networks
   are now available to use as a Service Network.</p>
 
 To select networks, do the following:
@@ -301,10 +301,12 @@ VM's total system memory, you can do one of the following:
 
 ###  <a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+<p class="note"><strong>Note</strong>: In Redis for PCF v1.11 and later, 
     the on-demand service is at feature parity with the dedicated-VM service.
     The dedicated-VM service plan will be deprecated.
-    Pivotal recommends using the on-demand service plan. See these instructions to [disable Shared-VM and Dedicated-VM Plans](#disable-shared-dedicated). </p>
+    Pivotal recommends using the on-demand service plan.
+    To disable dedicated-VM plans,
+    see <a href="#disable-shared-dedicated">Disable Shared and Dedicated VM Plans</a> below. </p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 <a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
@@ -318,7 +320,7 @@ VM's total system memory, you can do one of the following:
   - With dedicated-VM plans, there is one Redis service instance on each VM. 
   The maximum memory an instance can use should be at most 45% of the total system RAM on the VM.
   You can set this with the `maxmemory` configuration. 
-  The app can use 100% of `maxmemory`--that is, up to 45% of the system RAM.
+  The app can use 100% of `maxmemory`---that is, up to 45% of the system RAM.
   - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
 
 1. Click **Save**.
