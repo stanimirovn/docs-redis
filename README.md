@@ -42,6 +42,13 @@ Always make changes you want carried forward in the master branch. This includes
 
 2. If necessary, immediately cherry-pick/copy changes from **master** that you want to push immediately to production into the appropriate live branch above.
 
+### Style Sheet
+
+Use this section to specify spelling of special words for Redis for PCF:
+
++ on-demand plan
++ shared-VM plan
++ dedicated-VM plan
 
 ## Pipelines
 
