@@ -37,6 +37,12 @@ nodes ahead of the upcoming removal of support for dedicated nodes.
         tab cannot be changed and displays the warning <code>Please review the errors below</code> 
         that you can safely ignore. </p>
 
+* Redis On-Demand instance processes are now wrapped in [BOSH Process Manager](https://bosh.io/docs/bpm/bpm/).
+
+* Cf-Redis broker Routing processes now wrapped in [BOSH Process Manager](https://bosh.io/docs/bpm/bpm/).
+
+* Stemcell major line switched to Ubuntu Xenial.
+
 ### Known Issues
 
 This release has the following issues:
@@ -55,16 +61,16 @@ The following components are compatible with this release:
 
 <table border="1" class="nice">
 <tr>
-	  <th>Component</th>
-	  <th>Version</th>
+    <th>Component</th>
+    <th>Version</th>
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>3468.*</td>
+    <td>97.*</td>
 </tr>
 <tr>
-	<td>PCF<sup>*</sup></td>
-    <td>v2.1.x and v2.2.x</td>
+    <td>PCF<sup>*</sup></td>
+    <td>v2.2.x and v2.3.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
@@ -75,16 +81,12 @@ The following components are compatible with this release:
     <td>v0.21.2</td>
 </tr>
 <tr>
-    <td>consul</td>
-    <td>v192.0.0</td>
-</tr>
-<tr>
     <td>routing</td>
-    <td>v0.169.0</td>
+    <td>v0.180.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>v1.5.13</td>
+    <td>v1.6.0/td>
 </tr>
 <tr>
     <td>service-backup</td>
@@ -95,8 +97,12 @@ The following components are compatible with this release:
     <td>v10.0.0</td>
 </tr>
 <tr>
-    <td>loggregator</td>
-    <td>v101.3</td>
+    <td>loggregator-agent</td>
+    <td>v2.0</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>v0.9.0</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
