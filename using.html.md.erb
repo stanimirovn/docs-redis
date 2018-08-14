@@ -11,9 +11,9 @@ You can find an example app has to help you get started with Redis for PCF. Down
 
 For recommendations regarding Redis for PCF service plans and memory allocation, see the service offerings for the [on-demand plan](./architecture.html) and the [dedicated and shared plans](./architecture-pp.html).
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated. 
+    The dedicated-VM service plan will be deprecated.
     Pivotal recommends using the on-demand service plan.</p>
 
 ## <a id="prereq"></a>Prerequisites
@@ -358,6 +358,86 @@ Example `VCAP_SERVICES`
     <p class="note"><strong>Note</strong>: You can also search for your service by its <code>name</code>, given when creating the service instance, or dynamically via the <code>tags</code> or <code>label</code> properties.</p>
 
 3. In your app code, call the Redis service using the connection strings.
+
+### <a id="use-shared-vm"></a> Shared-VM instance usage
+
+Shared-VM plans provision Redis instances with a max-memory policy set to `no-eviction`. It is up the Application Developer to manage eviction of keys.
+
+There are a few options to do this:
+
+* Use [EXPIRE](https://redis.io/commands/expire) after setting keys or use [SETEX](https://redis.io/commands/setex) to set key value and expiry at the same time
+* Explicitly delete keys after the application is done using them
+* Add a lua script to delete keys after a set time period
+
+## <a id="logging"></a> Access Redis Metrics for On-Demand Service Instances
+
+To access metrics for on-demand service instances, you can use Loggregator's Log 
+Cache feature with the Log Cache CLI plugin.
+Log Cache is enabled by default in Pivotal Application Service (PAS) v2.2. 
+
+To access metrics for on-demand service instances, do the following:
+
+1. Install the cf CLI plugin, by running:
+
+    ```
+    cf install-plugin -r CF-Community "log-cache"
+    ```
+
+1. Access a service instance's metrics, by running:
+
+    ```
+    cf tail SERVICE-INSTANCE-NAME
+    ```
+    <br>
+  For example:
+
+    <pre class="terminal">
+    $ cf tail my-instance
+    Retrieving logs for service my-instance in org system / space pivotal-services as admin...
+
+      2018-07-03T09:54:14.84+0100 [my-instance] GAUGE info.clients.blocked_clients:0.000000 metric info.clients.client_biggest_input_buf:0.000000 metric ...
+    </pre>
+  For more information about the metrics output, see [Redis for PCF Service KPIs](./monitoring.html#Redis-KPIs).
+
+For more information about how to enable Log Cache and about the `cf tail` command, 
+see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).
+
+
+## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
+
+<p class="note"><strong>Note</strong>: This is an experimental feature.</p>
+
+Sharing a service instance allows apps in different spaces to access the same Redis instance. 
+Tile operators must enable this behavior and a cf admin must turn it on.
+For more information about this feature, 
+see [Sharing Service Instances (Beta)](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+
+### Share a Redis Service Instance
+
+To share an instance, run the following command:
+
+`cf v3-share-service REDIS-SERVICE-INSTANCE -s OTHER-SPACE [-o OTHER-ORG]`
+
+Where:
+
+* `REDIS-SERVICE-INSTANCE` is the name of the Redis instance. 
+* `OTHER-SPACE` is the name of the other space you want to share this instance with.
+* `OTHER-ORG` is the name of another org you want to share this instance with (optional). 
+
+### Unshare a Redis Service Instance
+
+<p class="note warning"><strong>WARNING</strong>: Redis only has one password and password rotation does not occur on unshare. 
+After unsharing a service, any bound apps continue to have access to the Redis instance until the apps are restaged.</p>
+
+To unshare an instance, run the following command:
+
+`cf v3-unshare-service REDIS-SERVICE-INSTANCE -s OTHER-SPACE [-o OTHER-ORG]`
+
+Where:
+
+* `REDIS-SERVICE-INSTANCE` is the name of the Redis instance. 
+* `OTHER-SPACE` is the name of the other space you want to share this instance with.
+* `OTHER-ORG` is the name of another org you want to share this instance with (optional). 
 
 
 ## <a id="delete"></a>Delete a Redis Instance
