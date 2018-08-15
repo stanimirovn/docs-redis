@@ -360,15 +360,15 @@ Example `VCAP_SERVICES`
 
 3. In your app code, call the Redis service using the connection strings.
 
-### <a id="use-shared-vm"></a> Shared-VM instance usage
+### <a id="use-shared-vm"></a> Manage Key Eviction for Shared-VM Instances
 
-Shared-VM plans provision Redis instances with a max-memory policy set to `no-eviction`. It is up the Application Developer to manage eviction of keys.
+Shared-VM plans provision Redis instances with a max-memory policy set to `no-eviction`. 
 
-There are a few options to do this:
+It is up to the app developer to manage eviction of keys. The following are a few options for doing this:
 
-* Use [EXPIRE](https://redis.io/commands/expire) after setting keys or use [SETEX](https://redis.io/commands/setex) to set key value and expiry at the same time
-* Explicitly delete keys after the application is done using them
-* Add a lua script to delete keys after a set time period
+* After setting keys, use [EXPIRE](https://redis.io/commands/expire) to set key expiry, or use [SETEX](https://redis.io/commands/setex) to set key value and expiry at the same time.
+* Explicitly delete keys after the app is done using them.
+* Add a lua script to delete keys after a specified time period.
 
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
 
