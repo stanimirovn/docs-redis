@@ -307,7 +307,7 @@ If an instance is restarted frequently (for example, for upgrades),
 this file can grow significantly, leading to very large persistent disk usage.
 If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`)
-to verify if this is the source of the usage.If so, you can mitigate this by running
+to verify if this is the source of the usage. If so, you can have Redis rewrite the AOF file by running
 the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 ### Compatibility
