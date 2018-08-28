@@ -26,6 +26,10 @@ in what changes trigger the errand. Do not select this option for errands.
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
+* The Service Brokers do not specify a buildpack in the Redis App pushed
+during their smoke tests. As a result, if an environment has a large number of buildpacks,
+the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
+
 ### Compatibility
 
 <table border="1" class="nice">
@@ -174,6 +178,10 @@ in what changes trigger the errand. Do not select this option for errands.
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
 * Can only be installed with specific stemcell version: 3468.54.
+
+* The Service Brokers do not specify a buildpack in the Redis App pushed
+during their smoke tests. As a result, if an environment has a large number of buildpacks,
+the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
 
 ## <a id="1113"></a> v1.11.3
 
@@ -351,11 +359,15 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures.
 For information about resolving this issue,
 see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
+
+* The Service Brokers do not specify a buildpack in the Redis App pushed
+during their smoke tests. As a result, if an environment has a large number of buildpacks,
+the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
 
 ## <a id="1111"></a> v1.11.1
 
@@ -444,6 +456,10 @@ For information about resolving this issue,
 see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
+
+* The Service Brokers do not specify a buildpack in the Redis App pushed
+during their smoke tests. As a result, if an environment has a large number of buildpacks,
+the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
 
 ## <a id="1110"></a> v1.11.0
 
@@ -549,3 +565,7 @@ For information about resolving this issue,
 see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
+
+* The Service Brokers do not specify a buildpack in the Redis App pushed
+during their smoke tests. As a result, if an environment has a large number of buildpacks,
+the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
