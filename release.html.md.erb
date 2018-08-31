@@ -274,6 +274,10 @@ see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/ar
 
 * Executing a restore may fail to complete and leave the `CONFIG` command unaliased.
 
+* The Service Brokers do not specify a buildpack in the Redis App pushed
+during their smoke tests. As a result, if an environment has a large number of buildpacks,
+the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
+
 
 ## <a id="1112"></a> v1.11.2
 
