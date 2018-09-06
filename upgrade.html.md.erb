@@ -13,7 +13,8 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 <p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF v1.14 and later requires a Xenial stemcell.
 You must manually download and import a new stemcell into the Ops Manager Stemcell Library before deploying Redis for PCF 1.14.0.
 This might break automation you have set up to update Redis for PCF deployments that used Trusty stemcells. 
-To download the Xenial stemcell from Pivotal Network, click <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial"> Stemcells for PCF (Ubuntu Xenial)</a>.</p>
+To download the Xenial stemcell from Pivotal Network,
+click <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial"> Stemcells for PCF (Ubuntu Xenial)</a>.</p>
 
 
 Consider the following compatibility information before upgrading Redis for PCF.
@@ -101,22 +102,29 @@ For more information, see the [Product Version Matrix](http://docs.pivotal.io/co
 
 ## <a id="update-addons"></a>Update Add-ons to Run with Xenial Stemcell
 
-Redis for PCF 1.4 and later requires a Xenial stemcell. 
+Redis for PCF v1.14 and later requires a Xenial stemcell. 
 If you are using any of the following BOSH add-ons with your PCF deployment, 
-you must update the add-on definition to include the Xenial stemcell before you deploy Redis for PCF 1.14:
+you must update the add-on definition to include the Xenial stemcell before you deploy Redis for PCF v1.14:
 
-+ File Integrity Monitoring for PCF Add-on. For update instructions, see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-fim/updating-for-xenial.html).
-+ ClamAV for PCF Add-on. For update instructions, see [Updating ClamAV Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-antivirus/updating-for-xenial.html).
-+ IPsec for PCF Add-on. For update instructions, see [Updating IPsec Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-ipsec/updating-for-xenial.html).
++ File Integrity Monitoring for PCF Add-on.
+  For update instructions,
+  see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-fim/updating-for-xenial.html).
++ ClamAV for PCF Add-on.
+  For update instructions,
+  see [Updating ClamAV Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-antivirus/updating-for-xenial.html).
++ IPsec for PCF Add-on.
+  For update instructions,
+  see [Updating IPsec Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-ipsec/updating-for-xenial.html).
 
 
-## <a id="upgrades"></a>Upgrade to Redis for PCF 1.14.0
+## <a id="upgrades"></a>Upgrade to Redis for PCF v1.14.0
 
 This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
 
-For information on the upgrade paths for each released version, see the above table.
+For information on the upgrade paths for each released version,
+see [Compatible Upgrade Paths ](#upgrading) above.
 
-To upgrade Redis for PCF 1.14.0, do the following:
+To upgrade Redis for PCF to v1.14, do the following:
 
 1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial), 
 and import it into the Ops Manager Stemcell Library. For instructions, see [Update Stemcell](./installing.html#stemcell).
@@ -126,9 +134,15 @@ and import it into the Ops Manager Stemcell Library. For instructions, see [Upda
 1. If required, update any new mandatory configuration parameters.
 1. Click **Apply changes**. The rest of the process is automated.
 
-During the upgrade deployment each Redis instance experiences a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup.
+During the upgrade deployment each Redis instance experiences a small period of
+downtime as each Redis instance is updated with the new software components.
+This downtime is because the Redis instances are single VMs operating in a non-HA setup.
 
-The length of the downtime depends on whether there is a stemcell update to replace the operating system image, or whether the existing VM can simply have the redis software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM, whereas updates without a stemcell update are faster.
+The length of the downtime depends on whether there is a stemcell update to
+replace the operating system image or whether the existing VM can simply have
+the Redis software updated. Stemcell updates incur additional downtime while
+the IaaS creates the new VM, whereas updates without a stemcell update are
+faster.
 
 Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
 
@@ -205,13 +219,17 @@ If you change the service network, you must unbind and rebind existing apps to t
 
 New on-demand service instances are placed into the new service network,
 but existing on-demand service instances are not moved.
-If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
+If you need to move the data in on-demand Redis instances to a new service network,
+you must create a new instance, migrate the data manually, and delete the old instance.
 
 Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances
 and does not alter existing instances.
 
 ## <a id="policy"></a> Release Policy
 
-When a new version of Redis is released, Pivotal aims to release a new version of Redis for PCF containing the new Redis version soon after.
+When a new version of Redis is released, Pivotal aims to release a new version
+of Redis for PCF containing the new Redis version soon after.
 
-When a new version of Redis or another dependent software component, such as the stemcell, is released due to a critical CVE, Pivotal's goal is to release a new version of the Redis for PCF within 48 hours.
+When a new version of Redis or another dependent software component, such as
+the stemcell, is released due to a critical CVE, Pivotal's goal is to release a
+new version of the Redis for PCF within 48 hours.
