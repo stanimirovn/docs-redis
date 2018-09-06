@@ -7,7 +7,7 @@ owner: London Services
 
 ## <a id="1140"></a> v1.14.0
 
-**Release Date: MMM XX, 2018**
+**Release Date: Sept 06, 2018**
 
 ### Features
 
@@ -23,7 +23,7 @@ New features and changes in this release:
 to access logs for an on-demand service instance using the command `cf tail`.
 For more information, see [Access Redis Metrics for On-Demand Service Instances](./using.html#logging).
 
-* A new **Remove Deprecated Functionality** errand disables service access
+* A new **Deprecate dedicated-VM plan** errand disables service access
 to  the dedicated-VM plan for non-admin app developers.
 Run this errand to prepare for deprecation of support for dedicated nodes.
 For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
@@ -35,12 +35,14 @@ For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * Adds a **Delete All Dedicated Instances** checkbox to the tile in the
 **Warning - Deprecating Dedicated** tab, for operators to remove all dedicated
-nodes ahead of the upcoming removal of support for dedicated nodes. 
+nodes ahead of the upcoming removal of support for dedicated nodes. Adds a
+**Cleanup Metadata if Dedicated-VM Plan Disabled** errand that will cleanup any
+metadata from the CF for any Dedicated-VM service instances if zero Dedicated Instances are provisioned.
 
-    <p class="note"><strong>Note:</strong> 
-        For PCF v2.2, after you select the <strong>Delete All Dedicated Instances</strong> checkbox 
-        and before you click <strong>Apply Changes</strong>, the Resource Config 
-        tab cannot be changed and displays the warning <code>Please review the errors below</code> 
+    <p class="note"><strong>Note:</strong>
+        For PCF v2.2, after you select the <strong>Delete All Dedicated Instances</strong> checkbox
+        and before you click <strong>Apply Changes</strong>, the Resource Config
+        tab cannot be changed and displays the warning <code>Please review the errors below</code>
         that you can safely ignore. </p>
 
 * Redis On-Demand instance processes and cf-redis-broker routing processes are now wrapped in the BOSH Process Manager (bpm).
@@ -80,11 +82,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v434.0.7</td>
+    <td>v434.0.19</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.21.2</td>
+    <td>v0.22.0</td>
 </tr>
 <tr>
     <td>routing</td>
@@ -96,23 +98,23 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>v18.1.9</td>
+    <td>v18.1.13</td>
 </tr>
 <tr>
-    <td>syslog-migration</td>
-    <td>v10.0.0</td>
+    <td>syslog</td>
+    <td>v11.3.2</td>
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>v2.0</td>
+    <td>v2.1</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>v0.9.0</td>
+    <td>v0.12.2</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v4.0.8</td>
+    <td>v4.0.11</td>
 </tr>
 
 </table>
