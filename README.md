@@ -12,8 +12,8 @@ The book repo uses these branches:
 
 ### Master - Use for next unreleased version
 
-**NOTE:** The **1.13** branch is not yet released, and the **master** branch is for 1.14. Therefore, the edge pipeline publishes both
-1.13 and 1.14 docs. When 1.13 releases, it will be moved to the production pipeline.
+**NOTE:** The **1.14** branch is not yet released, and the **master** branch is for 1.15. Therefore, the edge pipeline publishes both
+1.14 and 1.15 docs. When 1.14 releases, it will be moved to the production pipeline.
 
 All documentation for the next unreleased version of Redis is in `master`. 
 
