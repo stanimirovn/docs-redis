@@ -44,7 +44,7 @@ Redis for PCF includes the errands listed below.
 
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service,
   that is, the shared-VM and dedicated-VM plans.
-  The Broker Registrar errand also includes the Remove Deprecated Functionality errand.
+  The Broker Registrar errand also includes the Deprecate Dedicated-VM Plan errand.
   It disables service access to the dedicated-VM plan for non-admin app developers.
 
 * **Deprecate Dedicated-VM Plan**---Disables service access to the dedicated-VM plan
@@ -97,7 +97,7 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 - Required to run if the CF system domain is changed in the PAS tile.
 - Not necessary to run if the change only involves other tiles except PAS tile.
 
-#### Remove Deprecated Functionality Errand
+#### Deprecate Dedicated-VM Plan Errand
 
 - Run this errand to prepare for deprecation of support for dedicated nodes.
 - Only needs to be run once to disable service access to the dedicated-VM plan for non-admin app developers.
