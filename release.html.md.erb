@@ -23,10 +23,10 @@ New features and changes in this release:
 to access logs for an on-demand service instance using the command `cf tail`.
 For more information, see [Access Redis Metrics for On-Demand Service Instances](./using.html#logging).
 
-* A new **Deprecate dedicated-VM plan** errand disables service access
+* A new **Deprecate Dedicated-VM Plan** errand disables service access
 to  the dedicated-VM plan for non-admin app developers.
 Run this errand to prepare for deprecation of support for dedicated nodes.
-For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
+For more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * In addition to registering the cf-redis-broker with PCF,
 the **Broker Registrar** errand now disables service access to 
@@ -35,21 +35,22 @@ For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * Adds a **Delete All Dedicated Instances** checkbox to the tile in the
 **Warning - Deprecating Dedicated** tab, for operators to remove all dedicated
-nodes ahead of the upcoming removal of support for dedicated nodes. Adds a
-**Cleanup Metadata if Dedicated-VM Plan Disabled** errand that will cleanup any
-metadata from the CF for any Dedicated-VM service instances if zero Dedicated Instances are provisioned.
+nodes ahead of the upcoming removal of support for dedicated nodes. 
 
     <p class="note"><strong>Note:</strong>
         For PCF v2.2, after you select the <strong>Delete All Dedicated Instances</strong> checkbox
         and before you click <strong>Apply Changes</strong>, the Resource Config
-        tab cannot be changed and displays the warning <code>Please review the errors below</code>
-        that you can safely ignore. </p>
+        tab cannot be changed and displays the warning <code>Please review the errors below</code>.
+        You can safely ignore this warning. </p>
 
-* Redis On-Demand instance processes and cf-redis-broker routing processes are now wrapped in the BOSH Process Manager (bpm).
-For more information about bpm, see [bpm](https://bosh.io/docs/bpm/bpm/) in the BOSH documentation.
+* Adds a **Cleanup Metadata if Dedicated-VM Plan Disabled** errand that cleans up any
+metadata in PCF for any dedicated-VM service instances if zero dedicated instances are provisioned. For
+more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
-* The major stemcell line is now Ubuntu Xenial. To download the latest Ubuntu Xenial stemcells, 
-see [Ubuntu Xenial](https://bosh.io/stemcells#ubuntu-xenial) in the BOSH documentation.
+* Redis on-demand instance processes and cf-redis-broker routing processes are now wrapped in the BOSH Process Manager (bpm).
+For more information about bpm, see the [BOSH documentation](https://bosh.io/docs/bpm/bpm/).
+
+* The major stemcell line is now Ubuntu Xenial. See the **Breaking Change** above.
 
 ### Known Issues
 
