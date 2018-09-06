@@ -1,5 +1,9 @@
 # Redis for PCF Docs
 
+**IMPORTANT:** The **1.14** branch is not yet released, and the **master** branch is for 1.15. Therefore, the edge pipeline publishes both
+1.14 and 1.15 docs. When 1.14 releases, it will be moved to the production pipeline.
+
+
 ## Where is the book repo?
 https://github.com/pivotal-cf/docs-book-redis
 
@@ -12,9 +16,6 @@ The book repo uses these branches:
 
 ### Master - Use for next unreleased version
 
-**NOTE:** The **1.14** branch is not yet released, and the **master** branch is for 1.15. Therefore, the edge pipeline publishes both
-1.14 and 1.15 docs. When 1.14 releases, it will be moved to the production pipeline.
-
 All documentation for the next unreleased version of Redis is in `master`. 
 
 Always make changes you want carried forward in the master branch. This includes:
@@ -25,6 +26,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Live Branches In Production (Public)
 
+* **1.13**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-13/) and production (https://docs.pivotal.io/redis/1-13/)
 * **1.12**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-12/) and production (https://docs.pivotal.io/redis/1-12/)
 * **1.11**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-11/) and production (https://docs.pivotal.io/redis/1-11/)
 * **1.10**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-10/) and production (https://docs.pivotal.io/redis/1-10/)
