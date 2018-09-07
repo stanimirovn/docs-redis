@@ -11,11 +11,11 @@ through verifying the installation after configuration.
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
-Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which 
-operators can make deployment changes, view credentials, and manage user roles in Ops Manager. 
+Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
+operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see 
+For more information about roles in Ops Manager, see
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
         Understand Roles in Ops Manager</a>.</p>
 
@@ -27,7 +27,7 @@ For more information about roles in Ops Manager, see
 
 To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
 
-1. Download the Redis for PCF file from [Pivotal Network](https://network.pivotal.io/products/p-redis). 
+1. Download the Redis for PCF file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
 1. In the PCF Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
@@ -56,8 +56,8 @@ To assign AZs, do the following:
 ### <a id="network-configuration"></a>Select Networks
 
 You can use Redis for PCF with or without using the on-demand service.
-To use the Redis for PCF on-demand service, you must select a network in which 
-the service instances are created. 
+To use the Redis for PCF on-demand service, you must select a network in which
+the service instances are created.
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
 
 <div class="note"><strong>Note</strong>:
@@ -72,7 +72,7 @@ To select networks, do the following:
     Pivotal recommends that each type of PCF service run in its own network.
     For example, run Redis for PCF on a separate network from RabbitMQ for PCF.
 
-1. If using the on-demand service, select a **Service Network**. 
+1. If using the on-demand service, select a **Service Network**.
 Otherwise, select an [empty service network](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
 
 #### Port Ranges Used in Redis for PCF
@@ -120,22 +120,22 @@ The maximum number of instances you set for all your on-demand plans combined ca
  For information about this feature, see [Sharing a Redis Instance with Another Space (Beta)](./using.html#sharing).
   </p>
 
-1. (Optional) Use the **Maximum Parallel Upgrades** field to configure the 
-maximum number of Redis service instances that can be upgraded at the same time. 
+1. (Optional) Use the **Maximum Parallel Upgrades** field to configure the
+maximum number of Redis service instances that can be upgraded at the same time.
 <br><br>
-  When you click **Apply Changes**, the on-demand broker upgrades all service instances. 
-  By default, each instance is upgraded serially. 
-  Allowing parallel upgrades reduces the time taken to apply changes. 
-  <p class="note"><strong>Note</strong>: 
+  When you click **Apply Changes**, the on-demand broker upgrades all service instances.
+  By default, each instance is upgraded serially.
+  Allowing parallel upgrades reduces the time taken to apply changes.
+  <p class="note"><strong>Note</strong>:
     Multiple Redis service instances will be concurrently unavailable during the upgrade.
   </p>
 
 1. (Optional) Use the **Number of Canaries to run before proceeding with upgrade** field
 and the **Specify Org and Space that Canaries will be selected from?** options to specify
-settings for upgrade canaries. 
+settings for upgrade canaries.
 Canaries are service instances that are upgraded first.
 The upgrade fails if any canaries fail to upgrade. <br><br>
-Canaries can be limited by number and by org and space. 
+Canaries can be limited by number and by org and space.
 If you want to use all service instances in an org and space as canaries,
 set the number of canaries zero. This upgrades all service instances in the selected org and space first.<br><br>
   ![canary-options](canary-options.png)
@@ -145,10 +145,10 @@ set the number of canaries zero. This upgrades all service instances in the sele
   </p>
   <p class="note"><strong>Note</strong>:
     Canary upgrades comply with the Maximum Parallel Upgrades settings.
-    If you specify three canaries and a Maximum Parallel Upgrades of two, 
+    If you specify three canaries and a Maximum Parallel Upgrades of two,
     then two canaries upgrade, followed by the third.
   </p>
-For information about this feature, see `canaries` in 
+For information about this feature, see `canaries` in
 [Upgrade All Service Instances](https://docs.pivotal.io/svc-sdk/odb/operating.html#upgrade-all-instances)
 in the On-Demand Services SDK documentation.
 
@@ -164,7 +164,7 @@ in the On-Demand Services SDK documentation.
     * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk</br>
 
     ![on demand config](on-demand-config.png) <a id="planconfig"></a>
-    
+
 1. Configure the following settings for your on-demand plan(s).
    Any pre-populated default settings are pre-configured according to the memory and disk size of each plan.
     <table class="nice">
@@ -239,17 +239,17 @@ in the On-Demand Services SDK documentation.
 
 #### <a id="secure-credentials"></a>(Optional) Enabling Secure Service Instance Credentials for On-Demand Redis
 
-To secure your on-demand service instance credentials in runtime 
-[CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller 
+To secure your on-demand service instance credentials in runtime
+[CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller
 Database (CCDB), do the following:
 
 <p class="note"><strong>Note</strong>: This is a beta feature. Use it at your own risk in non-production environments. Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 
-1. Configure the Pivotal Application Service (PAS) tile to support securing service 
-instance credentials in runtime CredHub. 
+1. Configure the Pivotal Application Service (PAS) tile to support securing service
+instance credentials in runtime CredHub.
 See [Step 1: Configure the PAS Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
 
-1. After deploying the tile, notify developers that they must unbind and rebind 
+1. After deploying the tile, notify developers that they must unbind and rebind
 existing service instances to secure their credentials with CredHub.
 
 #### <a id="change-on-demand"></a>Updating On-Demand Service Plans
@@ -291,26 +291,26 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
       * **Redis Service Instance Limit**---Maximum number of shared-VM instances
 
  	Memory and instance limits depend on the total system memory of your Redis broker VM and require some
- 	additional calculation. For more information, see [Memory Limits for Shared-VM Plans](#shared-vm-memory-limits) below.  
+ 	additional calculation. For more information, see [Memory Limits for Shared-VM Plans](#shared-vm-memory-limits) below.
 
 1. Click **Save**.
 
-1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
+1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive.
 Click the tab for each on-demand plan, and select **Plan Inactive**.
 See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
 
 1. To change the allocation of resources for the Redis broker, click the **Resource Config** tab.
-    <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan. 
+    <br><br>The Redis broker server runs all of the Redis instances for your Shared-VM plan.
     From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk, and Persistent Disk made available, as needed.
 
 #### <a id="shared-vm-memory-limits"></a>Memory Limits for Shared-VM Plans
-Additional calculation is required to configure memory limits for shared-VM plans. 
-With these plans, several service instances share the VM, and the Redis broker also runs on this same VM. 
+Additional calculation is required to configure memory limits for shared-VM plans.
+With these plans, several service instances share the VM, and the Redis broker also runs on this same VM.
 Therefore, the memory used by all the shared-vm instances combined should be at most 45% of the memory of the Redis broker VM.
 
-To configure the limits in these fields, 
-estimate the maximum memory that could be used by all your Redis shared-VM instances combined. 
-If that figure is higher than 45% of the Redis broker 
+To configure the limits in these fields,
+estimate the maximum memory that could be used by all your Redis shared-VM instances combined.
+If that figure is higher than 45% of the Redis broker
 VM's total system memory, you can do one of the following:
 
   + Decrease the **Redis Instance Memory Limit**.
@@ -344,46 +344,46 @@ VM's total system memory, you can do one of the following:
       </tr>
   </table>
 
-  <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>, 
-      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory, 
+  <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>,
+      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory,
       for example in development or test environments. <br><br>However, this practice is not supported and can cause your server to run out of memory,
       preventing users from writing any more data to any Redis shared-VM instance.
   </p>
 
 ###<a id="dedicated-vm-config"></a>Dedicated-VM Plan
 
-<p class="note"><strong>Note</strong>: In Redis for PCF v1.11 and later, 
+<p class="note"><strong>Note</strong>: In Redis for PCF v1.11 and later,
     the on-demand service is at feature parity with the dedicated-VM service.
     The dedicated-VM service plan will be deprecated.
     Pivotal recommends using the on-demand service plan.
-    For instructions on disabling these plans, 
+    For instructions on disabling these plans,
     see <a href="#disable-shared-dedicated">Disable Shared and Dedicated VM Plans</a> below.
     <br>
     <br>
     In addition, in Redis for PCF v1.14 and later, operators can disable access to the
     dedicated-VM plan for non-admin app developers by enabling the "Remove Deprecated
-    Functionality" errand as during tile configuration. 
+    Functionality" errand as during tile configuration.
     This process also occurs when the "Broker Registrar" errand runs.
 </p>
 
 1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
 <a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
 <br>
-  - The default configuration creates five dedicated nodes (VMs). 
+  - The default configuration creates five dedicated nodes (VMs).
   Each node can run one Redis dedicated-VM instance.
-  - You can change the number of dedicated nodes, and configure the size of the 
+  - You can change the number of dedicated nodes, and configure the size of the
   persistent and ephemeral disks, and the CPU and RAM for each node.
-  - The default VM size is small. It is important that you set the correct 
-  VM size to handle anticipated loads. 
-  - With dedicated-VM plans, there is one Redis service instance on each VM. 
+  - The default VM size is small. It is important that you set the correct
+  VM size to handle anticipated loads.
+  - With dedicated-VM plans, there is one Redis service instance on each VM.
   The maximum memory an instance can use should be at most 45% of the total system RAM on the VM.
-  You can set this with the `maxmemory` configuration. 
+  You can set this with the `maxmemory` configuration.
   The app can use 100% of `maxmemory`--that is, up to 45% of the system RAM.
   - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
 
 1. Click **Save**.
 
-1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive. 
+1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive.
 Click the tab for each on-demand plan, and select **Plan Inactive**.
 See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
 
@@ -491,15 +491,15 @@ You can disable Shared and Dedicated VM Plans by doing the following while confi
 You can update certain plan settings after the plans have been created.
 Updates to the settings for the components below are implemented in all existing instances:
 
-* VM size 
+* VM size
 * Disk size
 * Redis configuration settings:
-  * Lua Scripting 
-  * Max-clients 
-  * Timeout 
+  * Lua Scripting
+  * Max-clients
+  * Timeout
   * TCP keep-alive
 
-<p class="warning note"><strong>WARNING: </strong>You must not downsize the VMs 
+<p class="warning note"><strong>WARNING: </strong>You must not downsize the VMs
   or disk size. This can cause data loss in pre-existing instances.</p>
 
 The following table describes properties you can update in the [plan configuration page](#planconfig), shown above.
@@ -560,7 +560,7 @@ To configure syslog forwarding, do the following:
 1. Select either **Yes without encryption** or **Yes with TLS encryption**.
 
     <p class="note"><strong>Note:</strong> To use syslog forwarding for on-demand instances,
-       you must select the <a href="#on-demand-config"> Allow outbound internet access from service instances</a> 
+       you must select the <a href="#on-demand-config"> Allow outbound internet access from service instances</a>
        checkbox in the <strong>On-Demand Service Settings</strong> tab.</p>
 
 1. Enter the Syslog **Address** and **Port**, and select the **Transport protocol** of your remote destination.
@@ -575,7 +575,7 @@ To configure syslog forwarding, do the following:
 
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
   * **Permitted Peer** refers to the remote syslog destination.
-    It allows each VM to establish an encrypted tunnel with the remote syslog destination. 
+    It allows each VM to establish an encrypted tunnel with the remote syslog destination.
   The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
   * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination.
     Large certificate chains (> 8&nbsp;kb) are not supported.
@@ -605,9 +605,9 @@ Follow the steps below:
 
 ##  <a id="asg"></a> Create Application Security Groups
 
-To allow this service to have network access, 
-you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html). 
-Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. 
+To allow this service to have network access,
+you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html).
+Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment.
 You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
@@ -638,7 +638,7 @@ Application containers that use instances of the Redis for PCF service require t
 </tr>
 </tbody></table>
 
-Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or, 
+Create an ASG called `redis-app-containers` with the above configuration and bind it to the appropriate space or,
 to give all started apps access, bind to the `default-running` ASG set and restart your apps. Example:
 
 ```json
@@ -654,7 +654,7 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating Installation
 
-Smoke tests run as part of Redis for PCF installation to validate that the install succeeded. 
+Smoke tests run as part of Redis for PCF installation to validate that the install succeeded.
 For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 

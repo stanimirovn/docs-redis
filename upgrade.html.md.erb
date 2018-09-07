@@ -12,7 +12,7 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 
 <p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF v1.14 and later requires a Xenial stemcell.
 You must manually download and import a new stemcell into the Ops Manager Stemcell Library before deploying Redis for PCF 1.14.0.
-This might break automation you have set up to update Redis for PCF deployments that used Trusty stemcells. 
+This might break automation you have set up to update Redis for PCF deployments that used Trusty stemcells.
 To download the Xenial stemcell from Pivotal Network,
 click <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial"> Stemcells for PCF (Ubuntu Xenial)</a>.</p>
 
@@ -102,8 +102,8 @@ For more information, see the [Product Version Matrix](http://docs.pivotal.io/co
 
 ## <a id="update-addons"></a>Update Add-ons to Run with Xenial Stemcell
 
-Redis for PCF v1.14 and later requires a Xenial stemcell. 
-If you are using any of the following BOSH add-ons with your PCF deployment, 
+Redis for PCF v1.14 and later requires a Xenial stemcell.
+If you are using any of the following BOSH add-ons with your PCF deployment,
 you must update the add-on definition to include the Xenial stemcell before you deploy Redis for PCF v1.14:
 
 + File Integrity Monitoring for PCF Add-on.
@@ -126,7 +126,7 @@ see [Compatible Upgrade Paths ](#upgrading) above.
 
 To upgrade Redis for PCF to v1.14, do the following:
 
-1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial), 
+1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial),
 and import it into the Ops Manager Stemcell Library. For instructions, see [Update Stemcell](./installing.html#stemcell).
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 1. Upload the new `.pivotal` file to Ops Manager.
@@ -150,7 +150,7 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 ##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
 
-A redeploy causes downtime of the Redis for PCF tile. 
+A redeploy causes downtime of the Redis for PCF tile.
 This section clarifies what events trigger a redeploy.
 
 ### <a id="opsman"></a> Ops Manager Changes
