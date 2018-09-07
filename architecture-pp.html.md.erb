@@ -5,13 +5,13 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for Pivotal Cloud Foundry (PCF) offers On-Demand, Dedicated-VM, and Shared-VM service plans. 
-This section describes the architecture, lifecycle, and configurations of Dedicated-VM and Shared-VM plans. 
+Redis for Pivotal Cloud Foundry (PCF) offers On-Demand, Dedicated-VM, and Shared-VM service plans.
+This section describes the architecture, lifecycle, and configurations of Dedicated-VM and Shared-VM plans.
 For similar information for the On-Demand service plan, see [On-Demand Service Offering](./architecture.html).
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated. 
+    The dedicated-VM service plan will be deprecated.
     Pivotal recommends using the on-demand service plan.</p>
 
 ## <a id="about"></a> About the Pre-Provisioned Plans
@@ -20,7 +20,7 @@ Redis for PCF includes two pre-provisioned service plans:
 
 * **Dedicated-VM Plan**
 
-	An instance of this plan provisions a single Redis process on a single **dedicated VM**. 
+	An instance of this plan provisions a single Redis process on a single **dedicated VM**.
         This plan is suitable for production workloads and workloads that require isolation or dedicated hardware.
 
 
@@ -39,7 +39,7 @@ This diagram shows how the architecture of the service broker and Shared-VM and 
 
 ## <a id="config2"></a> Configuration for Dedicated-VM and Shared-VM Service Plans
 
-For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed. 
+For Dedicated-VM and Shared-VM plans, the default Redis configurations cannot be changed.
 A sample `redis.conf` from a Dedicated-VM plan instance is provided [here] (redisconf.html).
 
 + Redis is configured with a `maxmemory-policy` of `no-eviction`.
@@ -50,8 +50,8 @@ A sample `redis.conf` from a Dedicated-VM plan instance is provided [here] (redi
 
 + By default, the maximum number of connections, `maxclients`, is set at 10000.
 Redis might reduce this number when run on a system with a low maximum number of file descriptors.
-You can retrieve the actual setting on your Redis service instances with the Redis command `CONFIG GET maxclients`. 
-You can use the Redis command `CONFIG SET maxclients` to temporarily reduce `maxclients`, 
+You can retrieve the actual setting on your Redis service instances with the Redis command `CONFIG GET maxclients`.
+You can use the Redis command `CONFIG SET maxclients` to temporarily reduce `maxclients`,
 but you cannot increase it above 10000.
 There is no way to configure shared and dedicated plans to use a custom limit.
 

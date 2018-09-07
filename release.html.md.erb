@@ -13,7 +13,7 @@ owner: London Services
 
 <p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF v1.14 and later requires a Xenial stemcell.
 You must manually download and import a new stemcell into the Ops Manager Stemcell Library before deploying Redis for PCF 1.14.0.
-This might break automation you have set up to update Redis for PCF deployments that used Trusty stemcells. 
+This might break automation you have set up to update Redis for PCF deployments that used Trusty stemcells.
 To download the Xenial stemcell from Pivotal Network, go to <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial"> Stemcells for PCF (Ubuntu Xenial)</a>.
 For instructions on importing the stemcell, see <a href="./installing.html#stemcell"> Update Stemcell</a>.</p>
 
@@ -29,13 +29,13 @@ Run this errand to prepare for deprecation of support for dedicated nodes.
 For more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * In addition to registering the cf-redis-broker with PCF,
-the **Broker Registrar** errand now disables service access to 
+the **Broker Registrar** errand now disables service access to
 the dedicated-VM plan for non-admin app developers.
 For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * Adds a **Delete All Dedicated Instances** checkbox to the tile in the
 **Warning - Deprecating Dedicated** tab, for operators to remove all dedicated
-nodes ahead of the upcoming removal of support for dedicated nodes. 
+nodes ahead of the upcoming removal of support for dedicated nodes.
 
     <p class="note"><strong>Note:</strong>
         For PCF v2.2, after you select the <strong>Delete All Dedicated Instances</strong> checkbox
@@ -56,7 +56,7 @@ For more information about bpm, see the [BOSH documentation](https://bosh.io/doc
 
 This release has the following issues:
 
-* The redis-odb service broker listens on port `12345`. 
+* The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior.
@@ -124,6 +124,5 @@ The following components are compatible with this release:
 
 ## <a id="view"></a> View Release Notes for Another Version
 
-To view the release notes for another product version, select the version from 
+To view the release notes for another product version, select the version from
 the dropdown at the top of this page.
-
