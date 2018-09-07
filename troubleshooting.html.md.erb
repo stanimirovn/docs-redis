@@ -75,21 +75,21 @@ Before debugging, ensure you know the following about your PCF deployment:
 <a id="redis-cli"></a><h2>About the Redis CLI</h2>
 
 The redis-cli is a command line tool used to access a Redis server.
-You can use the redis-cli for create, read, update, and delete (CRUD) actions, 
+You can use the redis-cli for create, read, update, and delete (CRUD) actions,
 and to set configuration values.
-For more information about the redis-cli, see [redis-cli, the Redis command 
+For more information about the redis-cli, see [redis-cli, the Redis command
 line interface](https://redis.io/topics/rediscli) in the Redis documentation.
 
 To access the redis-cli, do the following:
 
-1. Follow the instructions in [Access the Redis Service](./using.html#call) 
+1. Follow the instructions in [Access the Redis Service](./using.html#call)
 to retrieve the password and port number for the service instance.
 
 1. SSH into the service instance.
 
 1. Connect to the Redis server and enter the redis-cli interactive mode by running:
 
-    ``` 
+    ```
     /var/vcap/packages/redis/bin/redis-cli -p PORT -a PASSWORD
     ```
     Where:
@@ -97,8 +97,8 @@ to retrieve the password and port number for the service instance.
       <li><code>PORT</code> is the port number retrieved in step one.</li>
       <li><code>PASSWORD</code> is the password retrieved in step one.</li>
     </ul>
-    For more information about the redis-cli interactive mode, see 
-    [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the 
+    For more information about the redis-cli interactive mode, see
+    [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the
     Redis documentation.
 
 <a id="guid"></a><h2>How to Retrieve a Service Instance GUID</h2>
@@ -124,7 +124,7 @@ Start here if you are responding to a specific error or error messages.
 
 <a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
 
-<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4> 
+<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4>
 
 <%= partial '../../redis/odb/tshoot-err-instance-not-exist' %>
 
@@ -317,4 +317,3 @@ The following are <a href="https://discuss.pivotal.io/hc/en-us/sections/20021530
   <td>Examine the broker-registrar installation step output and troubleshoot any problems.</td>
 </tr>
 </table>
-

@@ -113,7 +113,7 @@ Redis for PCF uses service account credentials to upload backups to Google Cloud
 
 #### Notes
 
-For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout. 
+For each backup destination, the field `Backup timeout` causes backups to fail after a configured timeout.
 Redis' BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.
 
 ## <a id="manual-br"></a>Back Up and Restore Manually
@@ -123,4 +123,3 @@ You might want to do a manual backup before doing a procedure that might cause d
 To back up or restore Redis manually, see [Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry]
 (https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry)
 in the Pivotal Support knowledge base.
-
