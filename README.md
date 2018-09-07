@@ -21,7 +21,7 @@ The book repo uses these branches:
 | 1.12        | 1.12 (live) |
 | etc.        | etc. |
 
-All documentation for the next unreleased version of Redis is in `master`. 
+All documentation for the next unreleased version of Redis is in `master`.
 
 Always make changes you want carried forward in the master branch. This includes:
 
@@ -55,7 +55,7 @@ Always make changes you want carried forward in the master branch. This includes
 The `master` branch builds to the <br> <strong>cf-services-edge > redis-edge</strong> pipeline, and does not go to production until release time: [Edge pipeline](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge). <br>
 
 **Production Pipeline**<br>
-All live branches build to the <strong>cf-services > redis</strong> pipeline, 
+All live branches build to the <strong>cf-services > redis</strong> pipeline,
 and are manually pushed to production as needed: [Production pipeline](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## How to Cherry-pick from one Branch to Another
@@ -65,8 +65,8 @@ and are manually pushed to production as needed: [Production pipeline](https://c
 4. Run this command, using the SHA snippet you copied above:
     `git cherry-pick <SHA_SNIPPET>`<br><br>
     For example: `git cherry-pick 5dc22fe00`
-    
-    Do the cherry-pick immediately to lessen the chances of conflicts. 
-    Otherwise, you may need to resolve conflicts in order to complete the cherry-pick. 
-    
+
+    Do the cherry-pick immediately to lessen the chances of conflicts.
+    Otherwise, you may need to resolve conflicts in order to complete the cherry-pick.
+
 5. Do a `git push` after the cherry-pick is complete.<br><br>
