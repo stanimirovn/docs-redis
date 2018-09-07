@@ -21,8 +21,8 @@ This section describes networking considerations for the Redis for Pivotal Cloud
 <%= partial '../../redis/odb/service_networks_table' %>
 
 <br>
-Regardless of the specific network layout, the operator must ensure network 
-rules are set up so that connections are open as described in the table below. 
+Regardless of the specific network layout, the operator must ensure network
+rules are set up so that connections are open as described in the table below.
 
 <table class="nice">
 	<th>This component...</th>
@@ -81,7 +81,7 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>4222</td>
 		<td>Two-way</td>
-		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM. 
+		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.
 			The BOSH Agent initiates the connection with the BOSH Director.<br>
 			The default port is not configurable.  </td>
 	</tr>
@@ -103,6 +103,5 @@ rules are set up so that connections are open as described in the table below.
 	</tr>
 </table>
 
-For a complete list of ports and ranges used in Redis for PCF, see 
+For a complete list of ports and ranges used in Redis for PCF, see
 [Network Configuration](./installing.html#network-configuration).
-
