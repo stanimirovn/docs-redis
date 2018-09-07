@@ -106,10 +106,10 @@ the smoke tests may timeout looping through the buildpacks in order to find the 
 
 ### Fixed Issues
 
-* The default persistence for on-demand instances is now partial persistence using RDB files. 
+* The default persistence for on-demand instances is now partial persistence using RDB files.
 This fixes the issue of disk usage inflation from frequent instance restarts.
 
-* Fixes an intermittent issue that can cause executing a restore to fail and leave 
+* Fixes an intermittent issue that can cause executing a restore to fail and leave
 the `CONFIG` command unaliased.
 
 ### Compatibility
@@ -268,7 +268,7 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures.
 For information about resolving this issue,
 see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
@@ -284,7 +284,7 @@ the smoke tests may timeout looping through the buildpacks in order to find the 
 **Release Date:  February 14, 2018**
 
 <p class="note warning"><strong>WARNING</strong>: If you are upgrading from v1.11.0 or v1.11.1,
-    you might need to take manual steps to avoid data loss. 
+    you might need to take manual steps to avoid data loss.
     See this Knowledge Base article,
     <a href="https://discuss.pivotal.io/hc/en-us/articles/360000939573">Redis Tile Upgrade to v1.11.0 or v1.11.1 May Result in Loss of Persistent Data</a>.<br><br>
 
@@ -442,12 +442,12 @@ due to incompatibility with some PCF v1.12 installations.
 
 * The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) 
+* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html)
 in what changes trigger the errand. Do not select this option for errands.
 
-* For some IAASs and Multi AZ configurations, the dedicated and shared-VM broker may shift AZs when upgrading 
-to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. In this case, shared-VM instances are lost and 
-dedicated VMs may be overwritten. You may need to take manual steps to avoid data loss. 
+* For some IAASs and Multi AZ configurations, the dedicated and shared-VM broker may shift AZs when upgrading
+to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. In this case, shared-VM instances are lost and
+dedicated VMs may be overwritten. You may need to take manual steps to avoid data loss.
 See this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/360000939573).
 
 * Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
@@ -455,7 +455,7 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures.
 For information about resolving this issue,
 see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
@@ -554,9 +554,9 @@ has been disabled for security concerns.
 
 * The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
 
-* For some IAASs and Multi AZ configurations, the dedicated and shared-VM broker may shift AZs when upgrading 
-to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. In this case, shared-VM instances are lost and 
-dedicated VMs may be overwritten. You may need to take manual steps to avoid data loss. 
+* For some IAASs and Multi AZ configurations, the dedicated and shared-VM broker may shift AZs when upgrading
+to v1.11.0 or v1.11.1. This can cause the broker to orphan its disk. In this case, shared-VM instances are lost and
+dedicated VMs may be overwritten. You may need to take manual steps to avoid data loss.
 See this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/360000939573).
 
 * Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
@@ -564,7 +564,7 @@ leading to very large persistent disk usage. If your Redis instance has signific
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
-* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures. 
+* Switching Lua Scripting to `off` for plans with preexisting instances can cause upgrade errand failures.
 For information about resolving this issue,
 see [Upgrade errand fails with Unknown command eval](https://pvtl.force.com/s/article/lua-scripting-toggled-eval-error).
 
