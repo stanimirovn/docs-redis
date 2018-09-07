@@ -207,7 +207,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
    <tr>
       <th width="25%">Description</th>
       <td>The ratio of these two metrics returns the percentage of available memory used:<br>
-         <ul><li><code>info.memory.used_memory</code> is a metric of the total number of bytes allocated by Redis using its allocator (either standard libc, jemalloc, or an alternative allocator such as tcmalloc).</li> <li><code>maxmemory</code> is a configuration option for the total memory made available to the Redis instance.</li></ul> 
+         <ul><li><code>info.memory.used_memory</code> is a metric of the total number of bytes allocated by Redis using its allocator (either standard libc, jemalloc, or an alternative allocator such as tcmalloc).</li> <li><code>maxmemory</code> is a configuration option for the total memory made available to the Redis instance.</li></ul>
       <strong>Use</strong>: This is a performance metric that is most critical for Redis instances with a <code>maxmemory-policy</code> of <code>allkeys-lru</code>
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
@@ -250,7 +250,7 @@ A different threshold might be appropriate for specific use cases of no key evic
 <table>
    <tr><th colspan="2" style="text-align: center;"><br> info.clients.connected_clients <br><br></th></tr>
    <tr>
-      <th width="25%">Description</th>      
+      <th width="25%">Description</th>
       <td>Number of clients currently connected to the Redis instance.<br><br>
          <strong>Use</strong>: Redis does not close client connections. They remain open until closed explicitly by the client or another script. Once the <code>connected_clients</code> reaches <code>maxclients</code>, Redis stops accepting new connections and begins producing <code>ERR max number of clients reached</code> errors.
       <br><br>
@@ -282,13 +282,13 @@ A different threshold might be appropriate for specific use cases of no key evic
    <tr>
       <th width="25%">Description</th>
       <td>The number of clients currently blocked waiting for a blocking request they have made to the Redis server. Redis provides two types of primitive commands to retrieve items from lists: standard and blocking. This metric concerns the blocking commands.<br><br>
-      
+
          <strong>Standard Commands</strong><br><br>
       The standard commands (LPOP, RPOP, RPOPLPUSH) immediately return an item from a list. If there are no items available the standard pop commands return nil.<br><br>
 
       <strong>Blocking Commands</strong><br><br>
       The blocking commands (BLPOP, BRPOP, BRPOPLPUSH) wait for an empty list to become non-empty.
-      The client connection is blocked until an item is added to the lists it is watching. Only the client that made the blocking request is blocked, and the Redis server continues to serve other clients. 
+      The client connection is blocked until an item is added to the lists it is watching. Only the client that made the blocking request is blocked, and the Redis server continues to serve other clients.
       <br><br>The blocking commands each take a <code>timeout</code> argument that is the time in seconds the server waits for a list before returning nil. A blocking command with timeout <code>0</code> waits forever. Multiple clients may be blocked waiting for the same list. For details of the blocking commands, see: <a href="https://redis.io/commands/blpop">https://redis.io/commands/blpop</a>.
       <br><br>
       <strong>Use</strong>: Blocking commands can be useful to avoid clients regularly polling the server for new data. This metric tells you how many clients are currently blocked due to a blocking command.
@@ -392,12 +392,12 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
 <ol>
    <li>
       <strong>Identify slow commands using the slowlog:</strong><br>
-      Redis logs all the commands that take more than a specified amount of time in slowlog. 
-      By default, this time is set to 20ms and the slowlog is allowed a maximum of 120 commands. 
-      For the purposes of slowlog, execution time is the time taken by Redis alone and does not account for time spent in I/O. 
+      Redis logs all the commands that take more than a specified amount of time in slowlog.
+      By default, this time is set to 20ms and the slowlog is allowed a maximum of 120 commands.
+      For the purposes of slowlog, execution time is the time taken by Redis alone and does not account for time spent in I/O.
       So it would not log slow commands solely due to network latency.
       <br><br>
-      Given that typical commands, including network latency, take about 200ms, a 20ms Redis execution time is 100 times slower. 
+      Given that typical commands, including network latency, take about 200ms, a 20ms Redis execution time is 100 times slower.
       This could be indicative of memory management issues wherein Redis pages have been swapped to disk.
       <br><br>
       To see all the commands with slow Redis execution times, type <code>slowlog get</code> in the redis-cli.
@@ -405,35 +405,35 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
 
    <li>
       <strong>Monitor client connections:</strong><br>
-      Because Redis is single threaded, one process services requests from all clients. 
-      As the number of clients grows, the percentage of resource time given to each 
+      Because Redis is single threaded, one process services requests from all clients.
+      As the number of clients grows, the percentage of resource time given to each
       client decreases and each client spends an increasing time waiting for their share of Redis server time.
       <br><br>
-      Monitoring the number of clients may be important because there may be apps 
+      Monitoring the number of clients may be important because there may be apps
       creating connections that you did not expect or your app may not be efficiently closing unused connections.
       <br><br>
-      The connected clients metrics can be used to monitor this. 
+      The connected clients metrics can be used to monitor this.
       This can also be viewed from the redis-cli using the command <code>info clients</code>.</li>
 
       <li><strong>Limit client connections:</strong><br>
-      This currently defaults to 10000, but depending on the app, you might want to limit this further. 
+      This currently defaults to 10000, but depending on the app, you might want to limit this further.
       To do this, run <code>CONFIG SET maxclients NUMBER-OF-CONNECTIONS</code> in the redis-cli.
-      You can configure this for On-Demand service instances in Ops Manager. 
+      You can configure this for On-Demand service instances in Ops Manager.
       Connections that exceed the limit are rejected and closed immediately.
       <br><br>
-      It is important to set <code>maxclients</code> to limit the number of unintended client connections. 
-      Set <code>maxclients</code> to 110% to 150% of your expected peak number of connections. 
-      In addition, because an error message is returned for failed connection attempts, 
-      the maxclient limit warns you that a significant number of unexpected connections are occurring. 
+      It is important to set <code>maxclients</code> to limit the number of unintended client connections.
+      Set <code>maxclients</code> to 110% to 150% of your expected peak number of connections.
+      In addition, because an error message is returned for failed connection attempts,
+      the maxclient limit warns you that a significant number of unexpected connections are occurring.
       This helps maintain optimal Redis performance.
    </li>
 
    <li>
       <strong>Improve memory management:</strong><br>
-      Poor memory can cause increased latency in Redis. 
-      If your Redis instance is using more memory than is available, 
-      the operating system will swap parts of the redis process from out of phyical memory and onto disk. 
-      Swapping will significantly reduce Redis performance since reads from disk are 
+      Poor memory can cause increased latency in Redis.
+      If your Redis instance is using more memory than is available,
+      the operating system will swap parts of the redis process from out of phyical memory and onto disk.
+      Swapping will significantly reduce Redis performance since reads from disk are
       about 5 orders or magnitude slower than reads from physical memory.
    </li>
 </ol>

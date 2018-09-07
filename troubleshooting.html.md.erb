@@ -18,7 +18,7 @@ In this topic:
     * [Cannot Connect to a Service Instance](#cannot-connect)
     * [Upgrade All Instances Fails](#upgrade-all-fails)
     * [Missing Logs and Metrics](#missing-logs)
-    * [Error Messages Logged in Syslog](#syslog-errors) 
+    * [Error Messages Logged in Syslog](#syslog-errors)
     * [Error Messages from the Redis Client](#redis-client-errors)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
@@ -77,21 +77,21 @@ Before debugging, ensure you know the following about your PCF deployment:
 <a id="redis-cli"></a><h2>About the Redis CLI</h2>
 
 The redis-cli is a command line tool used to access a Redis server.
-You can use the redis-cli for create, read, update, and delete (CRUD) actions, 
+You can use the redis-cli for create, read, update, and delete (CRUD) actions,
 and to set configuration values.
-For more information about the redis-cli, see [redis-cli, the Redis command 
+For more information about the redis-cli, see [redis-cli, the Redis command
 line interface](https://redis.io/topics/rediscli) in the Redis documentation.
 
 To access the redis-cli, do the following:
 
-1. Follow the instructions in [Access the Redis Service](./using.html#call) 
+1. Follow the instructions in [Access the Redis Service](./using.html#call)
 to retrieve the password and port number for the service instance.
 
 1. SSH into the service instance.
 
 1. Connect to the Redis server and enter the redis-cli interactive mode by running:
 
-    ``` 
+    ```
     /var/vcap/packages/redis/bin/redis-cli -p PORT -a PASSWORD
     ```
     Where:
@@ -99,8 +99,8 @@ to retrieve the password and port number for the service instance.
       <li><code>PORT</code> is the port number retrieved in step one.</li>
       <li><code>PASSWORD</code> is the password retrieved in step one.</li>
     </ul>
-    For more information about the redis-cli interactive mode, see 
-    [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the 
+    For more information about the redis-cli interactive mode, see
+    [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the
     Redis documentation.
 
 <a id="guid"></a><h2>How to Retrieve a Service Instance GUID</h2>
@@ -126,7 +126,7 @@ Start here if you are responding to a specific error or error messages.
 
 <a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
 
-<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4> 
+<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4>
 
 <%= partial '../../redis/odb/tshoot-err-instance-not-exist' %>
 
@@ -148,8 +148,8 @@ Start here if you are responding to a specific error or error messages.
 
 <a id="syslog-errors"></a><h3>Error Messages Logged in Syslog</h3>
 
-You can configure Redis for PCF with remote syslog forwarding. 
-For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>. 
+You can configure Redis for PCF with remote syslog forwarding.
+For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
 
 <br><br>
 
@@ -166,16 +166,16 @@ This section helps to troubleshoot the following errors logged in syslog:
 
 One of the following error messages is logged:<br>
 
-<pre class="terminal">Short write while writing to the AOF file</pre> 
+<pre class="terminal">Short write while writing to the AOF file</pre>
 <pre class="terminal">Opening the temp file for AOF rewrite in rewriteAppendOnlyFile(): No space left on device</pre>
 <pre class="terminal">Background AOF rewrite terminated with error</pre>
 <br>
 
 <strong>Explanation</strong><br>
 
-This is logged when the Redis server is unable to append to the Redis append-only file (AOF). 
+This is logged when the Redis server is unable to append to the Redis append-only file (AOF).
 The disk might be full.
-<br><br> 
+<br><br>
 
 <strong>Solution</strong><br>
 
@@ -190,7 +190,7 @@ For a short-term solution, do the following:<br><br>
 </ol>
 
 For a long-term solution, upgrade to Redis for PCF v1.12 or later.
-In older versions of the Redis for PCF tile, AOF persistence is enabled by default. 
+In older versions of the Redis for PCF tile, AOF persistence is enabled by default.
 Upgrading to the latest version of the tile disables AOF persistence.
 
 
@@ -200,29 +200,29 @@ Upgrading to the latest version of the tile disables AOF persistence.
 
 One of the following error messages is logged:<br>
 
-<pre class="terminal">Background saving error</pre> 
+<pre class="terminal">Background saving error</pre>
 <pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
 <br>
 
 <strong>Explanation</strong><br>
 
-This might be logged when the configured disk size is too small, 
+This might be logged when the configured disk size is too small,
 or if the Redis AOF uses all the disk space.
 <br><br>
 
-<strong>Solution</strong><br> 
+<strong>Solution</strong><br>
 
-Configure the disk to at least 1.5 times the RAM. 
-Otherwise, if the AOF is using all the disk space, see <a href="#disk-full">Redis server is unable to append to the AOF</a>. 
- 
+Configure the disk to at least 1.5 times the RAM.
+Otherwise, if the AOF is using all the disk space, see <a href="#disk-full">Redis server is unable to append to the AOF</a>.
+
 
 
 <a id="redis-client-errors"></a><h3>Error Messages from the Redis Client</h3>
 
-Certain errors are returned to the Redis client instead of being recorded in the logs. 
+Certain errors are returned to the Redis client instead of being recorded in the logs.
 The Redis protocol represents errors as simple strings beginning with a '-' character. <br><br>
 
-This section helps to troubleshoot the following errors: 
+This section helps to troubleshoot the following errors:
 <br><br>
 <ul>
   <li><a href="#max-clients">Maximum Number of Clients Reached</a></li>
@@ -248,7 +248,7 @@ This is usually caused by apps opening multiple client connections to Redis.
 <strong>Solution</strong><br>
 
 Share or pool Redis connections within an app.
-Redis for PCF configures Redis to accept 10000 client connections. 
+Redis for PCF configures Redis to accept 10000 client connections.
 This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
 
 
@@ -263,12 +263,12 @@ Developers receive an error such as:<br>
 
 <strong>Explanation</strong><br>
 
-This occurs when the Redis server has reached its <code>maxmemory</code> limit. 
+This occurs when the Redis server has reached its <code>maxmemory</code> limit.
 <br><br>
 
 <strong>Solution</strong><br>
 
-Consider changing your maxmemory-policy. 
+Consider changing your maxmemory-policy.
 You can update this using the <code>cf update-service</code> parameters.
 
 
@@ -276,7 +276,7 @@ You can update this using the <code>cf update-service</code> parameters.
 
 <strong>Symptom</strong><br>
 
-Developers receive the following error message when running <code>redis-cli SAVE</code>, 
+Developers receive the following error message when running <code>redis-cli SAVE</code>,
 or issuing the save command using another Redis client:
 
 <pre class="terminal">-ERR</pre>
@@ -464,4 +464,3 @@ The following are <a href="https://discuss.pivotal.io/hc/en-us/sections/20021530
   <td>Examine the broker-registrar installation step output and troubleshoot any problems.</td>
 </tr>
 </table>
-

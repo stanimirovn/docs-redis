@@ -7,10 +7,10 @@ owner: London Services
 
 Redis for Pivotal Cloud Foundry (PCF) can be used both via <a href="http://docs.pivotal.io/pivotalcf/1-11/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI). Both methods are outlined below.
 
-You can find an example app has to help you get started with Redis for PCF. 
+You can find an example app has to help you get started with Redis for PCF.
 Download the example app by clicking [this link](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
-For recommendations regarding Redis for PCF service plans and memory allocation, 
+For recommendations regarding Redis for PCF service plans and memory allocation,
 see the service offerings for the [on-demand plan](./architecture.html) and the [dedicated and shared plans](./architecture-pp.html).
 
 <p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, the on-demand service is at feature parity with the dedicated-VM service. The dedicated-VM service plan will be deprecated. Pivotal recommends using the on-demand service plan.</p>
@@ -19,11 +19,11 @@ see the service offerings for the [on-demand plan](./architecture.html) and the 
 
 To use Redis for PCF with your PCF apps, you need:
 
-* A PCF installation with [Redis for PCF](https://network.pivotal.io/products/p-redis) 
+* A PCF installation with [Redis for PCF](https://network.pivotal.io/products/p-redis)
 installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances).
   The three Redis services are listed differently in the Marketplace, ensure the service you want to use is enabled.
 * A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) or Admin account on the PCF installation
-* To use the cf CLI, you must [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) 
+* To use the cf CLI, you must [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login)
 the org and space containing your app
   and have a local machine with the following installed:
    - A browser
@@ -362,7 +362,7 @@ Example `VCAP_SERVICES`
 
 ### <a id="use-shared-vm"></a> Manage Key Eviction for Shared-VM Instances
 
-Shared-VM plans provision Redis instances with a max-memory policy set to `no-eviction`. 
+Shared-VM plans provision Redis instances with a max-memory policy set to `no-eviction`.
 
 It is up to the app developer to manage eviction of keys. The following are a few options for doing this:
 
@@ -374,9 +374,9 @@ It is up to the app developer to manage eviction of keys. The following are a fe
 
 <p class="note"><strong>Note</strong>: This is an experimental feature.</p>
 
-Sharing a service instance allows apps in different spaces to access the same Redis instance. 
+Sharing a service instance allows apps in different spaces to access the same Redis instance.
 Tile operators must enable this behavior and a cf admin must turn it on.
-For more information about this feature, 
+For more information about this feature,
 see [Sharing Service Instances (Beta)](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
 
 ### Share a Redis Service Instance
@@ -387,13 +387,13 @@ To share an instance, run the following command:
 
 Where:
 
-* `REDIS-SERVICE-INSTANCE` is the name of the Redis instance. 
+* `REDIS-SERVICE-INSTANCE` is the name of the Redis instance.
 * `OTHER-SPACE` is the name of the other space you want to share this instance with.
-* `OTHER-ORG` is the name of another org you want to share this instance with (optional). 
+* `OTHER-ORG` is the name of another org you want to share this instance with (optional).
 
 ### Unshare a Redis Service Instance
 
-<p class="note warning"><strong>WARNING</strong>: Redis only has one password and password rotation does not occur on unshare. 
+<p class="note warning"><strong>WARNING</strong>: Redis only has one password and password rotation does not occur on unshare.
 After unsharing a service, any bound apps continue to have access to the Redis instance until the apps are restaged.</p>
 
 To unshare an instance, run the following command:
@@ -402,9 +402,9 @@ To unshare an instance, run the following command:
 
 Where:
 
-* `REDIS-SERVICE-INSTANCE` is the name of the Redis instance. 
+* `REDIS-SERVICE-INSTANCE` is the name of the Redis instance.
 * `OTHER-SPACE` is the name of the other space you want to share this instance with.
-* `OTHER-ORG` is the name of another org you want to share this instance with (optional). 
+* `OTHER-ORG` is the name of another org you want to share this instance with (optional).
 
 
 ## <a id="delete"></a>Delete a Redis Instance
