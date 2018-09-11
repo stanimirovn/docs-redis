@@ -145,31 +145,44 @@ Start here if you are responding to a specific error or error messages.
 
 <%= partial '../../redis/odb/tshoot-err-missing-logs' %>
 
+<a id="orphaned-instances"></a><h3>Orphaned Instances</h3><br>
 
-<a id="orphaned-instances"></a><h3>Orphaned Instances</h3>
+<strong>Symptom</strong><br><br>
 
-<strong>Symptom</strong><br>
-
-No Redis instances are visible to the BOSH director, but are visible via the cf cli
-either by running <code>cf services</code> or <code>cf curl /v2/service_instances</code>.<br>
-
-These unused instances can create issues as they will hold on to a static IP address and can cause IP conflicts.
+When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
+some service instances are visible that are not visible to the BOSH director.
+These unused or orphaned instances can create issues.
+For example, they may hold on to a static IP address, causing IP conflicts.
 <br><br>
 
-<strong>Explanation</strong><br>
+<strong>Explanation</strong><br><br>
 
-Both CF and BOSH maintain state and this is a result of the CF state being out of sync with BOSH.
-The deployments or VMs have been deprovisioned by BOSH but the call to update the CF state failed.<br>
-Additionally, orphaned instances can also occur if a call to BOSH was made directly to deprovision a service instance rather than through the CF CLI.
+Orphaned instances can occur in the following situations:
 <br><br>
+<ul>
+  <li>Both CF and BOSH maintain state.
+    Orphaned instances can occur if the CF state is out of sync with BOSH.
+    For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the CF state failed.</li>
+  <li>If a call to deprovision a service instance was made directly to BOSH rather than through the cf CLI.</li>
+</ul>
 
-<strong>Solution</strong><br>
+<strong>Solution</strong><br><br>
 
-If this is the first occurrence, we recommend purging instances by running <code>cf purge-service-instance SERVICE_INSTANCE</code>.<br>
-If you see a repeated occurrence of this incident, please contact Pivotal support for further assistance, and include a snippet of your
-<code>broker.log</code> around the time of the incident, the deployment manifest of failed instances (please obscure PI details, like passwords)
-and any recent logs that you can recover from the failed service instance.
-<br><br>
+<ul>
+  <li>
+    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge instances by running
+    <code>cf purge-service-instance SERVICE-INSTANCE</code>.
+  </li>
+  <li>
+    <strong>If this is a repeated occurrence:</strong> Contact Pivotal support
+    for further assistance, and include the following:
+    <ul>
+      <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
+      <li>The deployment manifest of failed instances, hiding private information like passwords</li>
+      <li>Any recent logs that you can recover from the failed service instance</li>
+    </ul>
+  </li>
+</ul>
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
