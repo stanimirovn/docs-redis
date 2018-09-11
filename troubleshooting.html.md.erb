@@ -250,10 +250,10 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 
 <strong>Symptom</strong><br><br>
 
-When you run <code>cf services</code> or <code>cf curl /v2/service_instances</code> using the cf CLI,
+When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
 some service instances are visible that are not visible to the BOSH director.
-These unused or orphaned instances can create issues because they hold on to a
-static IP address and can cause IP conflicts.
+These unused or orphaned instances can create issues.
+For example, they may hold on to a static IP address, causing IP conflicts.
 <br><br>
 
 <strong>Explanation</strong><br><br>
