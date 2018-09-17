@@ -9,7 +9,6 @@ In this topic:
 
 * [Useful Debugging Information](#debugging)
 * [About the Redis CLI](#redis-cli)
-* [How to Retrieve a Service Instance GUID](#guid)
 * [Troubleshooting Errors](#errors)
     * [Failed Install](#install-fail)
     * [Cannot Create or Delete Service Instances](#cannot-create-delete)
@@ -43,35 +42,94 @@ This topic lists troubleshooting information relevant to Redis for PCF.
 
 <a id="debugging"></a><h2> Useful Debugging Information</h2>
 
-If you encounter an issue, here is a list of useful information to gather,
-especially before you perform any destructive operations such as `cf purge-service-offerings`
-or `bosh -d SERVICE-INSTANCE-DEPLOYMENT delete-deployment`.
+<p class="note"><strong>Note</strong>:
+Some of the troubleshooting approaches suggest potentially destructive operations.
+It is recommended to backup both your Ops Manager and deployments before attempting such opperations.
+<br>
+<br>
+For more information on how to backup your setup and also how to export your Ops Manager installation,
+see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
+</p>
 
-Before debugging, ensure you know the following about your PCF deployment:
+### Before debugging, ensure you know the following about your PCF deployment:
 
-* The version of Redis for PCF
-
-* If upgrading, the previous of Redis for PCF
-
+* The version of Redis for PCF, and, if upgrading, the previous version of Redis for PCF
 * Ops Manager version, and, if upgrading, the previous version of Ops Manager
 
-* IaaS description
 
-### From Ops Manager:
-  * The installation logs
-  * A copy of all files in `/var/tempest/workspaces/default/deployments`
+### Useful Debugging Information:
+<a id="cf-cli"></a>Via the CF CLI:
+<table>
+  <tr>
+    <th>Purpose</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>View the api endpoint, org and space</td>
+    <td><code>cf target</code></td>
+  </tr>
+  <tr>
+    <td>View the service offerings available in the targeted org and space</td>
+    <td><code>cf marketplace</code></td>
+  </tr>
+  <tr>
+    <td>View the apps deployed to the targeted org and space</td>
+    <td><code>cf apps</code></td>
+  </tr>
+  <tr>
+    <td>View the service instances deployed to the targeted org and space</td>
+    <td><code>cf services</code></td>
+  </tr>
+  <tr>
+    <td>View the GUID for a given service instance</td>
+    <td><code>cf service SERVICE_INSTANCE --guid</code></td>
+  </tr>
+  <tr>
+    <td>View the service instance or application logs</td>
+    <td><code>cf tail SERVICE_INSTANCE/APP</code></td>
+  </tr>
+</table>
+<br>
+<a id="bosh-cli"></a>Via the BOSH CLI:
+<table>
+  <tr>
+    <th>Purpose</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>View the targeted BOSH director, version and CPI</td>
+    <td><code>bosh env</code></td>
+  </tr>
+  <tr>
+    <td>View the deployments deployed via the targeted BOSH director</td>
+    <td><code>bosh deployments</code></td>
+  </tr>
+  <tr>
+    <td>View the vms for a given deployment</td>
+    <td><code>bosh -d DEPLOYMENT vms</code></td>
+  </tr>
+  <tr>
+    <td>Ssh onto a given deployment's vm</td>
+    <td><code>bosh -d DEPLOYMENT ssh VM</code></td>
+  </tr>
+</table>
 
-### For All VMs, Unless Specified Otherwise:
-  * Copy of `/var/vcap/sys/log` (particularly the broker)
-  * If unable to get logs from disk, logs from a forwarded endpoint
-  * `monit summary`
-  * Full `ps aux`: Has monit done its job?
-  * `ps aux | grep redis-serve[r]`: Are Redis instances running?
+
+Additional information can be obtained once ssh'ed onto a broker or service instance:
+
+  * System logs can be located in `/var/vcap/sys/log`.
+  * Process health can be checked by `sudo monit summary`.
+  * A list of all processes can be obtained by `ps aux`.
   * `df -h`: disk usage
   * `free -m`: memory usage
-  * `cf m`
-  * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
-  * Copy of `/var/vcap/store/cf-redis-broker/statefile.json` (broker only)
+
+
+Specific to the cf-redis broker:
+
+  * For shared-vms, the redis processes are collocated with the CF-Redis broker and can be checked using `ps aux | grep redis-server`.
+  * Shared-vm data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
+  * A map of dedicated-vms can be found at `/var/vcap/store/cf-redis-broker/statefile.json`.
+
 
 <a id="redis-cli"></a><h2>About the Redis CLI</h2>
 
@@ -101,10 +159,6 @@ to retrieve the password and port number for the service instance.
     For more information about the redis-cli interactive mode, see
     [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the
     Redis documentation.
-
-<a id="guid"></a><h2>How to Retrieve a Service Instance GUID</h2>
-
-<%= partial '../../redis/odb/retrieve-guid' %>
 
 
 <a id="errors"><h2></a>Troubleshooting Errors</h2>
