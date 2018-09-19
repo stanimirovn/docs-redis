@@ -30,7 +30,13 @@ Select the latest release from the **Releases** dropdown.
 1. In the PCF Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
 1. To configure Redis for PCF, click the newly added tile. See configuration instructions in the sections below.
-1. After completing the required configuration, click **Apply Changes** to install the service.
+1. After completing the required configuration, in the Ops Manager Dashboard, do the following to complete the installation:
+
+    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+    For more information about this Ops Manager page, see
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    1. Click **Apply Changes**.
+
 
 For guidance on ports and ranges used in the Redis service, see [Select Networks](#network-configuration) below.
 
@@ -598,7 +604,12 @@ Follow the steps below:
 
 1. Return to the Ops Manager Installation Dashboard.
 
-2. Click **Apply Changes**.
+1. In the Ops Manager Dashboard, do the following to complete the installation:
+
+    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+    For more information about this Ops Manager page, see
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    1. Click **Apply Changes**.
 
 
 ##  <a id="asg"></a> Create Application Security Groups
@@ -661,4 +672,9 @@ For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 To uninstall Redis for PCF, do the following:
 
 1. In the PCF Ops Manager Installation dashboard, click the trash can icon in the lower right hand corner of the Redis for PCF tile.
-1. Confirm deletion of the product, and then click **Apply Changes**.
+1. Confirm deletion of the product, and then do the following:
+    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+    For more information about this Ops Manager page, see
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    1. Click **Apply Changes**.
+
