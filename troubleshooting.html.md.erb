@@ -7,7 +7,7 @@ owner: London Services
 
 In this topic:
 
-* [Useful Debugging Information](#debugging)
+* [Useful Debugging Commands](#debugging)
 * [About the Redis CLI](#redis-cli)
 * [Troubleshooting Errors](#errors)
     * [Failed Install](#install-fail)
@@ -39,34 +39,36 @@ In this topic:
 * [Knowledge Base Articles](#Knowledge)
 
 
-This topic lists troubleshooting information relevant to Redis for PCF.
-
-<a id="debugging"></a><h2> Useful Debugging Information</h2>
+This topic lists troubleshooting information for Redis for PCF.
 
 <p class="note"><strong>Note</strong>:
-Some of the troubleshooting approaches suggest potentially destructive operations.
-It is recommended to backup both your Ops Manager and deployments before attempting such opperations.
+Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
+Pivotal recommends that you back up both your Ops Manager and deployments before attempting such opperations.
 <br>
 <br>
-For more information on how to backup your setup and also how to export your Ops Manager installation,
+For more information on backing up your setup and exporting your Ops Manager installation,
 see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
 </p>
 
-### Before debugging, ensure you know the following about your PCF deployment:
 
-* The version of Redis for PCF, and, if upgrading, the previous version of Redis for PCF
-* Ops Manager version, and, if upgrading, the previous version of Ops Manager
+<a id="debugging"></a><h2> Useful Debugging Commands</h2>
 
 
-### Useful Debugging Information:
-<a id="cf-cli"></a>Via the CF CLI:
+Before debugging, gather the following about your PCF deployment:
+
+* Current version of Redis for PCF, and if upgrading, the previous version of Redis for PCF
+* Current version of Ops Manager, and if upgrading, the previous version of Ops Manager
+
+
+### cf CLI Commands
+
 <table>
   <tr>
     <th>Purpose</th>
     <th>Command</th>
   </tr>
   <tr>
-    <td>View the api endpoint, org and space</td>
+    <td>View the API endpoint, org and space</td>
     <td><code>cf target</code></td>
   </tr>
   <tr>
@@ -91,14 +93,16 @@ see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/ba
   </tr>
 </table>
 <br>
-<a id="bosh-cli"></a>Via the BOSH CLI:
+
+### BOSH CLI Commands
+
 <table>
   <tr>
     <th>Purpose</th>
     <th>Command</th>
   </tr>
   <tr>
-    <td>View the targeted BOSH director, version and CPI</td>
+    <td>View the targeted BOSH director, version, and CPI</td>
     <td><code>bosh env</code></td>
   </tr>
   <tr>
@@ -106,30 +110,30 @@ see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/ba
     <td><code>bosh deployments</code></td>
   </tr>
   <tr>
-    <td>View the vms for a given deployment</td>
+    <td>View the VMs for a given deployment</td>
     <td><code>bosh -d DEPLOYMENT vms</code></td>
   </tr>
   <tr>
-    <td>Ssh onto a given deployment's vm</td>
+    <td>SSH into a given deployment's VM</td>
     <td><code>bosh -d DEPLOYMENT ssh VM</code></td>
   </tr>
 </table>
 
 
-Additional information can be obtained once ssh'ed onto a broker or service instance:
+You can obtain general information once you SSH into a broker or service instance as follows:
 
-  * System logs can be located in `/var/vcap/sys/log`.
-  * Process health can be checked by `sudo monit summary`.
-  * A list of all processes can be obtained by `ps aux`.
-  * `df -h`: disk usage
-  * `free -m`: memory usage
+  * To see system logs, go to `/var/vcap/sys/log`.
+  * To check process health, run `sudo monit summary`.
+  * To obtain a list of all processes, run `ps aux`.
+  * To see disk usage, run `df -h`.
+  * To see memory usage, run `free -m`.
 
 
-Specific to the cf-redis broker:
+You can obtain information specific to the cf-redis broker as follows:
 
-  * For shared-vms, the redis processes are collocated with the CF-Redis broker and can be checked using `ps aux | grep redis-server`.
-  * Shared-vm data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
-  * A map of dedicated-vms can be found at `/var/vcap/store/cf-redis-broker/statefile.json`.
+  * For shared-VMs, the redis processes are colocated with the CF-Redis broker. You can check these VMs using `ps aux | grep redis-server`.
+  * Shared-VM data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
+  * A map of dedicated-VMs can be found in `/var/vcap/store/cf-redis-broker/statefile.json`.
 
 
 <a id="redis-cli"></a><h2>About the Redis CLI</h2>
@@ -236,7 +240,7 @@ The disk might be full.
 For a short-term solution, do the following:<br><br>
 
 <ol>
-  <li><a href="#bosh-cli">SSH</a> into the affected Redis instance.</li>
+  <li>SSH into the affected Redis instance.</li>
   <li>Log into the <a href="#redis-cli">redis-cli</a>.</li>
   <li>Run <code>redis-cli CONFIG SET appendonly no</code> to disable AOF persistence.</li>
   <li>Delete the <code>/var/vcap/store/redis/appendonly.aof</code> file.</li>
@@ -271,7 +275,7 @@ or if the Redis AOF uses all the disk space.
   <li>Ensure the disk is configured to at least 1.5 times the RAM.</li>
   <li>Check if the AOF is using too much disk space by doing the following:
     <ol>
-      <li>BOSH <a href="#bosh-cli">SSH</a> into the affected service instance VM.</li><br>
+      <li>BOSH SSH into the affected service instance VM.</li><br>
       <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li><br>
       <li>If the <code>appendonly.aof</code> file is large, follow the instuctions
         in <a href="#disk-full">AOF Write or Rewrite Errors</a>.</li>
@@ -397,7 +401,7 @@ Orphaned instances can occur in the following situations:
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
-Guidance on checking for and fixing issues in cf-redis and on-demand service components.
+This section provides guidance on checking for, and fixing, issues in cf-redis and on-demand service components.
 
 <a id="bosh"></a><h3>BOSH Problems</h3>
 
@@ -449,9 +453,12 @@ Guidance on checking for and fixing issues in cf-redis and on-demand service com
 
 <a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
 
-This section contains instructions on interacting with the on-demand service broker
-and on-demand service instance BOSH deployments, and on performing general maintenance
-and housekeeping tasks.
+This section contains instructions on:<br><br>
+  <ul>
+    <li>Interacting with the on-demand service broker</li>
+    <li>Interacting with on-demand service instance BOSH deployments</li>
+    <li>Performing general maintenance and housekeeping tasks</li>
+  </ul>
 
 <a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
 
