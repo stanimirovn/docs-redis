@@ -44,7 +44,7 @@ Some of the troubleshooting approaches in this topic suggest potentially destruc
 Pivotal recommends that you back up both your Ops Manager and deployments before attempting such opperations.
 <br>
 <br>
-For more information on backing up your setup and exporting your Ops Manager installation,
+For more information about backing up your setup and exporting your Ops Manager installation,
 see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
 </p>
 
@@ -66,7 +66,7 @@ Before debugging, gather the following about your PCF deployment:
     <th>Command</th>
   </tr>
   <tr>
-    <td>View the API endpoint, org and space</td>
+    <td>View the API endpoint, org, and space</td>
     <td><code>cf target</code></td>
   </tr>
   <tr>
@@ -118,7 +118,7 @@ Before debugging, gather the following about your PCF deployment:
 </table>
 
 
-You can obtain general information once you SSH into a broker or service instance as follows:
+You can obtain general information after you SSH into a broker or service instance as follows:
 
   * To see system logs, go to `/var/vcap/sys/log`.
   * To check process health, run `sudo monit summary`.
@@ -129,7 +129,8 @@ You can obtain general information once you SSH into a broker or service instanc
 
 You can obtain information specific to the cf-redis broker as follows:
 
-  * For shared-VMs, the redis processes are colocated with the CF-Redis broker. You can check these VMs using `ps aux | grep redis-server`.
+  * For shared-VMs, the redis processes are colocated with the CF-Redis broker.
+    You can check these VMs using `ps aux | grep redis-server`.
   * Shared-VM data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
   * A map of dedicated-VMs can be found in `/var/vcap/store/cf-redis-broker/statefile.json`.
 
