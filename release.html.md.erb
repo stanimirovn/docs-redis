@@ -10,10 +10,12 @@ owner: London Services
 
 **Release Date: September 19, 2018**
 
-### Fixes
+### Fixed Issues
 
-* Fix for `upgrade-all-service-instances` errand and other bosh lifecycle actions
-failing due to the process manager monit trying to restart the Redis process.
+This release fixes the following issue:
+
+* The `upgrade-all-service-instances` errand and other BOSH lifecycle actions
+no longer fail when the process manager monit is trying to restart the Redis process.
 
 ### Known Issues
 
@@ -85,19 +87,23 @@ The following components are compatible with this release:
 
 ## <a id="1132"></a> v1.13.2
 
-<p class="note warning"><strong>WARNING</strong>: Pivotal recommends that you do not install this version due to the <code>upgrade-all-service-instances</code>
+<p class="note warning"><strong>WARNING</strong>: Pivotal recommends that you do not install this version
+    because of the <code>upgrade-all-service-instances</code>
 	known issue below. Install v1.13.3 instead.
-      If you run the <code>upgrade-all-service-instances</code> errand on this version
-      you must take manual steps to succesfully upgrade your service instances.
-      Speak to support, or follow the Knowledge Base Article
-  <a href="https://community.pivotal.io/s/article/upgrade-all-service-instances-errand-fails-in-redis-for-pcf-v1-12-5--v1-13-2">Upgrade-all-service-instances errand fails in Redis for PCF v1.12.5 & v1.13.2</a>.</p>
+      If you run the <code>upgrade-all-service-instances</code> errand on this version,
+      you must take manual steps to upgrade your service instances.
+      Speak to support or see <a href="https://community.pivotal.io/s/article/upgrade-all-service-instances-errand-fails-in-redis-for-pcf-v1-12-5--v1-13-2">Upgrade-all-service-instances errand fails in Redis for PCF v1.12.5 & v1.13.2</a>
+       in the Pivotal Support knowledge base.</p>
 
 **Release Date: August 28, 2018**
 
-### Fixes
+### Fixed Issues
+
+This release fixes the following issue:
 
 * The Cf-Redis Service Broker now specifies a buildpack in the Redis App pushed during its smoke tests.
-Previously, if an environment has a large number of buildpacks, the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
+Previously, if an environment has a large number of buildpacks,
+the smoke tests might timeout looping through the buildpacks in order to find the appropriate one.
 
 ### Known Issues
 
