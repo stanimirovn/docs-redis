@@ -10,13 +10,6 @@ owner: London Services
 
 **Release Date: September 19, 2018**
 
-<p class="note warning"><strong>WARNING</strong>: If you are upgrading from v1.13.2 or v1.12.5
-    you need to take manual steps to succesfully upgrade your service instances.
-    Please speak to support, or follow the Knowledge Base Article
-<a href="https://community.pivotal.io/s/article/upgrade-all-service-instances-errand-fails-in-redis-for-pcf-v1-12-5--v1-13-2">Upgrade-all-service-instances errand fails in Redis for PCF v1.12.5 & v1.13.2</a>.
-
-    It is safe to upgrade directly from v1.13.1 or v1.12.4.</p>
-
 ### Fixes
 
 * Fix for `upgrade-all-service-instances` errand and other bosh lifecycle actions
@@ -93,8 +86,11 @@ The following components are compatible with this release:
 ## <a id="1132"></a> v1.13.2
 
 <p class="note warning"><strong>WARNING</strong>: Pivotal recommends that you do not install this version due to the <code>upgrade-all-service-instances</code>
-	known issue below. Install v1.13.3 instead.</p>
-
+	known issue below. Install v1.13.3 instead.
+      If you run the <code>upgrade-all-service-instances</code> errand on this version
+      you need to take manual steps to succesfully upgrade your service instances.
+      Please speak to support, or follow the Knowledge Base Article
+  <a href="https://community.pivotal.io/s/article/upgrade-all-service-instances-errand-fails-in-redis-for-pcf-v1-12-5--v1-13-2">Upgrade-all-service-instances errand fails in Redis for PCF v1.12.5 & v1.13.2</a>.</p>
 
 **Release Date: August 28, 2018**
 
