@@ -7,11 +7,13 @@ owner: Redis
 
 This topic provides basic instructions for app developers troubleshooting Redis On-Demand for Pivotal Cloud Foundry (PCF).
 
-## <a id="debugging"></a>Debugging Via the CF CLI
+## <a id="debugging"></a>Debugging Using the CF CLI
 
-### cf CLI Commands
+To debug using the cf CLI, see the commands below:
 
 <table>
+  <col width="50%">
+  <col width="50%">
   <tr>
     <th>Purpose</th>
     <th>Command</th>
@@ -79,9 +81,12 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 
 1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
 
-1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
+1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the
+instance, which is useful for debugging.
 
-1. Run `cf tail SERVICE-INSTANCE-NAME/APP-NAME` to retrieve service instance of app logs if the <a href="using.html#logging">Log Cache CLI plugin</a> is enabled (only available in Redis for PCF 1.14+)
+1. **Redis for PCF v1.14 and later:** Run `cf tail SERVICE-INSTANCE-NAME/APP-NAME` to retrieve the service instance of
+the app logs if the Log Cache CLI plugin is enabled.
+See <a href="using.html#logging">Log Cache CLI plugin</a>.
 
 ### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
 
@@ -169,12 +174,13 @@ This might occur when the Redis server's disk is full.
 A more informative message might be logged in the syslog.
 For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
 
+
 ### <a id="err"></a>Unknown Command Error
 
 <strong>Symptom</strong><br>
 
 You receive the following error message when running <code>redis-cli COMMAND</code>
-or issuing the a command using another Redis client:
+or issuing a command using another Redis client:
 
 <pre class="terminal">-ERR unknown command</pre>
 <br>
@@ -186,7 +192,7 @@ For security reasons, certain commands such as `CONFIG`, `SAVE`, and `BGSAVE` ar
 
 <strong>Solution</strong><br>
 
-Talk to your operator about the availability of a command.
+Talk to your operator about the availability of the command.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
