@@ -36,6 +36,10 @@ This topic provides basic instructions for app developers troubleshooting Redis 
     <td>View the GUID for a given service instance</td>
     <td><code>cf service SERVICE_INSTANCE --guid</code></td>
   </tr>
+  <tr>
+    <td>View the service instance or application logs</td>
+    <td><code>cf tail SERVICE_INSTANCE/APP</code></td>
+  </tr>
 </table>
 <br>
 
@@ -76,6 +80,8 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
 
 1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
+
+1. Run `cf tail SERVICE-INSTANCE-NAME/APP-NAME` to retrieve service instance of app logs if the <a href="using.html#logging">Log Cache CLI plugin</a> is enabled (only available in Redis for PCF 1.14+)
 
 ### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
 
