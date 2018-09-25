@@ -7,6 +7,38 @@ owner: Redis
 
 This topic provides basic instructions for app developers troubleshooting On-Demand Redis for Pivotal Cloud Foundry (PCF).
 
+## <a id="debugging"></a>Debugging Via the CF CLI
+
+### cf CLI Commands
+
+<table>
+  <tr>
+    <th>Purpose</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>View the API endpoint, org, and space</td>
+    <td><code>cf target</code></td>
+  </tr>
+  <tr>
+    <td>View the service offerings available in the targeted org and space</td>
+    <td><code>cf marketplace</code></td>
+  </tr>
+  <tr>
+    <td>View the apps deployed to the targeted org and space</td>
+    <td><code>cf apps</code></td>
+  </tr>
+  <tr>
+    <td>View the service instances deployed to the targeted org and space</td>
+    <td><code>cf services</code></td>
+  </tr>
+  <tr>
+    <td>View the GUID for a given service instance</td>
+    <td><code>cf service SERVICE_INSTANCE --guid</code></td>
+  </tr>
+</table>
+<br>
+
 ## <a id="outages"></a>Temporary Outages
 
 Redis for PCF service instances can become temporarily inaccessible during upgrades and VM or network failures.
@@ -37,13 +69,99 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
     $ cf services
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
     OK
-    name          service      plan        bound apps    last operation
-    my-instance   p.Redis      db-small                  create succeeded
+    name          service      plan           bound apps    last operation
+    my-instance   p.redis      cache-small                  create succeeded
     </pre>
 
 1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
 
 1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
+
+### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
+
+If you want to access the Redis server for troubleshooting,
+you can find a Redis service instance password by creating a new service key.
+
+<p class="note"><strong>Note:</strong> Pivotal recommends that you use this key for troubleshooting only, and that you
+delete the key after troubleshooting by using the command <code>cf delete-service-key SERVICE-INSTANCE KEY-NAME</code>.</p>
+
+For instructions on how to retrieve the password, see [Retrieve the Password for a Redis Service Instance](./using.html#call).
+
+
+## <a id="redis-client-errors"></a>Error Messages from the Redis Client
+
+Certain errors are returned to the Redis client instead of being recorded in the logs.
+The Redis protocol represents errors as simple strings beginning with a '-' character. <br><br>
+
+This section helps to troubleshoot the following errors:
+<br><br>
+<ul>
+  <li><a href="#max-clients">Maximum Number of Clients Reached</a></li>
+  <li><a href="#maxmemory">Maxmemory Limit Reached</a></li>
+  <li><a href="#err">Error When Running the Save Command</a></li>
+</ul>
+
+### <a id="max-clients"></a> Maximum Number of Clients Reached
+
+<strong>Symptom</strong><br>
+
+You receive the following error:<br>
+
+<pre class="terminal">-ERR max number of clients reached</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+This is usually caused by apps opening multiple client connections to Redis.
+<br><br>
+
+<strong>Solution</strong><br>
+
+Share or pool Redis connections within an app.
+Redis for PCF configures Redis to accept 10000 client connections.
+This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
+
+
+### <a id="maxmemory"></a> Maxmemory Limit Reached
+
+<strong>Symptom</strong><br>
+
+You receive the following error:<br>
+
+<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+This occurs when the Redis server has reached its <code>maxmemory</code> limit.
+<br><br>
+
+<strong>Solution</strong><br>
+
+Consider changing your maxmemory-policy.
+You can update this using the <code>cf update-service</code> parameters.
+For how to do this, see <a href="using.html#custom">Customize an On-Demand Service Instance</a>.
+
+
+### <a id="err"></a>Error When Running the Save Command
+
+<strong>Symptom</strong><br>
+
+You receive the following error message when running <code>redis-cli SAVE</code>
+or issuing the save command using another Redis client:
+
+<pre class="terminal">-ERR</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+This might occur when the Redis server's disk is full.
+<br><br>
+
+<strong>Solution</strong><br>
+
+A more informative message might be logged in the syslog.
+For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
