@@ -91,7 +91,7 @@ For instructions on how to retrieve the password, see [Retrieve the Password for
 ## <a id="redis-client-errors"></a>Error Messages from the Redis Client
 
 Certain errors are returned to the Redis client instead of being recorded in the logs.
-The Redis protocol represents errors as simple strings beginning with a '-' character. <br><br>
+The Redis protocol represents errors as simple strings beginning with a `-` character. <br><br>
 
 This section helps to troubleshoot the following errors:
 <br><br>
@@ -162,6 +162,25 @@ This might occur when the Redis server's disk is full.
 
 A more informative message might be logged in the syslog.
 For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
+
+### <a id="err"></a>Unknown Command Error
+
+<strong>Symptom</strong><br>
+
+You receive the following error message when running <code>redis-cli COMMAND</code>
+or issuing the a command using another Redis client:
+
+<pre class="terminal">-ERR unknown command</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+For security reasons, certain commands such as `CONFIG`, `SAVE`, and `BGSAVE` are not available by default.
+<br><br>
+
+<strong>Solution</strong><br>
+
+Talk to your operator about the availability of a command.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
