@@ -12,7 +12,8 @@ This documentation:
 
 + Describes features and architecture of Redis for PCF.
 + Instructs the PCF operator on how to install, configure, maintain, and backup Redis for PCF.
-+ Instructs the app developer on how to choose a service plan, create and delete Redis service instances, and bind an app.
++ Instructs the app developer on how to choose a service plan, create and delete 
+Redis service instances, and bind an app.
 
 ##<a id="snapshot"></a> Product Snapshot
 
@@ -21,11 +22,11 @@ This documentation:
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.14.0</td>
+        <td>v1.15.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>MMM XX, 2018</td>
+        <td>September 6, 2018</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -33,11 +34,11 @@ This documentation:
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v2.1.* and v2.2.*</td>
+        <td>v2.1.x and v2.2.x</td>
     </tr>
     <tr>
         <td>Compatible Pivotal Application Service (PAS)<sup>*</sup> version(s)</td>
-        <td>v2.1.* and v2.2.*</td>
+        <td>v2.1.x and v2.2.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -50,7 +51,6 @@ This documentation:
 </table>
 
 \* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
-[//]: # (For more information, see [Pivotal Application Service (PAS) Highlights](http://docs.pivotal.io/pivotalcf/2-0/installing/highlights.html#ert). )
 
 ##<a id="about-redis"></a> About Redis
 
@@ -78,12 +78,12 @@ Redis for PCF offers On-Demand, Dedicated-VM, and Shared-VM services.
   operator with a max number of instances and memory size.
   App developers can then provision a Redis process.
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, 
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated. 
+    The dedicated-VM service plan will be deprecated.
     Pivotal recommends using the on-demand service plan.</p>
 
-For more information on the plans, see: 
+For more information on the plans, see:
 
 * [On-Demand Service Offering](./architecture.html)
 * [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html)

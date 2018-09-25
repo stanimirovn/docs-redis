@@ -3,15 +3,15 @@ title: Quickstart Guide for App Developers
 owner: London Services
 ---
 
-This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly. 
-It also highlights the critical components of the apps that allow them to connect to a Redis instance. 
+This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly.
+It also highlights the critical components of the apps that allow them to connect to a Redis instance.
 Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
 
 Additionally, this topic includes advice for setting up Spring Sessions with Redis for PCF.
 
 ## <a id="feedback"></a> Feedback
 
-If you have feedback about this page, or you want more information (other quickstart guides, sample use cases), 
+If you have feedback about this page, or you want more information (other quickstart guides, sample use cases),
 please send a message to [Pivotal Cloud Foundry Feedback](mailto:"pivotal-cf-feedback@pivotal.io").
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
@@ -320,8 +320,8 @@ In order for our <code>Filter</code> to do its magic:
 
 + We need to ensure that our Servlet Container (i.e. Tomcat) uses our <code>springSessionRepositoryFilter</code> for every request.
 
-Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>, which helps us confirm that these two requirements are met. 
- 
+Fortunately, Spring Session provides a utility class named <code>AbstractHttpSessionApplicationInitializer</code>, which helps us confirm that these two requirements are met.
+
 The example below shows how to extend <code>AbstractHttpSessionApplicationInitializer</code>:
 
 <code>src/main/java/sample/Initializer.java</code>

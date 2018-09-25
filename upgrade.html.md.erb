@@ -10,8 +10,13 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 
 ##<a id="upgrading"></a> Compatible Upgrade Paths
 
-Consider the following compatibility information before upgrading Redis for PCF.
+<p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF v1.14 and later requires a Xenial stemcell.
+You must manually download and import a new stemcell into the Ops Manager Stemcell Library before deploying Redis for PCF 1.14.0.
+This might break automation you have set up to update Redis for PCF deployments that used Trusty stemcells.
+To download the Xenial stemcell from Pivotal Network, click <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial"> Stemcells for PCF (Ubuntu Xenial)</a>.</p>
 
+
+Consider the following compatibility information before upgrading Redis for PCF.
 For more information, see the [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
 <table border="1" class="nice">
@@ -94,14 +99,27 @@ For more information, see the [Product Version Matrix](http://docs.pivotal.io/co
 
 </table>
 
-## <a id="upgrades"></a>Upgrade Redis for PCF
+## <a id="update-addons"></a>Update Add-ons to Run with Xenial Stemcell
+
+Redis for PCF 1.4 and later requires a Xenial stemcell.
+If you are using any of the following BOSH add-ons with your PCF deployment,
+you must update the add-on definition to include the Xenial stemcell before you deploy Redis for PCF 1.14:
+
++ File Integrity Monitoring for PCF Add-on. For update instructions, see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-fim/updating-for-xenial.html).
++ ClamAV for PCF Add-on. For update instructions, see [Updating ClamAV Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-antivirus/updating-for-xenial.html).
++ IPsec for PCF Add-on. For update instructions, see [Updating IPsec Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-ipsec/updating-for-xenial.html).
+
+
+## <a id="upgrades"></a>Upgrade to Redis for PCF 1.14.0
 
 This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
 
 For information on the upgrade paths for each released version, see the above table.
 
-To upgrade Redis for PCF, do the following:
+To upgrade Redis for PCF 1.14.0, do the following:
 
+1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial),
+and import it into the Ops Manager Stemcell Library. For instructions, see [Update Stemcell](./installing.html#stemcell).
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 1. Upload the new `.pivotal` file to Ops Manager.
 1. If required, upload the stemcell associated with the update.
@@ -118,7 +136,7 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 ##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
 
-A redeploy causes downtime of the Redis for PCF tile. 
+A redeploy causes downtime of the Redis for PCF tile.
 This section clarifies what events trigger a redeploy.
 
 ### <a id="opsman"></a> Ops Manager Changes
