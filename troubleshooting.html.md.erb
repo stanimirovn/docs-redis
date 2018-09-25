@@ -334,7 +334,8 @@ Only CF CLI admin users are able to view the dedicated-vm service plan on the CF
     <strong>Recommended:</strong> Create a service instance using a On-Demand service plan.
   </li>
   <li>
-  <strong>Not recommended:</strong> As a CF CLI admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
+  <strong>Not recommended:</strong> Ensure dedicated VMs are provisioned in the resource config tab of the Redis for PCF tile in OpsManager.
+  As a CF CLI admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
   </li>
 </ul>
 
