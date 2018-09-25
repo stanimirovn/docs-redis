@@ -19,6 +19,7 @@ In this topic:
     * [Missing Logs and Metrics](#missing-logs)
     * [Error Messages Logged in Syslog](#syslog-errors)
     * [Failed Backup](#backup-errors)
+    * [Disabled Service Access to Dedicated VM Service Plans](#dedicated-service-access)
     * [Orphaned Instances](#orphaned-instances)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
@@ -305,7 +306,7 @@ Ensure that the Redis server being backed up is running.
 To do this, run <code>bosh restart</code> against the affected service instance VM.
 
 
-<a id=""></a><h3>Disabled Service Access to Dedicated VM Service Plans</h3><br>
+<a id="dedicated-service-access"></a><h3>Disabled Service Access to Dedicated VM Service Plans</h3><br>
 
 <strong>Symptom</strong><br><br>
 
@@ -322,9 +323,13 @@ Server error, status code: 403, error code: 60010, message: A service instance f
 <strong>Explanation</strong><br><br>
 
 As of PCF for Redis v1.14, the dedicated-vm service plan has been disabled.
-Only CF CLI admin users are able to view the dedicated-vm service plan on the CF marketplace.
+The <strong>Broker Registrar </strong> errand and the <strong>
+Cleanup Metadata if Dedicated-VM Plan Disabled </strong> errand both disable service access to the dedicated-vm service plan.
+Any time these errands are run, the service access will be disabled again.
+Only CF admin users are able to view the dedicated-vm service plan on the CF marketplace.
 <br><br>
-<strong>Note:</strong> The reason service access was restricted is due to the deprecation of the dedicated-vm service plan which will be removed in v1.15.
+<p class="note"><strong>Note</strong>: The reason service access was restricted
+  is due to the upcoming deprecation of the dedicated-vm service plan which will be removed in v1.15.</p>
 <br><br>
 
 <strong>Solution</strong><br><br>
@@ -335,7 +340,7 @@ Only CF CLI admin users are able to view the dedicated-vm service plan on the CF
   </li>
   <li>
   <strong>Not recommended:</strong> Ensure dedicated VMs are provisioned in the resource config tab of the Redis for PCF tile in OpsManager.
-  As a CF CLI admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
+  As a CF admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
   </li>
 </ul>
 
