@@ -9,38 +9,38 @@ This topic provides basic instructions for app developers troubleshooting Redis 
 
 ## <a id="debugging"></a>Debugging Using the CF CLI
 
-To debug using the cf CLI, see the commands below:
+To debug using the Cloud Foundry Command Line Interface (cf CLI) tool, see the commands below:
 
 <table>
   <col width="50%">
   <col width="50%">
   <tr>
-    <th>Purpose</th>
+    <th>To view the...</th>
     <th>Command</th>
   </tr>
   <tr>
-    <td>View the API endpoint, org, and space</td>
+    <td>API endpoint, org, and space</td>
     <td><code>cf target</code></td>
   </tr>
   <tr>
-    <td>View the service offerings available in the targeted org and space</td>
+    <td>Service offerings available in the targeted org and space</td>
     <td><code>cf marketplace</code></td>
   </tr>
   <tr>
-    <td>View the apps deployed to the targeted org and space</td>
+    <td>Apps deployed to the targeted org and space</td>
     <td><code>cf apps</code></td>
   </tr>
   <tr>
-    <td>View the service instances deployed to the targeted org and space</td>
+    <td>Service instances deployed to the targeted org and space</td>
     <td><code>cf services</code></td>
   </tr>
   <tr>
-    <td>View the GUID for a given service instance</td>
-    <td><code>cf service SERVICE_INSTANCE --guid</code></td>
+    <td>GUID for a given service instance</td>
+    <td><code>cf service SERVICE-INSTANCE --guid</code></td>
   </tr>
   <tr>
-    <td>View the service instance or application logs</td>
-    <td><code>cf tail SERVICE_INSTANCE/APP</code></td>
+    <td>Service instance or application logs</td>
+    <td><code>cf tail SERVICE-INSTANCE/APP</code></td>
   </tr>
 </table>
 <br>
