@@ -7,6 +7,38 @@ owner: Redis
 
 This topic provides basic instructions for app developers troubleshooting Redis On-Demand for Pivotal Cloud Foundry (PCF).
 
+## <a id="debugging"></a>Debugging Via the CF CLI
+
+### cf CLI Commands
+
+<table>
+  <tr>
+    <th>Purpose</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>View the API endpoint, org, and space</td>
+    <td><code>cf target</code></td>
+  </tr>
+  <tr>
+    <td>View the service offerings available in the targeted org and space</td>
+    <td><code>cf marketplace</code></td>
+  </tr>
+  <tr>
+    <td>View the apps deployed to the targeted org and space</td>
+    <td><code>cf apps</code></td>
+  </tr>
+  <tr>
+    <td>View the service instances deployed to the targeted org and space</td>
+    <td><code>cf services</code></td>
+  </tr>
+  <tr>
+    <td>View the GUID for a given service instance</td>
+    <td><code>cf service SERVICE_INSTANCE --guid</code></td>
+  </tr>
+</table>
+<br>
+
 ## <a id="outages"></a>Temporary Outages
 
 Redis for PCF service instances can become temporarily inaccessible during upgrades and VM or network failures.
@@ -37,8 +69,8 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
     $ cf services
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
     OK
-    name          service      plan        bound apps    last operation
-    my-instance   p.Redis      db-small                  create succeeded
+    name          service      plan           bound apps    last operation
+    my-instance   p.redis      cache-small                  create succeeded
     </pre>
 
 1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
@@ -129,7 +161,7 @@ This might occur when the Redis server's disk is full.
 <strong>Solution</strong><br>
 
 A more informative message might be logged in the syslog.
-For more information, see <a href="#syslog-errors">Syslog Errors</a>.
+For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
