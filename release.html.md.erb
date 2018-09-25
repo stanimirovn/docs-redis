@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## <a id="1140"></a> v1.14.0
+## <a id="1150"></a> v1.15.0
 
 **Release Date: MMM XX, 2018**
 
@@ -26,43 +26,11 @@ $ cf restage APP-NAME
 on all apps that were previously bound to a service instance using an IP address.
 This will convert service instance bindings to use the BOSH DNS address rather than an IP address.</p>
 
-New features and changes in this release:
-
-* Support for the Log Cache cf CLI plugin, which enables developers
-to access logs for an on-demand service instance using the command `cf tail`.
-For more information, see [Access Redis Metrics for On-Demand Service Instances](./using.html#logging).
-
-* A new **Remove Deprecated Functionality** errand disables service access
-to  the dedicated-VM plan for non-admin app developers.
-Run this errand to prepare for deprecation of support for dedicated nodes.
-For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
-
-* In addition to registering the cf-redis-broker with PCF,
-the **Broker Registrar** errand now disables service access to 
-the dedicated-VM plan for non-admin app developers.
-For information, see [Post-Deploy Errands](./maintain.html#post-deploy).
-
-* Adds a **Delete All Dedicated Instances** checkbox to the tile in the
-**Warning - Deprecating Dedicated** tab, for operators to remove all dedicated
-nodes ahead of the upcoming removal of support for dedicated nodes. 
-
-    <p class="note"><strong>Note:</strong> 
-        For PCF v2.2, after you select the <strong>Delete All Dedicated Instances</strong> checkbox 
-        and before you click <strong>Apply Changes</strong>, the Resource Config 
-        tab cannot be changed and displays the warning <code>Please review the errors below</code> 
-        that you can safely ignore. </p>
-
-* Redis On-Demand instance processes and cf-redis-broker routing processes are now wrapped in the BOSH Process Manager (bpm).
-For more information about bpm, see [bpm](https://bosh.io/docs/bpm/bpm/) in the BOSH documentation.
-
-* The major stemcell line is now Ubuntu Xenial. To download the latest Ubuntu Xenial stemcells, 
-see [Ubuntu Xenial](https://bosh.io/stemcells#ubuntu-xenial) in the BOSH documentation.
-
 ### Known Issues
 
 This release has the following issues:
 
-* The redis-odb service broker listens on port `12345`. 
+* The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior.
@@ -130,6 +98,5 @@ The following components are compatible with this release:
 
 ## <a id="view"></a> View Release Notes for Another Version
 
-To view the release notes for another product version, select the version from 
+To view the release notes for another product version, select the version from
 the dropdown at the top of this page.
-
