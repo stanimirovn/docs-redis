@@ -220,8 +220,8 @@ This section helps to troubleshoot the following errors logged in syslog:
   <li><a href="#disk-size">Saving Error</a></li>
 </ul>
 
-<a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4>
-<br>
+<a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4><br>
+
 <strong>Symptom</strong><br><br>
 
 One of the following error messages is logged:<br>
@@ -310,7 +310,8 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 
 <strong>Symptom</strong><br><br>
 
-You try to create a service instance with the dedicated-vm service plan in Redis for PCF v1.14.
+You receive the following error when you try to create a service instance with
+the dedicated-vm service plan in Redis for PCF v1.14:
 <br><br>
 <pre class="terminal">
 $ cf create-service p-redis dedicated-vm my-dedicated-redis
@@ -322,25 +323,28 @@ Server error, status code: 403, error code: 60010, message: A service instance f
 
 <strong>Explanation</strong><br><br>
 
-As of PCF for Redis v1.14, the dedicated-vm service plan has been disabled.
-The <strong>Broker Registrar </strong> errand and the <strong>
-Cleanup Metadata if Dedicated-VM Plan Disabled </strong> errand both disable service access to the dedicated-vm service plan.
-Any time these errands are run, the service access will be disabled again.
-Only CF admin users are able to view the dedicated-vm service plan on the CF marketplace.
+In PCF for Redis v1.14, the dedicated-vm service plan is disabled.
+Only CF admin users are able to view the dedicated-vm service plan on the Marketplace.
 <br><br>
-<p class="note"><strong>Note</strong>: The reason service access was restricted
-  is due to the upcoming deprecation of the dedicated-vm service plan which will be removed in v1.15.</p>
-<br><br>
+The broker registrar errand and the cleanup metadata if dedicated-vm plan disabled
+errand both disable service access to the dedicated-vm service plan.
+If you have re-enabled the dedicated-vm plan, the service access is disabled again when
+Ops Manager or an operator runs these errands.
+
+<p class="note"><strong>Note</strong>: The service access has been restricted
+  because the dedicated-vm service plan will be removed in Redis for PCF v1.15.</p>
 
 <strong>Solution</strong><br><br>
 
 <ul>
   <li>
-    <strong>Recommended:</strong> Create a service instance using a On-Demand service plan.
+    <strong>Recommended:</strong> Create a service instance using a on-demand service plan.
   </li>
   <li>
-  <strong>Not recommended:</strong> Ensure dedicated VMs are provisioned in the resource config tab of the Redis for PCF tile in OpsManager.
-  As a CF admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
+    <strong>Not recommended:</strong> Re-enable the dedicated-vm service plan.
+    To do this, ensure dedicated VMs are provisioned in the <strong>Resource Config</strong>
+    tab of the Redis for PCF tile in Ops Manager.
+    As a CF admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
   </li>
 </ul>
 
