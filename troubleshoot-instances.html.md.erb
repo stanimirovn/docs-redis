@@ -194,6 +194,51 @@ For security reasons, certain commands such as `CONFIG`, `SAVE`, and `BGSAVE` ar
 
 Talk to your operator about the availability of the command.
 
+
+## <a id="dedicated-service-access"></a>Disabled Service Access to Dedicated VM Service Plans
+
+<strong>Symptom</strong><br>
+
+You receive the following error when you try to create a service instance with
+the dedicated-vm service plan in Redis for PCF v1.14:
+
+<pre class="terminal">
+$ cf create-service p-redis dedicated-vm my-dedicated-redis
+Creating service instance my-dedicated-redis2 in org system / space pivotal-services as admin...
+FAILED
+Server error, status code: 403, error code: 60010, message: A service instance for the selected plan cannot be created in this organization. The plan is visible because another organization you belong to has access to it.
+</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+In PCF for Redis v1.14, the dedicated-vm service plan is disabled.
+Only CF admin users are able to view the dedicated-vm service plan on the Marketplace.
+
+The broker registrar errand and the cleanup metadata if dedicated-vm plan disabled
+errand both disable service access to the dedicated-vm service plan.
+If you have re-enabled the dedicated-vm plan, the service access is disabled again when
+Ops Manager or an operator runs these errands.
+
+<p class="note"><strong>Note</strong>: The service access has been restricted
+  because the dedicated-vm service plan will be removed in Redis for PCF v1.15.</p>
+
+<br>
+<strong>Solution</strong><br>
+
+<ul>
+  <li>
+    <strong>Recommended:</strong> Create a service instance using a on-demand service plan.
+  </li>
+  <li>
+    <strong>Not recommended:</strong> Re-enable the dedicated-vm service plan.
+    To do this, ensure dedicated VMs are provisioned in the <strong>Resource Config</strong>
+    tab of the Redis for PCF tile in Ops Manager.
+    As a CF admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
+  </li>
+</ul>
+
+
 ## <a id="kb"></a>Knowledge Base (Community)
 
 <%= partial '../../redis/odb/tshoot-kb' %>
