@@ -11,20 +11,9 @@ owner: London Services
 
 ### Features
 
-<p class="note breaking"><strong>Breaking Change: </strong>
-The Redis On-Demand Service Broker now binds applications to a service instance using
-<a href="https://bosh.io/docs/dns/">BOSH DNS</a>. <a href="https://docs.cloudfoundry.org/devguide/services/application-binding.html">Service Bindings</a>
-previously would return IP addresses instead of the DNS address.
-As a result, Application Developers will have to run:
-<br>
-<code>
-$ cf unbind-service APP-NAME SERVICE-INSTANCE-NAME<br>
-$ cf bind-service APP-NAME SERVICE-INSTANCE-NAME<br>
-$ cf restage APP-NAME
-</code>
-<br>
-on all apps that were previously bound to a service instance using an IP address.
-This will convert service instance bindings to use the BOSH DNS address rather than an IP address.</p>
+- The Redis on-demand service broker now binds apps to a service instance using BOSH DNS.
+Therefore, service bindings return the DNS address instead of the IP address.
+To use BOSH DNS with existing bindings you must rebind your apps to on-demand service instances.
 
 ### Known Issues
 
