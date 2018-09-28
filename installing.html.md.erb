@@ -572,11 +572,6 @@ To configure syslog forwarding, do the following:
    The information required for these fields is provided by your remote destination.
    **Address** should be something such as `logs.papertrailapp.com`, and **Port** will be a number such as `41635`.
 
-1. Select the format for your logs. [RFC5424](https://tools.ietf.org/html/rfc5424) is the suggested format.<br><br>
-   For instances of the Redis on-demand plan, all logs follow RFC5424 format.
-   Instances of the Dedicated-VM and Shared-VM plans allow for the operator to select their log format to be either their legacy format or RFC5424.
-   PCF is moving toward all syslogs consistently using RFC5424 format.
-
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
   * **Permitted Peer** refers to the remote syslog destination.
     It allows each VM to establish an encrypted tunnel with the remote syslog destination.
@@ -677,4 +672,3 @@ To uninstall Redis for PCF, do the following:
     For more information about this Ops Manager page, see
     [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
-
