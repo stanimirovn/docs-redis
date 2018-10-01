@@ -215,7 +215,7 @@ Server error, status code: 403, error code: 60010, message: A service instance f
 In PCF for Redis v1.14, the dedicated-vm service plan is disabled.
 Only CF admin users are able to view the dedicated-vm service plan on the Marketplace.
 
-The broker registrar errand and the cleanup metadata if dedicated-vm plan disabled
+The "broker registrar" errand and the "cleanup metadata if dedicated-vm plan disabled"
 errand both disable service access to the dedicated-vm service plan.
 If you have re-enabled the dedicated-vm plan, the service access is disabled again when
 Ops Manager or an operator runs these errands.
@@ -226,6 +226,7 @@ Ops Manager or an operator runs these errands.
 <br>
 <strong>Solution</strong><br>
 
+There are two approaches to solving this problem:
 <ul>
   <li>
     <strong>Recommended:</strong> Create a service instance using a on-demand service plan.
