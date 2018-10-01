@@ -7,6 +7,44 @@ owner: Redis
 
 This topic provides basic instructions for app developers troubleshooting Redis On-Demand for Pivotal Cloud Foundry (PCF).
 
+## <a id="debugging"></a>Debugging Using the CF CLI
+
+To debug using the Cloud Foundry Command Line Interface (cf CLI) tool, see the commands below:
+
+<table>
+  <col width="50%">
+  <col width="50%">
+  <tr>
+    <th>To view the...</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>API endpoint, org, and space</td>
+    <td><code>cf target</code></td>
+  </tr>
+  <tr>
+    <td>Service offerings available in the targeted org and space</td>
+    <td><code>cf marketplace</code></td>
+  </tr>
+  <tr>
+    <td>Apps deployed to the targeted org and space</td>
+    <td><code>cf apps</code></td>
+  </tr>
+  <tr>
+    <td>Service instances deployed to the targeted org and space</td>
+    <td><code>cf services</code></td>
+  </tr>
+  <tr>
+    <td>GUID for a given service instance</td>
+    <td><code>cf service SERVICE-INSTANCE --guid</code></td>
+  </tr>
+  <tr>
+    <td>Service instance or application logs</td>
+    <td><code>cf tail SERVICE-INSTANCE/APP</code></td>
+  </tr>
+</table>
+<br>
+
 ## <a id="outages"></a>Temporary Outages
 
 Redis for PCF service instances can become temporarily inaccessible during upgrades and VM or network failures.
@@ -37,13 +75,18 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
     $ cf services
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
     OK
-    name          service      plan        bound apps    last operation
-    my-instance   p.Redis      db-small                  create succeeded
+    name          service      plan           bound apps    last operation
+    my-instance   p.redis      cache-small                  create succeeded
     </pre>
 
 1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
 
-1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
+1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the
+instance, which is useful for debugging.
+
+1. **Redis for PCF v1.14 and later:** Run `cf tail SERVICE-INSTANCE-NAME/APP-NAME` to retrieve the service instance of
+the app logs if the Log Cache CLI plugin is enabled.
+See <a href="using.html#logging">Log Cache CLI plugin</a>.
 
 ### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
 
@@ -59,7 +102,7 @@ For instructions on how to retrieve the password, see [Retrieve the Password for
 ## <a id="redis-client-errors"></a>Error Messages from the Redis Client
 
 Certain errors are returned to the Redis client instead of being recorded in the logs.
-The Redis protocol represents errors as simple strings beginning with a '-' character. <br><br>
+The Redis protocol represents errors as simple strings beginning with a `-` character. <br><br>
 
 This section helps to troubleshoot the following errors:
 <br><br>
@@ -129,7 +172,27 @@ This might occur when the Redis server's disk is full.
 <strong>Solution</strong><br>
 
 A more informative message might be logged in the syslog.
-For more information, see <a href="#syslog-errors">Syslog Errors</a>.
+For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
+
+
+### <a id="err"></a>Unknown Command Error
+
+<strong>Symptom</strong><br>
+
+You receive the following error message when running <code>redis-cli COMMAND</code>
+or issuing a command using another Redis client:
+
+<pre class="terminal">-ERR unknown command</pre>
+<br>
+
+<strong>Explanation</strong><br>
+
+For security reasons, certain commands such as `CONFIG`, `SAVE`, and `BGSAVE` are not available by default.
+<br><br>
+
+<strong>Solution</strong><br>
+
+Talk to your operator about the availability of the command.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 

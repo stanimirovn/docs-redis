@@ -21,7 +21,7 @@ For more information about roles in Ops Manager, see
 
 ## <a id="install"></a>Download and Install the Tile
 
-<p class="note"><strong>Note:</strong> Before using Redis for PCF 1.14.0 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="./upgrade.html#update-addons">Update Add-ons to Run with Xenial Stemcell</a>.</p>
+<p class="note"><strong>Note:</strong> Before using Redis for PCF v1.14.0 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="./upgrade.html#update-addons">Update Add-ons to Run with Xenial Stemcell</a>.</p>
 
 To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
 
@@ -30,7 +30,13 @@ Select the latest release from the **Releases** dropdown.
 1. In the PCF Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
 1. To configure Redis for PCF, click the newly added tile. See configuration instructions in the sections below.
-1. After completing the required configuration, click **Apply Changes** to install the service.
+1. After completing the required configuration, in the Ops Manager Dashboard, do the following to complete the installation:
+
+    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+    For more information about this Ops Manager page, see
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    1. Click **Apply Changes**.
+
 
 For guidance on ports and ranges used in the Redis service, see [Select Networks](#network-configuration) below.
 
@@ -566,11 +572,6 @@ To configure syslog forwarding, do the following:
    The information required for these fields is provided by your remote destination.
    **Address** should be something such as `logs.papertrailapp.com`, and **Port** will be a number such as `41635`.
 
-1. Select the format for your logs. [RFC5424](https://tools.ietf.org/html/rfc5424) is the suggested format.<br><br>
-   For instances of the Redis on-demand plan, all logs follow RFC5424 format.
-   Instances of the Dedicated-VM and Shared-VM plans allow for the operator to select their log format to be either their legacy format or RFC5424.
-   PCF is moving toward all syslogs consistently using RFC5424 format.
-
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
   * **Permitted Peer** refers to the remote syslog destination.
     It allows each VM to establish an encrypted tunnel with the remote syslog destination.
@@ -584,7 +585,7 @@ To configure syslog forwarding, do the following:
 
 If required, do the following to update the stemcell for Redis for PCF:
 
-1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/).
+1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
 1. In the Ops Manager, click **Stemcell Library**.
 1. Click **Import Stemcell**, and then select the stemcell you downloaded from Pivotal Network.
 
@@ -598,7 +599,12 @@ Follow the steps below:
 
 1. Return to the Ops Manager Installation Dashboard.
 
-2. Click **Apply Changes**.
+1. In the Ops Manager Dashboard, do the following to complete the installation:
+
+    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+    For more information about this Ops Manager page, see
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    1. Click **Apply Changes**.
 
 
 ##  <a id="asg"></a> Create Application Security Groups
@@ -661,4 +667,8 @@ For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 To uninstall Redis for PCF, do the following:
 
 1. In the PCF Ops Manager Installation dashboard, click the trash can icon in the lower right hand corner of the Redis for PCF tile.
-1. Confirm deletion of the product, and then click **Apply Changes**.
+1. Confirm deletion of the product, and then do the following:
+    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+    For more information about this Ops Manager page, see
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    1. Click **Apply Changes**.

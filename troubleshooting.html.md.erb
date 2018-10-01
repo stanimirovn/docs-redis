@@ -7,9 +7,8 @@ owner: London Services
 
 In this topic:
 
-* [Useful Debugging Information](#debugging)
+* [Useful Debugging Commands](#debugging)
 * [About the Redis CLI](#redis-cli)
-* [How to Retrieve a Service Instance GUID](#guid)
 * [Troubleshooting Errors](#errors)
     * [Failed Install](#install-fail)
     * [Cannot Create or Delete Service Instances](#cannot-create-delete)
@@ -20,6 +19,7 @@ In this topic:
     * [Missing Logs and Metrics](#missing-logs)
     * [Error Messages Logged in Syslog](#syslog-errors)
     * [Failed Backup](#backup-errors)
+    * [Orphaned Instances](#orphaned-instances)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
     * [Configuration](#bosh-config)
@@ -37,42 +37,105 @@ In this topic:
     * [Identify Service Instance Owner](#id-instance-owner)
     * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
 * [Knowledge Base Articles](#Knowledge)
-* [Other Issues](#other)
 
 
-This topic lists troubleshooting information relevant to Redis for PCF.
+This topic lists troubleshooting information for Redis for PCF.
 
-<a id="debugging"></a><h2> Useful Debugging Information</h2>
+<p class="note"><strong>Note</strong>:
+Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
+Pivotal recommends that you back up both your Ops Manager and deployments before attempting such opperations.
+<br>
+<br>
+For more information about backing up your setup and exporting your Ops Manager installation,
+see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
+</p>
 
-If you encounter an issue, here is a list of useful information to gather,
-especially before you perform any destructive operations such as `cf purge-service-offerings`
-or `bosh -d SERVICE-INSTANCE-DEPLOYMENT delete-deployment`.
 
-Before debugging, ensure you know the following about your PCF deployment:
+<a id="debugging"></a><h2> Useful Debugging Commands</h2>
 
-* The version of Redis for PCF
 
-* If upgrading, the previous of Redis for PCF
+Before debugging, gather the following about your PCF deployment:
 
-* Ops Manager version, and, if upgrading, the previous version of Ops Manager
+* Current version of Redis for PCF, and, if upgrading, the previous version of Redis for PCF
+* Current version of Ops Manager, and, if upgrading, the previous version of Ops Manager
 
-* IaaS description
 
-### From Ops Manager:
-  * The installation logs
-  * A copy of all files in `/var/tempest/workspaces/default/deployments`
+### cf CLI Commands
 
-### For All VMs, Unless Specified Otherwise:
-  * Copy of `/var/vcap/sys/log` (particularly the broker)
-  * If unable to get logs from disk, logs from a forwarded endpoint
-  * `monit summary`
-  * Full `ps aux`: Has monit done its job?
-  * `ps aux | grep redis-serve[r]`: Are Redis instances running?
-  * `df -h`: disk usage
-  * `free -m`: memory usage
-  * `cf m`
-  * `tree /var/vcap/store/cf-redis-broker/redis-data` (broker only)
-  * Copy of `/var/vcap/store/cf-redis-broker/statefile.json` (broker only)
+<table>
+  <tr>
+    <th>Purpose</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>View the API endpoint, org, and space</td>
+    <td><code>cf target</code></td>
+  </tr>
+  <tr>
+    <td>View the service offerings available in the targeted org and space</td>
+    <td><code>cf marketplace</code></td>
+  </tr>
+  <tr>
+    <td>View the apps deployed to the targeted org and space</td>
+    <td><code>cf apps</code></td>
+  </tr>
+  <tr>
+    <td>View the service instances deployed to the targeted org and space</td>
+    <td><code>cf services</code></td>
+  </tr>
+  <tr>
+    <td>View the GUID for a given service instance</td>
+    <td><code>cf service SERVICE_INSTANCE --guid</code></td>
+  </tr>
+  <tr>
+    <td>View the service instance or application logs</td>
+    <td><code>cf tail SERVICE_INSTANCE/APP</code></td>
+  </tr>
+</table>
+<br>
+
+### BOSH CLI Commands
+
+<table>
+  <tr>
+    <th>Purpose</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>View the targeted BOSH director, version, and CPI</td>
+    <td><code>bosh env</code></td>
+  </tr>
+  <tr>
+    <td>View the deployments deployed via the targeted BOSH director</td>
+    <td><code>bosh deployments</code></td>
+  </tr>
+  <tr>
+    <td>View the VMs for a given deployment</td>
+    <td><code>bosh -d DEPLOYMENT vms</code></td>
+  </tr>
+  <tr>
+    <td>SSH into a given deployment's VM</td>
+    <td><code>bosh -d DEPLOYMENT ssh VM</code></td>
+  </tr>
+</table>
+
+
+You can obtain general information after you SSH into a broker or service instance as follows:
+
+  * To see system logs, go to `/var/vcap/sys/log`.
+  * To check process health, run `sudo monit summary`.
+  * To obtain a list of all processes, run `ps aux`.
+  * To see disk usage, run `df -h`.
+  * To see memory usage, run `free -m`.
+
+
+You can obtain information specific to the cf-redis broker as follows:
+
+  * For shared-VMs, the redis processes are colocated with the CF-Redis broker.
+    You can check these VMs using `ps aux | grep redis-server`.
+  * Shared-VM data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
+  * A map of dedicated-VMs can be found in `/var/vcap/store/cf-redis-broker/statefile.json`.
+
 
 <a id="redis-cli"></a><h2>About the Redis CLI</h2>
 
@@ -102,10 +165,6 @@ to retrieve the password and port number for the service instance.
     For more information about the redis-cli interactive mode, see
     [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the
     Redis documentation.
-
-<a id="guid"></a><h2>How to Retrieve a Service Instance GUID</h2>
-
-<%= partial '../../redis/odb/retrieve-guid' %>
 
 
 <a id="errors"><h2></a>Troubleshooting Errors</h2>
@@ -161,8 +220,8 @@ This section helps to troubleshoot the following errors logged in syslog:
 </ul>
 
 <a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4>
-
-<strong>Symptom</strong><br>
+<br>
+<strong>Symptom</strong><br><br>
 
 One of the following error messages is logged:<br>
 
@@ -171,18 +230,19 @@ One of the following error messages is logged:<br>
 <pre class="terminal">Background AOF rewrite terminated with error</pre>
 <br>
 
-<strong>Explanation</strong><br>
+<strong>Explanation</strong><br><br>
 
 This is logged when the Redis server is unable to append to the Redis append-only file (AOF).
 The disk might be full.
 <br><br>
 
-<strong>Solution</strong><br>
+<strong>Solution</strong><br><br>
 
 For a short-term solution, do the following:<br><br>
 
 <ol>
   <li>SSH into the affected Redis instance.</li>
+  <li>Log into the <a href="#redis-cli">redis-cli</a>.</li>
   <li>Run <code>redis-cli CONFIG SET appendonly no</code> to disable AOF persistence.</li>
   <li>Delete the <code>/var/vcap/store/redis/appendonly.aof</code> file.</li>
   <li>Run <code>kill -HUP REDIS-SERVER-PID</code> to restart the Redis process.</li>
@@ -194,9 +254,9 @@ In older versions of the Redis for PCF tile, AOF persistence is enabled by defau
 Upgrading to the latest version of the tile disables AOF persistence.
 
 
-<a id="disk-size"></a><h4>Saving Error</h4>
+<a id="disk-size"></a><h4>Saving Error</h4><br>
 
-<strong>Symptom</strong><br>
+<strong>Symptom</strong><br><br>
 
 One of the following error messages is logged:<br>
 
@@ -204,21 +264,21 @@ One of the following error messages is logged:<br>
 <pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
 <br>
 
-<strong>Explanation</strong><br>
+<strong>Explanation</strong><br><br>
 
 This might be logged when the configured disk size is too small,
 or if the Redis AOF uses all the disk space.
 <br><br>
 
-<strong>Solution</strong><br>
+<strong>Solution</strong><br><br>
 
-To prevent this error, do the following:
+To prevent this error, do the following:<br><br>
 
 <ol>
   <li>Ensure the disk is configured to at least 1.5 times the RAM.</li>
   <li>Check if the AOF is using too much disk space by doing the following:
     <ol>
-      <li>BOSH <code>ssh</code> into the affected service instance VM.</li><br>
+      <li>BOSH SSH into the affected service instance VM.</li><br>
       <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li><br>
       <li>If the <code>appendonly.aof</code> file is large, follow the instuctions
         in <a href="#disk-full">AOF Write or Rewrite Errors</a>.</li>
@@ -226,26 +286,68 @@ To prevent this error, do the following:
   </li>
 </ol>
 
-<a id="backup-errors"></a><h3>Failed Backup</h3>
 
-<strong>Symptom</strong><br>
+<a id="backup-errors"></a><h3>Failed Backup</h3><br>
+
+<strong>Symptom</strong><br><br>
 
 The following error message is logged:<br>
 <pre class="terminal">Backup has failed. Redis must be running for a backup to run</pre>
 <br>
 
-<strong>Explanation</strong><br>
+<strong>Explanation</strong><br><br>
 
 This is logged if a backup is initiated against a Redis server that is down.
 <br><br>
 
-<strong>Solution</strong><br>
+<strong>Solution</strong><br><br>
 Ensure that the Redis server being backed up is running.
 To do this, run <code>bosh restart</code> against the affected service instance VM.
 
+
+<a id="orphaned-instances"></a><h3>Orphaned Instances</h3><br>
+
+<strong>Symptom</strong><br><br>
+
+When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
+some service instances are visible that are not visible to the BOSH director.
+These unused or orphaned instances can create issues.
+For example, they may hold on to a static IP address, causing IP conflicts.
+<br><br>
+
+<strong>Explanation</strong><br><br>
+
+Orphaned instances can occur in the following situations:
+<br><br>
+<ul>
+  <li>Both CF and BOSH maintain state.
+    Orphaned instances can occur if the CF state is out of sync with BOSH.
+    For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the CF state failed.</li>
+  <li>If a call to deprovision a service instance was made directly to BOSH rather than through the cf CLI.</li>
+</ul>
+
+<strong>Solution</strong><br><br>
+
+There are two approaches to solving this problem:<br><br>
+<ul>
+  <li>
+    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge instances by running
+    <code>cf purge-service-instance SERVICE-INSTANCE</code>.
+  </li>
+  <li>
+    <strong>If this is a repeated occurrence:</strong> Contact Pivotal support
+    for further assistance, and include the following:
+    <ul>
+      <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
+      <li>The deployment manifest of failed instances, hiding private information like passwords</li>
+      <li>Any recent logs that you can recover from the failed service instance</li>
+    </ul>
+  </li>
+</ul>
+
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
-Guidance on checking for and fixing issues in on-demand service components.
+This section provides guidance on checking for, and fixing, issues in cf-redis and on-demand service components.
 
 <a id="bosh"></a><h3>BOSH Problems</h3>
 
@@ -297,7 +399,12 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
 
-This section contains instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks.
+This section contains instructions on:<br><br>
+  <ul>
+    <li>Interacting with the on-demand service broker</li>
+    <li>Interacting with on-demand service instance BOSH deployments</li>
+    <li>Performing general maintenance and housekeeping tasks</li>
+  </ul>
 
 <a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
 
@@ -380,38 +487,3 @@ The following are <a href="https://discuss.pivotal.io/hc/en-us/sections/20021530
   <li><a href="https://pvtl.force.com/s/article/Removing-dedicated-vm-Service-Instances-from-the-CF-when-deleted-from-BOSH"> Removing dedicated-VM service instances on CF when already deleted from BOSH</a></li>
   <li><a href="https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans">Migrating from dedicated-VM service plans to on-demand service plans</a></li>
 </ul>
-
-<a id="other"></a><h2>Other Issues</h2>
-
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Failed to target Cloud Foundry</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Your Pivotal Cloud Foundry is unresponsive</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Examine the detailed error message in the logs and check the <a href="https://docs.pivotal.io/pivotalcf/1-7/customizing/troubleshooting.html">PCF Troubleshooting Guide</a> for advice</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Failed to bind Redis service instance to test app</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Your deployment's broker has not been registered with Pivotal Cloud Foundry</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Examine the broker-registrar installation step output and troubleshoot any problems.</td>
-</tr>
-</table>
