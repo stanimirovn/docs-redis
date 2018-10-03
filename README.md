@@ -1,15 +1,11 @@
 # Redis for PCF Docs
 
-**IMPORTANT:** The **1.14** branch is not yet released, and the **master** branch is for 1.15. Therefore, the edge pipeline publishes both
-1.14 and 1.15 docs. When 1.14 releases, it will be moved to the production pipeline.
-
-
 ## Where is the book repo?
 https://github.com/pivotal-cf/docs-book-redis
 
 The book repo uses these branches:
 
-* **Edge** builds from the **master** content branch in this repo. Pipeling [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
+* **Edge** builds from the **master** content branch (1.15 available on staging here https://docs-pcf-staging.cfapps.io/redis/1-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
 * **Master** builds from the published content branches in this repo (1.12, 1.11, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## Branches in this (content) repo
@@ -26,6 +22,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Live Branches In Production (Public)
 
+* **1.14**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-14/) and production (https://docs.pivotal.io/redis/1-14/)
 * **1.13**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-13/) and production (https://docs.pivotal.io/redis/1-13/)
 * **1.12**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-12/) and production (https://docs.pivotal.io/redis/1-12/)
 * **1.11**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/1-11/) and production (https://docs.pivotal.io/redis/1-11/)
