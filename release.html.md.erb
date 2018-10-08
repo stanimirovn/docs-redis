@@ -21,6 +21,8 @@ no longer fail when the process manager monit is trying to restart the Redis pro
 
 This release has the following issues:
 
+* BBR support for Redis On-Demand Service Instances is not available.
+
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
 
@@ -108,6 +110,8 @@ the smoke tests might timeout looping through the buildpacks in order to find th
 ### Known Issues
 
 This release has the following issues:
+
+* BBR support for Redis On-Demand Service Instances is not available.
 
 * The `upgrade-all-service-instances` errand and other bosh lifecycle actions
 fail due to the process manager monit trying to restart the Redis process resulting
@@ -198,6 +202,7 @@ This includes maximum parallel upgrades, number of canaries, and canary selectio
 * On-Demand service instances can now be backed up and restored using the BBR command-line tool.
 For information about the tool, see
 [Backup and Restore with BBR](https://docs.pivotal.io/pivotalcf/2-2/customizing/backup-restore/index.html#bbr).
+NOTE: Since the release of this version we found that the BBR functionality was not working properly, this was now fixed in 1.13.4.
 
 * The default persistence for on-demand instances is now partial persistence using RDB files.
 This fixes the issue of inflated disk usage resulting from frequent instance restarts.
@@ -205,6 +210,8 @@ This fixes the issue of inflated disk usage resulting from frequent instance res
 ### Known Issues
 
 This release has the following issues:
+
+* BBR support for Redis On-Demand Service Instances is not available.
 
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
