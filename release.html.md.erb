@@ -5,6 +5,83 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## <a id="1141"></a> v1.14.1
+
+**Release Date: October 11, 2018**
+
+###<a id="features1141"></a> Features
+
+This release fixes the following issue:
+ * Fixes issue with BBR that prevented users from being able to Backup/Restore On-Demand Service Instances.
+
+###<a id="known1141"></a> Known Issues
+
+This release has the following issues:
+
+* The redis-odb service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### <a id="compat1141"></a> Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>97.x</td>
+</tr>
+<tr>
+    <td>PCF</td>
+    <td>v2.2.x and v2.3.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v434.0.19</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.22.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.180.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.6.0</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.13</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>v11.3.2</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>v2.1</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>v0.12.2</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v4.0.11</td>
+</tr>
+
+</table>
+
 ## <a id="1140"></a> v1.14.0
 
 **Release Date: October 3, 2018**
