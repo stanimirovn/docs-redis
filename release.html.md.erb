@@ -11,7 +11,16 @@ owner: London Services
 
 ### Features
 
+<p class="note breaking"><strong>Breaking Change: </strong>
+dedicated-VMs have now been deprecated and will be removed with installation of Redis for PCF v1.15+.
+If you have dedicated instances please migrate workloads from dedicated to on-demand instances, any data left over will be lost.
+Consult this <a href="https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans">Knowledge Base Article</a> for help migrating to on-demand.
+</p>
+
 New features and changes in this release:
+
+- Removed dedicated-VM support, see the Breaking Change above. In order to install or upgrade
+the tile, operators will need to acknowledge the deletion of dedicated-VMs via a checkbox.
 
 - The Redis on-demand service broker now binds apps to a service instance using BOSH DNS.
 Therefore, service bindings return the DNS address instead of the IP address.
