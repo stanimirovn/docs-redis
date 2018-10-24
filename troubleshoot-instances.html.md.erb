@@ -226,19 +226,7 @@ Ops Manager or an operator runs these errands.
 <br>
 <strong>Solution</strong><br>
 
-There are two approaches to solving this problem:
-<ul>
-  <li>
-    <strong>Recommended:</strong> Create a service instance using a on-demand service plan.
-  </li>
-  <li>
-    <strong>Not recommended:</strong> Re-enable the dedicated-vm service plan.
-    To do this, ensure dedicated VMs are provisioned in the <strong>Resource Config</strong>
-    tab of the Redis for PCF tile in Ops Manager.
-    As a CF admin user, run <code>cf enable-service-access p-redis -p dedicated-vm</code>.
-  </li>
-</ul>
-
+  Create a service instance using a on-demand service plan.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
