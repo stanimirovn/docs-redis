@@ -5,6 +5,85 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## <a id="1136"></a> v1.13.6
+
+**Release Date: October 29, 2018**
+
+### Fixed Issues
+
+This release fixes the following issue:
+
+* Fixed issue where in some network conditions the smoke-tests errand would time out
+due to dig taking longer than 1s.
+
+### Known Issues
+
+This release has the following issues:
+
+* The redis-odb service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3468.x</td>
+</tr>
+<tr>
+	<td>PCF<sup>*</sup></td>
+    <td>v2.1.x, v2.2.x and v2.3.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v434.0.25</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.23.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v198.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.179.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.15</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v11.1.1</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>v2.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v4.0.11</td>
+</tr>
+
+</table>
+
 ## <a id="1135"></a> v1.13.5
 
 **Release Date: October 18, 2018**
@@ -19,6 +98,8 @@ This release fixes the following issue:
 ### Known Issues
 
 This release has the following issues:
+
+* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
 
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
@@ -98,6 +179,8 @@ This release fixes the following issue:
 ### Known Issues
 
 This release has the following issues:
+
+* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
@@ -181,6 +264,8 @@ no longer fail when the process manager monit is trying to restart the Redis pro
 ### Known Issues
 
 This release has the following issues:
+
+* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
@@ -275,6 +360,8 @@ the smoke tests might timeout looping through the buildpacks in order to find th
 ### Known Issues
 
 This release has the following issues:
+
+* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
@@ -379,6 +466,8 @@ This fixes the issue of inflated disk usage resulting from frequent instance res
 ### Known Issues
 
 This release has the following issues:
+
+* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
