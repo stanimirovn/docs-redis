@@ -12,7 +12,7 @@ The book repo uses these branches:
 
 Cross-product partials for **Redis for PCF** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-services-partials) repo to allow for versioning.
 
-Previously, these partials were sourced from the v018.x branch of the On Demand Service Broker SDK and did not support versions.
+Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repo and did not support versions.
 
 ## Branches in this (content) repo
 
