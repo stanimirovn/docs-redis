@@ -8,6 +8,11 @@ The book repo uses these branches:
 * **Edge** builds from the **master** content branch (1.15 available on staging here https://docs-pcf-staging.cfapps.io/redis/1-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
 * **Master** builds from the published content branches in this repo (1.12, 1.11, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
+## Partials
+
+Cross-product partials for Redis for PCF are single sourced from the [Services Partials][https://github.com/pivotal-cf/docs-services-partials] repo to allow for versioning.
+Previously, these partials were sourced from the v018.x branch of the On Demand Service Broker SDK and did not support versions.
+
 ## Branches in this (content) repo
 
 ### Master - Use for next unreleased version
