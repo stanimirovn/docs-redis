@@ -13,8 +13,8 @@ owner: London Services
 
 This release fixes the following issue:
 
-* Fixed issue where in some network conditions the smoke-tests errand would time out
-due to dig taking longer than 1s.
+* In some network conditions, the smoke-tests errand would time out due to dig
+taking longer than one second.
 
 ### Known Issues
 
@@ -99,7 +99,8 @@ This release fixes the following issue:
 
 This release has the following issues:
 
-* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
+* In some network conditions, the smoke-tests errand can time out due to dig
+taking longer than one second.
 
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
@@ -180,7 +181,8 @@ This release fixes the following issue:
 
 This release has the following issues:
 
-* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
+* In some network conditions, the smoke-tests errand can time out due to dig
+taking longer than one second.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
@@ -265,7 +267,8 @@ no longer fail when the process manager monit is trying to restart the Redis pro
 
 This release has the following issues:
 
-* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
+* In some network conditions, the smoke-tests errand can time out due to dig
+taking longer than one second.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
@@ -361,7 +364,8 @@ the smoke tests might timeout looping through the buildpacks in order to find th
 
 This release has the following issues:
 
-* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
+* In some network conditions, the smoke-tests errand can time out due to dig
+taking longer than one second.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
@@ -467,7 +471,8 @@ This fixes the issue of inflated disk usage resulting from frequent instance res
 
 This release has the following issues:
 
-* In some network conditions the smoke-tests errand can time out due to dig taking longer than 1s.
+* In some network conditions, the smoke-tests errand can time out due to dig
+taking longer than one second.
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
