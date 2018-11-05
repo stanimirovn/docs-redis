@@ -10,10 +10,7 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 
 ##<a id="upgrading"></a> Compatible Upgrade Paths
 
-<p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF 1.14 was the last version to offer dedicated-VM Redis instances. Whilst the deprecation errand was optional in 1.14, it is no longer the case in 1.15.
-When upgrading to 1.15, the operator must manually click the deprecation warning checkbox in `WARNING - DEPRECATED INSTANCES` tab which will remove any dedicated-VM instance in your deployment.
-We recommend data to be backed up or migrated to on-demand instances when upgrading if your Redis deployments are being used as a persistent storage (see this [Knowledge Base](https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans)
-article on how to migrate to on-demand instances).</p>
+<p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF 1.14 was the last version to offer dedicated-VM Redis instances. Whilst the deprecation errand was optional in 1.14, it is no longer the case in 1.15. See the upgrade instructions <a href="#upgrades">here</a>.</p>
 
 Before upgrading Redis for PCF, for compatibility information, see the [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
@@ -30,6 +27,8 @@ To upgrade Redis for PCF 1.15.0, do the following:
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 1. Upload the new `.pivotal` file to Ops Manager.
 1. If required, upload the stemcell associated with the update.
+1. When upgrading to 1.15, the operator must manually click the deprecation warning checkbox in `WARNING - DEPRECATED INSTANCES` tab which will remove any dedicated-VM instance in your deployment.
+    <p class="note"> <strong>Note:</strong> We recommend data to be backed up or migrated to on-demand instances when upgrading if your Redis deployments are being used as a persistent storage (see this [Knowledge Base](https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans) article on how to migrate to on-demand instances).</p>
 1. If required, update any new mandatory configuration parameters.
 1. Click **Apply changes**. The rest of the process is automated.
 
