@@ -7,36 +7,58 @@ owner: London Services
 
 This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 
-
 ##<a id="upgrading"></a> Compatible Upgrade Paths
 
-<p class="note breaking"><strong>Breaking Change: </strong>Redis for PCF 1.14 was the last version to offer dedicated-VM Redis instances. Whilst the deprecation errand was optional in 1.14, it is no longer the case in 1.15. See the upgrade instructions <a href="#upgrades">here</a>.</p>
+Before upgrading Redis for PCF, for compatibility information, see the
+[Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-Before upgrading Redis for PCF, for compatibility information, see the [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
+## <a id="upgrades"></a>Upgrade to Redis for PCF v1.15
 
-## <a id="update-addons"></a>
+<p class="note breaking"><strong>Breaking Change: </strong>Dedicated-VMs have
+  been deprecated and will be removed when you upgrade to Redis for PCF v1.15.
+  If you use your Redis deployments as persistent storage, Pivotal recommends that
+  you back up data or migrate it to on-demand instances before upgrading to v1.15.
+  For more information about how to migrate to on-demand instances, see this
+  <a href="https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans">Knowledge Base</a>
+  article.</p>
 
-## <a id="upgrades"></a>Upgrade to Redis for PCF 1.15.0
+This product enables a reliable upgrade experience between versions of the product
+deployed through Ops Manager.
 
-This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
+For information on the upgrade paths for each released version, see
+[Compatible Upgrade Paths](#upgrading) above.
 
-For information on the upgrade paths for each released version, see the above table.
-
-To upgrade Redis for PCF 1.15.0, do the following:
+To upgrade Redis for PCF v1.15, do the following:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+
 1. Upload the new `.pivotal` file to Ops Manager.
+
 1. If required, upload the stemcell associated with the update.
-1. When upgrading to 1.15, the operator must manually click the deprecation warning checkbox in `WARNING - DEPRECATED INSTANCES` tab which will remove any dedicated-VM instance in your deployment.
-    <p class="note"> <strong>Note:</strong> We recommend data to be backed up or migrated to on-demand instances when upgrading if your Redis deployments are being used as a persistent storage (see this [Knowledge Base](https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans) article on how to migrate to on-demand instances).</p>
+
+1. Select the deprecation warning checkbox in the **WARNING - DEPRECATED INSTANCES** tab.
+This removes any dedicated-VM instances in your deployment.
+    <p class="note"> <strong>Note:</strong>
+      This checkbox is mandatory when upgrading to Redis for PCF v1.15.
+      Ensure that you have backed up or migrated data to on-demand instances.</p>
+
 1. If required, update any new mandatory configuration parameters.
+
 1. Click **Apply changes**. The rest of the process is automated.
 
-During the upgrade deployment each Redis instance experiences a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup.
+During the upgrade each Redis instance experiences a small period of
+downtime as each instance is updated with the new software components.
+This downtime is because Redis instances are single VMs operating in a non
+high availability (HA) setup.
 
-The length of the downtime depends on whether there is a stemcell update to replace the operating system image, or whether the existing VM can simply have the redis software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM, whereas updates without a stemcell update are faster.
+The length of downtime depends on whether there is a stemcell update to
+replace the operating system image, or whether the Redis software is updated the
+on the existing VM.
+Stemcell updates incur additional downtime while the IaaS creates the new VM,
+whereas updates without a stemcell update are faster.
 
-Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
+Ops Manager ensures the instances are updated with the new packages and any
+configuration changes are applied automatically.
 
 Upgrading to a newer version of the product does not cause any loss of data or configuration.
 
