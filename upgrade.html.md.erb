@@ -14,13 +14,7 @@ Before upgrading Redis for PCF, for compatibility information, see the
 
 ## <a id="upgrades"></a>Upgrade to Redis for PCF v1.15
 
-<p class="note breaking"><strong>Breaking Change: </strong>Dedicated-VMs have
-  been deprecated and will be removed when you upgrade to Redis for PCF v1.15.
-  If you use your Redis deployments as persistent storage, Pivotal recommends that
-  you back up data or migrate to on-demand instances before upgrading to v1.15.
-  For more information about how to migrate to on-demand instances, see this
-  <a href="https://pvtl.force.com/s/article/Migrating-from-dedicated-vm-service-plans-to-on-demand-service-plans">Knowledge Base</a>
-  article.</p>
+<%= partial 'breaking-change-dedicated-vms' %>
 
 This product enables a reliable upgrade experience between versions of the product
 deployed through Ops Manager.
