@@ -10,7 +10,7 @@ and information for determining the product's fit for your enterprise's use case
 
 ## <a id="usecases"></a> Recommended Use Cases
 
-Dedicated-VM and Shared-VM plans are designed for datastore use cases.
+Shared-VM plans are designed for datastore use cases.
 On-Demand plans, introduced in Redis for PCF v1.8, are configured by default for cache use cases but can also be used
 as a datastore.
 
@@ -39,15 +39,15 @@ relevant policies around security upgrades.
 For descriptions of the three Redis for PCF service offerings, see:
 
 * [On-Demand Service Offering](./architecture.html)
-* [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html)
+* [Shared-VM Service Offerings](./architecture-pp.html)
 
 <p class="note"><strong>Note</strong>: The Shared-VM service should only be used for development and testing.
    Do not use for production.</p>
 
 <p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated.
-    Pivotal recommends using the on-demand service plan.</p>
+    Dedicated-VMs have been marked as deprecated in v1.14 and removed in v1.15
+    Pivotal recommends migrating to the on-demand service plan.</p>
 
 ##<a id="checklist"></a> Enterprise-Readiness Checklist
 
@@ -59,7 +59,7 @@ Review the following table to determine if Redis for PCF has the features needed
   <tr>
     <td>Availability</td>
     <td>All Redis for PCF services are single nodes without clustering capabilities.
-        This means that planned downtime (e.g., upgrades) can result in 2–10 minutes of downtime,
+        This means that planned maintenance jobs (e.g., upgrades) can result in 2–10 minutes of downtime,
         depending on the nature of the upgrade.
         Unplanned downtime (e.g., VM failure) also affects the Redis service.<br>
         Redis for PCF has been used successfully in enterprise-ready apps that can tolerate downtime.
@@ -80,14 +80,14 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>
       <%-#<a> href="https://bosh.io/docs/resurrector.html" BOSH Resurrection </a> Is this the right doc here? Do we have docs for process-%>
       <a href="https://discuss.pivotal.io/hc/en-us/articles/360002282154">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry </a><br/>
-      <a href="./auto-backup.html">Automatic Backups for Dedicated-VM Service </a><br/>
+      <a href="./auto-backup.html">Automatic Backups for Redis for PCF </a><br/>
     </td>
   </tr>
   <tr>
     <td>Isolation</td>
     <td>
       <%-#Do we need to cover network isolation?-%>
-      Isolation is provided when using the On-Demand and Dedicated-VM service.
+      Isolation is provided when using the On-Demand service.
       Individual apps and workflows should have their own Redis for PCF instance to maximize isolation.
     </td>
     <td>
@@ -99,19 +99,19 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>
     Operators can configure the number of VMs and the size of those VMs.
     For the On-Demand service, the operator does this by creating plans with specific VM sizes and quotas for each plan.
-    For the Dedicated-VM and Shared-VM services, the number and size of VMs are pre-provisioned by the operator.
+    For the Shared-VM services, the number and size of VMs are pre-provisioned by the operator.
     BOSH errands used for registration, upgrade and cleanup use short-lived VMs that cannot be configured but can be
     turned on or off.
     </td>
     <td>
       <a href="https://docs.pivotal.io/redis/1-9/architecture.html#resource"> On-Demand Resource Planning</a><br/>
-      <a href="https://docs.pivotal.io/redis/1-9/installing.html#dedicated-vm-config"> Pre-provisioning Dedicated-VM and Shared-VM Instances</a>
+      <a href="https://docs.pivotal.io/redis/1-9/installing.html#shared-vm-config"> Pre-provisioning Shared-VM Instances</a>
     </td>
   </tr>
   <tr>
     <td>Health Monitoring</td>
     <td>
-    The On-Demand service and Dedicated-VM service emit metrics.
+    The On-Demand service VMs emit metrics.
     These include Redis-specific metrics and Redis for PCF metrics.
     Guidance on critical metrics and alerting levels is captured with the Redis for PCF KPIs.
     </td>
@@ -125,15 +125,12 @@ Review the following table to determine if Redis for PCF has the features needed
     For the On-Demand Service, the operator can configure three plans with different resource sizes.
     The operator can also scale up the VM size associated with the plan.
     Additionally, the operator can increase the quota, which caps the number of instances allowed for each On-Demand plan.
-    For the Dedicated-VM Service, the operators can change the number of dedicated nodes deployed
-    as well as change the VM size associated for the Dedicated-VMs.
     To prevent data loss, only scaling up is supported.
     For the Shared-VM Service, the operators can change the Redis instance memory limit as well as change the instance limit.
     To prevent data loss, only scaling up is supported.
     </td>
     <td>
       <a href="./installing.html#updating-on-demand-service-plans"> Scaling the On-Demand Service </a><br/>
-      <a href="./installing.html#dedicated-vm-config"> Scaling the Dedicated-VM Service </a>
     </td>
   </tr>
   <tr>
@@ -153,7 +150,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Customization</td>
     <td>
     The On-Demand service can be configured to best fit the needs of a specific app.
-    The Dedicated-VM and Shared-VM service cannot be customized.
+    The Shared-VM service cannot be customized.
     </td>
     <td>
       <a href="./installing.html#on-demand-config"> Configuring the On-Demand service </a>
@@ -191,4 +188,3 @@ Redis instances operate as single nodes.
 
 + On-Demand plans can be configured to deploy instances to any AZ.
 + Shared-VM instances run on a single node in the AZ in which the tile is deployed.
-+ Dedicated-VM instances can be assigned to any of the configured AZs.

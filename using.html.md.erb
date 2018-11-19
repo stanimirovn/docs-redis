@@ -11,9 +11,9 @@ You can find an example app has to help you get started with Redis for PCF.
 Download the example app by clicking [this link](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
 For recommendations regarding Redis for PCF service plans and memory allocation,
-see the service offerings for the [on-demand plan](./architecture.html) and the [dedicated and shared plans](./architecture-pp.html).
+see the service offerings for the [on-demand plan](./architecture.html) and the [shared plans](./architecture-pp.html).
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, the on-demand service is at feature parity with the dedicated-VM service. The dedicated-VM service plan will be deprecated. Pivotal recommends using the on-demand service plan.</p>
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, the on-demand service is at feature parity with the dedicated-VM service. The dedicated-VM service plan will be deprecated in v1.14 and removed in v1.15. Pivotal recommends using the on-demand service plan.</p>
 
 ## <a id="prereq"></a>Prerequisites
 
@@ -62,14 +62,14 @@ You can confirm both of these using the cf CLI as follows:
     Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
     OK
     service             plans                     description
-    p-redis             shared-vm, dedicated-vm   Redis service to provide pre-provisioned instances configured as a datastore, running on a shared or dedicated VM.
+    p-redis             shared-vm                 Redis service to provide pre-provisioned instances configured as a datastore, running on a shared VM.
     p.redis             cache-small, cached-med   Redis service to provide on-demand dedicated instances configured as a cache.
     [...]
     </pre>
 
 1. To confirm that a Redis for PCF instance is running in the space:
     1. Enter `cf services`.
-    1. Any `p.redis` listings in the `service` column are service instances of on-demand Redis for PCF in the space. Any `p-redis` in the `service` column are service instances of dedicated-VM and shared-VM Redis for PCF.
+    1. Any `p.redis` listings in the `service` column are service instances of on-demand Redis for PCF in the space. Any `p-redis` in the `service` column are service instances of shared-VM Redis for PCF.
 
     <pre class="terminal">
     $ cf services
@@ -85,23 +85,25 @@ You can confirm both of these using the cf CLI as follows:
 
 ### <a id='createcli'></a>Create a Service Instance with the cf CLI
 
-#### Dedicated-VM and Shared-VM Service
+#### Shared-VM Service
 
-Dedicated-VM and Shared-VM service instances have been pre-provisioned by the operator. This means, if an instance is available, the app developer can provision it immeditately.
+Shared-VM service instances have been pre-provisioned by the operator. This means, if an instance is available, the app developer can provision it immediately.
 These plans are both listed under the `p-redis` service in the Marketplace.
 
-To create an instance of the Redis for PCF Dedicated-VM of Shared-VM service, run this command:
+<p class="note"><strong>Note</strong>: Shared-VM services are designed for testing and development purposes. Shared-VMs should not be used in production environments</p>
+
+To create an instance of the Redis for PCF Shared-VM service, run this command:
 
 `cf create-service p-redis SERVICE_TYPE SERVICE_NAME`
 
 where:
 
-* `SERVICE_TYPE` is `dedicated-vm` or `shared-vm`.<br>
+* `SERVICE_TYPE` is `shared-vm`.<br>
 * `SERVICE_NAME` is a name for your service instance.
 
 <pre class="terminal">
-$ cf create-service p-redis dedicated-vm dedicated-instance<br>
-Creating service dedicated-instance in org my-org / space my-space as user<span>@</span>example.com...
+$ cf create-service p-redis shared-vm my-instance<br>
+Creating service my-instance< in org my-org / space my-space as user<span>@</span>example.com...
 OK<br>
 </pre>
 
@@ -142,7 +144,7 @@ From within Pivotal Apps Manager, select **Marketplace** from the left navigatio
 
 ![marketplace](appsman_marketplace.png)
 
-#### Dedicated-VM and Shared-VM Service<br><br>
+#### Shared-VM Service<br><br>
 
 1. Select **Redis** from the displayed tiles in the Marketplace.<br>
   <br>![marketplace_p-redis](p-redis_marketplace.png)
