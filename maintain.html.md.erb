@@ -14,7 +14,7 @@ It introduces some best practices, but does not provide details about operation.
 Pivotal recommends that operators follow these guidelines:
 
 * **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes.
-    Instances of Dedicated-VM and Shared-VM services have identical VM sizes.
+    Instances of Shared-VM services have identical VM sizes.
     However, with the On-Demand service, app developers can choose from three different plans, each with its own VM size and quota.
     See the service offering for the [On-Demand Plan](./architecture.html) and [Resource Usage Planning for On-Demand plans](./architecture.html#resource).
 * **Logs**---Configure a syslog output.
@@ -24,11 +24,11 @@ Pivotal recommends that operators follow these guidelines:
 * **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
     Validate the backed-up data with a test restore.
     See [Configuring Automated Backups](./auto-backup.html) and [Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry](https://discuss.pivotal.io/hc/en-us/articles/360002282154).
-* **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs.
+* **Using**---Instances of the On-Demand services run on dedicated VMs.
     Apps in production should have a dedicated or on-demand instance to prevent performance issues caused by sharing an instance.
     The Shared-VM service shares a VM across many instances,
-    and Pivotal recommends that you only use it for development and testing.
-    See the service offerings for the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html).
+    and Pivotal recommends that you only use it for development and testing, as this should not be used in production environments.
+    See the service offerings for the [On-Demand Plan](./architecture.html) and the [Shared Plans](./architecture-pp.html).
 
 ## <a id="keycount"></a> Redis Key Count and Memory Size
 
@@ -43,7 +43,7 @@ Redis for PCF includes the errands listed below.
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service,
-  that is, the shared-VM and dedicated-VM plans.
+  that is, the shared-VM plans.
   The Broker Registrar errand also includes the Deprecate Dedicated-VM Plan errand.
   It disables service access to the dedicated-VM plan for non-admin app developers.
 

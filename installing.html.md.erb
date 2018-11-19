@@ -247,7 +247,8 @@ To secure your on-demand service instance credentials in runtime
 [CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller
 Database (CCDB), do the following:
 
-<p class="note"><strong>Note</strong>: This is a beta feature. Use it at your own risk in non-production environments. Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+<p class="note"><strong>Note</strong>: This is a beta feature. Use it at your own risk in non-production environments. 
+Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 
 1. Configure the Pivotal Application Service (PAS) tile to support securing service
 instance credentials in runtime CredHub.
@@ -354,12 +355,12 @@ VM's total system memory, you can do one of the following:
       preventing users from writing any more data to any Redis shared-VM instance.
   </p>
 
-###<a id="dedicated-vm-config"></a>Dedicated-VM Plan
+###<a id="shared-vm-config"></a>Shared-VM Plan
 
-<p class="note"><strong>Note</strong>: In Redis for PCF v1.11 and later,
+<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated.
-    Pivotal recommends using the on-demand service plan.
+    Dedicated-VMs have been marked as deprecated in v1.14 and removed in v1.15
+    Pivotal recommends migrating to the on-demand service plan.
     For instructions on disabling these plans,
     see <a href="#disable-shared-dedicated">Disable Shared and Dedicated VM Plans</a> below.
     <br>
@@ -370,35 +371,13 @@ VM's total system memory, you can do one of the following:
     This process also occurs when the "Broker Registrar" errand runs.
 </p>
 
-1.  To configure the Dedicated-VM plan, click the **Resource Config** tab to change the allocation of resources for the **Dedicated Node**.
-<a id="resource-config"></a>![dedicated vm config](dedicated-vm-config.png)
-<br>
-  - The default configuration creates five dedicated nodes (VMs).
-  Each node can run one Redis dedicated-VM instance.
-  - You can change the number of dedicated nodes, and configure the size of the
-  persistent and ephemeral disks, and the CPU and RAM for each node.
-  - The default VM size is small. It is important that you set the correct
-  VM size to handle anticipated loads.
-  - With dedicated-VM plans, there is one Redis service instance on each VM.
-  The maximum memory an instance can use should be at most 45% of the total system RAM on the VM.
-  You can set this with the `maxmemory` configuration.
-  The app can use 100% of `maxmemory`--that is, up to 45% of the system RAM.
-  - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
+### <a id="resources"></a>Configure Resources for Shared-VM Plans
 
-1. Click **Save**.
-
-1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive.
-Click the tab for each on-demand plan, and select **Plan Inactive**.
-See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
-
-### <a id="resources"></a>Configure Resources for Dedicated-VM and Shared-VM Plans
-
-To configure resources for the Shared-VM and Dedicated-VM plans, click the **Resource Config** settings tab on the Redis for PCF tile.
+To configure resources for the Shared-VM plans, click the **Resource Config** settings tab on the Redis for PCF tile.
 
 * The Shared-VM plan is on the **Redis Broker** resource.
-* The Dedicated-VM plan is on the **Dedicated Node** resource.
 
-The following are the default resource and IP requirements for Redis for PCF when using the Shared-VM or Dedicated-VM plans:
+The following are the default resource and IP requirements for Redis for PCF when using the Shared-VM plans:
 <table border="1" class="nice">
   <tr>
     <th>Product</th>
@@ -611,7 +590,7 @@ Follow the steps below:
 
 To allow this service to have network access,
 you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html).
-Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment.
+Ensure your security group allows access to the Redis Service Broker VM configured in your deployment.
 You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.</p>
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
