@@ -39,15 +39,15 @@ relevant policies around security upgrades.
 For descriptions of the three Redis for PCF service offerings, see:
 
 * [On-Demand Service Offering](./architecture.html)
-* [Shared-VM Service Offerings](./architecture-pp.html)
+* [Shared-VM Service Offering](./architecture-pp.html)
 
 <p class="note"><strong>Note</strong>: The Shared-VM service should only be used for development and testing.
    Do not use for production.</p>
 
 <p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
     the on-demand service is at feature parity with the dedicated-VM service.
-    Dedicated-VMs have been marked as deprecated in v1.14 and removed in v1.15
-    Pivotal recommends migrating to the on-demand service plan.</p>
+    Dedicated-VMs are marked as deprecated in v1.14 and are removed in v1.15.
+    Pivotal recommends that you migrate to the on-demand service plan.</p>
 
 ##<a id="checklist"></a> Enterprise-Readiness Checklist
 
@@ -74,13 +74,13 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Failure Recovery</td>
     <td>
       VM failures and process failures are handled automatically by BOSH and Redis for PCF.
-      Manual backup and restore instructions are available for all three Redis services.
-      Automatic backup capabilities are enabled for all three Redis services.
+      Manual backup and restore instructions are available for on-demand and shared-VM Redis services.
+      Automatic backup capabilities are enabled for on-demand and shared-VM Redis services.
     </td>
     <td>
       <%-#<a> href="https://bosh.io/docs/resurrector.html" BOSH Resurrection </a> Is this the right doc here? Do we have docs for process-%>
-      <a href="https://discuss.pivotal.io/hc/en-us/articles/360002282154">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry </a><br/>
-      <a href="./auto-backup.html">Automatic Backups for Redis for PCF </a><br/>
+      <a href="https://discuss.pivotal.io/hc/en-us/articles/360002282154">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry </a><br><br>
+      <a href="./auto-backup.html">Configuring Automated Service Backups</a><br/>
     </td>
   </tr>
   <tr>
@@ -99,13 +99,13 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>
     Operators can configure the number of VMs and the size of those VMs.
     For the On-Demand service, the operator does this by creating plans with specific VM sizes and quotas for each plan.
-    For the Shared-VM services, the number and size of VMs are pre-provisioned by the operator.
+    For the Shared-VM service, the number and size of VMs are pre-provisioned by the operator.
     BOSH errands used for registration, upgrade and cleanup use short-lived VMs that cannot be configured but can be
     turned on or off.
     </td>
     <td>
-      <a href="https://docs.pivotal.io/redis/1-9/architecture.html#resource"> On-Demand Resource Planning</a><br/>
-      <a href="https://docs.pivotal.io/redis/1-9/installing.html#shared-vm-config"> Pre-provisioning Shared-VM Instances</a>
+      <a href="./architecture.html#resource"> On-Demand Resource Planning</a><br><br>
+      <a href="./installing.html#shared-vm-config"> Shared-VM Plan</a>
     </td>
   </tr>
   <tr>
@@ -166,7 +166,7 @@ Review the following table to determine if Redis for PCF has the features needed
       upgrade.
     </td>
     <td>
-      <a href="./upgrade.html"> Upgrades </a><br/>
+      <a href="./upgrade.html"> Upgrades </a><br><br>
       <a href="./smoke-tests.html"> Smoke Tests </a>
     </td>
   </tr>
@@ -174,7 +174,7 @@ Review the following table to determine if Redis for PCF has the features needed
   <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested with the IPsec Add-on for PCF.
           Beyond that Redis for PCF does not provide additional encryption on top of Redis.</td>
       <td>
-        <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a>
+        <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a><br><br>
         <a href="https://redis.io/topics/security">OS Redis Security</a>
       </td></tr>
 

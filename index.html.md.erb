@@ -12,7 +12,7 @@ This documentation:
 
 + Describes features and architecture of Redis for PCF.
 + Instructs the PCF operator on how to install, configure, maintain, and backup Redis for PCF.
-+ Instructs the app developer on how to choose a service plan, create and delete 
++ Instructs the app developer on how to choose a service plan, create and delete
 Redis service instances, and bind an app.
 
 ##<a id="snapshot"></a> Product Snapshot
@@ -61,27 +61,7 @@ It is used for everything from a quick way to store data for development and tes
 
 <strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
 
-Redis for PCF offers On-Demand and Shared-VM services.
-
-* **On-Demand Service**---Provides a dedicated VM running a Redis instance.
-  The operator can configure up to three plans with different configurations, memory sizes, and quotas.
-  App developers can provision an instance for any of the On-Demand plans offered and configure certain Redis settings.
-
-* **Shared-VM Service**---Provides support for a number of Redis instances running in a single VM. 
-  _It is designed for testing and development purposes only, **not to be used in production environments**._
-  The Shared-VM instances are pre-provisioned by the
-  operator with a fixed number of instances and memory size.
-  App developers can then use one of these pre-provisioned instances.
-
-* ~~Dedicated-VM Service (Deprecated)~~---Provides a dedicated VM running a Redis instance.
-    The Dedicated-VM Service is pre-provisioned by the operator with a fixed number of VMs and memory size.
-    App developers can then use one of those pre-provisioned VMs.
-    Dedicated-VMs have been marked as deprecated in v1.14 and removed in v1.15
-
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
-    the on-demand service is at feature parity with the dedicated-VM service.
-    Dedicated-VMs have been marked as deprecated in v1.14 and removed in v1.15
-    Pivotal recommends migrating to the on-demand service plan.</p>
+<%= partial 'service-offerings' %>
 
 For more information on the plans, see:
 
