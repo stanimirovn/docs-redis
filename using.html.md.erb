@@ -7,13 +7,14 @@ owner: London Services
 
 Redis for Pivotal Cloud Foundry (PCF) can be used both via <a href="http://docs.pivotal.io/pivotalcf/1-11/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI). Both methods are outlined below.
 
-You can find an example app has to help you get started with Redis for PCF. 
+You can find an example app has to help you get started with Redis for PCF.
 Download the example app by clicking [this link](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
 For recommendations regarding Redis for PCF service plans and memory allocation,
-see the service offerings for the [on-demand plan](./architecture.html) and the [shared plans](./architecture-pp.html).
+see the [On-Demand Service Offering](./architecture.html)
+and the [Shared-VM Service Offering](./architecture-pp.html).
 
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11, the on-demand service is at feature parity with the dedicated-VM service. The dedicated-VM service plan will be deprecated in v1.14 and removed in v1.15. Pivotal recommends using the on-demand service plan.</p>
+<%= partial 'note-dedicated-instances' %>
 
 ## <a id="prereq"></a>Prerequisites
 
@@ -55,7 +56,9 @@ You can confirm both of these using the cf CLI as follows:
 
 1. To find out if a Redis for PCF service is available in the Marketplace:
    1. Enter `cf marketplace`.
-   1. If the output lists `p.redis` in the `service` column, on-demand Redis for PCF is available. If the output lists `p-redis` in the `service` column, dedicated-VM and shared-VM Redis for PCF is available. If it is not available, ask your operator to install it.
+   1. If the output lists `p.redis` in the `service` column, on-demand Redis for PCF is available.
+   If the output lists `p-redis` in the `service` column, shared-VM Redis for PCF is available.
+   If it is not available, ask your operator to install it.
 
     <pre class="terminal">
     $ cf marketplace
@@ -103,7 +106,7 @@ where:
 
 <pre class="terminal">
 $ cf create-service p-redis shared-vm my-instance<br>
-Creating service my-instance< in org my-org / space my-space as user<span>@</span>example.com...
+Creating service my-instance in org my-org / space my-space as user<span>@</span>example.com...
 OK<br>
 </pre>
 

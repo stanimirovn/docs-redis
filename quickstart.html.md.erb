@@ -16,12 +16,12 @@ please send a message to [Pivotal Cloud Foundry Feedback](mailto:"pivotal-cf-fee
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
-All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment. 
+All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment.
 The credentials are available to the app once a Redis for PCF instance is bound to it and are viewable by typing `$cf env {app_name}`.
 
 Prerequisites for these examples include access to a Marketplace with `p-redis` or `p.redis`.
 
-For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Shared-VM instances. 
+For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Shared-VM instances.
 Any Redis for PCF service and plan works with the following examples. Available plans and instance types can be viewed with in the Marketplace.
 
 ### <a id="java-quickstart"></a> Quickstart Java App
@@ -47,7 +47,7 @@ You can then visit the app in your browser window. The app has three entry point
 * "/set" --- Sets a given key to a given value. E.g., {APP_URL}/set?kn=somekeyname&kv=valuetoset
 * "/get" --- Gets the value stored at a given key. E.g., {APP_URL}/get?kn=somekeyname
 
-In the [application code](https://github.com/colrich/RedisForPCF-Java-Example/blob/master/src/main/java/io/pivotal/examples/RedisExample/RedisInfoController.java), 
+In the [application code](https://github.com/colrich/RedisForPCF-Java-Example/blob/master/src/main/java/io/pivotal/examples/RedisExample/RedisInfoController.java),
 the snippet where VCAP_SERVICES is read and parsed is here:
 
 <pre class=terminal>
