@@ -308,6 +308,7 @@ See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-deman
     From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk, and Persistent Disk made available, as needed.
 
 #### <a id="shared-vm-memory-limits"></a>Memory Limits for Shared-VM Plans
+
 Additional calculation is required to configure memory limits for shared-VM plans.
 With these plans, several service instances share the VM, and the Redis broker also runs on this same VM.
 Therefore, the memory used by all the shared-vm instances combined should be at most 45% of the memory of the Redis broker VM.
@@ -348,10 +349,13 @@ VM's total system memory, you can do one of the following:
       </tr>
   </table>
 
-  <p class="note"><strong>Note</strong>: It is possible to configure a larger <strong>Redis Service Instance Limit</strong>,
-      if you are confident that the majority of the deployed instances will not use a large amount of their allocated memory,
-      for example in development or test environments. <br><br>However, this practice is not supported and can cause your server to run out of memory,
-      preventing users from writing any more data to any Redis shared-VM instance. Shared-VM instances should not be used in production environments.
+  <p class="note"><strong>Note</strong>: You can configure a larger
+    <strong>Redis Service Instance Limit</strong>, if you are confident that the
+    majority of the deployed instances will not use a large amount of their allocated memory,
+    for example in development or test environments.<br><br>
+    However, this practice is not supported and can cause your server to run out of memory,
+    preventing users from writing any more data to any Redis shared-VM instance.
+    Do not use shared-VM instances in production environments.
   </p>
 
 ###<a id="dedicated-vm-config"></a>Dedicated-VM Plan
