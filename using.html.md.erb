@@ -22,11 +22,14 @@ To use Redis for PCF with your PCF apps, you need:
 
 * A PCF installation with [Redis for PCF](https://network.pivotal.io/products/p-redis)
 installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances).
-  The three Redis services are listed differently in the Marketplace, ensure the service you want to use is enabled.
-* A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) or Admin account on the PCF installation
+The two Redis services are listed differently in the Marketplace, ensure that the
+service you want to use is enabled.
+
+* A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles)
+or Admin account on the PCF installation.
+
 * To use the cf CLI, you must [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login)
-the org and space containing your app
-  and have a local machine with the following installed:
+the org and space containing your app and have a local machine with the following installed:
    - A browser
    - A shell
    - The [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
@@ -341,27 +344,27 @@ To access the Redis service from your app:
 2. In the output, note the connection strings listed in the `VCAP_SERVICES` > `credentials` object for the app.
 Example `VCAP_SERVICES`
 
-    ```
-        {
-          "p-redis": [{
-            "credentials": {
-                "host": "10.0.0.11",
-                "password": "<redacted>",
-                "port": 6379
-            },
-            "label": "p-redis",
-            "name": "redis",
-            "plan": "dedicated-vm",
-            "provider": null,
-            "syslog_drain_url": null,
-            "tags": [
-            "pivotal",
-            "redis"
-            ],
-            "volume_mounts": []
-          }]
-        }
-    ```
+    <pre class="terminal">
+      {
+        "p-redis": [{
+          "credentials": {
+              "host": "10.0.0.11",
+              "password": "<redacted>",
+              "port": 6379
+          },
+          "label": "p-redis",
+          "name": "redis",
+          "plan": "dedicated-vm",
+          "provider": null,
+          "syslog_drain_url": null,
+          "tags": [
+          "pivotal",
+          "redis"
+          ],
+          "volume_mounts": []
+        }]
+      }
+    </pre>
 
     <p class="note"><strong>Note</strong>: You can also search for your service
       by its <code>name</code>, given when creating the service instance, or
