@@ -25,11 +25,13 @@ Pivotal recommends that operators follow these guidelines:
     Validate the backed-up data with a test restore.
     See [Configuring Automated Backups](./auto-backup.html) and [Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry](https://discuss.pivotal.io/hc/en-us/articles/360002282154).
 * **Using**---Instances of the On-Demand and Dedicated-VM services run on dedicated VMs.
-    Apps in production should have a dedicated or on-demand instance to prevent performance issues caused by sharing an instance.
-    The Shared-VM service shares a VM across many instances,
-    and Pivotal recommends that you only use it for development and testing, as this should not be used in production environments.
-    See the service offerings for the [On-Demand Plan](./architecture.html) and the [Dedicated and Shared Plans](./architecture-pp.html).
-
+    Apps in production should have a dedicated or on-demand instance to prevent
+    performance issues caused by sharing an instance.
+    The Shared-VM service shares a VM across many instances.
+    Pivotal recommends that you only use the Shared-VM service for development
+    and testing, but not in production environments.
+    For more information about the plans, see the [On-Demand Service Offering](./architecture.html)
+    and the [Dedicated-VM and Shared-VM Service Offering](./architecture-pp.html).
 
 ## <a id="keycount"></a> Redis Key Count and Memory Size
 
