@@ -15,9 +15,7 @@ Ops Manager administrators can use Role-Based Access Control (RBAC) to manage wh
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see
-    <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
-        Understand Roles in Ops Manager</a>.</p>
+For more information about roles in Ops Manager, see <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">Understand Roles in Ops Manager</a> in _Configuring Role-Based Access Control (RBAC) in Ops Manager_ in the Pivotal Cloud Foundry documentation.
 
 ## <a id="install"></a>Download and Install the Tile
 
@@ -40,7 +38,7 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ###  <a id="az-config"></a>Assign AZs
 
-In Redis for PCF v1.9 and later, you can assign multiple AZs to Redis jobs, however this does not guarantee high availability.
+In Redis for PCF v1.9 and later, you can assign multiple AZs to Redis jobs. This does not guarantee high availability.
 For more information, see [Support for Multiple AZs](erc.html#other-notes).
 
 To assign AZs, do the following:
@@ -93,12 +91,12 @@ The following ports and ranges are used in Redis for PCF:
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
 Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page
-and allocate resources to Redis service plans.</br></br>
+and allocate resources to Redis service plans.<br><br>
 
 ###  <a id="on-demand-config"></a>On-Demand Service Settings
 
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**.
-The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.</br></br>
+The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.<br><br>
     ![settings](redis-odservice-settings.png)<br><br>
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
@@ -112,8 +110,8 @@ The maximum number of instances you set for all your on-demand plans combined ca
    This is a Beta feature.
    Turning on sharing enables this experimental feature for all on-demand instances.
     <p class="note"><strong>Note</strong>: To enable this feature a user with admin privileges
-  must run <code>cf enable-feature-flag service\_instance\_sharing</code>.
- For information about this feature, see [Sharing a Redis Instance with Another Space (Beta)](./using.html#sharing).
+  must run <code>cf enable-feature-flag service_instance_sharing</code>.
+ For information about this feature, see <a href="./using.html#sharing)">Sharing a Redis Instance with Another Space (Beta)</a> in <em>Using Redis for PCF</em>.
   </p>
 
 1. (Optional) Use the **Maximum Parallel Upgrades** field to configure the
@@ -148,16 +146,16 @@ For information about this feature, see `canaries` in
 [Upgrade All Service Instances](https://docs.pivotal.io/svc-sdk/odb/operating.html#upgrade-all-instances)
 in the On-Demand Services SDK documentation.
 
-1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
+1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.<br><br>
 
     You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
     Resource configuration options may vary on different IaaSs.
-</br>
-</br>
-    The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:</br></br>
+<br>
+<br>
+    The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:<br><br>
     * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk
     * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >10&nbsp;GB of persistent disk
-    * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk</br>
+    * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk<br>
 
     ![on demand config](on-demand-config.png) <a id="planconfig"></a>
 
@@ -262,7 +260,7 @@ Additionally, operators cannot make a plan that was previously active, inactive,
 
 #### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
 
-If you want to remove the On-Demand Service from your tile, do the following: <br/>
+If you want to remove the On-Demand Service from your tile, do the following: <br>
 
 1. Go to the **Resource Config** page on the Redis for PCF tile, and set the **Redis On-Demand Broker** job instances to 0.
 
@@ -273,7 +271,7 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
     * Delete All Service Instances and Deregister On-Demand Broker
 
 1. Create an empty service network.
-   For instructions, see this [Knowledge Base article](https://discuss.pivotal.io/hc/en-us/articles/115010154387).
+   For instructions, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Knowledge Base.
 
 1. Go to each of the three On-Demand Plan pages on the Redis for PCF tile, and set each plan to **Plan Inactive**.
    For example:
@@ -444,7 +442,7 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
   <tr>
     <td>Redis</td>
-    <td>Compliation</td>
+    <td>Compilation</td>
     <td>2</td>
     <td>2</td>
     <td>1024</td>
@@ -586,10 +584,12 @@ Follow the steps below:
 
 ##  <a id="asg"></a> Create Application Security Groups
 
-To allow this service to have network access,
-you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html).
-Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment.
-You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.</p>
+To allow this service to have network access, you must create Application Security Groups (ASGs).
+For more information, see [Understanding Application Security Groups](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+
+Ensure that your security group allows access to the Redis Service Broker VM and Dedicated VMs
+configured in your deployment.
+You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.
 
 <p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
 
