@@ -2,3 +2,26 @@
 title: Upgrading Redis for PCF
 owner: London Services
 ---
+
+<strong><%= modified_date %></strong>
+
+This section contains the upgrade procedure and upgrade paths for Redis for PCF.
+
+## <a id="upgrading"></a>Compatible Upgrade Paths
+
+Before upgrading Redis for PCF, for compatibility information, see the [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
+
+## <a id="upgrades"></a>Upgrade Redis for PCF
+
+This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.
+
+For information on the upgrade paths for each released version, see the above table.
+
+To upgrade Redis for PCF, do the following:
+
+1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Upload the new `.pivotal` file to Ops Manager.
+1. If required, upload the stemcell associated with the update.
+1. If required, update any new mandatory configuration parameters.
+1. Click **Apply changes**. The rest of the process is automated.
+
