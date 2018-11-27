@@ -38,3 +38,23 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 A redeploy causes downtime of the Redis for PCF tile.
 This section clarifies what events trigger a redeploy.
 
+### <a id="opsman"></a> Ops Manager Changes
+
+In Ops Manager, any field that changes the manifest causes a redeploy of the Redis for PCF tile.
+
+### <a id="pas"></a> PAS (or Elastic Runtime) Changes
+
+In Pivotal Application Service (PAS) or Elastic Runtime, changes to any of the following properties can trigger downtime:
+
+* `..cf.consul_server.ips`: Consul Server Resource Config
+* `$runtime.system_domain`: Runtime System Domain
+* `..cf.ha_proxy.skip_cert_verify.value`: Disable SSL certificate validation for this environment in PAS or Elastic Runtime
+* `$runtime.apps_domain`: Runtime Apps Domain
+* `..cf.nats.ips`: NATS Resource Config
+* `$self.service_network`: Service Network in Ops Manager
+
+When the operator applies any of the above changes to PAS or Elastic Runtime, downtime is triggered for the following:
+
+* Redis On-Demand Broker in Redis for PCF v1.8 and later
+* Dedicated-VM and Shared-VM Services in Redis for PVF v1.9 and earlier
+
