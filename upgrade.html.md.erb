@@ -25,7 +25,7 @@ To upgrade Redis for PCF, do the following:
 1. If required, update any new mandatory configuration parameters.
 1. Click **Apply changes**. The rest of the process is automated.
 
-During the upgrade deployment each Redis instance experiences a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup.
+During the upgrade deployment, each Redis instance experiences a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup.
 
 The length of the downtime depends on whether there is a stemcell update to replace the operating system image, or whether the existing VM can simply have the redis software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM, whereas updates without a stemcell update are faster.
 
@@ -37,81 +37,4 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 A redeploy causes downtime of the Redis for PCF tile.
 This section clarifies what events trigger a redeploy.
-
-### <a id="opsman"></a> Ops Manager Changes
-
-In Ops Manager, any field that changes the manifest causes a redeploy of the Redis for PCF tile.
-
-### <a id="pas"></a> PAS (or Elastic Runtime) Changes
-
-In the Pivotal Application Service (PAS) or Elastic Runtime, changes to any of the following properties can trigger downtime:
-<ul>
-  <li><code>..cf.consul\_server.ips</code>: Consul Server Resource Config </li>
-  <li><code>$runtime.system\_domain</code>: Runtime System Domain </li>
-  <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>: Disable SSL certificate verification for this environment in PAS (or Elastic Runtime)
-</li>
-  <li><code>$runtime.apps\_domain</code>: Runtime Apps Domain </li>
-  <li><code>..cf.nats.ips</code>: NATS Resource Config
-</li>
-  <li><code>$self.service\_network</code> Service Networks in Ops Manager
-</li>
-</ul>
-
-When the operator applies any of the above changes to PAS (or Elastic Runtime), downtime is triggered for the following:
-
-* Redis On-Demand Broker in Redis for PCF v1.8 and later
-
-* Dedicated-VM and Shared-VM Services in Redis for PCF v1.9 and earlier
-
-
-### <a id="all-instances"></a> Upgrading all Service Instances
-
-* For Redis for PCF v1.8 and later, downtime for service instances occurs only
-after the operator runs the `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
-
-* Any change to a field on the Redis for PCF tile causes BOSH to redeploy both the legacy
-and the on-demand Redis Brokers after the operator runs the `upgrade-all-service-instances` errand.
-
-
-## <a id="network-upgrades"></a> Network Changes after Deployment
-
-This section explains how changing the network after deploying Redis for PCF
-affects instances and apps.
-
-### <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated and Shared VMs
-
-To change the network for dedicated-VM and shared-VM services,
-click **Assign AZs and Networks** in the Redis for PCF tile configuration and use the **Network** dropdown.
-The network applies to both shared-VM and dedicated-VM services.
-
-You can also change the network by altering the CIDR in the Ops Manager Director tile.
-
-Pivotal discourages changing the network that a pre-existing dedicated-VM deployment or shared-VM deployment works with.
-
-If the network is changed, app bindings for existing dedicated-VM and shared-VM instances might stop working.
-Dedicated-VMs might also be reallocated as new service instances without their data being cleaned,
-resulting in a data leak between apps.
-
-### <a id="network-upgrades-on-demand"></a> On-Demand Service Instances
-
-To change the service network for on-demand service instances,
-click **Assign AZs and Networks** in the Redis tile configuration and use the **Service Network** dropdown.
-The service network applies to on-demand service instances.
-
-You can also change the service network by altering the CIDR in the Ops Manager Director tile.
-
-If you change the service network, you must unbind and rebind existing apps to the on-demand Redis instance.
-
-New on-demand service instances are placed into the new service network,
-but existing on-demand service instances are not moved.
-If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
-
-Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances
-and does not alter existing instances.
-
-## <a id="policy"></a> Release Policy
-
-When a new version of Redis is released, Pivotal aims to release a new version of Redis for PCF containing the new Redis version soon after.
-
-When a new version of Redis or another dependent software component, such as the stemcell, is released due to a critical CVE, Pivotal's goal is to release a new version of the Redis for PCF within 48 hours.
 
