@@ -73,7 +73,7 @@ on-demand Redis Brokers after the operator runs the `upgrade-all-service-instanc
 This section explains how changing the network after deploying Redis for PCF affects instances and
 apps.
 
-## <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated and Shared VMs
+### <a id="network-upgrades-dedicated-shared-vms"></a> Dedicated and Shared VMs
 
 To change the network for dedicated-VM and shared-VM services, click **Assign AZs and Networks** in
 the Redis for PCF tile configuration and use the **Network** dropdown. The network applies to both
@@ -87,6 +87,12 @@ works with.
 If the network is changed, app bindings for existing dedicated-VM and shared-VM instances might
 stop working. Dedicated-VMs might also be reallocated as new service instances without their data
 being cleared, resulting in a data leak between apps.
+
+### <a id="network-upgrades-on-demand"></a> On-Demand Service Instances
+
+To change the service network for on-demand service instances, click **Assign AZs and Networks** in
+the Redis for PCF tile configuration and use the **Service Network** dropdown. The service network
+applies to on-demand service instances.
 
 
 
