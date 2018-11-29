@@ -5,6 +5,84 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## <a id="1128"></a> v1.12.8
+
+**Release Date: November 29, 2018**
+
+### Fixed Issues
+
+This release fixes the following issue:
+
+* Fix for [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
+
+### Known Issues
+
+This release has the following issues:
+
+* The `redis-odb` service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+	  <th>Component</th>
+	  <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3468.x</td>
+</tr>
+<tr>
+	<td>PCF<sup>*</sup></td>
+    <td>v2.0.x, v2.1.x, and v2.2.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v434.0.26</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.24.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v198.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.179.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.15</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v11.1.1</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>v2.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v4.0.11</td>
+</tr>
+
+</table>
+
 ## <a id="1127"></a> v1.12.7
 
 **Release Date: October 31, 2018**
@@ -19,6 +97,8 @@ taking longer than one second.
 ### Known Issues
 
 This release has the following issues:
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * The `redis-odb` service broker listens on port `12345`.
 This is inconsistent with other services.
@@ -102,6 +182,8 @@ no longer fail when the process manager monit is trying to restart the Redis pro
 taking longer than one second.
 
 This release has the following issues:
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * The `redis-odb` service broker listens on port `12345`.
 This is inconsistent with other services.
@@ -187,6 +269,8 @@ the smoke tests may timeout looping through the buildpacks in order to find the 
 
 ### Known Issues
 
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
+
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
 
@@ -267,6 +351,8 @@ For more information about this unexpected behavior, see
 * Fixes previous version not working with any 3468 stemcell version.
 
 ### Known Issues
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
@@ -356,6 +442,8 @@ the `BGREWRITEAOF` command has been aliased. The alias is available in the
 Credentials tab on the tile.
 
 ### Known Issues
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
@@ -456,6 +544,8 @@ in the Apps Manager marketplace.
 This fixes the issue of disk usage inflation from frequent instance restarts.
 
 ### Known Issues
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
@@ -560,6 +650,8 @@ smoke tests now use the system domain.
 * Reintroduces colocated errands for faster deployments.
 
 ### Known Issues
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
