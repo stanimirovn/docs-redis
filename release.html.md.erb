@@ -5,6 +5,84 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## <a id="1144"></a> v1.14.4
+
+**Release Date: November 29, 2018**
+
+###<a id="fixed1144"></a> Fixed Issues
+
+This release fixes the following issue:
+
+* Fix for [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
+
+###<a id="known1144"></a> Known Issues
+
+This release has the following issues:
+
+* The redis-odb service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### <a id="compat1144"></a> Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>97.x</td>
+</tr>
+<tr>
+    <td>PCF</td>
+    <td>v2.2.x and v2.3.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v434.0.26</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.24.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.183.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.9.0</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.15</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>v11.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>v3.2</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>v1.0.0</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v4.0.11</td>
+</tr>
+
+</table>
+
 ## <a id="1143"></a> v1.14.3
 
 **Release Date: October 31, 2018**
@@ -19,6 +97,8 @@ taking longer than one second.
 ###<a id="known1143"></a> Known Issues
 
 This release has the following issues:
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services.
@@ -98,6 +178,8 @@ This release fixes the following issue:
 ###<a id="known1142"></a> Known Issues
 
 This release has the following issues:
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
@@ -180,6 +262,8 @@ This release fixes the following issue:
 ###<a id="known1141"></a> Known Issues
 
 This release has the following issues:
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
@@ -307,6 +391,8 @@ RFC5424 compliant.
 ###<a id="known1140"></a> Known Issues
 
 This release has the following issues:
+
+* [CVE-2018-15759](https://pivotal.io/security/cve-2018-15759).
 
 * If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
