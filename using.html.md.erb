@@ -375,38 +375,10 @@ or use [SETEX](https://redis.io/commands/setex) to set key value and expiry at t
 * Explicitly delete keys after the app is done using them.
 * Add a lua script to delete keys after a specified time period.
 
+
 ## <a id="logging"></a> Access Redis Metrics for On-Demand Service Instances
 
-To access metrics for on-demand service instances, you can use Loggregator's Log
-Cache feature with the Log Cache CLI plugin.
-Log Cache is enabled by default in Pivotal Application Service (PAS) v2.2.
-
-To access metrics for on-demand service instances, do the following:
-
-1. Install the cf CLI plugin, by running:
-
-    ```
-    cf install-plugin -r CF-Community "log-cache"
-    ```
-
-1. Access a service instance's metrics, by running:
-
-    ```
-    cf tail SERVICE-INSTANCE-NAME
-    ```
-    <br>
-  For example:
-
-    <pre class="terminal">
-    $ cf tail my-instance
-    Retrieving logs for service my-instance in org system / space pivotal-services as admin...
-
-      2018-07-03T09:54:14.84+0100 [my-instance] GAUGE info.clients.blocked_clients:0.000000 metric info.clients.client_biggest_input_buf:0.000000 metric ...
-    </pre>
-  For more information about the metrics output, see [Redis for PCF Service KPIs](./monitoring.html#Redis-KPIs).
-
-For more information about how to enable Log Cache and about the `cf tail` command,
-see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).
+<%= partial '../../redis/odb/log-cache-cli-plugin' %>
 
 
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
