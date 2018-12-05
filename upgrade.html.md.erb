@@ -12,7 +12,7 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 Before upgrading Redis for PCF, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-## <a id="upgrades"></a>Upgrade to Redis for PCF v1.15
+## <a id="upgrades"></a>Upgrade to Redis for PCF v2.0
 
 <%= partial 'breaking-change-dedicated-vms' %>
 
@@ -22,7 +22,7 @@ deployed through Ops Manager.
 For information on the upgrade paths for each released version, see
 [Compatible Upgrade Paths](#upgrading) above.
 
-To upgrade Redis for PCF v1.15, do the following:
+To upgrade Redis for PCF v2.0, do the following:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
@@ -33,7 +33,7 @@ To upgrade Redis for PCF v1.15, do the following:
 1. Select the deprecation warning checkbox in the **WARNING - DEPRECATED INSTANCES** tab.
 This removes any dedicated-VM instances in your deployment.
     <p class="note"> <strong>Note:</strong>
-      This checkbox is mandatory when upgrading to Redis for PCF v1.15.
+      This checkbox is mandatory when upgrading to Redis for PCF v2.0.
       Ensure that you have backed up or migrated data to on-demand instances.</p>
 
 1. If required, update any new mandatory configuration parameters.
