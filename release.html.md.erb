@@ -23,6 +23,9 @@ dedicated-VMs using a checkbox.
 Therefore, service bindings return the DNS address instead of the IP address.
 To use BOSH DNS with existing bindings you must rebind your apps to on-demand service instances.
 
+- This release now uses Redis OSS v5.0.2, which is a critical update for users relying on streams.
+Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES)
+
 ### Known Issues
 
 This release has the following issues:
@@ -86,7 +89,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v4.0.11</td>
+    <td>v5.0.2</td>
 </tr>
 
 </table>
