@@ -1,7 +1,7 @@
 # Redis for PCF Docs
 
-**IMPORTANT:** The **1.14** branch is not yet released, and the **master** branch is for 1.15. Therefore, the edge pipeline publishes both
-1.14 and 1.15 docs. When 1.14 releases, it will be moved to the production pipeline.
+**IMPORTANT:** The **1.14** branch is not yet released, and the **master** branch is for 2.0 (previously known as 1.15). Therefore, the edge pipeline publishes both
+1.14 and 2.0 docs. When 1.14 releases, it will be moved to the production pipeline.
 
 
 ## Where is the book repo?
