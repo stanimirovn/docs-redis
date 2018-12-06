@@ -10,11 +10,15 @@ and information for determining the product's fit for your enterprise's use case
 
 ## <a id="usecases"></a> Recommended Use Cases
 
+On-Demand plans are configured by default for cache use cases but can also be used
+as a datastore.
+
 Dedicated-VM and Shared-VM plans are designed for datastore use cases.
-The Shared-VM plan is not recommended for production use.
-The Dedicated-VM plan as been marked as deprecated and will be completely removed in v2.0.
-On-Demand plans, introduced in Redis for PCF v1.8, are configured by default for
-cache use cases but can also be used as a datastore.
+
+<p class="note"><strong>Note</strong>: The Shared-VM service should only be used for development and testing.
+   Do not use for production.</p>
+
+<%= partial 'note-dedicated-instances' %>
 
 Redis can be used in many different ways, including:
 
@@ -43,13 +47,11 @@ For descriptions of the three Redis for PCF service offerings, see:
 * [On-Demand Service Offering](./architecture.html)
 * [Dedicated-VM and Shared-VM Service Offerings](./architecture-pp.html)
 
-<p class="note"><strong>Note</strong>: The Shared-VM service should only be used for development and testing.
-   Do not use for production.</p>
-
-<p class="note"><strong>Note</strong>: As of Redis for PCF v1.11,
-    the on-demand service is at feature parity with the dedicated-VM service.
-    The dedicated-VM service plan will be deprecated and completely removed in v2.0.
-    Pivotal recommends using the on-demand service plan.</p>
+<div class="note"><strong>Note:</strong>
+  <ul>
+    <li>The Shared-VM plan is not recommended for production use.</li>
+    <li>The Dedicated-VM plan is marked as deprecated and will be removed in v2.0.</li>
+</div>
 
 ##<a id="checklist"></a> Enterprise-Readiness Checklist
 
