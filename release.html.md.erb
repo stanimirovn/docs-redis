@@ -7,7 +7,7 @@ owner: London Services
 
 ## <a id="200"></a> v2.0.0
 
-**Release Date: XXX XX, 2018**
+**Release Date: Dec 20, 2018**
 
 <%= partial 'breaking-change-dedicated-vms' %>
 
@@ -27,6 +27,9 @@ To use BOSH DNS with existing bindings you must rebind your apps to on-demand se
 rely on streams.
 For more information about Redis v5.0.2, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
+
+- on-demand Redis now supports secure manifests, which avoids plaintext secrets in manifests
+by passing these to the ODB to store in BOSH CredHub.
 
 ### Known Issues
 
@@ -51,23 +54,23 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>97.x</td>
+    <td>170.x</td>
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>v2.2.x and v2.3.x</td>
+    <td>v2.3.x and v2.4.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v434.0.26</td>
+    <td>v434.0.27</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.24.0</td>
+    <td>v0.25.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>v0.183.0</td>
+    <td>v0.184.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
@@ -75,7 +78,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>v18.1.15</td>
+    <td>v18.1.16</td>
 </tr>
 <tr>
     <td>syslog</td>
