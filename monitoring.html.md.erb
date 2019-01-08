@@ -21,6 +21,13 @@ Metrics are emitted in the following format:
 origin:"p-redis" eventType:ValueMetric timestamp:1480084323333475533 deployment:"cf-redis" job:"cf-redis-broker" index:"{redacted}" ip:"10.0.1.49" valueMetric:&#60;name:"/p-redis/service-broker/dedicated_vm_plan/available_instances" value:4 unit:"" >
 </pre>
 
+## <a id="critical-logs"></a>Critical Logs
+Critical Logs are logs that should they ocurr, an operator should be notified to prevent further degradation of the Redis service.
+Examples include failed backups.
+
+* <a href="https://docs.pivotal.io/svc-sdk/service-backup/18-1/#troubleshooting">Critical Logs for Service-Backups</a>, these include log messages for failed backups, errored backups and failed to upload backups to destinations
+
+
 ## <a id="kpi"></a>Key Performance Indicators
 
 Key Performance Indicators (KPIs) for Redis for PCF are metrics that operators find most useful for monitoring their Redis service to ensure smooth operation.
