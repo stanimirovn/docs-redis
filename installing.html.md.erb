@@ -11,7 +11,7 @@ through verifying the installation after configuration.
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
-Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which 
+Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
@@ -571,7 +571,16 @@ To configure syslog forwarding, do the following:
 
 1.  Click **Save**.
 
-We recommend that operators set up alerts on critical logs as described in <a href="./monitoring.html#critical-logs"> Critical Logs </a><br/>
+## <a id="stemcell"></a>Update Stemcell
+
+If required, do the following to update the stemcell for Redis for PCF:
+
+1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
+1. In the Ops Manager, click **Stemcell Library**.
+1. Click **Import Stemcell**, and then select the stemcell you downloaded from Pivotal Network.
+
+    <br>![Stemcell Library](stemcell-library-xenial.png)
+1. Click **Save**.
 
 ## <a id="apply"></a> Apply Changes from Your Configuration
 
