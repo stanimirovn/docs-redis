@@ -1,24 +1,24 @@
 # Redis for PCF Docs
 
-## Where is the book repo?
+## Where is the book repository?
 https://github.com/pivotal-cf/docs-book-redis
 
-The book repo uses these branches:
+The book repository uses these branches:
 
 * **Edge** builds from the **master** content branch are available on staging [here](https://docs-pcf-staging.cfapps.io/redis/1-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
-* **Master** builds from the published content branches in this repo (2.0, 1.14, 1.13, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
+* **Master** builds from the published content branches in this repository (2.0, 1.14, 1.13, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## Partials
 
-Cross-product partials for **Redis for PCF** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-services-partials) repo.
+Cross-product partials for **Redis for PCF** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-services-partials) repository.
 
-Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repo.
+Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repository.
 
-## Branches in this (content) repo
+## Branches in this (content) repository
 
 ### Master - Use for next unreleased version
 
-All documentation for the next unreleased version of Redis is in `master`. 
+All documentation for the next unreleased version of Redis is in `master`.
 
 Always make changes you want carried forward in the master branch. This includes:
 
@@ -66,8 +66,8 @@ All live branches build to the <strong>cf-services > redis</strong> pipeline,
 and are manually pushed to production as needed: [Production pipeline](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## How to Cherry-pick from one Branch to Another
-1. Make changes in the first branch (usually `master`), commit them, and then push them to the repo.
-2. Copy part of the SHA for the above commit. To find this, you can do a `git log`, or look at the list of commits in the github repo.
+1. Make changes in the first branch (usually `master`), commit them, and then push them to the repository.
+2. Copy part of the SHA for the above commit. To find this, you can do a `git log`, or look at the list of commits in the github repository.
 3. Checkout the second branch, where you want to copy the changes you made in the first branch.
 4. Run this command, using the SHA snippet you copied above:
     `git cherry-pick <SHA_SNIPPET>`<br><br>
