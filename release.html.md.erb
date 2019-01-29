@@ -5,6 +5,81 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+## <a id="1129"></a> v1.12.9
+
+**Release Date: January 29, 2019**
+
+### Security Fixes
+
+* Bumped Go version used to v1.10.8 for https://github.com/golang/go/issues/29903
+
+### Known Issues
+
+This release has the following issues:
+
+* The `redis-odb` service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>3468.x</td>
+</tr>
+<tr>
+	<td>PCF<sup>*</sup></td>
+    <td>v2.0.x, v2.1.x, and v2.2.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v434.0.268/td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.25.0</td>
+</tr>
+<tr>
+    <td>consul</td>
+    <td>v198.0.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.179.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.5.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.1.16</td>
+</tr>
+<tr>
+    <td>syslog-migration</td>
+    <td>v11.1.1</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>v2.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v4.0.11</td>
+</tr>
+</table>
+
 ## <a id="1128"></a> v1.12.8
 
 **Release Date: November 29, 2018**
