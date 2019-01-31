@@ -5,38 +5,19 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## <a id="200"></a> v2.0.0
+## <a id="210"></a> v2.1.0
 
 **Release Date: MM DD, 2019**
-
-<%= partial 'breaking-change-dedicated-vms' %>
 
 ### Features
 
 New features and changes in this release:
 
-- Dedicated-VM support is removed, see the Breaking Change above.
-To install or upgrade the tile, operators must acknowledge the deletion of
-dedicated-VMs using a checkbox.
-
-- The Redis on-demand service broker now binds apps to a service instance using BOSH DNS.
-Therefore, service bindings return the DNS address instead of the IP address.
-To use BOSH DNS with existing bindings you must rebind your apps to on-demand service instances.
-
-- Redis for PCF uses open source Redis v5.0.2, which includes a fix for a critical issue for users that
-rely on streams.
-For more information about Redis v5.0.2, see the
-[Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
-
-- On-demand Redis supports secure manifests, which avoids plaintext secrets in manifests
-by passing these to the ODB to store in BOSH CredHub.
+* on-demand plans can now have multiple AZs assigned to them, instances of the plan are then randomly assigned accross the selected AZs
 
 ### Known Issues
 
 This release has the following issues:
-
-* The redis-odb service broker listens on port `12345`.
-This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior.
 Do not select this choice as an errand run rule.

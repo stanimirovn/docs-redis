@@ -201,8 +201,9 @@ in the On-Demand Services SDK documentation.
           </tr>
           <tr>
             <td>**AZ to deploy Redis instances of this plan**</td>
-            <td>This is the AZ in which to deploy the Redis instances from the plan.
-                This must be one of the AZs of the service network (configured in the BOSH Director tile).</td>
+            <td>These are the AZs in which to deploy the Redis instances from the plan.
+                These must be AZs of the service network (configured in the BOSH Director tile).
+                If multiple AZs are selected then instances with be distributed randomly between them.</td>
           </tr>
           <tr>
             <td>**Server VM type**</td>
