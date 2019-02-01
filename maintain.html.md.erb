@@ -52,14 +52,6 @@ Redis for PCF includes the errands listed below.
 
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service,
   that is, the shared-VM plan.
-  The Broker Registrar errand also includes the Deprecate Dedicated-VM Plan errand.
-  It disables service access to the dedicated-VM plan for non-admin app developers.
-
-* **Deprecate Dedicated-VM Plan**---Disables service access to the dedicated-VM plan
-    for non-admin app developers.
-
-* **Cleanup Metadata if Dedicated-VM Plan Disabled**---Cleans up any metadata in PCF for any dedicated-VM service instances if zero dedicated
-    instances are provisioned. You can run this errand to clean up metadata after you have deleted all dedicated instances.
 
 * **Smoke Tests**---Runs lifecycle tests for shared-VM plans if these have been enabled and there is remaining quota available.
     The tests cover provisioning, binding, reading, writing, unbinding, and deprovisioning of service instances.
@@ -107,12 +99,6 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 - Required to run if the CF system domain is changed in the PAS tile.
 - Not necessary to run if the change only involves other tiles except PAS tile.
-
-#### Deprecate Dedicated-VM Plan Errand
-
-- Run this errand to prepare for deprecation of support for dedicated nodes.
-- Only needs to be run once to disable service access to the dedicated-VM plan for non-admin app developers.
-- Not needed if the Broker Registrar errand has been run.
 
 #### Register On-Demand Broker Errand
 
