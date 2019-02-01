@@ -96,6 +96,10 @@ The following ports and ranges are used in Redis for PCF:
 
 \* Typically the service broker network and service instance network(s) are the same.
 
+<div class="note"><strong>Note</strong>:
+  When upgrading from 2.0, the On-Demand service instances will change their port from `12345` to the more standard `8080`.
+  You will have to allow your Security Groups to accept traffic both 12345 and 8080 for the duration of the upgrade, before you can delete `12345`
+  This fixes a long standing known issue where Redis On-Demand services weren't using a standard port. </div>
 
 
 ##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
