@@ -12,6 +12,13 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 Before upgrading Redis for PCF, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
+## <a id="upgrades"></a>Upgrade to Redis for PCF v2.1
+If you are coming from 2.0.0, you will need to open your security group ports to both `12345` and `8080` before upgrading.
+This is because the broker will swap it's default port to better align with other CloudFoundry products.
+
+Once the upgrade is over, we recommend that access to port `12345` is removed from the security group.
+
+
 ## <a id="upgrades"></a>Upgrade to Redis for PCF v2.0
 
 <%= partial 'breaking-change-dedicated-vms' %>
