@@ -54,7 +54,6 @@ Use this section to specify spelling of special words for Redis for PCF:
 
 + on-demand plan
 + shared-VM plan
-+ dedicated-VM plan
 
 ## Pipelines
 

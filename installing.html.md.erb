@@ -89,7 +89,7 @@ The following ports and ranges are used in Redis for PCF:
 | 8202                  | TCP                          | Inbound to Cloud Foundry network, outbound from service broker and service instance networks* | Used by the Redis metron_agent to forward metrics to the Cloud Foundry Loggregator                                          |
 | 12350                 | TCP                          | Outbound from Cloud Foundry to the cf-redis-broker service broker network                       | (Only if using a cf-redis-broker) Access to the cf-redis-broker from the cloud controllers.                                 |
 | 12345                 | TCP                          | Outbound from Cloud Foundry to the on-demand service broker network                             | (Only if using an On-Demand service) For access to the on-demand service broker from the cloud controllers          |
-| 6379                  | TCP                          | Outbound from Cloud Foundry to any service instance networks (dedicated-node and on-demand)     | Access to all dedicated nodes and on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
+| 6379                  | TCP                          | Outbound from Cloud Foundry to any service instance networks (on-demand)                       | Access to all on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
 | 32768-61000           | TCP                          | Outbound from Cloud Foundry to the cf-redis-broker service broker network                       | From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan. |
 | 80 or 443<br>(Typically) | http or https<br>respectively  | Outbound from any service instance networks                                                    | Access to the backup blobstore                                                                                             |
 | 8443<br>25555           | TCP                          | Outbound from any on-demand service broker network to the BOSH Director network                | For the on-demand service, the on-demand service broker needs to talk to the BOSH Director                                    |
@@ -392,17 +392,6 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
   <tr>
     <td>Redis</td>
-    <td>Dedicated Node</td>
-    <td>5</td>
-    <td>2</td>
-    <td>1024</td>
-    <td>4096</td>
-    <td>4096</td>
-    <td>1</td>
-    <td>0</td>
-  </tr>
-  <tr>
-    <td>Redis</td>
     <td>Broker Registrar</td>
     <td>1</td>
     <td>1</td>
@@ -436,7 +425,7 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
 </table>
 
-### <a id="disable-shared-dedicated"></a>Disable Shared VM Plans
+### <a id="disable-shared"></a>Disable Shared VM Plans
 
 You can disable Shared VM Plans by doing the following while configuring Redis tile:
 
@@ -455,7 +444,6 @@ You can disable Shared VM Plans by doing the following while configuring Redis t
   * **Resource Config**:<br>
     a. Decrease **Redis Broker** Persistent disk type to the smallest size available.<br>
     b. Decrease **Redis Broker** VM type to the smallest size available.<br>
-    c. Set **Dedicated Node** Instances to 0.<br>
     d. Click **Save**.<br>
 
 ### <a id="configurations"></a>Additional Redis Configurations
