@@ -5,7 +5,7 @@ https://github.com/pivotal-cf/docs-book-redis
 
 The book repository uses these branches:
 
-* **Edge** builds from the **master** content branch are available on staging [here](https://docs-pcf-staging.cfapps.io/redis/1-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
+* **Edge** builds from the **master** content branch are available on staging [here](https://docs-pcf-staging.cfapps.io/redis/2-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
 * **Master** builds from the published content branches in this repository (2.0, 1.14, 1.13, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## Partials
