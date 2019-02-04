@@ -179,9 +179,10 @@ Review the following table to determine if Redis for PCF has the features needed
 ### <a id="other-notes"></a>Support for Multiple AZs
 
 Redis for PCF supports configuring multiple availability zones (AZs).
-However, assigning multiple AZs to Redis instances does not guarantee high availability as clustered Redis is not supported.
+However, assigning multiple AZs to Redis instances does not guarantee high
+availability as clustered Redis is not supported.
 Redis instances operate as single nodes.
 
 + On-Demand plans can be configured to deploy instances to any AZ.
-  If multiple AZs are selected then instances with be distributed randomly between them.
+  If you select multiple AZs, instances are distributed randomly between them.
 + Shared-VM instances run on a single node in the AZ in which the tile is deployed.
