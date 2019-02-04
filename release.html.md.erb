@@ -16,6 +16,14 @@ New features and changes in this release:
 * You can assign multiple AZs to on-demand plans. Instances of the plan are
 randomly assigned across the selected AZs.
 
+### Resolved Issues
+
+This release fixes the following issues:
+
+* The redis-odb service broker listens on port 8080 which is consistent with other services.
+If you are upgrading from 2.0.0, open your security group ports to both `12345`
+and `8080` before upgrading.
+
 ### Known Issues
 
 This release has the following issues:
