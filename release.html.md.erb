@@ -5,6 +5,8 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
+<%= partial "_breaking-change-ports" %>
+
 ## <a id="210"></a> v2.1.0
 
 **Release Date: MM DD, 2019**
@@ -20,9 +22,9 @@ randomly assigned across the selected AZs.
 
 This release fixes the following issues:
 
-* The redis-odb service broker listens on port 8080 which is consistent with other services.
-If you are upgrading from 2.0.0, open your security group ports to both `12345`
-and `8080` before upgrading.
+* The redis-odb service broker listened on port `12345`, which was inconsistent
+with other services.
+It now uses the standard port `8080`.
 
 ### Known Issues
 

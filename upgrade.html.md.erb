@@ -14,6 +14,11 @@ Before upgrading Redis for PCF, for compatibility information, see the
 
 ## <a id="upgrades"></a>Upgrade to Redis for PCF v2.1
 
+<div class="note breaking"><strong>Breaking change</strong>:
+  During the upgrade from Redis for PCF v2.0, on-demand service instances will change
+  their port from <code>12345</code> to <code>8080</code> to be consistent with other services.
+  If you are upgrading from v2.0, you must follow the steps below or your instances will fail.</div>
+
 This product enables a reliable upgrade experience between versions of the product
 deployed through Ops Manager.
 
@@ -30,10 +35,10 @@ To upgrade to Redis for PCF v2.1, do the following:
 
 1. If required, update any new mandatory configuration parameters.
 
-1. If you are upgrading from 2.0.0, open your security group ports to both `12345`
+1. If you are upgrading from v2.0, open your security group ports to both `12345`
 and `8080`.
-The this is because the broker will swap its default port to `8080`, which is consistent
-with other Pivotal Cloud Foundry services.
+This for the broker to change its default port to `8080`, to be consistent with
+other services.
 
 1. Click **Apply changes**. The rest of the process is automated.
 
