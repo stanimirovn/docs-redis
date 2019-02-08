@@ -420,9 +420,9 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
    <tr><th colspan="2" style="text-align: center;"><br> info.stats.keyspace_hits / info.stats.keyspace_misses + info.stats.keyspace_hits <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Hit ratio to determine share of keyspace hits that are successful.
+      <td>Hit ratio to determine share of keyspace hits that are successful
       <br><br>
-      <strong>Use:</strong> A small hit ratio (less than 60%) indicates that many lookup requests are not found in the Redis cache and instead forcing apps to revert to slower resources and can indicate that cached values are expiring too quickly or that a Redis instance has insufficient memory allocation and is deleting volatile keys.
+      <strong>Use:</strong> A small hit ratio (less than 60%) indicates that many lookup requests are not found in the Redis cache and apps are being forced to revert to slower resources. This might indicate that cached values are expiring too quickly or that a Redis instance has insufficient memory allocation and is deleting volatile keys.
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: ratio <br>
