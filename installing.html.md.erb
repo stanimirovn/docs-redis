@@ -163,9 +163,9 @@ in the On-Demand Services SDK documentation.
 </br>
 </br>
     The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:</br></br>
-    * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >3.5&nbsp;GB of persistent disk
-    * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >10&nbsp;GB of persistent disk
-    * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >14&nbsp;GB of persistent disk</br>
+    * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and >2.5&nbsp;GB of persistent disk
+    * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~2&nbsp;GB of memory and >5&nbsp;GB of persistent disk
+    * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and >10&nbsp;GB of persistent disk</br>
 
     ![on demand config](on-demand-config.png) <a id="planconfig"></a>
 
@@ -207,12 +207,12 @@ in the On-Demand Services SDK documentation.
           <tr>
             <td>**Server VM type**</td>
             <td>Select the VM type.
-                Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
+                Pivotal recommends that the **persistent disk should be at least 2.5x the VM memory**.</td>
           </tr>
           <tr>
             <td>**Server Disk type**</td>
             <td>Select the disk type.
-                Pivotal recommends that the **persistent disk should be at least 3.5x the VM memory**.</td>
+                Pivotal recommends that the **persistent disk should be at least 2.5x the VM memory**.</td>
           </tr>
           <tr>
             <td>**Redis Client Timeout**</td>
@@ -387,7 +387,7 @@ VM's total system memory, you can do one of the following:
   The maximum memory an instance can use should be at most 45% of the total system RAM on the VM.
   You can set this with the `maxmemory` configuration.
   The app can use 100% of `maxmemory`--that is, up to 45% of the system RAM.
-  - Pivotal recommends the persistent disk be set to 3.5x the amount of system RAM.
+  - Pivotal recommends the persistent disk be set to 2.5x the amount of system RAM.
 
 1. Click **Save**.
 
