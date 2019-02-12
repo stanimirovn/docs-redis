@@ -268,7 +268,7 @@ or if the Redis AOF uses all the disk space.
 <strong>Solution</strong><br>
 
 <ol>
-  <li>Ensure the disk is configured to at least 1.5 times the RAM.</li>
+  <li>Ensure the disk is configured to at least 2.5x VM memory for the on-demand broker and 3.5x VM memory for cf-redis-broker.</li>
   <li>Check if the AOF is using too much disk space by doing the following:
     <ol>
       <li>BOSH SSH into the affected service instance VM.</li><br>
