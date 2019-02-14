@@ -24,7 +24,7 @@ This diagram shows the architecture of the service broker and on-demand plans an
 On-demand plans are best fit for cache use cases and are configured as such by default.
 
 Redis for PCF offers three on-demand plans as the `p.redis` service within the
-PCF Redis tile. Below is a description of each plan as it appears in the 
+PCF Redis tile. Below is a description of each plan as it appears in the
 Marketplace and its intended use case.
 
 * **Small Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~1&nbsp;GB of memory and more than 2.5&nbsp;GB of persistent disk.
@@ -32,7 +32,7 @@ Marketplace and its intended use case.
 * **Large Cache**: A Redis instance deployed to a dedicated VM, suggested to be configured with ~4&nbsp;GB of memory and more than 10&nbsp;GB of persistent disk.
 
 For each service plan, the operator can configure the **Plan name**, **Plan description**, **Server VM type** and **Server Disk type**, or choose to disable the plan completely.
-Note that the persistent disk size should be at least 2.5x the memory of the instance.
+Set the persistent disk size to least 2.5 times the memory of the instance.
 
 ### <a id="features"></a> Features of On-Demand Service Plans
 
