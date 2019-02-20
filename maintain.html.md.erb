@@ -66,10 +66,10 @@ Redis for PCF includes the errands listed below.
 The above post-deploy errands are run by default whenever **Apply Changes** is triggered,
 whether or not there has been a configuration change in the Redis for PCF tile itself.
 
-The following `post-deploy` errands will not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
-* **Recreate All On-Demand Service Instances**---Recreates on-demand service instances one-by-one.
+The following `post-deploy` errands do not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
+* **Recreate All On-Demand Service Instances** re-creates on-demand service instances one-by-one.
 
-* **Find Orphan On-Demand Service Instances**---Find all orphan on-demand service instances. Cleanup of orphan on-demand service instances can be carried out manually.
+* **Find Orphan On-Demand Service Instances** finds all orphan on-demand service instances. The cleanup of orphan on-demand service instances can be carried out manually.
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
@@ -133,14 +133,14 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 
 #### Recreate All On-Demand Service Instances
 
-- Typically necessary when it is required to recreate an instance with different resources, such as rotating CA certs.
-- It might increase the time it takes to `Apply Changes` since it follows typical instance lifecycle.
-- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed.
+- Typically necessary when an instance must be re-created with different resources, such as rotating CA certs
+- Might increase the time that `Apply Changes` takes since it follows the typical instance lifecycle
+- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed
 
 #### Find Orphan On-Demand Service Instances
 
-- This errand will query Bosh for any orphaned Redis On-Demand service-instance, and will be displayed during `Apply Changes`.
-- It is important to note this errand will **not** remove any instances, rather informs the operator of the details of any orphaned instance so the operator can make an inform decision as to when and how to remove them.
+- This errand queries BOSH for any orphaned Redis On-Demand service-instance, and is displayed during `Apply Changes`.
+- This errand does not remove any instances. It just informs the operator of the details of any orphaned instance so the operator can decide when and how to remove them.
 
 ##  <a id="smoke"></a>Smoke Tests
 
