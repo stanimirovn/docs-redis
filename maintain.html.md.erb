@@ -66,6 +66,11 @@ Redis for PCF includes the errands listed below.
 The above post-deploy errands are run by default whenever **Apply Changes** is triggered,
 whether or not there has been a configuration change in the Redis for PCF tile itself.
 
+The following `post-deploy` errands will not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
+* **Recreate All On-Demand Service Instances**---Recreates on-demand service instances one-by-one.
+
+* **Find Orphan On-Demand Service Instances**---Find all orphan on-demand service instances. Cleanup of orphan on-demand service instances can be carried out manually.
+
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
 * **Broker Deregistrar**---Deregisters the `cf-redis-broker`.
@@ -125,6 +130,17 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
   The Redis for PCF tile floats to the newest minor version.
   For more information, see [Understanding Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
 - Not necessary to run if there are no on-demand instances provisioned.
+
+#### Recreate All On-Demand Service Instances
+
+- Typically necessary when it is required to recreate an instance with different resources, such as rotating CA certs.
+- It might increase the time it takes to `Apply Changes` since it follows typical instance lifecycle.
+- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed.
+
+#### Find Orphan On-Demand Service Instances
+
+- This errand will query Bosh for any orphaned Redis On-Demand service-instance, and will be displayed during `Apply Changes`.
+- It is important to note this errand will **not** remove any instances, rather informs the operator of the details of any orphaned instance so the operator can make an inform decision as to when and how to remove them.
 
 ##  <a id="smoke"></a>Smoke Tests
 
