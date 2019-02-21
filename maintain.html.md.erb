@@ -50,6 +50,9 @@ Redis for PCF includes the errands listed below.
 
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
+The following post-deploy errands are run by default when **Apply Changes** is triggered.
+These errands run whether or not there has been a configuration change in the Redis for PCF tile.
+
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service,
   that is, the shared-VM plan.
 
@@ -63,21 +66,23 @@ Redis for PCF includes the errands listed below.
 
 * **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.
 
-The above post-deploy errands are run by default whenever **Apply Changes** is triggered,
-whether or not there has been a configuration change in the Redis for PCF tile itself.
+The following post-deploy errands do not run by default when **Apply Changes** is triggered.
+These errands help operators to troubleshoot and maintain their service fleet.
 
-The following `post-deploy` errands do not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
-* **Recreate All On-Demand Service Instances** re-creates on-demand service instances one-by-one.
+* **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one.
 
-* **Find Orphan On-Demand Service Instances** finds all orphan on-demand service instances. The cleanup of orphan on-demand service instances can be carried out manually.
+* **Find Orphan On-Demand Service Instances**---Finds all orphan on-demand service instances.
+  The cleanup of orphan on-demand service instances can be carried out manually.
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
+
+The following pre-delete errands are run by default when the Redis for PCF tile is deleted:
 
 * **Broker Deregistrar**---Deregisters the `cf-redis-broker`.
 
 * **Delete All On-Demand Service Instances and Deregister Broker**---Deletes all on-demand instances and deregisters the on-demand Redis broker.
 
-The above pre-delete errands are run by default whenever the Redis for PCF tile is deleted.
+
 
 ### <a id="turning-off"></a> Turning off Post-Deploy Errands
 
@@ -133,14 +138,19 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 
 #### Recreate All On-Demand Service Instances
 
-- Typically necessary when an instance must be re-created with different resources, such as rotating CA certs
-- Might increase the time that `Apply Changes` takes since it follows the typical instance lifecycle
-- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed
+- Necessary when an instance must be re-created with different resources,
+  such as when rotating CA certs.
+- Might increase the time that `Apply Changes` takes because it follows the typical
+  instance lifecycle.
+- Not necessary to run if there are no on-demand instances provisioned.
+  Recommended to be turned off unless needed.
 
 #### Find Orphan On-Demand Service Instances
 
-- This errand queries BOSH for any orphaned Redis On-Demand service-instances and then displays them during `Apply Changes`.
-- This errand does not remove any instances. It just informs the operator of the details of orphaned instances so the operator can decide when and how to remove them.
+- Queries BOSH for any orphaned Redis on-demand instances
+and then displays them during `Apply Changes`.
+- Does not remove any instances. Informs the operator of
+the details of orphaned instances so the operator can decide when and how to remove them.
 
 ##  <a id="smoke"></a>Smoke Tests
 
