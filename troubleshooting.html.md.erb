@@ -20,6 +20,7 @@ In this topic:
     * [Error Messages Logged in Syslog](#syslog-errors)
     * [Failed Backup](#backup-errors)
     * [Orphaned Instances](#orphaned-instances)
+    * [Failed to Set Credentials in Runtime CredHub](#credhub-error)
 * [Troubleshooting Components](#components)
     * [BOSH Problems](#bosh)
     * [Configuration](#bosh-config)
@@ -344,6 +345,28 @@ There are two approaches to solving this problem:<br><br>
     </ul>
   </li>
 </ul>
+
+<a id="credhub-error"></a><h3>Failed to Set Credentials in Runtime CredHub</h3><br>
+
+<strong>Symptom</strong><br><br>
+
+If developers report errors such as:
+
+<pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter 'mode'. Please update or remove this parameter and retry your request.. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>
+
+<strong>Explanation</strong><br><br>
+
+Your service instances might not be running the latest version of Redis.
+You might experience compatibility issues with CredHub if your service instances
+are running Redis for PCF v1.14.3 or earlier.<br><br>
+
+<strong>Solution</strong><br><br>
+
+Run the <code>upgrade-all-instances-errand</code> to make sure all service instances
+are running the latest service offering.
+
+<p class="note"><strong>Note: </strong>
+  Running this errand causes a short period of downtime.</p>
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 

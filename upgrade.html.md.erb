@@ -38,6 +38,13 @@ This removes any dedicated-VM instances in your deployment.
 
 1. If required, update any new mandatory configuration parameters.
 
+1. Pivotal recommends that you run the `upgrade-all-service-instances` errand.
+
+    <p class="note"> <strong>Note:</strong>
+      Existing service instances are not upgraded if you do not run this errand.
+      These instances do not benefit from any security fixes or new features
+      included in the upgrade. </p>
+
 1. Click **Apply changes**. The rest of the process is automated.
 
 During the upgrade each Redis instance experiences a small period of
