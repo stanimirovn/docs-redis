@@ -11,10 +11,7 @@ owner: London Services
 
 <%= partial 'breaking-change-dedicated-vms' %>
 
-<p class="note warning"><strong>Warning: </strong>
-  If you are upgrading from Redis for PCF v1.14.3 or earlier, ensure you run the
-  <code>upgrade-all-service-instances</code> errand after upgrading.
-  Failure to do so causes runtime CredHub compatibility issues.</p>
+<%= partial 'warning-credhub-issue' %>
 
 ### Security Fixes
 
@@ -94,10 +91,7 @@ The following components are compatible with this release:
 
 <%= partial 'breaking-change-dedicated-vms' %>
 
-<p class="note warning"><strong>Warning: </strong>
-  If you are upgrading from Redis for PCF v1.14.3 or earlier, ensure you run the
-  <code>upgrade-all-service-instances</code> errand after upgrading.
-  Failure to do so causes runtime CredHub compatibility issues.</p>
+<%= partial 'warning-credhub-issue' %>
 
 ### Features
 
