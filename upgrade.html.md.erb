@@ -46,10 +46,22 @@ To upgrade Redis for PCF to v1.14, do the following:
 
 1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial),
 and import it into the Ops Manager Stemcell Library. For instructions, see [Update Stemcell](./installing.html#stemcell).
+
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+
 1. Upload the new `.pivotal` file to Ops Manager.
+
 1. If required, upload the stemcell associated with the update.
+
 1. If required, update any new mandatory configuration parameters.
+
+1. Pivotal recommends that you run the `upgrade-all-service-instances` errand.
+
+    <p class="note"> <strong>Note:</strong>
+      Existing service instances are not upgraded if you do not run this errand.
+      These instances do not benefit from any security fixes or new features
+      included in the upgrade. </p>
+
 1. Click **Apply changes**. The rest of the process is automated.
 
 During the upgrade deployment each Redis instance experiences a small period of
