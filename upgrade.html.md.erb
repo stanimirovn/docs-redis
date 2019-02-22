@@ -40,6 +40,13 @@ and `8080`.
 This for the broker to change its default port to `8080`, to be consistent with
 other services.
 
+1. Pivotal recommends that you run the `upgrade-all-service-instances` errand.
+
+    <p class="note"> <strong>Note:</strong>
+      Existing service instances are not upgraded if you do not run this errand.
+      These instances do not benefit from any security fixes or new features
+      included in the upgrade. </p>
+
 1. Click **Apply changes**. The rest of the process is automated.
 
 1. After the upgrade, remove access to port `12345` from the security group.
