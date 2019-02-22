@@ -362,8 +362,12 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
 
 <strong>Solution</strong><br><br>
 
-Run the <code>upgrade-all-instances-errand</code> to make sure all service instances
-are running the latest service offering.
+<ol>
+  <li>Make sure you have the latest patch version of Redis for PCF installed.
+  For more information about the latest patch, see <a href="./release.html">Redis for PCF Release Notes</a>.</li>
+  <li>Run the <code>upgrade-all-instances-errand</code> to make sure all service
+    instances are running the latest service offering.</li>
+</ol>
 
 <p class="note"><strong>Note: </strong>
   Running this errand causes a short period of downtime.</p>
