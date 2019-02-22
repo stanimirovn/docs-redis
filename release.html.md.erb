@@ -9,6 +9,13 @@ owner: London Services
 
 **Release Date: February 12, 2019**
 
+<%= partial 'breaking-change-dedicated-vms' %>
+
+<p class="note warning"><strong>Warning: </strong>
+  If you are upgrading from Redis for PCF v1.14.3 or earlier, ensure you run the
+  <code>upgrade-all-service-instances</code> errand after upgrading.
+  Failure to do so causes runtime CredHub compatibility issues.</p>
+
 ### Security Fixes
 
 * Bumped Go version used to v1.10.8 for https://github.com/golang/go/issues/29903
@@ -86,6 +93,11 @@ The following components are compatible with this release:
 **Release Date: January 4, 2019**
 
 <%= partial 'breaking-change-dedicated-vms' %>
+
+<p class="note warning"><strong>Warning: </strong>
+  If you are upgrading from Redis for PCF v1.14.3 or earlier, ensure you run the
+  <code>upgrade-all-service-instances</code> errand after upgrading.
+  Failure to do so causes runtime CredHub compatibility issues.</p>
 
 ### Features
 
