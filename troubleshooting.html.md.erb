@@ -355,7 +355,7 @@ If developers report errors such as:
 
 <strong>Explanation</strong><br><br>
 
-Your service instances might not be running the latest version of Redis.
+Your service instances might not be running the latest version of Redis for PCF.
 You might experience compatibility issues with CredHub if your service instances
 are running Redis for PCF v1.14.3 or earlier.<br><br>
 
@@ -364,8 +364,9 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
 <ol>
   <li>Make sure you have the latest patch version of Redis for PCF installed.
   For more information about the latest patch, see <a href="./release.html">Redis for PCF Release Notes</a>.</li>
-  <li>Run the <code>upgrade-all-instances-errand</code> to make sure all service
-    instances are running the latest service offering.</li>
+  <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
+    instances are running the latest service offering. 
+     For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
 </ol>
 
 <p class="note"><strong>Note: </strong>
