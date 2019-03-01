@@ -20,7 +20,10 @@ randomly assigned across the selected AZs.
 
 * The errands `recreate-all-service-instances` and
 `find-orphan-on-demand-service-instances` are available to the operator.
-For more information, see [Post-Deploy Errands](./maintain.html#post-deploy). 
+For more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
+
+* Operators can enable BOSH HotSwaps for on-demand service instance upgrades.
+For more information, see [BOSH HotSwaps](./upgrade.html#osh-hotswaps).
 
 ### Resolved Issues
 
@@ -29,6 +32,9 @@ This release fixes the following issues:
 * The redis-odb service broker listened on port `12345`, which was inconsistent
 with other services.
 It now uses the standard port `8080`.
+
+* The redis-odb failed to update on-demand service instances after enabling Lua scripting.
+Instances now will be upgraded.
 
 ### Known Issues
 
