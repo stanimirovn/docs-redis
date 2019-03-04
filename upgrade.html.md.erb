@@ -110,8 +110,12 @@ and the on-demand Redis Brokers after the operator runs the `upgrade-all-service
 
 ### <a id="bosh-hotswaps"></a> BOSH HotSwaps
 
-* Enabling BOSH HotSwaps reduces the downtime for on demand service instances when upgrading. After enabling this feature for the first time,
-all service bindings must be recreated. For more information, see the <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">BOSH VM Update Strategy documentation</a>.
+Enabling BOSH HotSwaps reduces the downtime for on-demand service instances when
+upgrading.
+For more information about this feature, see the
+<a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a>
+in the BOSH documentation.
+After enabling this feature for the first time, all service bindings must be recreated.
 
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
