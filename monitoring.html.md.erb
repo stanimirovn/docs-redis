@@ -137,10 +137,16 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
 
 ### <a id="Redis-KPIs"></a> Redis KPIs
 
-Service instance metrics for Shared-VM service instances have origin <code>p-redis</code> and have names
-pre-pended with <code>/p-redis/shared-vm/&lt;shared-instance-guid&gt;/</code>.
+The metrics in this section can be used for on-demand and shared-VM service instances.
+You can differentiate between these service instance metrics as follows:
 
-Service instance metrics for On-Demand service instances have origin <code>p.redis</code>.
+* **On-demand service instances:**
+  * Have origin <code>p.redis</code>
+
+* **Shared-VM service instances:**
+  * Have origin <code>p-redis</code>
+  * Their names are
+pre-pended with <code>/p-redis/shared-vm/SHARED-INSTANCE-GUID/</code>
 
 #### <a id="persistent-disk-percent"></a> Percent of Persistent Disk Used
 
