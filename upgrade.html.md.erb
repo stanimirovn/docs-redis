@@ -115,8 +115,17 @@ upgrading.
 For more information about this feature, see the
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a>
 in the BOSH documentation.
-After enabling this feature for the first time, all service bindings must be recreated.
 
+To enable BOSH HotSwaps, do the following:
+
+1. Tell developers to rebind all service bindings created before you upgraded to Redis
+for PCF v2.0.
+  <p class="note"><strong>Note:</strong>
+    All apps should be using <a href="./release.html#features">BOSH DNS</a> in service bindings.
+    Any service bindings still using IP addresses must be recreated or they will
+    fail communicate with the Redis instance.</p>
+
+1. Select the **BOSH HotSwaps** checkbox in the **On-Demand Service Settings** tab.
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
 
