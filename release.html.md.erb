@@ -26,6 +26,12 @@ For more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 instance upgrades.
 For more information, see [BOSH HotSwaps](./upgrade.html#osh-hotswaps).
 
+### Security Fixes
+
+* Redis for PCF uses open source Redis v5.0.3, which includes fixes for issues that could cause crashes in very rare cases.
+For more information about Redis v5.0.3, see the
+[Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
+
 ### Resolved Issues
 
 This release fixes the following issues:
@@ -97,7 +103,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v5.0.2</td>
+    <td>v5.0.3</td>
 </tr>
 
 </table>
