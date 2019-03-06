@@ -56,6 +56,8 @@ During the upgrade each Redis instance experiences a small period of
 downtime as each instance is updated with the new software components.
 This downtime is because Redis instances are single VMs operating in a non
 high availability (HA) setup.
+To reduce downtime, you can enable the BOSH HotSwaps feature.
+For how to do so, see [BOSH HotSwaps](#bosh-hotswaps) below.
 
 The length of downtime depends on whether there is a stemcell update to
 replace the operating system image, or whether the Redis software is updated the
@@ -112,20 +114,24 @@ and the on-demand Redis Brokers after the operator runs the `upgrade-all-service
 
 Enabling BOSH HotSwaps reduces the downtime for on-demand service instances when
 upgrading.
-For more information about this feature, see the
+For how it works, see
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a>
 in the BOSH documentation.
+To use this feature, all service bindings must use BOSH DNS instead of IP addresses.
 
 To enable BOSH HotSwaps, do the following:
 
-1. Tell developers to rebind all service bindings created before you upgraded to Redis
-for PCF v2.0.
+1. Ensure all service bindings use BOSH DNS.
+To do so, tell developers to unbind, bind, and restage any apps created while
+Redis for PCF v1.14 or earlier was installed.
   <p class="note"><strong>Note:</strong>
-    All apps should be using <a href="./release.html#features">BOSH DNS</a> in service bindings.
-    Any service bindings still using IP addresses must be recreated or they will
-    fail communicate with the Redis instance.</p>
+    You must do this before enabling BOSH HotSwaps.
+    Any apps with service bindings that do not use BOSH DNS will fail to connect
+    to the Redis service instance.</p>
 
 1. Select the **BOSH HotSwaps** checkbox in the **On-Demand Service Settings** tab.
+
+1. Click **Save** and **Apply Changes**.
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
 
