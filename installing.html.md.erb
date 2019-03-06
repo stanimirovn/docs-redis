@@ -116,6 +116,7 @@ The maximum number of instances you set for all your on-demand plans combined ca
    and communicate with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
+  <%= partial "warning-azure-outbound-internet-access" %>
 
 1. (Optional) Select the checkbox to enable **Service Instance Sharing**.
    This is a Beta feature.
