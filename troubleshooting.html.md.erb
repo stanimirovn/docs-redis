@@ -310,40 +310,106 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 
 <strong>Symptom</strong><br><br>
 
-When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
-some service instances are visible that are not visible to the BOSH director.
-These unused or orphaned instances can create issues.
-For example, they may hold on to a static IP address, causing IP conflicts.
+When a service instance is orphaned, one of the following occurs:
+
+<ul>
+  <li>BOSH Director cannot see your instances but they show up in PCF.<br>
+      When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
+      some service instances are visible that are not visible to the BOSH Director.
+      These unused or orphaned instances can create issues.
+      For example, they might hold on to a static IP address, causing IP conflicts. </li>
+  <li>PCF can no longer find the broker or the service instances.<br>
+      These instances exist but PCF and apps cannot communicate with the instances.</li>
+</ul>
 <br><br>
 
 <strong>Explanation</strong><br><br>
 
+Service instances become orphaned when PCF or BOSH Director stops seeing the instance.
+
 Orphaned instances can occur in the following situations:
 <br><br>
 <ul>
-  <li>Both CF and BOSH maintain state.
-    Orphaned instances can occur if the CF state is out of sync with BOSH.
-    For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the CF state failed.</li>
-  <li>If a call to deprovision a service instance was made directly to BOSH rather than through the cf CLI.</li>
+  <li>Both PCF and BOSH maintain state.
+    Orphaned instances can occur if the PCF state is out of sync with BOSH.
+    For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the
+    PCF state failed.</li>
+  <li>If a call to deprovision a service instance was made directly to BOSH rather than through the
+    cf CLI.</li>
+  <li>If you run <code>cf purge-service-offering</code> while your service instance or broker still exist.</li>
 </ul>
 
 <strong>Solution</strong><br><br>
 
-There are two approaches to solving this problem:<br><br>
+You can solve this issue by doing one of the following:<br><br>
 <ul>
   <li>
     <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge instances by running
     <code>cf purge-service-instance SERVICE-INSTANCE</code>.
   </li>
   <li>
-    <strong>If this is a repeated occurrence:</strong> Contact Pivotal support
-    for further assistance, and include the following:
+    <strong>If this is a repeated occurrence:</strong> Contact Pivotal Support
+    for further help, and include the following:
     <ul>
       <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
       <li>The deployment manifest of failed instances, hiding private information like passwords</li>
       <li>Any recent logs that you can recover from the failed service instance</li>
     </ul>
   </li>
+  <li>
+    <strong>If PCF lost the details of your instances, but BOSH still has the deployment details:</strong> Pivotal recommends that you back up the data on the instance and then create a new service.<br><br>
+      To back up your data and create a new service instance, do the following:
+    <ol>
+      <li>To retrieve your orphaned service instance GUID, run the following command:
+        <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
+        Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
+      </li>
+
+      <li>To SSH into your orphaned service instance, run the following command:
+        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
+        Where:
+        <ul>
+          <li><code>MY-ENV</code> is the name of your environment.</li>
+          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+          <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
+            in step 1.</li>
+        </ul>
+      </li>
+
+      <li>To create an new RDB file, run the following command:
+        <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
+      </li>
+
+      <li>To push the RDB file to your pre-configured remote location, run the following command:
+        <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
+      </li>
+
+      <li>Create a new service instance with the same configuration of the database you backed up.</li>
+
+      <li>To retrieve your new service instance GUID, run the following command:
+        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
+        <ul>
+          <li><code>MY-ENV</code> is the name of your environment.</li>
+          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+        </ul>
+      </li>
+
+      <li> Repeat step 2 with the GUID that you retrieved in step 6</li>
+
+      <li>In your new service instance, create a new directory in <code>/var/vcap/store</code>.
+        For example <code>my-backups</code>.
+      </li>
+
+      <li>To verify the RDB file has not been corrupted, run the following command:
+        <pre>md5sum RDB-FILE</pre>
+        Where <code>RDB-FILE</code> is the path to your RDB file.
+      </li>
+
+      <li>To restore your data, run the following command:
+        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE`</pre>
+        Where <code>RDB-FILE</code> is the path to your RDB file.
+      </li>
+    </ol>
 </ul>
 
 <a id="credhub-error"></a><h3>Failed to Set Credentials in Runtime CredHub</h3><br>
@@ -366,7 +432,7 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
   <li>Make sure you have the latest patch version of Redis for PCF installed.
   For more information about the latest patch, see <a href="./release.html">Redis for PCF Release Notes</a>.</li>
   <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
-    instances are running the latest service offering. 
+    instances are running the latest service offering.
      For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
 </ol>
 
