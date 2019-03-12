@@ -335,12 +335,13 @@ Orphaned instances can occur in the following situations:
     PCF state failed.</li>
   <li>If a call to deprovision a service instance was made directly to BOSH rather than through the 
     cf CLI.</li>
-  <li>If you run <code>cf purge-service-offering</code> while your service instance or broker still exist.</li>
+  <li>If you run <code>cf purge-service-instances</code> while your service instance or broker still exists.</li>
 </ul>
 
 <strong>Solution</strong><br><br>
 
-You can solve this issue by doing one of the following:<br><br>
+<strong>BOSH Director Cannot See Your Service Instance But PCF Can</strong><br>
+ You can solve this issue by doing one of the following:<br><br>
 <ul>
   <li>
     <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge instances by running
@@ -355,9 +356,12 @@ You can solve this issue by doing one of the following:<br><br>
       <li>Any recent logs that you can recover from the failed service instance</li>
     </ul>
   </li>
-  <li>
-    <strong>If PCF lost the details of your instances, but BOSH still has the deployment details:</strong> Pivotal recommends that you back up the data on the instance and then create a new service.<br><br>
-      To back up your data and create a new service instance, do the following:
+</ul>
+
+<strong>PCF Cannot See Your Service Instance But BOSH Director Can</strong><br>
+If PCF lost the details of your instances, but BOSH still has the deployment details,
+you can solve this issue by backing up the data on your service instance and then creating a new service. <br><br>
+To back up your data and create a new service instance, do the following:
     <ol>
       <li>To retrieve your orphaned service instance GUID, run the following command:
         <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre> 
@@ -409,7 +413,7 @@ You can solve this issue by doing one of the following:<br><br>
         Where <code>RDB-FILE</code> is the path to your RDB file.
       </li>
     </ol>
-</ul>
+
 
 <a id="credhub-error"></a><h3>Failed to Set Credentials in Runtime CredHub</h3><br>
 
