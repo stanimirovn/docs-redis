@@ -312,13 +312,13 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 When a service instance is orphaned, one of the following occurs:
 
 <ul>
-  <li>BOSH Director cannot see your instances but they show up in PCF.<br>
-      When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
+  <li>BOSH Director cannot see your instances but they are visible on PCF.<br>
+      When you run <code>cf curl /v2/service_instances</code>,
       some service instances are visible that are not visible to the BOSH Director.
       These unused or orphaned instances can create issues.
       For example, they might hold on to a static IP address, causing IP conflicts. </li>
-  <li>PCF can no longer find the broker or the service instances.<br>
-      These instances exist but PCF and apps cannot communicate with the instances.</li>
+  <li>PCF cannot see your broker or service instances.<br>
+      These instances exist but PCF and apps cannot communicate with them.</li>
 </ul>
 <br><br>
 
