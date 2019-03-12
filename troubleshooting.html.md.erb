@@ -309,10 +309,18 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 
 <strong>Symptom</strong><br><br>
 
-When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
-some service instances are visible that are not visible to the BOSH Director.
-These unused or orphaned instances can create issues.
-For example, they might hold on to a static IP address, causing IP conflicts.
+A service instance can be considered as orphaned in 1 of 2. 
+This can happen when CF stops seeing the instance, or when the BOSH director stops seeing the instance.
+
+<ul>
+  <li>When BOSH Director can not see instances, but they still show up in CF:
+      When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
+      some service instances are visible that are not visible to the BOSH Director.
+      These unused or orphaned instances can create issues.
+      For example, they might hold on to a static IP address, causing IP conflicts. </li>
+  <li>When CF can no longer find the broker or the service instances:
+      These instances are still around, but will not be reachable by CF or any app.</li>
+</ul>
 <br><br>
 
 <strong>Explanation</strong><br><br>
@@ -324,6 +332,7 @@ Orphaned instances can occur in the following situations:
     Orphaned instances can occur if the CF state is out of sync with BOSH.
     For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the CF state failed.</li>
   <li>If a call to deprovision a service instance was made directly to BOSH rather than through the cf CLI.</li>
+  <li>If a call to cf purge-service-instances was made from the cf cli</li>
 </ul>
 
 <strong>Solution</strong><br><br>
@@ -343,6 +352,19 @@ There are two approaches to solving this problem:<br><br>
       <li>Any recent logs that you can recover from the failed service instance</li>
     </ul>
   </li>
+  <li>
+    <strong>If CF lost the details of the instances, but BOSH still has the deployment details:</strong> Pivotal recommends that you back up the data on the instance and then spin up a new service.
+    <ul>
+      <li>Use the orphaned-instance errand to get the service instance guid</li>
+      <li>SSH into the service-instance using the BOSH SSH command</li>
+      <li>Run `/var/vcap/jobs/redis-backups/bin/backup --snapshot` to create a new RDB file</li>
+      <li>Run `/var/vcap/jobs/service-backup/bin/manual-backup` to push the RDB file to your pre-configured remote location</li>
+      <li>Create a new instance with the same configuration of the database you backed up</li>
+      <li>SSH into your new VM using the BOSH SSH command</li>
+      <li>In this VM, create a new directory under `/var/vcap/store`, for example `my-backups.`</li>
+      <li>Verify the RDB file has not been corrupted by running `md5sum PATH-TO-RDB-FILE`</li>
+      <li>Run the command `sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB PATH-TO-RDB-FILE`</li>
+    </ul>
 </ul>
 
 <a id="credhub-error"></a><h3>Failed to Set Credentials in Runtime CredHub</h3><br>
