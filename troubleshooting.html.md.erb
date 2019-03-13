@@ -306,48 +306,47 @@ Ensure that the Redis server being backed up is running.
 To do this, run <code>bosh restart</code> against the affected service instance VM.
 
 
-<a id="orphaned-instances"></a><h3>Orphaned Instances</h3><br>
+<a id="orphaned-instances"></a><h3>Orphaned Instances</h3>
+
+When a service instance is orphaned, one of the following occurs:<br><br>
+
+<ul>
+  <li>BOSH Director cannot see your service instances but PCF can. See,
+    <a href="orphaned-bosh">BOSH Director Cannot See Your Instances</a>.</li>
+  <li>PCF cannot see your broker or service instances but BOSH Director can. See,
+    <a href="orphaned-pcf">PCF Cannot See Your Instances</a>.
+  </li>
+</ul>
+
+<a id="orphaned-bosh"></a><h4>BOSH Director Cannot See Your Instances</h4><br>
 
 <strong>Symptom</strong><br><br>
 
-When a service instance is orphaned, one of the following occurs:
-
-<ul>
-  <li>BOSH Director cannot see your instances but they are visible on PCF.<br>
-      When you run <code>cf curl /v2/service_instances</code>,
-      some service instances are visible that are not visible to the BOSH Director.
-      These unused or orphaned instances can create issues.
-      For example, they might hold on to a static IP address, causing IP conflicts. </li>
-  <li>PCF cannot see your broker or service instances.<br>
-      These instances exist but PCF and apps cannot communicate with them.</li>
-</ul>
-<br><br>
+BOSH Director cannot see your instances but they are visible on PCF.
+    When you run <code>cf curl /v2/service_instances</code>,
+    some service instances are visible that are not visible to the BOSH Director.
+    These orphaned instances can create issues.
+    For example, they might hold on to a static IP address, causing IP conflicts.<br><br>
 
 <strong>Explanation</strong><br><br>
 
-Service instances become orphaned when PCF or BOSH Director stops seeing the instance.
-
-Orphaned instances can occur in the following situations:
-<br><br>
-<ul>
-  <li>Both PCF and BOSH maintain state.
-    Orphaned instances can occur if the PCF state is out of sync with BOSH.
-    For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the
-    PCF state failed.</li>
-  <li>If a call to deprovision a service instance was made directly to BOSH rather than through the
-    cf CLI.</li>
-  <li>If you run <code>cf purge-service-instances</code> while your service instance or broker still exists.</li>
-</ul>
+    Orphaned instances can occur in the following situations:
+    <br><br>
+    <ul>
+      <li>Both PCF and BOSH maintain state.
+        Orphaned instances can occur if the PCF state is out of sync with BOSH.
+        For example, the deployments or VMs have been deprovisioned by BOSH but
+        the call to update the PCF state failed.</li>
+      <li>If a call to deprovision a service instance was made directly to BOSH
+        rather than through the cf CLI.</li>
+    </ul>
 
 <strong>Solution</strong><br><br>
-
-The solution to this issue depends on whether PCF or BOSH Director can see you service instances. <br><br>
-
-<strong>BOSH Director Cannot See Your Service Instance But PCF Can</strong><br>
- You can solve this issue by doing one of the following:<br><br>
+You can solve this issue by doing one of the following:<br><br>
 <ul>
   <li>
-    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge instances by running
+    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge
+    instances by running
     <code>cf purge-service-instance SERVICE-INSTANCE</code>.
   </li>
   <li>
@@ -361,10 +360,25 @@ The solution to this issue depends on whether PCF or BOSH Director can see you s
   </li>
 </ul>
 
-<strong>PCF Cannot See Your Service Instance But BOSH Director Can</strong><br>
+<a id="orphaned-pcf"></a><h4>PCF Cannot See Your Instances</h4><br>
+
+<strong>Symptom</strong><br><br>
+
+PCF cannot see your broker or service instances.
+      These instances exist but PCF and apps cannot communicate with them.<br><br>
+
+
+<strong>Explanation</strong><br><br>
+
+  If you run <code>cf purge-service-instances</code> while your service instance
+  or broker still exists, your service instance become orphaned.<br><br>
+
+<strong>Solution</strong><br><br>
+
 If PCF lost the details of your instances, but BOSH still has the deployment details,
-you can solve this issue by backing up the data on your service instance and then creating a new service. <br><br>
-To back up your data and create a new service instance, do the following:
+you can solve this issue by backing up the data on your service instance and
+creating a new service. <br><br>
+To back up your data and create a new service instance, do the following:<br><br>
     <ol>
       <li>To retrieve your orphaned service instance GUID, run the following command:
         <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
@@ -400,9 +414,12 @@ To back up your data and create a new service instance, do the following:
         </ul>
       </li>
 
-      <li> Repeat step 2 with the GUID that you retrieved in step 6</li>
+      <li> To SSH into your new service instance,
+        repeat step 2 with the GUID that you retrieved in step 6</li>
 
-      <li>In your new service instance, create a new directory in <code>/var/vcap/store</code>.
+      <li> To create a new directory in new service instance, run the following
+        command:
+        <pre>mkdir /var/vcap/store</pre>
         For example <code>my-backups</code>.
       </li>
 
@@ -412,7 +429,7 @@ To back up your data and create a new service instance, do the following:
       </li>
 
       <li>To restore your data, run the following command:
-        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE`</pre>
+        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
         Where <code>RDB-FILE</code> is the path to your RDB file.
       </li>
     </ol>
