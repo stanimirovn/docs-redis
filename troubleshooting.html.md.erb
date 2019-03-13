@@ -307,7 +307,23 @@ Ensure that the Redis server being backed up is running.
 To do this, run <code>bosh restart</code> against the affected service instance VM.
 
 
+<<<<<<< HEAD
 <a id="orphaned-instances"></a><h3>Orphaned Instances</h3><br>
+=======
+<a id="orphaned-instances"></a><h3>Orphaned Instances</h3>
+
+When a service instance is orphaned, one of the following occurs:<br><br>
+
+<ul>
+  <li>BOSH Director cannot see your service instances but PCF can. See,
+    <a href="#orphaned-bosh">BOSH Director Cannot See Your Instances</a>.</li>
+  <li>PCF cannot see your broker or service instances but BOSH Director can. See,
+    <a href="#orphaned-pcf">PCF Cannot See Your Instances</a>.
+  </li>
+</ul>
+
+<a id="orphaned-bosh"></a><h4>BOSH Director Cannot See Your Instances</h4><br>
+>>>>>>> 5c03c04... fix anchor [#164577696]
 
 <strong>Symptom</strong><br><br>
 
