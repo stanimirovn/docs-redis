@@ -349,7 +349,8 @@ You can solve this issue by doing one of the following:<br><br>
     <code>cf purge-service-instance SERVICE-INSTANCE</code>.
   </li>
   <li>
-    <strong>If this is a repeated occurrence:</strong> Contact Pivotal Support
+    <strong>If this is a repeated occurrence:</strong> Contact
+    <a href="https://support.pivotal.io/"> Pivotal Support </a>
     for further help, and include the following:
     <ul>
       <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
@@ -370,7 +371,7 @@ PCF cannot see your broker or service instances.
 <strong>Explanation</strong><br><br>
 
   If you run <code>cf purge-service-instances</code> while your service instance
-  or broker still exists, your service instance become orphaned.<br><br>
+  or broker still exists, your service instance becomes orphaned.<br><br>
 
 <strong>Solution</strong><br><br>
 
@@ -397,10 +398,13 @@ To back up your data and create a new service instance, do the following:<br><br
 
       <li>To create an new RDB file, run the following command:
         <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
+        This creates a new RDB file in <code>/var/vcap/store/redis-backup</code>.
       </li>
 
-      <li>To push the RDB file to your pre-configured remote location, run the following command:
+      <li>To push the RDB file to your backup location, run the following command:
         <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
+        For information about backup locations,
+        see <a href="./auto-backup.html">Configuring Automated Service Backups</a>.
       </li>
 
       <li>Create a new service instance with the same configuration of the database you backed up.</li>
@@ -414,12 +418,11 @@ To back up your data and create a new service instance, do the following:<br><br
       </li>
 
       <li> To SSH into your new service instance,
-        repeat step 2 with the GUID that you retrieved in step 6</li>
+        repeat step 2 above with the GUID that you retrieved in step 6.</li>
 
       <li> To create a new directory in new service instance, run the following
         command:
-        <pre>mkdir /var/vcap/store</pre>
-        For example <code>my-backups</code>.
+        <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
       </li>
 
       <li>To verify the RDB file has not been corrupted, run the following command:
