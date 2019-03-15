@@ -5,38 +5,49 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-In this topic:
-
-* [Useful Debugging Commands](#debugging)
-* [About the Redis CLI](#redis-cli)
-* [Troubleshooting Errors](#errors)
-    * [Failed Install](#install-fail)
-    * [Cannot Create or Delete Service Instances](#cannot-create-delete)
-    * [Broker Request Timeouts](#timeouts)
-    * [Cannot Bind to or Unbind from Service Instances](#cannot-bind)
-    * [Cannot Connect to a Service Instance](#cannot-connect)
-    * [Upgrade All Instances Fails](#upgrade-all-fails)
-    * [Missing Logs and Metrics](#missing-logs)
-    * [Error Messages Logged in Syslog](#syslog-errors)
-    * [Failed Backup](#backup-errors)
-    * [Orphaned Instances](#orphaned-instances)
-* [Troubleshooting Components](#components)
-    * [BOSH Problems](#bosh)
-    * [Configuration](#bosh-config)
-    * [Authentication](#auth)
-    * [Networking](#network)
-    * [Quotas](#quotas)
-* [Techniques for Troubleshooting](#techniques)
-    * [Parse a Cloud Foundry (CF) Error Message](#parse-error)
-    * [Access Broker and Instance Logs and VMs](#bosh-cf-access)
-    * [Run Service Broker Errands to Manage Brokers and Instances](#broker-errands)
-    * [Get Admin Credentials for a Service Instance](#instance-creds)
-    * [Reinstall a Tile](#reinstall)
-    * [View Resource Saturation and Scaling](#view-resources)
-    * [Identify Service Instance Owner](#id-instance-owner)
-    * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
-* [Knowledge Base Articles](#Knowledge)
-
+<div class="quick-links">
+  <ul>
+    <li><a href="#debugging">Useful Debugging Commands</a></li>
+    <li><a href="#redis-cli">About the Redis CLI</a></li>
+    <li><a href="#errors">Troubleshooting Errors</a>
+      <ul>
+        <li><a href="#install-fail">Failed Installation</a></li>
+        <li><a href="#cannot-create-delete">Cannot Create or Delete Service Instances</a></li>
+        <li><a href="#timeouts">Broker Request Timeouts</a></li>
+        <li><a href="#cannot-bind">Cannot Bind to or Unbind from Service Instances</a></li>
+        <li><a href="#cannot-connect">Cannot Connect to a Service Instance</a></li>
+        <li><a href="#upgrade-all-fails">Upgrade All Service Instances Errand Fails</a></li>
+        <li><a href="#missing-logs">Missing Logs and Metrics</a></li>
+        <li><a href="#syslog-errors">Error Messages Logged in Syslog</a></li>
+        <li><a href="#backup-errors">Failed Backup</a></li>
+        <li><a href="#orphaned-instances">Orphaned Instances</a></li>
+      </ul>
+    </li>
+    <li><a href="#components">Troubleshooting Components</a>
+      <ul>
+        <li><a href="#bosh">BOSH Problems</a></li>
+        <li><a href="#bosh-config">Configuration</a></li>
+        <li><a href="#auth">Authentication</a></li>
+        <li><a href="#network">Networking</a></li>
+        <li><a href="#quotas">Quotas</a></li>
+        <li><a href="#failing-jobs">Failing Jobs and Unhealthy Instances</a></li>
+      </ul>
+    </li>
+    <li><a href="#techniques">Techniques for Troubleshooting</a>
+      <ul>
+        <li><a href="#parse-error">Parse a Cloud Foundry (CF) Error Message</a></li>
+        <li><a href="#bosh-cf-access">Access Broker and Instance Logs and VMs</a></li>
+        <li><a href="#broker-errands">Run Service Broker Errands to Manage Brokers and Instances</a></li>
+        <li><a href="#instance-creds">Get Admin Credentials for a Service Instance</a></li>
+        <li><a href="#reinstall">Reinstall a Tile</a></li>
+        <li><a href="#view-resources">View Resource Saturation and Scaling</a></li>
+        <li><a href="#id-instance-owner">Identify a Service Instance Owner</a></li>
+        <li><a href="#monitor-quota">Monitor the Quota Saturation and Service Instance Count</a></li>
+      </ul>
+    </li>
+    <li><a href="#Knowledge">Knowledge Base Articles</a></li>
+  </ul>
+</div>
 
 This topic lists troubleshooting information for Redis for PCF.
 
@@ -166,7 +177,7 @@ to retrieve the password and port number for the service instance.
 
 Start here if you are responding to a specific error or error messages.
 
-<a id="install-fail"></a><h3>Failed Install</h3>
+<a id="install-fail"></a><h3>Failed Installation</h3>
 
 <%= partial '../../redis/odb/tshoot-err-install-fail' %>
 
@@ -192,7 +203,7 @@ Start here if you are responding to a specific error or error messages.
 
 <%= partial '../../redis/odb/tshoot-err-cannot-connect' %>
 
-<a id="upgrade-all-fails"><h3></a>Upgrade All Instances Fails</h3>
+<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Errand Fails</h3>
 
 <%= partial '../../redis/odb/tshoot-err-upgrade-all-fails' %>
 
@@ -383,7 +394,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <%= partial '../../redis/odb/tshoot-comp-global-quotas' %>
 
-<a id="failing-jobs"></a><h4>Failing jobs and unhealthy instances</h4>
+<a id="failing-jobs"></a><h4>Failing Jobs and Unhealthy Instances</h4>
 
 <%= partial '../../redis/odb/tshoot-comp-failing-jobs' %>
 
@@ -448,11 +459,11 @@ This section contains instructions on:<br><br>
 
 <%= partial '../../redis/odb/tshoot-tech-view-resources' %>
 
-<a id="id-instance-owner"></a><h3>Identify Service Instance Owner</h3>
+<a id="id-instance-owner"></a><h3>Identify a Service Instance Owner</h3>
 
 <%= partial '../../redis/odb/tshoot-tech-id-instance-owner' %>
 
-<a id="monitor-quota"></a><h3>Monitor Quota Saturation and Service Instance Count</h3>
+<a id="monitor-quota"></a><h3>Monitor the Quota Saturation and Service Instance Count</h3>
 
 <%= partial '../../redis/odb/tshoot-tech-monitor-quota' %>
 
