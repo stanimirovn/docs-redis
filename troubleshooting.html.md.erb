@@ -437,6 +437,10 @@ To back up your data and create a new service instance, do the following:<br><br
         <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
       </li>
 
+      <li> Transfer the backup artefact to the new service instance, saving the RDB file in
+        <pre>/var/vcap/store/MY-BACKUPS/</pre>.
+      </li>
+
       <li>To verify the RDB file has not been corrupted, run the following command:
         <pre>md5sum RDB-FILE</pre>
         Where <code>RDB-FILE</code> is the path to your RDB file.
