@@ -15,8 +15,10 @@ owner: London Services
 
 ### Fixes
 
-* This release now uses Redis OSS v4.0.13, which is contains a few minor fixes backported from 5.0.
+* This release now uses Redis OSS v4.0.14, which is contains a few minor fixes backported from 5.0.
 Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES)
+* Go 1.12.1, which contains a fix for a regression around sync.1
+* ODB 0.26.1, which contains a fix for the recreate-all-service-instances errand
 
 ### Known Issues
 
@@ -41,7 +43,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>170.x</td>
+    <td>250.x</td>
 </tr>
 <tr>
     <td>PCF</td>
@@ -53,7 +55,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.25.0</td>
+    <td>v0.26.1</td>
 </tr>
 <tr>
     <td>routing</td>
@@ -81,7 +83,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v4.0.13</td>
+    <td>v4.0.14</td>
 </tr>
 </table>
 
