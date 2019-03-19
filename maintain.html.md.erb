@@ -53,35 +53,88 @@ Redis for PCF includes the errands listed below.
 The following post-deploy errands are run by default when **Apply Changes** is triggered.
 These errands run whether or not there has been a configuration change in the Redis for PCF tile.
 
-* **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service,
-  that is, the shared-VM plan.
+<table class="nice">
+  <tr>
+    <th width="18%">Ops Manager UI Name</th>
+    <th width="27%">BOSH Errand Name</th>
+    <th width="55%">Description</th>
+  </tr>
+  <tr>
+    <td><strong>Broker Registrar</strong></td>
+    <td><code>broker-registrar</code></td>
+    <td>Registers the cf-redis-broker with PCF to offer the <code>p-redis</code> service,
+      that is, the shared-VM plan.</td>
+  </tr>
+  <tr>
+    <td><strong>Smoke Tests</strong></td>
+    <td><code>smoke-tests</code></td>
+    <td>Runs lifecycle tests for shared-VM plans if these have been enabled and there is remaining quota available.<br><br>
+        The tests cover provisioning, binding, reading, writing, unbinding, and deprovisioning of service instances.</td>
+  </tr>
+  <tr>
+    <td><strong>Register On-Demand Broker</strong></td>
+    <td><code>register-broker</code></td>
+    <td>Registers the on-demand Redis broker with PCF to offer the <code>p.redis</code> service (on-demand plans).</td>
+  </tr>
+  <tr>
+    <td><strong>On-Demand Smoke Tests</strong></td>
+    <td><code>on-demand-broker-smoke-tests</code></td>
+    <td>Runs lifecycle tests for enabled plans of the <code>p.redis</code> service if there is remaining quota available.<br><br>
+        The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.</td>
+  </tr>
+  <tr>
+    <td><strong>Upgrade All On-Demand Service Instances</strong></td>
+    <td><code>upgrade-all-service-instances</code></td>
+    <td>Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.</td>
+  </tr>
+</table>
 
-* **Smoke Tests**---Runs lifecycle tests for shared-VM plans if these have been enabled and there is remaining quota available.
-    The tests cover provisioning, binding, reading, writing, unbinding, and deprovisioning of service instances.
-
-* **Register On-Demand Broker**---Registers the on-demand Redis broker with PCF to offer the `p.redis` service (on-demand plans).
-
-* **On-Demand Smoke Tests**---Runs lifecycle tests for enabled plans of the `p.redis` service if there is remaining quota available.
-    The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
-
-* **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.
-
+<br>
 The following post-deploy errands do not run by default when **Apply Changes** is triggered.
 These errands help operators to troubleshoot and maintain their service fleet.
 
-* **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one.
 
-* **Find Orphan On-Demand Service Instances**---Finds all orphan on-demand service instances.
-  The cleanup of orphan on-demand service instances can be carried out manually.
+<table class="nice">
+  <tr>
+    <th width="18%">Ops Manager UI Name</th>
+    <th width="27%">BOSH Errand Name</th>
+    <th width="55%">Description</th>
+  </tr>
+  <tr>
+    <td><strong>Recreate All On-Demand Service Instances</strong></td>
+    <td><code>recreate-all-service-instances</code></td>
+    <td>Re-creates on-demand service instances one-by-one.</td>
+  </tr>
+  <tr>
+    <td><strong>Find Orphan On-Demand Service Instances</strong></td>
+    <td><code>orphan-deployments</code></td>
+    <td>Finds all orphan on-demand service instances.
+      The cleanup of orphan on-demands service instances can be carried out manually.</td>
+  </tr>
+</table>
+
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
 The following pre-delete errands are run by default when the Redis for PCF tile is deleted:
 
-* **Broker Deregistrar**---Deregisters the `cf-redis-broker`.
-
-* **Delete All On-Demand Service Instances and Deregister Broker**---Deletes all on-demand instances and deregisters the on-demand Redis broker.
-
+<table class="nice">
+  <tr>
+    <th width="18%">Ops Manager UI Name</th>
+    <th width="27%">BOSH Errand Name</th>
+    <th width="55%">Description</th>
+  </tr>
+  <tr>
+    <td><strong>Broker Deregistrar</strong></td>
+    <td><code>broker-deregistrar</code></td>
+    <td>Deregisters the <code>cf-redis-broker</code>.</td>
+  </tr>
+  <tr>
+    <td><strong>Delete All <br>On-Demand Service Instances and Deregister Broker</strong></td>
+    <td><code>delete-all-service-instances-and-deregister-broker</code></td>
+    <td>Deletes all on-demand instances and deregisters the on-demand Redis broker.</td>
+  </tr>
+</table>
 
 
 ### <a id="turning-off"></a> Turning off Post-Deploy Errands
