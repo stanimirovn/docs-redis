@@ -19,9 +19,11 @@ owner: London Services
 
 ### Security Fixes
 
-* Redis for PCF uses open source Redis v5.0.3, which includes fixes for issues that could cause crashes in very rare cases.
-For more information about Redis v5.0.3, see the
+* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that could cause crashes in very rare cases.
+For more information about Redis v5.0.4, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
+* Go 1.12.1, which includes a fix for a regression around sync.1
+* ODB 0.26.1, which contains a fix for the recreate-all-service-instances errand
 
 ### Known Issues
 
@@ -46,7 +48,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>170.x</td>
+    <td>250.x</td>
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
@@ -86,7 +88,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v5.0.3</td>
+    <td>v5.0.4</td>
 </tr>
 
 </table>
