@@ -28,8 +28,10 @@ For more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 instance upgrades.
 For more information, see [BOSH HotSwaps](./upgrade.html#bosh-hotswaps).
 
-* Operators can enable or disable LUA scripting for shared-VMs.
-Previously it was permanently enabled.
+* Operators can disable Lua scripting for shared-VMs.
+In previous versions, Lua scripting was enabled by default and could not be disabled.
+Pivotal recommends that Lua scripting is disabled unless developers need it to be enabled.
+For instructions, see [Shared-VM Plan](./installing.html#shared-vm-config).
 
 ### Security Fixes
 

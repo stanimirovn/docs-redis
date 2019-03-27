@@ -243,7 +243,7 @@ For how this feature works, see
           <tr>
             <td>**Lua Scripting**</td>
             <td>Enable or disable Lua scripting as needed.
-                Pivotal recommends that Lua Scripting is disabled.</td>
+                Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.</td>
           </tr>
     </table>
 
@@ -301,7 +301,8 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 1.  Configure these fields:<br><br>
       * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance
       * **Redis Service Instance Limit**---Maximum number of shared-VM instances
-      * **Lua Scripting**---Enable or disable Lua Scripting as needed. Pivotal recommends that Lua Scripting be disabled.
+      * **Lua Scripting**---Enable or disable Lua Scripting as needed.
+      Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.
 
  	Memory and instance limits depend on the total system memory of your Redis broker VM and require some
  	additional calculation. For more information, see [Memory Limits for Shared-VM Plans](#shared-vm-memory-limits) below.
