@@ -227,9 +227,41 @@ For more information, see <a href="installing.html#syslog">Configure Syslog Forw
 This section helps to troubleshoot the following errors logged in syslog:
 <br><br>
 <ul>
+  <li><a href="#corrupt-aof">AOF File Corrupted, Cannot Start Redis Instance</a></li>
   <li><a href="#disk-full">AOF Write or Rewrite Errors</a></li>
   <li><a href="#disk-size">Saving Error</a></li>
 </ul>
+
+<a id="corrupt-aof"></a><h4>AOF File Corrupted, Cannot Start Redis Instance</h4>
+<br>
+<strong>Symptom</strong><br>
+  
+<br>
+One or more VMs might fail to start the redis server during pre-start with the error message:<br>
+<pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
+
+<br>
+<strong>Explanation</strong><br><br>
+In cases of hard crashes (eg. Power loss, vm termination without running drain scripts, etc.) your AOF file might be corrupted.
+The error log printed out by Redis provides a very clear means of recovery.
+
+<strong>Solution for Shared-VM instances:</strong><br><br>
+<ol>
+  <li>SSH into your cf-redis-broker instance</li>
+  <li>Navigate to the folder where your aof file lives, usually `/var/vcap/store/cf-redis-broker/redis-data/service-instance-guid/`</li>
+  <li>Run the redis-check-conf command `/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix`</li>
+  <li>SSH out of the cf-redis-broker and restart it using `bosh restart "instance-group/instance-id"`</li>
+</ol>
+
+<strong>Solution for On-Demand-VM instances:</strong><br><br>
+<ol>
+  <li>SSH into your affected service instance</li>
+  <li>Navigate to the folder where your aof file lives, usually `/var/vcap/store/redis/`</li>
+  <li>Run the redis-check-conf command `/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix`</li>
+  <li>SSH out of the Service Instance and restart it using `bosh restart "instance-group/instance-id"`</li>
+</ol>
+
+
 
 <a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4>
 <br>
