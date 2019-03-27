@@ -235,30 +235,46 @@ This section helps to troubleshoot the following errors logged in syslog:
 <a id="corrupt-aof"></a><h4>AOF File Corrupted, Cannot Start Redis Instance</h4>
 <br>
 <strong>Symptom</strong><br>
-  
+
 <br>
 One or more VMs might fail to start the redis server during pre-start with the error message:<br>
 <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
-
 <br>
+
 <strong>Explanation</strong><br><br>
-In cases of hard crashes (eg. Power loss, vm termination without running drain scripts, etc.) your AOF file might be corrupted.
-The error log printed out by Redis provides a very clear means of recovery.
+
+In cases of hard crashes, for example, due to power loss or VM termination without
+running drain scripts, your AOF file might become corrupted.
+The error log printed out by Redis provides a clear means of recovery.
+<br><br>
 
 <strong>Solution for Shared-VM instances:</strong><br><br>
 <ol>
-  <li>SSH into your cf-redis-broker instance</li>
-  <li>Navigate to the folder where your aof file lives, usually `/var/vcap/store/cf-redis-broker/redis-data/service-instance-guid/`</li>
-  <li>Run the redis-check-conf command `/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix`</li>
-  <li>SSH out of the cf-redis-broker and restart it using `bosh restart "instance-group/instance-id"`</li>
+  <li>SSH into your <code>cf-redis-broker</code> instance.</li>
+  <li>Navigate to the folder where your AOF file is stored.
+    This is usually
+    <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
+    <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
+  </li>
+  <li>Run the <code>redis-check-conf</code> command:
+     <pre>/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+  </li>
+  <li>SSH out of the <code>cf-redis-broker</code> instance and restart it by running:
+     <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+  </li>
 </ol>
 
 <strong>Solution for On-Demand-VM instances:</strong><br><br>
 <ol>
-  <li>SSH into your affected service instance</li>
-  <li>Navigate to the folder where your aof file lives, usually `/var/vcap/store/redis/`</li>
-  <li>Run the redis-check-conf command `/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix`</li>
-  <li>SSH out of the Service Instance and restart it using `bosh restart "instance-group/instance-id"`</li>
+  <li>SSH into your affected service instance.</li>
+  <li>Navigate to the folder where your aof file lives.
+    This is usually <code>/var/vcap/store/redis/</code>.</li>
+  <li>Run the <code>redis-check-conf</code> command:
+    <pre>/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+  </li>
+  <li>SSH out of the service instance and restart it by running:
+     <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+  </li>
 </ol>
 
 
