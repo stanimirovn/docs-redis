@@ -5,9 +5,9 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis metrics are emitted through Loggregator via the [Reverse Log Proxy](https://github.com/cloudfoundry/loggregator/blob/master/docs/rlp_gateway.md) and [Log Cache](https://github.com/cloudfoundry/log-cache/blob/master/README.md) in GitHub. You can use third-party monitoring tools to consume Redis metrics to monitor Redis performance and health.
+## <a id="loggregator"></a>Loggregator
 
-## <a id="firehose"></a>Deprecation of Loggregator Firehose
+Redis metrics are emitted through Loggregator via the [Reverse Log Proxy](https://github.com/cloudfoundry/loggregator/blob/master/docs/rlp_gateway.md) and [Log Cache](https://github.com/cloudfoundry/log-cache/blob/master/README.md) in GitHub. You can use third-party monitoring tools to consume Redis metrics to monitor Redis performance and health.
 
 The [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) endpoint is being deprecated.
 
@@ -160,7 +160,8 @@ pre-pended with <code>/p-redis/shared-vm/SHARED-INSTANCE-GUID/</code>.
    <tr><th colspan="2" style="text-align: center;"><br> disk.persistent.percent <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage of persistent disk being used on a VM. The persistent disk is specified as an IaaS-specific disk type with a size. For example, <code>pd-standard</code> on GCP, or <code>st1</code> on AWS, with disk size 5 GB. This is a metric relevant to the health of the VM. A percentage of disk usage approaching 100 causes the VM disk to become unusable as no more files are allowed to be written.
+      <td>Percentage of persistent disk being used on a VM. The persistent disk is specified as an IaaS-specific disk type with a size. For example, <code>pd-standard</code> on GCP, or <code>st1</code> on AWS, with disk size 5&nbsp;GB.
+        This is a metric relevant to the health of the VM. A percentage of disk usage approaching 100 causes the VM disk to become unusable as no more files are allowed to be written.
       <br><br>
       <strong>Use</strong>: Redis is an in-memory datastore that uses a persistent disk to backup and restore the dataset in case of upgrades and VM restarts.
       <br><br>
@@ -326,7 +327,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
       <th width="25%">Description</th>
       <td>Ratio of the amount of memory allocated to Redis by the OS to the amount of memory that Redis is using
       <br><br>
-      <strong>Use</strong>: A memory fragmentation less than one shows that the memory used by Redis is higher than the OS available memory. In other packagings of redis, large values reflect memory fragmentation. For Redis for PCF, the instances only run Redis meaning that no other processes are affected by a high fragmentation ratio (e.g., 10 or 11).
+      <strong>Use</strong>: A memory fragmentation less than one shows that the memory used by Redis is higher than the OS available memory. In other packagings of Redis, large values reflect memory fragmentation. For Redis for PCF, the instances only run Redis, meaning that no other processes are affected by a high fragmentation ratio (e.g., 10 or 11).
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: ratio <br>
@@ -397,8 +398,8 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
       As the number of clients grows, the percentage of resource time given to each
       client decreases and each client spends an increasing time waiting for their share of Redis server time.
       <br><br>
-      Monitoring the number of clients may <%# "can" usually works better. Use "might" to convey possibility. %>be important because there may <%# "can" usually works better. Use "might" to convey possibility. %>be apps
-      creating connections that you did not expect or your app may <%# "can" usually works better. Use "might" to convey possibility. %>not be efficiently closing unused connections.
+      Monitoring the number of clients can be important because there might be apps
+      creating connections that you did not expect or your app might not be efficiently closing unused connections.
       <br><br>
       The connected clients metrics can be used to monitor this.
       This can also be viewed from the redis-cli using the command <code>info clients</code>.</li>
@@ -420,9 +421,9 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
       <strong>Improve memory management:</strong><br>
       Poor memory can cause increased latency in Redis.
       If your Redis instance is using more memory than is available,
-      the operating system will <%# Avoid "will" as we prefer the present tense. %>swap parts of the redis process from out of phyical memory and onto disk.
-      Swapping will <%# Avoid "will" as we prefer the present tense. %>significantly reduce Redis performance since <%# Do not use "since" when you can use "because". %>reads from disk are
-      about 5 orders or magnitude slower than reads from physical memory.
+      the operating system swaps parts of the Redis process from out of physical memory and on to disk.
+      Swapping significantly reduces Redis performance because reads from disk are
+      about five orders or magnitude slower than reads from physical memory.
    </li>
 </ol>
 
