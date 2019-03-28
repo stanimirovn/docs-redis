@@ -7,9 +7,14 @@ owner: London Services
 
 Redis metrics are emitted through Loggregator via the [Reverse Log Proxy](https://github.com/cloudfoundry/loggregator/blob/master/docs/rlp_gateway.md) and [Log Cache](https://github.com/cloudfoundry/log-cache/blob/master/README.md) in GitHub. You can use third-party monitoring tools to consume Redis metrics to monitor Redis performance and health.
 
-<a id="firehose"></a>The [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) endpoint is being deprecated.
+## <a id="firehose"></a>Deprecation of Loggregator Firehose
 
-As an example of how to display KPIs and metrics, see the [CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard) in GitHub, which uses [Datadog](https://www.datadoghq.com). Pivotal does not endorse or provide support for any third-party solution.
+The [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) endpoint is being deprecated.
+
+As an example of how to display KPIs and metrics, see the
+[CF Redis example dashboard](https://github.com/pivotal-cf/metrics-datadog-dashboard) in GitHub.
+This example uses [Datadog](https://www.datadoghq.com).
+However, Pivotal does not endorse or support any third-party solution.
 
 ## <a id="polling"></a> Metrics Polling Interval
 The metrics polling interval defaults to 30 seconds. This can be changed by navigating to the Metrics configuration page and entering a new value in **Metrics polling interval (min: 10)**.
