@@ -5,46 +5,56 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-In this topic:
-
-* [Useful Debugging Commands](#debugging)
-* [About the Redis CLI](#redis-cli)
-* [Troubleshooting Errors](#errors)
-    * [Failed Installation](#install-fail)
-    * [Cannot Create or Delete Service Instances](#cannot-create-delete)
-    * [Broker Request Timeouts](#timeouts)
-    * [Cannot Bind to or Unbind from Service Instances](#cannot-bind)
-    * [Cannot Connect to a Service Instance](#cannot-connect)
-    * [Upgrade All Instances Failures](#upgrade-all-fails)
-    * [Missing Logs and Metrics](#missing-logs)
-    * [Error Messages Logged in Syslog](#syslog-errors)
-    * [Failed Backup](#backup-errors)
-    * [Orphaned Instances](#orphaned-instances)
-    * [Failed to Set Credentials in Runtime CredHub](#credhub-error)
-* [Troubleshooting Components](#components)
-    * [BOSH Problems](#bosh)
-    * [Configuration](#bosh-config)
-    * [Authentication](#auth)
-    * [Networking](#network)
-    * [Quotas](#quotas)
-    * [Failing Jobs and Unhealthy Instances](#failing-jobs)
-* [Techniques for Troubleshooting](#techniques)
-    * [Parse a Cloud Foundry (CF) Error Message](#parse-error)
-    * [Access Broker and Instance Logs and VMs](#bosh-cf-access)
-    * [Run Service Broker Errands to Manage Brokers and Instances](#broker-errands)
-    * [Get Admin Credentials for a Service Instance](#instance-creds)
-    * [Reinstall a Tile](#reinstall)
-    * [View Resource Saturation and Scaling](#view-resources)
-    * [Identify a Service Instance Owner](#id-instance-owner)
-    * [Monitor the Quota Saturation and Service Instance Count](#monitor-quota)
-* [Knowledge Base Articles](#Knowledge)
-
+<div class="quick-links">
+  <ul>
+    <li><a href="#debugging">Useful Debugging Commands</a></li>
+    <li><a href="#redis-cli">About the Redis CLI</a></li>
+    <li><a href="#errors">Troubleshooting Errors</a>
+      <ul>
+        <li><a href="#install-fail">Failed Installation</a></li>
+        <li><a href="#cannot-create-delete">Cannot Create or Delete Service Instances</a></li>
+        <li><a href="#timeouts">Broker Request Timeouts</a></li>
+        <li><a href="#cannot-bind">Cannot Bind to or Unbind from Service Instances</a></li>
+        <li><a href="#cannot-connect">Cannot Connect to a Service Instance</a></li>
+        <li><a href="#upgrade-all-fails">Upgrade All Service Instances Errand Fails</a></li>
+        <li><a href="#missing-logs">Missing Logs and Metrics</a></li>
+        <li><a href="#syslog-errors">Error Messages Logged in Syslog</a></li>
+        <li><a href="#backup-errors">Failed Backup</a></li>
+        <li><a href="#orphaned-instances">Orphaned Instances</a></li>
+        <li><a href="#credhub-error">Failed to Set Credentials in Runtime CredHub</a></li>
+      </ul>
+    </li>
+    <li><a href="#components">Troubleshooting Components</a>
+      <ul>
+        <li><a href="#bosh">BOSH Problems</a></li>
+        <li><a href="#bosh-config">Configuration</a></li>
+        <li><a href="#auth">Authentication</a></li>
+        <li><a href="#network">Networking</a></li>
+        <li><a href="#quotas">Quotas</a></li>
+        <li><a href="#failing-jobs">Failing Jobs and Unhealthy Instances</a></li>
+      </ul>
+    </li>
+    <li><a href="#techniques">Techniques for Troubleshooting</a>
+      <ul>
+        <li><a href="#parse-error">Parse a Cloud Foundry (CF) Error Message</a></li>
+        <li><a href="#bosh-cf-access">Access Broker and Instance Logs and VMs</a></li>
+        <li><a href="#broker-errands">Run Service Broker Errands to Manage Brokers and Instances</a></li>
+        <li><a href="#instance-creds">Get Admin Credentials for a Service Instance</a></li>
+        <li><a href="#reinstall">Reinstall a Tile</a></li>
+        <li><a href="#view-resources">View Resource Saturation and Scaling</a></li>
+        <li><a href="#id-instance-owner">Identify a Service Instance Owner</a></li>
+        <li><a href="#monitor-quota">Monitor the Quota Saturation and Service Instance Count</a></li>
+      </ul>
+    </li>
+    <li><a href="#Knowledge">Knowledge Base Articles</a></li>
+  </ul>
+</div>
 
 This topic lists troubleshooting information for Redis for PCF.
 
 <p class="note"><strong>Note</strong>:
 Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
-Pivotal recommends that you back up both your Ops Manager and deployments before attempting such operations.
+Pivotal recommends that you back up both your Ops Manager and deployments before attempting such opperations.
 <br>
 <br>
 For more information about backing up your setup and exporting your Ops Manager installation,
@@ -103,11 +113,11 @@ Before debugging, gather the following about your PCF deployment:
     <th>Command</th>
   </tr>
   <tr>
-    <td>View the targeted BOSH Director, version, and CPI</td>
+    <td>View the targeted BOSH director, version, and CPI</td>
     <td><code>bosh env</code></td>
   </tr>
   <tr>
-    <td>View the deployments deployed via the targeted BOSH Director</td>
+    <td>View the deployments deployed via the targeted BOSH director</td>
     <td><code>bosh deployments</code></td>
   </tr>
   <tr>
@@ -199,7 +209,7 @@ Start here if you are responding to a specific error or error messages.
 
 <%= partial '../../redis/odb/tshoot-err-cannot-connect' %>
 
-<a id="upgrade-all-fails"><h3></a>Upgrade All Instances Failures</h3>
+<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Errand Fails</h3>
 
 <%= partial '../../redis/odb/tshoot-err-upgrade-all-fails' %>
 
@@ -217,12 +227,60 @@ For more information, see <a href="installing.html#syslog">Configure Syslog Forw
 This section helps to troubleshoot the following errors logged in syslog:
 <br><br>
 <ul>
+  <li><a href="#corrupt-aof">AOF File Corrupted, Cannot Start Redis Instance</a></li>
   <li><a href="#disk-full">AOF Write or Rewrite Errors</a></li>
   <li><a href="#disk-size">Saving Error</a></li>
 </ul>
 
-<a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4><br>
+<a id="corrupt-aof"></a><h4>AOF File Corrupted, Cannot Start Redis Instance</h4>
+<br>
+<strong>Symptom</strong><br>
 
+<br>
+One or more VMs might fail to start the redis server during pre-start with the error message:<br>
+<pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
+<br>
+
+<strong>Explanation</strong><br><br>
+
+In cases of hard crashes, for example, due to power loss or VM termination without
+running drain scripts, your AOF file might become corrupted.
+The error log printed out by Redis provides a clear means of recovery.
+<br><br>
+
+<strong>Solution for Shared-VM instances:</strong><br><br>
+<ol>
+  <li>SSH into your <code>cf-redis-broker</code> instance.</li>
+  <li>Navigate to the folder where your AOF file is stored.
+    This is usually
+    <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
+    <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
+  </li>
+  <li>Run the <code>redis-check-conf</code> command:
+     <pre>/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+  </li>
+  <li>SSH out of the <code>cf-redis-broker</code> instance and restart it by running:
+     <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+  </li>
+</ol>
+
+<strong>Solution for On-Demand-VM instances:</strong><br><br>
+<ol>
+  <li>SSH into your affected service instance.</li>
+  <li>Navigate to the folder where your aof file lives.
+    This is usually <code>/var/vcap/store/redis/</code>.</li>
+  <li>Run the <code>redis-check-conf</code> command:
+    <pre>/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+  </li>
+  <li>SSH out of the service instance and restart it by running:
+     <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+  </li>
+</ol>
+
+
+
+<a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4>
+<br>
 <strong>Symptom</strong><br><br>
 
 One of the following error messages is logged:<br>
@@ -307,37 +365,52 @@ Ensure that the Redis server being backed up is running.
 To do this, run <code>bosh restart</code> against the affected service instance VM.
 
 
-<a id="orphaned-instances"></a><h3>Orphaned Instances</h3><br>
+<a id="orphaned-instances"></a><h3>Orphaned Instances</h3>
+
+When a service instance is orphaned, one of the following occurs:<br><br>
+
+<ul>
+  <li>BOSH Director cannot see your service instances but PCF can. See
+    <a href="#orphaned-bosh">BOSH Director Cannot See Your Instances</a>.</li>
+  <li>PCF cannot see your broker or service instances but BOSH Director can. See
+    <a href="#orphaned-pcf">PCF Cannot See Your Instances</a>.
+  </li>
+</ul>
+
+<a id="orphaned-bosh"></a><h4>BOSH Director Cannot See Your Instances</h4><br>
 
 <strong>Symptom</strong><br><br>
 
-When you run <code>cf curl /v2/service_instances</code> using the cf CLI,
-some service instances are visible that are not visible to the BOSH Director.
-These unused or orphaned instances can create issues.
-For example, they might hold on to a static IP address, causing IP conflicts.
-<br><br>
+BOSH Director cannot see your instances but they are visible on PCF.
+    When you run <code>cf curl /v2/service_instances</code>,
+    some service instances are visible that are not visible to the BOSH Director.
+    These orphaned instances can create issues.
+    For example, they might hold on to a static IP address, causing IP conflicts.<br><br>
 
 <strong>Explanation</strong><br><br>
 
-Orphaned instances can occur in the following situations:
-<br><br>
-<ul>
-  <li>Both CF and BOSH maintain state.
-    Orphaned instances can occur if the CF state is out of sync with BOSH.
-    For example, the deployments or VMs have been deprovisioned by BOSH but the call to update the CF state failed.</li>
-  <li>If a call to deprovision a service instance was made directly to BOSH rather than through the cf CLI.</li>
-</ul>
+    Orphaned instances can occur in the following situations:
+    <br><br>
+    <ul>
+      <li>Both PCF and BOSH maintain state.
+        Orphaned instances can occur if the PCF state is out of sync with BOSH.
+        For example, the deployments or VMs have been deprovisioned by BOSH but
+        the call to update the PCF state failed.</li>
+      <li>If a call to deprovision a service instance was made directly to BOSH
+        rather than through the cf CLI.</li>
+    </ul>
 
 <strong>Solution</strong><br><br>
-
-There are two approaches to solving this problem:<br><br>
+You can solve this issue by doing one of the following:<br><br>
 <ul>
   <li>
-    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge instances by running
+    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge
+    instances by running
     <code>cf purge-service-instance SERVICE-INSTANCE</code>.
   </li>
   <li>
-    <strong>If this is a repeated occurrence:</strong> Contact Pivotal support
+    <strong>If this is a repeated occurrence:</strong> Contact
+    <a href="https://support.pivotal.io/"> Pivotal Support</a>
     for further help, and include the following:
     <ul>
       <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
@@ -346,6 +419,84 @@ There are two approaches to solving this problem:<br><br>
     </ul>
   </li>
 </ul>
+
+<a id="orphaned-pcf"></a><h4>PCF Cannot See Your Instances</h4><br>
+
+<strong>Symptom</strong><br><br>
+
+PCF cannot see your broker or service instances.
+      These instances exist but PCF and apps cannot communicate with them.<br><br>
+
+
+<strong>Explanation</strong><br><br>
+
+  If you run <code>cf purge-service-instances</code> while your service instance
+  or broker still exists, your service instance become orphaned.<br><br>
+
+<strong>Solution</strong><br><br>
+
+If PCF lost the details of your instances, but BOSH still has the deployment details,
+you can solve this issue by backing up the data on your service instance and
+creating a new service. <br><br>
+To back up your data and create a new service instance, do the following:<br><br>
+    <ol>
+      <li>To retrieve your orphaned service instance GUID, run the following command:
+        <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
+        Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
+      </li>
+
+      <li>To SSH into your orphaned service instance, run the following command:
+        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
+        Where:
+        <ul>
+          <li><code>MY-ENV</code> is the name of your environment.</li>
+          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+          <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
+            in step 1.</li>
+        </ul>
+      </li>
+
+      <li>To create an new RDB file, run the following command:
+        <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
+      </li>
+
+      <li>To push the RDB file to your pre-configured remote location, run the following command:
+        <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
+      </li>
+
+      <li>Create a new service instance with the same configuration of the database you backed up.</li>
+
+      <li>To retrieve your new service instance GUID, run the following command:
+        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
+        <ul>
+          <li><code>MY-ENV</code> is the name of your environment.</li>
+          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+        </ul>
+      </li>
+
+      <li> To SSH into your new service instance,
+        repeat step 2 with the GUID that you retrieved in step 6</li>
+
+      <li> To create a new directory in new service instance, run the following
+        command:
+        <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
+      </li>
+
+      <li> Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer it to the new instance.
+         Replace <code>MY-BACKUPS</code> with the name of your backups directory.
+      </li>
+
+      <li>To verify the RDB file has not been corrupted, run the following command:
+        <pre>md5sum RDB-FILE</pre>
+        Where <code>RDB-FILE</code> is the path to your RDB file.
+      </li>
+
+      <li>To restore your data, run the following command:
+        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
+        Where <code>RDB-FILE</code> is the path to your RDB file.
+      </li>
+    </ol>
+
 
 <a id="credhub-error"></a><h3>Failed to Set Credentials in Runtime CredHub</h3><br>
 
@@ -368,7 +519,7 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
   For more information about the latest patch, see <a href="./release.html">Redis for PCF Release Notes</a>.</li>
   <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
     instances are running the latest service offering.
-    For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
+     For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
 </ol>
 
 <p class="note"><strong>Note: </strong>
@@ -386,7 +537,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <a id="bosh-config"></a><h3>Configuration</h3>
 
-<a id="bosh-instance-fail"></a><h4>Service instances in failing state</h4>
+<a id="bosh-instance-fail"></a><h4>Service Instances in Failing State</h4>
 
 <%= partial '../../redis/odb/tshoot-comp-bosh-instance-fail' %>
 
@@ -404,13 +555,13 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <%= partial '../../redis/odb/tshoot-comp-broker-to-instances' %>
 
-<a id="app-to-instances"></a><h4>Validate App Access to a Service Instance</h4>
+<a id="app-to-instances"></a><h4>Validate App Access to Service Instance</h4>
 
 <%= partial '../../redis/odb/tshoot-comp-app-to-instances' %>
 
 <a id="quotas"></a><h3>Quotas</h3>
 
-<a id="plan-quotas"></a><h4>Plan Quota Issues</h4>
+<a id="plan-quotas"></a><h4>Plan Quota issues</h4>
 
 <%= partial '../../redis/odb/tshoot-comp-plan-quotas' %>
 
@@ -439,7 +590,7 @@ This section contains instructions on:<br><br>
 
 <%= partial '../../redis/odb/tshoot-tech-bosh-cf-access' %>
 
-<a id="access-broker"></a><h4>Access Broker Logs and VMs</h4>
+<a id="access-broker"></a><h4>Access Broker Logs and VM(s)</h4>
 
 <%= partial '../../redis/odb/tshoot-tech-access-broker' %>
 
@@ -467,7 +618,7 @@ This section contains instructions on:<br><br>
 
 <%= partial '../../redis/odb/tshoot-tech-delete-all' %>
 
-<a id="detect-orphans"></a><h4>Detect Orphaned Service Instances</h4>
+<a id="detect-orphans"></a><h4>Detect Orphaned Instances Service Instances</h4>
 
 <%= partial '../../redis/odb/tshoot-tech-detect-orphans' %>
 
