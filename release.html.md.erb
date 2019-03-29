@@ -57,6 +57,9 @@ These instances now get upgraded.
 
 * Service Backups have been upgraded to version 18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path '.'
 
+* Metrics emitted from cf-redis-broker did not reach the Loggregator Firehose.
+
+
 ### Known Issues
 
 This release has the following issues:
@@ -69,7 +72,7 @@ For more information about this unexpected behavior, see
 ### Upcoming Firehose Deprecation
 
 * The Loggregator Firehose endpoint is scheduled for deprecation.
-For Firehose replacements, see <a href="monitoring.html#firehose">Deprecation of Loggregator Firehose</a>.
+For Firehose replacements, see <a href="monitoring.html#loggregator">Loggregator</a>.
 
 ### Compatibility
 
