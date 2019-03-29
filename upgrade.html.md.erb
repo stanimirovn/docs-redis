@@ -15,7 +15,7 @@ Before upgrading Redis for PCF, for compatibility information, see the
 ## <a id="upgrades"></a>Upgrade to Redis for PCF v2.1
 
 <div class="note breaking"><strong>Breaking change</strong>:
-  During the upgrade from Redis for PCF v2.0, on-demand service instances will change
+  During the upgrade from Redis for PCF v2.0, on-demand service instances change
   their port from <code>12345</code> to <code>8080</code> to be consistent with other services.
   If you are upgrading from v2.0, you must follow the steps below or your instances will fail.</div>
 
@@ -24,6 +24,28 @@ deployed through Ops Manager.
 
 For information on the upgrade paths for each released version, see
 [Compatible Upgrade Paths](#upgrading) above.
+
+### Downtime During Upgrade
+
+During the upgrade each Redis instance experiences a small period of
+downtime as each instance is updated with the new software components.
+This downtime is because Redis instances are single VMs operating in a non-high availability (HA) setup.
+To reduce downtime, you can enable the BOSH HotSwaps feature.
+Compared to traditional BOSH upgrades, this feature has been shown to reduce downtime by 75%.
+For instructions on how to enable this feature, see [BOSH HotSwaps](#bosh-hotswaps) below.
+
+The length of downtime depends on whether there is a stemcell update to
+replace the operating system image, or whether the Redis software is updated the
+on the existing VM.
+Stemcell updates incur additional downtime while the IaaS creates the new VM,
+whereas updates without a stemcell update are faster.
+
+Ops Manager ensures the instances are updated with the new packages and any
+configuration changes are applied automatically.
+
+Upgrading to a newer version of the product does not cause any loss of data or configuration.
+
+### Upgrade Procedure
 
 To upgrade to Redis for PCF v2.1, do the following:
 
@@ -52,25 +74,6 @@ errand checkbox is selected on the **Review Pending Changes** page.
 
 1. After the upgrade, remove access to port `12345` from the security group.
 
-During the upgrade each Redis instance experiences a small period of
-downtime as each instance is updated with the new software components.
-This downtime is because Redis instances are single VMs operating in a non
-high availability (HA) setup.
-To reduce downtime, you can enable the BOSH HotSwaps feature.
-Compared to traditional BOSH upgrades, this feature has been shown to reduce downtime by 75%.
-For instructions on how to enable this feature, see [BOSH HotSwaps](#bosh-hotswaps) below.
-
-The length of downtime depends on whether there is a stemcell update to
-replace the operating system image, or whether the Redis software is updated the
-on the existing VM.
-Stemcell updates incur additional downtime while the IaaS creates the new VM,
-whereas updates without a stemcell update are faster.
-
-Ops Manager ensures the instances are updated with the new packages and any
-configuration changes are applied automatically.
-
-Upgrading to a newer version of the product does not cause any loss of data or configuration.
-
 ##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
 
 A redeploy causes downtime of the Redis for PCF tile.
@@ -89,8 +92,7 @@ In the Pivotal Application Service (PAS) or Elastic Runtime, changes to any of t
   <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in PAS (or Elastic Runtime)
 </li>
   <li><code>$runtime.apps\_domain</code>---Runtime Apps Domain </li>
-  <li><code>..cf.nats.ips</code>---NATS Resource Config
-</li>
+  <li><code>..cf.nats.ips</code>---NATS Resource Config </li>
   <li><code>$self.service\_network</code>---Service Networks in Ops Manager
 </li>
 </ul>
@@ -130,7 +132,7 @@ Redis for PCF v1.14 or earlier was installed.
 For instructions, see the solution in [Apps Fail to Connect to the Service Instance](./troubleshoot-instances.html#connect-fails).
   <p class="note"><strong>Note:</strong>
     You must do this before enabling BOSH HotSwaps.
-    Any apps with service bindings that do not use BOSH DNS will fail to connect
+    Any apps with service bindings that do not use BOSH DNS fail to connect
     to the Redis service instance.</p>
 
 1. Select the **BOSH HotSwaps** checkbox in the **On-Demand Service Settings** tab.
