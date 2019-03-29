@@ -10,7 +10,7 @@ This section describes the architecture, lifecycle, and configurations of the
 Shared-VM plan.
 For similar information for the On-Demand service plan, see [On-Demand Service Offering](./architecture.html).
 
-<%= partial 'breaking-change-dedicated-vms' %>
+<%= partial 'breaking-change-upgrades' %>
 
 ## <a id="about"></a> About the Shared-VM Plan
 
@@ -47,6 +47,7 @@ There is no way to configure shared plans to use a custom limit.
 
 + Replication and event notification are not configured.
 
+For this reason, Shared-VM plans do not support using CLI commands with arbitrary parameters to configure service instances.
 
 #### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
 
