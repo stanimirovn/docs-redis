@@ -55,7 +55,9 @@ These instances now get upgraded.
 
 * When a shared service instance was missing a PID file, error messages and logs did not include this information.
 
-* Service Backups have been upgraded to version 18.2, which contains a fix for an issue where up-to-date versions of Secure Copy Protocol (SCP) no longer support path '.'
+* Fixed an issue in Service-Backups caused by Secure Copy Protocol (SCP) no longer supporting path `.`, which prompted the following error log from operations using SCP:
+`error performing SCP: 'exit status 1', output: 'scp: error: unexpected filename: .\n`
+ This enables Service Backups to upload backups when running against stemcell v170.30 and later.
 
 * Metrics emitted from cf-redis-broker did not reach the Loggregator Firehose.
 
