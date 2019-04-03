@@ -9,7 +9,7 @@ owner: London Services
 
 <%= partial "warning-azure-outbound-internet-access" %>
 
-## <a id="210"></a> v2.1.0
+## <a id="210"></a> v2.1.1
 
 **Release Date: MM DD, 2019**
 
@@ -60,6 +60,8 @@ These instances now get upgraded.
  This enables Service Backups to upload backups when running against stemcell v170.30 and later.
 
 * Metrics emitted from cf-redis-broker did not reach the Loggregator Firehose.
+
+* The AWS secret access key for S3 backups was not marked as a secret, and as such was not masked. We advise that you update these keys.
 
 
 ### Known Issues
