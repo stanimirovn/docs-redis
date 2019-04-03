@@ -250,10 +250,10 @@ The error log printed out by Redis provides a clear means of recovery.
     <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
     <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
   </li>
-  <li>Run the <code>redis-check-conf</code> command:
-     <pre>/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+  <li>Run the following command:
+     <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
   </li>
-  <li>SSH out of the <code>cf-redis-broker</code> instance and restart it by running:
+  <li>To SSH out of the <code>cf-redis-broker</code> instance and restart, run the following command:
      <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
   </li>
 </ol>
@@ -261,12 +261,12 @@ The error log printed out by Redis provides a clear means of recovery.
 <strong>Solution for On-Demand-VM instances:</strong><br><br>
 <ol>
   <li>SSH into your affected service instance.</li>
-  <li>Navigate to the folder where your aof file lives.
+  <li>Navigate to the folder where your AOF file is stored.
     This is usually <code>/var/vcap/store/redis/</code>.</li>
-  <li>Run the <code>redis-check-conf</code> command:
-    <pre>/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+  <li>Run the following command:
+    <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
   </li>
-  <li>SSH out of the service instance and restart it by running:
+  <li>To SSH out of the service instance and restart it, run the following command:
      <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
   </li>
 </ol>
