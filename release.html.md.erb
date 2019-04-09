@@ -61,7 +61,8 @@ These instances now get upgraded.
 
 * Metrics emitted from cf-redis-broker did not reach the Loggregator Firehose.
 
-* The AWS secret access key for S3 backups was not marked as a secret, and as such was not masked. We advise that you update these keys.
+* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
+These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
 
 
 ### Known Issues
