@@ -36,6 +36,8 @@ This release fixes the following issues:
 
 * For PCF 2.4+ no metrics emitted from cf-redis-broker reached the metrics firehose.
 * Service Backups have been upgraded to version 18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path '.'
+* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
+These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
 
 ### Known Issues
 
