@@ -61,8 +61,8 @@ These instances now get upgraded.
 
 * Metrics emitted from cf-redis-broker did not reach the Loggregator Firehose.
 
-* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
-These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
+* The **AWS Secret Access Key** and **Access Key ID** fields required to set up S3 Backups were not masking text.
+This is no longer the case. Pivotal recommends you rotate your S3 credentials to ensure they are safe.
 
 
 ### Known Issues
