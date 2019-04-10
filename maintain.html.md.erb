@@ -78,7 +78,7 @@ If the changes include configuration changes on the Redis for PCF tile or a new 
 #### Installing Another Tile
 
 When installing another tile that does not make any changes to the BOSH Director
-or the Pivotal Application Service (PAS) or Elastic Runtime tile,
+or the Pivotal Application Service (PAS),
 it is not necessary to run any of the Redis for PCF tile's post-deploy errands.
 
 #### Changes to Other Tiles
@@ -88,8 +88,8 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 #### Broker Registrar Errand
 
-- Required to run if the CF system domain is changed in the PAS (or Elastic Runtime) tile.
-- Not necessary to run if the change only involves other tiles except PAS (or Elastic Runtime) tile.
+- Required to run if the CF system domain is changed in the PAS tile.
+- Not necessary to run if the change only involves other tiles except PAS tile.
 
 #### Register On-Demand Broker Errand
 
@@ -107,8 +107,8 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 - Required to run both if a newer stemcell minor version is uploaded.
   The Redis for PCF tile floats to the newest minor version.
   For more information, see [Understanding Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
-- Good practice to run both for any change in the BOSH Director or PAS (or Elastic Runtime) tile.
-- Not necessary to run either if the change only involves other tiles except PAS (or Elastic Runtime) and BOSH Director.
+- Good practice to run both for any change in the BOSH Director or PAS tile.
+- Not necessary to run either if the change only involves other tiles except PAS and BOSH Director.
 
 #### Upgrade All On-Demand Service Instances Errand
 
