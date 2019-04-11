@@ -55,14 +55,13 @@ This section clarifies what events trigger a redeploy.
 
 In Ops Manager, any field that changes the manifest causes a redeploy of the Redis for PCF tile.
 
-### <a id="pas"></a> PAS (or Elastic Runtime) Changes
+### <a id="pas"></a> PAS Changes
 
-In the Pivotal Application Service (PAS) or Elastic Runtime, changes to any of the following properties can trigger downtime:
+In Pivotal Application Service (PAS), changes to any of the following properties can trigger downtime:
 <ul>
   <li><code>..cf.consul\_server.ips</code>---Consul Server Resource Config </li>
   <li><code>$runtime.system\_domain</code>---Runtime System Domain </li>
-  <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in PAS (or Elastic Runtime)
-</li>
+  <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in PAS
   <li><code>$runtime.apps\_domain</code>---Runtime Apps Domain </li>
   <li><code>..cf.nats.ips</code>---NATS Resource Config
 </li>
@@ -70,7 +69,7 @@ In the Pivotal Application Service (PAS) or Elastic Runtime, changes to any of t
 </li>
 </ul>
 
-When the operator applies any of the above changes to PAS (or Elastic Runtime), downtime is triggered for the following:
+When the operator applies any of the above changes to PAS, downtime is triggered for the following:
 
 * Redis On-Demand Broker in Redis for PCF v1.8 and later
 
