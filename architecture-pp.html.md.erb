@@ -116,12 +116,16 @@ This plan is suitable for workloads which do not require dedicated hardware.
 
 * This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in Ops Manager to be `0`.
 
-* The maximum number of instances can be increased from the default 5 to the value that you want.
-  If you increase the number of instances that can be run on this single VM,
-  you should consider increasing the resources allocated to the VM, in particular RAM and CPU.
-  You can overcommit to some extent, but may start to see performance degradations.
+* You can increase the maximum number of service instances that can run on a shared VM
+  from five, which is the default, up to 250.
+  There is a hard maximum of 250 shared instances.
 
-* You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
+* If you increase the number of instances that can be run on a VM,
+  consider increasing the resources allocated to the VM, in particular RAM and CPU.
+  Failure to do so might lead to a degradation of performance.
+
+* You can also increase the maximum amount of RAM allocated to each Redis process
+(service instance) that is running on this VM.
 
 * If you decrease the service instance limit, any instances that are running
   where the count is now greater than the limit are not terminated.
