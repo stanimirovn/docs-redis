@@ -1,6 +1,5 @@
 <p class="note warning"><strong>Warning: </strong>
   If you are upgrading PCF v2.3 to v2.4, you must run the
-  <code>upgrade-all-service-instances</code> errand after upgrading.
+  <code>bosh -d MY-DEPLOYMENT restart redis-on-demand-broker</code> errand after upgrading.
   Failure to do so causes compatibility issues with runtime CredHub.
-  For how to upgrade, see <a href="upgrade.html#upgrades">Upgrade to Redis for PCF v2.0</a>. 
 </p>

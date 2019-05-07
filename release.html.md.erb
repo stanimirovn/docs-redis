@@ -5,37 +5,36 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<p class="note warning"><strong>Warning: </strong>
-  If you are upgrading PCF v2.3 to v2.4, you must run the
-  <code>bosh -d MY-DEPLOYMENT restart redis-on-demand-broker</code> errand after upgrading.
-  Failure to do so causes compatibility issues with runtime CredHub.
-</p>
-
 ## <a id="202"></a> v2.0.2
 
 **Release Date: May 7, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
-<%= partial 'warning-credhub-issue' %>
+<%= partial 'pcf-upgrade-warning' %>
 
-### Features
+### Feature
 
-* A new errand is available to the operator: `recreate-all-service-instances`. See [Post-Deploy Errands](./maintain.html#post-deploy) for more information.
+New feature in this release:
+
+* A new errand is available to the operator: `recreate-all-service-instances`.
+See [Post-Deploy Errands](./maintain.html#post-deploy).
 
 ### Security Fixes
 
-* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that could cause crashes in very rare cases.<br>
+This release includes the following security fixes:
+
+* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that caused crashes in very rare cases.<br>
 For more information about Redis v5.0.4, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
-* Go 1.12.1, which includes a fix for a regression around sync.
-* ODB 0.26.1, which contains a fix for the recreate-all-service-instances errand
+* Updates golang to v1.12.1, which includes a fix for a regression around sync
+* Updates On-Demand Broker to v0.26.1, which contains a fix for the `recreate-all-service-instances` errand
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* For PCF 2.4 and later no metrics emitted from cf-redis-broker reached the metrics Firehose.
-* Service Backups have been upgraded to v18.2, which contains a fix for an issue where up-to-date versions of `scp` no longer support path '.'
+* For PCF v2.4 and later, no metrics emitted from cf-redis-broker reached the metrics Firehose.
+* Service Backups have been upgraded to v18.2, which contains a fix for an issue where up-to-date versions of `scp` no longer support path `.`
 * The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.<br>
 These have now been updated so your S3 keys are masked. Pivotal recommends that you rotate your S3 credentials to ensure they are safe.
 
@@ -107,14 +106,14 @@ The following components are compatible with this release:
 
 ## <a id="201"></a> v2.0.1
 
-<h2><a id="201"></a> v2.0.1</h2>
-
 <strong>Release Date: February 12, 2019</strong>
 
 <%= partial 'breaking-change-upgrades' %>
-<%= partial 'warning-credhub-issue' %>
+<%= partial 'pcf-upgrade-warning' %>
 
 ### Security Fixes
+
+This release includes the following security fixes:
 
 * Bumped Go version used to v1.10.8 for https://github.com/golang/go/issues/29903
 
@@ -195,7 +194,7 @@ The following components are compatible with this release:
 **Release Date: January 4, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
-<%= partial 'warning-credhub-issue' %>
+<%= partial 'pcf-upgrade-warning' %>
 
 ### Features
 
