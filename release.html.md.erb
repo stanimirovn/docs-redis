@@ -7,21 +7,23 @@ owner: London Services
 
 ## <a id="1139"></a> v1.13.9
 
-**Release Date: XXX XX, 2019**
+**Release Date: April 1, 2019**
 
 ### Features
 
-* A new errand is now available to the operator: `recreate-all-service-instances`. See the [errands page](./maintain.html#post-deploy) for more information.
+* A new errand is now available to the operator: `recreate-all-service-instances`.
+  See the [errands page](./maintain.html#post-deploy).
 * Added error message and logging when a shared service instance is missing a PID file.
 
 ### Fixes
 
-* This release now uses Redis OSS v4.0.14, which contains a few minor fixes backported from v5.0.
-Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES).
+* This release uses Redis OSS v4.0.14, which contains a few minor fixes backported from v5.0.
+For detailed release notes, see [Redis 4.0 release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES).
 * The on-demand broker has been upgraded to v0.26.1, which contains a fix for the recreate-all-service-instances errand.
 * Service Backups have been upgraded to v18.2, which contains a fix for an issue where up-to-date versions of `scp` no longer support path '.'
 * The fields for the AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.<br>
-These have now been updated so your S3 keys are masked. Pivotal recommends that you rotate your S3 credentials to ensure they are safe.
+  These have been updated so your S3 keys are masked.
+  Pivotal recommends that you rotate your S3 credentials to ensure they are safe.
 
 ### Known Issues
 

@@ -45,6 +45,9 @@ Redis for PCF includes the errands listed below.
 
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
+The following post-deploy errands are run by default whenever **Apply Changes** is triggered,
+whether or not there has been a configuration change in the Redis for PCF tile itself.
+
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service (`shared-vm` and `dedicated-vm` plans).
 
 * **Smoke Tests**---Runs lifecycle tests for `shared-vm` and `dedicated-vm` plans if these have been enabled and there is remaining quota available.
@@ -57,10 +60,8 @@ Redis for PCF includes the errands listed below.
 
 * **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.
 
-The above post-deploy errands are run by default whenever **Apply Changes** is triggered,
-whether or not there has been a configuration change in the Redis for PCF tile itself.
-
-The following `post-deploy` errands do not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
+The following post-deploy errands do not run by default when **Apply Changes** is triggered.
+These errands help operators troubleshoot and maintain their service fleet.
 
 * **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one.
 
