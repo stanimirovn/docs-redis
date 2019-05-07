@@ -119,11 +119,10 @@ The maximum number of instances you set for all your on-demand plans combined ca
   <%= partial "warning-azure-outbound-internet-access" %>
 
 1. (Optional) Select the checkbox to enable **Service Instance Sharing**.
-   This is a Beta feature.
-   Turning on sharing enables this experimental feature for all on-demand instances.
+   Turning on sharing enables this feature for all on-demand instances.
     <p class="note"><strong>Note</strong>: To enable this feature a user with admin privileges
   must run <code>cf enable-feature-flag service\_instance\_sharing</code>.
- For information about this feature, see [Sharing a Redis Instance with Another Space (Beta)](./using.html#sharing).
+ For information about this feature, see [Sharing a Redis Instance with Another Space](./using.html#sharing).
   </p>
 
 1. (Optional) Use the **Maximum Parallel Upgrades** field to configure the
@@ -242,8 +241,8 @@ For how this feature works, see
           </tr>
           <tr>
             <td>**Lua Scripting**</td>
-            <td>Enable or disable Lua Scripting as needed.
-                Pivotal recommends that Lua Scripting be disabled.</td>
+            <td>Enable or disable Lua scripting as needed.
+                Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.</td>
           </tr>
     </table>
 
@@ -301,6 +300,8 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 1.  Configure these fields:<br><br>
       * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance
       * **Redis Service Instance Limit**---Maximum number of shared-VM instances
+      * **Lua Scripting**---Enable or disable Lua Scripting as needed.
+      Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.
 
  	Memory and instance limits depend on the total system memory of your Redis broker VM and require some
  	additional calculation. For more information, see [Memory Limits for Shared-VM Plans](#shared-vm-memory-limits) below.
