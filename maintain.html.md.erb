@@ -46,7 +46,7 @@ Redis for PCF includes the errands listed below.
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
 The following post-deploy errands are run by default whenever **Apply Changes** is triggered,
-whether or not there has been a configuration change in the Redis for PCF tile itself.
+whether or not there has been a configuration change in the Redis for PCF tile itself:
 
 * **Broker Registrar**---Registers the cf-redis-broker with PCF to offer the `p-redis` service (`shared-vm` and `dedicated-vm` plans).
 
@@ -60,8 +60,8 @@ whether or not there has been a configuration change in the Redis for PCF tile i
 
 * **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.
 
-The following post-deploy errands do not run by default when **Apply Changes** is triggered.
-These errands help operators troubleshoot and maintain their service fleet.
+The following post-deploy errand does not run by default when **Apply Changes** is triggered.
+This type of post-deploy errands help operators troubleshoot and maintain their service fleet.
 
 * **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one.
 
@@ -127,9 +127,11 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 
 #### Recreate All On-Demand Service Instances
 
-- Typically necessary when it is required to re-create an instance with different resources, such as rotating CA certificates
+- Run this errand when it is necessary to re-create an instance with different resources,
+  for example, when rotating CA certificates.
 - It might increase the time it takes to `Apply Changes` because it follows the typical instance lifecycle
-- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed
+- Do not run this errand if there are no on-demand instances provisioned.
+  Pivotal recommends that you keep this errand off unless it is needed.
 
 ##  <a id="smoke"></a>Smoke Tests
 
