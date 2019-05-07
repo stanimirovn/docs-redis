@@ -53,10 +53,11 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
 
 * This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in Ops Manager to be `0`.
 
-* The maximum number of instances can be increased from the default 5 to the value that you want.
+* The maximum number of instances can be increased from the default 5 to the value that you want, up to 250.
   If you increase the number of instances that can be run on this single VM,
   consider increasing the resources allocated to the VM, in particular RAM and CPU.
   You can overcommit to some extent, but might start to see performance degradations.
+  There is a hard maximum of 250 shared instances.
 
 * You can also increase the maximum amount of RAM allocated to each Redis process (service instance) that is running on this VM
 
