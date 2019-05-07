@@ -74,8 +74,8 @@ Redis for PCF includes the errands listed below.
 The above post-deploy errands are run by default whenever **Apply Changes** is triggered,
 whether or not there has been a configuration change in the Redis for PCF tile itself.
 
-The following `post-deploy` errands will not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
-* **Recreate All On-Demand Service Instances**---Recreates on-demand service instances one-by-one.
+The following `post-deploy` errands do not run by default whenever **Apply Changes** is triggered. These are errands designed to help operators to troubleshoot or maintain their service fleet.
+* **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one.
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
@@ -119,7 +119,7 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 #### Register On-Demand Broker Errand
 
-- Required to run if the network range that the Redis On-demand Broker is deployed in is changed in the BOSH Director tile.
+- Required to run if the network range that the Redis On-Demand Broker is deployed in is changed in the BOSH Director tile.
 - Not necessary to run if the change only involves other tiles except BOSH Director.
 
 <p class="note">
@@ -143,11 +143,11 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
   For more information, see [Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
 - Not necessary to run if there are no on-demand instances provisioned.
 
-#### Recreate All On-Demand Service Instances
+#### Recreate All On-Demand Service Instances Errand
 
-- Typically necessary when it is required to recreate an instance with different resources, such as rotating CA certs.
-- It might increase the time it takes to `Apply Changes` since it follows typical instance lifecycle.
-- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed.
+- Typically necessary when it is required to re-create an instance with different resources, such as rotating CA certificates
+- It might increase the time it takes to `Apply Changes` because it follows typical instance lifecycle
+- Not necessary to run if there are no on-demand instances provisioned, and recommended to be kept off unless needed
 
 ##  <a id="smoke"></a>Smoke Tests
 

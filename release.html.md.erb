@@ -12,7 +12,7 @@ owner: London Services
 
 ## <a id="202"></a> v2.0.2
 
-**Release Date: XXX XX, 2019**
+**Release Date: 7 May, 2019**
 
 <%= partial 'breaking-change-dedicated-vms' %>
 
@@ -20,34 +20,32 @@ owner: London Services
 
 ### Features
 
-* A new errand is now available to the operator: `recreate-all-service-instances`. See the [errands page](./maintain.html#post-deploy) for more information.
+* A new errand is available to the operator: `recreate-all-service-instances`. See [Post-Deploy Errands](./maintain.html#post-deploy) for more information.
 
 ### Security Fixes
 
-* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that could cause crashes in very rare cases.
+* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that could cause crashes in very rare cases.<br>
 For more information about Redis v5.0.4, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
-* Go 1.12.1, which includes a fix for a regression around sync.1
+* Go 1.12.1, which includes a fix for a regression around sync.
 * ODB 0.26.1, which contains a fix for the recreate-all-service-instances errand
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* For PCF 2.4+ no metrics emitted from cf-redis-broker reached the metrics firehose.
-* Service Backups have been upgraded to version 18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path '.'
-* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
-These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
+* For PCF 2.4 and later no metrics emitted from cf-redis-broker reached the metrics Firehose.
+* Service Backups have been upgraded to v18.2, which contains a fix for an issue where up-to-date versions of `scp` no longer support path '.'
+* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.<br>
+These have now been updated so your S3 keys are masked. Pivotal recommends that you rotate your S3 credentials to ensure they are safe.
 
 ### Known Issues
 
 This release has the following issues:
 
-* The redis-odb service broker listens on port `12345`.
-This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
-* The **When Changed** option for errands has unexpected behavior.
-Do not select this option.
+* The **When Changed** option for errands has unexpected behavior. Do not select this option.<br>
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
@@ -133,7 +131,7 @@ Do not select this option.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 170.30+.
+* Service backups fail to upload backups when running on stemcell v170.30 or later.
 
 ### Compatibility
 
@@ -214,10 +212,10 @@ rely on streams.
 For more information about Redis v5.0.2, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
 
-- On-demand Redis supports secure manifests, which avoids plaintext secrets in manifests
+- On-Demand Redis supports secure manifests, which avoids plaintext secrets in manifests
 by passing these to the ODB to store in BOSH CredHub.
 
-* Added error message and logging when a shared service instance is missing a pidfile.
+* Added error message and logging when a shared service instance is missing a PID file.
 
 ### Known Issues
 
@@ -233,7 +231,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 170.30+.
+* Service backups fail to upload backups when running on stemcell v170.30 and later.
 
 ### Compatibility
 
