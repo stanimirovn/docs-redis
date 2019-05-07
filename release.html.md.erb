@@ -8,14 +8,14 @@ owner: London Services
 <p class="note warning"><strong>Warning: </strong>
   If you are upgrading PCF v2.3 to v2.4, you must run the
   <code>bosh -d MY-DEPLOYMENT restart redis-on-demand-broker</code> errand after upgrading.
-  Failure to do so causes compatibility issues with runtime CredHub.</p>
+  Failure to do so causes compatibility issues with runtime CredHub.
+</p>
 
 ## <a id="202"></a> v2.0.2
 
 **Release Date: 7 May, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
-
 <%= partial 'warning-credhub-issue' %>
 
 ### Features
@@ -112,6 +112,7 @@ The following components are compatible with this release:
 <strong>Release Date: February 12, 2019</strong>
 
 <%= partial 'breaking-change-upgrades' %>
+<%= partial 'warning-credhub-issue' %>
 
 ### Security Fixes
 
@@ -194,6 +195,7 @@ The following components are compatible with this release:
 **Release Date: January 4, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
+<%= partial 'warning-credhub-issue' %>
 
 ### Features
 
