@@ -12,26 +12,24 @@ owner: London Services
 ### Features
 
 * A new errand is now available to the operator: `recreate-all-service-instances`. See the [errands page](./maintain.html#post-deploy) for more information.
-* Added error message and logging when a shared service instance is missing a pidfile.
+* Added error message and logging when a shared service instance is missing a PID file.
 
 ### Fixes
 
-* This release now uses Redis OSS v4.0.14, which is contains a few minor fixes backported from 5.0.
-Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES)
-* The on-demand broker has been upgraded to version 0.26.1, which contains a fix for the recreate-all-service-instances errand.
-* Service Backups have been upgraded to version 18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path '.'
-* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
-These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
+* This release now uses Redis OSS v4.0.14, which contains a few minor fixes backported from v5.0.
+Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES).
+* The on-demand broker has been upgraded to v0.26.1, which contains a fix for the recreate-all-service-instances errand.
+* Service Backups have been upgraded to v18.2, which contains a fix for an issue where up-to-date versions of `scp` no longer support path '.'
+* The fields for the AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.<br>
+These have now been updated so your S3 keys are masked. Pivotal recommends that you rotate your S3 credentials to ensure they are safe.
 
 ### Known Issues
 
 This release has the following issues:
 
-* The redis-odb service broker listens on port `12345`.
-This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
-* The **When Changed** option for errands has unexpected behavior.
-Do not select this choice as an errand run rule.
+* The **When Changed** option for errands has unexpected behavior. Do not select this choice as an errand run rule.<br>
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
@@ -50,7 +48,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
 	<td>PCF<sup>*</sup></td>
-    <td>v2.1.x, v2.2.x and v2.3.x</td>
+    <td>v2.1.x, v2.2.x, and v2.3.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
@@ -110,7 +108,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -189,7 +187,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -277,7 +275,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -363,7 +361,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -453,7 +451,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -545,7 +543,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -650,7 +648,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
@@ -758,9 +756,9 @@ For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * The Cf-Redis Service Broker does not specify a buildpack in the Redis App pushed during its smoke tests.
-As a result, if an environment has a large number of buildpacks, the smoke tests may timeout looping through the buildpacks in order to find the appropriate one.
+As a result, if an environment has a large number of buildpacks, the smoke tests might timeout looping through the buildpacks in order to find the appropriate one.
 
-* Service backups fail to upload backups when running on stemcell version 3468.101+.
+* Service backups fail to upload backups when running on stemcell v3468.101 or later.
 
 ### Compatibility
 
