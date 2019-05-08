@@ -9,7 +9,7 @@ owner: London Services
 
 <%= partial "warning-azure-outbound-internet-access" %>
 
-## <a id="210"></a> v2.1.1
+## <a id="210"></a> vX.X.X
 
 **Release Date: MM DD, 2019**
 
@@ -17,69 +17,19 @@ owner: London Services
 
 New features and changes in this release:
 
-* You can assign multiple AZs to on-demand plans. Instances of the plan are
-randomly assigned across the selected AZs.
-
-* The errands `recreate-all-service-instances` and
-`orphan-deployments` are available to the operator.
-For more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
-
-* Operators can enable BOSH HotSwaps, which reduces downtime for on-demand service
-instance upgrades.
-For more information, see [BOSH HotSwaps](./upgrade.html#bosh-hotswaps).
-
-* Operators can disable Lua scripting for shared-VMs.
-In previous versions, Lua scripting was enabled by default and could not be disabled.
-Pivotal recommends that Lua scripting is disabled unless developers need it to be enabled.
-For instructions, see [Shared-VM Plan](./installing.html#shared-vm-config).
-
-* Shared service instances emit service metrics to Loggregator.
-
 ### Security Fixes
 
 This release includes the following security fixes:
 
-* Redis for PCF uses open source Redis v5.0.4.
-Open source Redis for v5.0.4 includes fixes for issues that, in very rare cases, caused crashes.
-For more information about Redis v5.0.4, see the
-[Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* The redis-odb service broker listened on port `12345`, which was inconsistent
-with other services.
-It now uses the standard port `8080`.
-
-* Upgrades for on-demand service instances failed after enabling Lua scripting.
-These instances now get upgraded.
-
-* When a shared service instance was missing a PID file, error messages and logs did not include this information.
-
-* Fixed an issue in Service-Backups caused by Secure Copy Protocol (SCP) no longer supporting path `.`, which prompted the following error log from operations using SCP:
-`error performing SCP: 'exit status 1', output: 'scp: error: unexpected filename: .\n`
- This enables Service Backups to upload backups when running against stemcell v170.30 and later.
-
-* Metrics emitted from cf-redis-broker did not reach the Loggregator Firehose.
-
-* The **AWS Secret Access Key** and **Access Key ID** fields required to set up S3 Backups were not masking text.
-This is no longer the case. Pivotal recommends you rotate your S3 credentials to ensure they are safe.
-
 
 ### Known Issues
 
 This release has the following issues:
-
-* The **When Changed** option for errands has unexpected behavior.
-Do not select this choice as an errand run rule.
-For more information about this unexpected behavior, see
-[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
-
-### Upcoming Firehose Deprecation
-
-* The Loggregator Firehose endpoint is scheduled for deprecation.
-For Firehose replacements, see <a href="monitoring.html#loggregator">Loggregator</a>.
 
 ### Compatibility
 
