@@ -19,7 +19,7 @@ owner: London Services
 New features in this release:
 
 * A new errand is now available to the operator: `recreate-all-service-instances`.
-See [Post-Deploy Errands](./maintain.html#post-deploy) for more information.
+See [Post-Deploy Errands](./maintain.html#post-deploy).
 
 ### <a id="securityfix1146"></a> Security Fixes
 
@@ -29,7 +29,7 @@ This release includes the following security fixes:
 Detailed release notes for this patch are available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES).
 * Updates golang to v1.12.1, which contains a fix for a regression around sync
 * Updates On-Demand Broker to v0.26.1, which contains a fix for the `recreate-all-service-instances` errand
-* Added error message and logging when a shared service instance is missing a PID file
+* Adds error message and logging when a shared service instance is missing a PID file
 * Updates Service Backups to v18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path `.`
 
 ### <a id="resolved1146"></a> Resolved Issues
