@@ -12,36 +12,41 @@ owner: London Services
 
 ## <a id="1146"></a> v1.14.6
 
-**Release Date: XXX XX, 2019**
+**Release Date: May 7, 2019**
 
 ### Features
 
-* A new errand is now available to the operator: `recreate-all-service-instances`. See the [errands page](./maintain.html#post-deploy) for more information.
+New features in this release:
 
-### Fixes
+* A new errand is now available to the operator: `recreate-all-service-instances`.
+See [Post-Deploy Errands](./maintain.html#post-deploy) for more information.
 
-* This release now uses Redis OSS v4.0.14, which is contains a few minor fixes backported from 5.0.
-Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES)
-* Go 1.12.1, which contains a fix for a regression around sync.1
-* ODB 0.26.1, which contains a fix for the recreate-all-service-instances errand
-* Added error message and logging when a shared service instance is missing a pidfile.
-* Service Backups 18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path '.'
+### Security Fixes
+
+This release includes the following security fixes:
+
+* This release now uses Redis OSS v4.0.14, which contains a few minor fixes backported from v5.0.
+Detailed release notes for this patch are available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES).
+* Updates golang to v1.12.1, which contains a fix for a regression around sync
+* Updates On-Demand Broker to v0.26.1, which contains a fix for the `recreate-all-service-instances` errand
+* Added error message and logging when a shared service instance is missing a PID file
+* Updates Service Backups to v18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path `.`
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* For PCF 2.4+ no metrics emitted from cf-redis-broker reached the metrics firehose.
+* For PCF v2.4 and later, no metrics emitted from cf-redis-broker reached the metrics Firehose.
 
 * The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
-These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
+These have now been updated so your S3 keys are masked.
+Pivotal recommends that you rotate your S3 credentials to ensure they are safe.
 
 ### Known Issues
 
 This release has the following issues:
 
-* The redis-odb service broker listens on port `12345`.
-This is inconsistent with other services.
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior.
 Do not select this choice as an errand run rule.
@@ -63,7 +68,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>PCF</td>
-    <td>v2.2.x, v2.3.x and v2.4.x</td>
+    <td>v2.2.x, v2.3.x, and v2.4.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
@@ -125,7 +130,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 170.30+.
+* Service backups fail to upload backups when running on stemcell v170.30 or later.
 
 ### <a id="compat1145"></a> Compatibility
 
@@ -211,7 +216,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 97.57+.
+* Service backups fail to upload backups when running on stemcell v97.57 or later.
 
 ### <a id="compat1144"></a> Compatibility
 
@@ -275,14 +280,14 @@ The following components are compatible with this release:
 
 ###<a id="features1143"></a> Features
 
-* On-demand Redis now supports secure manifests, which avoids plaintext secrets in manifests
+* On-Demand Redis now supports secure manifests, which avoids plaintext secrets in manifests
 by passing these to the ODB to store in BOSH CredHub.
 
 ###<a id="fixed1143"></a> Fixed Issues
 
 This release fixes the following issue:
 
-* In some network conditions, the smoke-tests errand would time out due to dig
+* In some network conditions, the smoke-tests errand timed out due to dig
 taking longer than one second.
 
 ###<a id="known1143"></a> Known Issues
@@ -299,7 +304,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 97.57+.
+* Service backups fail to upload backups when running on stemcell v97.57 or later.
 
 ### <a id="compat1143"></a> Compatibility
 
@@ -385,7 +390,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 97.57+.
+* Service backups fail to upload backups when running on stemcell version v97.57 and later.
 
 ### <a id="compat1142"></a> Compatibility
 
@@ -463,7 +468,7 @@ This release has the following issues:
 * In some network conditions, the smoke-tests errand can time out due to dig
 taking longer than one second.
 
-* If more than one of Redis for PCF 1.13.0-1.13.4 and/or 1.14.0-1.14.1 is uploaded
+* If more than one of Redis for PCF 1.13.0-1.13.4 or 1.14.0-1.14.1 is uploaded
 at the same time then this can result in an install failure. This can be solved by upgrading
 to the latest patch of this minor or the next.
 
@@ -475,7 +480,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 97.57+.
+* Service backups fail to upload backups when running on stemcell v97.57 and later.
 
 ### <a id="compat1141"></a> Compatibility
 
@@ -577,7 +582,7 @@ metadata in PCF for any dedicated-VM service instances if zero dedicated instanc
 more information, see [Post-Deploy Errands](./maintain.html#post-deploy).
 
 * Redis on-demand instance processes and cf-redis-broker routing processes are now wrapped in the BOSH Process Manager (bpm).
-For more information about bpm, see the [BOSH documentation](https://bosh.io/docs/bpm/bpm/).
+For more information about bpm, see [bpm](https://bosh.io/docs/bpm/bpm/) in the BOSH documentation.
 
 * The major stemcell line is now Ubuntu Xenial. See [Breaking Change](#features1140) above.
 
@@ -605,7 +610,7 @@ Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-* Service backups fail to upload backups when running on stemcell version 97.57+.
+* Service backups fail to upload backups when running on stemcell v97.57 and later.
 
 ### <a id="compat1140"></a> Compatibility
 
