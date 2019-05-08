@@ -10,6 +10,99 @@ owner: London Services
   <code>bosh -d MY-DEPLOYMENT restart redis-on-demand-broker</code> errand after upgrading.
   Failure to do so causes compatibility issues with runtime CredHub.</p>
 
+## <a id="1146"></a> v1.14.6
+
+**Release Date: XXX XX, 2019**
+
+### Features
+
+* A new errand is now available to the operator: `recreate-all-service-instances`. See the [errands page](./maintain.html#post-deploy) for more information.
+
+### Fixes
+
+* This release now uses Redis OSS v4.0.14, which is contains a few minor fixes backported from 5.0.
+Detailed release notes for this patch available [on the Redis release page](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES)
+* Go 1.12.1, which contains a fix for a regression around sync.1
+* ODB 0.26.1, which contains a fix for the recreate-all-service-instances errand
+* Added error message and logging when a shared service instance is missing a pidfile.
+* Service Backups 18.2, which contains a fix for an issue where up-to-date versions of scp no longer support path '.'
+
+### Resolved Issues
+
+This release fixes the following issues:
+
+* For PCF 2.4+ no metrics emitted from cf-redis-broker reached the metrics firehose.
+
+* The fields for AWS Secret Access Key pair required to set up S3 Backups were marked as text and not secret.
+These have now been updated so your S3 keys are masked. We strongly recommend that you rotate your S3 credentials to ensure they are safe.
+
+### Known Issues
+
+This release has the following issues:
+
+* The redis-odb service broker listens on port `12345`.
+This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>250.x</td>
+</tr>
+<tr>
+    <td>PCF</td>
+    <td>v2.2.x, v2.3.x and v2.4.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>v434.2.7</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>v0.26.1</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>v0.188.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>v1.10.0</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>v18.2.0</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>v11.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>v3.9</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>v1.0.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>v4.0.14</td>
+</tr>
+</table>
+
 ## <a id="1145"></a> v1.14.5
 
 <strong>Release Date: February 26, 2019</strong>
