@@ -1,7 +1,7 @@
 <div class="note breaking"><strong>Breaking change</strong>:
-  During the upgrade from Redis for PCF v2.0, on-demand service instances will change
+  During the upgrade from Redis for PCF v2.0, on-demand service instances change
   their port from <code>12345</code> to <code>8080</code> to be consistent with other services.
-  If you are upgrading from v2.0, you must open your security group ports to both
+  When you upgrade from v2.0, you must open your security group ports to both
   <code>12345</code> and <code>8080</code> during the upgrade or your on-demand instances will fail.
   For upgrade instructions, see
   <a href="upgrade.html#upgrades">Upgrade to Redis for PCF v2.1</a>.</div>
