@@ -53,135 +53,24 @@ For descriptions of the three Redis for PCF service offerings, see:
 
 Review the following table to determine if Redis for PCF has the features needed to support your enterprise.
 
-<table border="1" class="nice">
+  |Resilience      |Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |More Information                            |
+  |----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |--------------------------------------------|
+  |Availability    |All Redis for PCF services are single nodes without clustering capabilities. This means that planned downtime can result in 2–10 minutes of downtime, depending on the nature of the upgrade. Unplanned downtime also affects the Redis service.<br><br>Redis for PCF has been used successfully in enterprise-ready apps that can tolerate downtime. Pre-existing data is not lost during downtime with the default persistence configuration.|<a href="#usecases">Recommended Use Cases</a><br><br><a href="#other-notes">Support for Multiple AZs</a>|
+  |Failure Recovery|VM failures and process failures are handled automatically by BOSH and Redis for PCF. Manual backup and restore instructions are available for all three Redis services. Automatic backup capabilities are enabled for all three Redis services.|<a href="https://discuss.pivotal.io/hc/en-us/articles/360002282154">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry </a><br><br><a href="./auto-backup.html">Automatic Backups for Dedicated-VM Service </a>|
+  |Isolation       |Isolation is provided when using the On-Demand and Dedicated-VM service. Individual apps and workflows should have their own Redis for PCF instance to maximize isolation.||
 
-  <tr><th colspan=2>Resilience</th><th>More Information</th></tr>
-  <tr>
-    <td>Availability</td>
-    <td>All Redis for PCF services are single nodes without clustering capabilities.
-        This means that planned downtime (e.g., upgrades) can result in 2–10 minutes of downtime,
-        depending on the nature of the upgrade.
-        Unplanned downtime (e.g., VM failure) also affects the Redis service.<br>
-        Redis for PCF has been used successfully in enterprise-ready apps that can tolerate downtime.
-        Pre-existing data is not lost during downtime with the default persistence configuration.
-        Successful apps include those where the downtime is passively handled or
-        where the app handles failover logic.
-    </td>
-    <td><a href="#usecases">Recommended Use Cases</a><br><br>
-    <a href="#other-notes">Support for Multiple AZs</a></td>
-  </tr>
-  <tr>
-    <td>Failure Recovery</td>
-    <td>
-      VM failures and process failures are handled automatically by BOSH and Redis for PCF.
-      Manual backup and restore instructions are available for all three Redis services.
-      Automatic backup capabilities are enabled for all three Redis services.
-    </td>
-    <td>
-      <%-#<a> href="https://bosh.io/docs/resurrector.html" BOSH Resurrection </a> Is this the right doc here? Do we have docs for process-%>
-      <a href="https://discuss.pivotal.io/hc/en-us/articles/360002282154">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry </a><br>
-      <a href="./auto-backup.html">Automatic Backups for Dedicated-VM Service </a><br>
-    </td>
-  </tr>
-  <tr>
-    <td>Isolation</td>
-    <td>
-      <%-#Do we need to cover network isolation?-%>
-      Isolation is provided when using the On-Demand and Dedicated-VM service.
-      Individual apps and workflows should have their own Redis for PCF instance to maximize isolation.
-    </td>
-    <td>
-    </td>
-  </tr>
-  <tr><th colspan=2>Day 2 Operations</th><th>More Information</th></tr>
-  <tr>
-    <td>Resource Planning</td>
-    <td>
-    Operators can configure the number of VMs and the size of those VMs.
-    For the On-Demand service, the operator does this by creating plans with specific VM sizes and quotas for each plan.
-    For the Dedicated-VM and Shared-VM services, the number and size of VMs are pre-provisioned by the operator.
-    BOSH errands used for registration, upgrade and cleanup use short-lived VMs that cannot be configured but can be
-    turned on or off.
-    </td>
-    <td>
-      <a href="https://docs.pivotal.io/redis/1-9/architecture.html#resource"> On-Demand Resource Planning</a><br>
-      <a href="https://docs.pivotal.io/redis/1-9/installing.html#dedicated-vm-config"> Pre-provisioning Dedicated-VM and Shared-VM Instances</a>
-    </td>
-  </tr>
-  <tr>
-    <td>Health Monitoring</td>
-    <td>
-    The On-Demand service and Dedicated-VM service emit metrics.
-    These include Redis-specific metrics and Redis for PCF metrics.
-    Guidance on critical metrics and alerting levels is captured with the Redis for PCF Key Performance Indicators (KPIs).
-    </td>
-    <td>
-      <a href="./monitoring.html#kpi"> Key Performance Indicators </a><br/>
-    </td>
-  </tr>
-  <tr>
-    <td>Scalability</td>
-    <td>
-    For the On-Demand Service, the operator can configure three plans with different resource sizes.
-    The operator can also scale up the VM size associated with the plan.
-    Additionally, the operator can increase the quota, which caps the number of instances allowed for each On-Demand plan.
-    For the Dedicated-VM Service, the operators can change the number of dedicated nodes deployed
-    as well as change the VM size associated for the Dedicated-VMs.
-    To prevent data loss, only scaling up is supported.
-    For the Shared-VM Service, the operators can change the Redis instance memory limit as well as change the instance limit.
-    To prevent data loss, only scaling up is supported.
-    </td>
-    <td>
-      <a href="./installing.html#updating-on-demand-service-plans"> Scaling the On-Demand Service </a><br>
-      <a href="./installing.html#dedicated-vm-config"> Scaling the Dedicated-VM Service </a>
-    </td>
-  </tr>
-  <tr>
-    <td>Logging</td>
-    <td>
-    All Redis services emit logs.
-    Operators can configure syslog forwarding to a remote destination.
-    This enables viewing logs from every VM in the Redis for PCF deployment in one place,
-    effective troubleshooting when logs are lost on the source VM,
-    and setting up alerts for important error logs to monitor the deployment.
-    </td>
-    <td>
-      <a href="./installing.html#configure-syslog-forwarding"> Configuring syslog forwarding </a>
-    </td>
-  </tr>
-  <tr>
-    <td>Customization</td>
-    <td>
-    The On-Demand service can be configured to best fit the needs of a specific app.
-    The Dedicated-VM and Shared-VM service cannot be customized.
-    </td>
-    <td>
-      <a href="./installing.html#on-demand-config"> Configuring the On-Demand service </a>
-    </td>
-  </tr>
-  <tr>
-    <td>Upgrades</td>
-    <td>
-      <%-#More docs need to be written on what is minimum errand set you can run-%>
-      For information about preparing an upgrade and about understanding the effects on your Redis for PCF
-      and other services, see <a href="./upgrade.html">Upgrading Redis for PCF</a>.
-      Redis for PCF upgrades run a post deployment BOSH errand called smoke tests to validate the success of the
-      upgrade.
-    </td>
-    <td>
-      <a href="./upgrade.html"> Upgrades </a><br>
-      <a href="./smoke-tests.html"> Smoke Tests </a>
-    </td>
-  </tr>
-  <tr><th colspan=2>Encryption</th><th>More Information</th></tr>
-  <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested with the IPsec Add-on for PCF.
-          Beyond that Redis for PCF does not provide additional encryption on top of Redis.</td>
-      <td>
-        <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a>
-        <a href="https://redis.io/topics/security">OS Redis Security</a>
-      </td></tr>
+  |Day 2 Operations      |Description                                                                                                                                                                                                                                                                                                                                                                                                                              |More Information                            |
+  |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+  |Resource Planning     |Operators can configure the number of VMs and the size of those VMs. For the On-Demand service, the operator does this by creating plans with specific VM sizes and quotas for each plan. For the Dedicated-VM and Shared-VM services, the number and size of VMs are pre-provisioned by the operator. BOSH errands used for registration, upgrade and cleanup use short-lived VMs that cannot be configured but can be turned on or off.|<a href="https://docs.pivotal.io/redis/1-9/architecture.html#resource"> On-Demand Resource Planning</a><br><br><a href="https://docs.pivotal.io/redis/1-9/installing.html#dedicated-vm-config"> Pre-provisioning Dedicated-VM and Shared-VM Instances</a>|
+  |Health Monitoring     |The On-Demand service and Dedicated-VM service emit metrics. These include Redis-specific metrics and Redis for PCF metrics. Guidance on critical metrics and alerting levels is captured with the Redis for PCF Key Performance Indicators (KPIs).|<a href="./monitoring.html#kpi"> Key Performance Indicators </a>|
+  |Scalability           |For the On-Demand Service, the operator can configure three plans with different resource sizes, scale up the VM size associated with the plan. The operator can also increase the quota, which caps the number of instances allowed for each On-Demand plan.<br><br>For the Dedicated-VM Service, the operators can change the number of dedicated nodes deployed and change the VM size associated for the Dedicated-VMs. To prevent data loss, only scaling up is supported. For the Shared-VM Service, the operators can change the Redis instance memory limit as well as change the instance limit. To prevent data loss, only scaling up is supported.|<a href="./installing.html#updating-on-demand-service-plans"> Scaling the On-Demand Service </a><br><br><a href="./installing.html#dedicated-vm-config"> Scaling the Dedicated-VM Service </a>|
+  |Logging               |All Redis services emit logs. Operators can configure syslog forwarding to a remote destination. This enables viewing logs from every VM in the Redis for PCF deployment in one place, effective troubleshooting when logs are lost on the source VM, and setting up alerts for important error logs to monitor the deployment.|<a href="./installing.html#configure-syslog-forwarding"> Configuring syslog forwarding </a>|
+  |Customization         |The On-Demand service can be configured to best fit the needs of a specific app. The Dedicated-VM and Shared-VM service cannot be customized.|<a href="./installing.html#on-demand-config"> Configuring the On-Demand service </a>|
+  |Upgrades              |For information about preparing an upgrade and about understanding the effects on your Redis for PCF and other services, see <a href="./upgrade.html">Upgrading Redis for PCF</a>. Redis for PCF upgrades run a post deployment BOSH errand called smoke tests to validate the success of the upgrade.|<a href="./upgrade.html"> Upgrades </a><br><br><a href="./smoke-tests.html"> Smoke Tests </a>|
 
-</table>
+  |Encryption                        |Description                                                                                                                                                                                                                                                                                                                                                                                                                     |More Information                            |
+  |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+  |Encrypted Communication in Transit|Redis for PCF has been tested with the IPsec Add-on for PCF. Beyond that Redis for PCF does not provide additional encryption on top of Redis.|<a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a><br><br><a href="https://redis.io/topics/security">OS Redis Security</a>|
 
 ### <a id="other-notes"></a>Support for Multiple AZs
 
