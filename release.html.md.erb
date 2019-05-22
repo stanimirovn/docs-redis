@@ -9,7 +9,87 @@ owner: London Services
 
 <%= partial "warning-azure-outbound-internet-access" %>
 
-## <a id="210"></a> v2.1.1
+## <a id="212"></a> v2.1.2
+
+**Release Date: May 22, 2019**
+
+### Resolved Issues
+
+This release fixes the following issues:
+
+* If Amazon S3 backups are enabled, it is now possible to upgrade to v2.1.2 from v2.0.
+
+### Known Issues
+
+This release has the following issues:
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### Upcoming Firehose Deprecation
+
+* The Loggregator Firehose endpoint is scheduled for deprecation.
+For Firehose replacements, see <a href="monitoring.html#loggregator">Loggregator</a>.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>250.x</td>
+</tr>
+<tr>
+    <td>PCF<sup></sup></td>
+    <td>2.4.x and 2.5.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>434.3.2</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.27.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.188.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>1.12.0</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.2.0</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>11.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>3.14</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.0.4</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.4</td>
+</tr>
+
+</table>
+
+## <a id="211"></a> v2.1.1
 
 **Release Date: May 8, 2019**
 
