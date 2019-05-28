@@ -57,7 +57,7 @@ To upgrade to Redis for PCF v2.1, do the following:
 
 1. If required, update any new mandatory configuration parameters.
 
-1. If you are upgrading from v2.0, you must select one or more AZs for each On-Demand plan to deploy instances in.
+1. If you are upgrading from v2.0, select one or more availability zones (AZs) for each on-demand plan to deploy instances in.
 
 1. If you are upgrading from v2.0, open your security group ports to both `12345`
 and `8080`.
@@ -172,7 +172,7 @@ New on-demand service instances are placed into the new service network,
 but existing on-demand service instances are not moved.
 If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
 
-Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances
+Similarly, changing the AZ for an on-demand plan only applies to new on-demand instances
 and does not alter existing instances.
 
 ## <a id="policy"></a> Release Policy
