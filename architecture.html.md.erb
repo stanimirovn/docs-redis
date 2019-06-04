@@ -42,6 +42,7 @@ Set the persistent disk size to least 2.5 times the memory of the instance.
 * Operators and app developers can change certain Redis configurations from the default.
 See [Configuration for On-Demand Service Plans](#config) for more information.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
+* On-Demand Redis supports Redis Database Backup (RDB) snapshots but not Append-Only File (AOF) persistence. Because AOF is not supported, you cannot set `fsync` policies. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
 * The maximum number of instances is managed by a per-plan and global quota.
 For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
