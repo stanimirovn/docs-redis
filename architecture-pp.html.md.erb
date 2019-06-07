@@ -34,7 +34,7 @@ The default configuration is as follows:
   This policy means that when the memory is full, the service does
   not evict any keys or perform any write operations until memory becomes available.
 
-+ Shared-VM Redis supports both Redis Database Backup (RDB) and Append-Only File (AOF) persistence options. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
++ Shared-VM Redis supports both Redis Database Backup (RDB) and Append-Only File (AOF) persistence options. Redis writes to the AOF log every second. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
 
 + By default, the maximum number of connections, `maxclients`, is set at 10000.
 Redis might reduce this number when run on a system with a low maximum number of file descriptors.
