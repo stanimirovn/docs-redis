@@ -14,19 +14,7 @@ owner: London Services
 
 ### Feature
 
-New feature in this release:
-
-* 
-
 ### Security Fixes
-
-This release includes the following security fixes:
-
-* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that caused crashes in very rare cases.<br>
-For more information about Redis v5.0.4, see the
-[Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
-* Updates golang to v1.12.1, which includes a fix for a regression around sync
-* Updates On-Demand Broker to v0.26.1, which contains a fix for the `recreate-all-service-instances` errand
 
 ### Resolved Issues
 
@@ -35,14 +23,6 @@ This release fixes the following issues:
 * Smoke tests now run in pivotal-services space.
 
 ### Known Issues
-
-This release has the following issues:
-
-* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
-
-* The **When Changed** option for errands has unexpected behavior. Do not select this option.<br>
-For more information about this unexpected behavior, see
-[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ### Compatibility
 
@@ -55,7 +35,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>250.x</td>
+    <td>315.x</td>
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
@@ -67,7 +47,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.26.1</td>
+    <td>v0.30.0</td>
 </tr>
 <tr>
     <td>routing</td>
@@ -95,7 +75,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v5.0.4</td>
+    <td>v5.0.5</td>
 </tr>
 
 </table>
