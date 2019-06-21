@@ -22,6 +22,7 @@ owner: London Services
         <li><a href="#backup-errors">Failed Backup</a></li>
         <li><a href="#orphaned-instances">Orphaned Instances</a></li>
         <li><a href="#credhub-error">Failed to Set Credentials in Runtime CredHub</a></li>
+        <li><a href="#disabling-tls">Recovering from service outage after disabling TLS</a></li>
       </ul>
     </li>
     <li><a href="#components">Troubleshooting Components</a>
@@ -524,6 +525,43 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
 
 <p class="note"><strong>Note: </strong>
   Running this errand causes a short period of downtime.</p>
+
+<a id="disabling-tls"></a><h3>Recovering from service outage after disabling TLS</h3><br>
+
+<strong>Symptom</strong><br><br>
+
+After disabling TLS, apps that require on-demand Redis service instances become unresponsive.
+
+<strong>Explanation</strong><br><br>
+When TLS is first enabled, all on demand service instances are re-created with two ports. 
+<br>
+Every new or recreated app will receive the new credentials. Spring and Steeltoe apps will default to TLS on, but other languages/frameworks will require further configuration. 
+<br>
+When TLS is disabled the TLS port will be removed from all on-demand instances. This will result in the apps no longer being able to connect to the instance. 
+<br><br>
+
+<strong>Solution</strong><br><br>
+
+It is important to consider if disabling TLS is the correct option. By disabling TLS no app can use TLS bindings, so in cases where compliance dictates that TLS is enforced, this would not be an appropriate action.
+Also, re-enabling TLS in future will result in further downtime. 
+<br>
+If you wish to continue without TLS, the following solutions apply:
+<br>
+<ol>
+  <li>Re-bind and re-stage every app that has been effected.</li>
+  <li>Spring and Steeltoe apps will now default to non-TLS, however other languages/frameworks will require further configuration.</li>
+</ol>
+<br>
+If you wish to continue with TLS enabled, the following solutions apply:
+<br>
+<ol>
+  <li>In your PCF Ops Manager Home Page, select PCF-Redis tile.</li>
+  <li>Navigate to `On-Demand Service Settings’</li>
+  <li>On the “Enable TLS” section, ensure it is set to “Optional”</li>
+  <li>Click save</li>
+  <li>Navigate back to the PCF Ops Manager Home Page and click “Review Pending Changes”</li>
+  <li>Ensure “Recreate All On-Demand Service Instances” errand is on under the Redis section before clicking “Apply Changes”</li>
+</ol>
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 

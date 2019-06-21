@@ -9,7 +9,7 @@ owner: London Services
 
 <%= partial "warning-azure-outbound-internet-access" %>
 
-## <a id="210"></a> vX.X.X
+## <a id="220"></a> vX.X.X
 
 **Release Date: MM DD, 2019**
 
@@ -22,6 +22,12 @@ New features and changes in this release:
   <a href="">Preparing for TLS</a>
   and
   <a href="installing.html#network-configuration">Network configuration</a>
+
+<p class="warn">
+  <strong>Warning:</strong> 
+  Once enabled, disabling TLS will cause downtime as all ports in use will be removed. <br>
+  To disable TLS, once the apply changes steps are complete you will need to rebind and restage all apps using on-demand Redis instances to resume service.
+</p>
 
 ### Security Fixes
 
