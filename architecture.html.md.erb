@@ -20,12 +20,15 @@ This diagram shows the architecture of the service broker and on-demand plans an
 The below diagrams illustrate how apps communicate with on-demand Redis instances. 
 
 When setting TLS to 'Optional' within On-Demand Service settings, both TLS and non-TLS connections are accepted. TLS traffic goes through a proxy as demonstrated below.
+There should be no noticeable performance impact from enabling TLS. However, this will be dependent on the usual factors i.e Network infrastructure, application architecture etc.
 
 ![On-Demand Architecture TLS Enabled Diagram](tls_optional.png)
 
 When setting TLS to 'Not Configured' within On-Demand Service Settings, the communication with the service instances remains unchanged from previous tile versions. 
 
 ![On-Demand Architecture TLS Disabled Diagram](tls_disabled.png)
+
+
 
 ## <a id="on-demand"></a> On-Demand Service Plans
 
