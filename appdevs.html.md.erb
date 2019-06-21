@@ -42,3 +42,24 @@ Sample ruby code that uses PCF can be found here
 
 ###  <a id="redis"></a>Redis
 To learn more about Redis itself, see <a href="http://redis.io">redis.io</a>.
+
+##  <a id="using-tls"></a>Using TLS
+
+###  <a id="check-availability-tls"></a>Check availability
+
+It is possible to check if TLS has been enabled on the on-demand Redis service by inspecting the service key. 
+This can be achieved through the following steps:
+<ol>
+    <li>Create a service key with the command <pre class=terminal>$ cf create-service-key MY-INSTANCE MY_KEY</pre></li>
+    <li>Display the service key with the command <pre class=terminal>$ cf service-key MY-INSTANCE MY_KEY</pre>.<br>
+        This will return a JSON response:<br> 
+    <pre class=terminal>{
+            "host": "q-s0.redis-instance.ENVIRONMENT_NAME-services-subnet.service-instance-GUID.bosh",
+            "password": "secret",
+            "port": unsecure port,
+            "tls_port": secure port
+        }
+        </pre>    
+    </li>
+</ol>
+If you do not see the "tls_port" field then TLS has not been enabled on your Redis service.
