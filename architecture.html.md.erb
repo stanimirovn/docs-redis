@@ -17,6 +17,16 @@ This diagram shows the architecture of the service broker and on-demand plans an
 
 ![On-Demand Architecture Diagram](on-demand-arch.png)
 
+The below diagrams illustrate how apps communicate with on-demand Redis instances. 
+
+When setting TLS to 'Optional' within On-Demand Service settings, both TLS and non-TLS connections are accepted. TLS traffic goes through a proxy as demonstrated below.
+
+![On-Demand Architecture TLS Enabled Diagram](tls_optional.png)
+
+When setting TLS to 'Not Configured' within On-Demand Service Settings, the communication with the service instances remains unchanged from previous tile versions. 
+
+![On-Demand Architecture TLS Disabled Diagram](tls_disabled.png)
+
 ## <a id="on-demand"></a> On-Demand Service Plans
 
 ### <a id="cacheplans"></a> Three On-Demand Cache Plans
