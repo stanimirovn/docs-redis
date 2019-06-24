@@ -21,6 +21,12 @@ The below diagrams illustrate how apps communicate with on-demand Redis instance
 
 When setting TLS to 'Optional' within On-Demand Service settings, both TLS and non-TLS connections are accepted. TLS traffic goes through a proxy as demonstrated below.
 There should be no noticeable performance impact from enabling TLS. However, this will be dependent on the usual factors i.e Network infrastructure, application architecture etc.
+Pivotal highly recommends TLS Optional to be turned on, as it will allow the app developers to migrate to TLS connections, regardless of wether you wish to enforce TLS only traffic or not. 
+
+Note: the option to enforce TLS only is not available in the current release.
+
+To clarify, the 'Optional' refers to the fact that both TLS and non-TLS ports are available as options for the app developers.
+Steeltoe and Spring apps will default to the TLS port if it's available, however other apps may require further configuration to make use of the correct port.  
 
 ![On-Demand Architecture TLS Enabled Diagram](tls_optional.png)
 
