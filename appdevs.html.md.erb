@@ -63,3 +63,14 @@ This can be achieved through the following steps:
     </li>
 </ol>
 If you do not see the "tls_port" field then TLS has not been enabled on your Redis service.
+
+###  <a id="app-binding-tls"></a>App binding with TLS
+
+For any new apps the command <pre class=terminal>$ cf bind-service</pre> will automatically expose both TLS and non-secure ports.
+Spring and Steeltoe apps will default to TLS when available. When using custom connectors both ports will be available to the app developer to choose from.
+
+For existing apps you will need to remove the current binding and re-bind to the Redis instance. 
+This can be achieved with the following commands:<br> 
+<pre class=terminal>$ cf unbind-service APP_NAME SERVICE_INSTANCE</pre><br>
+<pre class=terminal>$ cf bind-service APP_NAME SERVICE_INSTANCE</pre><br>
+<pre class=terminal>$ cf restage-app APP_NAME</pre>
