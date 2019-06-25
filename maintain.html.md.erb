@@ -28,7 +28,7 @@ Pivotal recommends that operators follow these guidelines:
 * **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation.
 * **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
     Validate the backed-up data with a test restore.
-    See [Configuring Automated Backups](./auto-backup.html), and [Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry](https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry) in the Pivotal Support knowledge base.
+    See [Configuring Automated Backups](./auto-backup.html) and also [Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry](https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry) in the Pivotal Support knowledge base.
 * **Using**---Instances of the On-Demand service run on dedicated VMs.
     Apps in production should have an on-demand instance to prevent performance
     issues caused by sharing an instance.
@@ -165,7 +165,7 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 #### Register On-Demand Broker Errand
 
-- Required to run if the network range that the Redis On-demand Broker is deployed in is changed in the BOSH Director tile.
+- Required to run if the network range that the Redis On-Demand Broker is deployed in is changed in the BOSH Director tile.
 - Not necessary to run if the change only involves other tiles except BOSH Director.
 
 <p class="note">
@@ -192,7 +192,7 @@ in a way that changes the ranges where the Redis for PCF tile deploys VMs.
 #### Recreate All On-Demand Service Instances
 
 - Necessary when an instance must be re-created with different resources,
-  such as when rotating CA certs.
+  such as when rotating CA certificates.
 - Might increase the time that `Apply Changes` takes because it follows the typical
   instance lifecycle.
 - Not necessary to run if there are no on-demand instances provisioned.
