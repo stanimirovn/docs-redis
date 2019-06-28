@@ -83,8 +83,9 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
   This is because using it can affect the performance of other service instances on the VM.
 
 <p class="note warning"><strong>Warning</strong>:
-  The default `IDistributedCache` used by the Steeltoe Redis connector requires LUA scripting to be enabled. 
-  This is off by default in PCF Redis, and must be enabled if Steeltoe apps require PCF Redis. 
+  The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
+  By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
+  change the setting to enable it.
 </p>
 
 #### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
