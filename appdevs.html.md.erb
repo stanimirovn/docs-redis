@@ -46,6 +46,17 @@ automatically connect to Redis for PCF.
 To view an example Spring app demonstrating Redis as a cache with failover,
 see the <a href="https://github.com/pivotal-cf/redis-reference-architecture">Example Spring App</a> in GitHub.
 
+### <a id="steeltoe"></a>Using Redis for PCF with Steeltoe
+<a href="https://steeltoe.io/docs/steeltoe-connectors/#5-0-redis">Steeltoe Cloud Connectors</a>
+can connect to Redis for PCF.
+To view examples of Steeltoe apps demonstrating Redis as a cache with failover,
+see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe">Example Steeltoe App</a>
+in GitHub.
+
+<p class="note warning"><strong>Warning</strong>:
+  The default `IDistributedCache` used by the Steeltoe Redis connector requires LUA scripting to be enabled. This is off by default in PCF Redis, contact your operator to enable this feature. 
+</p>
+
 ###  <a id="pcf-dev"></a>PCF Dev
 PCF Dev is a small footprint version of PCF that's small enough to run on a local developer machine.
 For more information, see https://pivotal.io/pcf-dev.
