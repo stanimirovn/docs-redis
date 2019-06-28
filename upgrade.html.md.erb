@@ -15,16 +15,12 @@ Before upgrading Redis for PCF, for compatibility information, see the
 ## <a id="upgrades"></a>Upgrade to Redis for PCF v2.2
 
 <p class="note">
-  <strong>Note:</strong> 
-  If you want to enable TLS in Redis for PCF v2.2, you must follow the procedures in <a id="">Preparing for TLS</a> before enabling TLS.
-  Note, selecting TLS optional does not enforce use of TLS. After deploying the tile, notify developers that they must unbind, bind and restage existing service instances to ensure Spring and Steeltoe apps use secure connection. 
-  For other frameworks/languages further configuration might be required to ensure use of the TLS port.
+  <strong>Note:</strong>
+  If you want to enable TLS in Redis for PCF v2.2, you must follow the procedures in [Preparing for TLS](./preparing-tls.html) before enabling TLS.
+  Note, selecting TLS optional does not enforce use of TLS. After deploying the tile, notify developers that they must unbind, bind and restage existing service instances to ensure Spring and Steeltoe apps use secure connection.
+  For other frameworks/languages further configuration might be required to ensure use of the TLS port. See [Using TLS](./appdevs.html)
 </p>
-<p class="warn">
-  <strong>Warning:</strong> 
-  Once enabled, disabling TLS will cause downtime as all ports in use will be removed. <br>
-  To disable TLS, once the apply changes steps are complete you will need to unbind, bind and restage all apps using on-demand Redis instances to resume service.
-</p>
+<%= partial "warning-disabling-tls" %>
 
 This product enables a reliable upgrade experience between versions of the product
 deployed through Ops Manager.
@@ -64,7 +60,7 @@ To upgrade to Redis for PCF v2.2, do the following:
 
 1. If required, update any new mandatory configuration parameters.
 
-1. (Optional) If enabling TLS you must follow the procedures in <a id="">Preparing for TLS</a>. When upgrading TLS will remain disabled by default.
+1. (Optional) If enabling TLS you must follow the procedures in [Preparing for TLS](./preparing-tls.html). When upgrading TLS will remain disabled by default.
     <p class="note"> <strong>Note:</strong>
       There should be no noticeable performance impact from enabling TLS. However, this will be dependent on the usual factors i.e Network infrastructure, application architecture etc.
     </p>

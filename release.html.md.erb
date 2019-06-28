@@ -9,7 +9,7 @@ owner: London Services
 
 <%= partial "warning-azure-outbound-internet-access" %>
 
-## <a id="220"></a> vX.X.X
+## <a id="220"></a> v2.2.0
 
 **Release Date: MM DD, 2019**
 
@@ -19,16 +19,12 @@ New features and changes in this release:
 
 * Operators can enable TLS for On-Demand Service Instances.
   Before doing this, ensure that you have followed the steps in:
-  <a href="">Preparing for TLS</a>
+  <a href="preparing-tls.html">Preparing for TLS</a>
   and
   <a href="installing.html#network-configuration">Network configuration</a>
   There should be no noticeable performance impact from enabling TLS. However, this will be dependent on the usual factors i.e Network infrastructure, application architecture etc.
 
-<p class="warn">
-  <strong>Warning:</strong> 
-  Once enabled, disabling TLS will cause downtime as all ports in use will be removed. <br>
-  To disable TLS, once the apply changes steps are complete you will need to unbind, bind and restage all apps using on-demand Redis instances to resume service.
-</p>
+<%= partial "warning-disabling-tls" %>
 
 ### Security Fixes
 
@@ -55,19 +51,19 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>250.x</td>
+    <td>315.x</td>
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>2.4.x and 2.5.x</td>
+    <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>434.2.7</td>
+    <td>434.3.4</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>0.26.1</td>
+    <td>0.30.0</td>
 </tr>
 <tr>
     <td>routing</td>
@@ -75,11 +71,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>1.10.0</td>
+    <td>1.12.0</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>18.2.0</td>
+    <td>18.3.0</td>
 </tr>
 <tr>
     <td>syslog</td>
@@ -87,15 +83,15 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>3.9</td>
+    <td>3.17</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>1.0.3</td>
+    <td>1.0.4</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>5.0.4</td>
+    <td>5.0.5</td>
 </tr>
 
 </table>

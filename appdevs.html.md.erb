@@ -47,19 +47,19 @@ To learn more about Redis itself, see <a href="http://redis.io">redis.io</a>.
 
 ###  <a id="check-availability-tls"></a>Check availability
 
-It is possible to check if TLS has been enabled on the on-demand Redis service by inspecting the service key. 
+It is possible to check if TLS has been enabled on the on-demand Redis service by inspecting the service key.
 This can be achieved through the following steps:
 <ol>
     <li>Create a service key with the command <pre class=terminal>$ cf create-service-key MY-INSTANCE MY_KEY</pre></li>
     <li>Display the service key with the command <pre class=terminal>$ cf service-key MY-INSTANCE MY_KEY</pre>.<br>
-        This will return a JSON response:<br> 
+        This will return a JSON response:<br>
     <pre class=terminal>{
             "host": "q-s0.redis-instance.ENVIRONMENT_NAME-services-subnet.service-instance-GUID.bosh",
             "password": "secret",
             "port": unsecure port,
             "tls_port": secure port
         }
-        </pre>    
+        </pre>
     </li>
 </ol>
 If you do not see the "tls_port" field then TLS has not been enabled on your Redis service.
@@ -67,10 +67,47 @@ If you do not see the "tls_port" field then TLS has not been enabled on your Red
 ###  <a id="app-binding-tls"></a>App binding with TLS
 
 For any new apps the command <pre class=terminal>$ cf bind-service</pre> will automatically expose both TLS and non-secure ports.
-Spring and Steeltoe apps will default to TLS when available. When using custom connectors both ports will be available to the app developer to choose from.
+Spring and Steeltoe apps will default to TLS when available.
 
-For existing apps you will need to remove the current binding and re-bind to the Redis instance. 
-This can be achieved with the following commands:<br> 
+For Spring apps, it is necessary to use Java CFEnv version 1.1.0 or later. See [Redis Spring Boot Reference Architecture](https://github.com/pivotal-cf/redis-reference-architecture).
+
+For Steeltoe apps, it is necessary to use Steeltoe 2.3.0 or later. See [Redis Steeltoe Reference Architecture](https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe).
+
+When using custom connectors both ports will be available to the app developer to choose from.
+
+For an example of manually selecting the TLS port in Ruby:
+
+<pre>
+require 'redis'
+require 'cf-app-utils'
+
+def redis_credentials
+  service_name = ENV['service_name'] || "redis"
+  if ENV['VCAP_SERVICES']
+      all_pivotal_redis_credentials = CF::App::Credentials.find_all_by_all_service_tags(['redis', 'pivotal'])
+      if all_pivotal_redis_credentials && all_pivotal_redis_credentials.first
+          all_pivotal_redis_credentials.first
+      else
+          redis_service_credentials = CF::App::Credentials.find_by_service_name(service_name)
+          redis_service_credentials
+      end
+  end
+end
+
+def redis_client
+   @client ||= Redis.new(
+     host: redis_credentials.fetch('host'),
+     port: redis_credentials.fetch('tls_port'),
+     password: redis_credentials.fetch('password'),
+     ssl: true,
+     timeout: 30
+end
+</pre>
+
+For existing apps you will need to remove the current binding and re-bind to the Redis instance.
+This can be achieved with the following commands:<br>
 <pre class=terminal>$ cf unbind-service APP_NAME SERVICE_INSTANCE</pre><br>
 <pre class=terminal>$ cf bind-service APP_NAME SERVICE_INSTANCE</pre><br>
 <pre class=terminal>$ cf restage-app APP_NAME</pre>
+
+Your app should now communicate securely with the Redis On-Demand Service Instance.

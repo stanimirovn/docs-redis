@@ -273,16 +273,12 @@ For how this feature works, see
 
 1. (Optional) Select the **Not Configured.** option under **Enable TLS** if you do not want to allow TLS connection to On-Demand Service Instances. TLS support is optional in new installs by default.
 <p class="note">
-  <strong>Note:</strong> 
-  Unless TLS is not configured in Redis for PCF v2.2, you must follow the procedures in <a id="">Preparing for TLS</a> before enabling TLS.<br>
-  Note, selecting TLS optional does not enforce use of TLS. After deploying the tile, notify developers that they must unbind, bind and restage existing service instances to ensure Spring and Steeltoe apps use secure connection. 
+  <strong>Note:</strong>
+  Unless TLS is not configured in Redis for PCF v2.2, you must follow the procedures in <a id="preparing-tls.html">Preparing for TLS</a> before enabling TLS.<br>
+  Note, selecting TLS optional does not enforce use of TLS. After deploying the tile, notify developers that they must unbind, bind and restage existing service instances to ensure Spring and Steeltoe apps use secure connection.
   For other frameworks/languages further configuration might be required to ensure use of the TLS port.
 </p>
-<p class="warn">
-  <strong>Warning:</strong> 
-  Once enabled, disabling TLS will cause downtime as all ports in use will be removed. <br>
-  To disable TLS, once the apply changes steps are complete you will need to unbind, bind and restage all apps using on-demand Redis instances to resume service.
-</p>
+<%= partial "warning-disabling-tls" %>
 
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 
