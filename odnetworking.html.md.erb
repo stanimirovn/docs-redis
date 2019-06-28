@@ -62,7 +62,7 @@ rules are set up so that connections are open as described in the table below.
 				8443
 				8080
 				6379
-				12345
+				16379
 		</td>
 		<td>The default ports are not configurable.</td>
 	</tr>
@@ -80,8 +80,11 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>Deployed apps on PAS</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>6379</td>
-		<td>This is the default port where Redis is deployed.</td>
+		<td>
+			6379
+			16379
+		</td>
+		<td>This is the default port where Redis is deployed and the default Redis over TLS port.</td>
 	</tr>
 	<tr>
 		<td><strong>PAS</strong></td>

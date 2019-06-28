@@ -84,16 +84,124 @@ For more information, see [Creating an Empty Services Network when using on-dema
 
 The following ports and ranges are used in Redis for PCF:
 
-| Port                  | Protocol                     | Direction and Network                                                                          | Reason                                                                                                                      |
-|:----------------------|:-----------------------------|:-----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| 8300<br>8301             | TCP<br>TCP and UDP | Inbound to Cloud Foundry network, outbound from service broker and service instance networks* | Communication between the CF consul\_server and consul\_agents on Redis deployment; used for metrics                         |
-| 8202                  | TCP                          | Inbound to Cloud Foundry network, outbound from service broker and service instance networks* | Used by the Redis metron_agent to forward metrics to the Cloud Foundry Loggregator                                          |
-| 12350                 | TCP                          | Outbound from Cloud Foundry to the cf-redis-broker service broker network                       | (Only if using a cf-redis-broker) Access to the cf-redis-broker from the cloud controllers.                                 |
-| 8080                 | TCP                          | Outbound from Cloud Foundry to the on-demand service broker network                             | (Only if using an On-Demand service) For access to the on-demand service broker from the cloud controllers          |
-| 6379                  | TCP                          | Outbound from Cloud Foundry to any service instance networks (on-demand)                       | Access to all on-demand nodes from the Diego Cell and Diego Brain network(s)                            |
-| 32768-61000           | TCP                          | Outbound from Cloud Foundry to the cf-redis-broker service broker network                       | From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan. |
-| 80 or 443<br>(Typically) | http or https<br>respectively  | Outbound from any service instance networks                                                    | Access to the backup blobstore                                                                                             |
-| 8443<br>25555           | TCP                          | Outbound from any on-demand service broker network to the BOSH Director network                | For the on-demand service, the on-demand service broker needs to talk to the BOSH Director                                    |
+<table class="nice">
+  <th>Port</th>
+  <th>Protocol</th>
+  <th>Direction and Network</th>
+  <th>Reason</th>
+  <tr>
+    <td>
+      8202
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Inbound to Cloud Foundry network, outbound from service broker and service instance networks*
+    </td>
+    <td>
+      Used by the Redis metron_agent to forward metrics to the Cloud Foundry Loggregator
+    </td>
+  </tr>
+  <tr>
+    <td>
+      12350
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Outbound from Cloud Foundry to the cf-redis-broker service broker network
+    </td>
+    <td>
+      (Only if using a cf-redis-broker) Access to the cf-redis-broker from the cloud controllers.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      8080
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Outbound from Cloud Foundry to the on-demand service broker network
+    </td>
+    <td>
+      (Only if using an On-Demand service) For access to the on-demand service broker from the cloud controllers.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      6379
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Outbound from Cloud Foundry to any service instance networks (on-demand)
+    </td>
+    <td>
+      Access to all on-demand nodes from the Diego Cell and Diego Brain network(s).
+    </td>
+  </tr>
+  <tr>
+    <td>
+      16379
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Outbound from Cloud Foundry to any service instance networks (on-demand)
+    </td>
+    <td>
+      Access to all on-demand nodes from the Diego Cell and Diego Brain network(s). Only required if TLS has been set to 'optional'.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      32768-61000
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Outbound from Cloud Foundry to the cf-redis-broker service broker network
+    </td>
+    <td>
+      From the Diego Cell and Diego Brain network(s) to the service broker VM. This is only required for the shared service plan.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      80 or 443<br>(Typically)
+    </td>
+    <td>
+      http or https<br>respectively
+    </td>
+    <td>
+      Outbound from any service instance networks
+    </td>
+    <td>
+      (Only if using service backups) Access to the backup blobstore.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      8443<br>25555
+    </td>
+    <td>
+      TCP
+    </td>
+    <td>
+      Outbound from any on-demand service broker network to the BOSH Director network
+    </td>
+    <td>
+      For the on-demand service, the on-demand service broker needs to talk to the BOSH Director.
+    </td>
+  </tr>
+</table>
 
 \* Typically the service broker network and service instance network(s) are the same.
 
@@ -162,6 +270,15 @@ in the On-Demand Services SDK documentation.
 This reduces downtime during upgrades.
 For how this feature works, see
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a>.
+
+1. (Optional) Select the **Not Configured.** option under **Enable TLS** if you do not want to allow TLS connection to On-Demand Service Instances. TLS support is optional in new installs by default.
+<p class="note">
+  <strong>Note:</strong>
+  Unless TLS is not configured in Redis for PCF v2.2, you must follow the procedures in <a id="preparing-tls.html">Preparing for TLS</a> before enabling TLS.<br>
+  Note, selecting TLS optional does not enforce use of TLS. After deploying the tile, notify developers that they must unbind, bind and restage existing service instances to ensure Spring and Steeltoe apps use secure connection.
+  For other frameworks/languages further configuration might be required to ensure use of the TLS port.
+</p>
+<%= partial "warning-disabling-tls" %>
 
 1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
 

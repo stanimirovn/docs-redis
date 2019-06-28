@@ -12,12 +12,15 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 Before upgrading Redis for PCF, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-## <a id="upgrades"></a>Upgrade to Redis for PCF v2.1
+## <a id="upgrades"></a>Upgrade to Redis for PCF v2.2
 
-<div class="note breaking"><strong>Breaking change</strong>:
-  During the upgrade from Redis for PCF v2.0, on-demand service instances change
-  their port from <code>12345</code> to <code>8080</code> to be consistent with other services.
-  If you are upgrading from v2.0, you must follow the steps below or your instances will fail.</div>
+<p class="note">
+  <strong>Note:</strong>
+  If you want to enable TLS in Redis for PCF v2.2, you must follow the procedures in [Preparing for TLS](./preparing-tls.html) before enabling TLS.
+  Note, selecting TLS optional does not enforce use of TLS. After deploying the tile, notify developers that they must unbind, bind and restage existing service instances to ensure Spring and Steeltoe apps use secure connection.
+  For other frameworks/languages further configuration might be required to ensure use of the TLS port. See [Using TLS](./appdevs.html)
+</p>
+<%= partial "warning-disabling-tls" %>
 
 This product enables a reliable upgrade experience between versions of the product
 deployed through Ops Manager.
@@ -47,7 +50,7 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 ### Upgrade Procedure
 
-To upgrade to Redis for PCF v2.1, do the following:
+To upgrade to Redis for PCF v2.2, do the following:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
@@ -57,10 +60,10 @@ To upgrade to Redis for PCF v2.1, do the following:
 
 1. If required, update any new mandatory configuration parameters.
 
-1. If you are upgrading from v2.0, open your security group ports to both `12345`
-and `8080`.
-This for the broker to change its default port to `8080`, to be consistent with
-other services.
+1. (Optional) If enabling TLS you must follow the procedures in [Preparing for TLS](./preparing-tls.html). When upgrading TLS will remain disabled by default.
+    <p class="note"> <strong>Note:</strong>
+      There should be no noticeable performance impact from enabling TLS. However, this will be dependent on the usual factors i.e Network infrastructure, application architecture etc.
+    </p>
 
 1. Pivotal recommends that you ensure that the **Upgrade All On-Demand Service Instances**
 errand checkbox is selected on the **Review Pending Changes** page.
@@ -71,8 +74,6 @@ errand checkbox is selected on the **Review Pending Changes** page.
       included in the upgrade. </p>
 
 1. Click **Apply changes**. The rest of the process is automated.
-
-1. After the upgrade, remove access to port `12345` from the security group.
 
 ##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
 
