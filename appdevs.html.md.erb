@@ -22,18 +22,23 @@ and the [Shared-VM Service Offering](./architecture-pp.html).
 ##  <a id="getting-started"></a>Getting Started
 
 ### <a id="spring"></a>Using Redis for PCF with Spring
-<a href="http://cloud.spring.io/spring-cloud-connectors/spring-cloud-spring-service-connector.html#_redis">Spring Cloud Connectors</a>
-can connect to Redis for PCF.
-<a href="http://cloud.spring.io/spring-cloud-connectors/spring-cloud-cloud-foundry-connector.html#_redis">Spring Cloud Cloud Foundry connectors</a>
-automatically connect to Redis for PCF.
 
-To view an example Spring app demonstrating Redis as a cache with failover,
-see the <a href="https://github.com/pivotal-cf/redis-reference-architecture">Example Spring App</a>
-in GitHub.
+Spring Cloud Spring Service Connectors connect to Redis for PCF.
+See the [Redis](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-spring-service-connector.html#_redis) section
+in the Spring Cloud Spring Service Connector documentation.
+
+Spring Cloud Cloud Foundry connectors automatically connect to Redis for PCF.
+See the [Redis](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-cloud-foundry-connector.html#_redis) section
+in the Spring Cloud Cloud Foundry Connector documentation.
+
+To view an example Spring app using Redis as a cache with failover,
+see the [Redis Reference Architectures](https://github.com/pivotal-cf/redis-reference-architecture) repository.
 
 ### <a id="steeltoe"></a>Using Redis for PCF with Steeltoe
-<a href="https://steeltoe.io/docs/steeltoe-connectors/#5-0-redis">Steeltoe Cloud Connectors</a>
-can connect to Redis for PCF.
+
+Steeltoe Cloud Connectors can connect to Redis for PCF.
+See the [Steeltoe Cloud Connectors](https://steeltoe.io/docs/steeltoe-connectors/#5-0-redis) documentation.
+
 
 To view examples of Steeltoe apps using Redis as a cache with failover,
 see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe">Example Steeltoe App</a>
