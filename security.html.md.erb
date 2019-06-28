@@ -22,3 +22,5 @@ For information about the IPsec Add-on for PCF, see [Securing Data in Transit wi
 A single Redis instance of the On-Demand service should only support a single workload.
 
 * The Shared-VM service is designed for multi-tenancy, but you should not use it for production use cases because it is not considered adequately secure for that purpose.
+
+* TLS should be set to optional, and app developers encouraged to make use of the TLS port, see [Using TLS](./appdevs.html#using-tls). 
