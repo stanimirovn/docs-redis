@@ -360,7 +360,10 @@ For how this feature works, see
           <tr>
             <td>**Lua Scripting**</td>
             <td>Enable or disable Lua scripting as needed.
-                Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.</td>
+                Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.
+                The default `IDistributedCache` used by the Steeltoe Redis connector requires LUA scripting to be enabled.
+                This is off by default in PCF Redis, and must be enabled if Steeltoe apps require PCF Redis.
+            </td>
           </tr>
     </table>
 
