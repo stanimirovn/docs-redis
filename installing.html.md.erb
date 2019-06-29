@@ -16,8 +16,7 @@ operators can make deployment changes, view credentials, and manage user roles i
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
 For more information about roles in Ops Manager, see
-    <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
-        Understand Roles in Ops Manager</a>.</p>
+    [Understand Roles in Ops Manager[https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about].
 
 ## <a id="install"></a>Download and Install the Tile
 
@@ -37,7 +36,6 @@ Select the latest release from the **Releases** dropdown.
     [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
 
-
 For guidance on ports and ranges used in the Redis service, see [Select Networks](#network-configuration) below.
 
 ## <a id="azs"></a>Assign AZs and Networks
@@ -46,7 +44,7 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ![AZ Assignment Diagram](AZ-assignment.png)
 
-###  <a id="az-config"></a>Assign AZs
+### <a id="az-config"></a>Assign AZs
 
 As of Redis for PCF v1.9, you can assign multiple AZs to Redis jobs, however this does not guarantee high availability.
 For more information, see [Support for Multiple AZs](erc.html#other-notes).
@@ -56,7 +54,6 @@ To assign AZs, do the following:
 1. In the **Assign AZs and Networks** tab, make your selections under **Place singleton jobs in** and **Balance other jobs in**.
 1. Click **Save**.
 
-
 ### <a id="network-configuration"></a>Select Networks
 
 You can use Redis for PCF with or without using the on-demand service.
@@ -64,31 +61,28 @@ To use the Redis for PCF on-demand service, you must select a network in which
 the service instances are created.
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
 
-<div class="note"><strong>Note</strong>:
-  In Ops Manager v2.0 and earlier, a specific network was designated as the
-  Service Network to reserve IPs for the on-demand service.
-  As of Ops Manager v2.1, IPs are no longer managed in this way.
-  All networks are now available to use as a Service Network.</div>
-
 To select networks, do the following:
 
-1. In the **Assign AZs and Networks** tab, select a **Network**.<br><br>
-    Pivotal recommends that each type of PCF service run in its own network.
-    For example, run Redis for PCF on a separate network from RabbitMQ for PCF.
+1. In the **Assign AZs and Networks** tab, select a **Network**.
+  - Pivotal recommends that each type of PCF service run in its own network.
+  For example, run Redis for PCF on a separate network from RabbitMQ for PCF.
+  - Typically the service broker network and service instance network(s) are the same.
 
 1. If using the on-demand service, select a **Service Network**.
 Otherwise, select an empty service network.
 For more information, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
 
-#### Port Ranges Used in Redis for PCF
+<p class="note"><strong>Note</strong>: In Ops Manager v2.0 and earlier, a specific network was designated as the Service Network to reserve IPs for the on-demand service.
+As of Ops Manager v2.1, IPs are no longer managed in this way.
+All networks are now available to use as a Service Network.</p>
 
 The following ports and ranges are used in Redis for PCF:
 
 <table class="nice">
-  <th>Port</th>
-  <th>Protocol</th>
-  <th>Direction and Network</th>
-  <th>Reason</th>
+  <tr><th>Port</th>
+    <th>Protocol</th>
+    <th>Direction and Network</th>
+    <th>Reason</th></tr>
   <tr>
     <td>
       8202
@@ -203,21 +197,18 @@ The following ports and ranges are used in Redis for PCF:
   </tr>
 </table>
 
-\* Typically the service broker network and service instance network(s) are the same.
-
 <%= partial "breaking-change-ports" %>
 
-
-##  <a id="service-plans"></a>Configure Redis for PCF Service Plans
+## <a id="service-plans"></a>Configure Redis for PCF Service Plans
 
 Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page
-and allocate resources to Redis service plans.</br></br>
+and allocate resources to Redis service plans.<br />
 
-###  <a id="on-demand-config"></a>On-Demand Service Settings
+### <a id="on-demand-config"></a>On-Demand Service Settings
 
 1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**.
-The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.</br></br>
-    ![settings](redis-odservice-settings.png)<br><br>
+The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.<br />
+    ![settings](redis-odservice-settings.png)<br />
     For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 1. Select the **Allow outbound internet access from service instances** checkbox.
@@ -225,7 +216,7 @@ The maximum number of instances you set for all your on-demand plans combined ca
    and communicate with an external BOSH blob store.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
       Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
-  <%= partial "warning-azure-outbound-internet-access" %>
+<%= partial "warning-azure-outbound-internet-access" %>
 
 1. (Optional) Select the checkbox to enable **Service Instance Sharing**.
    Turning on sharing enables this feature for all on-demand instances.
@@ -280,7 +271,7 @@ For how this feature works, see
 </p>
 <%= partial "warning-disabling-tls" %>
 
-1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.</br></br>
+1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.<br />
 
     You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
     Resource configuration options may vary on different IaaSes.
