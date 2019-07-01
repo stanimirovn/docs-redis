@@ -80,11 +80,7 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
   Pivotal recommends that Lua scripting is disabled unless developers need it to be enabled.
   This is because using it can affect the performance of other service instances on the VM.
 
-<p class="note warning"><strong>Warning</strong>:
-  The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
-  By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
-  change the setting to enable it.
-</p>
+<%= partial "warning-steeltoe-lua" %>
 
 #### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
 

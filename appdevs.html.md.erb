@@ -44,11 +44,7 @@ To view examples of Steeltoe apps using Redis as a cache with failover,
 see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe">Example Steeltoe App</a>
 repository in GitHub.
 
-<p class="note warning"><strong>Warning</strong>:
-  The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
-  By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
-  change the setting to enable it.
-</p>
+<%= partial "warning-steeltoe-lua" %>
 
 ###  <a id="pcf-dev"></a>PCF Dev
 PCF Dev is a small footprint version of PCF that's small enough to run on a local

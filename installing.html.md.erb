@@ -271,13 +271,21 @@ For how this feature works, see
 </p>
 <%= partial "warning-disabling-tls" %>
 
-1. To configure an on-demand plan, click **On-Demand Plan 1**, **2**, or **3**.<br />
+### <a id="on-demand-plan-config"></a>On-Demand Plan Settings
 
-    You can configure up to three on-demand plans with appropriate memory and disk sizes for your use case(s).
-    Resource configuration options may vary on different IaaSes.
+You can configure up to three on-demand plans with memory and disk sizes
+suited to different use cases.
+Resource configuration options may vary on different IaaSes.
 
+For each on-demand service plan, configure it as follows:
 
-    The default names of the three on-demand plans provided reflect that instances of these plans are intended to be used for different cache sizes:
+1. Click **On-Demand Plan 1**, **2**, or **3** to open the configuration pane for the plan.
+
+1. Click **Plan Active** to make the plan available.
+
+1. (Optional) For **Plan name**, assign a name to the plan.
+    The default names for the three on-demand plans convey that they
+    allocate different cache sizes:
     * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with 1&nbsp;GB of memory and more than 2.5&nbsp;GB of persistent disk
     * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with 2&nbsp;GB of memory and more than 5&nbsp;GB of persistent disk
     * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with 4&nbsp;GB of memory and more than 10&nbsp;GB of persistent disk
