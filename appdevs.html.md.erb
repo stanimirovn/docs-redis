@@ -16,6 +16,8 @@ or Shared-VM plan, see [Using Redis for PCF](./using.html).
 
 <%= partial 'service-offerings' %>
 
+<%= partial 'breaking-change-upgrades' %>
+
 For more information about the plans, see the [On-Demand Service Offering](./architecture.html)
 and the [Shared-VM Service Offering](./architecture-pp.html).
 
@@ -59,7 +61,7 @@ see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteelto
 in GitHub.
 
 <p class="note warning"><strong>Warning</strong>:
-  The default `IDistributedCache` used by the Steeltoe Redis connector requires LUA scripting to be enabled. This is off by default in PCF Redis, contact your operator to enable this feature. 
+  The default `IDistributedCache` used by the Steeltoe Redis connector requires LUA scripting to be enabled. This is off by default in PCF Redis, contact your operator to enable this feature.
 </p>
 
 ###  <a id="pcf-dev"></a>PCF Dev
