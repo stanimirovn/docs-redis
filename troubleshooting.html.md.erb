@@ -22,7 +22,7 @@ owner: London Services
         <li><a href="#backup-errors">Failed Backup</a></li>
         <li><a href="#orphaned-instances">Orphaned Instances</a></li>
         <li><a href="#credhub-error">Failed to Set Credentials in Runtime CredHub</a></li>
-        <li><a href="#disabling-tls">Recovering from service outage after disabling TLS</a></li>
+        <li><a href="#disabling-tls">Recovering from Service Outage after Disabling TLS</a></li>
       </ul>
     </li>
     <li><a href="#components">Troubleshooting Components</a>
@@ -118,7 +118,7 @@ Before debugging, gather the following about your PCF deployment:
     <td><code>bosh env</code></td>
   </tr>
   <tr>
-    <td>View the deployments deployed via the targeted BOSH Director</td>
+    <td>View the deployments deployed through the targeted BOSH Director</td>
     <td><code>bosh deployments</code></td>
   </tr>
   <tr>
@@ -143,7 +143,7 @@ You can obtain general information after you SSH into a broker or service instan
 
 You can obtain information specific to the cf-redis broker as follows:
 
-  * For shared-VMs, the redis processes are colocated with the CF-Redis broker.
+  * For shared-VMs, the redis processes are co-located with the CF-Redis broker.
     You can check these VMs using `ps aux | grep redis-server`.
   * Shared-VM data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
 
@@ -250,7 +250,7 @@ The error log printed out by Redis provides a clear means of recovery.
 <strong>Solution for Shared-VM instances:</strong><br><br>
 <ol>
   <li>SSH into your <code>cf-redis-broker</code> instance.</li>
-  <li>Navigate to the folder where your AOF file is stored.
+  <li>Navigate to the directory where your AOF file is stored.
     This is usually
     <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
     <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
@@ -266,7 +266,7 @@ The error log printed out by Redis provides a clear means of recovery.
 <strong>Solution for On-Demand-VM instances:</strong><br><br>
 <ol>
   <li>SSH into your affected service instance.</li>
-  <li>Navigate to the folder where your AOF file is stored.
+  <li>Navigate to the directory where your AOF file is stored.
     This is usually <code>/var/vcap/store/redis/</code>.</li>
   <li>Run the following command:
     <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
@@ -368,10 +368,10 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 When a service instance is orphaned, one of the following occurs:<br><br>
 
 <ul>
-  <li>BOSH Director cannot see your service instances but PCF can. See
-    <a href="#orphaned-bosh">BOSH Director Cannot See Your Instances</a>.</li>
-  <li>PCF cannot see your broker or service instances but BOSH Director can. See
-    <a href="#orphaned-pcf">PCF Cannot See Your Instances</a>.
+  <li>BOSH Director cannot see your service instances but PCF can. For more information, see
+    <a href="#orphaned-bosh">BOSH Director Cannot See Your Instances</a> below.</li>
+  <li>PCF cannot see your broker or service instances but BOSH Director can. For more information, see
+    <a href="#orphaned-pcf">PCF Cannot See Your Instances</a> below.
   </li>
 </ul>
 
@@ -516,7 +516,7 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
 <strong>Solution</strong><br><br>
 
 <ol>
-  <li>Make sure you have the latest patch version of Redis for PCF installed.
+  <li>Ensure you have the latest patch version of Redis for PCF installed.
   For more information about the latest patch, see <a href="./release.html">Redis for PCF Release Notes</a>.</li>
   <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
     instances are running the latest service offering.
@@ -526,42 +526,36 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
 <p class="note"><strong>Note: </strong>
   Running this errand causes a short period of downtime.</p>
 
-<a id="disabling-tls"></a><h3>Recovering from service outage after disabling TLS</h3><br>
+<a id="disabling-tls"></a><h3>Recovering from Service Outage after Disabling TLS</h3><br>
 
-<strong>Symptom</strong><br><br>
+<strong>Symptom</strong>
 
-After disabling TLS, apps that require on-demand Redis service instances become unresponsive.
+<p>After disabling TLS, apps that require on-demand Redis service instances become unresponsive.</p>
 
-<strong>Explanation</strong><br><br>
-When TLS is first enabled, all on demand service instances are re-created with two ports. 
-<br>
-Every new or recreated app will receive the new credentials. Spring and Steeltoe apps will default to TLS on, but other languages/frameworks will require further configuration. 
-<br>
-When TLS is disabled the TLS port will be removed from all on-demand instances. This will result in the apps no longer being able to connect to the instance. 
-<br><br>
+<strong>Explanation</strong>
 
-<strong>Solution</strong><br><br>
+<p>When TLS is first enabled, all on-demand service instances are re-created with two ports.
+Every new or re-created app receives the new credentials. Spring and Steeltoe apps are configured for enabled TLS by default, but other languages and frameworks require further configuration.</p>
+<p>When TLS is disabled, the TLS port is removed from all on-demand instances. This prevents the apps from connecting to the instance.</p>
 
-It is important to consider if disabling TLS is the correct option. By disabling TLS no app can use TLS bindings, so in cases where compliance dictates that TLS is enforced, this would not be an appropriate action.
-Also, re-enabling TLS in future will result in further downtime. 
-<br>
-If you wish to continue without TLS, the following solutions apply:
-<br>
+<strong>Solution</strong>
+
+<p>First, consider enabling TLS. The compliance body that oversees your apps might require TLS to be enabled. Also, switching between enabled and disabled TLS incurs downtime.</p>
+<p>To enable TLS, follow these steps:</p>
 <ol>
-  <li>Unbind, bind and restage every app that has been effected.</li>
-  <li>Spring and Steeltoe apps will now default to non-TLS, however other languages/frameworks will require further configuration.</li>
+  <li>In your Ops Manager home page, select the <strong>PCF-Redis</strong> tile.</li>
+  <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
+  <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
+  <li>Click <strong>Save</strong>.</li>
+  <li>Navigate back to the Ops Manager home page and click <strong>Review Pending Changes</strong>.</li>
+  <li>Ensure the Recreate All On-Demand Service Instances errand is enabled under the Redis section and then click <strong>Apply Changes</strong>.</li>
 </ol>
-<br>
-If you wish to continue with TLS enabled, the following solutions apply:
-<br>
+<p>To continue with TLS disabled, follow these steps:</p>
 <ol>
-  <li>In your PCF Ops Manager Home Page, select PCF-Redis tile.</li>
-  <li>Navigate to `On-Demand Service Settings’</li>
-  <li>On the “Enable TLS” section, ensure it is set to “Optional”</li>
-  <li>Click save</li>
-  <li>Navigate back to the PCF Ops Manager Home Page and click “Review Pending Changes”</li>
-  <li>Ensure “Recreate All On-Demand Service Instances” errand is on under the Redis section before clicking “Apply Changes”</li>
+  <li>Unbind, bind and re-stage every app that was affected by disabling TLS. For more information, see <a href="./appdevs.html">Introduction for App Developers</a>. This makes Spring and Steeltoe apps default to non-TLS configuration.</li>
+  <li>Manually configure any other relevant languages and frameworks to work with TLS disabled.</li>
 </ol>
+
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
