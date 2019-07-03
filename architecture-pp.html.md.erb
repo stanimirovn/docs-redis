@@ -144,15 +144,10 @@ This plan is suitable for workloads which do not require dedicated hardware.
   This is because using it can affect the performance of other service instances on the VM.
 
 <p class="note warning"><strong>Warning</strong>:
-<<<<<<< HEAD
   The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
   Please check if any of your apps require Lua scripting.
   By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
   change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in the <strong><a href="./installing.html#shared-vm-config">Shared-VM Plan</a></strong> configuration pane.
-=======
-  The default `IDistributedCache` used by the Steeltoe Redis connector requires LUA scripting to be enabled. 
-  This is off by default in PCF Redis, and must be enabled if Steeltoe apps require PCF Redis. 
->>>>>>> 1aafeda... Inform of LUA requirement for Steeltoe apps
 </p>
 
 #### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
