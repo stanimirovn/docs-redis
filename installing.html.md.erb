@@ -6,12 +6,12 @@ owner: London Services
 <strong><%= modified_date %></strong>
 
 This topic describes the process of installing Redis for PCF.
-It covers tasks from downloading the file from the Pivotal Network
+It covers tasks from downloading the file from Pivotal Network
 through verifying the installation after configuration.
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
-Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
+Ops Manager admins can use Role-Based Access Control (RBAC) to manage which
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
@@ -22,11 +22,11 @@ For more information about roles in Ops Manager, see
 
 <p class="note"><strong>Note:</strong> Before using Redis for PCF v1.14.0 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="./upgrade.html#update-addons">Update Add-ons to Run with Xenial Stemcell</a>.</p>
 
-To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding PCF Ops Manager tiles:
+To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding Ops Manager tiles:
 
 1. Download the Redis for PCF file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
-1. In the PCF Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
+1. In the Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
 1. To configure Redis for PCF, click the newly added tile. See configuration instructions in the sections below.
 1. After completing the required configuration, in the Ops Manager Dashboard, do the following to complete the installation:
@@ -213,9 +213,9 @@ The maximum number of instances you set for all your on-demand plans combined ca
 
 1. Select the **Allow outbound internet access from service instances** checkbox.
    You must select this checkbox to allow external log forwarding, send backup artifacts to external destinations,
-   and communicate with an external BOSH blob store.
+   and communicate with an external BOSH blobstore.
   <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings.
-      Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
+      Consult your network or IaaS admin to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
 <%= partial "warning-azure-outbound-internet-access" %>
 
 1. (Optional) Select the checkbox to enable **Service Instance Sharing**.
@@ -232,7 +232,7 @@ maximum number of Redis service instances that can be upgraded at the same time.
   By default, each instance is upgraded serially.
   Allowing parallel upgrades reduces the time taken to apply changes.
   <p class="note"><strong>Note</strong>:
-    Multiple Redis service instances will be concurrently unavailable during the upgrade.
+    Multiple Redis service instances are concurrently unavailable during the upgrade.
   </p>
 
 1. (Optional) Use the **Number of Canaries to run before proceeding with upgrade** field
@@ -260,7 +260,7 @@ in the On-Demand Services SDK documentation.
 1. (Optional) Select the checkbox to enable **BOSH HotSwaps**.
 This reduces downtime during upgrades.
 For how this feature works, see
-<a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a>.
+<a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a> in the BOSH documentation.
 
 1. (Optional) Select the **Not Configured.** option under **Enable TLS** if you do not want to allow TLS connection to On-Demand Service Instances. TLS support is optional in new installs by default.
 <p class="note">
@@ -273,9 +273,8 @@ For how this feature works, see
 
 ### <a id="on-demand-plan-config"></a>On-Demand Plan Settings
 
-You can configure up to three on-demand plans with memory and disk sizes
-suited to different use cases.
-Resource configuration options may vary on different IaaSes.
+You can configure up to three on-demand plans with memory and disk sizes suited to different use cases.
+Resource configuration options can vary on different IaaSes.
 
 For each on-demand service plan, configure it as follows:
 
@@ -304,12 +303,12 @@ For each on-demand service plan, configure it as follows:
           </tr>
           <tr>
             <td>**Plan Name**</td>
-            <td>Enter a name that will appear in the Marketplace.</td>
+            <td>Enter a name that appears in the Marketplace.</td>
           </tr>
           <tr>
             <td>**Plan Description**</td>
-            <td>Enter a description that will appear in the Marketplace.
-                Specify details that will be relevant to app developers.</td>
+            <td>Enter a description that appears in the Marketplace.
+                Specify details that are relevant to app developers.</td>
           </tr>
           <tr>
             <td>**Plan Quota**</td>
@@ -370,11 +369,10 @@ For each on-demand service plan, configure it as follows:
 
 #### <a id="secure-credentials"></a>(Optional) Enabling Secure Service Instance Credentials for On-Demand Redis
 
-To secure your on-demand service instance credentials in runtime
-[CredHub](https://docs.pivotal.io/pivotalcf/credhub/) instead of the Cloud Controller
-Database (CCDB), do the following:
+To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
+instead of the Cloud Controller Database (CCDB), do the following:
 
-<p class="note"><strong>Note:</strong> This is a beta feature. Use it at your own risk in non-production environments. Send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+<p class="note"><strong>Note:</strong> This is a beta feature. Use it at your own risk in non-production environments. Please send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 
 1. Configure the Pivotal Application Service (PAS) tile to support securing service
 instance credentials in runtime CredHub.
@@ -387,7 +385,7 @@ existing service instances to secure their credentials with CredHub.
 
 Operators can update certain settings after the plans have been created.
 If the operator updates the VM size, disk size, or the Redis configuration settings
-(enabling Lua Scripting, max-clients, timeout and TCP keep-alive),
+(enabling Lua Scripting, max-clients, timeout and TCP keepalive),
 these settings are implemented in all instances that are already created.
 
 Operators should not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
@@ -480,7 +478,7 @@ VM's total system memory, you can do one of the following:
 
   <p class="note"><strong>Note</strong>: You can configure a larger
     <strong>Redis Service Instance Limit</strong>, if you are confident that the
-    majority of the deployed instances will not use a large amount of their allocated memory,
+    majority of the deployed instances do not use a large amount of their allocated memory,
     for example in development or test environments.<br><br>
     However, this practice is not supported and can cause your server to run out of memory,
     preventing users from writing any more data to any Redis shared-VM instance.
@@ -585,9 +583,9 @@ Updates to the settings for the components below are implemented in all existing
   * Lua Scripting
   * Max-clients
   * Timeout
-  * TCP keep-alive
+  * TCP keepalive
 
-<p class="warning note"><strong>WARNING: </strong>You must not downsize the VMs
+<p class="warning note"><strong>Warning:</strong> You must not downsize the VMs
   or disk size. This can cause data loss in pre-existing instances.</p>
 
 The following table describes properties you can update in the [plan configuration page](#planconfig), shown above.
@@ -648,20 +646,20 @@ To configure syslog forwarding, do the following:
 1. Select either **Yes without encryption** or **Yes with TLS encryption**.
 
     <p class="note"><strong>Note:</strong> To use syslog forwarding for on-demand instances,
-       you must select the <a href="#on-demand-config"> Allow outbound internet access from service instances</a>
+       you must select the <a href="#on-demand-config">Allow outbound internet access from service instances</a>
        checkbox in the <strong>On-Demand Service Settings</strong> tab.</p>
 
-1. Enter the Syslog **Address** and **Port**, and select the **Transport protocol** of your remote destination.
+1. Enter the syslog **Address** and **Port**, and select the **Transport protocol** of your remote destination.
    You can only use TCP if you are using TLS encryption.<br><br>
    The information required for these fields is provided by your remote destination.
-   **Address** should be something such as `logs.papertrailapp.com`, and **Port** will be a number such as `41635`.
+   An example address is `logs.papertrailapp.com` and an example port is `41635`.
 
 1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
   * **Permitted Peer** refers to the remote syslog destination.
     It allows each VM to establish an encrypted tunnel with the remote syslog destination.
   The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
   * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination.
-    Large certificate chains (> 8&nbsp;kb) are not supported.
+    Large certificate chains (under 8&nbsp;kb) are not supported.
 
 1.  Click **Save**.
 
@@ -702,7 +700,7 @@ You can obtain the IP addresses for these VMs in Ops Manager under the <strong>R
 
 ### Application Container Network Connections
 
-Application containers that use instances of the Redis for PCF service require the following outbound network connections:
+App containers that use instances of the Redis for PCF service require the following outbound network connections:
 
 <table><thead>
 <tr>
@@ -742,7 +740,7 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating Installation
 
-Smoke tests run as part of Redis for PCF installation to validate that the install succeeded.
+Smoke tests run as part of Redis for PCF installation to validate that the installation succeeded.
 For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 
@@ -750,7 +748,7 @@ For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
 
 To uninstall Redis for PCF, do the following:
 
-1. In the PCF Ops Manager Installation dashboard, click the trash can icon in the lower right hand corner of the Redis for PCF tile.
+1. In the Ops Manager Installation dashboard, click the trash can icon in the lower-right corner of the Redis for PCF tile.
 1. Confirm deletion of the product, and then do the following:
     1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
     For more information about this Ops Manager page, see
