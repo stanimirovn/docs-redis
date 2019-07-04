@@ -78,20 +78,18 @@ To do so, do the following:
         This returns a JSON response:<br>
     <pre class=terminal>{
             "host": "q-s0.redis-instance.ENVIRONMENT-NAME-services-subnet.service-instance-GUID.bosh",
-            "password": "secret",
-            "port": unsecure port,
-            "tls\_port": secure port
+            "password": YOUR-PASSWORD,
+            "port": INSECURE-PORT-NUMBER,
+            "tls\_port": SECURE-PORT-NUMBER
         }
         </pre>
     </li>
 </ol>
 If you do not see the `tls_port` field, TLS has not been enabled on your Redis service.
 
-### <a id="app-binding-tls"></a>Bind with TLS
+### <a id="new-apps"></a>Bind New Apps with TLS
 
-Follow the steps below to securely bind new apps or existing apps to a Redis instance.
-
-#### <a id="new-apps"></a>New Apps
+Follow the steps below to securely bind new apps to a Redis instance.
 
 For new apps, `cf bind-service` exposes both TLS ports and non-secure ports. Custom connectors also make both ports available. To support secure service bindings, you must specify the TLS port in your app code.
 
@@ -128,15 +126,15 @@ For Spring apps, use Java CFEnv v1.1.0 or later. See [Redis Spring Boot Referenc
 
 For Steeltoe apps, use Steeltoe 2.3.0 or later. See [Redis Steeltoe Reference Architecture](https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe) in GitHub.
 
-#### <a id="existing-apps"></a>Existing Apps
+### <a id="existing-apps"></a>Bind Existing Apps with TLS
 
 For each app using the Redis service with a non-TLS binding, do the following:
 
-1. Remove the current binding.
+1. Remove the current binding by running the following command:
 <pre class=terminal>$ cf unbind-service APP-NAME SERVICE-INSTANCE</pre>
-2. Re-bind to the Redis instance.
+2. Re-bind to the Redis instance by running the following command:
 <pre class=terminal>$ cf bind-service APP-NAME SERVICE-INSTANCE</pre>
-3. Re-stage the app.
+3. Restage the app by running the following command:
 <pre class=terminal>$ cf restage-app APP-NAME</pre>
 
 Your app now communicates securely with the Redis on-demand service instance.
