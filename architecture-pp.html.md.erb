@@ -27,16 +27,23 @@ and how the user's app binds to a Redis instance.
 
 ![Architecture Diagram](legacy-arch.png)
 
-## <a id="config2"></a> Configuration for Shared-VM Service Plans
+## <a id="config2"></a> Settings for Shared-VM Service Plans
 
-You cannot change the default Redis configuration for Shared-VM plans.
-The default configuration is as follows:
+You cannot change the default Redis settings for Shared-VM plans. For this reason, Shared-VM plans do not support the use of CLI commands with arbitrary parameters to configure service instances.
+
+The default Redis settings are as follows:
+
+### Memory Policy
 
 + Redis is configured with a `maxmemory-policy` of `no-eviction`.
   This policy means that when the memory is full, the service does
   not evict any keys or perform any write operations until memory becomes available.
 
+### Persistence
+
 + Shared-VM Redis supports both Redis Database Backup (RDB) and Append-Only File (AOF) persistence options. Redis writes to the AOF log every second. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
+
+### Number of Connections
 
 + By default, the maximum number of connections, `maxclients`, is set at 10000.
 Redis might reduce this number when run on a system with a low maximum number of file descriptors.
@@ -45,9 +52,9 @@ You can use the Redis command `CONFIG SET maxclients` to temporarily reduce `max
 but you cannot increase it above 10000.
 There is no way to configure shared plans to use a custom limit.
 
-+ Replication and event notification are not configured.
+### Replication and Event Notification
 
-For this reason, Shared-VM plans do not support using CLI commands with arbitrary parameters to configure service instances.
++ Replication and event notification are not configured.
 
 ### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
 
@@ -69,8 +76,8 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
 * If you decrease the service instance limit, any instances that are running
   where the count is now greater than the limit are not terminated.
   They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances.<br><br>
-  For example if you had a limit of 10 and all were used and reduced this to 8,
-  the two instances will be left running until you terminate them yourself.
+  For example if you had a limit of 10 and all were used and the limit was reduced to 8,
+  the two instances would be left running until you terminate them yourself.
 
 * The number of Shared VM instances available to developers is set by the operator.
   The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance
@@ -82,7 +89,7 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
   Pivotal recommends that Lua scripting is disabled unless developers need it to be enabled.
   This is because using it can affect the performance of other service instances on the VM.
 
-<p class="note warning"><strong>Warning</strong>:
+<p class="note warning"><strong>Warning:</strong>
   The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
   Check if any of your apps require Lua scripting.
   By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
@@ -91,13 +98,12 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
 
 #### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
 
-Limitations of the `shared-vm` plan include:
+The `shared-vm` plan cannot:
 
-* It cannot be scaled beyond a single VM.
-* The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
-  `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
-* Constraining CPU and/or disk usage is not supported.
-* Because the Shared-VM plan does not manage "noisy neighbor" problems, Pivotal does not recommend it for production apps.
+* Scale beyond a single VM
+* Run the commands `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`, `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, or `SYNC`
+* Constrain CPU or disk usage
+* Manage "noisy neighbor" problems, which makes it unsuitable for production apps
 
 
 ## <a id="lifecycle-dedicated-shared"></a>Lifecycle for Shared-VM Service Plan
