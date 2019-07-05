@@ -73,10 +73,10 @@ Spring and Steeltoe apps use TLS by default when available.
 You can check if TLS has been enabled on the on-demand Redis service by inspecting the service key.
 To do so, do the following:
 <ol>
-    <li>Create a service key by running the following command: <pre class=terminal>$ cf create-service-key MY-INSTANCE MY-KEY</pre></li>
-    <li>Display the service key by running the following command: <pre class=terminal>$ cf service-key MY-INSTANCE MY-KEY</pre><br>
-        This returns a JSON response:<br>
-    <pre class=terminal>{
+    <li>Create a service key by running the following command: <pre>cf create-service-key MY-INSTANCE MY-KEY</pre></li>
+    <li>Display the service key by running the following command: <pre>cf service-key MY-INSTANCE MY-KEY</pre><br>
+        This returns a JSON response in this format:<br>
+    <pre>{
             "host": "q-s0.redis-instance.ENVIRONMENT-NAME-services-subnet.service-instance-GUID.bosh",
             "password": YOUR-PASSWORD,
             "port": INSECURE-PORT-NUMBER,
@@ -131,10 +131,10 @@ For Steeltoe apps, use Steeltoe 2.3.0 or later. See [Redis Steeltoe Reference Ar
 For each app using the Redis service with a non-TLS binding, do the following:
 
 1. Remove the current binding by running the following command:
-<pre class=terminal>$ cf unbind-service APP-NAME SERVICE-INSTANCE</pre>
+<pre>cf unbind-service APP-NAME SERVICE-INSTANCE</pre>
 2. Re-bind to the Redis instance by running the following command:
-<pre class=terminal>$ cf bind-service APP-NAME SERVICE-INSTANCE</pre>
+<pre>cf bind-service APP-NAME SERVICE-INSTANCE</pre>
 3. Restage the app by running the following command:
-<pre class=terminal>$ cf restage-app APP-NAME</pre>
+<pre>cf restage-app APP-NAME</pre>
 
 Your app now communicates securely with the Redis on-demand service instance.
