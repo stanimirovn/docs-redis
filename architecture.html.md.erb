@@ -17,20 +17,22 @@ This diagram shows the architecture of the service broker and on-demand plans an
 
 ![On-Demand Architecture Diagram](on-demand-arch.png)
 
-The below diagrams illustrate how apps communicate with on-demand Redis instances. 
+The below diagrams illustrate how apps communicate with on-demand Redis instances.
 
-When setting TLS to 'Optional' within On-Demand Service settings, both TLS and non-TLS connections are accepted. TLS traffic goes through a proxy as demonstrated below.
-There should be no noticeable performance impact from enabling TLS. However, this will be dependent on the usual factors i.e Network infrastructure, application architecture etc.
-Pivotal highly recommends TLS to be set to Optional, as it will allow the app developers to migrate to TLS connections, regardless of wether you wish to enforce TLS only traffic or not. 
+When setting TLS to **Optional** within On-Demand Service settings, both TLS and non-TLS connections are accepted. TLS traffic goes through a proxy as demonstrated below.
+Enabling TLS is not expected to noticeably reduce performance. This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
 
-Note: The option to enforce TLS only is not supported in the current release.
+Pivotal recommends setting TLS as **Optional**, because it allows app developers to migrate to TLS connections regardless of whether traffic is restricted to just TLS connections.
 
-To clarify, the 'Optional' refers to the fact that both TLS and non-TLS ports are available as options for the app developers.
-Steeltoe and Spring apps will default to the TLS port if it is available, however other apps may require further configuration to make use of the correct port.  
+<p class="note"><strong>Note:</strong>
+  The option to enforce TLS only is not supported in Redis for PCF v2.2.
+</p>
+
+Steeltoe and Spring apps use the TLS port by default, if it is available. Other apps might require further configuration to make use of the correct port.
 
 ![On-Demand Architecture TLS Enabled Diagram](tls_optional.png)
 
-When setting TLS to 'Not Configured' within On-Demand Service Settings, the communication with the service instances remains unchanged from previous tile versions. 
+When setting TLS to **Not Configured** within On-Demand Service Settings, the communication with the service instances remains unchanged from previous tile versions.
 
 ![On-Demand Architecture TLS Disabled Diagram](tls_disabled.png)
 
@@ -40,11 +42,11 @@ When setting TLS to 'Not Configured' within On-Demand Service Settings, the comm
 
 ### <a id="cacheplans"></a> Three On-Demand Cache Plans
 
-On-demand plans are best fit for cache use cases and are configured as such by default.
+On-Demand plans are best suited to cache-use cases and are configured as such by default.
 
 Redis for PCF offers three on-demand plans as the `p.redis` service within the
 PCF Redis tile. Below is a description of each plan as it appears in the
-Marketplace and its intended use case.
+Marketplace along with its intended use case.
 
 * **Small Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with about 1&nbsp;GB of memory and more than 2.5&nbsp;GB of persistent disk.
 * **Medium Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with about 2&nbsp;GB of memory and more than 5&nbsp;GB of persistent disk.
@@ -59,11 +61,11 @@ Set the persistent disk size to least 2.5 times the memory of the instance.
 * The service plans are operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * Operators can update the cache plan settings, including the VM size and disk size, after the plans have been created.
 * Operators and app developers can change certain Redis configurations from the default.
-See [Configuration for On-Demand Service Plans](#config) for more information.
+See [Configuration for On-Demand Service Plans](#config) below for more information.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
 * On-Demand Redis supports Redis Database Backup (RDB) snapshots, but not Append-Only File (AOF) persistence. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
 * The maximum number of instances is managed by a per-plan and global quota.
-For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
+For information about setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 
 ## <a id="config"></a> Configuration of On-Demand Service Plans
@@ -90,7 +92,7 @@ The Redis settings that an app developer can configure include:
 * `maxmemory-policy`
 * `notify-keyspace-events`
 * `slowlog-log-slower-than`
-* `slowlog-max-len`.
+* `slowlog-max-len`
 
 For more information, see [Customize an On-Demand Service Instance](./using.html#custom).
 
@@ -98,7 +100,7 @@ For more information, see [Customize an On-Demand Service Instance](./using.html
 
 * Instances of the on-demand plan can be deployed until their number reaches
 either an operator-set per-plan quota or a global quota.
-For information on setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
+For information about setting quotas, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 * Instances are provisioned based on the [On-Demand Services SDK](http://docs.pivotal.io/on-demand-service-broker/)
 and service broker adapter associated with this plan.
 * `maxmemory` in `redis.conf` is set to 45% of the system memory.
@@ -112,9 +114,9 @@ Limitations for the On-Demand Service include:
 
 * Operators can update certain plan settings after the plans have been created. To ensure upgrades happen across all instances, set the **upgrade instances** errand to **On**.
 
-* If the operator updates the VM size, disk size, or the Redis configuration settings
-  (enabling Lua Scripting, max-clients, timeout, and TCP keep-alive),
-  these settings are implemented in all instances already created.
+* If the operator updates the VM size, disk size, or the Redis configuration settings, thereby
+  enabling Lua Scripting, max-clients, timeout, and TCP keepalive,
+  then these settings are implemented in all existing instances.
 
 
 ## <a id ="lifecycle"></a>Lifecycle for On-Demand Service Plan

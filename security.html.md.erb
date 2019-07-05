@@ -7,20 +7,20 @@ owner: London Services
 
 ## <a id="security"></a> Security
 
-Pivotal recommends the following best practices for security:
-
-* (Required) To allow this service to have network access you must create Application Security Groups.
+To allow this service to have network access you must create application security groups (ASGs).
 For more information, see [Networks, Security, and Assigning AZs](./installing.html#azs).
 
-* Run Redis for PCF in its own network.
-For more information about creating service networks, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/gcp-om-config.html#network).
+Pivotal recommends the following best practices for security:
 
-* You can use Redis for PCF with the IPsec Add-on for PCF.
+* Run Redis for PCF in its own network.
+For more information, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/gcp-om-config.html#network).
+
+* Use Redis for PCF with the IPsec Add-on for PCF.
 For information about the IPsec Add-on for PCF, see [Securing Data in Transit with the IPsec Add-on](https://docs.pivotal.io/addon-ipsec/index.html).
 
 * Do not use a single Redis for PCF instance for multi-tenancy.
 A single Redis instance of the On-Demand service should only support a single workload.
 
-* The Shared-VM service is designed for multi-tenancy, but you should not use it for production use cases because it is not considered adequately secure for that purpose.
+* Do not use the Shared-VM service for production use cases. It is not considered adequately secure for that purpose, even though it is designed for multi-tenancy.
 
-* TLS should be set to optional, and app developers encouraged to make use of the TLS port, see [Using TLS](./appdevs.html#using-tls). 
+* Set TLS to **Optional** and encourage app developers to make use of the TLS port. For more information, see [Using TLS](./appdevs.html#using-tls).
