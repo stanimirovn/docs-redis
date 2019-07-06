@@ -13,26 +13,32 @@ For similar information for the Shared-VM plans, see [Shared-VM Service Offering
 
 ## <a id="diagram1"></a> Architecture Diagram for On-Demand Plan
 
-This diagram shows the architecture of the service broker and on-demand plans and how the user's app binds to a Redis instance.
+This diagram shows the architecture of the service broker and on-demand plans
+and how the user's app binds to a Redis instance.
 
 ![On-Demand Architecture Diagram](on-demand-arch.png)
 
-The below diagrams illustrate how apps communicate with on-demand Redis instances.
+The diagrams below show how apps communicate with on-demand Redis instances.
 
-When setting TLS to **Optional** within On-Demand Service settings, both TLS and non-TLS connections are accepted. TLS traffic goes through a proxy as demonstrated below.
-Enabling TLS is not expected to noticeably reduce performance. This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
+When setting TLS to **Optional** within On-Demand Service settings, both TLS and non-TLS connections are accepted.
+TLS traffic goes through a proxy as shown below.
+Enabling TLS is not expected to noticeably reduce performance.
+This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
 
-Pivotal recommends setting TLS as **Optional**, because it allows app developers to migrate to TLS connections regardless of whether traffic is restricted to just TLS connections.
+Pivotal recommends setting TLS as **Optional**, because it allows app developers
+to migrate to TLS connections regardless of whether traffic is restricted to just TLS connections.
 
 <p class="note"><strong>Note:</strong>
   The option to enforce TLS only is not supported in Redis for PCF v2.2.
 </p>
 
-Steeltoe and Spring apps use the TLS port by default, if it is available. Other apps might require further configuration to make use of the correct port.
+Steeltoe and Spring apps use the TLS port by default, if it is available.
+Other apps might require further configuration to make use of the correct port.
 
 ![On-Demand Architecture TLS Enabled Diagram](tls_optional.png)
 
-When setting TLS to **Not Configured** within On-Demand Service Settings, the communication with the service instances remains unchanged from previous tile versions.
+When setting TLS to **Not Configured** within On-Demand Service Settings,
+the communication with the service instances remains unchanged from previous tile versions.
 
 ![On-Demand Architecture TLS Disabled Diagram](tls_disabled.png)
 
