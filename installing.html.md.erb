@@ -278,7 +278,7 @@ This reduces downtime during upgrades.
 For how this feature works, see
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a> in the BOSH documentation.
 
-1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to On-Demand Service Instances. TLS support is optional in new installations by default. If TLS is configured in Redis for PCF v2.2, follow the procedures in <a id="preparing-tls.html">Preparing for TLS</a> before enabling TLS.
+1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to On-Demand Service Instances. TLS support is optional in new installations by default. If TLS is configured in Redis for PCF v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
 <p class="note">
   <strong>Note:</strong>
   Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure Spring and Steeltoe apps use TLS.
