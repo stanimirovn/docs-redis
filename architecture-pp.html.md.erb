@@ -31,19 +31,20 @@ You cannot change the default Redis settings for shared-VM plans. Because of thi
 
 The default Redis settings are as follows:
 
-### Memory Policy
+### <a id="memory-policy"></a> Memory Policy
 
-+ Redis is configured with a `maxmemory-policy` of `no-eviction`.
-  This policy means that when the memory is full, the service does
-  not evict any keys or perform any write operations until memory becomes available.
+Redis is configured with a `maxmemory-policy` of `no-eviction`. This policy means that when the memory is
+ full, the service does not evict any keys or perform any write operations until memory becomes available.
 
-### Persistence
+### <a id="persistence"></a> Persistence
 
-+ Shared-VM Redis supports both Redis Database Backup (RDB) and Append-Only File (AOF) persistence options. Redis writes to the AOF log every second. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
+Shared-VM Redis supports both Redis Database Backup (RDB) and Append-Only File (AOF) persistence options.
+Redis writes to the AOF log every second. For more information, see
+[Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
 
-### Number of Connections
+### <a id="connections"></a> Maximum Number of Connections
 
-+ The maximum number of connections, `maxclients`, is set at 10,000 by default.
+The maximum number of connections, `maxclients`, is set at 10,000 by default.
 Redis might reduce this number when run on a system with a low maximum number of file descriptors.
 You can retrieve the actual setting on your Redis service instances with the Redis command `CONFIG GET maxclients`.<br><br>
 You can run the Redis command `CONFIG SET maxclients NUMBER` in your service instance to reduce `maxclients`
@@ -54,41 +55,38 @@ $ CONFIG SET maxclients 9000
 You cannot set `maxclients` above 10,000 and you cannot configure shared plans to permanently use a custom limit.
 
 
-### Replication and Event Notification
+### <a id="rep-and-event-note"></a> Replication and Event Notification
 
-+ Replication and event notification are not configured.
+Replication and event notification are not configured.
 
-### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
+## <a id="instance-deploy"></a>Change the Service Instances Limit
 
-* This plan deploys a Redis instance in a shared VM and a single service broker VM.
+This plan deploys a Redis instance in a shared VM and a single service broker VM. To prevent this, set the **Max instances limit** on the **Shared-VM Plan** tab in Ops Manager to `0`.
 
-* This plan can be disabled by setting the **Max instances limit** on the **Shared-VM Plan** tab in Ops Manager to `0`.
+You can increase the maximum number of service instances that can run on a shared VM from the default five to
+ 250. There is a hard maximum of 250 shared instances.
 
+If you increase the number of instances that can be run on a VM, consider increasing the resources allocated
+ to the VM, especially RAM and CPU. Failure to do so might lead to a degradation of performance.
 
-* You can increase the maximum number of service instances that can run on a shared VM
-  from five, which is the default, up to 250.
-  There is a hard maximum of 250 shared instances.
+You can also increase the maximum amount of RAM allocated to each service instance that is running on this VM.
 
-* If you increase the number of instances that can be run on a VM,
-  consider increasing the resources allocated to the VM, in particular RAM and CPU.
-  Failure to do so might lead to a degradation of performance.
-
-* You can also increase the maximum amount of RAM allocated to each service instance that is running on this VM.
-
-* If you decrease the service instance limit, any instances that are now running
+If you decrease the service instance limit, any instances that are now running
   beyond the limit are not automatically terminated. You cannot create any new instances until the total
-  falls below the new limit.<br><br>
-  For example, if you use 10 service instances, and you then reduce the limit to 8, the two instances outside the limit continue to run until you terminate them.
+  falls below the new limit.<br>
+  For example, if you use 10 service instances, and you then reduce the limit to 8, the two instances outside
+  the limit continue to run until you terminate them.
 
-* The number of shared-VM instances available to developers is set by the operator.
-  The maximum number of shared-VM instances is relative to the memory allocated to each shared-VM instance
-  and the total memory of the Redis service broker.
-  For details, see [Configure Redis for PCF Service Plans](./installing.html#service-plans).
+The number of shared-VM instances available to developers is set by the operator.<br>
+The maximum number of shared-VM instances is relative to the memory allocated to each shared-VM instance and
+the total memory of the Redis service broker.<br>
+For more information, see [Configure Redis for PCF Service Plans](./installing.html#service-plans).
 
-* You can enable or disable Lua scripting.
-  Changes to this configuration apply to all existing shared-VM instances.
-  Pivotal recommends that Lua scripting is disabled unless developers need it to be enabled.
-  This is because using it can affect the performance of other service instances on the VM.
+## <a id="lua-scripting"></a> Lua Scripting
+
+You can enable or disable Lua scripting. Changes to this configuration apply to all existing shared-VM
+instances. Lua scripting can adversely affect the performance of other service instances on the VM, so
+Pivotal recommends disabling Lua scripting unless developers need it enabled.
 
 <p class="note warning"><strong>Warning:</strong>
   The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
@@ -97,7 +95,7 @@ You cannot set `maxclients` above 10,000 and you cannot configure shared plans t
   change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in the <strong><a href="./installing.html#shared-vm-config">Shared-VM Plan</a></strong> configuration pane.
 </p>
 
-#### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
+## <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
 
 The shared-vm plan cannot:
 
