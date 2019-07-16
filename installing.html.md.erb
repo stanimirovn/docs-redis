@@ -15,9 +15,7 @@ Ops Manager administrators can use Role-Based Access Control (RBAC) to manage wh
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see
-    <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
-        Understand Roles in Ops Manager</a>.</p>
+For more information about roles in Ops Manager, see [Understand Roles in Ops Manager](https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about).
 
 ## <a id="install"></a>Download and Install the Tile
 
@@ -184,74 +182,83 @@ For each on-demand service plan, configure it as follows:
 
 1. Configure the following settings for your on-demand plan(s).
    Any pre-populated default settings are pre-configured according to the memory and disk size of each plan.
+
+   <p class="warning note"><strong>Warning:</strong> Do not downsize the VMs
+     or disk size. Doing so can cause data loss in pre-existing instances.</p>
+
     <table class="nice">
           <th>Field</th>
+          <th>Default</th>
           <th>Description</th>
           <tr>
             <td>**Plan**</td>
-            <td><strong>Select Plan Active</strong> or <strong>Plan Inactive</strong>.
+            <td>Active</td>
+            <td>Select <strong>Plan Active</strong> or <strong>Plan Inactive</strong>.
                 An inactive plan does not need any further configuration.</td>
           </tr>
           <tr>
             <td>**Plan Name**</td>
-            <td>Enter a name that will appear in the Marketplace.</td>
+            <td>cache-small/cache-medium/cache-large</td>
+            <td>This is a name displayed in the Marketplace.</td>
           </tr>
           <tr>
             <td>**Plan Description**</td>
-            <td>Enter a description that will appear in the Marketplace.
-                Specify details that will be relevant to app developers.</td>
+            <td>This plan provides a small, medium, or large on-demand Redis instance, tailored for caching use-cases with persistence to disk enabled.</td>
+            <td>This is a description displayed in the Marketplace.
+                Include details that are relevant to app developers.</td>
           </tr>
           <tr>
             <td>**Plan Quota**</td>
-            <td>Enter the maximum number of instances of this plan that app developers can create.
+            <td>20</td>
+            <td>This is the maximum number of instances of this plan that app developers can create.
               For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td>
           </tr>
           <tr>
             <td>**CF Service Access**</td>
-            <td>Select a service access level.
-                This setting does not modify the permissions that have been previously set,
+            <td>Enabled for all orgs and spaces</td>
+            <td>This setting does not modify the permissions that have been previously set,
                 and allows for manual access to be configured from the CLI.</td>
           </tr>
           <tr>
             <td>**AZ to deploy Redis instances of this plan**</td>
-            <td>This is the AZ in which to deploy the Redis instances from the plan.
-                This must be one of the AZs of the service network (configured in the BOSH Director tile).</td>
+            <td>None selected</td>
+            <td>These are the AZs in which to deploy the Redis instances from the plan.
+                These must be AZs of the service network, which are configured in the BOSH Director tile.
+                If you select multiple AZs, instances are distributed randomly between them.</td>
           </tr>
           <tr>
             <td>**Server VM type**</td>
-            <td>Select the VM type.
-                Pivotal recommends that the **persistent disk should be at least 2.5x the VM memory for the on-demand broker and 3.5x the VM memory for cf-redis-broker**.</td>
+            <td>Varies depending on IaaS</td>
+            <td>Pivotal recommends that the persistent disk is at least 2.5x the VM memory for the on-demand broker and 3.5x the VM memory for cf-redis-broker.</td>
           </tr>
           <tr>
             <td>**Server Disk type**</td>
-            <td>Select the disk type.
-                Pivotal recommends that the **persistent disk should be at least 2.5x the VM memory for the on-demand broker and 3.5x the VM memory for cf-redis-broker**.</td>
+            <td>Varies depending on IaaS</td>
+            <td>Pivotal recommends that the persistent disk is at least 2.5x the VM memory for the on-demand broker and 3.5x the VM memory for cf-redis-broker.</td>
           </tr>
           <tr>
             <td>**Redis Client Timeout**</td>
-            <td>This field refers to the server timeout for an idle client specified in seconds.
-                The default setting is 3600.
+            <td>3600</td>
+            <td>This is the server timeout for an idle client specified in seconds.
                 Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Redis TCP Keepalive**</td>
-            <td>Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients.
-                The default setting is 60.
+            <td>60</td>
+            <td>Redis TCP Keepalive refers to the interval in seconds at which TCP ACKs are sent to clients.
                 Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Max Clients**</td>
+            <td>Small:&nbsp;1000<br>Medium:&nbsp;5000<br>Large:&nbsp;10000</td>
             <td>Max Clients refers to the maximum number of clients that can be connected at any one time.
-                Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.
                 Adjust this setting as needed.</td>
           </tr>
           <tr>
             <td>**Lua Scripting**</td>
-            <td>Enable or disable Lua scripting as needed.<br />
-                Redis for PCF disables Lua scripting by default.
-                Pivotal recommends keeping Lua scripting disabled unless developers are running apps that require Lua scripting.<br />
-                As an example, .Net Steeltoe apps require Lua scripting to be enabled.
-                Check whether the language your apps are using requires Lua scripting.</td>
+            <td>Disabled</td>
+            <td>Pivotal recommends keeping Lua scripting disabled unless developers are running apps that require Lua scripting, such as .Net Steeltoe apps.<br>
+            Check whether the language your apps are using requires Lua scripting.</td>
           </tr>
     </table>
 
@@ -440,7 +447,7 @@ The following are the default resource and IP requirements for Redis for PCF whe
   </tr>
   <tr>
     <td>Redis</td>
-    <td>Compliation</td>
+    <td>Compilation</td>
     <td>2</td>
     <td>2</td>
     <td>1024</td>
@@ -472,60 +479,6 @@ You can disable Shared VM Plans by doing the following while configuring Redis t
     b. Decrease **Redis Broker** VM type to the smallest size available.<br>
     c. Set **Dedicated Node** Instances to 0.<br>
     d. Click **Save**.<br>
-
-### <a id="configurations"></a>Additional Redis Configurations
-
-You can update certain plan settings after the plans have been created.
-Updates to the settings for the components below are implemented in all existing instances:
-
-* VM size
-* Disk size
-* Redis configuration settings:
-  * Lua Scripting
-  * Max-clients
-  * Timeout
-  * TCP keep-alive
-
-<p class="warning note"><strong>WARNING: </strong>You must not downsize the VMs
-  or disk size. This can cause data loss in pre-existing instances.</p>
-
-The following table describes properties you can update in the [plan configuration page](#planconfig), shown above.
-
-<table border="1" class="nice">
-  <tr>
-    <th>Property</th>
-    <th>Default</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td><strong>Redis Client Timeout</strong></td>
-    <td>3600</td>
-    <td>Server timeout for an idle client specified in seconds (e.g., 3600)</td>
-  </tr>
-  <tr>
-    <td><strong>Redis TCP Keepalive</strong></td>
-    <td>60</td>
-    <td>The max number of connected clients at the same time</td>
-  </tr>
-  <tr>
-    <td><strong>Max Clients</strong></td>
-    <td>1000/5000/10000 (small/medium/large)</td>
-    <td>The max number of connected clients at the same time</td>
-  </tr>
-  <tr>
-    <td><strong>Lua Scripting</strong></td>
-    <td>Enabled</td>
-    <td>Enable/Disable Lua scripting</td>
-  </tr>
-  <tr>
-    <td><strong>Plan Quota</strong></td>
-    <td>20</td>
-    <td>Maximum number of Redis service instances for this plan, across all orgs and spaces.
-    For more information, see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a>.</td>
-  </tr>
-</table>
-
-For settings that app developers can configure, see [Customize an On-Demand Service Instance](./using.html#custom).
 
 ## <a id="syslog"></a>Configure Syslog Forwarding
 
