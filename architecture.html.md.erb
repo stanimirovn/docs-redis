@@ -35,12 +35,17 @@ to migrate to TLS connections regardless of whether traffic is restricted to jus
 Steeltoe and Spring apps use the TLS port by default, if it is available.
 Other apps might require further configuration to make use of the correct port.
 
-![On-Demand Architecture TLS Enabled Diagram](tls_optional.png)
+![The bound app can connect to the Redis service on the on-demand Redis service
+instance VM through a TLS proxy or connect directly.
+The TLS proxy and Redis are both on the Redis service instance.
+The traffic is secure from the app to the TLS proxy.
+Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
 
-When setting TLS to **Not Configured** within On-Demand Service Settings,
-the communication with the service instances remains unchanged from previous tile versions.
+When setting TLS to **Not Configured** within the On-Demand Service Settings,
+the communication with service instances remains unchanged from Redis for PCF v2.1 and earlier.
 
-![On-Demand Architecture TLS Disabled Diagram](tls_disabled.png)
+![The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
+The traffic on this connection is unsecured.](tls_disabled.png)
 
 
 
