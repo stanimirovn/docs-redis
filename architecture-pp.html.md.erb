@@ -87,12 +87,14 @@ For more information, see [Shared-VM Plan Settings](./installing.html#shared-vm-
 You can enable or disable Lua scripting. Changes to this configuration apply to all existing shared-VM
 instances. Lua scripting can adversely affect the performance of other service instances on the VM, so
 Pivotal recommends disabling Lua scripting unless developers need it enabled.
+For more information, see [Shared-VM Plan Settings](./installing.html#shared-vm-config).
 
 <p class="note warning"><strong>Warning:</strong>
   The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
   Check if any of your apps require Lua scripting.
   By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
-  change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in the <strong><a href="./installing.html#shared-vm-config">Shared-VM Plan</a></strong> configuration pane.
+  change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in the
+  Shared-VM Plan configuration pane.
 </p>
 
 ## <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
