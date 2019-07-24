@@ -5,28 +5,25 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## <a id="203"></a> v2.0.3
+## <a id="204"></a> v2.0.4
 
 **Release Date: ########**
 
 <%= partial 'breaking-change-upgrades' %>
 <%= partial 'pcf-upgrade-warning' %>
 
-### Feature
-
-New feature in this release:
-
-* 
+### Features
 
 ### Security Fixes
 
 This release includes the following security fixes:
 
-* Redis for PCF uses open source Redis v5.0.4, which includes fixes for issues that caused crashes in very rare cases.<br>
-For more information about Redis v5.0.4, see the
+* Redis for PCF uses open source Redis v5.0.5, which includes fixes for CVEs and issues that caused crashes in very rare cases.<br>
+For more information about Redis v5.0.5, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
-* Updates golang to v1.12.1, which includes a fix for a regression around sync
-* Updates On-Demand Broker to v0.26.1, which contains a fix for the `recreate-all-service-instances` errand
+* Updates golang to v1.12.6, which includes a fix for a regression around sync
+* Updates On-Demand Broker to v0.31.1, which contains a fix for the `recreate-all-service-instances` errand
+* Updates to cf-cli 1.16, which fixes CVE-2019-3781
 
 ### Resolved Issues
 
@@ -55,7 +52,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>250.x</td>
+    <td>315.x</td>
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
@@ -63,11 +60,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v434.2.7</td>
+    <td>v434.3.11</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.26.1</td>
+    <td>v0.31.1</td>
 </tr>
 <tr>
     <td>routing</td>
@@ -75,11 +72,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>v1.10.0</td>
+    <td>v1.12.0</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>v18.2.0</td>
+    <td>v18.3.1</td>
 </tr>
 <tr>
     <td>syslog</td>
@@ -87,15 +84,15 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>v3.9</td>
+    <td>v3.18</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>v1.0.3</td>
+    <td>v1.0.4</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>v5.0.4</td>
+    <td>v5.0.5</td>
 </tr>
 
 </table>
