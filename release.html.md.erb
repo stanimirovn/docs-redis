@@ -24,7 +24,7 @@ New features and changes in this release:
   Before doing this, ensure that you have followed the steps in
   <a href="preparing-tls.html">Preparing for TLS</a> and
   <a href="installing.html#network-configuration">Network configuration</a>.<br>
-  Enabling TLS is not expected to noticeably reduce performance. This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
+  In most cases enabling TLS does not noticeably reduce performance. This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
 
 <%= partial "warning-disabling-tls" %>
 
@@ -32,14 +32,14 @@ New features and changes in this release:
 
 This release includes the following security fixes:
 
-* This release bumps CF CLI, which resolves CVE-2019-3781
+* This release updates cf CLI, which resolves CVE-2019-3781.
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fixes:
 
 * Smoke tests now run in the pivotal-services space.
-* The deprecate dedicated service errand no longer runs.
+* The `deprecate-dedicated-vm-plan` errand no longer runs.
 
 ### Known Issues
 
