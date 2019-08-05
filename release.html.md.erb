@@ -5,22 +5,26 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-## <a id="203"></a> v2.0.4
+## <a id="204"></a> v2.0.4
 
 **Release Date: August 05, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
 <%= partial 'pcf-upgrade-warning' %>
 
-
-### <a id="securityfix1147"></a> Security Fixes
+### Security Fixes
 
 This release includes the following security fix:
 
+* Redis for PCF uses open source Redis v5.0.5, which includes fixes for CVEs and issues that caused crashes in very rare cases.<br>
+For more information about Redis v5.0.5, see the
+[Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
+* Updates golang to v1.12.6, which includes a fix for a regression around sync
+* Updates On-Demand Broker to v0.31.1, which contains a fix for the `recreate-all-service-instances` errand
 * This release updates the cf CLI to v1.16, which resolves
 [CVE-2019-3781: CF CLI does not sanitize user's password in verbose/trace/debug](https://pivotal.io/security/cve-2019-3781).
 
-### <a id="resolved1147"></a> Resolved Issues
+### Resolved Issues
 
 This release has the following fix:
 
@@ -53,11 +57,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>cf-redis-release</td>
-    <td>v434.2.7</td>
+    <td>v434.3.12</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>v0.30.0</td>
+    <td>v0.31.1</td>
 </tr>
 <tr>
     <td>routing</td>
@@ -65,11 +69,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>v1.10.0</td>
+    <td>v1.12.0</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>v18.2.0</td>
+    <td>v18.3.1</td>
 </tr>
 <tr>
     <td>syslog</td>
@@ -77,11 +81,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>v3.9</td>
+    <td>v3.18.0</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>v1.0.3</td>
+    <td>v1.0.4</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
