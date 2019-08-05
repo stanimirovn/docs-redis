@@ -10,6 +10,88 @@ owner: London Services
   <code>bosh -d MY-DEPLOYMENT restart redis-on-demand-broker</code> errand after upgrading.
   Failure to do so causes compatibility issues with runtime CredHub.</p>
 
+## <a id="1147"></a> v1.14.7
+
+**Release Date: #######**
+
+### <a id="features1147"></a> Features
+
+### <a id="securityfix1147"></a> Security Fixes
+
+* Fix for CVE-2019-3781
+
+### <a id="resolved1147"></a> Resolved Issues
+
+This release fixes the following issues:
+
+* Smoke tests now run in the pivotal-services space.
+
+### <a id="known1147"></a> Known Issues
+
+This release has the following issues:
+
+* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about this unexpected behavior, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### <a id="compat1147"></a> Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>315.x</td>
+</tr>
+<tr>
+    <td>PCF</td>
+    <td>2.3.x and 2.4.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>434.3.11</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.31.1</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.188.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>1.12.0</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.1</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>11.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>3.18.0</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.0.4</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>4.0.14</td>
+</tr>
+</table>
+
 ## <a id="1146"></a> v1.14.6
 
 **Release Date: May 8, 2019**
