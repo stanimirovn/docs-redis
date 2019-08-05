@@ -7,20 +7,24 @@ owner: London Services
 
 ## <a id="203"></a> v2.0.3
 
-**Release Date: ########**
+**Release Date: August 05, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
 <%= partial 'pcf-upgrade-warning' %>
 
-### Feature
 
-### Security Fixes
+### <a id="securityfix1147"></a> Security Fixes
 
-### Resolved Issues
+This release includes the following security fix:
 
-This release fixes the following issues:
+* This release updates the cf CLI to v1.16, which resolves
+[CVE-2019-3781: CF CLI does not sanitize user's password in verbose/trace/debug](https://pivotal.io/security/cve-2019-3781).
 
-* Smoke tests now run in pivotal-services space.
+### <a id="resolved1147"></a> Resolved Issues
+
+This release has the following fix:
+
+* Smoke tests now run in the `pivotal-services` space.
 
 ### Known Issues
 
