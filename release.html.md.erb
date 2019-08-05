@@ -7,35 +7,32 @@ owner: London Services
 
 ## <a id="204"></a> v2.0.4
 
-**Release Date: ########**
+**Release Date: August 05, 2019**
 
 <%= partial 'breaking-change-upgrades' %>
 <%= partial 'pcf-upgrade-warning' %>
 
-### Features
-
 ### Security Fixes
 
-This release includes the following security fixes:
+This release includes the following security fix:
 
 * Redis for PCF uses open source Redis v5.0.5, which includes fixes for CVEs and issues that caused crashes in very rare cases.<br>
 For more information about Redis v5.0.5, see the
 [Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
 * Updates golang to v1.12.6, which includes a fix for a regression around sync
 * Updates On-Demand Broker to v0.31.1, which contains a fix for the `recreate-all-service-instances` errand
-* Updates to cf-cli 1.16, which fixes CVE-2019-3781
+* This release updates the cf CLI to v1.16, which resolves
+[CVE-2019-3781: CF CLI does not sanitize user's password in verbose/trace/debug](https://pivotal.io/security/cve-2019-3781).
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fix:
 
-* Smoke tests now run in pivotal-services space.
+* Smoke tests now run in the `pivotal-services` space.
 
 ### Known Issues
 
 This release has the following issues:
-
-* The redis-odb service broker listens on port `12345`. This is inconsistent with other services.
 
 * The **When Changed** option for errands has unexpected behavior. Do not select this option.<br>
 For more information about this unexpected behavior, see

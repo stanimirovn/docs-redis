@@ -5,16 +5,15 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for Pivotal Cloud Foundry (PCF) offers On-Demand and Shared-VM service plans.
-This section describes the architecture, lifecycle, and configurations of the
-Shared-VM plan.
-For similar information for the On-Demand service plan, see [On-Demand Service Offering](./architecture.html).
+Redis for Pivotal Cloud Foundry (PCF) offers on-demand and shared-VM service plans.
+This section describes the architecture, lifecycle, and configurations of the shared-VM plan.
+For similar information for the on-demand service plan, see [On-Demand Service Offering](./architecture.html).
 
 <%= partial 'breaking-change-upgrades' %>
 
 ## <a id="about"></a> About the Shared-VM Plan
 
-The Shared-VM Plan is a pre-provisioned service plan for development and testing purposes only.
+The shared-VM plan is a pre-provisioned service plan for development and testing purposes only.
 An instance of this plan provisions a single Redis process on a single shared VM.
 This plan is suitable for workloads that do not require dedicated hardware.
 This plan is **not** suitable for production purposes.
@@ -22,38 +21,51 @@ This plan is **not** suitable for production purposes.
 
 ## <a id="diagram2"></a>Architecture Diagram for Shared Plans
 
-This diagram shows the architecture of the service broker and Shared-VM plans
+This diagram shows the architecture of the service broker and shared-VM plans
 and how the user's app binds to a Redis instance.
 
 ![Architecture Diagram](legacy-arch.png)
 
-## <a id="config2"></a> Configuration for Shared-VM Service Plans
+## <a id="config2"></a> Settings for Shared-VM Service Plans
 
-You cannot change the default Redis configuration for Shared-VM plans.
-The default configuration is as follows:
+You cannot change the default Redis settings for shared-VM plans. Because of this, you cannot run
+ `cf update-service` with the `-c` flag to set config parameters, as described in the [Cloud Foundry documentation](https://cli.cloudfoundry.org/en-US/cf/update-service.html).
+
+The default Redis settings are as follows:
+
+### Memory Policy
 
 + Redis is configured with a `maxmemory-policy` of `no-eviction`.
   This policy means that when the memory is full, the service does
   not evict any keys or perform any write operations until memory becomes available.
 
+### Persistence
+
 + Shared-VM Redis supports both Redis Database Backup (RDB) and Append-Only File (AOF) persistence options. Redis writes to the AOF log every second. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
 
-+ By default, the maximum number of connections, `maxclients`, is set at 10000.
+### Number of Connections
+
++ The maximum number of connections, `maxclients`, is set at 10,000 by default.
 Redis might reduce this number when run on a system with a low maximum number of file descriptors.
-You can retrieve the actual setting on your Redis service instances with the Redis command `CONFIG GET maxclients`.
-You can use the Redis command `CONFIG SET maxclients` to temporarily reduce `maxclients`,
-but you cannot increase it above 10000.
-There is no way to configure shared plans to use a custom limit.
+You can retrieve the actual setting on your Redis service instances with the Redis command `CONFIG GET maxclients`.<br><br>
+You can run the Redis command `CONFIG SET maxclients NUMBER` in your service instance to reduce `maxclients`
+until the next BOSH action occurs. For example:
+<pre class="terminal">
+$ CONFIG SET maxclients 9000
+</pre>
+You cannot set `maxclients` above 10,000 and you cannot configure shared plans to permanently use a custom limit.
+
+
+### Replication and Event Notification
 
 + Replication and event notification are not configured.
 
-For this reason, Shared-VM plans do not support using CLI commands with arbitrary parameters to configure service instances.
-
-#### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
+### <a id="notes-shared"></a> Operator Notes for the Shared-VM Plan
 
 * This plan deploys a Redis instance in a shared VM and a single service broker VM.
 
-* This plan can be disabled by setting the `Max instances limit` on the `Shared-VM Plan` tab in Ops Manager to be `0`.
+* This plan can be disabled by setting the **Max instances limit** on the **Shared-VM Plan** tab in Ops Manager to `0`.
+
 
 * You can increase the maximum number of service instances that can run on a shared VM
   from five, which is the default, up to 250.
@@ -63,33 +75,42 @@ For this reason, Shared-VM plans do not support using CLI commands with arbitrar
   consider increasing the resources allocated to the VM, in particular RAM and CPU.
   Failure to do so might lead to a degradation of performance.
 
-* You can also increase the maximum amount of RAM allocated to each Redis process
-(service instance) that is running on this VM.
+* You can also increase the maximum amount of RAM allocated to each service instance that is running on this VM.
 
-* If you decrease the service instance limit, any instances that are running
-  where the count is now greater than the limit are not terminated.
-  They are left to be removed naturally, until the total count drops below the new limit you cannot create any new instances.<br><br>
-  For example if you had a limit of 10 and all were used and reduced this to 8,
-  the two instances will be left running until you terminate them yourself.
+* If you decrease the service instance limit, any instances that are now running
+  beyond the limit are not automatically terminated. You cannot create any new instances until the total
+  falls below the new limit.<br><br>
+  For example, if you use 10 service instances, and you then reduce the limit to 8, the two instances outside the limit continue to run until you terminate them.
 
-* The number of Shared VM instances available to developers is set by the operator.
-  The maximum number of shared VM instances is relative to the memory allocated to each Shared VM instance
+* The number of shared-VM instances available to developers is set by the operator.
+  The maximum number of shared-VM instances is relative to the memory allocated to each shared-VM instance
   and the total memory of the Redis service broker.
-  For details, see [Configuring Service Plans](./installing.html#service-plans).
+  For more information, see [Shared-VM Plan Settings](./installing.html#shared-vm-config).
+
+* You can enable or disable Lua scripting.
+  Changes to this configuration apply to all existing shared-VM instances.
+  Pivotal recommends that Lua scripting is disabled unless developers need it to be enabled.
+  This is because using it can affect the performance of other service instances on the VM.
+
+<p class="note warning"><strong>Warning:</strong>
+  The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
+  Check if any of your apps require Lua scripting.
+  By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
+  change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in the <strong><a href="./installing.html#shared-vm-config">Shared-VM Plan</a></strong> configuration pane.
+</p>
 
 #### <a id="limits-shared"></a> Known Limitations of the Shared-VM Plan
 
-Limitations of the `shared-vm` plan include:
+The shared-vm plan cannot:
 
-* It cannot be scaled beyond a single VM.
-* The following commands are disabled: `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`,
-  `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, and `SYNC`.
-* Constraining CPU and/or disk usage is not supported.
-* Because the Shared-VM plan does not manage "noisy neighbor" problems, Pivotal does not recommend it for production apps.
+* Scale beyond a single VM
+* Run the commands `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`, `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, or `SYNC`
+* Constrain CPU or disk usage
+* Manage "noisy neighbor" problems, which makes it unsuitable for production apps
 
 
 ## <a id="lifecycle-dedicated-shared"></a>Lifecycle for Shared-VM Service Plan
 
-Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
+Below is the lifecycle of Redis for PCF, from an operator installing the tile, to an app developer using the service, to an operator deleting the tile.
 
 ![Lifecycle Diagram](Redis_timeline_legacy.png)
