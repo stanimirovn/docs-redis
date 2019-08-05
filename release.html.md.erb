@@ -9,6 +9,78 @@ owner: London Services
 
 <%= partial "warning-azure-outbound-internet-access" %>
 
+## <a id="213"></a> v2.1.3
+
+**Release Date: ########**
+
+### Resolved Issues
+
+This release fixes the following issue:
+
+* Smoke tests now run in the pivotal-services space.
+* Bumped CF CLI to v1.16 to fix CVE-2019-3781
+
+### Upcoming Firehose Deprecation
+
+* The Loggregator Firehose endpoint is scheduled for deprecation.
+For information about replacing Firehose, see <a href="monitoring.html#loggregator">Loggregator</a>.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>315.x</td>
+</tr>
+<tr>
+    <td>PCF<sup></sup></td>
+    <td>2.4.x, 2.5.x and 2.6.x</td>
+</tr>
+<tr>
+    <td>cf-redis-release</td>
+    <td>434.3.12</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.31.1</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.188.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>1.12.0</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.1</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>11.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>3.18.0</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.0.4</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.5</td>
+</tr>
+
+</table>
+
 ## <a id="212"></a> v2.1.2
 
 **Release Date: May 22, 2019**
