@@ -32,13 +32,24 @@ New features and changes in this release:
 
 This release includes the following security fixes:
 
-* This release updates cf CLI, which resolves [CVE-2019-3781](https://pivotal.io/it/security/cve-2019-3781).
+* Updates open source Redis to v5.0.5, which includes fixes for CVEs and issues
+that caused crashes in very rare cases.
+For more information about Redis v5.0.5, see the
+[Redis 5.0 release notes](https://raw.githubusercontent.com/antirez/redis/5.0/00-RELEASENOTES).
+
+* Updates golang to v1.12.6.
+For release notes, see the [golang documentation](https://golang.org/doc/devel/release.html#go1.12.minor).
+
+* Updates On-Demand Broker to v0.31.1.
+
+* Updates the cf CLI to v1.16, which resolves
+[CVE-2019-3781: CF CLI does not sanitize user's password in verbose/trace/debug](https://pivotal.io/security/cve-2019-3781).
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-* Smoke tests now run in the pivotal-services space.
+* Smoke tests now run in the `pivotal-services` space.
 * The Deprecate Dedicated-VM Plan errand no longer runs.
 
 ### Known Issues
