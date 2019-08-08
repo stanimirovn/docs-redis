@@ -5,8 +5,6 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= partial "breaking-change-ports" %>
-
 <%= partial "warning-azure-outbound-internet-access" %>
 
 ## <a id="230"></a> v2.3.0
@@ -17,7 +15,7 @@ owner: London Services
 
 New features and changes in this release:
 
-
+* Service Instance and broker metrics are now emitted in Prometheus format.
 
 
 ### Security Fixes
@@ -51,7 +49,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>2.5.x and 2.6.x</td>
+    <td>2.6.x and 2.7.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
@@ -67,7 +65,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>1.12.0</td>
+    <td>1.13.0</td>
 </tr>
 <tr>
     <td>service-backup</td>
