@@ -23,7 +23,7 @@ The metrics polling interval defaults to 30 seconds. This can be changed by navi
 Metrics are emitted in the following format:
 
 <pre class=terminal>
-origin:"p-redis" eventType:ValueMetric timestamp:1480084323333475533 deployment:"cf-redis" job:"cf-redis-broker" index:"{redacted}" ip:"10.0.1.49" valueMetric:&#60;name:"/p-redis/service-broker/shared_vm_plan/available_instances" value:4 unit:"" >
+origin:"p-redis" eventType:ValueMetric timestamp:1480084323333475533 deployment:"cf-redis" job:"cf-redis-broker" index:"{redacted}" ip:"10.0.1.49" valueMetric:&#60;name:"_p_redis_service_broker_shared_vm_plan_available_instances" value:4 unit:"" >
 </pre>
 
 ## <a id="critical-logs"></a>Critical Logs
@@ -121,7 +121,7 @@ For a list of all other Redis metrics, see [Other Redis Metrics](#other-metrics)
 
 <table>
    <tr><th colspan="2" style="text-align: center;">
-   <br>/p-redis/service-broker/shared_vm_plan/total_instances <br><br></th></tr>
+   <br>_p_redis_service_broker_shared_vm_plan_total_instances <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Total instances provisioned for Shared-VM Services.
@@ -160,7 +160,7 @@ You can differentiate between these service instance metrics as follows:
 * **Shared-VM service instances:**
   * Have origin <code>p-redis</code>
   * Their names are
-pre-pended with <code>/p-redis/shared-vm/SHARED-INSTANCE-GUID/</code>.
+pre-pended with <code>_p_redis_shared_vm_SHARED_INSTANCE_GUID/</code>.
   <code>SHARED-INSTANCE-GUID</code> can be retrieved by running <code>cf service SERVICE-NAME --guid</code>.
 
 #### <a id="persistent-disk-percent"></a> Percent of Persistent Disk Used
