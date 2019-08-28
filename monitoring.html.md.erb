@@ -7,7 +7,7 @@ owner: London Services
 
 ## <a id="loggregator"></a>Loggregator
 
-Redis metrics are emitted through Loggregator via the [Reverse Log Proxy](https://github.com/cloudfoundry/loggregator/blob/master/docs/rlp_gateway.md) and [Log Cache](https://github.com/cloudfoundry/log-cache/blob/master/README.md) in GitHub. You can use third-party monitoring tools to consume Redis metrics to monitor Redis performance and health. 
+Redis metrics are emitted through Loggregator via the [Reverse Log Proxy](https://github.com/cloudfoundry/loggregator/blob/master/docs/rlp_gateway.md) and [Log Cache](https://github.com/cloudfoundry/log-cache/blob/master/README.md) in GitHub. You can use third-party monitoring tools to consume Redis metrics to monitor Redis performance and health.
 <a id="firehose"></a>The [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) endpoint is being deprecated.
 
 As an example of how to display KPIs and metrics without the Firehose, see the
@@ -466,7 +466,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/odb/bosh_health_metrics_pcf2' %>
+<%= partial '../../redis/partials/services/bosh_health_metrics_pcf2' %>
 
 ## <a id="other-metrics"></a>Other Redis Metrics
 Redis also exposes the following metrics. for more information, see the [Redis documentation](http://redis.io/commands/INFO).
