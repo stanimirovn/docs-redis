@@ -5,6 +5,8 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= partial '../../redis/odb/toc-set-quotas'%>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/odb/set_quotas' %>
+<%= partial '../../redis/partials/services/toc-set-quotas'%>
+
+<%= partial '../../redis/partials/services/set_quotas' %>
