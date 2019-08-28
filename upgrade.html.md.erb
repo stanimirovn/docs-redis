@@ -21,7 +21,7 @@ Before upgrading Redis for PCF, for compatibility information, see the
   Developers might also need to configure other frameworks and languages to use the TLS port as well.<br><br>
   For more information, see <a href="./appdevs.html">Using TLS</a>.
 </p>
-<%= partial "warning-disabling-tls" %>
+<%= partial "../../redis/partials/redis/warning-disabling-tls" %>
 
 This product enables a reliable upgrade experience between versions of the product
 deployed through Ops Manager.
@@ -176,4 +176,4 @@ and does not alter existing instances.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/odb/release-policy' %>
+<%= partial '../../redis/partials/services/release-policy' %>
