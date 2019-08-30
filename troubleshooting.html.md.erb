@@ -5,71 +5,23 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<div class="quick-links">
-  <ul>
-    <li><a href="#debugging">Useful Debugging Commands</a></li>
-    <li><a href="#redis-cli">About the Redis CLI</a></li>
-    <li><a href="#errors">Troubleshooting Errors</a>
-      <ul>
-        <li><a href="#install-fail">Failed Installation</a></li>
-        <li><a href="#cannot-create-delete">Cannot Create or Delete Service Instances</a></li>
-        <li><a href="#timeouts">Broker Request Timeouts</a></li>
-        <li><a href="#cannot-bind">Cannot Bind to or Unbind from Service Instances</a></li>
-        <li><a href="#cannot-connect">Cannot Connect to a Service Instance</a></li>
-        <li><a href="#upgrade-all-fails">Upgrade All Service Instances Errand Fails</a></li>
-        <li><a href="#missing-logs">Missing Logs and Metrics</a></li>
-        <li><a href="#syslog-errors">Error Messages Logged in Syslog</a></li>
-        <li><a href="#backup-errors">Failed Backup</a></li>
-        <li><a href="#orphaned-instances">Orphaned Instances</a></li>
-        <li><a href="#credhub-error">Failed to Set Credentials in Runtime CredHub</a></li>
-      </ul>
-    </li>
-    <li><a href="#components">Troubleshooting Components</a>
-      <ul>
-        <li><a href="#bosh">BOSH Problems</a></li>
-        <li><a href="#bosh-config">Configuration</a></li>
-        <li><a href="#auth">Authentication</a></li>
-        <li><a href="#network">Networking</a></li>
-        <li><a href="#quotas">Quotas</a></li>
-        <li><a href="#failing-jobs">Failing Jobs and Unhealthy Instances</a></li>
-      </ul>
-    </li>
-    <li><a href="#techniques">Techniques for Troubleshooting</a>
-      <ul>
-        <li><a href="#parse-error">Parse a Cloud Foundry (CF) Error Message</a></li>
-        <li><a href="#bosh-cf-access">Access Broker and Instance Logs and VMs</a></li>
-        <li><a href="#broker-errands">Run Service Broker Errands to Manage Brokers and Instances</a></li>
-        <li><a href="#instance-creds">Get Admin Credentials for a Service Instance</a></li>
-        <li><a href="#reinstall">Reinstall a Tile</a></li>
-        <li><a href="#view-resources">View Resource Saturation and Scaling</a></li>
-        <li><a href="#id-instance-owner">Identify a Service Instance Owner</a></li>
-        <li><a href="#monitor-quota">Monitor the Quota Saturation and Service Instance Count</a></li>
-      </ul>
-    </li>
-    <li><a href="#Knowledge">Knowledge Base Articles</a></li>
-  </ul>
-</div>
-
 This topic lists troubleshooting information for Redis for PCF.
 
 <p class="note"><strong>Note</strong>:
-Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
-Pivotal recommends that you back up both your Ops Manager and deployments before attempting such opperations.
-<br>
-<br>
-For more information about backing up your setup and exporting your Ops Manager installation,
-see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
+  Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
+  Pivotal recommends that you back up both your Ops Manager and deployments before attempting such operations.
+  <br><br>
+  For more information about backing up your setup and exporting your Ops Manager installation,
+  see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
 </p>
 
 
-<a id="debugging"></a><h2> Useful Debugging Commands</h2>
-
+## <a id="debugging"></a> Useful Debugging Commands
 
 Before debugging, gather the following about your PCF deployment:
 
 * Current version of Redis for PCF, and, if upgrading, the previous version of Redis for PCF
 * Current version of Ops Manager, and, if upgrading, the previous version of Ops Manager
-
 
 ### cf CLI Commands
 
@@ -130,25 +82,22 @@ Before debugging, gather the following about your PCF deployment:
   </tr>
 </table>
 
-
 You can obtain general information after you SSH into a broker or service instance as follows:
 
-  * To see system logs, go to `/var/vcap/sys/log`.
-  * To check process health, run `sudo monit summary`.
-  * To obtain a list of all processes, run `ps aux`.
-  * To see disk usage, run `df -h`.
-  * To see memory usage, run `free -m`.
-
+* To see system logs, go to `/var/vcap/sys/log`.
+* To check process health, run `sudo monit summary`.
+* To obtain a list of all processes, run `ps aux`.
+* To see disk usage, run `df -h`.
+* To see memory usage, run `free -m`.
 
 You can obtain information specific to the cf-redis broker as follows:
 
-  * For shared-VMs, the redis processes are colocated with the CF-Redis broker.
-    You can check these VMs using `ps aux | grep redis-server`.
-  * Shared-VM data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
-  * A map of dedicated-VMs can be found in `/var/vcap/store/cf-redis-broker/statefile.json`.
+* For shared-VMs, the redis processes are co-located with the CF-Redis broker.
+  You can check these VMs using `ps aux | grep redis-server`.
+* Shared-VM data is stored in `/var/vcap/store/cf-redis-broker/redis-data`.
 
 
-<a id="redis-cli"></a><h2>About the Redis CLI</h2>
+## <a id="redis-cli"></a> About the Redis CLI
 
 The redis-cli is a command line tool used to access a Redis server.
 You can use the redis-cli for create, read, update, and delete (CRUD) actions,
@@ -177,63 +126,63 @@ to retrieve the password and port number for the service instance.
     [Interactive Mode](https://redis.io/topics/rediscli#interactive-mode) in the
     Redis documentation.
 
-<!-- Partialsare in https://github.com/pivotal-cf/docs-services-partials -->
 
-<a id="errors"><h2></a>Troubleshooting Errors</h2>
+## <a id="errors"></a> Troubleshooting Errors
 
 Start here if you are responding to a specific error or error messages.
 
-<a id="install-fail"></a><h3>Failed Installation</h3>
+### <a id="install-fail"></a> Failed Installation
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-install-fail' %>
 
-<a id="cannot-create-delete"></a><h3>Cannot Create or Delete Service Instances</h3>
+### <a id="cannot-create-delete"></a> Cannot Create or Delete Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-cannot-create-delete' %>
 
-<a id="timeouts"></a><h3>Broker Request Timeouts</h3>
+### <a id="timeouts"></a> Broker Request Timeouts
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-timeouts' %>
 
-<a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
+### <a id="cannot-bind"></a> Cannot Bind to or Unbind from Service Instances
 
-<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4>
+#### <a id="instance-not-exist"></a>Instance Does Not Exist
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-instance-not-exist' %>
 
-<a id="other-errors"></a><h4>Other Errors</h4>
+#### <a id="other-errors"></a>Other Errors
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-other-errors' %>
 
-<a id="cannot-connect"><h3></a>Cannot Connect to a Service Instance</h3>
+### <a id="cannot-connect"></a> Cannot Connect to a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-cannot-connect' %>
 
-<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Errand Fails</h3>
+### <a id="upgrade-all-fails"></a> Upgrade All Service Instances Errand Fails
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-upgrade-all-fails' %>
 
-<a id="missing-logs"><h3></a>Missing Logs and Metrics</h3>
+### <a id="missing-logs"></a> Missing Logs and Metrics
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-missing-logs' %>
 
-<a id="syslog-errors"></a><h3>Error Messages Logged in Syslog</h3>
+
+### <a id="syslog-errors"></a> Error Messages Logged in Syslog
 
 You can configure Redis for PCF with remote syslog forwarding.
 For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
@@ -248,7 +197,8 @@ This section helps to troubleshoot the following errors logged in syslog:
   <li><a href="#disk-size">Saving Error</a></li>
 </ul>
 
-<a id="corrupt-aof"></a><h4>AOF File Corrupted, Cannot Start Redis Instance</h4>
+
+#### <a id="corrupt-aof"></a>AOF File Corrupted, Cannot Start Redis Instance
 <br>
 <strong>Symptom</strong><br>
 
@@ -294,8 +244,7 @@ The error log printed out by Redis provides a clear means of recovery.
 </ol>
 
 
-
-<a id="disk-full"></a><h4>AOF Write or Rewrite Errors</h4>
+#### <a id="disk-full"></a> AOF Write or Rewrite Errors
 <br>
 <strong>Symptom</strong><br><br>
 
@@ -330,7 +279,7 @@ In older versions of the Redis for PCF tile, AOF persistence is enabled by defau
 Upgrading to the latest version of the tile disables AOF persistence.
 
 
-<a id="disk-size"></a><h4>Saving Error</h4><br>
+#### <a id="disk-size"></a>Saving Error<br>
 
 <strong>Symptom</strong><br><br>
 
@@ -363,7 +312,7 @@ To prevent this error, do the following:<br><br>
 </ol>
 
 
-<a id="backup-errors"></a><h3>Failed Backup</h3><br>
+### <a id="backup-errors"></a> Failed Backup<br>
 
 <strong>Symptom</strong><br><br>
 
@@ -381,7 +330,7 @@ Ensure that the Redis server being backed up is running.
 To do this, run <code>bosh restart</code> against the affected service instance VM.
 
 
-<a id="orphaned-instances"></a><h3>Orphaned Instances</h3>
+### <a id="orphaned-instances"></a> Orphaned Instances
 
 When a service instance is orphaned, one of the following occurs:<br><br>
 
@@ -393,7 +342,8 @@ When a service instance is orphaned, one of the following occurs:<br><br>
   </li>
 </ul>
 
-<a id="orphaned-bosh"></a><h4>BOSH Director Cannot See Your Instances</h4><br>
+
+#### <a id="orphaned-bosh"></a> BOSH Director Cannot See Your Instances<br>
 
 <strong>Symptom</strong><br><br>
 
@@ -405,16 +355,16 @@ BOSH Director cannot see your instances but they are visible on PCF.
 
 <strong>Explanation</strong><br><br>
 
-    Orphaned instances can occur in the following situations:
-    <br><br>
-    <ul>
-      <li>Both PCF and BOSH maintain state.
-        Orphaned instances can occur if the PCF state is out of sync with BOSH.
-        For example, the deployments or VMs have been deprovisioned by BOSH but
-        the call to update the PCF state failed.</li>
-      <li>If a call to deprovision a service instance was made directly to BOSH
-        rather than through the cf CLI.</li>
-    </ul>
+Orphaned instances can occur in the following situations:
+<br><br>
+<ul>
+  <li>Both PCF and BOSH maintain state.
+    Orphaned instances can occur if the PCF state is out of sync with BOSH.
+    For example, the deployments or VMs have been deprovisioned by BOSH but
+    the call to update the PCF state failed.</li>
+  <li>If a call to deprovision a service instance was made directly to BOSH
+    rather than through the cf CLI.</li>
+</ul>
 
 <strong>Solution</strong><br><br>
 You can solve this issue by doing one of the following:<br><br>
@@ -436,18 +386,18 @@ You can solve this issue by doing one of the following:<br><br>
   </li>
 </ul>
 
-<a id="orphaned-pcf"></a><h4>PCF Cannot See Your Instances</h4><br>
+
+#### <a id="orphaned-pcf"></a> PCF Cannot See Your Instances<br>
 
 <strong>Symptom</strong><br><br>
 
 PCF cannot see your broker or service instances.
-      These instances exist but PCF and apps cannot communicate with them.<br><br>
-
+These instances exist but PCF and apps cannot communicate with them.<br><br>
 
 <strong>Explanation</strong><br><br>
 
-  If you run <code>cf purge-service-instances</code> while your service instance
-  or broker still exists, your service instance become orphaned.<br><br>
+If you run <code>cf purge-service-instances</code> while your service instance
+or broker still exists, your service instance becomes orphaned.<br><br>
 
 <strong>Solution</strong><br><br>
 
@@ -455,66 +405,69 @@ If PCF lost the details of your instances, but BOSH still has the deployment det
 you can solve this issue by backing up the data on your service instance and
 creating a new service. <br><br>
 To back up your data and create a new service instance, do the following:<br><br>
-    <ol>
-      <li>To retrieve your orphaned service instance GUID, run the following command:
-        <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
-        Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
-      </li>
+<ol>
+  <li>To retrieve your orphaned service instance GUID, run the following command:
+    <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
+    Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
+  </li>
 
-      <li>To SSH into your orphaned service instance, run the following command:
-        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
-        Where:
-        <ul>
-          <li><code>MY-ENV</code> is the name of your environment.</li>
-          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
-          <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
-            in step 1.</li>
-        </ul>
-      </li>
+  <li>To SSH into your orphaned service instance, run the following command:
+    <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
+    Where:
+    <ul>
+      <li><code>MY-ENV</code> is the name of your environment.</li>
+      <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+      <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
+        in step 1.</li>
+    </ul>
+  </li>
 
-      <li>To create an new RDB file, run the following command:
-        <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
-      </li>
+  <li>To create an new RDB file, run the following command:
+    <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
+    This creates a new RDB file in <code>/var/vcap/store/redis-backup</code>.
+  </li>
 
-      <li>To push the RDB file to your pre-configured remote location, run the following command:
-        <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
-      </li>
+  <li>To push the RDB file to your backup location, run the following command:
+    <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
+    For information about backup locations,
+    see <a href="./auto-backup.html">Configuring Automated Service Backups</a>.
+  </li>
 
-      <li>Create a new service instance with the same configuration of the database you backed up.</li>
+  <li>Create a new service instance with the same configuration of the database you backed up.</li>
 
-      <li>To retrieve your new service instance GUID, run the following command:
-        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
-        <ul>
-          <li><code>MY-ENV</code> is the name of your environment.</li>
-          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
-        </ul>
-      </li>
+  <li>To retrieve your new service instance GUID, run the following command:
+    <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
+    <ul>
+      <li><code>MY-ENV</code> is the name of your environment.</li>
+      <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+    </ul>
+  </li>
 
-      <li> To SSH into your new service instance,
-        repeat step 2 with the GUID that you retrieved in step 6</li>
+  <li> To SSH into your new service instance,
+    repeat step 2 above with the GUID that you retrieved in step 6.</li>
 
-      <li> To create a new directory in new service instance, run the following
-        command:
-        <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
-      </li>
+  <li> To create a new directory in new service instance, run the following
+    command:
+    <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
+  </li>
 
-      <li> Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer it to the new instance.
-         Replace <code>MY-BACKUPS</code> with the name of your backups directory.
-      </li>
+  <li> Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer it to the new instance.
+     Replace <code>MY-BACKUPS</code> with the name of your backups directory.
+  </li>
 
-      <li>To verify the RDB file has not been corrupted, run the following command:
-        <pre>md5sum RDB-FILE</pre>
-        Where <code>RDB-FILE</code> is the path to your RDB file.
-      </li>
+  <li>To verify the RDB file has not been corrupted, run the following command:
+    <pre>md5sum RDB-FILE</pre>
+    Where <code>RDB-FILE</code> is the path to your RDB file.
+  </li>
 
-      <li>To restore your data, run the following command:
-        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
-        Where <code>RDB-FILE</code> is the path to your RDB file.
-      </li>
-    </ol>
+  <li>To restore your data, run the following command:
+    <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
+    Where <code>RDB-FILE</code> is the path to your RDB file.
+  </li>
+</ol>
 
 
-<a id="credhub-error"></a><h3>Failed to Set Credentials in Runtime CredHub</h3><br>
+### <a id="credhub-error"></a> Failed to Set Credentials in Runtime CredHub<br>
 
 <strong>Symptom</strong><br><br>
 
@@ -539,175 +492,175 @@ are running Redis for PCF v1.14.3 or earlier.<br><br>
 </ol>
 
 <p class="note"><strong>Note: </strong>
-  Running this errand causes a short period of downtime.</p>
+  Running this errand causes a short period of downtime.
+</p>
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
 This section provides guidance on checking for, and fixing, issues in cf-redis and on-demand service components.
 
-<a id="bosh"></a><h3>BOSH Problems</h3>
+### <a id="bosh"></a> BOSH Problems
 
-<a id="large-queue"></a><h4>Large BOSH Queue</h4>
+#### <a id="large-queue"></a> Large BOSH Queue
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-large-queue' %>
 
-<a id="bosh-config"></a><h3>Configuration</h3>
+### <a id="bosh-config"></a> Configuration
 
-<a id="bosh-instance-fail"></a><h4>Service Instances in Failing State</h4>
+#### <a id="bosh-instance-fail"></a> Service Instances in Failing State
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-bosh-instance-fail' %>
 
-<a id="auth"></a><h3>Authentication</h3>
+### <a id="auth"></a> Authentication
 
-<a id="uaa-change"></a><h4>UAA Changes</h4>
+#### <a id="uaa-change"></a> UAA Changes
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-uaa-change' %>
 
-<a id="network"></a><h3>Networking</h3>
+### <a id="network"></a> Networking
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-network' %>
 
-<a id="broker-to-instances"></a><h4>Validate Service Broker Connectivity to Service Instances</h4>
+#### <a id="broker-to-instances"></a> Validate Service Broker Connectivity to Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-broker-to-instances' %>
 
-<a id="app-to-instances"></a><h4>Validate App Access to Service Instance</h4>
+#### <a id="app-to-instances"></a> Validate App Access to a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-app-to-instances' %>
 
-<a id="quotas"></a><h3>Quotas</h3>
+### <a id="quotas"></a> Quotas
 
-<a id="plan-quotas"></a><h4>Plan Quota issues</h4>
+#### <a id="plan-quotas"></a> Plan Quota Issues
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-plan-quotas' %>
 
-<a id="global-quotas"></a><h4>Global Quota Issues</h4>
+#### <a id="global-quotas"></a> Global Quota Issues
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-global-quotas' %>
 
-<a id="failing-jobs"></a><h3>Failing Jobs and Unhealthy Instances</h3>
+### <a id="failing-jobs"></a> Failing Jobs and Unhealthy Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-comp-failing-jobs' %>
 
-<a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
+## <a id="techniques"></a> Techniques for Troubleshooting
 
-This section contains instructions on:<br><br>
-  <ul>
-    <li>Interacting with the on-demand service broker</li>
-    <li>Interacting with on-demand service instance BOSH deployments</li>
-    <li>Performing general maintenance and housekeeping tasks</li>
-  </ul>
+This section contains instructions on:
 
-<a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
+*   Interacting with the on-demand service broker
+*   Interacting with on-demand service instance BOSH deployments
+*   Performing general maintenance and housekeeping tasks
+
+### <a id="parse-error"></a> Parse a Cloud Foundry (CF) Error Message
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-parse-error' %>
 
-<a id="bosh-cf-access"></a><h3>Access Broker and Instance Logs and VMs</h3>
+### <a id="bosh-cf-access"></a>Access Broker and Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-bosh-cf-access' %>
 
-<a id="access-broker"></a><h4>Access Broker Logs and VM(s)</h4>
+#### <a id="access-broker"></a> Access Broker Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-access-broker' %>
 
-<a id="access-instance"></a><h4>Access Service Instance Logs and VMs</h4>
+#### <a id="access-instance"></a> Access Service Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-access-instance' %>
 
-<a id="broker-errands"></a><h3>Run Service Broker Errands to Manage Brokers and Instances</h3>
+### <a id="broker-errands"></a> Run Service Broker Errands to Manage Brokers and Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-broker-errands' %>
 
-<a id="register-broker"></a><h4>Register Broker</h4>
+#### <a id="register-broker"></a> Register Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-register-broker' %>
 
-<a id="deregister-broker"></a><h4>Deregister Broker</h4>
+#### <a id="deregister-broker"></a> Deregister Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-deregister-broker' %>
 
-<a id="upgrade-all"></a><h4>Upgrade All Service Instances</h4>
+#### <a id="upgrade-all"></a> Upgrade All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-upgrade-all' %>
 
-<a id="delete-all"></a><h4>Delete All Service Instances</h4>
+#### <a id="delete-all"></a> Delete All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-delete-all' %>
 
-<a id="detect-orphans"></a><h4>Detect Orphaned Instances Service Instances</h4>
+#### <a id="detect-orphans"></a> Detect Orphaned Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-detect-orphans' %>
 
-<a id="instance-creds"></a><h3>Get Admin Credentials for a Service Instance</h3>
+### <a id="instance-creds"></a> Get Admin Credentials for a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-instance-creds' %>
 
-<a id="reinstall"></a><h3>Reinstall a Tile</h3>
+### <a id="reinstall"></a> Reinstall a Tile
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-reinstall' %>
 
-<a id="view-resources"></a><h3>View Resource Saturation and Scaling</h3>
+### <a id="view-resources"></a> View Resource Saturation and Scaling
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-view-resources' %>
 
-<a id="id-instance-owner"></a><h3>Identify a Service Instance Owner</h3>
+### <a id="id-instance-owner"></a>Identify a Service Instance Owner
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-id-instance-owner' %>
 
-<a id="monitor-quota"></a><h3>Monitor the Quota Saturation and Service Instance Count</h3>
+### <a id="monitor-quota"></a> Monitor the Quota Saturation and Service Instance Count
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-tech-monitor-quota' %>
 
 
-<a id="Knowledge"></a><h2>Pivotal Support Articles</h2>
+## <a id="Knowledge"></a> Pivotal Support Articles
 
 The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> articles about Redis for PCF:<br><br>
 
