@@ -3,6 +3,8 @@ title: Redis for PCF Smoke Tests
 owner: London Services
 ---
 
+<%= partial '../../redis/partials/services/deprecation-notice-eogs' %>
+
 <strong><%= modified_date %></strong>
 
 Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installation to confirm system health. The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>. The tests run as an application instance with a restrictive Application Security Group (ASG).
