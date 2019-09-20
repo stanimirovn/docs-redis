@@ -9,7 +9,97 @@ owner: London Services
 
 <%= partial "../../redis/partials/redis/warning-azure-outbound-internet-access" %>
 
-## <a id="2-1-4"></a> v2.1.4
+
+## <a id="215"></a> v2.1.5
+
+**Release Date: XXX YY, 2019**
+
+### Security Fixes
+
+This release includes the following security fixes:
+
+* Updates nginx and golang to resolve
+[CVE-2019-9512](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9512),
+[CVE-2019-9514](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9514),
+and [CVE-2019-9515](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9515).
+
+* Removes s3.secret_access_key unsecured credential from product manifest.
+
+### Bug Fixes
+
+This release includes the following bug fixes:
+
+* Configuring s3 service backups resulted in an error due to a non-configurable property.
+
+### Known Issues
+
+This release has the following issue:
+
+* The **When Changed** option for errands has unexpected behavior.
+Do not select this choice as an errand run rule.
+For more information about errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* The Loggregator Firehose endpoint is scheduled for deprecation.
+For information about replacing Firehose, see <a href="monitoring.html#loggregator">Loggregator</a>.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>456.x</td>
+</tr>
+<tr>
+    <td>PCF<sup></sup></td>
+    <td>2.5.x and 2.6.x</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>435.0.0</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.33.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.188.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>1.12.1</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.2</td>
+</tr>
+<tr>
+    <td>syslog</td>
+    <td>11.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>3.21.1</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.3</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.5</td>
+</tr>
+
+</table>
+
+
+## <a id="214"></a> v2.1.4
 
 **Release Date: August 27, 2019**
 
