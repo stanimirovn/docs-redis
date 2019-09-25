@@ -19,6 +19,8 @@ New features and changes in this release:
 general information about metrics,
 see [Monitoring Redis for PCF](./monitoring.html).
 
+* Errands now have impact warnings when Service Instance downtime is expected.
+
 
 ### Security Fixes
 
@@ -30,6 +32,7 @@ This release includes the following security fixes:
 
 This release has the following fixes:
 
+* Removes redundant unused test code contained in redis-test-release.
 
 
 ### Known Issues
@@ -47,31 +50,31 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>315</td>
+    <td>456</td>
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>2.6 and 2.7</td>
+    <td>2.7 and 2.8</td>
 </tr>
 <tr>
-    <td>cf-redis-release</td>
-    <td>434.3.12</td>
+    <td>shared-redis-release</td>
+    <td>435.0.0</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>0.31.1</td>
+    <td>0.33.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>0.188.0</td>
+    <td>0.191.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>1.13.0</td>
+    <td>2.0.0</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>18.3.1</td>
+    <td>18.3.2</td>
 </tr>
 <tr>
     <td>syslog</td>
@@ -79,11 +82,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>3.18.0</td>
+    <td>4.0.1</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>1.0.4</td>
+    <td>1.1.3</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
