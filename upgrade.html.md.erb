@@ -89,7 +89,6 @@ In Ops Manager, any field that changes the manifest causes a redeploy of the Red
 
 In the Pivotal Application Service (PAS), changes to any of the following properties can trigger downtime:
 <ul>
-  <li><code>..cf.consul\_server.ips</code>---Consul Server Resource Config</li>
   <li><code>$runtime.system\_domain</code>---Runtime System Domain</li>
   <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in PAS</li>
   <li><code>$runtime.apps\_domain</code>---Runtime Apps Domain </li>
@@ -109,8 +108,7 @@ When the operator applies any of the above changes to PAS, downtime is triggered
 * For Redis for PCF v1.8 and later, downtime for service instances occurs only
 after the operator runs the `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
 
-* Any change to a field on the Redis for PCF tile causes BOSH to redeploy both the legacy
-and the on-demand Redis Brokers after the operator runs the `upgrade-all-service-instances` errand.
+* Any change to a field on the Redis for PCF tile causes BOSH to redeploy the on-demand Redis Broker and can cause Service Instance downtime when the operator runs the `upgrade-all-service-instances` errand.
 
 
 ### <a id="bosh-hotswaps"></a> BOSH HotSwaps

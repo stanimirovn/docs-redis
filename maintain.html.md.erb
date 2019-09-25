@@ -85,7 +85,7 @@ These errands run whether or not there has been a configuration change in the Re
   <tr>
     <td><strong>Upgrade All On-Demand Service Instances</strong></td>
     <td><code>upgrade-all-service-instances</code></td>
-    <td>Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.</td>
+    <td>Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell. This will cause downtime to any service instances with available upgrades.</td>
   </tr>
 </table>
 
@@ -103,7 +103,7 @@ These errands help operators to troubleshoot and maintain their service fleet.
   <tr>
     <td><strong>Recreate All On-Demand Service Instances</strong></td>
     <td><code>recreate-all-service-instances</code></td>
-    <td>Re-creates on-demand service instances one-by-one.</td>
+    <td>Re-creates on-demand service instances one-by-one. This will cause downtime to all service instances.</td>
   </tr>
   <tr>
     <td><strong>Find Orphan On-Demand Service Instances</strong></td>
