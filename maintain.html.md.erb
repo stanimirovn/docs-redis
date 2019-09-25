@@ -85,7 +85,7 @@ These errands run whether or not there has been a configuration change in the Re
   <tr>
     <td><strong>Upgrade All On-Demand Service Instances</strong></td>
     <td><code>upgrade-all-service-instances</code></td>
-    <td>Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell. This will cause downtime to any service instances with available upgrades.</td>
+    <td>Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell. This causes downtime to any service instances with available upgrades.</td>
   </tr>
 </table>
 
@@ -103,7 +103,7 @@ These errands help operators to troubleshoot and maintain their service fleet.
   <tr>
     <td><strong>Recreate All On-Demand Service Instances</strong></td>
     <td><code>recreate-all-service-instances</code></td>
-    <td>Re-creates on-demand service instances one-by-one. This will cause downtime to all service instances.</td>
+    <td>Re-creates on-demand service instances one-by-one. This causes downtime to all service instances.</td>
   </tr>
   <tr>
     <td><strong>Find Orphan On-Demand Service Instances</strong></td>
@@ -165,7 +165,7 @@ Then it might not be necessary to run all of the Redis for PCF tile's post-deplo
 
 #### Register On-Demand Broker Errand
 
-- Required to run if the network range that the Redis On-Demand Broker is deployed in is changed in the BOSH Director tile.
+- Required to run if the network range that the Redis on-demand broker is deployed in is changed in the BOSH Director tile.
 - Not necessary to run if the change only involves other tiles except BOSH Director.
 
 <p class="note">
@@ -208,9 +208,9 @@ the details of orphaned instances so the operator can decide when and how to rem
 ##  <a id="smoke"></a>Smoke Tests
 
 Ops Manager runs Redis for PCF smoke tests as a post-install errand.
-You can also run the smoke tests errand using the following procedure:
+To run the smoke tests errand:
 
-1. Retrieve the deployment name of the installed product. To find the deployment name, do the following steps:
+1. Retrieve the deployment name of the installed product. To find the deployment name:
   1. From the Ops Manager UI, click the Redis for PCF tile.
   1. Copy the part of the URL that starts with "p-redis-".
 

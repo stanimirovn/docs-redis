@@ -12,7 +12,7 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 Before upgrading Redis for PCF, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-## <a id="upgrades"></a>Upgrade to Redis for PCF v2.2
+## <a id="upgrades"></a> Upgrade to Redis for PCF v2.2
 
 <p class="note">
   <strong>Note:</strong>
@@ -29,7 +29,7 @@ deployed through Ops Manager.
 For information about the upgrade paths for each released version, see
 [Compatible Upgrade Paths](#upgrading) above.
 
-### Downtime During Upgrade
+### <a id="downtime"></a> Downtime During Upgrade
 
 During the upgrade each Redis instance experiences a small period of
 downtime as each instance is updated with the new software components.
@@ -49,9 +49,9 @@ configuration changes are applied automatically.
 
 Upgrading to a newer version of the product does not cause any loss of data or configuration.
 
-### Upgrade Procedure
+### <a id="proced"></a> Upgrade Procedure
 
-To upgrade to Redis for PCF v2.2, do the following:
+To upgrade to Redis for PCF v2.2:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
@@ -63,7 +63,7 @@ To upgrade to Redis for PCF v2.2, do the following:
 
 1. (Optional) If enabling TLS, follow the procedures in [Preparing for TLS](./preparing-tls.html) first. When upgrading, TLS remains disabled by default.
     <p class="note"> <strong>Note:</strong>
-      Enabling TLS is not expected to noticeably reduce performance. This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
+      In most cases, enabling TLS does not noticeably reduce performance. It depends on network infrastructure, application architecture, and other such resources being in good shape.
     </p>
 
 1. Pivotal recommends that you ensure that the **Upgrade All On-Demand Service Instances**
@@ -96,9 +96,9 @@ In the Pivotal Application Service (PAS), changes to any of the following proper
   <li><code>$self.service\_network</code>---Service Networks in Ops Manager</li>
 </ul>
 
-When the operator applies any of the above changes to PAS, downtime is triggered for the following:
+When the operator applies any of the above changes to PAS, downtime is triggered for:
 
-* Redis On-Demand Broker in Redis for PCF v1.8 and later
+* Redis on-demand broker in Redis for PCF v1.8 and later
 
 * Shared-VM Services in Redis for PCF v1.9 and earlier
 
@@ -108,7 +108,7 @@ When the operator applies any of the above changes to PAS, downtime is triggered
 * For Redis for PCF v1.8 and later, downtime for service instances occurs only
 after the operator runs the `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
 
-* Any change to a field on the Redis for PCF tile causes BOSH to redeploy the on-demand Redis Broker and can cause Service Instance downtime when the operator runs the `upgrade-all-service-instances` errand.
+* Any change to a field on the Redis for PCF tile causes BOSH to redeploy the on-demand Redis broker and can cause service instance downtime when the operator runs the `upgrade-all-service-instances` errand.
 
 
 ### <a id="bosh-hotswaps"></a> BOSH HotSwaps
@@ -122,7 +122,7 @@ For how it works, see
 in the BOSH documentation.
 To use this feature, all service bindings must use BOSH DNS instead of IP addresses.
 
-To enable BOSH HotSwaps, do the following:
+To enable BOSH HotSwaps:
 
 1. Ensure all service bindings use BOSH DNS.
 To do so, tell developers to unbind, bind, and restage any apps created while
@@ -167,7 +167,7 @@ New on-demand service instances are placed into the new service network,
 but existing on-demand service instances are not moved.
 If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
 
-Similarly, changing the availability zone for an on-demand plan only applies to new on-demand instances
+Similarly, changing the availability zone (AZ) for an on-demand plan only applies to new on-demand instances
 and does not alter existing instances.
 
 ## <a id="policy"></a> Release Policy

@@ -91,7 +91,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
 
 
 1. In the **Credentials** tab of the BOSH Director tile,
-   retrieve and record the `identity` and `password` values for the following:
+   retrieve and record the `identity` and `password` values for:
     * UAA Login Client Credentials
     * UAA Admin User Credentials
 
@@ -245,7 +245,7 @@ For more information, see [Managing ASGs with the cf CLI](https://docs.pivotal.i
         <ul>
           <li>Complete the steps in <a href="upgrade.html#upgrades">Upgrade to Redis for PCF v2.2</a> to enable TLS in the tile.</li>
           <li>Click <strong>Review Pending Changes</strong>.</li>
-          <li>Ensure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>. This will cause downtime to all On-Demand Service Instances.</li>
+          <li>Ensure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>. This causes downtime to all on-demand service instances.</li>
           <li>Click <strong>Apply Changes</strong> in the Installation Dashboard. This restarts all the VMs in your PCF deployment and applies your CA certificate.</li>
         </ul>
       <li><strong>For a new installation:</strong></li>
@@ -256,5 +256,5 @@ For more information, see [Managing ASGs with the cf CLI](https://docs.pivotal.i
         </ul>
     </ul>
 
-1. After enabling **TLS Optional**, app developers must modify their applications to communicate over TLS.
+1. After enabling **TLS Optional**, app developers must modify their apps to communicate over TLS.
 For more information, see [Using TLS](appdevs.html#using-tls).
