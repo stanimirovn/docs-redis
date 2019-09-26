@@ -72,13 +72,13 @@ whether or not there has been a configuration change in the Redis for PCF tile i
 * **On-Demand Smoke Tests**---Runs lifecycle tests for enabled plans of the `p.redis` service if there is remaining quota available.
     The tests cover provisioning, binding, reading, writing, unbinding and deprovisioning of service instances.
 
-* **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell.
+* **Upgrade All On-Demand Service Instances**---Upgrades on-demand service instances to use the latest plan configuration, service releases, and stemcell. This causes downtime to any service instances with available upgrades.
 
 
 The following post-deploy errand does not run by default when **Apply Changes** is triggered.
 This type of post-deploy errand helps operators troubleshoot and maintain their service fleet:
 
-* **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one.
+* **Recreate All On-Demand Service Instances**---Re-creates on-demand service instances one-by-one. This causes downtime to any service instances with available upgrades.
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
