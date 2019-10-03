@@ -602,31 +602,13 @@ Forwarding your system logs to a remote destination lets you:
 
 All logs follow RFC5424 format.
 
-To configure syslog forwarding, do the following:
+To configure syslog forwarding, follow the same steps as when the Pivotal Platform was installed:
 
-1. Click the Redis for PCF tile to display the configuration page, and then click the **Syslog** tab.
+    <br>![syslog configuration](syslog-forwarding.png)
 
-    <br>![syslog configuration](syslog-forwarding5.png)
+<%# The below partial is https://github.com/pivotal-cf/docs-ops-manager/blob/master/common/_syslog_bosh.html.md.erb %>
 
-1. Select either **Yes without encryption** or **Yes with TLS encryption**.
-
-    <p class="note"><strong>Note:</strong> To use syslog forwarding for on-demand instances,
-       you must select the <a href="#on-demand-config">Allow outbound internet access from service instances</a>
-       checkbox in the <strong>On-Demand Service Settings</strong> tab.</p>
-
-1. Enter the syslog **Address** and **Port**, and select the **Transport protocol** of your remote destination.
-   You can only use TCP if you are using TLS encryption.<br><br>
-   The information required for these fields is provided by your remote destination.
-   An example address is `logs.papertrailapp.com` and an example port is `41635`.
-
-1. If you selected **Yes with TLS encryption**, complete these fields:<br><br>
-  * **Permitted Peer** refers to the remote syslog destination.
-    It allows each VM to establish an encrypted tunnel with the remote syslog destination.
-  The Permitted Peer is either the accepted fingerprint (SHA1) or name of the remote peer, for example `*.example.com`.
-  * **TLS CA certificate** refers to the trusted certificate authorities for the remote syslog destination.
-    Large certificate chains (under 8&nbsp;kb) are not supported.
-
-1.  Click **Save**.
+<%= partial '../../ops-manager/partials/redis/_syslog_bosh' %>
 
 ## <a id="stemcell"></a>Update Stemcell
 
