@@ -12,7 +12,7 @@ owner: London Services
 
 ## <a id="2-1-5"></a> v2.1.5
 
-**Release Date: October 07, 2019**
+**Release Date: October 7, 2019**
 
 ### Security Fixes
 
@@ -23,13 +23,14 @@ This release includes the following security fixes:
 [CVE-2019-9514](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9514),
 and [CVE-2019-9515](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9515).
 
-* Removes s3.secret_access_key unsecured credential from product manifest.
+* Removes the unsecured credential `s3.secret_access_key` from the Redis for PCF configuration.
 
-### Bug Fixes
+### Resolved Issues
 
-This release includes the following bug fixes:
+This release has the following fixes:
 
-* Configuring s3 service backups resulted in an error due to a non-configurable property.
+* Configuring s3 service backups no longer results in an error due to a
+non-configurable property.
 
 ### Known Issues
 
@@ -121,6 +122,8 @@ For more information about errand run rules, see
 
 * The Loggregator Firehose endpoint is scheduled for deprecation.
 For information about replacing Firehose, see <a href="monitoring.html#loggregator">Loggregator</a>.
+
+* Configuring s3 service backups results in an error due to a non-configurable property.
 
 ### Compatibility
 
@@ -214,6 +217,8 @@ Do not select this choice as an errand run rule.
 For more information about errand run rules, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
+* Configuring s3 service backups results in an error due to a non-configurable property.
+
 ### Upcoming Firehose Deprecation
 
 * The Loggregator Firehose endpoint is scheduled for deprecation.
@@ -293,6 +298,8 @@ This release has the following issue:
 Do not select this choice as an errand run rule.
 For more information about errand run rules, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* Configuring s3 service backups results in an error due to a non-configurable property.
 
 ### Upcoming Firehose Deprecation
 
@@ -423,6 +430,8 @@ This release has the following issues:
 Do not select this choice as an errand run rule.
 For more information about this unexpected behavior, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* Configuring s3 service backups results in an error due to a non-configurable property.
 
 ### Upcoming Firehose Deprecation
 
