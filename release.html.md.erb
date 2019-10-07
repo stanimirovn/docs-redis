@@ -11,7 +11,7 @@ owner: London Services
 
 ## <a id="2-2-2"></a> v2.2.2
 
-**Release Date: October 07, 2019**
+**Release Date: October 7, 2019**
 
 ### Security Fixes
 
@@ -22,13 +22,14 @@ This release includes the following security fixes:
 [CVE-2019-9514](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9514),
 and [CVE-2019-9515](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9515).
 
-* Removes s3.secret_access_key unsecured credential from product manifest.
+* Removes the unsecured credential `s3.secret_access_key` from the Redis for PCF configuration.
 
-### Bug Fixes
+### Resolved Issues
 
-This release includes the following bug fixes:
+This release has the following fixes:
 
-* Configuring s3 service backups resulted in an error due to a non-configurable property.
+* Configuring s3 service backups no longer results in an error due to a
+non-configurable property.
 
 ### Known Issues
 
@@ -53,7 +54,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>2.5.x and 2.6.x</td>
+    <td>2.5.x, 2.6.x, and 2.7.x</td>
 </tr>
 <tr>
     <td>shared-redis-release</td>
@@ -114,6 +115,8 @@ This release has the following issue:
 Do not select this choice as an errand run rule.
 For more information about errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
+* Configuring s3 service backups results in an error due to a non-configurable property.
+
 ### Compatibility
 
 The following components are compatible with this release:
@@ -129,7 +132,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>2.5.x and 2.6.x</td>
+    <td>2.5.x, 2.6.x, and 2.7.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
@@ -222,6 +225,8 @@ This release has the following issue:
 Do not select this choice as an errand run rule.
 For more information about errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
+* Configuring s3 service backups results in an error due to a non-configurable property.
+
 ### Compatibility
 
 The following components are compatible with this release:
@@ -237,7 +242,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>PCF<sup></sup></td>
-    <td>2.5.x and 2.6.x</td>
+    <td>2.5.x, 2.6.x, and 2.7.x</td>
 </tr>
 <tr>
     <td>cf-redis-release</td>
