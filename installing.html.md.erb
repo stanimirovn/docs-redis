@@ -45,14 +45,14 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ### <a id="az-config"></a>Assign AZs
 
-As of Redis for PCF v1.9, you can assign multiple AZs to Redis jobs. The Shared-VM plan will run on a single node in the AZ in which the tile is deployed.
-On-Demand plans can be configured to randomly assign instances of the plan across AZs. This has the benefit of improving resiliency, but does not ensure High Availability, as each individual On-Demand Redis Service Instance is a single VM.
-The selected AZs must be of the service network, which are configured in the BOSH Director tile.
+You can assign multiple availability zone (AZs) to Redis jobs. 
+You must select AZs that are in the service network you configured in your BOSH Director.
 For more information, see [Support for Multiple AZs](erc.html#other-notes).
 
 To assign AZs, do the following:
 
-1. In the **Assign AZs and Networks** tab, make your selections under **Place singleton jobs in** and **Balance other jobs in**.
+1. In the **Assign AZs and Networks** tab, make your selections under 
+**Place singleton jobs in** and **Balance other jobs in**.
 1. Click **Save**.
 
 ### <a id="network-configuration"></a>Select Networks
