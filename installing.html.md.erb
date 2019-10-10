@@ -45,12 +45,13 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ### <a id="az-config"></a>Assign AZs
 
-As of Redis for PCF v1.9, you can assign multiple AZs to Redis jobs, however this does not ensure high availability.
+You can assign multiple availability zone (AZs) to Redis jobs, however this does not ensure high availability. You must select AZs that are in the service network you configured in your BOSH Director.
 For more information, see [Support for Multiple AZs](erc.html#other-notes).
 
 To assign AZs, do the following:
 
-1. In the **Assign AZs and Networks** tab, make your selections under **Place singleton jobs in** and **Balance other jobs in**.
+1. In the **Assign AZs and Networks** tab, make your selections under 
+**Place singleton jobs in** and **Balance other jobs in**.
 1. Click **Save**.
 
 ### <a id="network-configuration"></a>Select Networks
