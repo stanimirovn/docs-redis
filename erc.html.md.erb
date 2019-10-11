@@ -54,7 +54,7 @@ Review the following table to determine if Redis for PCF has the features needed
   <tr><th colspan=2>Resilience</th><th>More Information</th></tr>
   <tr>
     <td>Availability</td>
-    <td>All Redis for PCF services are single nodes without clustering capabilities.
+    <td>All Redis for PCF services are single VMs without clustering capabilities.
         This means that planned maintenance jobs (e.g., upgrades) can result in 2–10 minutes of downtime,
         depending on the nature of the upgrade.
         Unplanned downtime (e.g., VM failure) also affects the Redis service.<br>
@@ -179,10 +179,11 @@ Review the following table to determine if Redis for PCF has the features needed
 ### <a id="other-notes"></a>Availability Zones
 
 Redis for PCF supports configuring multiple availability zones (AZs).
-However, assigning multiple AZs to Redis instances does not guarantee high
-availability as clustered Redis is not supported.
-Redis instances operate as single nodes.
+However, assigning multiple AZs to Redis service instances does not provide high availability.
+This is because each individual Redis service instance is a single VM without
+clustering capabilities.
 
-+ On-Demand plans can be configured to deploy instances to any AZ.
-  If you select multiple AZs, instances are distributed randomly between them. This improves resiliency. 
-+ Shared-VM instances run on a single node in the AZ in which the tile is deployed.
++ On-Demand plans can be configured to deploy service instances to any AZ.
+  If you select multiple AZs, service instances are distributed randomly between them.
+  This improves resiliency.
++ Shared-VM service instances run on a single VM in the AZ in which the tile is deployed.
