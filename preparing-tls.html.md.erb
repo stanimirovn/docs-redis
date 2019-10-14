@@ -46,8 +46,16 @@ CA certificate in the trusted store.
 The following workflow is required to enable TLS and to allow developers to use it with their apps:
 
 <ol>
-  <li>An operator provides a CA certificate to CredHub by completing the procedures in
-    <a href="#provide-generate-pcf">Provide or Generate a CA Certificate</a> below.</li>
+  <li>An operator does one of the following:
+    <ul>
+      <li>If you are using Ops Manager 2.5 or earlier or want to provide a custom certificate, a operator provides a CA certificate to CredHub by completing the procedures in
+      <a href="#provide-generate-pcf">Provide or Generate a CA Certificate</a> below.</li>
+      <li>If you are using Pivotal Ops Manager v2.6 or later, a default CA
+        certificate is provided by Ops Manager. You do not need to generate the CA certificate. To use the default
+        CA certificate,
+        do the last two steps in <a href="#add-ca-cert">Add the CA Certificate</a> below. </li>
+    </ul>
+    </li>
   <li>An operator enables <strong>TLS Optional</strong> in the tile configuration while installing Redis for
     PCF. For more information, see <a href="installing.html#on-demand-config">On-Demand Service Settings</a>.</li>
   <li>An app developer modifies their app to communicate securely with the Redis server. For more
