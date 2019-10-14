@@ -191,7 +191,6 @@ This section helps to troubleshoot the following errors logged in syslog:
 <br><br>
 <ul>
   <li><a href="#corrupt-aof">AOF File Corrupted, Cannot Start Redis Instance</a></li>
-  <li><a href="#disk-full">AOF Write or Rewrite Errors</a></li>
   <li><a href="#disk-size">Saving Error</a></li>
 </ul>
 
@@ -241,42 +240,6 @@ The error log printed out by Redis provides a clear means of recovery.
   </li>
 </ol>
 
-
-#### <a id="disk-full"></a> AOF Write or Rewrite Errors
-<br>
-<strong>Symptom</strong><br><br>
-
-One of the following error messages is logged:<br>
-
-<pre class="terminal">Short write while writing to the AOF file</pre>
-<pre class="terminal">Opening the temp file for AOF rewrite in rewriteAppendOnlyFile(): No space left on device</pre>
-<pre class="terminal">Background AOF rewrite terminated with error</pre>
-<br>
-
-<strong>Explanation</strong><br><br>
-
-This is logged when the Redis server is unable to append to the Redis append-only file (AOF).
-The disk might be full.
-<br><br>
-
-<strong>Solution</strong><br><br>
-
-For a short-term solution, do the following:<br><br>
-
-<ol>
-  <li>SSH into the affected Redis instance.</li>
-  <li>Log into the <a href="#redis-cli">redis-cli</a>.</li>
-  <li>Run <code>redis-cli CONFIG SET appendonly no</code> to disable AOF persistence.</li>
-  <li>Delete the <code>/var/vcap/store/redis/appendonly.aof</code> file.</li>
-  <li>Run <code>kill -HUP REDIS-SERVER-PID</code> to restart the Redis process.</li>
-  <li>Run <code>redis-cli CONFIG SET appendonly yes</code> to re-enable AOF persistence.</li>
-</ol>
-
-For a long-term solution, upgrade to Redis for PCF v1.12 or later.
-In older versions of the Redis for PCF tile, AOF persistence is enabled by default.
-Upgrading to the latest version of the tile disables AOF persistence.
-
-
 #### <a id="disk-size"></a>Saving Error<br>
 
 <strong>Symptom</strong><br><br>
@@ -303,8 +266,6 @@ To prevent this error, do the following:<br><br>
     <ol>
       <li>BOSH SSH into the affected service instance VM.</li><br>
       <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li><br>
-      <li>If the <code>appendonly.aof</code> file is large, follow the instuctions
-        in <a href="#disk-full">AOF Write or Rewrite Errors</a>.</li>
     </ol>
   </li>
 </ol>
