@@ -608,7 +608,7 @@ To configure syslog forwarding:
 
 <%# The below partial is https://github.com/pivotal-cf/docs-ops-manager/blob/master/common/_syslog_bosh.html.md.erb %>
 
-<%= partial '../../redis/ops_manager_partials/common/syslog_bosh' %>
+<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => 'PCF Redis' }) %>
 
 ## <a id="stemcell"></a>Update Stemcell
 
