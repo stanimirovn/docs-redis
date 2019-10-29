@@ -5,8 +5,8 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installation to confirm system health. 
-The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>. 
+Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installation to confirm system health.
+The tests run in the org <code>system</code> and in the space <code>redis-smoke-tests</code>.
 The tests run as an application instance with a restrictive Application Security Group (ASG).
 
 ## <a id="steps"></a> Smoke Test Steps
@@ -22,7 +22,7 @@ The smoke tests perform the following for each available service plan:
 
 ## <a id="security-groups"></a> Security Groups
 
-Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`) 
+Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`)
 and delete it after the tests finish. This security group has the following rules:
 
 ```
@@ -35,7 +35,7 @@ and delete it after the tests finish. This security group has the following rule
 ]
 ```
 
-This allows outbound traffic from the test app to the Redis shared-VM nodes.
+This allows outbound traffic from the test app to the Redis shared-VM service instances.
 
 ## <a id="resilience"></a>Smoke Tests Resilience
 
@@ -82,7 +82,7 @@ Some common failures are listed below.
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Examine the detailed error message in the logs and check the <a href="https://docs.pivotal.io/pivotalcf/1-7/customizing/troubleshooting.html">PCF Troubleshooting Guide</a> 
+  <td>Examine the detailed error message in the logs and check the <a href="https://docs.pivotal.io/pivotalcf/1-7/customizing/troubleshooting.html">PCF Troubleshooting Guide</a>
   for advice.</td>
 </tr>
 </table>
