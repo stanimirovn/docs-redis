@@ -46,14 +46,18 @@ To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
 ###  <a id="az-config"></a>Assign AZs
 
-You can assign multiple availability zone (AZs) to Redis jobs, however this does not ensure high availability.
+You can assign multiple availability zones (AZs) to Redis jobs, however this does not ensure high availability.
 You must select AZs that are in the service network you configured in your BOSH Director.
 For more information, see [Availability Zones](erc.html#other-notes).
 
 To assign AZs, do the following:
 
-1. In the **Assign AZs and Networks** tab, make your selections under
-**Place singleton jobs in** and **Balance other jobs in**.
+1. Select **Assign AZs and Networks**.
+
+1. Under **Place singleton jobs in**, select an AZ for the on-demand or shared service broker VM, and any shared instances.
+
+1. Under **Balance other jobs in**, select the AZs that you want the broker to balance on-demand service instances across.
+
 1. Click **Save**.
 
 
