@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-This topic is for Pivotal Cloud Foundry (PCF) operators.
+This topic is for <%= vars.platform_name %> operators.
 It introduces some best practices, but does not provide details about operation.
 
 
@@ -24,7 +24,7 @@ Pivotal recommends that operators follow these guidelines:
     See [Configure Syslog Output](./installing.html#syslog). In particular, set
     up alerts on critical logs, such as service backups so that you are alerted
     if a backup fails. For examples of critical logs for service backups, see
-    <a href="https://docs.pivotal.io/svc-sdk/service-backup/18-1/#troubleshooting">Service Backups for Pivotal Cloud Foundry</a>.
+    <a href="https://docs.pivotal.io/svc-sdk/service-backup/18-1/#troubleshooting">Service Backups for <%= vars.platform_name %></a>.
 * **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation.
 * **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
     Validate the backed-up data with a test restore.
@@ -62,7 +62,7 @@ These errands run whether or not there has been a configuration change in the <%
   <tr>
     <td><strong>Broker Registrar</strong></td>
     <td><code>broker-registrar</code></td>
-    <td>Registers the cf-redis-broker with PCF to offer the <code>p-redis</code> service,
+    <td>Registers the cf-redis-broker with <%= vars.platform_name %> to offer the <code>p-redis</code> service,
       that is, the shared-VM plan.</td>
   </tr>
   <tr>
@@ -74,7 +74,7 @@ These errands run whether or not there has been a configuration change in the <%
   <tr>
     <td><strong>Register On-Demand Broker</strong></td>
     <td><code>register-broker</code></td>
-    <td>Registers the on-demand Redis broker with PCF to offer the <code>p.redis</code> service (on-demand plans).</td>
+    <td>Registers the on-demand Redis broker with <%= vars.platform_name %> to offer the <code>p.redis</code> service (on-demand plans).</td>
   </tr>
   <tr>
     <td><strong>On-Demand Smoke Tests</strong></td>

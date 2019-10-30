@@ -16,15 +16,15 @@ and the [Shared-VM Service Offering](./architecture-pp.html).
 
 ## <a id="prereq"></a>Prerequisites
 
-To use <%= vars.product_name %> with your PCF apps, you need:
+To use <%= vars.product_name %> with your <%= vars.platform_name %> apps, you need:
 
-* A PCF installation with [<%= vars.product_name %>](https://network.pivotal.io/products/p-redis)
+* A <%= vars.platform_name %> installation with [<%= vars.product_name %>](https://network.pivotal.io/products/p-redis)
 installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances).
 The two Redis services are listed differently in the Marketplace, ensure that the
 service you want to use is enabled.
 
 * A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles)
-or Admin account on the PCF installation.
+or Admin account on the <%= vars.platform_name %> installation.
 
 * To use the cf CLI, you must [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login)
 the org and space containing your app and have a local machine with the following installed:
@@ -32,11 +32,11 @@ the org and space containing your app and have a local machine with the followin
    - A shell
    - The [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
 
-## <a id="process"></a>Use <%= vars.product_name %> in a PCF app
+## <a id="process"></a>Use <%= vars.product_name %> in a <%= vars.platform_name %> app
 
-Every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use a service, an app must exist in the same space as an instance of the service.
+Every app and service in <%= vars.platform_name %> is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use a service, an app must exist in the same space as an instance of the service.
 
-To use <%= vars.product_name %> in a PCF app:
+To use <%= vars.product_name %> in a <%= vars.platform_name %> app:
 
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log in to the org and space that contains the app.
 

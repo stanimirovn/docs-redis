@@ -69,8 +69,8 @@ For more information, see [Networking for On-Demand Services](./odnetworking.htm
 To select networks, do the following:
 
 1. In the **Assign AZs and Networks** tab, select a **Network**.
-  - Pivotal recommends that each type of PCF service run in its own network.
-  For example, run <%= vars.product_name %> on a separate network from RabbitMQ for PCF.
+  - Pivotal recommends that each type of <%= vars.platform_name %> service run in its own network.
+  For example, run <%= vars.product_name %> on a separate network from RabbitMQ for <%= vars.platform_name %>.
   - Typically the service broker network and service instance network(s) are the same.
 
 1. If using the on-demand service, select a **Service Network**.
@@ -399,7 +399,7 @@ For each on-demand service plan, configure it as follows:
 To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
 instead of the Cloud Controller database (CCDB), do the following:
 
-<p class="note"><strong>Note:</strong> This is a beta feature. Use it at your own risk in non-production environments. Please send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+<p class="note"><strong>Note:</strong> This is a beta feature. Use it at your own risk in non-production environments. Please send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io"><%= vars.platform_name %> Feedback List</a>.</p>
 
 1. Configure the Pivotal Application Service (PAS) tile to support securing service
 instance credentials in runtime CredHub.

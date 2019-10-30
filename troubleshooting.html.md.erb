@@ -12,13 +12,13 @@ This topic lists troubleshooting information for <%= vars.product_name %>.
   Pivotal recommends that you back up both your Ops Manager and deployments before attempting such operations.
   <br><br>
   For more information about backing up your setup and exporting your Ops Manager installation,
-  see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Pivotal Cloud Foundry with BBR</a>
+  see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up <%= vars.platform_name %> with BBR</a>
 </p>
 
 
 ## <a id="debugging"></a> Useful Debugging Commands
 
-Before debugging, gather the following about your PCF deployment:
+Before debugging, gather the following about your <%= vars.platform_name %> deployment:
 
 * Current version of <%= vars.product_name %>, and, if upgrading, the previous version of <%= vars.product_name %>
 * Current version of Ops Manager, and, if upgrading, the previous version of Ops Manager
@@ -294,10 +294,10 @@ To do this, run <code>bosh restart</code> against the affected service instance 
 When a service instance is orphaned, one of the following occurs:<br><br>
 
 <ul>
-  <li>BOSH Director cannot see your service instances but PCF can. For more information, see
+  <li>BOSH Director cannot see your service instances but <%= vars.platform_name %> can. For more information, see
     <a href="#orphaned-bosh">BOSH Director Cannot See Your Instances</a> below.</li>
-  <li>PCF cannot see your broker or service instances but BOSH Director can. For more information, see
-    <a href="#orphaned-pcf">PCF Cannot See Your Instances</a> below.
+  <li><%= vars.platform_name %> cannot see your broker or service instances but BOSH Director can. For more information, see
+    <a href="#orphaned-pcf"><%= vars.platform_name %> Cannot See Your Instances</a> below.
   </li>
 </ul>
 
@@ -306,7 +306,7 @@ When a service instance is orphaned, one of the following occurs:<br><br>
 
 <strong>Symptom</strong><br><br>
 
-BOSH Director cannot see your instances but they are visible on PCF.
+BOSH Director cannot see your instances but they are visible on <%= vars.platform_name %>.
     When you run <code>cf curl /v2/service_instances</code>,
     some service instances are visible that are not visible to the BOSH Director.
     These orphaned instances can create issues.
@@ -317,10 +317,10 @@ BOSH Director cannot see your instances but they are visible on PCF.
 Orphaned instances can occur in the following situations:
 <br><br>
 <ul>
-  <li>Both PCF and BOSH maintain state.
-    Orphaned instances can occur if the PCF state is out of sync with BOSH.
+  <li>Both <%= vars.platform_name %> and BOSH maintain state.
+    Orphaned instances can occur if the <%= vars.platform_name %> state is out of sync with BOSH.
     For example, the deployments or VMs have been deprovisioned by BOSH but
-    the call to update the PCF state failed.</li>
+    the call to update the <%= vars.platform_name %> state failed.</li>
   <li>If a call to deprovision a service instance was made directly to BOSH
     rather than through the cf CLI.</li>
 </ul>
@@ -346,12 +346,12 @@ You can solve this issue by doing one of the following:<br><br>
 </ul>
 
 
-#### <a id="orphaned-pcf"></a> PCF Cannot See Your Instances<br>
+#### <a id="orphaned-pcf"></a> <%= vars.platform_name %> Cannot See Your Instances<br>
 
 <strong>Symptom</strong><br><br>
 
-PCF cannot see your broker or service instances.
-These instances exist but PCF and apps cannot communicate with them.<br><br>
+<%= vars.platform_name %> cannot see your broker or service instances.
+These instances exist but <%= vars.platform_name %> and apps cannot communicate with them.<br><br>
 
 <strong>Explanation</strong><br><br>
 
@@ -360,7 +360,7 @@ or broker still exists, your service instance becomes orphaned.<br><br>
 
 <strong>Solution</strong><br><br>
 
-If PCF lost the details of your instances, but BOSH still has the deployment details,
+If <%= vars.platform_name %> lost the details of your instances, but BOSH still has the deployment details,
 you can solve this issue by backing up the data on your service instance and
 creating a new service. <br><br>
 To back up your data and create a new service instance, do the following:<br><br>
@@ -476,7 +476,7 @@ This prevents the apps from connecting to the instance.
 <p>First, consider enabling TLS. The compliance body that oversees your apps might require TLS to be enabled. Also, switching between enabled and disabled TLS incurs downtime.</p>
 <p>To enable TLS, follow these steps:</p>
 <ol>
-  <li>In your Ops Manager home page, select the <strong>PCF-Redis</strong> tile.</li>
+  <li>In your Ops Manager home page, select the <strong>Redis</strong> tile.</li>
   <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
   <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
   <li>Click <strong>Save</strong>.</li>
@@ -665,7 +665,7 @@ The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> 
   <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue">Pivotal Cloud Foundry Redis tile upgrade issue</a></li>
   <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-Deploy-Fails-to-Complete">Pivotal Cloud Foundry Redis Deploy Fails to Complete</a></li>
   <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-Instance-Alive-after-Successful-De-Provisioning">Pivotal Cloud Foundry Redis Instance Alive after Successful De-Provisioning</a></li>
-  <li><a href="https://community.pivotal.io/s/article/PCF-Redis-Dedicated-Instance-Fails-to-Persist-to-Disk">PCF Redis Dedicated Instance Fails to Persist to Disk</a></li>
+  <li><a href="https://community.pivotal.io/s/article/PCF-Redis-Dedicated-Instance-Fails-to-Persist-to-Disk"><%= vars.product_name %> Dedicated Instance Fails to Persist to Disk</a></li>
   <li><a href="https://community.pivotal.io/s/article/67-Redis-error-when-saving-changes-after-a-back-up-to-AWS-S3-Error-Access-Denied-for-bucket-pcf-redos-backup-sgp-intra-test">Redis error when saving changes after a back to AWS S3: Error: Access Denied for bucket 'pcf-redos-backup-sgp-intra-test'</a></li>
   <li><a href="https://community.pivotal.io/s/article/48-For-service-settings-on-Redis-Tile-the-VM-options-checkbox-needs-to-be-checked-for-GCP-Environment"> For service settings on Redis Tile, the VM options checkbox needs to be checked for GCP Environment</a></li>
   <li><a href="https://community.pivotal.io/s/article/Removing-dedicated-vm-Service-Instances-from-the-CF-when-deleted-from-BOSH"> Removing dedicated-vm Service Instances on CF when already deleted from BOSH</a></li>
