@@ -401,9 +401,9 @@ instead of the Cloud Controller database (CCDB), do the following:
 
 <p class="note"><strong>Note:</strong> This is a beta feature. Use it at your own risk in non-production environments. Please send comments and feedback to the <a href="mailto:pivotal-cf-feedback@pivotal.io"><%= vars.platform_name %> Feedback List</a>.</p>
 
-1. Configure the Pivotal Application Service (PAS) tile to support securing service
+1. Configure the <%= vars.app_runtime_full %> tile to support securing service
 instance credentials in runtime CredHub.
-See [Step 1: Configure the PAS Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
+See [Step 1: Configure the <%= vars.app_runtime %>Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
 
 1. After deploying the tile, notify developers that they must unbind and rebind
 existing service instances to secure their credentials with CredHub.
