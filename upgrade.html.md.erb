@@ -1,22 +1,22 @@
 ---
-title: Upgrading Redis for PCF
+title: Upgrading Redis for Pivotal Platform
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-This section contains the upgrade procedure and upgrade paths for Redis for PCF.
+This section contains the upgrade procedure and upgrade paths for <%= vars.product_name %>.
 
 ##<a id="upgrading"></a> Compatible Upgrade Paths
 
-Before upgrading Redis for PCF, for compatibility information, see the
+Before upgrading <%= vars.product_name %>, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-## <a id="upgrades"></a> Upgrade to Redis for PCF v2.2
+## <a id="upgrades"></a> Upgrade to <%= vars.product_name %> v2.2
 
 <p class="note">
   <strong>Note:</strong>
-  Follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS in Redis for PCF v2.2.<br><br>
+  Follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS in <%= vars.product_name %> v2.2.<br><br>
   Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure that Spring and Steeltoe apps use TLS.<br>
   Developers might also need to configure other frameworks and languages to use the TLS port as well.<br><br>
   For more information, see <a href="./appdevs.html">Using TLS</a>.
@@ -51,7 +51,7 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 ### <a id="proced"></a> Upgrade Procedure
 
-To upgrade to Redis for PCF v2.2:
+To upgrade to the latest version of <%= vars.product_name %>:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
@@ -78,12 +78,12 @@ errand checkbox is selected on the **Review Pending Changes** page.
 
 ##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
 
-A redeploy causes downtime for the Redis for PCF tile.
+A redeploy causes downtime for the <%= vars.product_name %> tile.
 This section clarifies what events trigger a redeploy.
 
 ### <a id="opsman"></a> Ops Manager Changes
 
-In Ops Manager, any field that changes the manifest causes a redeploy of the Redis for PCF tile.
+In Ops Manager, any field that changes the manifest causes a redeploy of the <%= vars.product_name %> tile.
 
 ### <a id="pas"></a> PAS Changes
 
@@ -98,17 +98,18 @@ In the Pivotal Application Service (PAS), changes to any of the following proper
 
 When the operator applies any of the above changes to PAS, downtime is triggered for:
 
-* Redis on-demand broker in Redis for PCF v1.8 and later
+* The Redis on-demand broker in Redis for PCF v1.8 and later
 
 * Shared-VM Services in Redis for PCF v1.9 and earlier
 
 
 ### <a id="all-instances"></a> Upgrading all Service Instances
 
-* For Redis for PCF v1.8 and later, downtime for service instances occurs only
-after the operator runs the `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
-
-* Any change to a field on the Redis for PCF tile causes BOSH to redeploy the on-demand Redis broker and can cause service instance downtime when the operator runs the `upgrade-all-service-instances` errand.
+Downtime for service instances occurs only after the operator runs the
+`upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
+Any change to a field on the <%= vars.product_name %> tile causes BOSH to redeploy the
+on-demand Redis broker and can cause service instance downtime when the operator runs the
+`upgrade-all-service-instances` errand.
 
 
 ### <a id="bosh-hotswaps"></a> BOSH HotSwaps
@@ -139,13 +140,13 @@ For instructions, see the solution in [Apps Fail to Connect to the Service Insta
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
 
-This section explains how changing the network after deploying Redis for PCF
+This section explains how changing the network after deploying <%= vars.product_name %>
 affects instances and apps.
 
 ### <a id="network-upgrades-shared-vms"></a> Shared VMs
 
 To change the network for shared-VM services,
-click **Assign AZs and Networks** in the Redis for PCF tile configuration and use the **Network** dropdown.
+click **Assign AZs and Networks** in the <%= vars.product_name %> tile configuration and use the **Network** dropdown.
 
 You can also change the network by altering the CIDR in the BOSH Director tile.
 

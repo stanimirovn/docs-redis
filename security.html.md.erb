@@ -1,5 +1,5 @@
 ---
-title: Redis for PCF Security
+title: Redis for Pivotal Platform Security
 owner: London Services
 ---
 
@@ -12,13 +12,13 @@ For more information, see [Networks, Security, and Assigning AZs](./installing.h
 
 Pivotal recommends the following best practices for security:
 
-* Run Redis for PCF in its own network.
+* Run <%= vars.product_name %> in its own network.
 For more information, see [Creating Networks in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/gcp-om-config.html#network).
 
-* Use Redis for PCF with the IPsec Add-on for PCF.
+* Use <%= vars.product_name %> with the IPsec Add-on for PCF.
 For information about the IPsec Add-on for PCF, see [Securing Data in Transit with the IPsec Add-on](https://docs.pivotal.io/addon-ipsec/index.html).
 
-* Do not use a single Redis for PCF instance for multi-tenancy.
+* Do not use a single <%= vars.product_name %> instance for multi-tenancy.
 A single Redis instance of the On-Demand service should only support a single workload.
 
 * Do not use the Shared-VM service for production use cases. It is not considered adequately secure for that purpose, even though it is designed for multi-tenancy.

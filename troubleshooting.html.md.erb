@@ -1,11 +1,11 @@
 ---
-title: Troubleshooting Redis for PCF
+title: Troubleshooting Redis for Pivotal Platform
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic lists troubleshooting information for Redis for PCF.
+This topic lists troubleshooting information for <%= vars.product_name %>.
 
 <p class="note"><strong>Note</strong>:
   Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
@@ -20,7 +20,7 @@ This topic lists troubleshooting information for Redis for PCF.
 
 Before debugging, gather the following about your PCF deployment:
 
-* Current version of Redis for PCF, and, if upgrading, the previous version of Redis for PCF
+* Current version of <%= vars.product_name %>, and, if upgrading, the previous version of <%= vars.product_name %>
 * Current version of Ops Manager, and, if upgrading, the previous version of Ops Manager
 
 ### cf CLI Commands
@@ -184,7 +184,7 @@ Start here if you are responding to a specific error or error messages.
 
 ### <a id="syslog-errors"></a> Error Messages Logged in Syslog
 
-You can configure Redis for PCF with remote syslog forwarding.
+You can configure <%= vars.product_name %> with remote syslog forwarding.
 For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
 
 This section helps to troubleshoot the following errors logged in syslog:
@@ -436,15 +436,15 @@ If developers report errors such as:
 
 <strong>Explanation</strong><br><br>
 
-Your service instances might not be running the latest version of Redis for PCF.
+Your service instances might not be running the latest version of <%= vars.product_name %>.
 You might experience compatibility issues with CredHub if your service instances
-are running Redis for PCF v1.14.3 or earlier.<br><br>
+are running <%= vars.product_old %> v1.14.3 or earlier.<br><br>
 
 <strong>Solution</strong><br><br>
 
 <ol>
-  <li>Ensure you have the latest patch version of Redis for PCF installed.
-  For more information about the latest patch, see <a href="./release.html">Redis for PCF Release Notes</a>.</li>
+  <li>Ensure you have the latest patch version of <%= vars.product_name %> installed.
+  For more information about the latest patch, see <a href="./release.html"><%= vars.product_name %> Release Notes</a>.</li>
   <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
     instances are running the latest service offering.
      For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
@@ -657,7 +657,7 @@ This section contains instructions on:
 
 ## <a id="Knowledge"></a> Pivotal Support Articles
 
-The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> articles about Redis for PCF:<br><br>
+The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> articles about <%= vars.product_name %>:<br><br>
 
 <ul>
   <li><a href="https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only"> Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only </a></li>

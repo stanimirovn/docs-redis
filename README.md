@@ -1,4 +1,4 @@
-# Redis for PCF Docs
+# Redis for Pivotal Platform Docs
 
 ## Where is the book repository?
 https://github.com/pivotal-cf/docs-book-redis
@@ -10,7 +10,7 @@ The book repository uses these branches:
 
 ## Partials
 
-Cross-product partials for **Redis for PCF** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-partials) repository.
+Cross-product partials for **Redis for Pivotal Platform** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-partials) repository.
 
 Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repository.
 
@@ -52,7 +52,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Style Sheet
 
-Use this section to specify spelling of special words for Redis for PCF:
+Use this section to specify spelling of special words for Redis for Pivotal Platform:
 
 + on-demand plan
 + shared-VM plan

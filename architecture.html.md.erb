@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-Redis for PCF offers On-Demand and Shared-VM service plans.
+<%= vars.product_name %> offers On-Demand and Shared-VM service plans.
 This section describes the architecture, lifecycle, and configurations of the on-demand plan,
 as well as networking information for the on-demand service.
 For similar information for the Shared-VM plans, see [Shared-VM Service Offering](./architecture-pp.html).
@@ -29,7 +29,7 @@ Pivotal recommends setting TLS as **Optional**, because it allows app developers
 to migrate to TLS connections regardless of whether traffic is restricted to just TLS connections.
 
 <p class="note"><strong>Note:</strong>
-  The option to enforce TLS only is not supported in Redis for PCF v2.2.
+  The option to enforce TLS only is not supported in <%= vars.product_old %> v2.2.
 </p>
 
 Steeltoe and Spring apps use the TLS port by default, if it is available.
@@ -42,7 +42,7 @@ The traffic is secure from the app to the TLS proxy.
 Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
 
 When setting TLS to **Not Configured** within the On-Demand Service Settings,
-the communication with service instances remains unchanged from Redis for PCF v2.1 and earlier.
+the communication with service instances remains unchanged from <%= vars.product_old %> v2.1 and earlier.
 
 ![The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
 The traffic on this connection is unsecured.](tls_disabled.png)
@@ -55,7 +55,7 @@ The traffic on this connection is unsecured.](tls_disabled.png)
 
 On-Demand plans are best suited to cache-use cases and are configured as such by default.
 
-Redis for PCF offers three on-demand plans as the `p.redis` service within the
+<%= vars.product_name %> offers three on-demand plans as the `p.redis` service within the
 PCF Redis tile. Below is a description of each plan as it appears in the
 Marketplace along with its intended use case.
 
@@ -132,6 +132,6 @@ Limitations for the On-Demand Service include:
 
 ## <a id ="lifecycle"></a>Lifecycle for On-Demand Service Plan
 
-Here is the lifecycle of Redis for PCF, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
+Here is the lifecycle of <%= vars.product_name %>, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 ![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)

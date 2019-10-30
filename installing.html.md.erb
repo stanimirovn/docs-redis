@@ -1,11 +1,11 @@
 ---
-title: Installing Redis for PCF
+title: Installing Redis for Pivotal Platform
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes the process of installing Redis for PCF.
+This topic describes the process of installing <%= vars.product_name %>.
 It covers tasks from downloading the file from Pivotal Network
 through verifying the installation after configuration.
 
@@ -19,15 +19,15 @@ For more information about roles in Ops Manager, see [Understand Roles in Ops Ma
 
 ## <a id="install"></a>Download and Install the Tile
 
-<p class="note"><strong>Note:</strong> Before using Redis for PCF v1.14.0 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="./upgrade.html#update-addons">Update Add-ons to Run with Xenial Stemcell</a>.</p>
+<p class="note"><strong>Note:</strong> Before using <%= vars.product_name %> v1.14.0 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="./upgrade.html#update-addons">Update Add-ons to Run with Xenial Stemcell</a>.</p>
 
-To add Redis for Pivotal Cloud Foundry (PCF) to Ops Manager, follow the procedure for adding Ops Manager tiles:
+To add <%= vars.product_name %> to Ops Manager, follow the procedure for adding Ops Manager tiles:
 
-1. Download the Redis for PCF file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Download the <%= vars.product_name %> file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
-1. In the Ops Manager Installation Dashboard, click **Import a Product** to upload the Redis for PCF file.
+1. In the Ops Manager Installation Dashboard, click **Import a Product** to upload the <%= vars.product_name %> file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
-1. To configure Redis for PCF, click the newly added tile. See configuration instructions in the sections below.
+1. To configure <%= vars.product_name %>, click the newly added tile. See configuration instructions in the sections below.
 1. After completing the required configuration, in the Ops Manager Dashboard, do the following to complete the installation:
 
     1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
@@ -61,8 +61,8 @@ To assign AZs, do the following:
 
 ### <a id="network-configuration"></a>Select Networks
 
-You can use Redis for PCF with or without using the on-demand service.
-To use the Redis for PCF on-demand service, you must select a network in which
+You can use <%= vars.product_name %> with or without using the on-demand service.
+To use the <%= vars.product_name %> on-demand service, you must select a network in which
 the service instances are created.
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
 
@@ -70,7 +70,7 @@ To select networks, do the following:
 
 1. In the **Assign AZs and Networks** tab, select a **Network**.
   - Pivotal recommends that each type of PCF service run in its own network.
-  For example, run Redis for PCF on a separate network from RabbitMQ for PCF.
+  For example, run <%= vars.product_name %> on a separate network from RabbitMQ for PCF.
   - Typically the service broker network and service instance network(s) are the same.
 
 1. If using the on-demand service, select a **Service Network**.
@@ -81,7 +81,7 @@ For more information, see [Creating an Empty Services Network when using on-dema
 As of Ops Manager v2.1, IPs are no longer managed in this way.
 All networks are now available to use as a Service Network.</p>
 
-The following ports and ranges are used in Redis for PCF:
+The following ports and ranges are used in <%= vars.product_name %>:
 
 <table class="nice">
   <tr><th>Port</th>
@@ -220,9 +220,9 @@ The following ports and ranges are used in Redis for PCF:
 
 <%= partial "../../redis/partials/redis/breaking-change-ports" %>
 
-## <a id="service-plans"></a>Configure Redis for PCF Service Plans
+## <a id="service-plans"></a>Configure <%= vars.product_name %> Service Plans
 
-Click the Redis for PCF tile in the Ops Manager Installation Dashboard to display the configuration page
+Click the <%= vars.product_name %> tile in the Ops Manager Installation Dashboard to display the configuration page
 and allocate resources to Redis service plans.<br />
 
 ### <a id="on-demand-config"></a>On-Demand Service Settings
@@ -283,7 +283,7 @@ This reduces downtime during upgrades.
 For how this feature works, see
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a> in the BOSH documentation.
 
-1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to On-Demand Service Instances. TLS support is optional in new installations by default. If TLS is configured in Redis for PCF v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
+1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to On-Demand Service Instances. TLS support is optional in new installations by default. If TLS is configured in <%= vars.product_name %> v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
 <p class="note">
   <strong>Note:</strong>
   Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure Spring and Steeltoe apps use TLS.
@@ -422,9 +422,9 @@ Additionally, operators cannot make a plan that was previously active, inactive,
 
 If you want to remove the On-Demand Service from your tile, do the following: <br/>
 
-1. Go to the **Resource Config** page on the Redis for PCF tile, and set the **Redis On-Demand Broker** job instances to 0.
+1. Go to the **Resource Config** page on the <%= vars.product_name %> tile, and set the **Redis On-Demand Broker** job instances to 0.
 
-1. Navigate to the **Errands** page on the Redis for PCF tile, and set the following errands to **off**:
+1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set the following errands to **off**:
     * Register On-Demand Broker
     * On-Demand Broker Smoke Tests
     * Upgrade All On-Demand Service Instances
@@ -433,7 +433,7 @@ If you want to remove the On-Demand Service from your tile, do the following: <b
 1. Create an empty service network.
    For instructions, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
 
-1. Go to each of the three On-Demand Plan pages on the Redis for PCF tile, and set each plan to **Plan Inactive**.
+1. Go to each of the three On-Demand Plan pages on the <%= vars.product_name %> tile, and set each plan to **Plan Inactive**.
    For example:
   ![cache plan inactive](cache-plan-inactive.png)
 
@@ -515,9 +515,9 @@ VM's total system memory, you can do one of the following:
 
 #### <a id="resources"></a>Configure Resources for Shared-VM Plans
 
-To configure resources for the Shared-VM plans, click the **Resource Config** settings tab on the Redis for PCF tile. The Shared-VM plan is on the **Redis Broker** resource.
+To configure resources for the Shared-VM plans, click the **Resource Config** settings tab on the <%= vars.product_name %> tile. The Shared-VM plan is on the **Redis Broker** resource.
 
-The following are the default resource and IP requirements for Redis for PCF when using the Shared-VM plans:
+The following are the default resource and IP requirements for <%= vars.product_name %> when using the Shared-VM plans:
 <table border="1" class="nice">
   <tr>
     <th>Product</th>
@@ -602,7 +602,7 @@ You can disable Shared VM Plans by doing the following while configuring the Red
 Pivotal recommends that operators configure syslog forwarding to a remote destination.
 Forwarding your system logs to a remote destination lets you:
 
-* View logs from every VM in the Redis for PCF deployment in one place.
+* View logs from every VM in the <%= vars.product_name %> deployment in one place.
 * Effectively troubleshooting when logs are lost on the source VM.
 * Set up alerts for important error logs to monitor the deployment.
 
@@ -612,11 +612,11 @@ To configure syslog forwarding:
 
 <%# The below partial is https://github.com/pivotal-cf/docs-ops-manager/blob/master/common/_syslog_bosh.html.md.erb %>
 
-<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => 'Redis for PCF' }) %>
+<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => 'Redis for Pivotal Platform' }) %>
 
 ## <a id="stemcell"></a>Update Stemcell
 
-If required, do the following to update the stemcell for Redis for PCF:
+If required, do the following to update the stemcell for <%= vars.product_name %>:
 
 1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
 1. In the Ops Manager, click **Stemcell Library**.
@@ -645,13 +645,13 @@ Follow the steps below:
 To allow this service to have network access,
 you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html).
 Ensure your security group allows access to the Redis Service Broker VM configured in your deployment.
-You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.</p>
+You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the <%= vars.product_name %> tile.</p>
 
 <p class="note"><strong>Note:</strong> Without ASGs, this service is unusable.</p>
 
 ### Application Container Network Connections
 
-App containers that use instances of the Redis for PCF service require the following outbound network connections:
+App containers that use instances of the <%= vars.product_name %> service require the following outbound network connections:
 
 <table><thead>
 <tr>
@@ -691,15 +691,15 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating Installation
 
-Smoke tests run as part of Redis for PCF installation to validate that the installation succeeded.
-For more information, see [Redis for PCF Smoke Tests](./smoke-tests.html).
+Smoke tests run as part of <%= vars.product_name %> installation to validate that the installation succeeded.
+For more information, see [<%= vars.product_name %> Smoke Tests](./smoke-tests.html).
 
 
-## <a id="uninstall"></a>Uninstalling Redis for PCF
+## <a id="uninstall"></a>Uninstalling <%= vars.product_name %>
 
-To uninstall Redis for PCF, do the following:
+To uninstall <%= vars.product_name %>, do the following:
 
-1. In the Ops Manager Installation dashboard, click the trash can icon in the lower-right corner of the Redis for PCF tile.
+1. In the Ops Manager Installation dashboard, click the trash can icon in the lower-right corner of the <%= vars.product_name %> tile.
 1. Confirm deletion of the product, and then do the following:
     1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
     For more information about this Ops Manager page, see

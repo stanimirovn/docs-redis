@@ -4,11 +4,11 @@ owner: London Services
 ---
 <strong><%= modified_date %></strong>
 
-This topic provides some sample apps in various languages to demonstrate how to get Redis for Pivotal Cloud Foundry (PCF) up and running quickly.
+This topic provides some sample apps in various languages to demonstrate how to get <%= vars.product_name %> up and running quickly.
 It also highlights the critical components of the apps that allow them to connect to a Redis instance.
-Credentials to connect to a Redis for PCF instance are passed to the apps as environment variables under `VCAP_SERVICES`.
+Credentials to connect to a <%= vars.product_name %> instance are passed to the apps as environment variables under `VCAP_SERVICES`.
 
-Additionally, this topic includes advice for setting up Spring Sessions with Redis for PCF.
+Additionally, this topic includes advice for setting up Spring Sessions with <%= vars.product_name %>.
 
 ## <a id="feedback"></a> Feedback
 
@@ -17,13 +17,13 @@ please send a message to [Pivotal Cloud Foundry Feedback](mailto:"pivotal-cf-fee
 
 ## <a id="quickstart_apps"></a> Quickstart Apps
 
-All apps using Redis for PCF must parse and read the Redis for PCF instance credentials from the environment.
-The credentials are available to the app once a Redis for PCF instance is bound to it and are viewable by typing `$cf env {app_name}`.
+All apps using <%= vars.product_name %> must parse and read the <%= vars.product_name %> instance credentials from the environment.
+The credentials are available to the app once a <%= vars.product_name %> instance is bound to it and are viewable by typing `$cf env {app_name}`.
 
 Prerequisites for these examples include access to a Marketplace with `p-redis` or `p.redis`.
 
 For reference, `p.redis` refers to the Redis service that provides On-Demand instances and `p-redis` refers to the Redis service that provides Shared-VM instances.
-Any Redis for PCF service and plan works with the following examples. Available plans and instance types can be viewed with in the Marketplace.
+Any <%= vars.product_name %> service and plan works with the following examples. Available plans and instance types can be viewed with in the Marketplace.
 
 ### <a id="java-quickstart"></a> Quickstart Java App
 
@@ -239,15 +239,15 @@ def redis_client
 end
 </pre>
 
-## <a id="springsession"></a>Spring Session with Redis for PCF
+## <a id="springsession"></a>Spring Session with <%= vars.product_name %>
 
-One common use case of Redis for PCF is management of a user's session information with <a id="https://docs.spring.io/spring-session/docs/current/reference/html5/">Spring Session</a>.
+One common use case of <%= vars.product_name %> is management of a user's session information with <a id="https://docs.spring.io/spring-session/docs/current/reference/html5/">Spring Session</a>.
 Spring Session provides an API and implementations with which to manage sessions.
 
-This topic describes how to use Redis for PCF as the backend with Spring Session to manage user session information.
+This topic describes how to use <%= vars.product_name %> as the backend with Spring Session to manage user session information.
 
 This documentation is adopted from the [Spring Session docs](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession)
-and extends to include instructions for use with Redis for PCF.
+and extends to include instructions for use with <%= vars.product_name %>.
 The document is also adopted from this [Spring Session - Spring Boot guide](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot-redis.html).
 
 ### <a id="configuring Spring"></a> Setting Up Spring Session
@@ -343,10 +343,10 @@ The name of our class (Initializer) does not matter. What is important is that w
 
 + It provides a mechanism to easily ensure that Spring loads our <code>Config</code>.
 
-### <a id ="spring_redis"></a>Configuring Redis for PCF as a Backend
+### <a id ="spring_redis"></a>Configuring <%= vars.product_name %> as a Backend
 
 At this stage, Spring Session is now configured to use a Redis instance.
-To use a Redis for PCF instance, create a `session-replication` tag for it.
+To use a <%= vars.product_name %> instance, create a `session-replication` tag for it.
 
 <pre class=terminal>$ cf update-service INSTANCE_NAME -t session-replication</pre>
 

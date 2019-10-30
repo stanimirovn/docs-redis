@@ -5,14 +5,14 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-This section introduces Redis for Pivotal Cloud Foundry (PCF) services for developers
+This section introduces <%= vars.product_name %> services for developers
 and links to more information.
 
 For instructions on creating, binding to, and deleting an instance of the On-Demand,
-or Shared-VM plan, see [Using Redis for PCF](./using.html).
+or Shared-VM plan, see [Using <%= vars.product_name %>](./using.html).
 
 
-## <a id="services"></a> Redis for PCF Services
+## <a id="services"></a> <%= vars.product_name %> Services
 
 <%= partial '../../redis/partials/redis/service-offerings' %>
 
@@ -23,13 +23,13 @@ and the [Shared-VM Service Offering](./architecture-pp.html).
 
 Below are descriptions of software frequently used with Redis.
 
-### <a id="spring"></a>Redis for PCF with Spring
+### <a id="spring"></a><%= vars.product_name %> with Spring
 
-Spring Cloud Spring Service Connectors connect to Redis for PCF.
+Spring Cloud Spring Service Connectors connect to <%= vars.product_name %>.
 For more information, see the [Redis](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-spring-service-connector.html#_redis) section
 in the Spring Cloud Spring Service Connector documentation.
 
-Spring Cloud Cloud Foundry connectors automatically connect to Redis for PCF.
+Spring Cloud Cloud Foundry connectors automatically connect to <%= vars.product_name %>.
 For more information, see the [Redis](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-cloud-foundry-connector.html#_redis) section
 in the Spring Cloud Cloud Foundry Connector documentation.
 
@@ -37,9 +37,9 @@ To view an example Spring app using Redis as a cache with failover,
 see the [Redis Reference Architectures](https://github.com/pivotal-cf/redis-reference-architecture) GitHub
 repository.
 
-### <a id="steeltoe"></a>Redis for PCF with Steeltoe
+### <a id="steeltoe"></a><%= vars.product_name %> with Steeltoe
 
-Steeltoe Cloud Connectors can connect to Redis for PCF.
+Steeltoe Cloud Connectors can connect to <%= vars.product_name %>.
 See the [Steeltoe Cloud Connectors](https://steeltoe.io/docs/steeltoe-connectors/#5-0-redis) documentation.
 
 
@@ -48,9 +48,9 @@ see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteelto
 repository in GitHub.
 
 <p class="note warning"><strong>Warning</strong>:
-  The Steeltoe connector for Redis requires Redis for PCF to support Lua scripting.
+  The Steeltoe connector for Redis requires <%= vars.product_name %> to support Lua scripting.
   Check whether the language you are using requires Lua scripting. If it does, contact your operator.
-  By default, Lua scripting is disabled for Redis for PCF, but a PCF operator can
+  By default, Lua scripting is disabled for <%= vars.product_name %>, but a PCF operator can
   change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in each service plan's <strong><a href="./installing.html#on-demand-plan-config">On-Demand Plan</a></strong> configuration pane.
 </p>
 
