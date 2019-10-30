@@ -416,7 +416,7 @@ In general, a rise or change in <code>blocked_clients</code> is more likely to s
       <li><strong>Limit client connections:</strong><br>
       This currently defaults to 10000, but depending on the app, you might want to limit this further.
       To do this, run <code>CONFIG SET maxclients NUMBER-OF-CONNECTIONS</code> in the redis-cli.
-      You can configure this for On-Demand service instances in Ops Manager.
+      You can configure this for On-Demand service instances in <%= vars.ops_manager %>.
       Connections that exceed the limit are rejected and closed immediately.
       <br><br>
       It is important to set <code>maxclients</code> to limit the number of unintended client connections.

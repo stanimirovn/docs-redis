@@ -24,7 +24,7 @@ Before upgrading <%= vars.product_name %>, for compatibility information, see th
 <%= partial "../../redis/partials/redis/warning-disabling-tls" %>
 
 This product enables a reliable upgrade experience between versions of the product
-deployed through Ops Manager.
+deployed through <%= vars.ops_manager %>.
 
 For information about the upgrade paths for each released version, see
 [Compatible Upgrade Paths](#upgrading) above.
@@ -44,7 +44,7 @@ on the existing VM.
 Stemcell updates incur additional downtime while the IaaS creates the new VM,
 whereas updates without a stemcell update are faster.
 
-Ops Manager ensures the instances are updated with the new packages and any
+<%= vars.ops_manager %> ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
 
 Upgrading to a newer version of the product does not cause any loss of data or configuration.
@@ -55,7 +55,7 @@ To upgrade to the latest version of <%= vars.product_name %>:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
-1. Upload the new `.pivotal` file to Ops Manager.
+1. Upload the new `.pivotal` file to <%= vars.ops_manager %>.
 
 1. If required, upload the stemcell associated with the update.
 
@@ -81,9 +81,9 @@ errand checkbox is selected on the **Review Pending Changes** page.
 A redeploy causes downtime for the <%= vars.product_name %> tile.
 This section clarifies what events trigger a redeploy.
 
-### <a id="opsman"></a> Ops Manager Changes
+### <a id="opsman"></a> <%= vars.ops_manager %> Changes
 
-In Ops Manager, any field that changes the manifest causes a redeploy of the <%= vars.product_name %> tile.
+In <%= vars.ops_manager %>, any field that changes the manifest causes a redeploy of the <%= vars.product_name %> tile.
 
 ### <a id="pas"></a> <%= vars.app_runtime %>Changes
 
@@ -93,7 +93,7 @@ In the <%= vars.app_runtime_full %>, changes to any of the following properties 
   <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in PAS</li>
   <li><code>$runtime.apps\_domain</code>---Runtime Apps Domain </li>
   <li><code>..cf.nats.ips</code>---NATS Resource Config </li>
-  <li><code>$self.service\_network</code>---Service Networks in Ops Manager</li>
+  <li><code>$self.service\_network</code>---Service Networks in <%= vars.ops_manager %></li>
 </ul>
 
 When the operator applies any of the above changes to PAS, downtime is triggered for:

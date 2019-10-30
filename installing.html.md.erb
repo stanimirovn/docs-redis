@@ -9,29 +9,29 @@ This topic describes the process of installing <%= vars.product_name %>.
 It covers tasks from downloading the file from Pivotal Network
 through verifying the installation after configuration.
 
-## <a id="rbac"></a>Role-Based Access in Ops Manager
+## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager %>
 
-Ops Manager admins can use Role-Based Access Control (RBAC) to manage which
-operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
+<%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which
+operators can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see [Understand Roles in Ops Manager](https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about).
+For more information about roles in <%= vars.ops_manager %>, see [Understand Roles in <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about).
 
 ## <a id="install"></a>Download and Install the Tile
 
 <p class="note"><strong>Note:</strong> Before using <%= vars.product_name %> v1.14.0 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="./upgrade.html#update-addons">Update Add-ons to Run with Xenial Stemcell</a>.</p>
 
-To add <%= vars.product_name %> to Ops Manager, follow the procedure for adding Ops Manager tiles:
+To add <%= vars.product_name %> to <%= vars.ops_manager %>, follow the procedure for adding <%= vars.ops_manager %> tiles:
 
 1. Download the <%= vars.product_name %> file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
-1. In the Ops Manager Installation Dashboard, click **Import a Product** to upload the <%= vars.product_name %> file.
+1. In the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the <%= vars.product_name %> file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
 1. To configure <%= vars.product_name %>, click the newly added tile. See configuration instructions in the sections below.
-1. After completing the required configuration, in the Ops Manager Dashboard, do the following to complete the installation:
+1. After completing the required configuration, in the <%= vars.ops_manager %> Dashboard, do the following to complete the installation:
 
-    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-    For more information about this Ops Manager page, see
+    1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+    For more information about this <%= vars.ops_manager %> page, see
     [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
 
@@ -77,8 +77,8 @@ To select networks, do the following:
 Otherwise, select an empty service network.
 For more information, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
 
-<p class="note"><strong>Note</strong>: In Ops Manager v2.0 and earlier, a specific network was designated as the Service Network to reserve IPs for the on-demand service.
-As of Ops Manager v2.1, IPs are no longer managed in this way.
+<p class="note"><strong>Note</strong>: In <%= vars.ops_manager %> v2.0 and earlier, a specific network was designated as the Service Network to reserve IPs for the on-demand service.
+As of <%= vars.ops_manager %> v2.1, IPs are no longer managed in this way.
 All networks are now available to use as a Service Network.</p>
 
 The following ports and ranges are used in <%= vars.product_name %>:
@@ -222,7 +222,7 @@ The following ports and ranges are used in <%= vars.product_name %>:
 
 ## <a id="service-plans"></a>Configure <%= vars.product_name %> Service Plans
 
-Click the <%= vars.product_name %> tile in the Ops Manager Installation Dashboard to display the configuration page
+Click the <%= vars.product_name %> tile in the <%= vars.ops_manager %> Installation Dashboard to display the configuration page
 and allocate resources to Redis service plans.<br />
 
 ### <a id="on-demand-config"></a>On-Demand Service Settings
@@ -619,7 +619,7 @@ To configure syslog forwarding:
 If required, do the following to update the stemcell for <%= vars.product_name %>:
 
 1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
-1. In the Ops Manager, click **Stemcell Library**.
+1. In the <%= vars.ops_manager %>, click **Stemcell Library**.
 1. Click **Import Stemcell**, and then select the stemcell you downloaded from Pivotal Network.
 
     <br>![Stemcell Library](stemcell-library-xenial.png)
@@ -630,12 +630,12 @@ If required, do the following to update the stemcell for <%= vars.product_name %
 Your installation is not complete until you apply your configuration changes.
 Follow the steps below:
 
-1. Return to the Ops Manager Installation Dashboard.
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
-1. In the Ops Manager Dashboard, do the following to complete the installation:
+1. In the <%= vars.ops_manager %> Dashboard, do the following to complete the installation:
 
-    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-    For more information about this Ops Manager page, see
+    1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+    For more information about this <%= vars.ops_manager %> page, see
     [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
 
@@ -645,7 +645,7 @@ Follow the steps below:
 To allow this service to have network access,
 you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html).
 Ensure your security group allows access to the Redis Service Broker VM configured in your deployment.
-You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the <%= vars.product_name %> tile.</p>
+You can obtain the IP addresses for these VMs in <%= vars.ops_manager %> under the <strong>Resource Config</strong> section for the <%= vars.product_name %> tile.</p>
 
 <p class="note"><strong>Note:</strong> Without ASGs, this service is unusable.</p>
 
@@ -699,9 +699,9 @@ For more information, see [<%= vars.product_name %> Smoke Tests](./smoke-tests.h
 
 To uninstall <%= vars.product_name %>, do the following:
 
-1. In the Ops Manager Installation dashboard, click the trash can icon in the lower-right corner of the <%= vars.product_name %> tile.
+1. In the <%= vars.ops_manager %> Installation dashboard, click the trash can icon in the lower-right corner of the <%= vars.product_name %> tile.
 1. Confirm deletion of the product, and then do the following:
-    1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-    For more information about this Ops Manager page, see
+    1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+    For more information about this <%= vars.ops_manager %> page, see
     [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.

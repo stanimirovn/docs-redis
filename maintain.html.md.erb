@@ -55,7 +55,7 @@ These errands run whether or not there has been a configuration change in the <%
 
 <table class="nice">
   <tr>
-    <th width="18%">Ops Manager UI Name</th>
+    <th width="18%"><%= vars.ops_manager %> UI Name</th>
     <th width="27%">BOSH Errand Name</th>
     <th width="55%">Description</th>
   </tr>
@@ -96,7 +96,7 @@ These errands help operators to troubleshoot and maintain their service fleet.
 
 <table class="nice">
   <tr>
-    <th width="18%">Ops Manager UI Name</th>
+    <th width="18%"><%= vars.ops_manager %> UI Name</th>
     <th width="27%">BOSH Errand Name</th>
     <th width="55%">Description</th>
   </tr>
@@ -120,7 +120,7 @@ The following pre-delete errands are run by default when the <%= vars.product_na
 
 <table class="nice">
   <tr>
-    <th width="18%">Ops Manager UI Name</th>
+    <th width="18%"><%= vars.ops_manager %> UI Name</th>
     <th width="27%">BOSH Errand Name</th>
     <th width="55%">Description</th>
   </tr>
@@ -207,11 +207,11 @@ the details of orphaned instances so the operator can decide when and how to rem
 
 ##  <a id="smoke"></a>Smoke Tests
 
-Ops Manager runs <%= vars.product_name %> smoke tests as a post-install errand.
+<%= vars.ops_manager %> runs <%= vars.product_name %> smoke tests as a post-install errand.
 To run the smoke tests errand manually:
 
 1. Retrieve the deployment name of the installed product. To find the deployment name:
-  1. From the Ops Manager UI, click the <%= vars.product_name %> tile.
+  1. From the <%= vars.ops_manager %> UI, click the <%= vars.product_name %> tile.
   1. Copy the part of the URL that starts with "p-redis-".
 
 1. Run the smoke tests errand: <br>

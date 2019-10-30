@@ -9,9 +9,9 @@ This topic lists troubleshooting information for <%= vars.product_name %>.
 
 <p class="note"><strong>Note</strong>:
   Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
-  Pivotal recommends that you back up both your Ops Manager and deployments before attempting such operations.
+  Pivotal recommends that you back up both your <%= vars.ops_manager %> and deployments before attempting such operations.
   <br><br>
-  For more information about backing up your setup and exporting your Ops Manager installation,
+  For more information about backing up your setup and exporting your <%= vars.ops_manager %> installation,
   see <a href="https://docs.pivotal.io/pivotalcf/2-0/customizing/backup-restore/backup-pcf-bbr.html">Backing Up <%= vars.platform_name %> with BBR</a>
 </p>
 
@@ -21,7 +21,7 @@ This topic lists troubleshooting information for <%= vars.product_name %>.
 Before debugging, gather the following about your <%= vars.platform_name %> deployment:
 
 * Current version of <%= vars.product_name %>, and, if upgrading, the previous version of <%= vars.product_name %>
-* Current version of Ops Manager, and, if upgrading, the previous version of Ops Manager
+* Current version of <%= vars.ops_manager %>, and, if upgrading, the previous version of <%= vars.ops_manager %>
 
 ### cf CLI Commands
 
@@ -476,11 +476,11 @@ This prevents the apps from connecting to the instance.
 <p>First, consider enabling TLS. The compliance body that oversees your apps might require TLS to be enabled. Also, switching between enabled and disabled TLS incurs downtime.</p>
 <p>To enable TLS, follow these steps:</p>
 <ol>
-  <li>In your Ops Manager home page, select the <strong>Redis</strong> tile.</li>
+  <li>In your <%= vars.ops_manager %> home page, select the <strong>Redis</strong> tile.</li>
   <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
   <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
   <li>Click <strong>Save</strong>.</li>
-  <li>Navigate back to the Ops Manager home page and click <strong>Review Pending Changes</strong>.</li>
+  <li>Navigate back to the <%= vars.ops_manager %> home page and click <strong>Review Pending Changes</strong>.</li>
   <li>Ensure the Recreate All On-Demand Service Instances errand is enabled under the Redis section and then click <strong>Apply Changes</strong>.</li>
 </ol>
 <p>To continue with TLS disabled, follow these steps:</p>
