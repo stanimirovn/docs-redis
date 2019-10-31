@@ -178,7 +178,8 @@ Review the following table to determine if <%= vars.product_name %> has the feat
 
 ### <a id="other-notes"></a>Availability Zones
 
-On-demand <%= vars.product_name %> supports configuring multiple availability zones (AZs).
+On-demand <%= vars.product_name %> supports configuring multiple availability
+zones (AZs) to improve resiliency.
 However, assigning multiple AZs to Redis service instances does not provide high availability.
 This is because each individual Redis service instance is a single VM without
 clustering capabilities.
@@ -186,7 +187,7 @@ clustering capabilities.
 The diagram below shows a Redis deployment configured with three availability zones.
 
 ![A Redis deployment across three availability zones. Availability zone one contains
-the on-demand service broker, the shared service brokers, shared instances, and on-demand service instances.
+the on-demand service broker, the shared service broker, shared instances, and on-demand service instances.
 Availability zones two and three contain on-demand service instances.](availability-zones.png)
 
 Service instance VMs are placed in availability zones as follows:
