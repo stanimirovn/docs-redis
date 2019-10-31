@@ -182,11 +182,14 @@ On-demand Redis for PCF supports configuring multiple availability zones (AZs).
 However, assigning multiple AZs to Redis service instances does not provide high availability.
 This is because each individual Redis service instance is a single VM without
 clustering capabilities.
-The data on each service instance is not replicated across the selected availability zones.
 
-![](availability-zones.png)
+The diagram below shows a Redis deployment configured with three availability zones.
 
-The diagram above shows how the broker and service instance VMs are placed in each availability zone.
+![A Redis deployment across three availability zones. Availability zone one contains
+the on-demand service broker, the shared service brokers, shared instances, and on-demand service instances.
+Availability zones two and three contain on-demand service instances.](availability-zones.png)
+
+Service instance VMs are placed in availability zones as follows:
 
 + **For on-demand plans**: Service instances can be configured to deploy to any AZ.
   If you select multiple AZs, service instances are distributed randomly between them.
