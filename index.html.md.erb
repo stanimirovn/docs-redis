@@ -61,9 +61,30 @@ It is used for everything from a quick way to store data for development and tes
 
 <strong><em>Redis for PCF</em></strong> packages Redis for easy deployment and operability on Pivotal Cloud Foundry (PCF).
 
-<%= partial '../../redis/partials/redis/service-offerings' %>
+Redis for PCF v2.0 and later offers On-Demand and Shared-VM services.
 
-<%= partial '../../redis/partials/redis/breaking-change-upgrades' %>
+* **On-Demand Service**---Provides a dedicated VM running a Redis instance.
+  The operator can configure up to three plans with different configurations,
+  memory sizes, and quotas.
+  App developers can provision an instance for any of the On-Demand plans offered
+  and configure certain Redis settings.
+
+* **Shared-VM Service**---Provides support for a number of Redis instances running
+  in a single VM.
+  It is designed for testing and development purposes only, **do not use the
+  Shared-VM service in production environments**.
+  The Shared-VM instances are pre-provisioned by the operator with a fixed number
+  of instances and memory size.
+  App developers can then use one of these pre-provisioned instances.
+
+
+<p class="note breaking"><strong>Breaking Change:</strong>
+  If you use dedicated VMs, then migrate to the on-demand service plan
+  or back up data before upgrading to Redis for PCF v2.0 to prevent data loss
+  in Redis deployments used as persistent storage.<br><br>
+  If you are upgrading from Redis for PCF v1.14.3 or earlier, you must run the
+  <code>upgrade-all-service-instances</code> errand after upgrading.
+</p>
 
 For more information on the plans, see:
 
@@ -91,9 +112,51 @@ The following table lists where you can find topics related to the information o
 
 ##<a id="other-services"></a> Redis for PCF and Other PCF Services
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+As well as <%= vars.service_name %>, other <%= vars.platform_name %> services offer *on-demand* service plans.
+These plans let developers provision service instances when they want.
 
-<%= partial '../../redis/partials/services/on-demand-service-table' %>
+These contrast with the older *pre-provisioned* service plans,
+which require operators to provision the service instances during installation
+and configuration through the service tile UI.
+
+The following table lists which <%= vars.platform_name %> services offer on-demand
+and pre-provisioned service plans:
+
+<table class="nice">
+  <tr>
+    <th width="20%"><%= vars.platform_name %> service tile</th>
+    <th width="20%">Standalone product related to the service</th>
+    <th width="20%">Supports on-demand</th>
+    <th width="40%">Supports pre-provisioned</th>
+  </tr>
+  <tr>
+    <td>RabbitMQ for Pivotal Platform</td>
+    <td>Pivotal RabbitMQ</td>
+    <td>Yes</td>
+    <td>Yes. Only recommended for test environments.</td>
+  </tr>
+  <tr>
+    <td>Redis for PCF</td>
+    <td>Redis</td>
+    <td>Yes</td>
+    <td>Yes (shared-VM plan). Only recommended for test environments.</td>
+  </tr>
+  <tr>
+    <td>MySQL for Pivotal Platform</td>
+    <td>MySQL </td>
+    <td>Yes<br></td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Pivotal Cloud Cache (PCC)</td>
+    <td>Pivotal GemFire</td>
+    <td>Yes</td>
+    <td>No</td>
+  </tr>
+</table>
+<br>
+For services that offer both on-demand and pre-provisioned plans, you can choose the
+plan you want to use when configuring the tile.
 
 ##<a id="feedback"></a> Feedback
 
