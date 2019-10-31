@@ -144,7 +144,7 @@ Start here if you are responding to a specific error or error messages.
   </li>
   <li><a href="#network">Networking problems</a>: </li>
   <ul>
-    <li>Cloud Foundry cannot reach <%=vars.service_name_article_full%> broker</li>
+    <li>Cloud Foundry cannot reach the Redis for Pivotal Platform service broker</li>
     <li>Cloud Foundry cannot reach the service instances</li>
     <li>The service network cannot access the BOSH director </li>
   </ul>
@@ -152,7 +152,7 @@ Start here if you are responding to a specific error or error messages.
   <li>The smoke test errand fails.</li>
   <li>
     Resource sizing issues: These occur when the resource sizes selected for a
-    given plan are less than <%=vars.service_name_article_full%> requires to function.
+    given plan are less than the Redis for Pivotal Platform service requires to function.
     Check your resource configuration in Ops Manager and ensure that the
     configuration matches that recommended by the service.
   </li>
@@ -185,7 +185,7 @@ Instance provisioning failed: There was a problem completing your request. Pleas
 		<p>
 			To continue troubleshooting,
 			<a href="https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in">Log in to BOSH</a>
-			and target <%= vars.service_name_article_full %> instance using the instructions
+			and target the Redis for Pivotal Platform service instance using the instructions
 			on <a href="#parse-error">parsing a Cloud Foundry error message</a>.
 		</p>
 	</li>
@@ -263,7 +263,7 @@ Server error, status code: 502, error code: 10001, message: Service broker error
 <ol>
 	<li>
 		<p>
-			Confirm that <%=vars.service_name_article_full%> instance exists in BOSH and
+			Confirm that the Redis for Pivotal Platform service instance exists in BOSH and
 			obtain the GUID CF by running:
 		</p>
 		<pre><code>cf service MY-INSTANCE --guid</code></pre>
@@ -333,7 +333,7 @@ Server error, status code: 502, error code: 10001, message: Service broker error
 
 <p>
   Ask the user to send application logs that show the connection error.
-  If the error is originating from the service, then follow <%=vars.service_name%>-specific instructions.
+  If the error is originating from the service, then follow Redis for PCF-specific instructions.
   If the issue appears to be network-related, then:
 </p>
 
@@ -347,7 +347,7 @@ Server error, status code: 502, error code: 10001, message: Service broker error
   </li>
   <li>
     <p>
-      Ensure that the network the <%= vars.app_runtime_full %> tile is deployed
+      Ensure that the network the Pivotal Application Service tile is deployed
       to has network access to the service network. You can find the network definition
       for this service network in the BOSH Director tile.
     </p>
@@ -360,7 +360,7 @@ Server error, status code: 502, error code: 10001, message: Service broker error
   </li>
   <li>
     <p>
-      In Ops Manager go into the <%= vars.app_runtime %> tile and see the network it is assigned to.
+      In Ops Manager go into the Pivotal Application Service tile and see the network it is assigned to.
       Make sure that these networks can access each other.
     </p>
   </li>
@@ -724,7 +724,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 <p>
   On-demand service brokers add tasks to the BOSH request queue, which can back up
   and cause delay under heavy loads.
-  An app developer who requests a new <%=vars.service_name%> instance sees
+  An app developer who requests a new Redis for PCF instance sees
   <code>create in progress</code> in the Cloud Foundry Command Line Interface (cf CLI) until
   BOSH processes the queued request.
 </p>
@@ -741,7 +741,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <p>
   You may have configured a VM / Disk type in tile plan page in Ops Manager that
-  is insufficiently large for <%=vars.service_name_article_full%> instance to start.
+  is insufficiently large for the Redis for Pivotal Platform service instance to start.
   See tile-specific guidance on resource requirements.
 </p>
 
@@ -756,14 +756,14 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 </p>
 
 <p>
-	To resolve this, redeploy the <%=vars.service_name%> tile in Ops Manager.
+	To resolve this, redeploy the Redis for PCF tile in Ops Manager.
 	This provides the broker with the latest configuration.
 </p>
 
 <p class="note">
     <strong>Note</strong>: You must ensure that any changes to UAA
     credentials are reflected in the Ops Manager <code>credentials</code>
-    tab of the <%= vars.app_runtime_full %> tile.
+    tab of the Pivotal Application Service tile.
 </p>
 
 
@@ -779,12 +779,12 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 	<th>Issue</th>
 	<th>Solution</th>
 	<tr>
-		<td>Latency when connecting to <%=vars.service_name_article_full%> instance to create or delete a binding.</td>
+		<td>Latency when connecting to the Redis for Pivotal Platform service instance to create or delete a binding.</td>
 		<td>Try again or improve network performance.</td>
 	</tr>
 	<tr>
-		<td>Firewall rules are blocking connections from <%=vars.service_name_article_full%> broker to the service instance.</td>
-		<td>Open the <%=vars.service_name%> tile in Ops Manager and check the two networks configured in the <strong>Networks</strong> pane. Ensure that these networks allow access to each other.</td>
+		<td>Firewall rules are blocking connections from the Redis for Pivotal Platform service broker to the service instance.</td>
+		<td>Open the Redis for PCF tile in Ops Manager and check the two networks configured in the <strong>Networks</strong> pane. Ensure that these networks allow access to each other.</td>
 	</tr>
 	<tr>
 		<td>Firewall rules are blocking connections from the service network to the BOSH director network.</td>
@@ -810,7 +810,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 <ol>
 	<li>
 		<p>
-			To SSH into <%=vars.service_name_article_full%>  broker, run the following command:
+			To SSH into the Redis for Pivotal Platform service  broker, run the following command:
 		</p>
 		<pre><code>bosh -d service-instance_GUID ssh</code></pre>
 	</li>
@@ -827,7 +827,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <p>
   Use <code>cf ssh</code> to access to the app container, then try connecting to
-  <%=vars.service_name_article_full%> instance using the binding included in the
+  the Redis for Pivotal Platform service instance using the binding included in the
   <code>VCAP_SERVICES</code> environment variable.
 </p>
 
@@ -879,7 +879,7 @@ Please contact your Operator for help.
 ### <a id="failing-jobs"></a> Failing Jobs and Unhealthy Instances
 
 <p>
-  To determine whether there is an issue with  <%= vars.service_name_article_full%>
+  To determine whether there is an issue with the Redis for Pivotal Platform service
   deployment, inspect the VMs. To do so, run the following command:
 </p>
 
@@ -1187,7 +1187,7 @@ Updated: 2017-03-13T10:17:58Z
 
 <p>
 	If you have made changes to the plan definition or uploaded a new tile into Ops
-	Manager, you might want to upgrade all <%=vars.service_name_article_full%>
+	Manager, you might want to upgrade all the Redis for Pivotal Platform service
 	instances to the latest software or plan definition.
 </p>
 
@@ -1406,14 +1406,14 @@ Errand 'orphan-deployments' completed successfully (exit code 0)
 		</li>
 		<li>
 			Confirm that the Marketplace does not list
-			<%=vars.service_name_article%> by running: <pre>cf m</pre>
+			Redis for PCF by running: <pre>cf m</pre>
 		</li>
 		<li>
 			Log in to BOSH as an admin by running: <pre>bosh log-in</pre>
 		</li>
 		<li>
 			Display your BOSH deployments to confirm that the output does not
-			show <%=vars.service_name_article%> deployment by running:
+			show Redis for PCF deployment by running:
 			<pre>bosh deployments</pre>
 		</li>
 		<li>
