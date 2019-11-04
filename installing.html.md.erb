@@ -685,13 +685,19 @@ App containers that use instances of the Redis for PCF service require the follo
 <td><code>ASSIGNED_NETWORK</code></td>
 <td>32768-61000</td>
 <td>tcp</td>
-<td>Enable application to access shared vm service instance</td>
+<td>Enable application to access Shared-VM Service Instance</td>
 </tr>
 <tr>
 <td><code>ASSIGNED_NETWORK</code></td>
 <td>6379</td>
 <td>tcp</td>
-<td>Enable application to access dedicated vm service instance</td>
+<td>Enable application to access On-Demand Service Instance</td>
+</tr>
+<tr>
+<td><code>ASSIGNED_NETWORK</code></td>
+<td>16379</td>
+<td>tcp</td>
+<td>Enable application TLS encrypted access to On-Demand Service Instance</td>
 </tr>
 </tbody></table>
 
@@ -703,7 +709,7 @@ to give all started apps access, bind to the `default-running` ASG set and resta
   {
     "protocol": "tcp",
     "destination": "ASSIGNED_NETWORK",
-    "ports": "6379"
+    "ports": "6379,16379"
   }
 ]
 ```
