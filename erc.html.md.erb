@@ -70,13 +70,15 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Failure Recovery</td>
     <td>
       VM failures and process failures are handled automatically by BOSH and Redis for PCF.
-      Manual backup and restore instructions are available for on-demand and shared-VM Redis services.
       Automatic backup capabilities are enabled for on-demand and shared-VM Redis services.
+      On-demand service instances support backup and recovery using BBR.
+      Manual backup and restore instructions are available for on-demand and shared-VM Redis services.
     </td>
     <td>
       <%-#<a> href="https://bosh.io/docs/resurrector.html" BOSH Resurrection </a> Is this the right doc here? Do we have docs for process-%>
-      <a href="https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry</a><br><br>
-      <a href="./auto-backup.html">Configuring Automated Service Backups</a><br/>
+      <a href="./auto-backup.html">Configuring Automated Service Backups</a><br><br>
+      <a href="./bbr-backup.html">Using BBR for On-Demand <%= vars.product_name %></a><br><br>
+      <a href="https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry">Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry</a>
     </td>
   </tr>
   <tr>
