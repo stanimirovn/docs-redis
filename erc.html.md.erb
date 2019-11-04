@@ -10,12 +10,12 @@ and information for determining the product's fit for your enterprise's use case
 
 ## <a id="usecases"></a> Recommended Use Cases
 
-On-Demand plans are configured by default for cache use cases but can also be used
+On-demand plans are configured by default for cache use cases but can also be used
 as a datastore.
 
 Shared-VM plans are designed for datastore use cases in testing or development environments.
 
-<p class="note"><strong>Note</strong>: The Shared-VM service should only be used for development and testing.
+<p class="note"><strong>Note</strong>: The shared-VM service should only be used for development and testing.
    Do not use for production.</p>
 
 Redis can be used in many different ways, including:
@@ -83,7 +83,7 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Isolation</td>
     <td>
       <%-#Do we need to cover network isolation?-%>
-      Isolation is provided when using the On-Demand service.
+      Isolation is provided when using the on-demand service.
       Individual apps and workflows should have their own Redis for PCF instance to maximize isolation.
     </td>
     <td>
@@ -94,8 +94,8 @@ Review the following table to determine if Redis for PCF has the features needed
     <td>Resource Planning</td>
     <td>
     Operators can configure the number of VMs and the size of those VMs.
-    For the On-Demand service, the operator does this by creating plans with specific VM sizes and quotas for each plan.
-    For the Shared-VM service, the number and size of VMs are pre-provisioned by the operator.
+    For the on-demand service, the operator does this by creating plans with specific VM sizes and quotas for each plan.
+    For the shared-VM service, the number and size of VMs are pre-provisioned by the operator.
     BOSH errands used for registration, upgrade and cleanup use short-lived VMs that cannot be configured but can be
     turned on or off.
     </td>
@@ -107,7 +107,7 @@ Review the following table to determine if Redis for PCF has the features needed
   <tr>
     <td>Health Monitoring</td>
     <td>
-    Both On-Demand and Shared Service Instances emit metrics.
+    Both on-demand and shared service instances emit metrics.
     These include Redis-specific metrics and Redis for PCF metrics.
     Guidance on critical metrics and alerting levels is captured with the Redis for PCF Key Performance Indicators (KPIs).
     </td>
@@ -118,11 +118,11 @@ Review the following table to determine if Redis for PCF has the features needed
   <tr>
     <td>Scalability</td>
     <td>
-    For the On-Demand Service, the operator can configure three plans with different resource sizes.
+    For the on-demand service, the operator can configure three plans with different resource sizes.
     The operator can also scale up the VM size associated with the plan.
-    Additionally, the operator can increase the quota, which caps the number of instances allowed for each On-Demand plan.
+    Additionally, the operator can increase the quota, which caps the number of instances allowed for each on-demand plan.
     To prevent data loss, only scaling up is supported.
-    For the Shared-VM Service, the operators can change the Redis instance memory limit as well as change the instance limit.
+    For the shared-VM service, the operators can change the Redis instance memory limit as well as change the instance limit.
     To prevent data loss, only scaling up is supported.
     </td>
     <td>
@@ -145,8 +145,8 @@ Review the following table to determine if Redis for PCF has the features needed
   <tr>
     <td>Customization</td>
     <td>
-    The On-Demand service can be configured to best fit the needs of a specific app.
-    The Shared-VM service cannot be customized.
+    The on-demand service can be configured to best fit the needs of a specific app.
+    The shared-VM service cannot be customized.
     </td>
     <td>
       <a href="./installing.html#on-demand-config"> Configuring the On-Demand service </a>
@@ -195,4 +195,4 @@ Service instance VMs are placed in availability zones as follows:
 + **For on-demand plans**: Service instances can be configured to deploy to any AZ.
   If you select multiple AZs, service instances are distributed randomly between them.
   This improves resiliency.
-+ **For the Shared-VM plan**: Service instances run on a single VM in the AZ in which the tile is deployed.
++ **For the shared-VM plan**: Service instances run on a single VM in the AZ in which the tile is deployed.
