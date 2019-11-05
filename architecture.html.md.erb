@@ -23,6 +23,12 @@ The operator specifies the per-plan and global quotas.](on-demand-arch.png)
 
 ## <a id="tls"></a> TLS in <%= vars.product_name %>
 
+You can enable TLS to secure traffic between apps and service instances.
+The available configurations are **Optional** and **Not Configured**.
+
+
+### <a id="tls-optional"></a> TLS Set to Optional
+
 When setting TLS to **Optional** within On-Demand Service Settings, both TLS and non-TLS connections are accepted.
 TLS traffic goes through a proxy as shown in the diagram below.
 Enabling TLS is not expected to noticeably reduce performance.
@@ -46,7 +52,9 @@ instance VM through a TLS proxy or connect directly.
 The TLS proxy and Redis are both on the Redis service instance.
 The traffic is secure from the app to the TLS proxy.
 Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
-<br><br>
+
+
+### <a id="tls-optional"></a> TLS Set to Not Configured
 
 When setting TLS to **Not Configured** within the On-Demand Service Settings,
 the communication with service instances remains unchanged from <%= vars.product_old %> v2.1 and earlier.
