@@ -5,25 +5,29 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= vars.product_name %> offers On-Demand and Shared-VM service plans.
+<%= vars.product_name %> offers on-demand and shared-VM service plans.
 This section describes the architecture, lifecycle, and configurations of the on-demand plan,
 as well as networking information for the on-demand service.
 For similar information for the Shared-VM plans, see [Shared-VM Service Offering](./architecture-pp.html).
 
 
-## <a id="diagram1"></a> Architecture Diagram for On-Demand Plan
+## <a id="diagram1"></a> Architecture of the On-Demand Plan
 
 This diagram shows the architecture of the service broker and on-demand plans
 and how the user's app binds to a Redis instance.
 
-![On-Demand Architecture Diagram](on-demand-arch.png)
+![The p.redis service broker manages the on-demand service plan instances.
+The operator uses Ops Manager to configure the plans.
+App-developers can create instances of each plan on-demand up to a set quota, and bind their apps to these instances.
+The operator specifies the per-plan and global quotas.](on-demand-arch.png)
 
-The diagrams below show how apps communicate with on-demand Redis instances.
+## <a id="tls"></a> TLS in <%= vars.product_name %>
 
-When setting TLS to **Optional** within On-Demand Service settings, both TLS and non-TLS connections are accepted.
-TLS traffic goes through a proxy as shown below.
+When setting TLS to **Optional** within On-Demand Service Settings, both TLS and non-TLS connections are accepted.
+TLS traffic goes through a proxy as shown in the diagram below.
 Enabling TLS is not expected to noticeably reduce performance.
-This depends, however, on network infrastructure, application architecture, and other such resources being in good shape.
+This depends, however, on network infrastructure, application architecture, and
+other such resources being in good shape.
 
 Pivotal recommends setting TLS as **Optional**, because it allows app developers
 to migrate to TLS connections regardless of whether traffic is restricted to just TLS connections.
@@ -35,14 +39,19 @@ to migrate to TLS connections regardless of whether traffic is restricted to jus
 Steeltoe and Spring apps use the TLS port by default, if it is available.
 Other apps might require further configuration to make use of the correct port.
 
+The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Optional**.
+
 ![The bound app can connect to the Redis service on the on-demand Redis service
 instance VM through a TLS proxy or connect directly.
 The TLS proxy and Redis are both on the Redis service instance.
 The traffic is secure from the app to the TLS proxy.
 Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
+<br><br>
 
 When setting TLS to **Not Configured** within the On-Demand Service Settings,
 the communication with service instances remains unchanged from <%= vars.product_old %> v2.1 and earlier.
+
+The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Not Configured**.
 
 ![The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
 The traffic on this connection is unsecured.](tls_disabled.png)
@@ -119,7 +128,7 @@ and service broker adapter associated with this plan.
 
 ### <a id="limitations"></a> Known Limitations for On-Demand Service Plans
 
-Limitations for the On-Demand Service include:
+Limitations for the on-demand service include:
 
 * Operators must not downsize the VMs or disk size as this can cause data loss in pre-existing instances.
 
