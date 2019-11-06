@@ -13,7 +13,7 @@ The tests run as an app instance with a restrictive App Security Group (ASG).
 
 The smoke tests perform the following for each available service plan:
 
-1. Targets the org <code>system</code> and space <code>redis-smoke-tests</code> (creating them if they do not exist).
+1. Targets the org <code>system</code> and space <code>pivotal-services</code> (creating them if they do not exist).
 1. Deploys an instance of the [CF Redis Example App](https://github.com/pivotal-cf/cf-redis-example-app) to this space.
 1. Creates a Redis instance and binds it to the CF Redis Example App.
 1. Creates a service key to retrieve the Redis instance IP address.
