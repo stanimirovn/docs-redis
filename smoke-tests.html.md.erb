@@ -7,7 +7,7 @@ owner: London Services
 
 Redis for Pivotal Cloud Foundry (PCF) runs a set of smoke tests during installation to confirm system health.
 The tests run in the org <code>system</code> and in the space <code>pivotal-services</code>.
-The tests run as an application instance with a restrictive Application Security Group (ASG).
+The tests run as an application instance with a restrictive App Security Group (ASG).
 
 ## <a id="steps"></a> Smoke Test Steps
 
@@ -22,7 +22,7 @@ The smoke tests perform the following for each available service plan:
 
 ## <a id="security-groups"></a> Security Groups
 
-Smoke tests create a new [application security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`)
+Smoke tests create a new [app security group](https://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html) for the CF Redis Example App (`redis-smoke-tests-sg`)
 and delete it after the tests finish. This security group has the following rules:
 
 ```

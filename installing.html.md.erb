@@ -660,16 +660,16 @@ Follow the steps below:
     1. Click **Apply Changes**.
 
 
-##  <a id="asg"></a> Create Application Security Groups
+##  <a id="asg"></a> Create App Security Groups
 
 To allow this service to have network access,
-you must create [Application Security Groups (ASGs)](http://docs.pivotal.io/pivotalcf/1-10/adminguide/app-sec-groups.html).
+you must create [App Security Groups (ASGs)](https://docs.pivotal.io/platform/application-service/concepts/asg.html).
 Ensure your security group allows access to the Redis Service Broker VM configured in your deployment.
 You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis for PCF tile.</p>
 
 <p class="note"><strong>Note:</strong> Without ASGs, this service is unusable.</p>
 
-### Application Container Network Connections
+### App Container Network Connections
 
 App containers that use instances of the Redis for PCF service require the following outbound network connections:
 
@@ -685,19 +685,19 @@ App containers that use instances of the Redis for PCF service require the follo
 <td><code>ASSIGNED_NETWORK</code></td>
 <td>32768-61000</td>
 <td>TCP</td>
-<td>To enable applications to access shared-VM service instances</td>
+<td>To enable apps to access shared-VM service instances</td>
 </tr>
 <tr>
 <td><code>ASSIGNED_NETWORK</code></td>
 <td>6379</td>
 <td>TCP</td>
-<td>To enable applications to access on-demand service instances</td>
+<td>To enable apps to access on-demand service instances</td>
 </tr>
 <tr>
 <td><code>ASSIGNED_NETWORK</code></td>
 <td>16379</td>
 <td>TCP</td>
-<td>To enable applications to have TLS encrypted access to on-demand service instances</td>
+<td>To enable apps to have TLS encrypted access to on-demand service instances</td>
 </tr>
 </tbody></table>
 
