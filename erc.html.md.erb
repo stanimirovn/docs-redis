@@ -171,14 +171,18 @@ Review the following table to determine if Redis for PCF has the features needed
     </td>
   </tr>
   <tr><th colspan=2>Encryption</th><th>More Information</th></tr>
-  <tr><td>Encrypted Communication in Transit</td><td>Redis for PCF has been tested with the IPsec Add-on for PCF.
-          You can also enable TLS encryption between apps and service instances.</td>
-      <td>
-        <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a><br><br>
-        <a href="https://redis.io/topics/security">OS Redis Security</a><br><br>
-        <a href="./architecture.html#tls">TLS in Redis for PCF</a>
-      </td></tr>
-
+  <tr>
+    <td>Encrypted Communication in Transit</td>
+    <td>
+      You can enable TLS encryption between apps and service instances.<br><br>
+      Additionally, <%= vars.product_name %> has been tested with the IPsec Add-on for PCF.
+    </td>
+    <td>
+      <a href="https://redis.io/topics/security">OS Redis Security</a><br><br>
+      <a href="./architecture.html#tls">TLS in <%= vars.product_name %></a><br><br>
+      <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a>
+    </td>
+  </tr>
 </table>
 
 ### <a id="other-notes"></a>Availability Zones
