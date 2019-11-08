@@ -63,15 +63,7 @@ It is used for everything from a quick way to store data for development and tes
 
 ## <a id="about"></a> About <%= vars.product_name %>
 
-<strong><em><%= vars.product_name %></em></strong> packages Redis for easy deployment and operability on <%= vars.platform_name %>.
-
-<%= partial '../../redis/partials/redis/service-offerings' %>
-
-For more information on the plans, see:
-
-* [On-Demand Service Offering](./architecture.html)
-* [Shared-VM Service Offering](./architecture-pp.html)
-
+<%= partial(:'../../redis/partials/redis/service-offerings', :locals => { :redis_name => "<strong><em>" + vars.product_name + "</em></strong>"}) %>
 
 ### <a id="erc"></a> Is <%= vars.product_name %> right for your enterprise?
 

@@ -77,9 +77,12 @@ To select networks, do the following:
 Otherwise, select an empty service network.
 For more information, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
 
-<p class="note"><strong>Note</strong>: In <%= vars.ops_manager %> v2.0 and earlier, a specific network was designated as the Service Network to reserve IPs for the on-demand service.
-As of <%= vars.ops_manager %> v2.1, IPs are no longer managed in this way.
-All networks are now available to use as a Service Network.</p>
+<p class="note">
+  <strong>Note</strong>: In <%= vars.ops_manager %> v2.0 and earlier, a specific
+  network was designated as the Service Network to reserve IPs for the on-demand service.
+  As of <%= vars.ops_manager %> v2.1, IPs are no longer managed in this way.
+  All networks are now available to use as a Service Network.
+</p>
 
 The following ports and ranges are used in <%= vars.product_name %>:
 
@@ -218,7 +221,6 @@ The following ports and ranges are used in <%= vars.product_name %>:
   </tr>
 </table>
 
-<%= partial "../../redis/partials/redis/breaking-change-ports" %>
 
 ## <a id="service-plans"></a>Configure <%= vars.product_name %> Service Plans
 
@@ -612,7 +614,7 @@ To configure syslog forwarding:
 
 <%# The below partial is https://github.com/pivotal-cf/docs-ops-manager/blob/master/common/_syslog_bosh.html.md.erb %>
 
-<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => 'Redis for Pivotal Platform' }) %>
+<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => vars.product_name }) %>
 
 ## <a id="stemcell"></a>Update Stemcell
 
