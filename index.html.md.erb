@@ -59,7 +59,9 @@ It is used for everything from a quick way to store data for development and tes
 
 ## <a id="about"></a> About Redis for PCF
 
-<%= partial(:'../../redis/partials/redis/service-offerings', :locals => { :redis_name => "<strong><em>" + vars.product_old + "</em></strong>"}) %>
+<%= partial(:'../../redis/partials/redis/service-offerings', :locals => {
+  :redis_name => "<strong><em>" + vars.product_old + "</em></strong>"
+  :platform => vars.platform_old}) %>
 
 ### <a id="erc"></a> Is Redis for PCF right for your enterprise?
 
