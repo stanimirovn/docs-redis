@@ -30,13 +30,13 @@ Any <%= vars.product_name %> service and plan works with the following examples.
 This is a basic Java app with the capability to get and set keys in Redis and view configuration information.
 Prerequisites include [Maven](https://maven.apache.org/install.html).
 
-Here we use a cache-small plan of the `p.redis` service, but any `p-redis` or `p.redis` instance works.
+Here we use an on-demand-cache plan of the `p.redis` service, but any `p-redis` or `p.redis` instance works.
 
 <pre class=terminal>
 $ git clone git@github.com:colrich/RedisForPCF-Java-Example.git java_redis_app
 $ cd java_redis_app
 $ mvn package
-$ cf create-service p.redis cache-small redis_instance
+$ cf create-service p.redis on-demand-cache redis_instance
 $ cf push redis_example_app -p target/RedisExample-0.0.1-SNAPSHOT.jar
 $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app
@@ -99,12 +99,12 @@ public RedisInstanceInfo getInfo() {
 This is a basic node app with the capability to get and set keys in Redis and view configuration information.
 Prerequisites are the `cf cli` and access to a Marketplace with p-redis or p.redis.
 
-Here we use a cache-small plan for the p.redis service, but any p-redis or p.redis instance works.
+Here we use an on-demand-cache plan for the p.redis service, but any p-redis or p.redis instance works.
 
 <pre class=terminal>
 $ git clone git@github.com:colrich/RedisForPCF-Node-Example.git node_redis_app
 $ cd node_redis_app
-$ cf create-service p.redis cache-small redis_instance
+$ cf create-service p.redis on-demand-cache redis_instance
 $ cf push redis_example_app
 $ cf bind-service redis_example_app redis_instance
 $ cf restage redis_example_app

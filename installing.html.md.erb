@@ -295,26 +295,18 @@ For how this feature works, see
 
 ### <a id="on-demand-plan-config"></a>On-Demand Plan Settings
 
-You can configure up to three on-demand plans with memory and disk sizes suited to different use cases.
+You can configure on-demand plans with memory and disk sizes suited to different use cases.
 Resource configuration options can vary on different IaaSes.
+
+![on demand config](on-demand-config.png) <a id="ondemandconfig"></a>
 
 For each on-demand service plan, configure it as follows:
 
-1. Click **On-Demand Plan 1**, **2**, or **3** to open the configuration pane for the plan.
-
-1. Select **Plan Active** to make the plan available.
-
-1. (Optional) For **Plan name**, assign a name to the plan.
-    The default names for the three on-demand plans convey that they
-    allocate different cache sizes:
-    * **cache-small**: A Redis instance deployed to a dedicated VM, suggested to be configured with 1&nbsp;GB of memory and more than 2.5&nbsp;GB of persistent disk
-    * **cache-medium**: A Redis instance deployed to a dedicated VM, suggested to be configured with 2&nbsp;GB of memory and more than 5&nbsp;GB of persistent disk
-    * **cache-large**: A Redis instance deployed to a dedicated VM, suggested to be configured with 4&nbsp;GB of memory and more than 10&nbsp;GB of persistent disk
-
-    ![on demand config](on-demand-config.png) <a id="planconfig"></a>
+1. Click the **Add** button to add an on-demand plan.
 
 1. Configure the following settings for your on-demand plan(s) and then click **Save**.
-   Any pre-populated default settings are pre-configured according to the memory and disk size of each plan.
+
+![on demand plan config](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
 
      <p class="warning note"><strong>Warning:</strong> Do not downsize the VMs
        or disk size. Doing so can cause data loss in pre-existing instances.
@@ -325,19 +317,13 @@ For each on-demand service plan, configure it as follows:
     <th>Default</th>
     <th>Description</th>
     <tr>
-      <td><strong>Plan</strong></td>
-      <td>Active</td>
-      <td>Select <strong>Plan Active</strong> or <strong>Plan Inactive</strong>.
-          An inactive plan does not need any further configuration.</td>
-    </tr>
-    <tr>
       <td><strong>Plan Name</strong></td>
-      <td>cache-small<br>cache-medium<br>cache-large</td>
-      <td>This is a name displayed in the Marketplace.</td>
+      <td>on-demand-cache</td>
+      <td>This is a name displayed in the Marketplace. We recommend giving plans descriptive names based on their configuration.</td>
     </tr>
     <tr>
       <td><strong>Plan Description</strong></td>
-      <td>This plan provides a small, medium, or large on-demand Redis instance, tailored for caching use-cases with persistence to disk enabled.</td>
+      <td>This plan provides an on-demand Redis instance, tailored for caching use-cases with persistence to disk enabled.</td>
       <td>This is a description displayed in the Marketplace.
           Include details that are relevant to app developers.</td>
     </tr>
@@ -384,7 +370,7 @@ For each on-demand service plan, configure it as follows:
     </tr>
     <tr>
       <td><strong>Max Clients</strong></td>
-      <td>Small:&nbsp;1000<br>Medium:&nbsp;5000<br>Large:&nbsp;10000</td>
+      <td>1000</td>
       <td>Max Clients refers to the maximum number of clients that can be connected at any one time.
           Adjust this setting as needed.</td>
     </tr>
@@ -418,7 +404,28 @@ these settings are implemented in all instances that are already created.
 Operators should not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
 Additionally, operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
-#### <a id="remove-on-demand"></a>Removing On-Demand Service Plans
+#### <a id="remove-on-demand-plan"></a>Removing an On-Demand Service Plan
+
+<p class="warning note"><strong>Warning:</strong> Do not remove an On-Demand Service Plan with Service Instances deployed.
+Doing so will result in a failed **Apply changes**. To recover from this situation, see the Knowledge Base article foo.
+</p>
+
+If you want to remove an on-demand service plan from your tile, do the following: <br/>
+
+1. Ensure that there are no deployed Service Instances of the plan.
+
+1. Go to the **On-Demand Plan Settings** page on the <%= vars.product_name %> tile, and delete the plan by clicking the trash can icon next to the plan name.
+
+1. Click **Save**.
+
+1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set the following errand to **on**:
+    * Register On-Demand Broker
+
+#### <a id="remove-on-demand"></a>Removing All On-Demand Service Plans
+
+<p class="warning note"><strong>Warning:</strong> Do not remove an On-Demand Service Plan with Service Instances deployed.
+Doing so will result in a failed **Apply changes**. To recover from this situation, see the Knowledge Base article foo.
+</p>
 
 If you want to remove the on-demand service from your tile, do the following: <br/>
 
@@ -433,9 +440,7 @@ If you want to remove the on-demand service from your tile, do the following: <b
 1. Create an empty service network.
    For instructions, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
 
-1. Go to each of the three On-Demand Plan pages on the <%= vars.product_name %> tile, and set each plan to **Plan Inactive**.
-   For example:
-  ![cache plan inactive](cache-plan-inactive.png)
+1. Go to each of the On-Demand Plans page on the <%= vars.product_name %> tile, and delete each plan by clicking the trash can icon next to the plan name.
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan Settings
 

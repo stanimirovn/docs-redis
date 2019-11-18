@@ -67,7 +67,7 @@ You can confirm both of these using the cf CLI as follows:
     OK
     service             plans                     description
     p-redis             shared-vm                 Redis service to provide pre-provisioned instances configured as a datastore, running on a shared VM.
-    p.redis             cache-small, cached-med   Redis service to provide on-demand dedicated instances configured as a cache.
+    p.redis             on-demand-cache           Redis service to provide on-demand dedicated instances configured as a cache.
     [...]
     </pre>
 
@@ -79,8 +79,8 @@ You can confirm both of these using the cf CLI as follows:
     $ cf services
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
     OK
-    name          service     plan        bound apps    last operation
-    my-instance   p.redis     cache-small               create succeeded
+    name          service     plan              bound apps    last operation
+    my-instance   p.redis     on-demand-cache                 create succeeded
     </pre>
     You can [bind](#bind) your app to an existing instance or [create](#create) a new instance to bind to your app.
 
@@ -121,11 +121,11 @@ To create an instance of the <%= vars.product_name %> On-Demand service, run thi
 
 where:
 
-* `CACHE_PLAN` is `cache-small`, `cache-medium`, or `cache-large`.
+* `CACHE_PLAN` is one of the plans configured by the operator.
 * `SERVICE_NAME` is a name for your service.
 
 <pre class="terminal">
-$ cf create-service p.redis cache-small od-instance<br>
+$ cf create-service p.redis on-demand-cache od-instance<br>
 Creating service my-ondemand-instance in org my-org / space my-space as user<span>@</span>example.com...
 OK<br>
 </pre>
@@ -136,8 +136,8 @@ As the On-Demand instance can take longer to create, the `watch` command is help
 $ watch cf services<br>
 Getting services in org my-org / space my-space as user<span>@</span>example.com...
 OK
-name          service       plan        bound apps    last operation
-od-instance   p.redis       cache-small               create succeeded
+name          service       plan              bound apps    last operation
+od-instance   p.redis       on-demand-cache                 create succeeded
 </pre>
 
 If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.html). For information on the on-demand cache plans, see [On-Demand Service Plans](./architecture.html#on-demand).
