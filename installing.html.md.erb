@@ -424,7 +424,20 @@ Additionally, operators cannot make a plan that was previously active, inactive,
 
 To remove an on-demand service plan from your tile:
 
-1. Ensure that there are no deployed service instances of the plan. <%# how? %>
+1. Ensure that there are no deployed service instances of the plan by running:
+
+    ```
+    cf services
+    ```
+
+    For example:
+    <pre class="terminal">
+    $ cf services
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service     plan              bound apps    last operation
+    my-instance   p.redis     on-demand-cache                 create succeeded
+    </pre>
 
 1. In the <%= vars.product_name %> tile, select **On-Demand Plan Settings**.
 
@@ -435,7 +448,7 @@ To remove an on-demand service plan from your tile:
 
 1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set
 the **Register On-Demand Broker** errand to **on**.
-<%# following section says set to off %>
+This updates the plans available in the Marketplace.
 
 ### <a id="remove-on-demand"></a>Removing All On-Demand Service Plans
 
@@ -456,7 +469,6 @@ To remove the on-demand service from your tile:
     * On-Demand Broker Smoke Tests
     * Upgrade All On-Demand Service Instances
     * Delete All Service Instances and Deregister On-Demand Broker
-<%# previous section says set to on %>
 
 1. Create an empty service network. For instructions, see
 [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only)
