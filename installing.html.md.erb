@@ -424,8 +424,10 @@ If you want to remove an on-demand service plan from your tile, do the following
 
 1. Click **Save**.
 
-1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set the following errand to **on**:
-    * Register On-Demand Broker
+<%# following section says set to off %>
+1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set
+the **Register On-Demand Broker** errand to **on**.
+
 
 #### <a id="remove-on-demand"></a>Removing All On-Demand Service Plans
 
@@ -437,16 +439,20 @@ If you want to remove the on-demand service from your tile, do the following: <b
 
 1. Go to the **Resource Config** page on the <%= vars.product_name %> tile, and set the **Redis On-Demand Broker** job instances to 0.
 
+<%# previous section says set to on %>
 1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set the following errands to **off**:
     * Register On-Demand Broker
     * On-Demand Broker Smoke Tests
     * Upgrade All On-Demand Service Instances
     * Delete All Service Instances and Deregister On-Demand Broker
 
-1. Create an empty service network.
-   For instructions, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
+1. Create an empty service network. For instructions, see
+[Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only)
+in the Pivotal Support knowledge base.
 
-1. Go to each of the On-Demand Plans page on the <%= vars.product_name %> tile, and delete each plan by clicking the trash can icon next to the plan name.
+1. Go to each **On-Demand Plans** page on the <%= vars.product_name %> tile,
+and delete each plan by clicking the trash can icon next to the plan name.
+<%# Maybe a new image here %>
 
 ###  <a id="shared-vm-config"></a>Shared-VM Plan Settings
 
