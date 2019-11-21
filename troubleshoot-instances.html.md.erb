@@ -68,12 +68,23 @@ to perform basic operations on a <%= vars.product_name %> service instance:
 
 ### <a id="instance"></a> Retrieve Service Instance Information
 
+To retrieve information about the service instance that you can use for debugging:
+
 1. Log into the space containing the instance or failed instance.
     <pre class="terminal">
     $ cf login
     </pre>
 
-1. If you do not know the name of the service instance, run `cf services` to see a listing of all service instances in the space. The service instances are listed in the `name` column.
+1. If you do not know the name of the service instance, you can view a listing
+of all service instances in the space by running:
+
+    ```
+    cf services
+    ```
+
+    The service instances are listed in the `name` column.<br><br>
+
+    For example:
     <pre class="terminal">
     $ cf services
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
@@ -82,22 +93,37 @@ to perform basic operations on a <%= vars.product_name %> service instance:
     my-instance   p.redis      on-demand-cache                  create succeeded
     </pre>
 
-1. Run `cf service SERVICE-INSTANCE-NAME` to retrieve more information about a specific instance.
+1. Retrieve more information about a specific service instance by running:
 
-1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the
-instance, which is useful for debugging.
+    ```
+    cf service SERVICE-INSTANCE-NAME
+    ```
 
-1. Run `cf tail SERVICE-INSTANCE-NAME/APP-NAME` to retrieve the service instance of
-the app logs if the Log Cache CLI plugin is enabled.
-See <a href="using.html#logging">Log Cache CLI plugin</a>.
+1. Retrieve the GUID of the service instance by running:
+
+    ```
+    cf service SERVICE-INSTANCE-NAME --guid
+    ```
+
+    This is useful for debugging.
+
+1. If the Log Cache CLI plugin is enabled, you can retrieve logs for the service instance by running:
+
+    ```
+    cf tail SERVICE-INSTANCE-NAME/APP-NAME
+    ```
+
+    For more information, see <a href="using.html#logging">Log Cache CLI plugin</a>.
 
 ### <a id="instance-credentials"></a> Retrieve the Password for a Redis Service Instance
 
 If you want to access the Redis server for troubleshooting,
 you can find a Redis service instance password by creating a new service key.
 
-<p class="note"><strong>Note:</strong> Pivotal recommends that you use this key for troubleshooting only, and that you
-delete the key after troubleshooting by using the command <code>cf delete-service-key SERVICE-INSTANCE KEY-NAME</code>.</p>
+<p class="note"><strong>Note:</strong>
+  Pivotal recommends that you use this key for troubleshooting only, and that you
+  delete the key after troubleshooting by running the command <code>cf delete-service-key SERVICE-INSTANCE KEY-NAME</code>.
+</p>
 
 For instructions on how to retrieve the password, see [Retrieve the Password for a Redis Service Instance](./using.html#call).
 
