@@ -221,18 +221,16 @@ The following ports and ranges are used in <%= vars.product_name %>:
   </tr>
 </table>
 
+## <a id="on-demand-config"></a>On-Demand Service Settings
 
-## <a id="service-plans"></a>Configure <%= vars.product_name %> Service Plans
+To configure settings that apply across the whole on-demand service offering:
 
-Click the <%= vars.product_name %> tile in the <%= vars.ops_manager %> Installation Dashboard to display the configuration page
-and allocate resources to Redis service plans.<br />
+1. In the <%= vars.product_name %> tile, select **On-Demand Service Settings**.
+![settings](redis-odservice-settings.png)
 
-### <a id="on-demand-config"></a>On-Demand Service Settings
-
-1. Click **On-Demand Service Settings**, and then enter the **Maximum service instances across all on-demand plans**.
-The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.<br />
-    ![settings](redis-odservice-settings.png)<br />
-    For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
+1. Enter the **Maximum service instances across all on-demand plans**.
+   The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.<br />
+   For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 
 1. Select the **Allow outbound internet access from service instances** checkbox.
    You must select this checkbox to allow external log forwarding, send backup artifacts to external destinations,
@@ -293,24 +291,24 @@ For how this feature works, see
 </p>
 <%= partial "../../redis/partials/redis/warning-disabling-tls" %>
 
-### <a id="on-demand-plan-config"></a>On-Demand Plan Settings
+## <a id="on-demand-plan-config"></a>On-Demand Plan Settings
 
-You can configure on-demand plans with memory and disk sizes suited to different use cases.
-Resource configuration options can vary on different IaaSes.
+You can configure multiple on-demand plans with memory and disk sizes suited to different use cases.
+The configuration of resources can vary depending on your IaaS.
 
-![on demand config](on-demand-config.png) <a id="ondemandconfig"></a>
+To add and configure each on-demand service plan:
 
-For each on-demand service plan, configure it as follows:
+1. In the <%= vars.product_name %> tile, select **On-Demand Plans**.
 
-1. Click the **Add** button to add an on-demand plan.
+1. Click **Add** to add an on-demand plan.
+  <%# ![on demand config](on-demand-config.png) <a id="ondemandconfig"></a> %>
+  ![on demand plan config](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
 
-1. Configure the following settings for your on-demand plan(s) and then click **Save**.
-
-![on demand plan config](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
-
-     <p class="warning note"><strong>Warning:</strong> Do not downsize the VMs
-       or disk size. Doing so can cause data loss in pre-existing instances.
-     </p>
+1. Configure the settings in the table below for your on-demand plan(s) and then click **Save**.
+<%# Should you not reduce the the VMs or disk after you have saved settings or while you are configuring for the first time? %>
+  <p class="warning note"><strong>Warning:</strong> Do not downsize the VMs
+   or disk size. Doing so can cause data loss in pre-existing instances.
+  </p>
 
     <table class="nice">
     <th>Field</th>
@@ -319,13 +317,18 @@ For each on-demand service plan, configure it as follows:
     <tr>
       <td><strong>Plan Name</strong></td>
       <td>on-demand-cache</td>
-      <td>This is a name displayed in the Marketplace. We recommend giving plans descriptive names based on their configuration.</td>
+      <td>
+        This is a name displayed in the Marketplace.
+        Pivotal recommends that you give your plans a descriptive name based on their configuration.
+      </td>
     </tr>
     <tr>
       <td><strong>Plan Description</strong></td>
-      <td>This plan provides an on-demand Redis instance, tailored for caching use-cases with persistence to disk enabled.</td>
-      <td>This is a description displayed in the Marketplace.
-          Include details that are relevant to app developers.</td>
+      <td>This plan provides an on-demand Redis instance, tailored for caching use cases with persistence to disk enabled.</td>
+      <td>
+        This is the description displayed in the Marketplace.
+        Include details that are relevant to app developers.
+      </td>
     </tr>
     <tr>
       <td><strong>Plan ID</strong></td>
@@ -388,7 +391,8 @@ For each on-demand service plan, configure it as follows:
     </tr>
     </table>
 
-#### <a id="secure-credentials"></a>(Optional) Enabling Secure Service Instance Credentials for On-Demand Redis
+
+### <a id="secure-credentials"></a>(Optional) Enabling Secure Service Instance Credentials for On-Demand Redis
 
 To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
 instead of the Cloud Controller database (CCDB), do the following:
@@ -400,7 +404,7 @@ See [Step 1: Configure the <%= vars.app_runtime %>Tile](https://docs.pivotal.io/
 1. After deploying the tile, notify developers that they must unbind and rebind
 existing service instances to secure their credentials with CredHub.
 
-#### <a id="change-on-demand"></a>Updating On-Demand Service Plans
+### <a id="change-on-demand"></a>Updating On-Demand Service Plans
 
 Operators can update certain settings after the plans have been created.
 If the operator updates the VM size, disk size, or the Redis configuration settings
@@ -410,41 +414,49 @@ these settings are implemented in all instances that are already created.
 Operators should not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
 Additionally, operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
-#### <a id="remove-on-demand-plan"></a>Removing an On-Demand Service Plan
+### <a id="remove-on-demand-plan"></a>Removing an On-Demand Service Plan
 
-<p class="warning note"><strong>Warning:</strong> Do not remove an On-Demand Service Plan with Service Instances deployed.
-Doing so will result in a failed **Apply changes**. To recover from this situation, see the Knowledge Base article foo.
+<p class="warning note"><strong>Warning:</strong>
+  Do not remove an on-demand service plan with service instances deployed.
+  Doing so causes <strong>Apply Changes</strong> to fail.
+  <%# is there a KB article - To recover from this situation, see the Knowledge Base article foo. %>
 </p>
 
-If you want to remove an on-demand service plan from your tile, do the following: <br/>
+To remove an on-demand service plan from your tile:
 
-1. Ensure that there are no deployed Service Instances of the plan.
+1. Ensure that there are no deployed service instances of the plan. <%# how? %>
 
-1. Go to the **On-Demand Plan Settings** page on the <%= vars.product_name %> tile, and delete the plan by clicking the trash can icon next to the plan name.
+1. In the <%= vars.product_name %> tile, select **On-Demand Plan Settings**.
+
+1. Delete the plan by clicking the trash can icon next to the plan name.
+<%# an image might be good here %>
 
 1. Click **Save**.
 
-<%# following section says set to off %>
 1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set
 the **Register On-Demand Broker** errand to **on**.
+<%# following section says set to off %>
 
+### <a id="remove-on-demand"></a>Removing All On-Demand Service Plans
 
-#### <a id="remove-on-demand"></a>Removing All On-Demand Service Plans
-
-<p class="warning note"><strong>Warning:</strong> Do not remove an On-Demand Service Plan with Service Instances deployed.
-Doing so will result in a failed **Apply changes**. To recover from this situation, see the Knowledge Base article foo.
+<p class="warning note"><strong>Warning:</strong>
+  Do not remove an on-demand service plan with service instances deployed.
+  Doing so causes <strong>Apply Changes</strong> to fail.
+  <%# is there a KB article - To recover from this situation, see the Knowledge Base article foo. %>
 </p>
 
-If you want to remove the on-demand service from your tile, do the following: <br/>
+To remove the on-demand service from your tile:
 
-1. Go to the **Resource Config** page on the <%= vars.product_name %> tile, and set the **Redis On-Demand Broker** job instances to 0.
+1. In the <%= vars.product_name %> tile, select **Resource Config**
 
-<%# previous section says set to on %>
+1. Set the **Redis On-Demand Broker** job instances to 0.
+
 1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set the following errands to **off**:
     * Register On-Demand Broker
     * On-Demand Broker Smoke Tests
     * Upgrade All On-Demand Service Instances
     * Delete All Service Instances and Deregister On-Demand Broker
+<%# previous section says set to on %>
 
 1. Create an empty service network. For instructions, see
 [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only)
@@ -454,14 +466,16 @@ in the Pivotal Support knowledge base.
 and delete each plan by clicking the trash can icon next to the plan name.
 <%# Maybe a new image here %>
 
-###  <a id="shared-vm-config"></a>Shared-VM Plan Settings
+##  <a id="shared-vm-config"></a>Shared-VM Plan Settings
 
-1.  Select the **Shared-VM Plan** tab.
+To configure shared-VM service plans:
+
+1.  In the <%= vars.product_name %> tile, select **Shared-VM Plan**.
 ![shared vm config](shared-vm-config.png)
 
-1.  Configure these fields:<br><br>
-      * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance
-      * **Redis Service Instance Limit**---Maximum number of shared-VM instances
+1.  Configure these fields:
+      * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance.
+      * **Redis Service Instance Limit**---Maximum number of shared-VM instances.
       * **Lua Scripting**---Enable or disable Lua Scripting as needed.
       Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.
 
@@ -478,7 +492,7 @@ See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-deman
     <br><br>The Redis broker server runs all of the Redis instances for your shared-VM plan.
     From the **Resource Config** page, you can change the CPU, RAM, Ephemeral Disk, and Persistent Disk made available, as needed.
 
-#### <a id="shared-vm-memory-limits"></a>Configure Memory Limits for Shared-VM Plans
+### <a id="shared-vm-memory-limits"></a>Configure Memory Limits for Shared-VM Plans
 
 Additional calculation is required to configure memory limits for shared-VM plans.
 With these plans, several service instances share the VM, and the Redis broker also runs on this same VM.
@@ -489,8 +503,8 @@ estimate the maximum memory that could be used by all your Redis shared-VM insta
 If that figure is higher than 45% of the Redis broker
 VM's total system memory, you can do one of the following:
 
-  + Decrease the **Redis Instance Memory Limit**.
-  + Decrease the number of instances in **Redis Service Instance Limit**.
+  + Decrease the **Redis Instance Memory Limit** in the **Shared-VM Plan** tab.
+  + Decrease the number of instances in **Redis Service Instance Limit** in the **Shared-VM Plan** tab.
   + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
 
     <img src="./images/redis-broker-resource.png">
@@ -530,7 +544,7 @@ VM's total system memory, you can do one of the following:
   </p>
 
 
-#### <a id="resources"></a>Configure Resources for Shared-VM Plans
+### <a id="resources"></a>Configure Resources for Shared-VM Plans
 
 To configure resources for the shared-VM plans, click the **Resource Config** settings tab on the <%= vars.product_name %> tile. The shared-VM plan is on the **Redis Broker** resource.
 
@@ -595,13 +609,13 @@ The following are the default resource and IP requirements for <%= vars.product_
 
 Pivotal recommends that the persistent disk is at least 3.5x the VM memory for the shared-VM.
 
-#### <a id="disable-shared"></a>Disable Shared VM Plans
+### <a id="disable-shared"></a>Disable Shared VM Plans
 
 You can disable shared-VM plans by doing the following while configuring the Redis tile:
 
 1. Ensure at least one on-demand plan is active.
 
-1. Configure the following tabs:<br><br>
+1. Configure the following tabs:
   * **Shared-VM Plan**:<br>
     a. Set **Redis Service Instance Limit** to 0.<br>
     b. Click **Save**.<br><br>
@@ -614,7 +628,7 @@ You can disable shared-VM plans by doing the following while configuring the Red
   * **Resource Config**:<br>
     a. Decrease **Redis Broker** Persistent disk type to the smallest size available.<br>
     b. Decrease **Redis Broker** VM type to the smallest size available.<br>
-    c. Click **Save**.<br>
+    c. Click **Save**.
 
 ## <a id="syslog"></a>Configure Syslog Forwarding
 

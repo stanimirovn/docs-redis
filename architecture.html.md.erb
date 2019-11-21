@@ -68,15 +68,18 @@ The traffic on this connection is unsecured.](tls_disabled.png)
 
 ## <a id="on-demand"></a> On-Demand Service Plans
 
-On-Demand plans are best suited to cache-use cases and are configured as such by default.
+On-demand plans are best suited to caching.
+<%= vars.product_name %> tailors the default configuration for this use case.
 
-<%= vars.product_name %> offers on-demand plans as the `p.redis` service within the
-<%= vars.product_name %> tile. Below is the default description of an on-demand plan as it appears in the
+<%= vars.product_name %> offers on-demand plans as the `p.redis` service within the tile.
+
+
+The default description of an on-demand plan as it appears in the
 Marketplace along with its intended use case.
+**On-Demand Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with 2.5 times more persistent disk than memory.
 
-* **On-Demand Cache Plan**: A Redis instance deployed to a dedicated VM, suggested to be configured with 2.5 times more persistent disk than memory.
-
-For each service plan, the operator can configure the **Plan name**, **Plan description**, **Server VM type** and **Server Disk type**. Operators may configure as many service plans as required.
+For each service plan, the operator can configure the **Plan name**, **Plan description**,
+**Server VM type** and **Server Disk type**. Operators may configure as many service plans as required.
 
 ### <a id="features"></a> Features of On-Demand Service Plans
 
