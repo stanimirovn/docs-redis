@@ -382,9 +382,37 @@ or use [SETEX](https://redis.io/commands/setex) to set key value and expiry at t
 
 ## <a id="logging"></a> Access Redis Metrics for On-Demand Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+To access metrics for <%= service_name %> service instances, you can use Loggregator's Log
+Cache feature with the Log Cache CLI plugin.
+Log Cache is enabled by default in  <%= vars.app_runtime_full %> v2.2 and later.
 
-<%= partial '../../redis/partials/services/log-cache-cli-plugin' %>
+To access metrics for on-demand service instances, do the following:
+
+1. To install the cf CLI plugin, run the following command:
+
+    ```
+    cf install-plugin -r CF-Community "log-cache"
+    ```
+
+1. To access metrics for a service instance, run the following command:
+
+    ```
+    cf tail SERVICE-INSTANCE-NAME
+    ```
+   
+    Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
+    <br><br>
+    For example:
+
+    <pre class="terminal">
+     $ cf tail my-instance
+     Retrieving logs for service my-instance in org system / space pivotal-services as admin...
+     2018-07-03T09:54:14.84+0100 [my-instance] GAUGE info.clients.blocked_clients:0.000000 metric info.clients.client_biggest_input_buf:0.000000 metric ...
+    </pre>
+  For more information about the metrics output, see [Redis KPIs](./monitoring.html#Redis-KPIs).
+
+For more information about how to enable Log Cache and about the `cf tail` command,
+see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).
 
 
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space (Beta)
