@@ -221,7 +221,7 @@ The following ports and ranges are used in <%= vars.product_name %>:
   </tr>
 </table>
 
-## <a id="on-demand-config"></a>On-Demand Service Settings
+## <a id="on-demand-config"></a>Configure On-Demand Service Settings
 
 To configure settings that apply across the whole on-demand service offering:
 
@@ -291,7 +291,7 @@ For how this feature works, see
 </p>
 <%= partial "../../redis/partials/redis/warning-disabling-tls" %>
 
-## <a id="on-demand-plan-config"></a>On-Demand Plan Settings
+## <a id="on-demand-plan-config"></a>Configure On-Demand Plan Settings
 
 You can configure multiple on-demand plans with memory and disk sizes suited to different use cases.
 The configuration of resources varies depending on your IaaS.
@@ -396,7 +396,7 @@ To add and configure each on-demand service plan:
     </table>
 
 
-### <a id="secure-credentials"></a>(Optional) Enabling Secure Service Instance Credentials for On-Demand Redis
+### <a id="secure-credentials"></a>(Optional) Enable Secure Service Instance Credentials for On-Demand Redis
 
 To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
 instead of the Cloud Controller database (CCDB), do the following:
@@ -418,7 +418,7 @@ these settings are implemented in all instances that are already created.
 Operators should not downsize the VMs or disk size because this can cause data loss in pre-existing instances.
 Additionally, operators cannot make a plan that was previously active, inactive, until all instances of that plan have been deleted.
 
-### <a id="remove-on-demand-plan"></a>Removing an On-Demand Service Plan
+### <a id="remove-on-demand-plan"></a>Remove an On-Demand Service Plan
 
 <p class="warning note"><strong>Warning:</strong>
   Do not remove an on-demand service plan with service instances deployed.
@@ -454,7 +454,7 @@ To remove an on-demand service plan from your tile:
 the **Register On-Demand Broker** errand to **on**.
 This updates the plans available in the Marketplace.
 
-### <a id="remove-on-demand"></a>Removing All On-Demand Service Plans
+### <a id="remove-on-demand"></a>Remove All On-Demand Service Plans
 
 <p class="warning note"><strong>Warning:</strong>
   Do not remove an on-demand service plan with service instances deployed.
@@ -482,7 +482,7 @@ in the Pivotal Support knowledge base.
 and delete each plan by clicking the trash can icon next to the plan name.
 <%# Maybe a new image here %>
 
-##  <a id="shared-vm-config"></a>Shared-VM Plan Settings
+##  <a id="shared-vm-config"></a>Configure Shared-VM Plan Settings
 
 To configure shared-VM service plans:
 
@@ -502,7 +502,7 @@ To configure shared-VM service plans:
 
 1. If you do not want to use the on-demand service, you must make all of the on-demand service plans inactive.
 Click the tab for each on-demand plan, and select **Plan Inactive**.
-See the example in Step 4 of [Removing On-Demand Service Plans](#remove-on-demand) above.
+See the example in Step 4 of [Remove On-Demand Service Plans](#remove-on-demand) above.
 
 1. To change the allocation of resources for the Redis broker, click the **Resource Config** tab.
     <br><br>The Redis broker server runs all of the Redis instances for your shared-VM plan.
@@ -744,13 +744,13 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 ```
 
 
-## <a id="validation"></a>Validating Installation
+## <a id="validation"></a>Validating the Installation
 
 Smoke tests run as part of <%= vars.product_name %> installation to validate that the installation succeeded.
 For more information, see [<%= vars.product_name %> Smoke Tests](./smoke-tests.html).
 
 
-## <a id="uninstall"></a>Uninstalling <%= vars.product_name %>
+## <a id="uninstall"></a>Uninstall <%= vars.product_name %>
 
 To uninstall <%= vars.product_name %>, do the following:
 

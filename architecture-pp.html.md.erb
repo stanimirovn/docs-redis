@@ -80,14 +80,14 @@ If you decrease the service instance limit, any instances that are now running
 The number of shared-VM instances available to developers is set by the operator.<br>
 The maximum number of shared-VM instances is relative to the memory allocated to each shared-VM instance and
 the total memory of the Redis service broker.<br>
-For more information, see [Shared-VM Plan Settings](./installing.html#shared-vm-config).
+For more information, see [Configure Shared-VM Plan Settings](./installing.html#shared-vm-config).
 
 ## <a id="lua-scripting"></a> Lua Scripting
 
 You can enable or disable Lua scripting. Changes to this configuration apply to all existing shared-VM
 instances. Lua scripting can adversely affect the performance of other service instances on the VM, so
 Pivotal recommends disabling Lua scripting unless developers need it enabled.
-For more information, see [Shared-VM Plan Settings](./installing.html#shared-vm-config).
+For more information, see [Configure Shared-VM Plan Settings](./installing.html#shared-vm-config).
 
 <p class="note warning"><strong>Warning:</strong>
   The Steeltoe connector for Redis requires <%= vars.product_name %> to support Lua scripting.
