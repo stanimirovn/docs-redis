@@ -294,7 +294,7 @@ For how this feature works, see
 ## <a id="on-demand-plan-config"></a>On-Demand Plan Settings
 
 You can configure multiple on-demand plans with memory and disk sizes suited to different use cases.
-The configuration of resources can vary depending on your IaaS.
+The configuration of resources varies depending on your IaaS.
 
 To add and configure each on-demand service plan:
 
@@ -318,29 +318,33 @@ To add and configure each on-demand service plan:
       <td><strong>Plan Name</strong></td>
       <td>on-demand-cache</td>
       <td>
-        This is a name displayed in the Marketplace.
-        Pivotal recommends that you give your plans a descriptive name based on their configuration.
+        The name that you choose for the plan. This is displayed in the Marketplace.
+        Pivotal recommends that you give your plans descriptive names based on their configuration.
       </td>
     </tr>
     <tr>
       <td><strong>Plan Description</strong></td>
       <td>This plan provides an on-demand Redis instance, tailored for caching use cases with persistence to disk enabled.</td>
       <td>
-        This is the description displayed in the Marketplace.
+        The description that you write for your plan. This is displayed in the Marketplace.
         Include details that are relevant to app developers.
       </td>
     </tr>
     <tr>
       <td><strong>Plan ID</strong></td>
-      <td>empty</td>
-      <td>This is a field for configuring the Plan ID to migrate existing plans or recover deleted plans.
-      It should be left blank unless already configured or when recovering a deleted plan.</td>
+      <td>Empty</td>
+      <td>
+        An ID that you configure when migrating existing plans or recovering deleted plans.
+        Leave this field blank unless it is already configured or you are recovering a deleted plan.
+      </td>
     </tr>
     <tr>
       <td><strong>Plan Quota</strong></td>
       <td>20</td>
-      <td>This is the maximum number of instances of this plan that app developers can create.
-        For more information, see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a>.</td>
+      <td>
+        The maximum number of instances of this plan that app developers can create.
+        For more information, see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a>.
+      </td>
     </tr>
     <tr>
       <td><strong>CF Service Access</strong></td>
@@ -351,7 +355,7 @@ To add and configure each on-demand service plan:
     <tr>
       <td><strong>AZ to deploy Redis instances of this plan</strong></td>
       <td>None selected</td>
-      <td>These are the AZs in which to deploy the Redis instances from the plan.
+      <td>The AZs in which to deploy the Redis instances from the plan.
           These must be AZs of the service network, which are configured in the BOSH Director tile.
           If you select multiple AZs, instances are distributed randomly between them.</td>
     </tr>
@@ -368,19 +372,19 @@ To add and configure each on-demand service plan:
     <tr>
       <td><strong>Redis Client Timeout</strong></td>
       <td>3600</td>
-      <td>This is the server timeout for an idle client specified in seconds.
+      <td>The server timeout for an idle client specified in seconds.
           Adjust this setting as needed.</td>
     </tr>
     <tr>
       <td><strong>Redis TCP Keepalive</strong></td>
       <td>60</td>
-      <td>Redis TCP Keepalive refers to the interval in seconds at which TCP ACKs are sent to clients.
+      <td>The interval in seconds at which TCP ACKs are sent to clients.
           Adjust this setting as needed.</td>
     </tr>
     <tr>
       <td><strong>Max Clients</strong></td>
       <td>1000</td>
-      <td>Max Clients refers to the maximum number of clients that can be connected at any one time.
+      <td>The maximum number of clients that can be connected at any one time.
           Adjust this setting as needed.</td>
     </tr>
     <tr>
