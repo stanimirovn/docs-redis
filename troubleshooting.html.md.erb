@@ -135,53 +135,313 @@ Start here if you are responding to a specific error or error messages.
 
 ### <a id="install-fail"></a> Failed Installation
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-install-fail' %>
+A failed Redis for PCF installation might be due to:
+<ol>
+  <li>
+    Certificate issues: The on-demand broker (ODB) requires valid certificates.
+    Ensure that your certificates are valid and generate new ones if necessary.
+    To generate new certificates, contact <a href="https://support.pivotal.io">Pivotal Support</a>.
+  </li>
+  <li>Deploy fails: Deploys can fail for a variety of reasons.
+    View the logs using Ops Manager to determine why the deploy is failing.
+  </li>
+  <li><a href="#network">Networking problems</a>: </li>
+  <ul>
+    <li>Cloud Foundry cannot reach Redis for PCF broker</li>
+    <li>Cloud Foundry cannot reach the service instances</li>
+    <li>The service network cannot access the BOSH director </li>
+  </ul>
+  <li><a href="#register-broker">Register broker errand</a> fails.</li>
+  <li>The smoke test errand fails.</li>
+  <li>
+    Resource sizing issues: These occur when the resource sizes selected for a
+    given plan are less than Redis for PCF requires to function.
+    Check your resource configuration in Ops Manager and ensure that the
+    configuration matches that recommended by the service.
+  </li>
+  <li>Other service-specific issues.</li>
+</ol>
 
 ### <a id="cannot-create-delete"></a> Cannot Create or Delete Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+If developers report errors such as:
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-cannot-create-delete' %>
+<pre class="terminal">
+Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: service: redis-acceptance, service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089, broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, task-id: 442, operation: create
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		<p>
+			If the BOSH error shows a problem with the deployment manifest, open the
+			manifest in a text editor to inspect it.
+		</p>
+	</li>
+	<li>
+		<p>
+			To continue troubleshooting,
+			<a href="https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in">Log in to BOSH</a>
+			and target <%= vars.service_name_article_full %> instance using the instructions
+			on <a href="#parse-error">parsing a Cloud Foundry error message</a>.
+		</p>
+	</li>
+	<li>
+		<p>
+			Retrieve the BOSH task ID from the error message and run the following command:
+		</p>
+		<pre><code>bosh task TASK-ID</code></pre>
+	</li>
+	<li>
+		<p>
+			If you need more information, <a href="#access-broker">access the broker logs</a> and
+			use the <code>broker-request-id</code> from the error message above to search the logs for
+			more information. Check for:
+		</p>
+	</li>
+	<ul>
+		<li><a href="#auth">Authentication errors</a></li>
+		<li><a href="#network">Network errors</a></li>
+		<li><a href="#quotas">Quota errors</a></li>
+	</ul>
+</ol>
 
 ### <a id="timeouts"></a> Broker Request Timeouts
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If developers report errors such as:
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-timeouts' %>
+<pre class="terminal">
+Server error, status code: 504, error code: 10001, message: The request to the service broker timed out: https://BROKER-URL/v2/service_instances/e34046d3-2379-40d0-a318-d54fc7a5b13f/service_bindings/aa635a3b-ef6d-41c3-a23f-55752f3f651b
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		Confirm that Cloud Foundry (CF) is <a href="#network">connected to the service broker</a>.
+	</li>
+	<li>
+		Check the BOSH queue size:
+		<ol>
+			<li>Log into BOSH as an admin.</li>
+			<li>Run <code>bosh tasks</code>.</li>
+		</ol>
+	</li>
+	<li>
+		If there are a large number of queued tasks, the system may be under too much load.
+		BOSH is configured with two workers and one status worker, which may not be
+		sufficient resources for the level of load.
+		Advise app developers to try again once the system is under less load.
+	</li>
+</ol>
 
 ### <a id="cannot-bind"></a> Cannot Bind to or Unbind from Service Instances
 
 #### <a id="instance-not-exist"></a>Instance Does Not Exist
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If developers report errors such as:
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-instance-not-exist' %>
+<pre class="terminal">
+Server error, status code: 502, error code: 10001, message: Service broker error: instance does not exist`
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		<p>
+			Confirm that <%=vars.service_name_article_full%> instance exists in BOSH and
+			obtain the GUID CF by running:
+		</p>
+		<pre><code>cf service MY-INSTANCE --guid</code></pre>
+	</li>
+	<li>
+		<p>
+			Using the GUID obtained above, the following BOSH CLI command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID vms</code></pre>
+	</li>
+</ol>
+
+<p>
+	If the BOSH deployment is not found, it has been deleted from BOSH.
+	Contact Pivotal support for further assistance.
+</p>
 
 #### <a id="other-errors"></a>Other Errors
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If developers report errors such as:
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-other-errors' %>
+<pre class="terminal">
+Server error, status code: 502, error code: 10001, message: Service broker error: There was a problem completing your request. Please contact your operations team providing the following information: service: example-service, service-instance-guid: 8d69de6c-88c6-4283-b8bc-1c46103714e2, broker-request-id: 15f4f87e-200a-4b1a-b76c-1c4b6597c2e1, operation: bind
+</pre>
+
+<p>
+  To find out the exact issue with the binding process:
+</p>
+
+<ol>
+  <li>
+    <p>
+      <a href="#access-broker">Access the service broker logs</a>.
+    </p>
+  </li>
+  <li>
+    <p>
+      Search the logs for the <code>broker-request-id</code> string listed in the error message above.
+    </p>
+  </li>
+  <li>
+    <p>
+      Contact Pivotal support for further assistance if you are unable to resolve the problem.
+    </p>
+  </li>
+  <li>
+    <p>
+      Check for:
+    </p>
+  </li>
+  <ul>
+    <li><a href="#auth">Authentication errors</a></li>
+    <li><a href="#network">Network errors</a></li>
+  </ul>
+</ol>
 
 ### <a id="cannot-connect"></a> Cannot Connect to a Service Instance
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If developers report that their app cannot use service instances that they have
+  successfully created and bound:
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-cannot-connect' %>
+<p>
+  Ask the user to send application logs that show the connection error.
+  If the error is originating from the service, then follow <%=vars.service_name%>-specific instructions.
+  If the issue appears to be network-related, then:
+</p>
+
+<ol>
+  <li>
+    <p>
+      Check that <a href="https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html">application security groups</a>
+      are configured correctly.
+      Access should be configured for the service network that the tile is deployed to.
+    </p>
+  </li>
+  <li>
+    <p>
+      Ensure that the network the <%= vars.app_runtime_full %> tile is deployed
+      to has network access to the service network. You can find the network definition
+      for this service network in the BOSH Director tile.
+    </p>
+  </li>
+  <li>
+    <p>
+      In Ops Manager go into the service tile and see the service network that is
+      configured in the networks tab.
+    </p>
+  </li>
+  <li>
+    <p>
+      In Ops Manager go into the <%= vars.app_runtime %> tile and see the network it is assigned to.
+      Make sure that these networks can access each other.
+    </p>
+  </li>
+</ol>
 
 ### <a id="upgrade-all-fails"></a> Upgrade All Service Instances Errand Fails
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If the <a href="#upgrade-all"><code>upgrade-all-service-instances</code></a> errand fails,
+  look at the errand output in the Ops Manager log.
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-upgrade-all-fails' %>
+<p>
+  If an instance fails to upgrade, debug and fix it before running the errand again
+  to prevent any failure issues from spreading to other on-demand instances.
+</p>
+
+<p>
+  Once the Ops Manager log no longer lists the deployment as <code>failing</code>,
+  <a href="#upgrade-all">re-run the errand</a> to upgrade the rest of the instances.
+</p>
 
 ### <a id="missing-logs"></a> Missing Logs and Metrics
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If no logs are being emitted by the on-demand broker, check that your syslog
+  forwarding address is correct in Ops Manager.
+</p>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-err-missing-logs' %>
+<ol>
+  <li>
+    <p>
+      Ensure you have configured syslog for the tile.
+    </p>
+  </li>
+  <li>
+    <p>
+      Ensure that you have network connectivity between the networks that the tile
+      is using and the syslog destination.
+      If the destination is external, you need to use the <a href="https://docs.pivotal.io/svc-sdk/odb/tile.html#public-ip">public ip</a>
+      VM extension feature available in your Ops Manager tile configuration settings.
+    </p>
+  </li>
+  <li>
+    <p>
+      Verify that Loggregator is emitting metrics:
+    </p>
+    <ol>
+      <li>
+        <p>
+          Install the <code>cf log-stream</code> plugin.
+          For instructions, see the <a href="https://github.com/cloudfoundry/log-stream-cli">Log Stream CLI Plugin</a>
+          GitHub repository.
+        </p>
+      </li>
+      <li>
+        <p>
+          Find the GUID for your service instance by running:
+        </p>
+        <p>
+          <pre><code>cf service SERVICE-INSTANCE --guid</code></pre>
+        </p>
+      </li>
+      <li>
+        <p>
+          Find logs from your service instance by running:
+        </p>
+        <p>
+          <pre><code>cf log-stream | grep "SERVICE-GUID"</code></pre>
+        </p>
+
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<p>
+  If no metrics appear within five minutes, verify that the broker network has access
+  to the Loggregator system on all required ports.
+</p>
+
+<p>
+  <a href="#support">Contact Pivotal support</a> if you are unable to resolve the issue.
+</p>
 
 
 ### <a id="syslog-errors"></a> Error Messages Logged in Syslog
@@ -189,10 +449,8 @@ Start here if you are responding to a specific error or error messages.
 You can configure Redis for PCF with remote syslog forwarding.
 For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
 
-<br><br>
-
 This section helps to troubleshoot the following errors logged in syslog:
-<br><br>
+
 <ul>
   <li><a href="#corrupt-aof">AOF File Corrupted, Cannot Start Redis Instance</a></li>
   <li><a href="#disk-full">AOF Write or Rewrite Errors</a></li>

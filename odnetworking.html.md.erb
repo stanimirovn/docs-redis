@@ -32,7 +32,7 @@ that service.
 
 ## <a id ="architecture_networks"></a>Default Network and Service Network
 
-On-demand <%= vars.product_short %> services use BOSH to dynamically deploy VMs and create single-tenant
+On-demand <%= vars.product_old %> services use BOSH to dynamically deploy VMs and create single-tenant
 service instances in a dedicated network.
 On-demand services use the dynamically-provisioned service network to host single-tenant worker VMs.
 These worker VMs run as service instances within development spaces.
@@ -51,7 +51,6 @@ An on-demand service separates operations between the default network and the
 service network. Shared service components, such as executive controllers and databases,
 Cloud Controller, UAA, and other on-demand components, run on the default network.
 Worker pools deployed to specific spaces run on the service network.
-
 
 The diagram below shows worker VMs in an on-demand service instance
 running on a separate services network, while other components run on the default
