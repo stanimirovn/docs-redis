@@ -1,0 +1,30 @@
+---
+title: Upgrading a Single Redis for Pivotal Platform On-Demand Service Instance
+owner: London Services
+---
+
+<strong><%= modified_date %></strong>
+
+If individual service instance upgrades are permitted by the operator, and a newer tile has been made available,
+then developers may upgrade their own service instances by following the procedure here.
+[Enable Individual Service Instance Upgrades](./upgrade.html#proced) describes how an operator enables developer upgrades of their own service instances.
+
+The cf CLI, v6.46.0 or a more recent version, is a prerequisite for upgrading a <%= vars.product_name %> On-Demand Service Instance.
+
+To upgrade a single service instance:
+
+Confirm that an upgrade is available for the service instance; the upgrade is available when the upgrade available column of the output says yes, as in the sample output:
+
+<pre>
+$ cf services
+Getting services in org system / space system as admin...
+
+name   service      plan            last operation   broker            upgrade available
+testSI p.redis      on-demand-cache create succeeded p.redis           yes
+</pre>
+
+Upgrade the service instance with a command of the form:
+```
+cf update-service SERVICE-INSTANCE-NAME --upgrade
+```
+Replace `SERVICE-INSTANCE-NAME` with the name of the instance to be upgraded. Confirm that you want to update when prompted.

@@ -66,15 +66,31 @@ To upgrade to the latest version of <%= vars.product_name %>:
       In most cases, enabling TLS does not noticeably reduce performance. It depends on network infrastructure, application architecture, and other such resources being in good shape.
     </p>
 
-1. Pivotal recommends that you ensure that the **Upgrade All On-Demand Service Instances**
-errand checkbox is selected on the **Review Pending Changes** page.
+1. (Optional) The default upgrade path upgrades all On-Demand Service Instances as a result of a tile upgrade.
+This operation can take a lengthy amount of time.
+To expedite upgrades, an operator can permit developers to upgrade their own service instances once the tile has been upgraded.
+
+This feature works for upgrading from <%= vars.product_name %> 2.3.0 to a higher version.
+
+Within the <%= vars.product_name %> tile, in the **Errands** page, the default for the **Upgrade All On-Demand Service Instances** errand, which upgrades all service instances, appears as:
+
+  <img src="./images/upgrade-all-enabled.png">
+
+To change the state of this errand such that individual On-Demand Service Instance upgrades are enabled, choose **Off** for this errand:
+
+  <img src="./images/upgrade-all-disabled.png">
+
+Click **Save**.
+
+Once individual service instance upgrades are enabled, the developer upgrades an individual service instance following the instructions in (Upgrade a Single Service Instance)[./dev-upgrade.html].
 
     <p class="note"> <strong>Note:</strong>
       Existing service instances are not upgraded if you do not run this errand.
       These instances do not benefit from any security fixes or new features
-      included in the upgrade. </p>
+      included in the upgrade until they are upgraded. </p>
 
 1. Click **Apply changes**. The rest of the process is automated.
+
 
 ##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
 
