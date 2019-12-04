@@ -12,6 +12,7 @@ This section contains the upgrade procedure and upgrade paths for <%= vars.produ
 Before upgrading <%= vars.product_name %>, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
+
 ## <a id="upgrades"></a> Upgrade to <%= vars.product_name %> v2.3
 
 <%= partial "../../redis/partials/redis/warning-disabling-tls" %>
@@ -47,7 +48,6 @@ For more information, see [Upgrading All Service Instances](#all-instances) belo
 
 1. Click **Apply changes**.
 
-
 ### <a id="individual-upgrades"></a> Enable Individual Service Instance Upgrades
 
 Until you upgrade service instances, they do not benefit from any security fixes or new features
@@ -59,8 +59,6 @@ This operation can take a long time.
 To expedite upgrades, in <%= vars.product_name %> v2.3 and later you can enable on-demand service
 instances to be upgraded individually.
 This allows developers to upgrade their own service instances after you have upgraded the tile.
-
-
 
 <p class="note"><strong>Note:</strong>
   This feature is only available for upgrades from <%= vars.product_name %> v2.3.0 to later versions.
@@ -133,7 +131,6 @@ When the operator applies any of the above changes to PAS, downtime is triggered
 
 * Shared-VM Services in Redis for PCF v1.9 and earlier
 
-
 #### <a id="all-instances"></a> Upgrading All Service Instances
 
 Downtime for service instances occurs only after the operator runs the
@@ -141,7 +138,6 @@ Downtime for service instances occurs only after the operator runs the
 Any change to a field on the <%= vars.product_name %> tile causes BOSH to redeploy the
 on-demand Redis broker and can cause service instance downtime when the operator runs the
 `upgrade-all-service-instances` errand.
-
 
 ### <a id="bosh-hotswaps"></a> Enable BOSH HotSwaps to Reduce Downtime
 
@@ -168,6 +164,7 @@ For instructions, see the solution in [Apps Fail to Connect to the Service Insta
 1. Select the **BOSH HotSwaps** checkbox in the **On-Demand Service Settings** tab.
 
 1. Click **Save** and **Apply Changes**.
+
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
 
@@ -201,6 +198,7 @@ If you need to move the data in on-demand Redis instances to a new service netwo
 
 Similarly, changing the availability zone (AZ) for an on-demand plan only applies to new on-demand instances
 and does not alter existing instances.
+
 
 ## <a id="policy"></a> Release Policy
 
