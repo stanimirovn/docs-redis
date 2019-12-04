@@ -41,7 +41,7 @@ To upgrade to the latest version of <%= vars.product_name %>:
 
 1. (Optional) Enable developers to upgrade service instances individually. For instructions, see
 [Enable Individual Service Instance Upgrades](#individual-upgrades) below. <br>
-If this is feature is disabled, the `upgrade-all-service-instances` errand runs by default
+When this is feature is not enabled, the `upgrade-all-service-instances` errand runs by default
 after each upgrade.
 For more information, see [Upgrading All Service Instances](#all-instances) below.
 
@@ -50,11 +50,17 @@ For more information, see [Upgrading All Service Instances](#all-instances) belo
 
 ### <a id="individual-upgrades"></a> Enable Individual Service Instance Upgrades
 
-The default upgrade path upgrades all on-demand service instances as a result of a tile upgrade.
+Until you upgrade service instances, they do not benefit from any security fixes or new features
+included in the tile upgrade.
+The default upgrade path automatically upgrades all on-demand service instances
+when you upgrade the tile.
 This operation can take a long time.
 
-To expedite upgrades, in <%= vars.product_name %> 2.3 and later you can enable on-demand service instances to be upgraded individually.
+To expedite upgrades, in <%= vars.product_name %> v2.3 and later you can enable on-demand service
+instances to be upgraded individually.
 This allows developers to upgrade their own service instances after you have upgraded the tile.
+
+
 
 <p class="note"><strong>Note:</strong>
   This feature is only available for upgrades from <%= vars.product_name %> v2.3.0 to later versions.
@@ -80,8 +86,7 @@ After you enable individual service instance upgrades, developers can upgrade in
 service instances following the instructions in
 [Upgrading an Individual Redis for Pivotal Platform Service Instance](./dev-upgrade.html).
 
-Until existing service instances are upgraded, they do not benefit from any security fixes or new features
-included in the upgrade.
+
 
 
 
