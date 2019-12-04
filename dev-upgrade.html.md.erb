@@ -1,30 +1,49 @@
 ---
-title: Upgrading a Single Redis for Pivotal Platform On-Demand Service Instance
+title: Upgrading an Individual Redis for Pivotal Platform Service Instance
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-If individual service instance upgrades are permitted by the operator, and a newer tile has been made available,
-then developers may upgrade their own service instances by following the procedure here.
-[Enable Individual Service Instance Upgrades](./upgrade.html#proced) describes how an operator enables developer upgrades of their own service instances.
+This topic explains how to upgrade an individual <%= vars.product_name %> on-demand service instance.
 
-The cf CLI, v6.46.0 or a more recent version, is a prerequisite for upgrading a <%= vars.product_name %> On-Demand Service Instance.
+You can upgrade your service instances individually if an operator has made a
+newer version of the tile available and has enabled individual service instance upgrades.
+For the operator procedure, see [Enable Individual Service Instance Upgrades](./upgrade.html#individual-upgradese).
+
+
+## <a id="prereq"></a> Prerequisites
+
+Before you can upgrade individual <%= vars.product_name %> service instances,
+you must have the cf CLI v6.46.0 or later.
+
+
+## <a id="prereq"></a> Upgrade a Service Instance
 
 To upgrade a single service instance:
 
-Confirm that an upgrade is available for the service instance; the upgrade is available when the upgrade available column of the output says yes, as in the sample output:
+1. Confirm that an upgrade is available for the service instance by running:
 
-<pre>
-$ cf services
-Getting services in org system / space system as admin...
+    ```
+    cf services
+    ```
 
-name   service      plan            last operation   broker            upgrade available
-testSI p.redis      on-demand-cache create succeeded p.redis           yes
-</pre>
+    The upgrade is available when the `upgrade available` column in the output says `yes`, for example:
 
-Upgrade the service instance with a command of the form:
-```
-cf update-service SERVICE-INSTANCE-NAME --upgrade
-```
-Replace `SERVICE-INSTANCE-NAME` with the name of the instance to be upgraded. Confirm that you want to update when prompted.
+    <pre class="terminal">
+    $ cf services
+    Getting services in org system / space system as admin...
+
+    name    service    plan             last operation    broker     upgrade available
+    testSI  p.redis    on-demand-cache  create succeeded  p.redis    yes
+    </pre>
+
+1. Upgrade the service instance by running:
+
+    ```
+    cf update-service SERVICE-INSTANCE --upgrade
+    ```
+
+    Where `SERVICE-INSTANCE` is the name of the service instance that you want to upgrade.
+
+1. When prompted, confirm that you want to update.

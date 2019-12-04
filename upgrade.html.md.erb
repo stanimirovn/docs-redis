@@ -12,15 +12,8 @@ This section contains the upgrade procedure and upgrade paths for <%= vars.produ
 Before upgrading <%= vars.product_name %>, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-## <a id="upgrades"></a> Upgrade to <%= vars.product_name %> v2.2
+## <a id="upgrades"></a> Upgrade to <%= vars.product_name %> v2.3
 
-<p class="note">
-  <strong>Note:</strong>
-  Follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS in <%= vars.product_name %> v2.2.<br><br>
-  Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure that Spring and Steeltoe apps use TLS.<br>
-  Developers might also need to configure other frameworks and languages to use the TLS port as well.<br><br>
-  For more information, see <a href="./appdevs.html">Using TLS</a>.
-</p>
 <%= partial "../../redis/partials/redis/warning-disabling-tls" %>
 
 This product enables a reliable upgrade experience between versions of the product
@@ -29,27 +22,7 @@ deployed through <%= vars.ops_manager %>.
 For information about the upgrade paths for each released version, see
 [Compatible Upgrade Paths](#upgrading) above.
 
-### <a id="downtime"></a> Downtime During Upgrade
-
-During the upgrade each Redis instance experiences a small period of
-downtime as each instance is updated with the new software components.
-This downtime is because Redis instances are single VMs operating in a non-high availability (HA) setup.
-To reduce downtime, you can enable the BOSH HotSwaps feature.
-Compared to traditional BOSH upgrades, this feature has been shown to reduce downtime by 75%.
-For instructions on how to enable this feature, see [BOSH HotSwaps](#bosh-hotswaps) below.
-
-The length of downtime depends on whether there is a stemcell update to
-replace the operating system image, or whether the Redis software is updated the
-on the existing VM.
-Stemcell updates incur additional downtime while the IaaS creates the new VM,
-whereas updates without a stemcell update are faster.
-
-<%= vars.ops_manager %> ensures the instances are updated with the new packages and any
-configuration changes are applied automatically.
-
-Upgrading to a newer version of the product does not cause any loss of data or configuration.
-
-### <a id="proced"></a> Upgrade Procedure
+### <a id="procedure"></a> Upgrade Procedure
 
 To upgrade to the latest version of <%= vars.product_name %>:
 
@@ -66,42 +39,82 @@ To upgrade to the latest version of <%= vars.product_name %>:
       In most cases, enabling TLS does not noticeably reduce performance. It depends on network infrastructure, application architecture, and other such resources being in good shape.
     </p>
 
-1. (Optional) The default upgrade path upgrades all On-Demand Service Instances as a result of a tile upgrade.
-This operation can take a lengthy amount of time.
-To expedite upgrades, an operator can permit developers to upgrade their own service instances once the tile has been upgraded.
+1. (Optional) Enable developers to upgrade service instances individually. For instructions, see
+[Enable Individual Service Instance Upgrades](#individual-upgrades) below. <br>
+If this is feature is disabled, the `upgrade-all-service-instances` errand runs by default
+after each upgrade.
+For more information, see [Upgrading All Service Instances](#all-instances) below.
 
-This feature works for upgrading from <%= vars.product_name %> 2.3.0 to a higher version.
-
-Within the <%= vars.product_name %> tile, in the **Errands** page, the default for the **Upgrade All On-Demand Service Instances** errand, which upgrades all service instances, appears as:
-
-  <img src="./images/upgrade-all-enabled.png">
-
-To change the state of this errand such that individual On-Demand Service Instance upgrades are enabled, choose **Off** for this errand:
-
-  <img src="./images/upgrade-all-disabled.png">
-
-Click **Save**.
-
-Once individual service instance upgrades are enabled, the developer upgrades an individual service instance following the instructions in (Upgrade a Single Service Instance)[./dev-upgrade.html].
-
-    <p class="note"> <strong>Note:</strong>
-      Existing service instances are not upgraded if you do not run this errand.
-      These instances do not benefit from any security fixes or new features
-      included in the upgrade until they are upgraded. </p>
-
-1. Click **Apply changes**. The rest of the process is automated.
+1. Click **Apply changes**.
 
 
-##  <a id="downtime"></a> Downtime During Upgrades and Redeploys
+### <a id="individual-upgrades"></a> Enable Individual Service Instance Upgrades
+
+The default upgrade path upgrades all on-demand service instances as a result of a tile upgrade.
+This operation can take a long time.
+
+To expedite upgrades, in <%= vars.product_name %> 2.3 and later you can enable on-demand service instances to be upgraded individually.
+This allows developers to upgrade their own service instances after you have upgraded the tile.
+
+<p class="note"><strong>Note:</strong>
+  This feature is only available for upgrades from <%= vars.product_name %> v2.3.0 to later versions.
+  You cannot upgrade individual service instances from v2.2 to v2.3.
+</p>
+
+To enable upgrading individual service instances:
+
+1. Ensure that all service instances have been upgraded to <%= vars.product_name %> v2.3.0 or later.
+If not, click **Apply changes** to run the `upgrade-all-service instances` errand.
+
+1. In <%= vars.product_name %> tile, navigate to the **Errands** page.
+
+1. Select **Off** for the **Upgrade All On-Demand Service Instances** errand:
+
+    <img src="./images/upgrade-all-disabled.png">
+
+1. Click **Save**.
+
+1. Click **Apply changes**.
+
+After you enable individual service instance upgrades, developers can upgrade individual
+service instances following the instructions in
+[Upgrading an Individual Redis for Pivotal Platform Service Instance](./dev-upgrade.html).
+
+Until existing service instances are upgraded, they do not benefit from any security fixes or new features
+included in the upgrade.
+
+
+
+## <a id="downtime"></a> Downtime During Upgrades
+
+During the upgrade each Redis instance experiences a small period of
+downtime as each instance is updated with the new software components.
+This downtime is because Redis instances are single VMs operating in a non-high availability (HA) setup.
+To reduce downtime, you can enable the BOSH HotSwaps feature.
+Compared to traditional BOSH upgrades, this feature has been shown to reduce downtime by 75%.
+For instructions on how to enable this feature, see [Enable BOSH HotSwaps to Reduce Downtime](#bosh-hotswaps) below.
+
+The length of downtime depends on whether there is a stemcell update to
+replace the operating system image, or whether the Redis software is updated the
+on the existing VM.
+Stemcell updates incur additional downtime while the IaaS creates the new VM,
+whereas updates without a stemcell update are faster.
+
+<%= vars.ops_manager %> ensures the instances are updated with the new packages and any
+configuration changes are applied automatically.
+
+Upgrading to a newer version of the product does not cause any loss of data or configuration.
+
+###  <a id="downtime-causes"></a> Causes of Downtime
 
 A redeploy causes downtime for the <%= vars.product_name %> tile.
 This section clarifies what events trigger a redeploy.
 
-### <a id="opsman"></a> <%= vars.ops_manager %> Changes
+#### <a id="opsman"></a> <%= vars.ops_manager %> Changes
 
 In <%= vars.ops_manager %>, any field that changes the manifest causes a redeploy of the <%= vars.product_name %> tile.
 
-### <a id="pas"></a> <%= vars.app_runtime %>Changes
+#### <a id="pas"></a> <%= vars.app_runtime %> Changes
 
 In the <%= vars.app_runtime_full %>, changes to any of the following properties can trigger downtime:
 <ul>
@@ -119,7 +132,7 @@ When the operator applies any of the above changes to PAS, downtime is triggered
 * Shared-VM Services in Redis for PCF v1.9 and earlier
 
 
-### <a id="all-instances"></a> Upgrading all Service Instances
+#### <a id="all-instances"></a> Upgrading All Service Instances
 
 Downtime for service instances occurs only after the operator runs the
 `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
@@ -128,7 +141,7 @@ on-demand Redis broker and can cause service instance downtime when the operator
 `upgrade-all-service-instances` errand.
 
 
-### <a id="bosh-hotswaps"></a> BOSH HotSwaps
+### <a id="bosh-hotswaps"></a> Enable BOSH HotSwaps to Reduce Downtime
 
 Enabling BOSH HotSwaps reduces the downtime for on-demand service instances when
 upgrading.
