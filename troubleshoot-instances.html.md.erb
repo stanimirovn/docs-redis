@@ -56,7 +56,7 @@ Redis for PCF service instances can become temporarily inaccessible during upgra
 You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI) to perform basic operations on a Redis for PCF service instance:
 
 * `cf create`
-* `cf update`
+* `cf update`F
 * `cf bind`
 * `cf unbind`
 * `cf delete`
@@ -150,7 +150,7 @@ Please update or remove this parameter and retry your request.
 </pre>
 
 
-after upgrading from <%= vars.product_name %> 2.3 to 2.4, it is likely because one or more installed on-demand brokers
+after upgrading from <%= vars.platform_name %> 2.3 to 2.4, it is likely because one or more installed on-demand brokers
 were not restarted during the upgrade. To clear the cached server version and enable
 your on-demand brokers to communicate with CredHub v2, do the procedure in
 <a href="https://docs.pivotal.io/pivotalcf/2-4/customizing/upgrading-pcf.html#bosh-restart">Run BOSH Restart on Your On-Demand Service Brokers</a>.
