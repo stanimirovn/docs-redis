@@ -3,7 +3,7 @@ title: Troubleshooting Redis for PCF
 owner: London Services
 ---
 
-<%= partial '../../redis/partials/services/deprecation-notice-eogs' %>
+<%= partial 'partials/deprecation-notice-eogs' %>
 
 <strong><%= modified_date %></strong>
 
@@ -765,7 +765,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-large-queue' %>
+<%= partial 'partials/tshoot-comp-large-queue' %>
 
 ### <a id="bosh-config"></a> Configuration
 
@@ -773,7 +773,7 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-bosh-instance-fail' %>
+<%= partial 'partials/tshoot-comp-bosh-instance-fail' %>
 
 ### <a id="auth"></a> Authentication
 
@@ -781,25 +781,25 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-uaa-change' %>
+<%= partial 'partials/tshoot-comp-uaa-change' %>
 
 ### <a id="network"></a> Networking
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-network' %>
+<%= partial 'partials/tshoot-comp-network' %>
 
 #### <a id="broker-to-instances"></a> Validate Service Broker Connectivity to Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-broker-to-instances' %>
+<%= partial 'partials/tshoot-comp-broker-to-instances' %>
 
 #### <a id="app-to-instances"></a> Validate App Access to a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-app-to-instances' %>
+<%= partial 'partials/tshoot-comp-app-to-instances' %>
 
 ### <a id="quotas"></a> Quotas
 
@@ -807,19 +807,19 @@ This section provides guidance on checking for, and fixing, issues in cf-redis a
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-plan-quotas' %>
+<%= partial 'partials/tshoot-comp-plan-quotas' %>
 
 #### <a id="global-quotas"></a> Global Quota Issues
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-global-quotas' %>
+<%= partial 'partials/tshoot-comp-global-quotas' %>
 
 ### <a id="failing-jobs"></a> Failing Jobs and Unhealthy Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-comp-failing-jobs' %>
+<%= partial 'partials/tshoot-comp-failing-jobs' %>
 
 ## <a id="techniques"></a> Techniques for Troubleshooting
 
@@ -833,91 +833,91 @@ This section contains instructions on:
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-parse-error' %>
+<%= partial 'partials/tshoot-tech-parse-error' %>
 
 ### <a id="bosh-cf-access"></a>Access Broker and Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-bosh-cf-access' %>
+<%= partial 'partials/tshoot-tech-bosh-cf-access' %>
 
 #### <a id="access-broker"></a> Access Broker Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-access-broker' %>
+<%= partial 'partials/tshoot-tech-access-broker' %>
 
 #### <a id="access-instance"></a> Access Service Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-access-instance' %>
+<%= partial 'partials/tshoot-tech-access-instance' %>
 
 ### <a id="broker-errands"></a> Run Service Broker Errands to Manage Brokers and Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-broker-errands' %>
+<%= partial 'partials/tshoot-tech-broker-errands' %>
 
 #### <a id="register-broker"></a> Register Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-register-broker' %>
+<%= partial 'partials/tshoot-tech-register-broker' %>
 
 #### <a id="deregister-broker"></a> Deregister Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-deregister-broker' %>
+<%= partial 'partials/tshoot-tech-deregister-broker' %>
 
 #### <a id="upgrade-all"></a> Upgrade All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-upgrade-all' %>
+<%= partial 'partials/tshoot-tech-upgrade-all' %>
 
 #### <a id="delete-all"></a> Delete All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-delete-all' %>
+<%= partial 'partials/tshoot-tech-delete-all' %>
 
 #### <a id="detect-orphans"></a> Detect Orphaned Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-detect-orphans' %>
+<%= partial 'partials/tshoot-tech-detect-orphans' %>
 
 ### <a id="instance-creds"></a> Get Admin Credentials for a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-instance-creds' %>
+<%= partial 'partials/tshoot-tech-instance-creds' %>
 
 ### <a id="reinstall"></a> Reinstall a Tile
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-reinstall' %>
+<%= partial 'partials/tshoot-tech-reinstall' %>
 
 ### <a id="view-resources"></a> View Resource Saturation and Scaling
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-view-resources' %>
+<%= partial 'partials/tshoot-tech-view-resources' %>
 
 ### <a id="id-instance-owner"></a>Identify a Service Instance Owner
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-id-instance-owner' %>
+<%= partial 'partials/tshoot-tech-id-instance-owner' %>
 
 ### <a id="monitor-quota"></a> Monitor the Quota Saturation and Service Instance Count
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-monitor-quota' %>
+<%= partial 'partials/tshoot-tech-monitor-quota' %>
 
 
 ## <a id="Knowledge"></a> Pivotal Support Articles
