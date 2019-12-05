@@ -107,9 +107,9 @@ Perform the following steps to create a UAA client for CredHub on your UAA serve
     </pre>
 
 <%# (replace the link in this step with a link to Credhub documentation) %>
-1. If you are using <%= vars.platform_old %> v1.12, perform the steps in [Downloading the CredHub CLI]
+1. If you are using Pivotal Cloud Foundry v1.12, perform the steps in [Downloading the CredHub CLI]
   to download the CredHub CLI on the Ops Manager VM.
-  In <%= vars.platform_old %> v2.0 and later or <%= vars.platform_name %> 2.7 and later the Ops Manager VM ships with the CredHub CLI already
+  In Pivotal Cloud Foundry v2.0 and later or Pivotal Cloud Foundry 2.7 and later the Ops Manager VM ships with the CredHub CLI already
   installed.
 
 ###<a id='add-ca-cert'></a> Add the CA Certificate
@@ -151,7 +151,7 @@ certificate, and add the certificate to Ops Manager:
     </pre>
 
 1. Use the CredHub CLI to generate a CA certificate or provide an existing one.
-    <p class="note"><strong>Note</strong>: Your <%= vars.platform_name %> deployment may have multiple
+    <p class="note"><strong>Note</strong>: Your Pivotal Cloud Foundry deployment may have multiple
         CA certificates.
        Pivotal recommends a dedicated CA certificate for services.</p>
 	* If you do not have a CA certificate, use the CredHub CLI to generate one.
@@ -194,16 +194,16 @@ certificate, and add the certificate to Ops Manager:
 
 <%# (replace the links in this step with links to relevant installing/configuration topics) %>
 1. After preparing your environment for TLS, you must enable TLS in the tile
-   configuration while installing <%= vars.service_name %>:
+   configuration while installing Redis for PCF:
     * **Existing Installation**: If you have already installed the
-            <%= vars.service_name %> tile, perform the procedures in
+            Redis for PCF tile, perform the procedures in
 			[Configure TLS] to enable TLS in the **Security** section of the tile.
 			Then return to the Ops Manager Installation Dashboard and click **Apply Changes**.
-			This restarts all the VMs in your <%= vars.platform_name %> deployment and applies your CA certificate.
-    * **New Installation**: If you have not yet installed the <%= vars.service_name %>
-            tile, perform all of the procedures in [Installing] <%= vars.service_name %>.
-			When you click **Apply Changes**, this deploys <%= vars.service_name %>,
-            restarts all the VMs in your <%= vars.platform_name %> deployment, and applies your CA certificate.
+			This restarts all the VMs in your Pivotal Cloud Foundry deployment and applies your CA certificate.
+    * **New Installation**: If you have not yet installed the Redis for PCF
+            tile, perform all of the procedures in [Installing] Redis for PCF.
+			When you click **Apply Changes**, this deploys Redis for PCF,
+            restarts all the VMs in your Pivotal Cloud Foundry deployment, and applies your CA certificate.
     <p class="note warning"><strong>WARNING</strong>:
-        Restarting all of the VMs in your <%= vars.platform_name %> deployment in order to apply a CA
+        Restarting all of the VMs in your Pivotal Cloud Foundry deployment in order to apply a CA
         certificate takes a long time to complete.</p>

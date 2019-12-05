@@ -21,14 +21,14 @@ After you set quotas, you can:
 
 ## <a id="global"></a> Create Global-level Quotas
 
-Each <%= vars.product_full  %> service has a separate service broker.
+Each Redis for PCF service has a separate service broker.
 A global quota at the service level sets the maximum number of service instances
 that can be created by a given service broker. If a service has more than one plan,
 then the number of service instances for all plans combined cannot exceed the global
 quota for the service.
 
-The operator sets a global quota for each <%= vars.product_short %> service independently.
-For example, if you have Redis for <%= vars.platform_name %> and RabbitMQ for <%= vars.platform_name %>, you must set a separate
+The operator sets a global quota for each Redis for PCF service independently.
+For example, if you have Redis for Pivotal Cloud Foundry and RabbitMQ for Pivotal Cloud Foundry, you must set a separate
 global service quota for each of them.
 
 When the global quota is reached for a service, no more instances of that service
@@ -40,19 +40,16 @@ A service may offer one or more plans.
 You can set a separate quota per plan so that instances of that plan cannot exceed the plan quota.
 For a service with multiple plans, the total number of instances created for all
 plans combined cannot exceed the [global quota](#global) for the service.
-<% if vars.service_name == "MySQL for Pivotal Platform" %>
-If the plan quota field is blank, the plan quota is set to the global quota by default.
-<%end%>
 
 When the plan quota is reached, no more instances of that plan can be created
 unless the plan quota is increased or some instances of that plan are deleted.
 
 ## <a id="org"></a> Create and Set Org-level Quotas
 
-An org-level quota applies to all <%= vars.product_short %> services and sets the maximum number of
-service instances an organization can create within <%= vars.product_short %>.
+An org-level quota applies to all Redis for PCF services and sets the maximum number of
+service instances an organization can create within Redis for PCF.
 For example, if you set your org-level quota to 100, developers can create up to
-100 service instances in that org using any combination of <%= vars.product_short %> services.
+100 service instances in that org using any combination of Redis for PCF services.
 
 When this quota is met, no more service instances of any kind can be created in
 the org unless the quota is increased or some service instances are deleted.
@@ -90,12 +87,12 @@ see [Creating and Modifying Quota Plans](https://docs.pivotal.io/pivotalcf/1-12/
 
 ## <a id="space"></a> Create and Set Space-level Quotas
 
-A space-level service quota applies to all <%= vars.product_short %> services and sets the maximum
+A space-level service quota applies to all Redis for PCF services and sets the maximum
 number of service instances
-that can be created within a given space in <%= vars.product_short %>.
+that can be created within a given space in Redis for PCF.
 For example, if you set your space-level quota to 100,
 developers can create up to 100 service instances in that space using any
-combination of <%= vars.product_short %> services.
+combination of Redis for PCF services.
 
 When this quota is met, no more service instances of any kind can be created in
 the space unless the quota is updated
@@ -196,121 +193,14 @@ configuration(s).
 The specific costs depend on your IaaS.
 
 
-To view configurations for your <%= vars.service_name %> on-demand plan, do the following:
+To view configurations for your Redis for PCF on-demand plan, do the following:
 
-1. Navigate to **Ops Manager Installation Dashboard** > **<%= vars.tile_name %>** > **Settings**.
+1. Navigate to **Ops Manager Installation Dashboard** > **Redis for PCF** > **Settings**.
 1. Click the section for the plan you want to view.
-<% if vars.service_name == 'RabbitMQ for Pivotal Platform' %>
-For example, **On Demand Instance (RMQ 3.7): Plan 1**.
-<% end %>
-<% if vars.service_name == 'Redis for Pivotal Platform' %>
 For example, **On-Demand Plan 1**.
-<% end %>
-<% if vars.service_name == 'MySQL for Pivotal Platform' %>
-For example, **Plan 1**.
-<% end %>
-<% if vars.service_name == 'Pivotal Cloud Cache' %>
-For example, **Plan 1**.
-<% end %>
-
-<% if vars.service_name == 'Pivotal Cloud Cache' %>
 
 The image below shows an example that includes the VM type and persistent disk
 selected for the server VMs, as well as the quota for this plan.
-The quota is shown in the **Maximum service instances** field.
-
-<% else %>
-
-The image below shows an example that includes the VM type and persistent disk
-selected for the server VMs, as well as the quota for this plan.
-<% end %>
-
-<% if current_page.data.galera %>
-Click the tabs below to show an example of each plan:
-
-<style>
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
-
-    /* Style the buttons that are used to open the tab content */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: ;
-        transition: 0.3s;
-    }
-
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
-
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
-
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
-    </style>
-
-<script>
-function openDocs(evt, docsName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(docsName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-</script>
-
-
-<div class="tab">
-  <!- Tab headers and links ->
-  <button class="tablinks active" onclick="openDocs(event, 'tab1')">Single Node and Leader Follower</button>
-  <button class="tablinks" onclick="openDocs(event, 'tab2')">Galera [BETA]</button>
-</div>
-
-
-<div id="tab1" class="tabcontent" style="display:block">
-  <img src="./images/sn-lf-plan.png">
-</div>
-<div id="tab2" class="tabcontent">
-  <img src="./images/galera-plan.png">
-</div>
-
-
-<% else %>
-<%= image_tag("../images/plan-resources.png",
-:alt => "Example showing a quota set to 15 instances, VM type set to micro, and persistent disk type set to 20 GB",
-:width => "400") %>
-
-<% end %>
 
 <p class="note"><strong>Note:</strong>
 	Although operators can limit on-demand instances with plan quotas and a global
