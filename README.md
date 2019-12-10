@@ -6,7 +6,7 @@ https://github.com/pivotal-cf/docs-book-redis
 The book repository uses these branches:
 
 * **Edge** builds from the **master** content branch are available on staging [here](https://docs-pcf-staging.cfapps.io/redis/2-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
-* **Master** builds from the published content branches in this repository (2.2, 2.1, 2.0, 1.14, 1.13, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
+* **Master** builds from the published content branches in this repository (2.3, 2.2, 2.1, 2.0, 1.14, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
 
 ## Partials
 
@@ -28,6 +28,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Live Branches In Production (Public)
 
+* **2.3**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-3/) and production (https://docs.pivotal.io/redis/2-2/)
 * **2.2**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-2/) and production (https://docs.pivotal.io/redis/2-2/)
 * **2.1**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-1/) and production (https://docs.pivotal.io/redis/2-1/)
 * **2.0**: This branch is no longer in use because this version is deprecated. Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-0/) and production (https://docs.pivotal.io/redis/2-0/)
