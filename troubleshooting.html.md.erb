@@ -25,41 +25,17 @@ Before debugging, gather the following about your PCF deployment:
 
 ### cf CLI Commands
 
-<table>
-  <tr>
-    <th>Purpose</th>
-    <th>Command</th>
-  </tr>
-  <tr>
-    <td>View the API endpoint, org, and space</td>
-    <td><code>cf target</code></td>
-  </tr>
-  <tr>
-    <td>View the service offerings available in the targeted org and space</td>
-    <td><code>cf marketplace</code></td>
-  </tr>
-  <tr>
-    <td>View the apps deployed to the targeted org and space</td>
-    <td><code>cf apps</code></td>
-  </tr>
-  <tr>
-    <td>View the service instances deployed to the targeted org and space</td>
-    <td><code>cf services</code></td>
-  </tr>
-  <tr>
-    <td>View the GUID for a given service instance</td>
-    <td><code>cf service SERVICE_INSTANCE --guid</code></td>
-  </tr>
-  <tr>
-    <td>View the service instance or application logs</td>
-    <td><code>cf tail SERVICE_INSTANCE/APP</code></td>
-  </tr>
-</table>
-<br>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial vars.path_to_partials + '/redis/debugging-using-cf-cli' %>
 
 ### BOSH CLI Commands
 
+See the table below for BOSH CLI commands commonly used while debugging:
+
 <table>
+  <col width="60%">
+  <col width="40%">
   <tr>
     <th>Purpose</th>
     <th>Command</th>
