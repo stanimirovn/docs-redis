@@ -9,34 +9,18 @@ owner: London Services
 
 <%= partial '../../redis/partials/pcf-name-change' %>
 
-## <a id="2-3-0"></a> v2.3.0
+## <a id="2-4-0"></a> v2.4.0
 
-**Release Date: December 10, 2019**
+**Release Date: MMMM DD, 2020**
 
 ### Features
 
 New features and changes in this release:
 
-* You can configure on-demand plans dynamically.
-For more information, see [Configure On-Demand Plan Settings](./installing.html#on-demand-plan-config).
-
-* You can upgrade individual on-demand service instances using the cf CLI.
-To enable this feature, see [Enable Individual Service Instance Upgrades](./upgrade.html#individual-upgrades).
-For how to upgrade an individual service instance see, [Upgrading an Individual Redis Service Instance](./dev-upgrade.html).
-
-* Service instance and broker metrics are emitted in Prometheus format.
-For general information about metrics, see [Monitoring <%= vars.product_name %>](./monitoring.html).
-
-* Errands have impact warnings when service instance downtime is expected.
-
-* Syslog configuration is delegated to <%= vars.ops_manager %>.
-
 
 ### Resolved Issues
 
 This release has the following fixes:
-
-* Removes redundant, unused test code contained in `redis-test-release`.
 
 
 ### Known Issues
