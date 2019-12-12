@@ -51,7 +51,7 @@ VM memory is more likely to be a limiting factor than number of keys that can be
 ### <a id="post-deploy"></a> Post-Deploy Errands
 
 The following post-deploy errands are run by default when **Apply Changes** is triggered.
-These errands run whether or not there has been a configuration change in the <%= vars.product_name %> tile.
+These errands run whether or not there has been a configuration change in the <%= vars.product_short %> tile.
 
 <table class="nice">
   <tr>
@@ -116,7 +116,7 @@ These errands help operators to troubleshoot and maintain their service fleet.
 
 ### <a id="pre-delete"></a> Pre-Delete Errands
 
-The following pre-delete errands are run by default when the <%= vars.product_name %> tile is deleted:
+The following pre-delete errands are run by default when the <%= vars.product_short %> tile is deleted:
 
 <table class="nice">
   <tr>
@@ -143,20 +143,20 @@ Pivotal recommends that you run the post-deploy errands at any trigger of **Appl
 However, this practice can extend the duration of applying changes by several minutes every time.
 This section helps you decide when it is safe to skip some post-deploy errands.
 
-#### Changes to <%= vars.product_name %> Tile Configuration
+#### Changes to <%= vars.product_short %> Tile Configuration
 
-If the changes include configuration changes on the <%= vars.product_name %> tile or a new stemcell version, the operator must run all post-deploy errands.
+If the changes include configuration changes on the <%= vars.product_short %> tile or a new stemcell version, the operator must run all post-deploy errands.
 
 #### Installing Another Tile
 
 When installing another tile that does not make any changes to the BOSH Director
 or the <%= vars.app_runtime_full %>,
-it is not necessary to run any of the <%= vars.product_name %> tile's post-deploy errands.
+it is not necessary to run any of the <%= vars.product_short %> tile's post-deploy errands.
 
 #### Changes to Other Tiles
 
-Sometimes the change does not include changes to the <%= vars.product_name %> tile's configuration.
-Then it might not be necessary to run all of the <%= vars.product_name %> tile's post-deploy errands.
+Sometimes the change does not include changes to the <%= vars.product_short %> tile's configuration.
+Then it might not be necessary to run all of the <%= vars.product_short %> tile's post-deploy errands.
 
 #### Broker Registrar Errand
 
@@ -170,14 +170,14 @@ Then it might not be necessary to run all of the <%= vars.product_name %> tile's
 
 <p class="note">
 Pivotal <a href="./upgrade.html#network-upgrades">recommends</a> against changing the BOSH Director's network configuration
-in a way that changes the ranges where the <%= vars.product_name %> tile deploys VMs.
+in a way that changes the ranges where the <%= vars.product_short %> tile deploys VMs.
 </p>
 
 #### Smoke Tests and On-Demand Smoke Tests Errands
 
 - Required to run if their respective register broker errand is required.
 - Required to run both if a newer stemcell minor version is uploaded.
-  The <%= vars.product_name %> tile floats to the newest minor version.
+  The <%= vars.product_short %> tile floats to the newest minor version.
   For more information, see [Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
 - Good practice to run both for any change in the BOSH Director or <%= vars.app_runtime %>tile.
 - Not necessary to run either if the change only involves other tiles except <%= vars.app_runtime %>and BOSH Director.
@@ -185,7 +185,7 @@ in a way that changes the ranges where the <%= vars.product_name %> tile deploys
 #### Upgrade All On-Demand Service Instances Errand
 
 - Required to run if a newer stemcell minor version is uploaded.
-  The <%= vars.product_name %> tile floats to the newest minor version.
+  The <%= vars.product_short %> tile floats to the newest minor version.
   For more information, see [Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
 - Not necessary to run if there are no on-demand instances provisioned.
 
@@ -207,11 +207,11 @@ the details of orphaned instances so the operator can decide when and how to rem
 
 ##  <a id="smoke"></a>Smoke Tests
 
-<%= vars.ops_manager %> runs <%= vars.product_name %> smoke tests as a post-install errand.
+<%= vars.ops_manager %> runs <%= vars.product_short %> smoke tests as a post-install errand.
 To run the smoke tests errand manually:
 
 1. Retrieve the deployment name of the installed product. To find the deployment name:
-  1. From the <%= vars.ops_manager %> UI, click the <%= vars.product_name %> tile.
+  1. From the <%= vars.ops_manager %> UI, click the <%= vars.product_short %> tile.
   1. Copy the part of the URL that starts with "p-redis-".
 
 1. Run the smoke tests errand: <br>

@@ -9,11 +9,11 @@ This section contains the upgrade procedure and upgrade paths for <%= vars.produ
 
 ##<a id="upgrading"></a> Compatible Upgrade Paths
 
-Before upgrading <%= vars.product_name %>, for compatibility information, see the
+Before upgrading <%= vars.product_short %>, for compatibility information, see the
 [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
 
-## <a id="upgrades"></a> Upgrade to <%= vars.product_name %> v2.3
+## <a id="upgrades"></a> Upgrade to <%= vars.product_short %> v2.3
 
 <%= partial "../../redis/partials/redis/warning-disabling-tls" %>
 
@@ -25,7 +25,7 @@ For information about the upgrade paths for each released version, see
 
 ### <a id="procedure"></a> Upgrade Procedure
 
-To upgrade to the latest version of <%= vars.product_name %>:
+To upgrade to the latest version of <%= vars.product_short %>:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 
@@ -56,21 +56,21 @@ The default upgrade path automatically upgrades all on-demand service instances
 when you upgrade the tile.
 This operation can take a long time.
 
-To expedite upgrades, in <%= vars.product_name %> v2.3 and later you can enable on-demand service
+To expedite upgrades, in <%= vars.product_short %> v2.3 and later you can enable on-demand service
 instances to be upgraded individually.
 This allows developers to upgrade their own service instances after you have upgraded the tile.
 
 <p class="note"><strong>Note:</strong>
-  This feature is only available for upgrades from <%= vars.product_name %> v2.3.0 to later versions.
+  This feature is only available for upgrades from <%= vars.product_short %> v2.3.0 to later versions.
   You cannot upgrade individual service instances from v2.2 to v2.3.
 </p>
 
 To enable upgrading individual service instances:
 
-1. Ensure that all service instances have been upgraded to <%= vars.product_name %> v2.3.0 or later.
+1. Ensure that all service instances have been upgraded to <%= vars.product_short %> v2.3.0 or later.
 If not, click **Apply changes** to run the `upgrade-all-service instances` errand.
 
-1. In <%= vars.product_name %> tile, navigate to the **Errands** page.
+1. In <%= vars.product_short %> tile, navigate to the **Errands** page.
 
 1. Select **Off** for the **Upgrade All On-Demand Service Instances** errand:
 
@@ -107,12 +107,12 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 
 ###  <a id="downtime-causes"></a> Causes of Downtime
 
-A redeploy causes downtime for the <%= vars.product_name %> tile.
+A redeploy causes downtime for the <%= vars.product_short %> tile.
 This section clarifies what events trigger a redeploy.
 
 #### <a id="opsman"></a> <%= vars.ops_manager %> Changes
 
-In <%= vars.ops_manager %>, any field that changes the manifest causes a redeploy of the <%= vars.product_name %> tile.
+In <%= vars.ops_manager %>, any field that changes the manifest causes a redeploy of the <%= vars.product_short %> tile.
 
 #### <a id="pas"></a> <%= vars.app_runtime %> Changes
 
@@ -135,7 +135,7 @@ When the operator applies any of the above changes to PAS, downtime is triggered
 
 Downtime for service instances occurs only after the operator runs the
 `upgrade-all-service-instances` BOSH errand, after all tile upgrades are completed successfully.
-Any change to a field on the <%= vars.product_name %> tile causes BOSH to redeploy the
+Any change to a field on the <%= vars.product_short %> tile causes BOSH to redeploy the
 on-demand Redis broker and can cause service instance downtime when the operator runs the
 `upgrade-all-service-instances` errand.
 
@@ -168,13 +168,13 @@ For instructions, see the solution in [Apps Fail to Connect to the Service Insta
 
 ## <a id="network-upgrades"></a> Network Changes after Deployment
 
-This section explains how changing the network after deploying <%= vars.product_name %>
+This section explains how changing the network after deploying <%= vars.product_short %>
 affects instances and apps.
 
 ### <a id="network-upgrades-shared-vms"></a> Shared VMs
 
 To change the network for shared-VM services,
-click **Assign AZs and Networks** in the <%= vars.product_name %> tile configuration and use the **Network** dropdown.
+click **Assign AZs and Networks** in the <%= vars.product_short %> tile configuration and use the **Network** dropdown.
 
 You can also change the network by altering the CIDR in the BOSH Director tile.
 

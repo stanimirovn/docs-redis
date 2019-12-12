@@ -7,16 +7,16 @@ owner: London Services
 
 <%= vars.product_full %> can be used both through <a href="http://docs.pivotal.io/pivotalcf/console/dev-console.html">Pivotal Apps Manager</a> and the Cloud Foundry Command Line Interface (cf CLI). Both methods are outlined below.
 
-You can find an example app has to help you get started with <%= vars.product_name %>.
+You can find an example app has to help you get started with <%= vars.product_short %>.
 Download the example app by clicking [this link](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
-For recommendations regarding <%= vars.product_name %> service plans and memory allocation,
+For recommendations regarding <%= vars.product_short %> service plans and memory allocation,
 see the [On-Demand Service Offering](./architecture.html)
 and the [Shared-VM Service Offering](./architecture-pp.html).
 
 ## <a id="prereq"></a>Prerequisites
 
-To use <%= vars.product_name %> with your <%= vars.platform_name %> apps, you need:
+To use <%= vars.product_short %> with your <%= vars.platform_name %> apps, you need:
 
 * A <%= vars.platform_name %> installation with [<%= vars.product_full %>](https://network.pivotal.io/products/p-redis)
 installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances).
@@ -32,21 +32,21 @@ the org and space containing your app and have a local machine with the followin
    - A shell
    - The [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
 
-## <a id="process"></a>Use <%= vars.product_name %> in a <%= vars.platform_name %> app
+## <a id="process"></a>Use <%= vars.product_short %> in a <%= vars.platform_name %> app
 
 Every app and service in <%= vars.platform_name %> is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use a service, an app must exist in the same space as an instance of the service.
 
-To use <%= vars.product_name %> in a <%= vars.platform_name %> app:
+To use <%= vars.product_short %> in a <%= vars.platform_name %> app:
 
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log in to the org and space that contains the app.
 
-1. Make sure an instance of the <%= vars.product_name %> service exists in the same space as the app.<br><br>
-   - If the space does not already have a <%= vars.product_name %> instance, [create](#create) one.<br>
-   - If the space already has a <%= vars.product_name %> instance, you can [bind](#bind) your app to the existing instance or create a new instance to bind to your app.
+1. Make sure an instance of the <%= vars.product_short %> service exists in the same space as the app.<br><br>
+   - If the space does not already have a <%= vars.product_short %> instance, [create](#create) one.<br>
+   - If the space already has a <%= vars.product_short %> instance, you can [bind](#bind) your app to the existing instance or create a new instance to bind to your app.
 
-2. [Bind](#bind) the app to the <%= vars.product_name %> service instance, to enable the app to use Redis.
+2. [Bind](#bind) the app to the <%= vars.product_short %> service instance, to enable the app to use Redis.
 
-## <a id='marketplace'></a>Confirm <%= vars.product_name %> Service Availability
+## <a id='marketplace'></a>Confirm <%= vars.product_short %> Service Availability
 
 For an app to use a service, the following two things must be true:
 
@@ -55,14 +55,14 @@ For an app to use a service, the following two things must be true:
 
 You can confirm both of these using the cf CLI as follows:
 
-1. To find out if a <%= vars.product_name %> service is available in the Marketplace:
+1. To find out if a <%= vars.product_short %> service is available in the Marketplace:
     1. Run:
 
         ```
         cf marketplace
         ```
-    1. If the output lists `p.redis` in the `service` column, on-demand <%= vars.product_name %> is available.
-    If the output lists `p-redis` in the `service` column, shared-VM <%= vars.product_name %> is available.
+    1. If the output lists `p.redis` in the `service` column, on-demand <%= vars.product_short %> is available.
+    If the output lists `p-redis` in the `service` column, shared-VM <%= vars.product_short %> is available.
     If it is not available, ask your operator to install it.<br><br>
     For example:
     <pre class="terminal">
@@ -75,14 +75,14 @@ You can confirm both of these using the cf CLI as follows:
     [...]
     </pre>
 
-1. To confirm that a <%= vars.product_name %> instance is running in the space:
+1. To confirm that a <%= vars.product_short %> instance is running in the space:
     1. Run:
 
         ```
         cf services
         ```
-    1. Any `p.redis` listings in the `service` column are service instances of on-demand <%= vars.product_name %> in the space.
-    Any `p-redis` in the `service` column are service instances of shared-VM <%= vars.product_name %>.<br><br>
+    1. Any `p.redis` listings in the `service` column are service instances of on-demand <%= vars.product_short %> in the space.
+    Any `p-redis` in the `service` column are service instances of shared-VM <%= vars.product_short %>.<br><br>
     For example:
     <pre class="terminal">
     $ cf services
@@ -95,7 +95,7 @@ You can confirm both of these using the cf CLI as follows:
 You can [bind](#bind) your app to an existing instance or [create](#create) a new instance to bind to your app.
 
 
-## <a id='create'></a>Create a <%= vars.product_name %> Service Instance
+## <a id='create'></a>Create a <%= vars.product_short %> Service Instance
 
 To use a service you must create a service instance of a plan that is available in the Marketplace.
 To do so, you can use either the cf CLI or Apps Manager.
@@ -109,7 +109,7 @@ You can use the cf CLI to create service instances of available on-demand or sha
 Unlike pre-provisioned services, on-demand instances are created asynchronously, not immediately.
 On-demand plans are listed under the `p.redis` service in the Marketplace.
 
-To create a service instance of the <%= vars.product_name %> on-demand plan, run:
+To create a service instance of the <%= vars.product_short %> on-demand plan, run:
 
 ```
 cf create-service p.redis CACHE_PLAN SERVICE_NAME
@@ -145,7 +145,7 @@ These plans are both listed under the `p-redis` service in the Marketplace.
 
 <p class="note"><strong>Note</strong>: Shared-VM services are designed for testing and development purposes. Shared-VMs should not be used in production environments</p>
 
-To create a service instance of the <%= vars.product_name %> shared-VM plan, run:
+To create a service instance of the <%= vars.product_short %> shared-VM plan, run:
 
 ```
 cf create-service p-redis SERVICE_TYPE SERVICE_NAME
@@ -169,7 +169,7 @@ You can use Apps Manager to create service instances of available on-demand or s
 
 #### On-Demand Service
 
-To create a service instance of the <%= vars.product_name %>  on-demand plan using Apps Manager:
+To create a service instance of the <%= vars.product_short %>  on-demand plan using Apps Manager:
 
 1. From within Pivotal Apps Manager, select **Marketplace** from the left navigation menu under Spaces.
 ![marketplace](appsman_marketplace.png)
@@ -186,7 +186,7 @@ To create a service instance of the <%= vars.product_name %>  on-demand plan usi
 
 #### Shared-VM Service
 
-To create a service instance of the <%= vars.product_name %> shared-VM plan using Apps Manager:
+To create a service instance of the <%= vars.product_short %> shared-VM plan using Apps Manager:
 
 1. From within Pivotal Apps Manager, select **Marketplace** from the left navigation menu under Spaces.
 ![marketplace](appsman_marketplace.png)
@@ -210,7 +210,7 @@ Bind the app after you push or re-push it using `cf push`.
 
 ### <a id="bind-cli"></a> Bind a Service Instance with the cf CLI
 
-To bind an app to a <%= vars.product_name %> service instance:
+To bind an app to a <%= vars.product_short %> service instance:
 
 1. View running service instances:
 
@@ -251,7 +251,7 @@ To bind an app to a <%= vars.product_name %> service instance:
 
 ### <a id="bind-appsman"></a> Bind a Service Instance with Apps Manager
 
-To bind an app to a <%= vars.product_name %> service instance:
+To bind an app to a <%= vars.product_short %> service instance:
 
 1. Select the app that you want to bind to the service. A page displays showing the already bound services and instances for this app.
 1. Click **Bind**. A list of available services displays.
@@ -361,7 +361,7 @@ The following screenshot is an example of an error caused by a missing hyphen in
 
 ## <a id="call"></a>Retrieve the Password for a Redis Service Instance
 
-All <%= vars.product_name %> instances are password-protected and require authentication.
+All <%= vars.product_short %> instances are password-protected and require authentication.
 This is enforced with the `requirepass` directive in the configuration file.
 
 To retrieve the password, do the following:
@@ -398,9 +398,9 @@ To retrieve the password, do the following:
     }
     </pre>
 
-<%= vars.product_name %> data is accessible from apps bound to that instance.
-Some <%= vars.product_name %> users bind the opensource [cf-redis-commander](https://github.com/komushi/cf-redis-commander) app to view instance data.
-This app is not maintained by the <%= vars.product_name %> team, and Pivotal cannot guarantee its performance or security.
+<%= vars.product_short %> data is accessible from apps bound to that instance.
+Some <%= vars.product_short %> users bind the opensource [cf-redis-commander](https://github.com/komushi/cf-redis-commander) app to view instance data.
+This app is not maintained by the <%= vars.product_short %> team, and Pivotal cannot guarantee its performance or security.
 
 ## <a id="call"></a>Use the Redis Service in Your App
 
@@ -409,7 +409,7 @@ To access the environment variables, bind your app to an instance and run `cf en
 
 To access the Redis service from your app:
 
-1. Run the following command using the name of the app bound to the <%= vars.product_name %> instance.
+1. Run the following command using the name of the app bound to the <%= vars.product_short %> instance.
 
     ```
     cf env APP_NAME

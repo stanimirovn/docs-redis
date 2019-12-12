@@ -20,7 +20,7 @@ This topic lists troubleshooting information for <%= vars.product_full %>.
 
 Before debugging, gather the following about your <%= vars.platform_name %> deployment:
 
-* Current version of <%= vars.product_name %>, and, if upgrading, the previous version of <%= vars.product_name %>
+* Current version of <%= vars.product_short %>, and, if upgrading, the previous version of <%= vars.product_short %>
 * Current version of <%= vars.ops_manager %>, and, if upgrading, the previous version of <%= vars.ops_manager %>
 
 ### cf CLI Commands
@@ -160,7 +160,7 @@ Start here if you are responding to a specific error or error messages.
 
 ### <a id="syslog-errors"></a> Error Messages Logged in Syslog
 
-You can configure <%= vars.product_name %> with remote syslog forwarding.
+You can configure <%= vars.product_short %> with remote syslog forwarding.
 For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
 
 This section helps to troubleshoot the following errors logged in syslog:
@@ -412,14 +412,14 @@ If developers report errors such as:
 
 <strong>Explanation</strong><br><br>
 
-Your service instances might not be running the latest version of <%= vars.product_name %>.
+Your service instances might not be running the latest version of <%= vars.product_short %>.
 You might experience compatibility issues with CredHub if your service instances
 are running <%= vars.product_old %> v1.14.3 or earlier.<br><br>
 
 <strong>Solution</strong><br><br>
 
 <ol>
-  <li>Ensure you have the latest patch version of <%= vars.product_name %> installed.
+  <li>Ensure you have the latest patch version of <%= vars.product_short %> installed.
   For more information about the latest patch, see <a href="./release.html"><%= vars.product_full %> Release Notes</a>.</li>
   <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
     instances are running the latest service offering.
@@ -633,7 +633,7 @@ This section contains instructions on:
 
 ## <a id="Knowledge"></a> Pivotal Support Articles
 
-The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> articles about <%= vars.product_name %>:<br><br>
+The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> articles about <%= vars.product_short %>:<br><br>
 
 <ul>
   <li><a href="https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only"> Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only </a></li>

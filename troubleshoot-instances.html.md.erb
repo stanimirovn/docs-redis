@@ -15,12 +15,12 @@ This topic provides basic instructions for app developers troubleshooting on-dem
 
 ## <a id="outages"></a>Temporary Outages
 
-<%= vars.product_name %> service instances can become temporarily inaccessible during upgrades and VM or network failures.
+<%= vars.product_short %> service instances can become temporarily inaccessible during upgrades and VM or network failures.
 
 ## <a id="errors"></a> Techniques for Troubleshooting Errors
 
 You might see an error when using the Cloud Foundry Command-Line Interface (cf CLI)
-to perform basic operations on a <%= vars.product_name %> service instance:
+to perform basic operations on a <%= vars.product_short %> service instance:
 
 * `cf create`
 * `cf update`
@@ -131,7 +131,7 @@ This is usually caused by apps opening multiple client connections to Redis.
 <strong>Solution</strong><br>
 
 Share or pool Redis connections within an app.
-<%= vars.product_name %> configures Redis to accept 10000 client connections.
+<%= vars.product_short %> configures Redis to accept 10000 client connections.
 This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
 
 

@@ -12,7 +12,7 @@ For instructions on creating, binding to, and deleting an instance of the On-Dem
 or Shared-VM plan, see [Using <%= vars.product_full %>](./using.html).
 
 
-## <a id="services"></a> <%= vars.product_name %> Services
+## <a id="services"></a> <%= vars.product_short %> Services
 
 <%= partial(:'../../redis/partials/redis/service-offerings', :locals => {
   :redis_name => vars.product_name,
@@ -22,13 +22,13 @@ or Shared-VM plan, see [Using <%= vars.product_full %>](./using.html).
 
 Below are descriptions of software frequently used with Redis.
 
-### <a id="spring"></a><%= vars.product_name %> with Spring
+### <a id="spring"></a><%= vars.product_short %> with Spring
 
-Spring Cloud Spring Service Connectors connect to <%= vars.product_name %>.
+Spring Cloud Spring Service Connectors connect to <%= vars.product_short %>.
 For more information, see the [Redis](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-spring-service-connector.html#_redis) section
 in the Spring Cloud Spring Service Connector documentation.
 
-Spring Cloud Cloud Foundry connectors automatically connect to <%= vars.product_name %>.
+Spring Cloud Cloud Foundry connectors automatically connect to <%= vars.product_short %>.
 For more information, see the [Redis](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-cloud-foundry-connector.html#_redis) section
 in the Spring Cloud Cloud Foundry Connector documentation.
 
@@ -36,9 +36,9 @@ To view an example Spring app using Redis as a cache with failover,
 see the [Redis Reference Architectures](https://github.com/pivotal-cf/redis-reference-architecture) GitHub
 repository.
 
-### <a id="steeltoe"></a><%= vars.product_name %> with Steeltoe
+### <a id="steeltoe"></a><%= vars.product_short %> with Steeltoe
 
-Steeltoe Cloud Connectors can connect to <%= vars.product_name %>.
+Steeltoe Cloud Connectors can connect to <%= vars.product_short %>.
 See the [Steeltoe Cloud Connectors](https://steeltoe.io/docs/steeltoe-connectors/#5-0-redis) documentation.
 
 
@@ -47,9 +47,9 @@ see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteelto
 repository in GitHub.
 
 <p class="note warning"><strong>Warning</strong>:
-  The Steeltoe connector for Redis requires <%= vars.product_name %> to support Lua scripting.
+  The Steeltoe connector for Redis requires <%= vars.product_short %> to support Lua scripting.
   Check whether the language you are using requires Lua scripting. If it does, contact your operator.
-  By default, Lua scripting is disabled for <%= vars.product_name %>, but a <%= vars.platform_name %> operator can
+  By default, Lua scripting is disabled for <%= vars.product_short %>, but a <%= vars.platform_name %> operator can
   change the setting to enable it by selecting the <strong>Lua Scripting</strong> checkbox in each service plan's <strong><a href="./installing.html#on-demand-plan-config">On-Demand Plan</a></strong> configuration pane.
 </p>
 

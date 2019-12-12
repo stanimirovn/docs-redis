@@ -32,33 +32,33 @@ Redis can be used in many different ways, including:
 
 ## <a id="benchmarks"></a> SLO Benchmark
 
-The <%= vars.product_name %> team maintains a monthly Service Level Objective (SLO) of 99.95%
-uptime for the <%= vars.product_name %> offering on Pivotal Web Services.
-This is provided as a benchmark. SLOs for separate offerings of the <%= vars.product_name %>
+The <%= vars.product_short %> team maintains a monthly Service Level Objective (SLO) of 99.95%
+uptime for the <%= vars.product_short %> offering on Pivotal Web Services.
+This is provided as a benchmark. SLOs for separate offerings of the <%= vars.product_short %>
 service vary based on variables such as infrastructure, networking, and
 relevant policies around security upgrades.
 
 ## <a id="offerings"></a> Service Offerings
 
-For descriptions of the <%= vars.product_name %> service offerings, see:
+For descriptions of the <%= vars.product_short %> service offerings, see:
 
 * [On-Demand Service Offering](./architecture.html)
 * [Shared-VM Service Offering](./architecture-pp.html)
 
 ##<a id="checklist"></a> Enterprise-Readiness Checklist
 
-Review the following table to determine if <%= vars.product_name %> has the features needed to support your enterprise.
+Review the following table to determine if <%= vars.product_short %> has the features needed to support your enterprise.
 
 <table border="1" class="nice">
 
   <tr><th colspan=2>Resilience</th><th>More Information</th></tr>
   <tr>
     <td>Availability</td>
-    <td>All <%= vars.product_name %> services are single VMs without clustering capabilities.
+    <td>All <%= vars.product_short %> services are single VMs without clustering capabilities.
         This means that planned maintenance jobs (e.g., upgrades) can result in 2–10 minutes of downtime,
         depending on the nature of the upgrade.
         Unplanned downtime (e.g., VM failure) also affects the Redis service.<br>
-        <%= vars.product_name %> has been used successfully in enterprise-ready apps that can tolerate downtime.
+        <%= vars.product_short %> has been used successfully in enterprise-ready apps that can tolerate downtime.
         Pre-existing data is not lost during downtime with the default persistence configuration.
         Successful apps include those where the downtime is passively handled or
         where the app handles failover logic.
@@ -88,7 +88,7 @@ Review the following table to determine if <%= vars.product_name %> has the feat
     <td>
       <%-#Do we need to cover network isolation?-%>
       Isolation is provided when using the on-demand service.
-      Individual apps and workflows should have their own <%= vars.product_name %> instance to maximize isolation.
+      Individual apps and workflows should have their own <%= vars.product_short %> instance to maximize isolation.
     </td>
     <td>
     </td>
@@ -112,8 +112,8 @@ Review the following table to determine if <%= vars.product_name %> has the feat
     <td>Health Monitoring</td>
     <td>
     Both the on-demand and shared service instances emit metrics.
-    These include Redis-specific metrics and <%= vars.product_name %> metrics.
-    Guidance on critical metrics and alerting levels is captured with the <%= vars.product_name %> Key Performance Indicators (KPIs).
+    These include Redis-specific metrics and <%= vars.product_short %> metrics.
+    Guidance on critical metrics and alerting levels is captured with the <%= vars.product_short %> Key Performance Indicators (KPIs).
     </td>
     <td>
       <a href="./monitoring.html#kpi"> Key Performance Indicators </a><br/>
@@ -138,7 +138,7 @@ Review the following table to determine if <%= vars.product_name %> has the feat
     <td>
     All Redis services emit logs.
     Operators can configure syslog forwarding to a remote destination.
-    This enables viewing logs from every VM in the <%= vars.product_name %> deployment in one place,
+    This enables viewing logs from every VM in the <%= vars.product_short %> deployment in one place,
     effective troubleshooting when logs are lost on the source VM,
     and setting up alerts for important error logs to monitor the deployment.
     </td>
@@ -160,9 +160,9 @@ Review the following table to determine if <%= vars.product_name %> has the feat
     <td>Upgrades</td>
     <td>
       <%-#More docs need to be written on what is minimum errand set you can run-%>
-      For information about preparing an upgrade and about understanding the effects on your <%= vars.product_name %>
-      and other services, see <a href="./upgrade.html">Upgrading <%= vars.product_name %></a>.
-      <%= vars.product_name %> upgrades run a post deployment BOSH errand called smoke tests to validate the success of the
+      For information about preparing an upgrade and about understanding the effects on your <%= vars.product_short %>
+      and other services, see <a href="./upgrade.html">Upgrading <%= vars.product_short %></a>.
+      <%= vars.product_short %> upgrades run a post deployment BOSH errand called smoke tests to validate the success of the
       upgrade.
     </td>
     <td>
@@ -175,11 +175,11 @@ Review the following table to determine if <%= vars.product_name %> has the feat
     <td>Encrypted Communication in Transit</td>
     <td>
       You can enable TLS encryption between apps and service instances.<br><br>
-      Additionally, <%= vars.product_name %> has been tested with the IPsec Add-on for PCF.
+      Additionally, <%= vars.product_short %> has been tested with the IPsec Add-on for PCF.
     </td>
     <td>
       <a href="https://redis.io/topics/security">OS Redis Security</a><br><br>
-      <a href="./architecture.html#tls">TLS in <%= vars.product_name %></a><br><br>
+      <a href="./architecture.html#tls">TLS in <%= vars.product_short %></a><br><br>
       <a href="https://docs.pivotal.io/addon-ipsec/index.html">Securing Data in Transit with the IPsec add-on</a>
     </td>
   </tr>
@@ -187,7 +187,7 @@ Review the following table to determine if <%= vars.product_name %> has the feat
 
 ### <a id="other-notes"></a>Availability Zones
 
-On-demand <%= vars.product_name %> supports configuring multiple availability
+On-demand <%= vars.product_short %> supports configuring multiple availability
 zones (AZs) to improve resiliency.
 However, assigning multiple AZs to Redis service instances does not provide high availability.
 This is because each individual Redis service instance is a single VM without
