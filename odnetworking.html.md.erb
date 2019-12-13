@@ -12,14 +12,14 @@ This section describes networking considerations for the Redis for Pivotal Cloud
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/service-networks-v3', :locals => {
-  :platform_name => vars.platform_name} %>
+  :platform_name => vars.platform_old} %>
 
 ## <a id ="architecture_networks"></a>Default Network and Service Network
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/on_demand_architecture', :locals => {
-  :product_short => vars.product_short} %>
+  :product_short => "Redis for PCF"} %>
 
 
 ## <a id="network-rules"></a>Required Networking Rules for On-Demand Services
@@ -27,9 +27,9 @@ This section describes networking considerations for the Redis for Pivotal Cloud
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/service_networks_table', :locals => {
-  :platform_name => vars.platform_name,
+  :platform_name => vars.platform_old,
 	:app_runtime_full => vars.app_runtime_full,
-	:product_short => vars.product_short} %>
+	:product_short => "Redis for PCF"} %>
 
 <br>
 Regardless of the specific network layout, the operator must ensure network
