@@ -10,8 +10,8 @@ owner: London Services
 <strong><%= modified_date %></strong>
 
 <%= partial vars.path_to_partials + '/services/set_quotas',:locals => {
-  :product_full => vars.product_full,
-  :product_short => vars.product_short,
-  :platform_name => vars.platform_name,
+  :product_full => "Redis for Pivotal Cloud Foundry (PCF)",
+  :product_short => "Redis for PCF",
+  :platform_name => "PCF",
   :service_name => vars.service_name,
-  :tile_name => vars.tile_name}%>
+  :tile_name => "Redis for PCF"}%>
