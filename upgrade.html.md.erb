@@ -204,4 +204,6 @@ and does not alter existing instances.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services/release-policy' %>
+<%= partial vars.path_to_partials + '/services/release-policy', :locals => {
+  :service_name => "Redis for Pivotal Platform", :platform_name => "Pivotal Platform", :os_name => "Redis"
+} %>
