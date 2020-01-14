@@ -212,6 +212,22 @@ instance using an IP address as follows:
     cf restage APP-NAME
     ```
 
+## <a id="no-metrics"></a> No Metrics from Log Cache
+
+**Symptom**
+
+You receive no metrics when running the `cf tail` command.
+
+**Explanation**
+
+This might be because the Firehose is disabled in the PAS tile.
+
+**Solution**
+
+Ask your operator to ensure that the **V2 Firehose** checkbox is enabled, and **Enable Log Cache syslog ingestion**
+checkbox is disabled in the PAS tile.
+For more information about configuring these checkboxes, see
+[Enable Syslog Forwarding](https://docs.pivotal.io/platform/application-service/operating/logging-config-opsman.html#syslog-forward).
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
