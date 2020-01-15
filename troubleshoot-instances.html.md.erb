@@ -32,7 +32,7 @@ to perform basic operations on a <%= vars.product_short %> service instance:
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-tech-parse-error' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-parse-error' %>
 
 ### <a id="instance"></a> Retrieve Service Instance Information
 
@@ -95,108 +95,7 @@ you can find a Redis service instance password by creating a new service key.
 
 For instructions on how to retrieve the password, see [Retrieve the Password for a Redis Service Instance](./using.html#call).
 
-### <a id='credential-setting-failure'></a>Error: Failed to Set Credentials in Credential Store
-
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
-<%= partial '../../redis/partials/services-tshoot/tshoot-credhub-failing-credentials' %>
-
-## <a id="redis-client-errors"></a>Error Messages from the Redis Client
-
-Certain errors are returned to the Redis client instead of being recorded in the logs.
-The Redis protocol represents errors as simple strings beginning with a `-` character. <br><br>
-
-This section helps to troubleshoot the following errors:
-<br><br>
-<ul>
-  <li><a href="#max-clients">Maximum Number of Clients Reached</a></li>
-  <li><a href="#maxmemory">Maxmemory Limit Reached</a></li>
-  <li><a href="#err">Error When Running the Save Command</a></li>
-</ul>
-
-### <a id="max-clients"></a> Maximum Number of Clients Reached
-
-<strong>Symptom</strong><br>
-
-You receive the following error:<br>
-
-<pre class="terminal">-ERR max number of clients reached</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-This is usually caused by apps opening multiple client connections to Redis.
-<br><br>
-
-<strong>Solution</strong><br>
-
-Share or pool Redis connections within an app.
-<%= vars.product_short %> configures Redis to accept 10000 client connections.
-This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
-
-
-### <a id="maxmemory"></a> Maxmemory Limit Reached
-
-<strong>Symptom</strong><br>
-
-You receive the following error:<br>
-
-<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-This occurs when the Redis server has reached its <code>maxmemory</code> limit.
-<br><br>
-
-<strong>Solution</strong><br>
-
-Consider changing your maxmemory-policy.
-You can update this using the <code>cf update-service</code> parameters.
-For how to do this, see <a href="using.html#custom">Customize an On-Demand Service Instance</a>.
-
-
-### <a id="err"></a>Error When Running the Save Command
-
-<strong>Symptom</strong><br>
-
-You receive the following error message when running <code>redis-cli SAVE</code>
-or issuing the save command using another Redis client:
-
-<pre class="terminal">-ERR</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-This might occur when the Redis server's disk is full.
-<br><br>
-
-<strong>Solution</strong><br>
-
-A more informative message might be logged in the syslog.
-For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
-
-
-### <a id="err"></a>Unknown Command Error
-
-<strong>Symptom</strong><br>
-
-You receive the following error message when running <code>redis-cli COMMAND</code>
-or issuing a command using another Redis client:
-
-<pre class="terminal">-ERR unknown command</pre>
-<br>
-
-<strong>Explanation</strong><br>
-
-For security reasons, certain commands such as `CONFIG`, `SAVE`, and `BGSAVE` are not available by default.
-<br><br>
-
-<strong>Solution</strong><br>
-
-Talk to your operator about the availability of the command.
-
-## <a id="connect-fails"></a>Apps Fail to Connect to the Service Instance
+### <a id="connect-fails"></a>Apps Fail to Connect to the Service Instance
 
 **Symptom**
 
@@ -209,7 +108,7 @@ Service bindings return the DNS address instead of the IP address.
 If an operator enables the BOSH HotSwaps feature, any apps with service bindings that
 do not use BOSH DNS will fail to connect to the Redis service instance.
 
-For more information, see [BOSH HotSwaps](./upgrade.html#bosh-hotswaps).
+For more information, see [Enable BOSH HotSwaps to Reduce Downtime](./upgrade.html#bosh-hotswaps).
 For more information about service bindings, see
 [Service Bindings](https://docs.cloudfoundry.org/devguide/services/application-binding.html)
 in the Cloud Foundry documentation.
@@ -238,31 +137,103 @@ instance using an IP address as follows:
     cf restage APP-NAME
     ```
 
-## <a id="no-metrics"></a> No Metrics from Log Cache
+### <a id='credential-setting-failure'></a>Error: Failed to Set Credentials in Credential Store
+
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-credhub-failing-credentials' %>
+
+### <a id="no-metrics"></a> No Metrics from Log Cache
+
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-no-metrics' %>
+
+## <a id="redis-client-errors"></a>Error Messages from the Redis Client
+
+Certain errors are returned to the Redis client instead of being recorded in the logs.
+The Redis protocol represents errors as simple strings beginning with a `-` character.
+
+### <a id="max-clients"></a> Maximum Number of Clients Reached
 
 **Symptom**
 
-You receive no metrics when running the `cf tail` command.
+You receive the following error:
+
+<pre class="terminal">-ERR max number of clients reached</pre>
 
 **Explanation**
 
-This might be because the Firehose is disabled in the PAS tile.
+This is usually caused by apps opening multiple client connections to Redis.
 
 **Solution**
 
-Ask your operator to ensure that the **V2 Firehose** checkbox is enabled, and **Enable Log Cache syslog ingestion**
-checkbox is disabled in the PAS tile.
-For more information about configuring these checkboxes, see
-[Enable Syslog Forwarding](https://docs.pivotal.io/platform/application-service/operating/logging-config-opsman.html#syslog-forward).
+Share or pool Redis connections within an app.
+Redis for PCF configures Redis to accept 10000 client connections.
+This can be confirmed by running the `INFO` command using the Redis CLI.
+
+### <a id="maxmemory"></a> Maxmemory Limit Reached
+
+**Symptom**
+
+You receive the following error:
+
+<pre class="terminal">-OOM command not allowed when used memory > 'maxmemory'.</pre>
+
+**Explanation**
+
+This occurs when the Redis server has reached its `maxmemory` limit.
+
+**Solution**
+
+Consider changing your maxmemory-policy.
+You can update this using the `cf update-service` parameters.
+For how to do this, see [Customize an On-Demand Service Instance](using.html#custom).
+
+### <a id="err"></a>Error When Running the Save Command
+
+**Symptom**
+
+You receive the following error message when running `redis-cli SAVE` or issuing
+the save command using another Redis client:
+
+<pre class="terminal">-ERR</pre>
+
+**Explanation**
+
+This might occur when the Redis server's disk is full.
+
+**Solution**
+
+A more informative message might be logged in the syslog.
+For more information, see [Syslog Errors](./troubleshooting.html#syslog-errors).
+
+### <a id="err"></a>Unknown Command Error
+
+**Symptom**
+
+You receive the following error message when running `redis-cli COMMAND` or issuing
+a command using another Redis client:
+
+<pre class="terminal">-ERR unknown command</pre>
+
+**Explanation**
+
+For security reasons, certain commands such as `CONFIG`, `SAVE`, and `BGSAVE` are not available by default.
+
+**Solution**
+
+Talk to your operator about the availability of the command.
+
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-kb' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-kb' %>
 
 ## <a id="support"></a>File a Support Ticket
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services-tshoot/tshoot-support-dev' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-support-dev' %>
