@@ -97,7 +97,7 @@ To configure automated backups, follow the procedures below according to the opt
 To back up your database to an Amazon S3 bucket, complete the following procedures:
 
 * [Create a Policy and Access Key](#aws-create-policy)
-* [Configure Backups in Ops Manager](#aws-config-om)
+* [Configure Backups in <%= vars.ops_manager %>](#aws-config-om)
 
 ### <a id='aws-create-policy'></a> Create a Policy and Access Key
 
@@ -140,11 +140,11 @@ Do the following to create a policy and access key:
 1. (Recommended) Attach the policy you created to the AWS user account that Redis for PCF will use to access S3.
    Go to **IAM > Policies > Policy Actions > Attach**.
 
-### <a id='aws-config-om'></a> Configure Backups in Ops Manager
+### <a id='aws-config-om'></a> Configure Backups in <%= vars.ops_manager %>
 
 Do the following to connect Redis for PCF to your S3 account:
 
-1. Navigate to the Ops Manager Installation Dashboard and click the **Redis for PCF** tile.
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click the **Redis for PCF** tile.
 1. Click **Backups**.
 1. Under **Backup configuration**, select **AWS S3**.
     ![OpsManager Backups S3 view](s3backupoptions.png)
@@ -166,7 +166,7 @@ Do the following to connect Redis for PCF to your S3 account:
 To back up your database using SCP, complete the following procedures:
 
 * [(Recommended) Create a Public and Private Key Pair](#scp-keys)
-* [Configure Backups in Ops Manager](#scp-config-om)
+* [Configure Backups in <%= vars.ops_manager %>](#scp-config-om)
 
 ### <a id="scp-keys"></a>(Recommended) Create a Public and Private Key Pair
 
@@ -182,11 +182,11 @@ Do the following to create a new public and private key pair for authenticating:
 1. Create a new user for Redis for PCF on the destination VM.
 1. Create a new public and private key pair for authenticating as the above user on the destination VM.
 
-### <a id="scp-config-om"></a>Configure Backups in Ops Manager
+### <a id="scp-config-om"></a>Configure Backups in <%= vars.ops_manager %>
 
 Do the following to connect Redis for PCF to your destination VM:
 
-1. Navigate to the Ops Manager Installation Dashboard and click the **Redis for PCF** tile.
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click the **Redis for PCF** tile.
 1. Click **Backups**.
 1. Under **Backup configuration**, select **SCP**.
     ![OpsManager Backups SCP view](scpbackupoptions.png)
@@ -210,7 +210,7 @@ Do the following to connect Redis for PCF to your destination VM:
 To back up your database using GCS, complete the following procedures:
 
 * [Create a Service Account](#gcs-policy-access-key)
-* [Configure Backups in Ops Manager](#gcs-config-om)
+* [Configure Backups in <%= vars.ops_manager %>](#gcs-config-om)
 
 ### <a id="gcs-policy-access-key"></a>Create a Service Account
 
@@ -226,11 +226,11 @@ Do the following to create a service account with the correct permissions:
 1. Select the **Furnish a new private key** checkbox so that a new key is created and downloaded.
 1. Click **Create** and take note of the name and location of the service account JSON file that is downloaded.
 
-### <a id="gcs-config-om"></a>Configure Backups in Ops Manager
+### <a id="gcs-config-om"></a>Configure Backups in <%= vars.ops_manager %>
 
 Do the following to connect Redis for PCF to GCS:
 
-1. Navigate to the Ops Manager Installation Dashboard and click the **Redis for PCF** tile.
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click the **Redis for PCF** tile.
 1. Click **Backups**.
 1. Under **Backup configuration**, select **GCS**.
     ![OpsManager Backups GCS view](gcsbackupoptions.png)
@@ -249,7 +249,7 @@ Do the following to connect Redis for PCF to GCS:
 
 Do the following to back up your database to an Azure storage account:
 
-1. Navigate to the Ops Manager Installation Dashboard and click the **Redis for PCF** tile.
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click the **Redis for PCF** tile.
 1. Click **Backups**.
 1. Under **Backup configuration**, select **Azure**.
     ![OpsManager Backups Azure view](azurebackupoptions.png)

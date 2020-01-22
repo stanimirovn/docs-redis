@@ -47,7 +47,7 @@ To obtain the instance deployment names, do the following:
 	deployments
 	```
 	Where:
-	* `REDIS-BOSH-CLIENT`, `REDIS-BOSH-PASSWORD`: To find these in the Ops Manager Installation Dashboard, click the Redis for PCF tile, navigate to the
+	* `REDIS-BOSH-CLIENT`, `REDIS-BOSH-PASSWORD`: To find these in the <%= vars.ops_manager %> Installation Dashboard, click the Redis for PCF tile, navigate to the
 	**Credentials** tab, and click **UAA Client Credentials**. Note the `Redis BOSH UAA` credentials.
 	* `BOSH-DIRECTOR-IP`: You retrieved this value in [Step 1-6: Prepare to Create Your Backup](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#prepare).
 	* `PATH-TO-BOSH-SERVER-CERTIFICATE`: This is the path to the Certificate Authority (CA) certificate for the BOSH Director.
@@ -70,7 +70,7 @@ Follow these steps:
 
 1. Back up PCF.
 
-	This includes backing up your Ops Manager installation settings,
+	This includes backing up your <%= vars.ops_manager %> installation settings,
 	BOSH Director and PAS, as detailed in [the Pivotal BBR Documentation](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html#procedure).
 
 	<p class="note"><strong>Note</strong>: For a full restore of Redis service
