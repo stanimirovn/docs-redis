@@ -17,7 +17,7 @@ This diagram shows the architecture of the service broker and on-demand plans
 and how the user's app binds to a Redis instance.
 
 ![The p.redis service broker manages the on-demand service plan instances.
-The operator uses Ops Manager to configure the plans.
+The operator uses <%= vars.ops_manager_full %> to configure the plans.
 App-developers can create instances of each plan on-demand up to a set quota, and bind their apps to these instances.
 The operator specifies the per-plan and global quotas.](on-demand-arch.png)
 
