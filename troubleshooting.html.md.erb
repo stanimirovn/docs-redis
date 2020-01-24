@@ -139,250 +139,199 @@ Start here if you are responding to a specific error or error messages.
 
 <%= partial '../../redis/partials/services-tshoot/tshoot-err-missing-logs' %>
 
+### <a id="redis"></a> <%= vars.product_short %>-Specific Errors
 
-### <a id="syslog-errors"></a> Error Messages Logged in Syslog
+The following troubleshooting errors are specific to <%= vars.product_short %>:
 
-You can configure <%= vars.product_name %> with remote syslog forwarding.
-For more information, see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
++ [AOF File Corrupted, Cannot Start Redis Instance](#corrupt-aof)
++ [Saving Error](#disk-size)
++ [Failed Backup](#backup-errors)
 
-This section helps to troubleshoot the following errors logged in syslog:
-<br><br>
-<ul>
-  <li><a href="#corrupt-aof">AOF File Corrupted, Cannot Start Redis Instance</a></li>
-  <li><a href="#disk-size">Saving Error</a></li>
-</ul>
-
-
-#### <a id="corrupt-aof"></a>AOF File Corrupted, Cannot Start Redis Instance
-<br>
-<strong>Symptom</strong><br>
-
-<br>
-One or more VMs might fail to start the redis server during pre-start with the error message:<br>
-<pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
-<br>
-
-<strong>Explanation</strong><br><br>
-
-In cases of hard crashes, for example, due to power loss or VM termination without
-running drain scripts, your AOF file might become corrupted.
-The error log printed out by Redis provides a clear means of recovery.
-<br><br>
-
-<strong>Solution for Shared-VM instances:</strong><br><br>
-<ol>
-  <li>SSH into your <code>cf-redis-broker</code> instance.</li>
-  <li>Navigate to the directory where your AOF file is stored.
-    This is usually
-    <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
-    <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
-  </li>
-  <li>Run the following command:
-     <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
-  </li>
-  <li>To SSH out of the <code>cf-redis-broker</code> instance and restart, run the following command:
-     <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
-  </li>
-</ol>
-
-<strong>Solution for On-Demand-VM instances:</strong><br><br>
-<ol>
-  <li>SSH into your affected service instance.</li>
-  <li>Navigate to the directory where your AOF file is stored.
-    This is usually <code>/var/vcap/store/redis/</code>.</li>
-  <li>Run the following command:
-    <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
-  </li>
-  <li>To SSH out of the service instance and restart it, run the following command:
-     <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
-  </li>
-</ol>
-
-#### <a id="disk-size"></a>Saving Error<br>
-
-<strong>Symptom</strong><br><br>
-
-One of the following error messages is logged:<br>
-
-<pre class="terminal">Background saving error</pre>
-<pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
-<br>
-
-<strong>Explanation</strong><br><br>
-
-This might be logged when the configured disk size is too small,
-or if the Redis AOF uses all the disk space.
-<br><br>
-
-<strong>Solution</strong><br><br>
-
-To prevent this error, do the following:<br><br>
-
-<ol>
-  <li>Ensure the disk is configured to at least 2.5x the VM memory for the on-demand broker and 3.5x the VM memory for cf-redis-broker.</li>
-  <li>Check if the AOF is using too much disk space by doing the following:
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: '#corrupt-aof"',
+    description: 'AOF File Corrupted, Cannot Start Redis Instance' ,
+    symptom: ' One or more VMs might fail to start the redis server during pre-start with the error message
+    logged in syslog:
+    <br>
+    <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
+    For more information about remote syslog forwarding,
+    see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.',
+    cause: 'In cases of hard crashes, for example, due to power loss or VM termination without
+    running drain scripts, your AOF file might become corrupted.
+    The error log printed out by Redis provides a clear means of recovery.',
+    solution: '<strong>Solution for Shared-VM instances:</strong><br><br>
     <ol>
-      <li>BOSH SSH into the affected service instance VM.</li><br>
-      <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li><br>
+      <li>SSH into your <code>cf-redis-broker</code> instance.</li>
+      <li>Navigate to the directory where your AOF file is stored.
+        This is usually
+        <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
+        <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
+      </li>
+      <li>Run the following command:
+         <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+      </li>
+      <li>To SSH out of the <code>cf-redis-broker</code> instance and restart, run the following command:
+         <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+      </li>
     </ol>
-  </li>
-</ol>
 
+    <strong>Solution for On-Demand-VM instances:</strong><br><br>
+    <ol>
+      <li>SSH into your affected service instance.</li>
+      <li>Navigate to the directory where your AOF file is stored.
+        This is usually <code>/var/vcap/store/redis/</code>.</li>
+      <li>Run:
+        <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+      </li>
+      <li>SSH out of the service instance and restart it by running:
+         <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+      </li>
+    </ol>'
+} %>
 
-### <a id="backup-errors"></a> Failed Backup<br>
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'disk-size',
+    description: 'Saving Error' ,
+    symptom: 'One of the following error messages is logged in syslog:<br>
+    <pre class="terminal">Background saving error</pre>
+    <pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
+    For more information about remote syslog forwarding,
+    see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.' ,
+    cause: 'This might be logged when the configured disk size is too small,
+    or if the Redis AOF uses all the disk space.' ,
+    solution: 'To prevent this error, do the following:<br><br>
+    <ol>
+      <li>Ensure the disk is configured to at least 2.5x the VM memory for the on-demand broker and
+        3.5x the VM memory for cf-redis-broker.</li>
+      <li>Check if the AOF is using too much disk space by doing the following:
+        <ol>
+          <li>BOSH SSH into the affected service instance VM.</li>
+          <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li>
+        </ol>
+      </li>
+    </ol>'
+} %>
 
-<strong>Symptom</strong><br><br>
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'backup-errors' ,
+    description: 'Failed Backup' ,
+    symptom: 'The following error message is logged:<br>
+    <pre class="terminal">Backup has failed. Redis must be running for a backup to run</pre>',
+    cause: 'This is logged if a backup is initiated against a Redis server that is down.',
+    solution: 'Ensure that the Redis server being backed up is running.
+    To do this, run <code>bosh restart</code> against the affected service instance VM.'
+} %>
 
-The following error message is logged:<br>
-<pre class="terminal">Backup has failed. Redis must be running for a backup to run</pre>
-<br>
-
-<strong>Explanation</strong><br><br>
-
-This is logged if a backup is initiated against a Redis server that is down.
-<br><br>
-
-<strong>Solution</strong><br><br>
-Ensure that the Redis server being backed up is running.
-To do this, run <code>bosh restart</code> against the affected service instance VM.
-
-
-### <a id="orphaned-instances"></a> Orphaned Instances
-
-When a service instance is orphaned, one of the following occurs:<br><br>
-
-<ul>
-  <li>BOSH Director cannot see your service instances but <%= vars.platform_name %> can. For more information, see
-    <a href="#orphaned-bosh">BOSH Director Cannot See Your Instances</a> below.</li>
-  <li><%= vars.platform_name %> cannot see your broker or service instances but BOSH Director can. For more information, see
-    <a href="#orphaned-pcf"><%= vars.platform_name %> Cannot See Your Instances</a> below.
-  </li>
-</ul>
-
-
-#### <a id="orphaned-bosh"></a> BOSH Director Cannot See Your Instances<br>
-
-<strong>Symptom</strong><br><br>
-
-BOSH Director cannot see your instances but they are visible on <%= vars.platform_name %>.
-    When you run <code>cf curl /v2/service_instances</code>,
-    some service instances are visible that are not visible to the BOSH Director.
-    These orphaned instances can create issues.
-    For example, they might hold on to a static IP address, causing IP conflicts.<br><br>
-
-<strong>Explanation</strong><br><br>
-
-Orphaned instances can occur in the following situations:
-<br><br>
-<ul>
-  <li>Both <%= vars.platform_name %> and BOSH maintain state.
-    Orphaned instances can occur if the <%= vars.platform_name %> state is out of sync with BOSH.
-    For example, the deployments or VMs have been deprovisioned by BOSH but
-    the call to update the <%= vars.platform_name %> state failed.</li>
-  <li>If a call to deprovision a service instance was made directly to BOSH
-    rather than through the cf CLI.</li>
-</ul>
-
-<strong>Solution</strong><br><br>
-You can solve this issue by doing one of the following:<br><br>
-<ul>
-  <li>
-    <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge
-    instances by running
-    <code>cf purge-service-instance SERVICE-INSTANCE</code>.
-  </li>
-  <li>
-    <strong>If this is a repeated occurrence:</strong> Contact
-    <a href="https://support.pivotal.io/"> Pivotal Support</a>
-    for further help, and include the following:
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'orphaned-bosh',
+    description: 'Orphaned Instances: BOSH Director Cannot See Your Instances' ,
+    symptom: 'BOSH Director cannot see your instances but they are visible on ' + vars.platform_name + '.
+        When you run <code>cf curl /v2/service_instances</code>,
+        some service instances are visible that are not visible to the BOSH Director.
+        These orphaned instances can create issues.
+        For example, they might hold on to a static IP address, causing IP conflicts.',
+    cause: 'Orphaned instances can occur in the following situations:<br><br>
     <ul>
-      <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
-      <li>The deployment manifest of failed instances, hiding private information like passwords</li>
-      <li>Any recent logs that you can recover from the failed service instance</li>
-    </ul>
-  </li>
-</ul>
-
-
-#### <a id="orphaned-pcf"></a> <%= vars.platform_name %> Cannot See Your Instances<br>
-
-<strong>Symptom</strong><br><br>
-
-<%= vars.platform_name %> cannot see your broker or service instances.
-These instances exist but <%= vars.platform_name %> and apps cannot communicate with them.<br><br>
-
-<strong>Explanation</strong><br><br>
-
-If you run <code>cf purge-service-instances</code> while your service instance
-or broker still exists, your service instance becomes orphaned.<br><br>
-
-<strong>Solution</strong><br><br>
-
-If <%= vars.platform_name %> lost the details of your instances, but BOSH still has the deployment details,
-you can solve this issue by backing up the data on your service instance and
-creating a new service. <br><br>
-To back up your data and create a new service instance, do the following:<br><br>
-<ol>
-  <li>To retrieve your orphaned service instance GUID, run the following command:
-    <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
-    Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
-  </li>
-
-  <li>To SSH into your orphaned service instance, run the following command:
-    <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
-    Where:
+      <li>Both ' + vars.platform_name + ' and BOSH maintain state.
+        Orphaned instances can occur if the ' + vars.platform_name + ' state is out of sync with BOSH.
+        For example, the deployments or VMs have been de-provisioned by BOSH but
+        the call to update the ' + vars.platform_name + ' state failed.</li>
+      <li>If a call to de-provision a service instance was made directly to BOSH
+        rather than through the cf CLI.</li>
+    </ul>',
+    solution: 'You can solve this issue by doing one of the following:<br><br>
     <ul>
-      <li><code>MY-ENV</code> is the name of your environment.</li>
-      <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
-      <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
-        in step 1.</li>
-    </ul>
-  </li>
+      <li>
+        <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge
+        instances by running
+        <code>cf purge-service-instance SERVICE-INSTANCE</code>.
+      </li>
+      <li>
+        <strong>If this is a repeated occurrence:</strong> Contact
+        <a href="https://support.pivotal.io/"> Pivotal Support</a>
+        for further help, and include the following:
+        <ul>
+          <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
+          <li>The deployment manifest of failed instances, hiding private information like passwords</li>
+          <li>Any recent logs that you can recover from the failed service instance</li>
+        </ul>
+      </li>
+    </ul>'
+} %>
 
-  <li>To create an new RDB file, run the following command:
-    <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
-    This creates a new RDB file in <code>/var/vcap/store/redis-backup</code>.
-  </li>
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'orphaned-pcf',
+    description: vars.platform_name + ' Cannot See Your Instances',
+    symptom: vars.platform_name + ' cannot see your broker or service instances.
+    These instances exist but ' + vars.platform_name + ' and apps cannot communicate with them.',
+    cause: 'If you run <code>cf purge-service-instances</code> while your service instance
+    or broker still exists, your service instance becomes orphaned.',
+    solution: 'If ' + vars.platform_name + ' lost the details of your instances,
+    but BOSH still has the deployment details,
+    you can solve this issue by backing up the data on your service instance and
+    creating a new service. <br><br>
+    To back up your data and create a new service instance:<br><br>
+    <ol>
+      <li>Retrieve your orphaned service instance GUID by running:
+        <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
+        Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
+      </li>
 
-  <li>To push the RDB file to your backup location, run the following command:
-    <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
-    For information about backup locations,
-    see <a href="./auto-backup.html">Configuring Automated Service Backups</a>.
-  </li>
+      <li>SSH into your orphaned service instance by running:
+        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
+        Where:
+        <ul>
+          <li><code>MY-ENV</code> is the name of your environment.</li>
+          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+          <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
+            in step 1.</li>
+        </ul>
+      </li>
 
-  <li>Create a new service instance with the same configuration of the database you backed up.</li>
+      <li>Create an new RDB file by running:
+        <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
+        This creates a new RDB file in <code>/var/vcap/store/redis-backup</code>.
+      </li>
 
-  <li>To retrieve your new service instance GUID, run the following command:
-    <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
-    <ul>
-      <li><code>MY-ENV</code> is the name of your environment.</li>
-      <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
-    </ul>
-  </li>
+      <li>Push the RDB file to your backup location by running:
+        <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
+        For information about backup locations,
+        see <a href="./auto-backup.html">Configuring Automated Service Backups</a>.
+      </li>
 
-  <li> To SSH into your new service instance,
-    repeat step 2 above with the GUID that you retrieved in step 6.</li>
+      <li>Create a new service instance with the same configuration of the database you backed up.</li>
 
-  <li> To create a new directory in new service instance, run the following
-    command:
-    <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
-  </li>
+      <li>Retrieve your new service instance GUID, by running:
+        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
+        <ul>
+          <li><code>MY-ENV</code> is the name of your environment.</li>
+          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+        </ul>
+      </li>
 
-  <li> Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer it to the new instance.
-     Replace <code>MY-BACKUPS</code> with the name of your backups directory.
-  </li>
+      <li> SSH into your new service instance by
+        repeating step 2 above with the GUID that you retrieved in step 6.</li>
 
-  <li>To verify the RDB file has not been corrupted, run the following command:
-    <pre>md5sum RDB-FILE</pre>
-    Where <code>RDB-FILE</code> is the path to your RDB file.
-  </li>
+      <li> Create a new directory in new service instance by running:
+        <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
+      </li>
 
-  <li>To restore your data, run the following command:
-    <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
-    Where <code>RDB-FILE</code> is the path to your RDB file.
-  </li>
-</ol>
+      <li> Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer
+        it to the new instance.
+         Replace <code>MY-BACKUPS</code> with the name of your backups directory.
+      </li>
 
+      <li>Verify the RDB file has not been corrupted by running:
+        <pre>md5sum RDB-FILE</pre>
+        Where <code>RDB-FILE</code> is the path to your RDB file.
+      </li>
+
+      <li>Restore your data by running:
+        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
+        Where <code>RDB-FILE</code> is the path to your RDB file.
+      </li>
+    </ol>'
+} %>
 
 ### <a id="credhub-error"></a> Failed to Set Credentials in Runtime CredHub<br>
 
