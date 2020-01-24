@@ -21,7 +21,7 @@ Before upgrading Redis for PCF, for compatibility information, see the
   Developers might also need to configure other frameworks and languages to use the TLS port as well.<br><br>
   For more information, see <a href="./appdevs.html">Using TLS</a>.
 </p>
-<%= partial "../../redis/partials/redis/warning-disabling-tls" %>
+<%= partial vars.path_to_partials + "/redis/warning-disabling-tls" %>
 
 This product enables a reliable upgrade experience between versions of the product
 deployed through <%= vars.ops_manager %>.

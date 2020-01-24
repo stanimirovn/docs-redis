@@ -5,9 +5,9 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= partial "../../redis/partials/redis/breaking-change-ports" %>
+<%= partial vars.path_to_partials + '/redis/breaking-change-ports' %>
 
-<%= partial "../../redis/partials/redis/warning-azure-outbound-internet-access" %>
+<%= partial vars.path_to_partials + '/redis/warning-azure-outbound-internet-access' %>
 
 
 ## <a id="2-2-8"></a> v2.2.8
@@ -18,7 +18,7 @@ owner: London Services
 
 New features and changes in this release:
 
-* Updates open source Redis to v5.0.7. 
+* Updates open source Redis to v5.0.7.
 
 ### Known Issues
 
@@ -409,7 +409,7 @@ The following components are compatible with this release:
     <td>315.x</td>
 </tr>
 <tr>
-    <td><%= vars.platform_name %></td>
+    <td><%= vars.platform_old %></td>
     <td>2.7.x</td>
 </tr>
 <tr>
