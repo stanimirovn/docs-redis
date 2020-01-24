@@ -5,9 +5,9 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= partial '../../redis/partials/branding-change' %>
+<%= partial vars.path_to_partials + '/branding-change' %>
 
-<%= partial '../../redis/partials/pcf-name-change' %>
+<%= partial vars.path_to_partials + '/pcf-name-change' %>
 
 This is documentation for <%= vars.product_full %>.
 You can download the <%= vars.product_short %> tile from [Pivotal Network](https://network.pivotal.io/products/p-redis).
@@ -63,7 +63,7 @@ It is used for everything from a quick way to store data for development and tes
 
 ## <a id="about"></a> About <%= vars.product_short %>
 
-<%= partial(:'../../redis/partials/redis/service-offerings', :locals => {
+<%= partial( vars.path_to_partials + '/redis/service-offerings', :locals => {
   :redis_name => "<strong><em>" + vars.product_short + "</em></strong>",
   :platform => vars.platform_name}) %>
 
