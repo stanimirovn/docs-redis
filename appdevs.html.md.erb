@@ -14,7 +14,7 @@ or Shared-VM plan, see [Using <%= vars.product_name %>](./using.html).
 
 ## <a id="services"></a> <%= vars.product_name %> Services
 
-<%= partial(:'../../redis/partials/redis/service-offerings', :locals => {
+<%= partial( vars.path_to_partials + '/redis/service-offerings', :locals => {
   :redis_name => vars.product_name,
   :platform => vars.platform_name}) %>
 
