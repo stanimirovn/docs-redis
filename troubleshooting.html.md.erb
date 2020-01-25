@@ -146,6 +146,10 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 + [AOF File Corrupted, Cannot Start Redis Instance](#corrupt-aof)
 + [Saving Error](#disk-size)
 + [Failed Backup](#backup-errors)
++ [Orphaned Instances: BOSH Director Cannot See Your Instances](#orphaned-bosh)
++ [Orphaned Instances: Pivotal Platform Cannot See Your Instances](#orphaned-pcf)
++ [Failed to Set Credentials in Runtime CredHub](#credhub-error)
++ [Recovering from Service Outage after Disabling TLS](#disabling-tls)
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: '#corrupt-aof"',
@@ -261,7 +265,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'orphaned-pcf',
-    description: vars.platform_name + ' Cannot See Your Instances',
+    description: 'Orphaned Instances: ' + vars.platform_name + ' Cannot See Your Instances',
     symptom: vars.platform_name + ' cannot see your broker or service instances.
     These instances exist but ' + vars.platform_name + ' and apps cannot communicate with them.',
     cause: 'If you run <code>cf purge-service-instances</code> while your service instance
@@ -333,69 +337,65 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     </ol>'
 } %>
 
-### <a id="credhub-error"></a> Failed to Set Credentials in Runtime CredHub<br>
 
-<strong>Symptom</strong><br><br>
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'credhub-error',
+    description: 'Failed to Set Credentials in Runtime CredHub' ,
+    symptom: 'If developers report errors such as:
+    <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request.. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>',
+    cause: 'Your service instances might not be running the latest version of ' + vars.product_short +
+    '.
+    You might experience compatibility issues with CredHub if your service instances
+    are running ' + vars.product_old + ' v1.14.3 or earlier.',
+    solution: '<ol>
+      <li>Ensure you have the latest patch version of ' + vars.product_short + ' installed.
+      For more information about the latest patch, see <a href="./release.html">' + vars.product_full + ' Release Notes</a>.</li>
+      <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
+        instances are running the latest service offering.
+         For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
+    </ol>
 
-If developers report errors such as:
-
-<pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter 'mode'. Please update or remove this parameter and retry your request.. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>
-
-<strong>Explanation</strong><br><br>
-
-Your service instances might not be running the latest version of <%= vars.product_name %>.
-You might experience compatibility issues with CredHub if your service instances
-are running <%= vars.product_old %> v1.14.3 or earlier.<br><br>
-
-<strong>Solution</strong><br><br>
-
-<ol>
-  <li>Ensure you have the latest patch version of <%= vars.product_name %> installed.
-  For more information about the latest patch, see <a href="./release.html"><%= vars.product_name %> Release Notes</a>.</li>
-  <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
-    instances are running the latest service offering.
-     For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
-</ol>
-
-<p class="note"><strong>Note: </strong>
-  Running this errand causes a short period of downtime.
-</p>
+    <p class="note"><strong>Note: </strong>
+      Running this errand causes a short period of downtime.
+    </p>'
+} %>
 
 
-### <a id="disabling-tls"></a> Recovering from Service Outage after Disabling TLS<br>
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'disabling-tls',
+    description: 'Recovering from Service Outage after Disabling TLS' ,
+    symptom: 'After disabling TLS, apps that require on-demand Redis service instances become unresponsive.',
+    cause: 'When TLS is first enabled, all on-demand service instances are re-created with two ports.
+    Every new or re-created app receives the new credentials.
+    Spring and Steeltoe apps are configured for enabled TLS by default, but other
+    languages and frameworks require further configuration. <br><br>
 
-<strong>Symptom</strong>
-
-After disabling TLS, apps that require on-demand Redis service instances become unresponsive.
-
-<strong>Explanation</strong>
-
-When TLS is first enabled, all on-demand service instances are re-created with two ports.
-Every new or re-created app receives the new credentials.
-Spring and Steeltoe apps are configured for enabled TLS by default, but other
-languages and frameworks require further configuration.
-
-When TLS is disabled, the TLS port is removed from all on-demand instances.
-This prevents the apps from connecting to the instance.
-
-<strong>Solution</strong>
-
-<p>First, consider enabling TLS. The compliance body that oversees your apps might require TLS to be enabled. Also, switching between enabled and disabled TLS incurs downtime.</p>
-<p>To enable TLS, follow these steps:</p>
-<ol>
-  <li>In your <%= vars.ops_manager %> home page, select the <strong>Redis</strong> tile.</li>
-  <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
-  <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
-  <li>Click <strong>Save</strong>.</li>
-  <li>Navigate back to the <%= vars.ops_manager %> home page and click <strong>Review Pending Changes</strong>.</li>
-  <li>Ensure the Recreate All On-Demand Service Instances errand is enabled under the Redis section and then click <strong>Apply Changes</strong>.</li>
-</ol>
-<p>To continue with TLS disabled, follow these steps:</p>
-<ol>
-  <li>Unbind, bind, and re-stage every app that was affected by disabling TLS. For more information, see <a href="./appdevs.html">Introduction for App Developers</a>. This makes Spring and Steeltoe apps default to non-TLS configuration.</li>
-  <li>Manually configure any other relevant languages and frameworks to work with TLS disabled.</li>
-</ol>
-
+    When TLS is disabled, the TLS port is removed from all on-demand instances.
+    This prevents the apps from connecting to the instance.
+',
+    solution: '
+    <p>First, consider enabling TLS.
+      The compliance body that oversees your apps might require TLS to be enabled.
+      Also, switching between enabled and disabled TLS incurs downtime.</p>
+    <p>To enable TLS, follow these steps:</p>
+    <ol>
+      <li>In your ' + vars.ops_manager + ' home page, select the <strong>Redis</strong> tile.</li>
+      <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
+      <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
+      <li>Click <strong>Save</strong>.</li>
+      <li>Navigate back to the '+ vars.ops_manager + ' home page and click
+        <strong>Review Pending Changes</strong>.</li>
+      <li>Ensure the Recreate All On-Demand Service Instances errand is enabled under the
+        Redis section and then click <strong>Apply Changes</strong>.</li>
+    </ol>
+    <p>To continue with TLS disabled, follow these steps:</p>
+    <ol>
+      <li>Unbind, bind, and re-stage every app that was affected by disabling TLS.
+        For more information, see <a href="./appdevs.html">Introduction for App Developers</a>.
+        This makes Spring and Steeltoe apps default to non-TLS configuration.</li>
+      <li>Manually configure any other relevant languages and frameworks to work with TLS disabled.</li>
+    </ol>'
+} %>
 
 ## <a id="components"></a> Troubleshooting Components
 
