@@ -152,7 +152,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 + [Recovering from Service Outage after Disabling TLS](#disabling-tls)
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
-    id: '#corrupt-aof',
+    id: 'corrupt-aof',
     description: 'AOF File Corrupted, Cannot Start Redis Instance' ,
     symptom: ' One or more VMs might fail to start the redis server during pre-start with the error message
     logged in syslog:
