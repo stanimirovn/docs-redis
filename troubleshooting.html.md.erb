@@ -103,11 +103,11 @@ to retrieve the password and port number for the service instance.
     Redis documentation.
 
 
-## <a id="errors"></a> Troubleshooting Errors
+## <a id="errors"></a> Troubleshoot Errors
 
 Start here if you are responding to a specific error or error messages.
 
-### <a id="x-product"></a> Errors Occurring in Multiple Services
+### <a id="x-product"></a> Errors That Occur in Multiple Services
 
 The following troubleshooting errors occur in multiple services:
 
@@ -162,7 +162,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 + [Orphaned Instances: BOSH Director Cannot See Your Instances](#orphaned-bosh)
 + [Orphaned Instances: Pivotal Platform Cannot See Your Instances](#orphaned-pcf)
 + [Failed to Set Credentials in Runtime CredHub](#credhub-error)
-+ [Recovering from Service Outage after Disabling TLS](#disabling-tls)
++ [Service Outage after Disabling TLS](#disabling-tls)
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'corrupt-aof',
@@ -376,7 +376,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'disabling-tls',
-    description: 'Recovering from Service Outage after Disabling TLS' ,
+    description: 'Service Outage after Disabling TLS' ,
     symptom: 'After disabling TLS, apps that require on-demand Redis service instances become unresponsive.',
     cause: 'When TLS is first enabled, all on-demand service instances are re-created with two ports.
     Every new or re-created app receives the new credentials.
@@ -410,7 +410,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     </ol>'
 } %>
 
-## <a id="components"></a> Troubleshooting Components
+## <a id="components"></a> Troubleshoot Components
 
 This section provides guidance on checking for, and fixing, issues in cf-redis and on-demand service components.
 
