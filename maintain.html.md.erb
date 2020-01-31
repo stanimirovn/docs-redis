@@ -150,7 +150,7 @@ If the changes include configuration changes on the <%= vars.product_short %> ti
 #### Installing Another Tile
 
 When installing another tile that does not make any changes to the BOSH Director
-or the <%= vars.app_runtime_full %>,
+or the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>),
 it is not necessary to run any of the <%= vars.product_short %> tile's post-deploy errands.
 
 #### Changes to Other Tiles
@@ -160,8 +160,8 @@ Then it might not be necessary to run all of the <%= vars.product_short %> tile'
 
 #### Broker Registrar Errand
 
-- Required to run if the CF system domain is changed in the <%= vars.app_runtime %>tile.
-- Not necessary to run if the change only involves other tiles except <%= vars.app_runtime %>tile.
+- Required to run if the CF system domain is changed in the <%= vars.app_runtime_abbr %>tile.
+- Not necessary to run if the change only involves other tiles except <%= vars.app_runtime_abbr %>tile.
 
 #### Register On-Demand Broker Errand
 
@@ -179,8 +179,8 @@ in a way that changes the ranges where the <%= vars.product_short %> tile deploy
 - Required to run both if a newer stemcell minor version is uploaded.
   The <%= vars.product_short %> tile floats to the newest minor version.
   For more information, see [Floating Stemcells](https://docs.pivotal.io/pivotalcf/customizing/understanding-stemcells.html).
-- Good practice to run both for any change in the BOSH Director or <%= vars.app_runtime %>tile.
-- Not necessary to run either if the change only involves other tiles except <%= vars.app_runtime %>and BOSH Director.
+- Good practice to run both for any change in the BOSH Director or <%= vars.app_runtime_abbr %>tile.
+- Not necessary to run either if the change only involves other tiles except <%= vars.app_runtime_abbr %>and BOSH Director.
 
 #### Upgrade All On-Demand Service Instances Errand
 
