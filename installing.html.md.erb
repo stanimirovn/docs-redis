@@ -399,9 +399,9 @@ To add and configure each on-demand service plan:
 To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
 instead of the Cloud Controller database (CCDB), do the following:
 
-1. Configure the <%= vars.app_runtime_full %> tile to support securing service
+1. Configure the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile to support securing service
 instance credentials in runtime CredHub.
-See [Step 1: Configure the <%= vars.app_runtime %>Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
+See [Step 1: Configure the <%= vars.app_runtime_abbr %>Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
 
 1. After deploying the tile, notify developers that they must unbind and rebind
 existing service instances to secure their credentials with CredHub.
