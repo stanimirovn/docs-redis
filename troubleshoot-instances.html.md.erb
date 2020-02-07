@@ -68,7 +68,7 @@ The following troubleshooting errors are specific to Redis for Pivotal Platform:
 <pre class="terminal">-ERR max number of clients reached</pre>',
     cause: 'This is usually caused by apps opening multiple client connections to Redis.',
     solution: 'Share or pool Redis connections within an app.
-            Redis for PCF configures Redis to accept 10000 client connections.
+            Redis for Pivotal Platform configures Redis to accept 10000 client connections.
             This can be confirmed by running the `INFO` command using the Redis CLI.'
 } %>
 
