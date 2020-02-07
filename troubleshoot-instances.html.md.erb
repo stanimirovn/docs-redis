@@ -59,9 +59,11 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
 - [Unknown Command Error](#err-unknown-command)
 
 
-<p class="note"><strong>Note:</strong> Certain errors are returned to the Redis 
-    client instead of being recorded in the logs. The Redis protocol represents 
-    errors as simple strings beginning with a `-` character.</p>
+<p class="note"><strong>Note:</strong>
+  Certain errors are returned to the Redis
+  client instead of being recorded in the logs. The Redis protocol represents
+  errors as simple strings beginning with a `-` character.
+</p>
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'max-clients',
@@ -82,7 +84,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
     cause: 'This occurs when the Redis server has reached its <code>maxmemory</code> limit.',
     solution: '<p>Consider changing your maxmemory-policy.
 You can update this using the <code>cf update-service</code> parameters.
-For how to do this, see <a href="using.html#custom">Customize an On-Demand 
+For how to do this, see <a href="using.html#custom">Customize an On-Demand
 Service Instance</a>.</p>'
 } %>
 
@@ -90,7 +92,7 @@ Service Instance</a>.</p>'
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'err-save-command',
     description: 'Error When Running the Save Command',
-    symptom: '<p>You receive the following error message when running 
+    symptom: '<p>You receive the following error message when running
     <code>redis-cli SAVE</code> or issuing
 the save command using another Redis client:</p>
 <pre class="terminal">-ERR</pre>',
@@ -105,8 +107,8 @@ For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog 
     symptom: '<p>You receive the following error message when running `redis-cli COMMAND` or issuing
 a command using another Redis client:</p>
 <pre class="terminal">-ERR unknown command</pre>',
-    cause: 'For security reasons, certain commands such as <code>CONFIG</code>, 
-<code>SAVE</code>, and <code>BGSAVE</code> 
+    cause: 'For security reasons, certain commands such as <code>CONFIG</code>,
+<code>SAVE</code>, and <code>BGSAVE</code>
 are not available by default.',
     solution: 'Talk to your operator about the availability of the command.'
 } %>
@@ -115,8 +117,8 @@ are not available by default.',
 
 ## <a id="techniques"></a> Techniques for Troubleshooting
 
-See the following sections for troubleshooting techniques when using 
-the Cloud Foundry Command-Line Interface (cf CLI) to perform basic 
+See the following sections for troubleshooting techniques when using
+the Cloud Foundry Command-Line Interface (cf CLI) to perform basic
 operations on a <%= vars.product_short %> service instance.
 
 Basic cf CLI operations include `create`, `update`, `bind`, `unbind`, and `delete`.
