@@ -35,10 +35,14 @@ To upgrade to the latest version of <%= vars.product_short %>:
 
 1. If required, update any new mandatory configuration parameters.
 
-1. (Optional) If enabling TLS, follow the procedures in [Preparing for TLS](./preparing-tls.html) first. When upgrading, TLS remains disabled by default.
+1. (Optional) To enable TLS, do the following:
+  1.  Follow the procedures in [Preparing for TLS](./preparing-tls.html).
     <p class="note"> <strong>Note:</strong>
-      In most cases, enabling TLS does not noticeably reduce performance. It depends on network infrastructure, application architecture, and other such resources being in good shape.
+      In most cases, enabling TLS does not noticeably reduce performance. Performance impact depends on the health of resources, such as network infrastructure and application architecture.
     </p>
+  1. In the Redis for Pivotal Platform tile, select **On-Demand Service Settings**.
+  1. Under **Enable TLS**, select **Optional**.
+  1. Click **Save**.
 
 1. (Optional) Enable developers to upgrade service instances individually. For instructions, see
 [Enable Individual Service Instance Upgrades](#individual-upgrades) below. <br>
@@ -46,7 +50,7 @@ When this is feature is not enabled, the `upgrade-all-service-instances` errand 
 after each upgrade.
 For more information, see [Upgrading All Service Instances](#all-instances) below.
 
-1. Click **Apply changes**.
+1. Go to the Ops Manager **Installation Dashboard**. Click **Review Pending Changes** and **Apply Changes**.
 
 ### <a id="individual-upgrades"></a> Enable Individual Service Instance Upgrades
 
