@@ -46,7 +46,7 @@ To view examples of Steeltoe apps using Redis as a cache with failover,
 see the <a href="https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe">Example Steeltoe App</a>
 repository in GitHub.
 
-<p class="note warning"><strong>Warning</strong>:
+<p class="note warning"><strong>Warning:</strong>
   The Steeltoe connector for Redis requires <%= vars.product_short %> to support Lua scripting.
   Check whether the language you are using requires Lua scripting. If it does, contact your operator.
   By default, Lua scripting is disabled for <%= vars.product_short %>, but a <%= vars.platform_name %> operator can
@@ -57,7 +57,7 @@ repository in GitHub.
 
 * **<%= vars.platform_name %> Dev** is a version of <%= vars.platform_name %> that is small enough to run on a local machine. For more information, see https://pivotal.io/pcf-dev.
 
-* **Sample Ruby code** that uses <%= vars.platform_name %> can be found in the <a href="https://github.com/pivotal-cf/cf-redis-example-app">CF Redis Example App</a> GitHub repository.
+* **Sample Ruby code** that uses <%= vars.platform_name %> is in the <a href="https://github.com/pivotal-cf/cf-redis-example-app">CF Redis Example App</a> GitHub repository.
 
 * **Redis** is an open-source in-memory datastore. To learn more about Redis itself, see <a href="http://redis.io">redis.io</a>.
 
@@ -70,7 +70,7 @@ Spring and Steeltoe apps use TLS by default when available.
 ### <a id="check-availability-tls"></a>Check Availability
 
 You can check if TLS has been enabled on the on-demand Redis service by inspecting the service key.
-To do so, do the following:
+To do so:
 <ol>
     <li>Create a service key by running the following command: <pre>cf create-service-key MY-INSTANCE MY-KEY</pre></li>
     <li>Display the service key by running the following command: <pre>cf service-key MY-INSTANCE MY-KEY</pre><br>
@@ -123,11 +123,11 @@ end
 
 For Spring apps, use Java CFEnv v1.1.0 or later. See [Redis Spring Boot Reference Architecture](https://github.com/pivotal-cf/redis-reference-architecture) in GitHub.
 
-For Steeltoe apps, use Steeltoe 2.3.0 or later. See [Redis Steeltoe Reference Architecture](https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe) in GitHub.
+For Steeltoe apps, use Steeltoe v2.3.0 or later. See [Redis Steeltoe Reference Architecture](https://github.com/pivotal-cf/RedisReferenceArchitectureSteeltoe) in GitHub.
 
 ### <a id="existing-apps"></a>Bind Existing Apps with TLS
 
-For each app using the Redis service with a non-TLS binding, do the following:
+For each app using the Redis service with a non-TLS binding:
 
 1. Remove the current binding by running the following command:
 <pre>cf unbind-service APP-NAME SERVICE-INSTANCE</pre>

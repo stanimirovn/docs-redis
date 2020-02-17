@@ -9,7 +9,7 @@ This topic describes how to configure automated backups in <%= vars.product_full
 
 ## <a id="comparison"></a>Comparison of the Available Backup Methods
 
-<%= vars.product_short %> provides two backup methods, which can be used together or alone:
+<%= vars.product_short %> provides two backup methods, which you can use together or alone:
 
 * BOSH Backup and Restore (BBR) - <em>preferred</em>
 * Automated service backups
@@ -42,7 +42,7 @@ The table below summarizes the differences between the two methods:
     </tr>
 </table>
 
-<p class="note"><strong>Note</strong>: Neither backup method backs up other manual changes made to service instances,
+<p class="note"><strong>Note:</strong> Neither backup method backs up other manual changes made to service instances,
 either using SSH or with the Redis client <code>config</code> command.</p>
 
 For more information, see [BOSH Backup and Restore (BBR) for On-Demand <%= vars.product_full %>](./bbr-backup.html).
@@ -69,7 +69,7 @@ When <%= vars.product_short %> runs an automated backup, it labels the backups i
   Files are stored by deployment, then date.
 
 For each backup artifact, <%= vars.product_short %> creates a file that contains the MD5 checksum for that artifact.
-This can be used to validate that the artifact is not corrupted.
+This can be used to check that the artifact is not corrupted.
 
 ## <a id="about-configuration"></a>About Configuring Backups
 
@@ -77,7 +77,7 @@ This can be used to validate that the artifact is not corrupted.
 
 * **How and where**: There are four options for how automated backups transfer backup data and where the data saves to:
 
-    * [Option 1: Back Up with AWS](#aws): <%= vars.product_short %> runs an AWS S3 client that saves backups to an S3 bucket.
+    * [Option 1: Back Up with AWS](#aws): <%= vars.product_short %> runs an Amazon S3 client that saves backups to an S3 bucket.
     * [Option 2: Back Up with SCP](#scp): <%= vars.product_short %> runs an SCP command
       that secure-copies backups to a VM or physical machine operating outside of <%= vars.platform_name %>.
     SCP stands for secure copy protocol, and offers a way to securely transfer files between two hosts.
@@ -94,7 +94,7 @@ To configure automated backups, follow the procedures below according to the opt
 
 ## <a id="aws"></a>Option 1: Back Up with AWS
 
-To back up your database to an Amazon S3 bucket, complete the following procedures:
+To back up your database to an Amazon S3 bucket:
 
 * [Create a Policy and Access Key](#aws-create-policy)
 * [Configure Backups in <%= vars.ops_manager %>](#aws-config-om)
@@ -163,7 +163,7 @@ Do the following to connect <%= vars.product_short %> to your S3 account:
 
 ## <a id="scp"></a>Option 2: Back Up with SCP
 
-To back up your database using SCP, complete the following procedures:
+To back up your database using SCP:
 
 * [(Recommended) Create a Public and Private Key Pair](#scp-keys)
 * [Configure Backups in <%= vars.ops_manager %>](#scp-config-om)
@@ -171,16 +171,16 @@ To back up your database using SCP, complete the following procedures:
 ### <a id="scp-keys"></a>(Recommended) Create a Public and Private Key Pair
 
 <%= vars.product_short %> accesses a remote host as a user with a private key for authentication.
-Pivotal recommends that this user and key pair be solely for <%= vars.product_short %>.
+Pivotal recommends that this user and keypair be solely for <%= vars.product_short %>.
 
-Do the following to create a new public and private key pair for authenticating:
+Do the following to create a new public and private keypair for authenticating:
 
-1. Determine the remote host that you will be using to store backups for <%= vars.product_short %>.
+1. Determine the remote host to use to store backups for <%= vars.product_short %>.
    Ensure that the Redis service instances can access the remote host.
     <p class="note"><strong>Note</strong>: Pivotal recommends using a VM outside the <%= vars.platform_name %> deployment for the destination of SCP backups.
     As a result you might need to enable public IPs for the Redis VMs.</p>
 1. Create a new user for <%= vars.product_short %> on the destination VM.
-1. Create a new public and private key pair for authenticating as the above user on the destination VM.
+1. Create a new public and private keypair for authenticating as the above user on the destination VM.
 
 ### <a id="scp-config-om"></a>Configure Backups in <%= vars.ops_manager %>
 
@@ -207,7 +207,7 @@ Do the following to connect <%= vars.product_short %> to your destination VM:
 
 ## <a id="gcs"></a>Option 3: Back Up with GCS
 
-To back up your database using GCS, complete the following procedures:
+To back up your database using GCS:
 
 * [Create a Service Account](#gcs-policy-access-key)
 * [Configure Backups in <%= vars.ops_manager %>](#gcs-config-om)

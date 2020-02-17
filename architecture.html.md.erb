@@ -51,7 +51,7 @@ The diagram below shows how apps communicate with on-demand Redis instances when
 instance VM through a TLS proxy or connect directly.
 The TLS proxy and Redis are both on the Redis service instance.
 The traffic is secure from the app to the TLS proxy.
-Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
+When on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
 
 
 ### <a id="tls-optional"></a> TLS Set to Not Configured
@@ -82,10 +82,10 @@ You can add and configure as many service plans as required.
 ### <a id="features"></a> Features of On-Demand Service Plans
 
 * Each on-demand service instance is deployed to its own VM and is suitable for production workloads.
-* The service plans are operator-configured and enabled. Once enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
+* The service plans are operator-configured and enabled. When enabled, app developers can view the available plans in the Marketplace and provision a Redis instance from that plan.
 * Operators can update the cache plan settings, including the VM size and disk size, after the plans have been created.
 * Operators and app developers can change certain Redis configurations from the default.
-See [Configuration for On-Demand Service Plans](#config) below for more information.
+For more information, see [Configuration for On-Demand Service Plans](#config) below.
 * The default `maxmemory-policy` is `allkeys-lru` and can be updated for other cache policies.
 * On-Demand Redis supports Redis Database Backup (RDB) snapshots, but not Append-Only File (AOF) persistence. For more information, see [Redis Persistence](https://redis.io/topics/persistence) in the Redis documentation.
 * The maximum number of instances is managed by a per-plan and global quota.
