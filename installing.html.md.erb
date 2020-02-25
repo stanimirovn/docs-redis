@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-This topic describes the process of installing <%= vars.product_name %>.
+This topic describes the process of installing <%= vars.product_full %>.
 It covers tasks from downloading the file from Pivotal Network
 through verifying the installation after configuration.
 
@@ -23,9 +23,9 @@ To add <%= vars.product_short %> to <%= vars.ops_manager %>, follow the procedur
 
 1. Download the <%= vars.product_short %> file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
-1. In the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the <%= vars.product_name %> file.
+1. In the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the <%= vars.product_short %> file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
-1. To configure <%= vars.product_name %>, click the newly added tile. See configuration instructions in the sections below.
+1. To configure <%= vars.product_short %>, click the newly added tile. See configuration instructions in the sections below.
 1. After completing the required configuration, in the <%= vars.ops_manager %> Dashboard, do the following to complete the installation:
 
     1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
@@ -59,8 +59,8 @@ To assign AZs, do the following:
 
 ### <a id="network-configuration"></a>Select Networks
 
-You can use <%= vars.product_name %> with or without using the on-demand service.
-To use the <%= vars.product_name %> on-demand service, you must select a network in which
+You can use <%= vars.product_short %> with or without using the on-demand service.
+To use the <%= vars.product_short %> on-demand service, you must select a network in which
 the service instances are created.
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
 
@@ -68,7 +68,7 @@ To select networks, do the following:
 
 1. In the **Assign AZs and Networks** tab, select a **Network**.
   - Pivotal recommends that each type of <%= vars.platform_name %> service run in its own network.
-  For example, run <%= vars.product_name %> on a separate network from RabbitMQ for <%= vars.platform_name %>.
+  For example, run <%= vars.product_short %> on a separate network from RabbitMQ for <%= vars.platform_name %>.
   - Typically the service broker network and service instance network(s) are the same.
 
 1. If using the on-demand service, select a **Service Network**.
@@ -82,7 +82,7 @@ For more information, see [Creating an Empty Services Network when using on-dema
   All networks are now available to use as a Service Network.
 </p>
 
-The following ports and ranges are used in <%= vars.product_name %>:
+The following ports and ranges are used in <%= vars.product_short %>:
 
 <table class="nice">
   <tr><th>Port</th>
@@ -223,7 +223,7 @@ The following ports and ranges are used in <%= vars.product_name %>:
 
 To configure settings that apply across the whole on-demand service offering:
 
-1. In the <%= vars.product_name %> tile, select **On-Demand Service Settings**.
+1. In the <%= vars.product_short %> tile, select **On-Demand Service Settings**.
 ![settings](redis-odservice-settings.png)
 [Click here to view a larger version of this image.](./images/redis-odservice-settings.png)
 
@@ -281,7 +281,7 @@ This reduces downtime during upgrades.
 For how this feature works, see
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a> in the BOSH documentation.
 
-1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to on-demand service instances. TLS support is optional in new installations by default. If TLS is configured in <%= vars.product_name %> v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
+1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to on-demand service instances. TLS support is optional in new installations by default. If TLS is configured in <%= vars.product_short %> v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
 <p class="note">
   <strong>Note:</strong>
   Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure Spring and Steeltoe apps use TLS.
@@ -296,7 +296,7 @@ The configuration of resources varies depending on your IaaS.
 
 To add and configure each on-demand service plan:
 
-1. In the <%= vars.product_name %> tile, select **On-Demand Plans**.
+1. In the <%= vars.product_short %> tile, select **On-Demand Plans**.
   ![on demand config](on-demand-config.png) <a id="ondemandconfig"></a>
 
 1. Click **Add** to add an on-demand plan.
@@ -443,13 +443,13 @@ To remove an on-demand service plan from your tile:
     my-instance   p.redis     on-demand-cache                 create succeeded
     </pre>
 
-1. In the <%= vars.product_name %> tile, select **On-Demand Plan Settings**.
+1. In the <%= vars.product_short %> tile, select **On-Demand Plan Settings**.
 
 1. Delete the plan by clicking the trash can icon next to the plan name.
 
 1. Click **Save**.
 
-1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set
+1. Navigate to the **Errands** page on the <%= vars.product_short %> tile, and set
 the **Register On-Demand Broker** errand to **on**.
 This updates the plans available in the Marketplace.
 
@@ -465,11 +465,11 @@ This updates the plans available in the Marketplace.
 
 To remove the on-demand service from your tile:
 
-1. In the <%= vars.product_name %> tile, select **Resource Config**
+1. In the <%= vars.product_short %> tile, select **Resource Config**
 
 1. Set the **Redis On-Demand Broker** job instances to 0.
 
-1. Navigate to the **Errands** page on the <%= vars.product_name %> tile, and set the following errands to **off**:
+1. Navigate to the **Errands** page on the <%= vars.product_short %> tile, and set the following errands to **off**:
     * Register On-Demand Broker
     * On-Demand Broker Smoke Tests
     * Upgrade All On-Demand Service Instances
@@ -479,7 +479,7 @@ To remove the on-demand service from your tile:
 [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only)
 in the Pivotal Support knowledge base.
 
-1. Go to each **On-Demand Plans** page on the <%= vars.product_name %> tile,
+1. Go to each **On-Demand Plans** page on the <%= vars.product_short %> tile,
 and delete each plan by clicking the trash can icon next to the plan name.
 <%# Maybe a new image here %>
 
@@ -487,7 +487,7 @@ and delete each plan by clicking the trash can icon next to the plan name.
 
 To configure shared-VM service plans:
 
-1.  In the <%= vars.product_name %> tile, select **Shared-VM Plan**.
+1.  In the <%= vars.product_short %> tile, select **Shared-VM Plan**.
 ![shared vm config](shared-vm-config.png)
 
 1.  Configure these fields:
@@ -563,9 +563,9 @@ VM's total system memory, you can do one of the following:
 
 ### <a id="resources"></a>Configure Resources for Shared-VM Plans
 
-To configure resources for the shared-VM plans, click the **Resource Config** settings tab on the <%= vars.product_name %> tile. The shared-VM plan is on the **Redis Broker** resource.
+To configure resources for the shared-VM plans, click the **Resource Config** settings tab on the <%= vars.product_short %> tile. The shared-VM plan is on the **Redis Broker** resource.
 
-The following are the default resource and IP requirements for <%= vars.product_name %> when using the shared-VM plans:
+The following are the default resource and IP requirements for <%= vars.product_short %> when using the shared-VM plans:
 <table border="1" class="nice">
   <tr>
     <th>Product</th>
@@ -652,7 +652,7 @@ You can disable shared-VM plans by doing the following while configuring the Red
 Pivotal recommends that operators configure syslog forwarding to a remote destination.
 Forwarding your system logs to a remote destination lets you:
 
-* View logs from every VM in the <%= vars.product_name %> deployment in one place.
+* View logs from every VM in the <%= vars.product_short %> deployment in one place.
 * Effectively troubleshooting when logs are lost on the source VM.
 * Set up alerts for important error logs to monitor the deployment.
 
@@ -662,11 +662,11 @@ To configure syslog forwarding:
 
 <%# The below partial is https://github.com/pivotal-cf/docs-ops-manager/blob/master/common/_syslog_bosh.html.md.erb %>
 
-<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => vars.product_name }) %>
+<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => vars.product_short }) %>
 
 ## <a id="stemcell"></a>Update Stemcell
 
-If required, do the following to update the stemcell for <%= vars.product_name %>:
+If required, do the following to update the stemcell for <%= vars.product_short %>:
 
 1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
 1. From the <%= vars.ops_manager %> Installation Dashboard, click **Stemcell Library**.
@@ -695,13 +695,13 @@ Follow the steps below:
 To allow this service to have network access,
 you must create [App Security Groups (ASGs)](https://docs.pivotal.io/platform/application-service/concepts/asg.html).
 Ensure your security group allows access to the Redis Service Broker VM configured in your deployment.
-You can obtain the IP addresses for these VMs in <%= vars.ops_manager %> under the <strong>Resource Config</strong> section for the <%= vars.product_name %> tile.</p>
+You can obtain the IP addresses for these VMs in <%= vars.ops_manager %> under the <strong>Resource Config</strong> section for the <%= vars.product_short %> tile.</p>
 
 <p class="note"><strong>Note:</strong> Without ASGs, this service is unusable.</p>
 
 ### App Container Network Connections
 
-App containers that use instances of the <%= vars.product_name %> service require the following outbound network connections:
+App containers that use instances of the <%= vars.product_short %> service require the following outbound network connections:
 
 <table><thead>
 <tr>
@@ -747,15 +747,15 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating the Installation
 
-Smoke tests run as part of <%= vars.product_name %> installation to validate that the installation succeeded.
-For more information, see [<%= vars.product_name %> Smoke Tests](./smoke-tests.html).
+Smoke tests run as part of <%= vars.product_short %> installation to validate that the installation succeeded.
+For more information, see [<%= vars.product_short %> Smoke Tests](./smoke-tests.html).
 
 
-## <a id="uninstall"></a>Uninstall <%= vars.product_name %>
+## <a id="uninstall"></a>Uninstall <%= vars.product_short %>
 
-To uninstall <%= vars.product_name %>, do the following:
+To uninstall <%= vars.product_short %>, do the following:
 
-1. In the <%= vars.ops_manager %> Installation dashboard, click the trash can icon in the lower-right corner of the <%= vars.product_name %> tile.
+1. In the <%= vars.ops_manager %> Installation dashboard, click the trash can icon in the lower-right corner of the <%= vars.product_short %> tile.
 1. Confirm deletion of the product, and then do the following:
     1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
     For more information about this <%= vars.ops_manager %> page, see

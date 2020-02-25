@@ -5,7 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= vars.product_name %> offers on-demand and shared-VM service plans.
+<%= vars.product_full %> offers on-demand and shared-VM service plans.
 This section describes the architecture, lifecycle, and configurations of the on-demand plan,
 as well as networking information for the on-demand service.
 For similar information for the Shared-VM plans, see [Shared-VM Service Offering](./architecture-pp.html).
@@ -21,10 +21,10 @@ The operator uses <%= vars.ops_manager_full %> to configure the plans.
 App-developers can create instances of each plan on-demand up to a set quota, and bind their apps to these instances.
 The operator specifies the per-plan and global quotas.](on-demand-arch.png)
 
-## <a id="tls"></a> TLS in <%= vars.product_name %>
+## <a id="tls"></a> TLS in <%= vars.product_short %>
 
 You can enable TLS to secure traffic between apps and service instances.
-In <%= vars.product_name %>, the available options are **Optional** and **Not Configured**.
+In <%= vars.product_short %>, the available options are **Optional** and **Not Configured**.
 
 
 ### <a id="tls-optional"></a> TLS Set to Optional
@@ -39,7 +39,7 @@ Pivotal recommends setting TLS as **Optional**, because it allows app developers
 to migrate to TLS connections regardless of whether traffic is restricted to just TLS connections.
 
 <p class="note"><strong>Note:</strong>
-  The option to enforce TLS only is not supported in <%= vars.product_name %>.
+  The option to enforce TLS only is not supported in <%= vars.product_short %>.
 </p>
 
 Steeltoe and Spring apps use the TLS port by default, if it is available.
@@ -67,9 +67,9 @@ The traffic on this connection is unsecured.](tls_disabled.png)
 
 ## <a id="on-demand"></a> On-Demand Service Plans
 
-<%= vars.product_name %> offers on-demand plans as the `p.redis` service within the tile.
+<%= vars.product_short %> offers on-demand plans as the `p.redis` service within the tile.
 On-demand plans are best suited to caching.
-<%= vars.product_name %> has tailored the default configuration to this use case.
+<%= vars.product_short %> has tailored the default configuration to this use case.
 
 The default on-demand plan is the **On-Demand Cache Plan**.
 Service instances of this plan are deployed to a dedicated VM.
@@ -145,6 +145,6 @@ Limitations for the on-demand service include:
 
 ## <a id ="lifecycle"></a>Lifecycle for On-Demand Service Plan
 
-Here is the lifecycle of <%= vars.product_name %>, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
+Here is the lifecycle of <%= vars.product_short %>, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
 ![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)
