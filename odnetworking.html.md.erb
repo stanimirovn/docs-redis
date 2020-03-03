@@ -57,12 +57,14 @@ The diagram below shows worker VMs in an on-demand service instance
 running on a separate services network, while other components run on the default
 network.
 
+<%#
 <img src="../images/odb-architecture.png">
+%>
 
 ## <a id="network-rules"></a>Required Networking Rules for On-Demand Services
 
 Before deploying a service tile that uses the on-demand service broker (ODB),
-request the needed network connections to allow components of Pivotal Cloud Foundry 
+request the needed network connections to allow components of Pivotal Cloud Foundry
 to communicate with ODB.
 
 The specifics of how to open those connections varies for each IaaS.
