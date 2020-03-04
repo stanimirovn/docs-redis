@@ -59,7 +59,7 @@ It is used for everything from a quick way to store data for development and tes
 
 ## <a id="about"></a> About Redis for PCF
 
-<%= partial( vars.path_to_partials + '/redis/service-offerings', :locals => {
+<%= partial "partials/service-offerings', :locals => {
   :redis_name => "<strong><em>" + vars.product_old + "</em></strong>",
   :platform => vars.platform_old}) %>
 
@@ -85,7 +85,7 @@ The following table lists where you can find topics related to the information o
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
+<%= partial 'partials/on-demand-service-table', :locals => {
   :service_name => "Redis for PCF", :platform_name => "PCF", :rabbit => "RabbitMQ for PCF", :redis => "Redis for PCF", :mysql => "MySQL for PCF"
 } %>
 

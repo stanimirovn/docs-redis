@@ -1,0 +1,8 @@
+<% if product_info['tanzu'] == true %>
+  <p class="note"><strong>Note:</strong>
+  <em><%= vars.platform_name_pivotal %> is now <%= vars.platform_name %></em>
+  <% if defined? (vars.product_full) %>
+  <em> and <%= vars.product_full_pivotal %> is now <%= vars.product_full %></em>.
+  <% end %>.
+  </p>
+<% end %>

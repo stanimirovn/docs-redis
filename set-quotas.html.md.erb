@@ -5,11 +5,11 @@ owner: London Services
 
 <%# The partials in this topic are in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../redis/partials/services/toc-set-quotas'%>
+<%= partial 'partials/toc-set-quotas'%>
 
 <strong><%= modified_date %></strong>
 
-<%= partial vars.path_to_partials + '/services/set_quotas',:locals => {
+<%= partial 'partials/set_quotas',:locals => {
   :product_full => "Redis for Pivotal Cloud Foundry (PCF)",
   :product_short => "Redis for PCF",
   :platform_name => "PCF",
