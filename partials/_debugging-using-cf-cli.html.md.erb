@@ -1,0 +1,34 @@
+See the table below for Cloud Foundry Command Line Interface (cf CLI) commands commonly used while debugging:
+
+<table>
+  <col width="50%">
+  <col width="50%">
+  <tr>
+    <th>To view the...</th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>API endpoint, org, and space</td>
+    <td><code>cf target</code></td>
+  </tr>
+  <tr>
+    <td>Service offerings available in the targeted org and space</td>
+    <td><code>cf marketplace</code></td>
+  </tr>
+  <tr>
+    <td>Apps deployed to the targeted org and space</td>
+    <td><code>cf apps</code></td>
+  </tr>
+  <tr>
+    <td>Service instances deployed to the targeted org and space</td>
+    <td><code>cf services</code></td>
+  </tr>
+  <tr>
+    <td>GUID for a given service instance</td>
+    <td><code>cf service SERVICE-INSTANCE --guid</code></td>
+  </tr>
+  <tr>
+    <td>Service instance or application logs</td>
+    <td><code>cf tail SERVICE-INSTANCE/APP</code></td>
+  </tr>
+</table>
