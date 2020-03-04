@@ -1,0 +1,45 @@
+<p>
+	If you have made changes to the plan definition or uploaded a new tile into Ops
+	Manager, you might want to upgrade all <%=vars.service_name_article_full%>
+	instances to the latest software or plan definition.
+</p>
+
+<p>
+	The <code>upgrade-all-service-instances</code> errand does the following:
+</p>
+
+<ul>
+	<li>Collects all of the service instances the on-demand broker has registered</li>
+	<li>For each instance the errand does the following serially
+		<ul>
+			<li>Issues an upgrade command to the on-demand broker</li>
+			<li>Regenerates the service instance manifest based on its latest configuration from the tile</li>
+			<li>Deploys the new manifest for the service instance</li>
+			<li>Waits for this operation to complete, then proceeds to the next instance</li>
+		</ul>
+	</li>
+	<li>Adds to a retry list any instances that have ongoing BOSH tasks at the time of upgrade</li>
+	<li>Retries any instances in the retry list until all are upgraded</li>
+</ul>
+
+<p>
+	If any instance fails to upgrade, the errand fails immediately.
+	This prevents systemic problems from spreading to the rest of your service instances.
+</p>
+
+<p>
+	To run the errand, do one of the following:
+</p>
+
+<ul>
+	<li>
+		Select the errand through the Ops Manager UI and have it run when you click
+		<strong>Apply Changes</strong>.
+	</li>
+	<li>
+		<p>
+			Run the following command.
+		</p>
+		<pre><code>bosh -d DEPLOYMENT-NAME run-errand upgrade-all-service-instances</code></pre>
+	</li>
+</ul>
