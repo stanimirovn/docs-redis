@@ -1,4 +1,4 @@
-Reasons for a failed <%=vars.service_name %> installation include:
+Reasons for a failed Redis installation include:
 
 <ol>
   <li>
@@ -11,7 +11,7 @@ Reasons for a failed <%=vars.service_name %> installation include:
   </li>
   <li><a href="#network">Networking problems</a>: </li>
   <ul>
-    <li>Cloud Foundry cannot reach <%=vars.service_name_article_full%> broker</li>
+    <li>Cloud Foundry cannot reach the Redis broker</li>
     <li>Cloud Foundry cannot reach the service instances</li>
     <li>The service network cannot access the BOSH director </li>
   </ul>
@@ -19,7 +19,7 @@ Reasons for a failed <%=vars.service_name %> installation include:
   <li>The smoke test errand fails.</li>
   <li>
     Resource sizing issues: These occur when the resource sizes selected for a
-    given plan are less than <%=vars.service_name_article_full%> requires to function.
+    given plan are less than the Redis requires to function.
     Check your resource configuration in Ops Manager and ensure that the
     configuration matches that recommended by the service.
   </li>
