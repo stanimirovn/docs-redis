@@ -18,9 +18,9 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
   Follow the procedures in <a href='/preparing-tls.html'>Preparing for TLS</a> before enabling TLS in Redis for PCF v2.2.<br><br>
   Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure that Spring and Steeltoe apps use TLS.<br>
   Developers might also need to configure other frameworks and languages to use the TLS port as well.<br><br>
-  For more information, see <a href='./appdevs.html"]>Using TLS</a>'.
+  For more information, see <a href='./appdevs.html'>Using TLS</a>.
 </p>
-<%= partial vars.path_to_partials + '/redis/warning-disabling-tls" %>
+<%= partial vars.path_to_partials + '/redis/warning-disabling-tls' %>
 This product enables a reliable upgrade experience between versions of the product
 deployed through <%= vars.ops_manager %>.
 
