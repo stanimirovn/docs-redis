@@ -63,9 +63,9 @@ It is used for everything from a quick way to store data for development and tes
 
 ## <a id="about"></a> About <%= vars.product_short %>
 
-<%= partial( vars.path_to_partials + '/redis/service-offerings', :locals => {
+<%= partial vars.path_to_partials + '/redis/service-offerings', :locals => {
   :redis_name => "<strong><em>" + vars.product_short + "</em></strong>",
-  :platform => vars.platform_name}) %>
+  :platform => vars.platform_name} %>
 
 ### <a id="erc"></a> Is <%= vars.product_short %> right for your enterprise?
 

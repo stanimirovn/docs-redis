@@ -19,7 +19,7 @@ The following errors occur in multiple services:
 - [No Metrics from Log Cache](#no-metrics)
 
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'connect-fails',
     description: 'Apps Fail to Connect to the Service Instance',
     symptom: 'Apps fail to connect to the Redis service instance.',
@@ -64,7 +64,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
   errors as simple strings beginning with a <code>-</code> character.
 </p>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'max-clients',
     description: 'Maximum Number of Clients Reached',
     symptom: '<p>You receive the following error:</p>
@@ -75,7 +75,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
             This can be confirmed by running the `INFO` command using the Redis CLI.'
 } %>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'maxmemory',
     description: 'Maxmemory Limit Reached',
     symptom: "<p>You receive the following error:</p>
@@ -88,7 +88,7 @@ Service Instance</a>.</p>'
 } %>
 
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'err-save-command',
     description: 'Error When Running the Save Command',
     symptom: '<p>You receive the following error message when running
@@ -100,7 +100,7 @@ the save command using another Redis client:</p>
 For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.'
 } %>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'err-unknown-command',
     description: 'Unknown Command Error',
     symptom: '<p>You receive the following error message when running `redis-cli COMMAND` or issuing
