@@ -164,7 +164,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
 + [Failed to Set Credentials in Runtime CredHub](#credhub-error)
 + [Service Outage after Disabling TLS](#disabling-tls)
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'corrupt-aof',
     description: 'AOF File Corrupted, Cannot Start Redis Instance' ,
     symptom: ' One or more VMs might fail to start the redis server during pre-start with the error message
@@ -206,7 +206,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
     </ol>'
 } %>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'disk-size',
     description: 'Saving Error' ,
     symptom: 'One of the following error messages is logged in syslog:<br>
@@ -229,7 +229,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
     </ol>'
 } %>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'backup-errors' ,
     description: 'Failed Backup' ,
     symptom: 'The following error message is logged:<br>
@@ -239,7 +239,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
     To do this, run <code>bosh restart</code> against the affected service instance VM.'
 } %>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'orphaned-bosh',
     description: 'Orphaned Instances: BOSH Director Cannot See Your Instances' ,
     symptom: 'BOSH Director cannot see your instances but they are visible on ' + vars.platform_old + '.
@@ -276,7 +276,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
     </ul>'
 } %>
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'orphaned-pcf',
     description: 'Orphaned Instances: ' + vars.platform_old + ' Cannot See Your Instances',
     symptom: vars.platform_old + ' cannot see your broker or service instances.
@@ -351,7 +351,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
 } %>
 
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'credhub-error',
     description: 'Failed to Set Credentials in Runtime CredHub' ,
     symptom: 'If developers report errors such as:
@@ -374,7 +374,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
 } %>
 
 
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'disabling-tls',
     description: 'Service Outage after Disabling TLS' ,
     symptom: 'After disabling TLS, apps that require on-demand Redis service instances become unresponsive.',
