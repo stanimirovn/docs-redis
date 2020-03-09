@@ -18,7 +18,7 @@ The following errors occur in multiple services:
 - [Apps Fail to Connect to the Service Instance](#connect-fails)
 - [No Metrics from Log Cache](#no-metrics)
 
-
+<%#
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'connect-fails',
     description: 'Apps Fail to Connect to the Service Instance',
@@ -42,6 +42,7 @@ The following errors occur in multiple services:
                     <pre>cf restage APP-NAME</pre></li>
                 </ul>'
 } %>
+%>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
