@@ -25,9 +25,10 @@ This release includes the following security fix:
 
 This release has the following fixes:
 
-* Smoke tests no longer fail with latest Ruby buildpack.
-* Lua scripting settings are migrated from the previous version.
-* CF Service Access settings are migrated from the previous version.
+* Smoke tests no longer fail with Ruby buildpack v1.8.11 or later.
+* Lua scripting settings are now migrated correctly when upgrading from <%= vars.product_old %> v2.2.
+* The **CF Service Access** settings in the **On-Demand Plans** pane are now migrated
+correctly when upgrading from <%= vars.product_old %> v2.2.
 
 ### Known Issues
 
@@ -95,7 +96,11 @@ The following components are compatible with this release:
 
 ### Known Issues
 
+This release has the following issues:
+
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Lua scripting settings do not migrate when upgrading from <%= vars.product_old %> v2.2.
+* The **CF Service Access** settings in the **On-Demand Plans** pane do not migrate when upgrading from <%= vars.product_old %> v2.2.
 
 ### Compatibility
 
@@ -181,7 +186,11 @@ This release has the following fixes:
 
 ### Known Issues
 
+This release has the following issues:
+
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Lua scripting settings do not migrate when upgrading from <%= vars.product_old %> v2.2.
+* The **CF Service Access** settings in the **On-Demand Plans** pane do not migrate when upgrading from <%= vars.product_old %> v2.2.
 
 
 ### Compatibility
