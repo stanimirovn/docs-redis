@@ -11,6 +11,74 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="2-3-3"></a>v2.3.3
+
+**Release Date: April 17, 2020**
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* Static passwords are supported again.
+  - An error in the handling of static passwords in the `requirepass` property was introduced when TLS support was added.
+  - When redis services were configured to use a static password this resulted in an error of "secrets map doesn't consist of expected key".
+
+### Known Issues
+
+There are no known issues for this release.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+</tr>
+<tr>
+    <td>Pivotal Platform<sup></sup></td>
+    <td>2.7.x and 2.8.x</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>437.0.12</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.39.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.199.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>2.0.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.5</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>5.3.8</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.8</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.7</td>
+</tr>
+
+</table>
+
 ## <a id="2-3-2"></a>v2.3.2
 
 **Release Date: April 17, 2020**
