@@ -13,15 +13,13 @@ owner: London Services
 
 ## <a id="2-2-11"></a> v2.2.11
 
-**Release Date: April 21, 2020**
+**Release Date: April 22, 2020**
 
 ### Resolved Issues
 
-This release has the following fixes:
+This release has the following fix:
 
 * Static passwords are supported again.
-  - An error in the handling of static passwords in the `requirepass` property was introduced when TLS support was added.
-  - When redis services were configured to use a static password this resulted in an error of "secrets map doesn't consist of expected key".
 
 ### Known Issues
 
@@ -41,11 +39,11 @@ The following components are compatible with this release:
     <td>621.x</td>
 </tr>
 <tr>
-    <td>Pivotal Platform<sup></sup></td>
+    <td><%= vars.platform_name %><sup></sup></td>
     <td>2.7.x and 2.8.x</td>
 </tr>
 <tr>
-    <td>PCF<sup></sup></td>
+    <td><%= vars.platform_old %><sup></sup></td>
     <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
@@ -121,11 +119,11 @@ The following components are compatible with this release:
     <td>621.x</td>
 </tr>
 <tr>
-    <td>Pivotal Platform<sup></sup></td>
+    <td><%= vars.platform_name %><sup></sup></td>
     <td>2.7.x and 2.8.x</td>
 </tr>
 <tr>
-    <td>PCF<sup></sup></td>
+    <td><%= vars.platform_old %><sup></sup></td>
     <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
@@ -197,11 +195,11 @@ The following components are compatible with this release:
     <td>621.x</td>
 </tr>
 <tr>
-    <td>Pivotal Platform<sup></sup></td>
+    <td><%= vars.platform_name %><sup></sup></td>
     <td>2.7.x and 2.8.x</td>
 </tr>
 <tr>
-    <td>PCF<sup></sup></td>
+    <td><%= vars.platform_old %><sup></sup></td>
     <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
@@ -273,11 +271,11 @@ The following components are compatible with this release:
     <td>456.x</td>
 </tr>
 <tr>
-    <td>Pivotal Platform<sup></sup></td>
+    <td><%= vars.platform_name %><sup></sup></td>
     <td>2.7.x</td>
 </tr>
 <tr>
-    <td>PCF<sup></sup></td>
+    <td><%= vars.platform_old %><sup></sup></td>
     <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
@@ -351,11 +349,11 @@ The following components are compatible with this release:
     <td>456.x</td>
 </tr>
 <tr>
-    <td>Pivotal Platform<sup></sup></td>
+    <td><%= vars.platform_name %><sup></sup></td>
     <td>2.7.x</td>
 </tr>
 <tr>
-    <td>PCF<sup></sup></td>
+    <td><%= vars.platform_old %><sup></sup></td>
     <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
@@ -440,11 +438,11 @@ The following components are compatible with this release:
     <td>456.x</td>
 </tr>
 <tr>
-    <td>Pivotal Platform<sup></sup></td>
+    <td><%= vars.platform_name %><sup></sup></td>
     <td>2.7.x</td>
 </tr>
 <tr>
-    <td>PCF<sup></sup></td>
+    <td><%= vars.platform_old %><sup></sup></td>
     <td>2.5.x and 2.6.x</td>
 </tr>
 <tr>
@@ -597,7 +595,7 @@ For more information about Redis v5.0.5, see the
 * Updates golang to v1.12.6.
 For release notes, see the [golang documentation](https://golang.org/doc/devel/release.html#go1.12.minor).
 
-* Updates On-Demand Broker to v0.31.1.
+* Updates on-demand service broker to v0.31.1.
 
 * Updates the cf CLI to v1.16, which resolves
 [CVE-2019-3781: CF CLI does not sanitize user's password in verbose/trace/debug](https://pivotal.io/security/cve-2019-3781).
@@ -615,6 +613,8 @@ This release has the following issue:
 
 * Configuring S3 service backups results in an error due to a non-configurable property.
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an error in the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
