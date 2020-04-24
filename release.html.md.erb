@@ -98,7 +98,10 @@ correctly when upgrading from <%= vars.product_old %> v2.2.
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following known issue:
+
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -167,6 +170,8 @@ This release has the following issues:
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
 * Lua scripting settings do not migrate when upgrading from <%= vars.product_old %> v2.2.
 * The **CF Service Access** settings in the **On-Demand Plans** pane do not migrate when upgrading from <%= vars.product_old %> v2.2.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -257,6 +262,8 @@ This release has the following issues:
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
 * Lua scripting settings do not migrate when upgrading from <%= vars.product_old %> v2.2.
 * The **CF Service Access** settings in the **On-Demand Plans** pane do not migrate when upgrading from <%= vars.product_old %> v2.2.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 * Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
 expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
