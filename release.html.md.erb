@@ -101,9 +101,12 @@ This release has the following fixes:
 
 * Smoke tests no longer fail with Ruby buildpack v1.8.11 or later.
 
-### Known Issues
+### Known Issue
 
-There are no known issues for this release.
+This release has the following known issue:
+
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -177,9 +180,11 @@ This release includes the following security fix:
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -253,9 +258,11 @@ New features and changes in this release:
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -331,9 +338,11 @@ and [CVE-2019-16276](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-162
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -420,9 +429,11 @@ non-configurable property.
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -498,10 +509,12 @@ This release includes the following security fixes:
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * Configuring S3 service backups results in an error due to a non-configurable property.
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
+* Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
+expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 ### Compatibility
 
@@ -609,7 +622,7 @@ This release has the following fixes:
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * Configuring S3 service backups results in an error due to a non-configurable property.
 * Smoke tests fail when run in environments with Ruby buildpack v1.8.11 or later.
