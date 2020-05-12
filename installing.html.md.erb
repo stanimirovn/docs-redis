@@ -660,9 +660,8 @@ All logs follow RFC5424 format.
 
 To configure syslog forwarding:
 
-<%# The below partial is https://github.com/pivotal-cf/docs-ops-manager/blob/master/common/_syslog_bosh.html.md.erb %>
 
-<%= partial(:'../../redis/ops_manager_partials/common/syslog_bosh', :locals => { :syslog_context => vars.product_short }) %>
+<%= partial(vars.path_to_partials + '/ops-manager/syslog_bosh', :locals => { :syslog_context => vars.product_short }) %>
 
 ## <a id="stemcell"></a>Update Stemcell
 
