@@ -1,12 +1,8 @@
 # Redis for Pivotal Platform Docs
 
 ## Where is the book repository?
-https://github.com/pivotal-cf/docs-book-redis
 
-The book repository uses these branches:
-
-* **Edge** builds from the **master** content branch are available on staging [here](https://docs-pcf-staging.cfapps.io/redis/2-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
-* **Master** builds from the published content branches in this repository (2.3, 2.2, 2.1, 2.0, 1.14, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
+The book repo is **docs-book-redis**: https://github.com/pivotal-cf/docs-book-redis
 
 ## Partials
 
