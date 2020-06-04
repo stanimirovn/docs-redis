@@ -2,7 +2,7 @@
 
 ## Where is the book repository?
 
-The book repo is **docs-book-redis**: https://github.com/pivotal-cf/docs-book-redis
+The book repo associated with this content repo is [**docs-book-redis**](https://github.com/pivotal-cf/docs-book-redis).
 
 ## Partials
 
