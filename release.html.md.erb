@@ -118,7 +118,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td><%= vars.platform_name %><sup></sup></td>
-    <td>2.7.x and 2.8.x</td>
+    <td>2.7.x, 2.8.x, and 2.9.x</td>
 </tr>
 <tr>
     <td>shared-redis-release</td>
@@ -187,8 +187,8 @@ The following components are compatible with this release:
     <td>621.x</td>
 </tr>
 <tr>
-    <td><%= vars.platform_name %><sup></sup></td>
-    <td>2.7.x and 2.8.x</td>
+    <td><%= vars.app_runtime_full %><sup></sup></td>
+    <td>2.7.x, 2.8.x, and 2.9.x</td>
 </tr>
 <tr>
     <td>shared-redis-release</td>
@@ -245,10 +245,10 @@ For general information about metrics, see [Monitoring <%= vars.product_full %>]
 
 * Errands have impact warnings when service instance downtime is expected.
 
-* Syslog configuration is delegated to <%= vars.ops_manager %>. 
-This improvement does not affect syslog configuration in the tile. 
-However, if you use the <%= vars.ops_manager %> API or Platform Automation Toolkit, you must modify your syslog configuration 
-to use `syslog-properties`. 
+* Syslog configuration is delegated to <%= vars.ops_manager %>.
+This improvement does not affect syslog configuration in the tile.
+However, if you use the <%= vars.ops_manager %> API or Platform Automation Toolkit, you must modify your syslog configuration
+to use `syslog-properties`.
 For more information about `syslog-properties`, see
 [om](https://github.com/pivotal-cf/om/blob/master/docsgenerator/templates/configure-product/ADDITIONAL_INFO.md#configuring-the-syslog-properties-for-products-that-use-opsmanagers-consistent-syslog-configuration)
 in GitHub.
@@ -288,8 +288,8 @@ The following components are compatible with this release:
     <td>456</td>
 </tr>
 <tr>
-    <td><%= vars.platform_name %></td>
-    <td>2.7 and 2.8</td>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.7.x, 2.8.x, and 2.9.x</td>
 </tr>
 <tr>
     <td>shared-redis-release</td>
