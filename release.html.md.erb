@@ -13,22 +13,17 @@ owner: London Services
 
 ## <a id="2-4-0"></a> v2.4.0
 
-**Release Date: MMMM DD, 2020**
+**Release Date: 06 27, 2020**
 
 ### Features
 
 New features and changes in this release:
 
-
-### Resolved Issues
-
-This release has the following fixes:
-
-
-### Known Issues
-
-This release has the following issue:
-
+1) Operators can select TLS versions for On-Demand Service Instances when TLS is enabled. After selecting a TLS version,
+ we would recommend generating a new service key to reflect the updated TLS versions and rebinding the service instance
+ with the new service key. Before doing this, ensure that you have followed the steps in Preparing for TLS and Network
+ configuration.
+2) Operators can install only Healthwatch 1.8 and above to be used with the redis tile.
 
 ### Compatibility
 
@@ -41,39 +36,39 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>456</td>
+    <td>621.74</td>
 </tr>
 <tr>
     <td><%= vars.platform_name %></td>
-    <td>2.7 and 2.8</td>
+    <td>2.9 and 2.10</td>
 </tr>
 <tr>
     <td>shared-redis-release</td>
-    <td>437.0.4</td>
+    <td>437.0.14</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>0.35.0</td>
+    <td>0.39.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>0.195.0</td>
+    <td>0.201.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>2.0.3</td>
+    <td>2.0.13</td>
 </tr>
 <tr>
     <td>service-backup</td>
-    <td>18.3.4</td>
+    <td>18.3.5</td>
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>5.2.2</td>
+    <td>6.0.1</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>1.1.5</td>
+    <td>1.1.8</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
