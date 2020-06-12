@@ -19,15 +19,15 @@ owner: London Services
 
 New features and changes in this release:
 
-- **Operators can select TLS versions for On-Demand Service Instances 
-when TLS is enabled:** To select TLS versions, operators can follow the steps in 
- [Preparing for TLS](preparing-tls.html) and [Network Configuration](./installing.html#network-configuration). 
-After selecting a TLS version, VMware recommends generating 
-a new service key to reflect the updated TLS versions and rebinding the service instance
- with the new service key.
+- **Operators can specify which TLS versions to make Redis TLS connections 
+when TLS is enabled:** This feature allows control of the versions of TLS that Redis connections support.
+VMware does not recommend using TLS v1.0, but it is an option for applications that may only 
+support this protocol.
+ 
 
-- **Operators can install Healthwatch:** Operators can only install Healthwatch v1.8 and later 
-with the Redis tile.
+- **Operators can see Healthwatch incompatibility errors when trying to install an incompatible tile:** 
+Operators can only install Healthwatch v1.8 and later with the Redis tile. If the operator tries to 
+install a previous Healthwatch version, the operator sees an error.
 
 ### Compatibility
 
