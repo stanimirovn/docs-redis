@@ -1,5 +1,5 @@
 ---
-title: Using Redis for Pivotal Platform
+title: Using Redis for VMware Tanzu
 owner: London Services
 ---
 
@@ -20,11 +20,12 @@ and the [Shared-VM Service Offering](./architecture-pp.html).
 
 <%= partial vars.path_to_partials + "/services/developer-prereqs" %>
 
-## <a id="process"></a>Use <%= vars.product_short %> in a <%= vars.platform_name %> app
+## <a id="process"></a>Use <%= vars.product_short %> in an App
 
-Every app and service in <%= vars.platform_name %> is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use a service, an app must exist in the same space as an instance of the service.
+Every app and service is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use a service, 
+an app must exist in the same space as an instance of the service.
 
-To use <%= vars.product_short %> in a <%= vars.platform_name %> app:
+To use <%= vars.product_short %> in an app:
 
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log in to the org and space that contains the app.
 
