@@ -354,12 +354,9 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'credhub-error',
     description: 'Failed to Set Credentials in Runtime CredHub' ,
-    symptom: 'If developers report errors such as:
-    <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request.. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>',
-    cause: 'Your service instances might not be running the latest version of ' + vars.product_short +
-    '.
-    You might experience compatibility issues with CredHub if your service instances
-    are running ' + vars.product_name + ' v1.14.3 or earlier.',
+    symptom: 'If developers report errors such as: <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>',
+    cause: 'Your service instances might not be running the latest version of ' + vars.product_short + '. You might experience compatibility issues with CredHub if your service instances
+    are running ' + vars.product_short + ' v1.14.3 or earlier.',
     solution: '<ol>
       <li>Ensure you have the latest patch version of ' + vars.product_short + ' installed.
       For more information about the latest patch, see <a href="./release.html">' + vars.product_full + ' Release Notes</a>.</li>
@@ -384,8 +381,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     languages and frameworks require further configuration. <br><br>
 
     When TLS is disabled, the TLS port is removed from all on-demand instances.
-    This prevents the apps from connecting to the instance.
-',
+    This prevents the apps from connecting to the instance.',
     solution: '
     <p>First, consider enabling TLS.
       The compliance body that oversees your apps might require TLS to be enabled.
