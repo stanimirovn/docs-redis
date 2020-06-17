@@ -1,5 +1,5 @@
 ---
-title: Upgrading Redis for Pivotal Platform
+title: Upgrading Redis for VMware Tanzu
 owner: London Services
 ---
 
@@ -25,7 +25,7 @@ For information about the upgrade paths for each released version, see
 
 To upgrade to the latest version of <%= vars.product_short %>:
 
-1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Download the latest version of the product from [VMware Tanzu Network](https://network.pivotal.io/products/p-redis).
 
 1. Upload the new `.pivotal` file to <%= vars.ops_manager %>.
 
@@ -38,7 +38,7 @@ To upgrade to the latest version of <%= vars.product_short %>:
     <p class="note"> <strong>Note:</strong>
       In most cases, enabling TLS does not noticeably reduce performance. Performance impact depends on the health of resources, such as network infrastructure and application architecture.
     </p>
-  1. In the Redis for Pivotal Platform tile, select **On-Demand Service Settings**.
+  1. In the <%= vars.product_short %> tile, select **On-Demand Service Settings**.
   1. Under **Enable TLS**, select **Optional**.
   1. Click **Save**.
 
@@ -180,7 +180,7 @@ click **Assign AZs and Networks** in the <%= vars.product_short %> tile configur
 
 You can also change the network by altering the CIDR in the BOSH Director tile.
 
-Pivotal discourages changing the network that a pre-existing shared-VM deployment works with.
+VMware discourages changing the network that a pre-existing shared-VM deployment works with.
 
 If the network is changed, app bindings for existing shared-VM instances might stop working.
 

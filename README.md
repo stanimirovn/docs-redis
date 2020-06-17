@@ -1,4 +1,4 @@
-# Redis for Pivotal Platform Docs
+# Redis for VMware Tanzu Docs
 
 ## Where is the book repository?
 
@@ -6,7 +6,7 @@ The book repo associated with this content repo is [**docs-book-redis**](https:/
 
 ## Partials
 
-Cross-product partials for **Redis for Pivotal Platform** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-partials) repository.
+Cross-product partials for **Redis for VMware Tanzu** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-partials) repository.
 
 Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repository.
 
@@ -49,7 +49,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Style Sheet
 
-Use this section to specify spelling of special words for Redis for Pivotal Platform:
+Use this section to specify spelling of special words for Redis for VMware Tanzu:
 
 + on-demand plan
 + shared-VM plan

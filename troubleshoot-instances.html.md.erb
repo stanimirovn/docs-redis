@@ -46,9 +46,9 @@ The following errors occur in multiple services:
 
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-no-metrics' %>
 
-### <a id="specific-errors"></a> Redis for Pivotal Platform Specific Errors
+### <a id="specific-errors"></a> Redis for VMware Tanzu Specific Errors
 
-The following troubleshooting errors are specific to Redis for Pivotal Platform:
+The following troubleshooting errors are specific to Redis for VMware Tanzu:
 
 - [Maximum Number of Clients Reached](#max-clients)
 - [Maxmemory Limit Reached](#maxmemory)
@@ -69,7 +69,7 @@ The following troubleshooting errors are specific to Redis for Pivotal Platform:
 <pre class="terminal">-ERR max number of clients reached</pre>',
     cause: 'This is usually caused by apps opening multiple client connections to Redis.',
     solution: 'Share or pool Redis connections within an app.
-            Redis for Pivotal Platform configures Redis to accept 10000 client connections.
+            Redis for VMware Tanzu configures Redis to accept 10000 client connections.
             This can be confirmed by running the `INFO` command using the Redis CLI.'
 } %>
 
@@ -188,7 +188,7 @@ If you want to access the Redis server for troubleshooting,
 you can find a Redis service instance password by creating a new service key.
 
 <p class="note"><strong>Note:</strong>
-  Pivotal recommends that you use this key for troubleshooting only, and that you
+  VMware recommends that you use this key for troubleshooting only, and that you
   delete the key after troubleshooting by running the command <code>cf delete-service-key SERVICE-INSTANCE KEY-NAME</code>.
 </p>
 

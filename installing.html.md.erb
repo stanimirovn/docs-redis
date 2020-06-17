@@ -1,12 +1,12 @@
 ---
-title: Installing Redis for Pivotal Platform
+title: Installing Redis for VMware Tanzu
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
 This topic describes the process of installing <%= vars.product_full %>.
-It covers tasks from downloading the file from Pivotal Network
+It covers tasks from downloading the file from VMware Tanzu Network
 through verifying the installation after configuration.
 
 ## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager %>
@@ -15,13 +15,13 @@ through verifying the installation after configuration.
 operators can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in <%= vars.ops_manager %>, see [Understand Roles in <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about).
+For more information about roles in <%= vars.ops_manager %>, see [Understand Roles in <%= vars.ops_manager %>](https://docs.pivotal.io/platform/opsguide/config-rbac.html#about).
 
 ## <a id="install"></a>Download and Install the Tile
 
 To add <%= vars.product_short %> to <%= vars.ops_manager %>, follow the procedure for adding <%= vars.ops_manager %> tiles:
 
-1. Download the <%= vars.product_short %> file from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Download the <%= vars.product_short %> file from [VMware Tanzu Network](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
 1. In the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the <%= vars.product_short %> file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
@@ -30,7 +30,7 @@ Select the latest release from the **Releases** dropdown.
 
     1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
     For more information about this <%= vars.ops_manager %> page, see
-    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
 
 For guidance on ports and ranges used in the Redis service, see [Select Networks](#network-configuration) below.
@@ -67,20 +67,13 @@ For more information, see [Networking for On-Demand Services](./odnetworking.htm
 To select networks, do the following:
 
 1. In the **Assign AZs and Networks** tab, select a **Network**.
-  - Pivotal recommends that each type of <%= vars.platform_name %> service run in its own network.
-  For example, run <%= vars.product_short %> on a separate network from RabbitMQ for <%= vars.platform_name %>.
-  - Typically the service broker network and service instance network(s) are the same.
+  - VMware recommends that each type of service run in its own network.
+  - Typically the service broker network and service instance networks are the same.
 
 1. If using the on-demand service, select a **Service Network**.
 Otherwise, select an empty service network.
-For more information, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the Pivotal Support knowledge base.
+For more information, see [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only) in the VMware Tanzu Support knowledge base.
 
-<p class="note">
-  <strong>Note</strong>: In <%= vars.ops_manager %> v2.0 and earlier, a specific
-  network was designated as the Service Network to reserve IPs for the on-demand service.
-  As of <%= vars.ops_manager %> v2.1, IPs are no longer managed in this way.
-  All networks are now available to use as a Service Network.
-</p>
 
 The following ports and ranges are used in <%= vars.product_short %>:
 
@@ -317,7 +310,7 @@ To add and configure each on-demand service plan:
       <td>on-demand-cache</td>
       <td>
         The name that you choose for the plan. This is displayed in the Marketplace.
-        Pivotal recommends that you give your plans descriptive names based on their configuration.
+        VMware recommends that you give your plans descriptive names based on their configuration.
       </td>
     </tr>
     <tr>
@@ -360,12 +353,12 @@ To add and configure each on-demand service plan:
     <tr>
       <td><strong>Server VM type</strong></td>
       <td>Varies depending on IaaS</td>
-      <td>Pivotal recommends that the persistent disk is at least 2.5x the VM memory for on-demand service instances.</td>
+      <td>VMware recommends that the persistent disk is at least 2.5x the VM memory for on-demand service instances.</td>
     </tr>
     <tr>
       <td><strong>Server Disk type</strong></td>
       <td>Varies depending on IaaS</td>
-      <td>Pivotal recommends that the persistent disk is at least 2.5x the VM memory for on-demand service instances.</td>
+      <td>VMware recommends that the persistent disk is at least 2.5x the VM memory for on-demand service instances.</td>
     </tr>
     <tr>
       <td><strong>Redis Client Timeout</strong></td>
@@ -388,7 +381,7 @@ To add and configure each on-demand service plan:
     <tr>
       <td><strong>Lua Scripting</strong></td>
       <td>Disabled</td>
-      <td>Pivotal recommends keeping Lua scripting disabled unless developers are running apps that require Lua scripting, such as .Net Steeltoe apps.<br>
+      <td>VMware recommends keeping Lua scripting disabled unless developers are running apps that require Lua scripting, such as .Net Steeltoe apps.<br>
       Check whether the language your apps are using requires Lua scripting.</td>
     </tr>
     </table>
@@ -396,12 +389,12 @@ To add and configure each on-demand service plan:
 
 ### <a id="secure-credentials"></a>(Optional) Enable Secure Service Instance Credentials for On-Demand Redis
 
-To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
+To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/platform/credhub/)
 instead of the Cloud Controller database (CCDB), do the following:
 
 1. Configure the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile to support securing service
 instance credentials in runtime CredHub.
-See [Step 1: Configure the <%= vars.app_runtime_abbr %>Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
+See [Step 1: Configure the <%= vars.app_runtime_abbr %>Tile](https://docs.pivotal.io/platform/opsguide/secure-si-creds.html#pas-config).
 
 1. After deploying the tile, notify developers that they must unbind and rebind
 existing service instances to secure their credentials with CredHub.
@@ -422,8 +415,8 @@ Additionally, operators cannot make a plan that was previously active, inactive,
   Do not remove an on-demand service plan with service instances deployed.
   Doing so causes <strong>Apply Changes</strong> to fail.
   For how to recover a deleted plan, see
-  <a href="https://community.pivotal.io/s/article/Recover-a-deleted-Redis-for-Pivotal-Platform-Plan">Recover a deleted Redis for Pivotal Platform On-Demand Plan</a>
-  in the Pivotal Support knowledge base.
+  <a href="https://community.pivotal.io/s/article/Recover-a-deleted-Redis-for-Pivotal-Platform-Plan">Recover a deleted <%= vars.product_short %> On-Demand Plan</a>
+  in the VMware Tanzu Support knowledge base.
 </p>
 
 To remove an on-demand service plan from your tile:
@@ -459,8 +452,8 @@ This updates the plans available in the Marketplace.
   Do not remove an on-demand service plan with service instances deployed.
   Doing so causes <strong>Apply Changes</strong> to fail.
   For how to recover a deleted plan, see
-  <a href="https://community.pivotal.io/s/article/Recover-a-deleted-Redis-for-Pivotal-Platform-Plan">Recover a deleted Redis for Pivotal Platform On-Demand Plan</a>
-  in the Pivotal Support knowledge base.
+  <a href="https://community.pivotal.io/s/article/Recover-a-deleted-Redis-for-Pivotal-Platform-Plan">Recover a deleted <%= vars.product_short %> On-Demand Plan</a>
+  in the VMware Tanzu Support knowledge base.
 </p>
 
 To remove the on-demand service from your tile:
@@ -477,7 +470,7 @@ To remove the on-demand service from your tile:
 
 1. Create an empty service network. For instructions, see
 [Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only](https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only)
-in the Pivotal Support knowledge base.
+in the VMware Tanzu Support knowledge base.
 
 1. Go to each **On-Demand Plans** page on the <%= vars.product_short %> tile,
 and delete each plan by clicking the trash can icon next to the plan name.
@@ -494,7 +487,7 @@ To configure shared-VM service plans:
       * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance.
       * **Redis Service Instance Limit**---Maximum number of shared-VM instances.
       * **Lua Scripting**---Enable or disable Lua Scripting as needed.
-      Pivotal recommends that Lua Scripting is disabled unless developers need it to be enabled.
+      VMware recommends that Lua Scripting is disabled unless developers need it to be enabled.
 
  	Memory and instance limits depend on the total system memory of your Redis broker VM and require some
  	additional calculation. For more information, see [Memory Limits for Shared-VM Plans](#shared-vm-memory-limits) below.
@@ -624,7 +617,7 @@ The following are the default resource and IP requirements for <%= vars.product_
   </tr>
 </table>
 
-Pivotal recommends that the persistent disk is at least 3.5x the VM memory for the shared-VM.
+VMware recommends that the persistent disk is at least 3.5x the VM memory for the shared-VM.
 
 ### <a id="disable-shared"></a>Disable Shared VM Plans
 
@@ -649,7 +642,7 @@ You can disable shared-VM plans by doing the following while configuring the Red
 
 ## <a id="syslog"></a>Configure Syslog Forwarding
 
-Pivotal recommends that operators configure syslog forwarding to a remote destination.
+VMware recommends that operators configure syslog forwarding to a remote destination.
 Forwarding your system logs to a remote destination lets you:
 
 * View logs from every VM in the <%= vars.product_short %> deployment in one place.
@@ -667,9 +660,9 @@ To configure syslog forwarding:
 
 If required, do the following to update the stemcell for <%= vars.product_short %>:
 
-1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
+1. Download the stemcell from [VMware Tanzu Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
 1. From the <%= vars.ops_manager %> Installation Dashboard, click **Stemcell Library**.
-1. Click **Import Stemcell**, and then select the stemcell you downloaded from Pivotal Network.
+1. Click **Import Stemcell**, and then select the stemcell you downloaded from VMware Tanzu Network.
 
     <br>![Stemcell Library](stemcell-library-xenial.png)
 1. Click **Save**.
@@ -685,7 +678,7 @@ Follow the steps below:
 
     1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
     For more information about this <%= vars.ops_manager %> page, see
-    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
 
 
@@ -758,5 +751,5 @@ To uninstall <%= vars.product_short %>, do the following:
 1. Confirm deletion of the product, and then do the following:
     1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
     For more information about this <%= vars.ops_manager %> page, see
-    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
+    [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).<br><br>
     1. Click **Apply Changes**.
