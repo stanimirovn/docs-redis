@@ -68,9 +68,9 @@ The following errors are specific to <%= vars.product_short %>:
     symptom: '<p>You receive the following error:</p>
 <pre class="terminal">-ERR max number of clients reached</pre>',
     cause: 'This is usually caused by apps opening multiple client connections to Redis.',
-    solution: 'Share or pool Redis connections within an app.
-            Redis for VMware Tanzu configures Redis to accept 10000 client connections.
-            This can be confirmed by running the `INFO` command using the Redis CLI.'
+    solution: 'Share or pool Redis connections within an app. ' + vars.product_short + ' configures
+    Redis to accept 10000 client connections.
+    This can be confirmed by running the `INFO` command using the Redis CLI.'
 } %>
 
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
