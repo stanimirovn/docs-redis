@@ -242,17 +242,16 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'orphaned-bosh',
     description: 'Orphaned Instances: BOSH Director Cannot See Your Instances' ,
-    symptom: 'BOSH Director cannot see your instances but they are visible on ' + vars.platform_name + '.
-        When you run <code>cf curl /v2/service_instances</code>,
+    symptom: 'When you run <code>cf curl /v2/service_instances</code>,
         some service instances are visible that are not visible to the BOSH Director.
         These orphaned instances can create issues.
         For example, they might hold on to a static IP address, causing IP conflicts.',
     cause: 'Orphaned instances can occur in the following situations:<br><br>
     <ul>
-      <li>Both ' + vars.platform_name + ' and BOSH maintain state.
-        Orphaned instances can occur if the ' + vars.platform_name + ' state is out of sync with BOSH.
+      <li>Both ' + vars.app_runtime_abbr + ' and BOSH maintain state.
+        Orphaned instances can occur if the ' + vars.app_runtime_abbr + ' state is out of sync with BOSH.
         For example, the deployments or VMs have been de-provisioned by BOSH but
-        the call to update the ' + vars.platform_name + ' state failed.</li>
+        the call to update the ' + vars.app_runtime_abbr + ' state failed.</li>
       <li>If a call to de-provision a service instance was made directly to BOSH
         rather than through the cf CLI.</li>
     </ul>',
