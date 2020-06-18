@@ -6,7 +6,7 @@ owner: London Services
 <strong><%= modified_date %></strong>
 
 This topic describes the process of installing <%= vars.product_full %>.
-It covers tasks from downloading the file from <%= product_network %>
+It covers tasks from downloading the file from <%= vars.product_network %>
 through verifying the installation after configuration.
 
 ## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager %>
@@ -21,7 +21,7 @@ For more information about roles in <%= vars.ops_manager %>, see [Understand Rol
 
 To add <%= vars.product_short %> to <%= vars.ops_manager %>, follow the procedure for adding <%= vars.ops_manager %> tiles:
 
-1. Download the <%= vars.product_short %> file from [<%= product_network %>](https://network.pivotal.io/products/p-redis).
+1. Download the <%= vars.product_short %> file from [<%= vars.product_network %>](https://network.pivotal.io/products/p-redis).
 Select the latest release from the **Releases** dropdown.
 1. In the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the <%= vars.product_short %> file.
 1. Click the **+** sign next to the uploaded product description to add the tile to your staging area.
@@ -660,9 +660,9 @@ To configure syslog forwarding:
 
 If required, do the following to update the stemcell for <%= vars.product_short %>:
 
-1. Download the stemcell from [<%= product_network %>](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
+1. Download the stemcell from [<%= vars.product_network %>](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
 1. From the <%= vars.ops_manager %> Installation Dashboard, click **Stemcell Library**.
-1. Click **Import Stemcell**, and then select the stemcell you downloaded from <%= product_network %>.
+1. Click **Import Stemcell**, and then select the stemcell you downloaded from <%= vars.product_network %>.
 
     <br>![Stemcell Library](stemcell-library-xenial.png)
 1. Click **Save**.
