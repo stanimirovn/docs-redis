@@ -5,16 +5,14 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= partial vars.path_to_partials + '/pcf-name-change' %>
-
 This is documentation for <%= vars.product_full %>.
-You can download the <%= vars.product_short %> tile from [VMware Tanzu Network](https://network.pivotal.io/products/p-redis).
+You can download the <%= vars.product_short %> tile from [<%= product_network %>](https://network.pivotal.io/products/p-redis).
 
 This documentation:
 
 + Describes features and architecture of <%= vars.product_short %>.
-+ Instructs the <%= vars.platform_name %> operator on how to install, configure, maintain, and backup <%= vars.product_short %>.
-+ Instructs the app developer on how to choose a service plan, create and delete
++ Instructs operators on how to install, configure, maintain, and backup <%= vars.product_short %>.
++ Instructs app developers on how to choose a service plan, create and delete
 Redis service instances, and bind an app.
 
 ##<a id="snapshot"></a> Product Snapshot

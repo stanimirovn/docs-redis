@@ -25,7 +25,7 @@ For information about the upgrade paths for each released version, see
 
 To upgrade to the latest version of <%= vars.product_short %>:
 
-1. Download the latest version of the product from [VMware Tanzu Network](https://network.pivotal.io/products/p-redis).
+1. Download the latest version of the product from [<%= product_network %>](https://network.pivotal.io/products/p-redis).
 
 1. Upload the new `.pivotal` file to <%= vars.ops_manager %>.
 
@@ -48,7 +48,7 @@ When this is feature is not enabled, the `upgrade-all-service-instances` errand 
 after each upgrade.
 For more information, see [Upgrading All Service Instances](#all-instances) below.
 
-1. Go to the Ops Manager **Installation Dashboard**. Click **Review Pending Changes** and **Apply Changes**.
+1. Go to the <%= vars.ops_manager %> **Installation Dashboard**. Click **Review Pending Changes** and **Apply Changes**.
 
 ### <a id="individual-upgrades"></a> Enable Individual Service Instance Upgrades
 
@@ -156,7 +156,7 @@ To enable BOSH HotSwaps:
 
 1. Ensure all service bindings use BOSH DNS.
 To do so, tell developers to unbind, bind, and restage any apps created while
-Redis for PCF v1.14 or earlier was installed.
+<%= vars.product_old %> or earlier was installed.
 For instructions, see the solution in [Apps Fail to Connect to the Service Instance](./troubleshoot-instances.html#connect-fails).
   <p class="note"><strong>Note:</strong>
     You must do this before enabling BOSH HotSwaps.

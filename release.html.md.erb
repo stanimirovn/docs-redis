@@ -5,10 +5,6 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-<%= partial vars.path_to_partials + '/branding-change' %>
-
-<%= partial vars.path_to_partials + '/pcf-name-change' %>
-
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
 ## <a id="2-4-0"></a> v2.4.0
@@ -19,14 +15,14 @@ owner: London Services
 
 New features and changes in this release:
 
-- **Operators can specify which TLS versions to make Redis TLS connections when TLS is enabled:** 
+- **Operators can specify which TLS versions to make Redis TLS connections when TLS is enabled:**
 This feature allows control of the versions of TLS that Redis connections support.
-VMware does not recommend using TLS v1.0, but it is an option for applications that only 
+VMware does not recommend using TLS v1.0, but it is an option for applications that only
 support this protocol.
- 
 
-- **Operators can see Healthwatch incompatibility errors when trying to install an incompatible tile:** 
-Operators can only install Healthwatch v1.8 and later with the Redis tile. If the operator tries to 
+
+- **Operators can see Healthwatch incompatibility errors when trying to install an incompatible tile:**
+Operators can only install Healthwatch v1.8 and later with the Redis tile. If the operator tries to
 install a previous Healthwatch version, the operator sees an error.
 
 ### Compatibility
