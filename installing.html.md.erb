@@ -283,8 +283,10 @@ For how this feature works, see
 <%= partial vars.path_to_partials + '/redis/warning-disabling-tls' %>
 
 1. (Optional) If you selected the **Optional** option under **Enable TLS**, enable the checkbox next
-to each Redis TLS version you want to support.
-VMware recommends supporting, at minimum, TLS v1.1 and onwards.
+to each TLS version you want to support.
+VMware recommends supporting TLS v1.1 and onwards. VMware does not recommend supporting TLS v1.0
+because it is less secure than later versions, but it is an option for apps that only support this
+protocol.
 
 
 ## <a id="on-demand-plan-config"></a>Configure On-Demand Plan Settings
