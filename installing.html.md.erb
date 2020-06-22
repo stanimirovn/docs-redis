@@ -13,7 +13,7 @@ through verifying the installation after configuration.
 
 <%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which
 operators can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
-Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
+Therefore, your role permissions might not allow you to follow every procedure in this operator guide.
 
 For more information about roles in <%= vars.ops_manager %>, see [Understand Roles in <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about).
 
@@ -47,7 +47,7 @@ You can assign multiple availability zones (AZs) to Redis jobs, however this doe
 You must select AZs that are in the service network you configured in your BOSH Director.
 For more information, see [Availability Zones](erc.html#other-notes).
 
-To assign AZs, do the following:
+To assign AZs:
 
 1. Select **Assign AZs and Networks**.
 
@@ -64,7 +64,7 @@ To use the <%= vars.product_short %> on-demand service, you must select a networ
 the service instances are created.
 For more information, see [Networking for On-Demand Services](./odnetworking.html).
 
-To select networks, do the following:
+To select networks:
 
 1. In the **Assign AZs and Networks** tab, select a **Network**.
   - Pivotal recommends that each type of <%= vars.platform_name %> service run in its own network.
@@ -241,7 +241,7 @@ To configure settings that apply across the whole on-demand service offering:
    Turning on sharing enables this feature for all on-demand instances.
     <p class="note"><strong>Note</strong>: To enable this feature a user with admin privileges
   must run <code>cf enable-feature-flag service\_instance\_sharing</code>.
- For information about this feature, see [Sharing a Redis Instance with Another Space](./using.html#sharing).
+ For information about this feature, see <a href="./using.html#sharing">Sharing a Redis Instance with Another Space</a>.
   </p>
 
 1. (Optional) Use the **Maximum Parallel Upgrades** field to configure the
@@ -259,15 +259,15 @@ and the **Specify Org and Space that Canaries will be selected from?** options t
 settings for upgrade canaries.
 Canaries are service instances that are upgraded first.
 The upgrade fails if any canaries fail to upgrade. <br><br>
-Canaries can be limited by number and by org and space.
-If you want to use all service instances in an org and space as canaries,
-set the number of canaries zero. This upgrades all service instances in the selected org and space first.<br><br>
+You can limit canaries by number and by org and space.
+To use all service instances in an org and space as canaries,
+set the number of canaries to zero. This upgrades all service instances in the selected org and space first.<br><br>
   ![canary-options](canary-options.png)
-  <p class="note"><strong>Note</strong>:
+  <p class="note"><strong>Note:</strong>
     If you specify that canaries should be limited to an org and space that has
     no service instances, the upgrade fails.
   </p>
-  <p class="note"><strong>Note</strong>:
+  <p class="note"><strong>Note:</strong>
     Canary upgrades comply with the Maximum Parallel Upgrades settings.
     If you specify three canaries and a Maximum Parallel Upgrades of two,
     then two canaries upgrade, followed by the third.
@@ -302,7 +302,7 @@ To add and configure each on-demand service plan:
 1. Click **Add** to add an on-demand plan.
   ![on demand plan config](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
   [Click here to view a larger version of this image.](./images/on-demand-plan-config.png)
-1. Configure the settings in the table below for your on-demand plan(s) and then click **Save**.
+1. Configure the settings in the table below for your on-demand plans and then click **Save**.
 <%# Should you not reduce the the VMs or disk after you have saved settings or while you are configuring for the first time? %>
   <p class="warning note"><strong>Warning:</strong> Do not downsize the VMs
    or disk size. Doing so can cause data loss in pre-existing instances.
@@ -389,15 +389,15 @@ To add and configure each on-demand service plan:
       <td><strong>Lua Scripting</strong></td>
       <td>Disabled</td>
       <td>Pivotal recommends keeping Lua scripting disabled unless developers are running apps that require Lua scripting, such as .Net Steeltoe apps.<br>
-      Check whether the language your apps are using requires Lua scripting.</td>
+      Verify that your apps are using a language that does not require Lua scripting.</td>
     </tr>
     </table>
 
 
 ### <a id="secure-credentials"></a>(Optional) Enable Secure Service Instance Credentials for On-Demand Redis
 
-To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/pivotalcf/credhub/)
-instead of the Cloud Controller database (CCDB), do the following:
+To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/platform/credhub/)
+instead of the Cloud Controller database (CCDB):
 
 1. Configure the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile to support securing service
 instance credentials in runtime CredHub.
@@ -515,16 +515,17 @@ Additional calculation is required to configure memory limits for shared-VM plan
 With these plans, several service instances share the VM, and the Redis broker also runs on this same VM.
 Therefore, the memory used by all the shared-vm instances combined should be at most 45% of the memory of the Redis broker VM.
 
-To configure the limits in these fields,
-estimate the maximum memory that could be used by all your Redis shared-VM instances combined.
-If that figure is higher than 45% of the Redis broker
-VM's total system memory, you can do one of the following:
+To configure the limits in these fields:
+
+1. Estimate the combined maximum memory that all your Redis shared-VM instances can use.
+
+1. If your estimate is higher than 45% of the Redis broker VM's total system memory, do any of the following:
 
   + Decrease the **Redis Instance Memory Limit** in the **Shared-VM Plan** tab.
   + Decrease the number of instances in **Redis Service Instance Limit** in the **Shared-VM Plan** tab.
   + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
 
-    <img src="./images/redis-broker-resource.png">
+    <img src="./images/redis-broker-resource.png"><%# Images require alt text. %>
 
   Here are some examples for setting these limits:
 
@@ -551,7 +552,7 @@ VM's total system memory, you can do one of the following:
       </tr>
   </table>
 
-  <p class="note"><strong>Note</strong>: You can configure a larger
+  <p class="note"><strong>Note:</strong> You can configure a larger
     <strong>Redis Service Instance Limit</strong>, if you are confident that the
     majority of the deployed instances do not use a large amount of their allocated memory,
     for example in development or test environments.<br><br>
@@ -676,8 +677,7 @@ If required, do the following to update the stemcell for <%= vars.product_short 
 
 ## <a id="apply"></a> Apply Changes from Your Configuration
 
-Your installation is not complete until you apply your configuration changes.
-Follow the steps below:
+To apply your configuration changes:
 
 1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
@@ -746,17 +746,17 @@ to give all started apps access, bind to the `default-running` ASG set and resta
 
 ## <a id="validation"></a>Validating the Installation
 
-Smoke tests run as part of <%= vars.product_short %> installation to validate that the installation succeeded.
-For more information, see [<%= vars.product_short %> Smoke Tests](./smoke-tests.html).
+Smoke tests run as part of <%= vars.product_short %> installation to verify that the installation succeeded.
+For more information, see [<%= vars.product_full %> Smoke Tests](./smoke-tests.html).
 
 
 ## <a id="uninstall"></a>Uninstall <%= vars.product_short %>
 
-To uninstall <%= vars.product_short %>, do the following:
+To uninstall <%= vars.product_short %>:
 
 1. In the <%= vars.ops_manager %> Installation dashboard, click the trash can icon in the lower-right corner of the <%= vars.product_short %> tile.
-1. Confirm deletion of the product, and then do the following:
-    1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
-    For more information about this <%= vars.ops_manager %> page, see
-    [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
-    1. Click **Apply Changes**.
+1. Confirm the product was deleted.
+1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+For more information about this <%= vars.ops_manager %> page, see
+[Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).<br><br>
+1. Click **Apply Changes**.
