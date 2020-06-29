@@ -7,9 +7,9 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="2-4-0"></a> v2.4.0
+## <a id="2-4-1"></a> v2.4.1
 
-**Release Date: June 24, 2020**
+**Release Date: July 24, 2020**
 
 ### Features
 
@@ -20,10 +20,15 @@ This feature allows control of the versions of TLS that Redis connections suppor
 VMware does not recommend using TLS v1.0, but it is an option for apps that only support this protocol.
 For more information, see [Configure On-Demand Service Settings](./installing.html#on-demand-config).
 
-
-- **Operators can see Healthwatch incompatibility errors when trying to install an incompatible tile:**
+- **Compatibility with Healthwatch v1.8 and Later**
 Operators can only install Healthwatch v1.8 and later with the Redis tile. If the operator tries to
 install a previous Healthwatch version, the operator sees an error.
+
+- **Operators can enable telemetry to help improve the product:**
+The telemetry program enables VMware to collect data from customer installations to improve the
+enterprise experience. Collecting data at scale enables VMware to identify patterns and alert you to
+warning signals in your installation.
+For more information, see [Pivotal Telemetry](https://tanzu.vmware.com/legal/telemetry).
 
 ### Compatibility
 
