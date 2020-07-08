@@ -245,13 +245,7 @@ For general information about metrics, see [Monitoring <%= vars.product_full %>]
 
 * Errands have impact warnings when service instance downtime is expected.
 
-* Syslog configuration is delegated to <%= vars.ops_manager %>.
-This improvement does not affect syslog configuration in the tile.
-However, if you use the <%= vars.ops_manager %> API or Platform Automation Toolkit, you must modify your syslog configuration
-to use `syslog-properties`.
-For more information about `syslog-properties`, see
-[om](https://github.com/pivotal-cf/om/blob/master/docsgenerator/templates/configure-product/ADDITIONAL_INFO.md#configuring-the-syslog-properties-for-products-that-use-opsmanagers-consistent-syslog-configuration)
-in GitHub.
+<%= partial vars.path_to_partials + "feature-ops-manager-syslog" %>
 
 
 ### Resolved Issues
