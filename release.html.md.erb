@@ -11,9 +11,9 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="2-4-0"></a> v2.4.0
+## <a id="2-4-1"></a> v2.4.1
 
-**Release Date: 06 27, 2020**
+**Release Date: 08 20, 2020**
 
 ### Features
 
@@ -24,6 +24,14 @@ New features and changes in this release:
  with the new service key. Before doing this, ensure that you have followed the steps in Preparing for TLS and Network
  configuration.
 2) Operators can install only Healthwatch 1.8 and above to be used with the redis tile.
+
+### Resolved Issues
+
+This release has the following fix:
+
+* Fixed an issue with the cert rotation.
+There was an issue with cert rotation in 2.2.11 version specifically which did not rotate the redis certs.
+This issue has been fixed as part of this release.
 
 ### Compatibility
 
