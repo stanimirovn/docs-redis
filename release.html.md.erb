@@ -9,7 +9,7 @@ owner: London Services
 
 ## <a id="2-4-1"></a> v2.4.1
 
-**Release Date: MMM DD, 2020**
+**Release Date: 08 20, 2020**
 
 ### Features
 
@@ -29,6 +29,14 @@ The telemetry program enables VMware to collect data from customer installations
 enterprise experience. Collecting data at scale enables VMware to identify patterns and alert you to
 warning signals in your installation.
 For more information, see [Pivotal Telemetry](https://tanzu.vmware.com/legal/telemetry).
+
+### Resolved Issues
+
+This release has the following fix:
+
+* Fixed an issue with the cert rotation.
+There was an issue with cert rotation in 2.2.11 version specifically which did not rotate the redis certs.
+This issue has been fixed as part of this release.
 
 ### Compatibility
 
@@ -53,11 +61,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>0.39.0</td>
+    <td>0.40.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>0.201.0</td>
+    <td>0.203.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
@@ -69,7 +77,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>6.0.2</td>
+    <td>6.1.0</td>
 </tr>
 <tr>
     <td>bpm</td>
