@@ -1,5 +1,5 @@
 ---
-title: Troubleshooting Redis for Pivotal Platform
+title: Troubleshooting Redis for VMware Tanzu 
 owner: London Services
 ---
 
@@ -9,7 +9,7 @@ This topic lists troubleshooting information for <%= vars.product_full %>.
 
 <p class="note"><strong>Note</strong>:
   Some of the troubleshooting approaches in this topic suggest potentially destructive operations.
-  Pivotal recommends that you back up both your <%= vars.ops_manager %> and deployments before attempting such operations.
+  VMware recommends that you back up both your <%= vars.ops_manager %> and deployments before attempting such operations.
   <br><br>
   For more information about backing up your setup and exporting your <%= vars.ops_manager %> installation,
   see <a href="https://docs.pivotal.io/pivotalcf/customizing/backup-restore/backup-pcf-bbr.html">Backing Up Deployments with BBR</a>
@@ -18,7 +18,7 @@ This topic lists troubleshooting information for <%= vars.product_full %>.
 
 ## <a id="debugging"></a> Useful Debugging Commands
 
-Before debugging, gather the following about your <%= vars.platform_name %> deployment:
+Before debugging, gather the following information about your deployment:
 
 * Current version of <%= vars.product_short %>, and, if upgrading, the previous version of <%= vars.product_short %>
 * Current version of <%= vars.ops_manager %>, and, if upgrading, the previous version of <%= vars.ops_manager %>
@@ -160,7 +160,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 + [Saving Error](#disk-size)
 + [Failed Backup](#backup-errors)
 + [Orphaned Instances: BOSH Director Cannot See Your Instances](#orphaned-bosh)
-+ [Orphaned Instances: Pivotal Platform Cannot See Your Instances](#orphaned-pcf)
++ [Orphaned Instances: The Deployment Cannot See Your Instances](#orphaned-pcf)
 + [Failed to Set Credentials in Runtime CredHub](#credhub-error)
 + [Service Outage after Disabling TLS](#disabling-tls)
 
@@ -242,30 +242,29 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'orphaned-bosh',
     description: 'Orphaned Instances: BOSH Director Cannot See Your Instances' ,
-    symptom: 'BOSH Director cannot see your instances but they are visible on ' + vars.platform_name + '.
-        When you run <code>cf curl /v2/service_instances</code>,
+    symptom: 'When you run <code>cf curl /v2/service_instances</code>,
         some service instances are visible that are not visible to the BOSH Director.
         These orphaned instances can create issues.
         For example, they might hold on to a static IP address, causing IP conflicts.',
     cause: 'Orphaned instances can occur in the following situations:<br><br>
     <ul>
-      <li>Both ' + vars.platform_name + ' and BOSH maintain state.
-        Orphaned instances can occur if the ' + vars.platform_name + ' state is out of sync with BOSH.
+      <li>Both ' + vars.app_runtime_abbr + ' and BOSH maintain state.
+        Orphaned instances can occur if the ' + vars.app_runtime_abbr + ' state is out of sync with BOSH.
         For example, the deployments or VMs have been de-provisioned by BOSH but
-        the call to update the ' + vars.platform_name + ' state failed.</li>
+        the call to update the ' + vars.app_runtime_abbr + ' state failed.</li>
       <li>If a call to de-provision a service instance was made directly to BOSH
         rather than through the cf CLI.</li>
     </ul>',
     solution: 'You can solve this issue by doing one of the following:<br><br>
     <ul>
       <li>
-        <strong>If this is the first occurrence:</strong> Pivotal recommends that you purge
+        <strong>If this is the first occurrence:</strong> VMware recommends that you purge
         instances by running
         <code>cf purge-service-instance SERVICE-INSTANCE</code>.
       </li>
       <li>
         <strong>If this is a repeated occurrence:</strong> Contact
-        <a href="https://support.pivotal.io/"> Pivotal Support</a>
+        <a href="https://support.pivotal.io/"> VMware Tanzu Support</a>
         for further help, and include the following:
         <ul>
           <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
@@ -278,12 +277,12 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'orphaned-pcf',
-    description: 'Orphaned Instances: ' + vars.platform_name + ' Cannot See Your Instances',
-    symptom: vars.platform_name + ' cannot see your broker or service instances.
-    These instances exist but ' + vars.platform_name + ' and apps cannot communicate with them.',
+    description: 'Orphaned Instances: The Deployment Cannot See Your Instances',
+    symptom: 'the deployment cannot see your broker or service instances.
+    These instances exist but cannot receive communication.',
     cause: 'If you run <code>cf purge-service-instances</code> while your service instance
     or broker still exists, your service instance becomes orphaned.',
-    solution: 'If ' + vars.platform_name + ' lost the details of your instances,
+    solution: 'If the deployment lost the details of your instances,
     but BOSH still has the deployment details,
     you can solve this issue by backing up the data on your service instance and
     creating a new service. <br><br>
@@ -354,12 +353,9 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 <%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
     id: 'credhub-error',
     description: 'Failed to Set Credentials in Runtime CredHub' ,
-    symptom: 'If developers report errors such as:
-    <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request.. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>',
-    cause: 'Your service instances might not be running the latest version of ' + vars.product_short +
-    '.
-    You might experience compatibility issues with CredHub if your service instances
-    are running ' + vars.product_old + ' v1.14.3 or earlier.',
+    symptom: 'If developers report errors such as: <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>',
+    cause: 'Your service instances might not be running the latest version of ' + vars.product_short + '. You might experience compatibility issues with CredHub if your service instances
+    are running ' + vars.product_short + ' v1.14.3 or earlier.',
     solution: '<ol>
       <li>Ensure you have the latest patch version of ' + vars.product_short + ' installed.
       For more information about the latest patch, see <a href="./release.html">' + vars.product_full + ' Release Notes</a>.</li>
@@ -384,8 +380,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     languages and frameworks require further configuration. <br><br>
 
     When TLS is disabled, the TLS port is removed from all on-demand instances.
-    This prevents the apps from connecting to the instance.
-',
+    This prevents the apps from connecting to the instance.',
     solution: '
     <p>First, consider enabling TLS.
       The compliance body that oversees your apps might require TLS to be enabled.
@@ -575,16 +570,16 @@ This section contains instructions on:
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-monitor-quota' %>
 
 
-## <a id="Knowledge"></a> Pivotal Support Articles
+## <a id="Knowledge"></a> VMware Tanzu Support Articles
 
-The following are <a href="https://community.pivotal.io/s/">Pivotal Support</a> articles about <%= vars.product_short %>:<br><br>
+The following are <a href="https://community.pivotal.io/s/">VMware Tanzu Support</a> articles about <%= vars.product_short %>:<br><br>
 
 <ul>
   <li><a href="https://community.pivotal.io/s/article/Creating-an-Empty-Services-Network-when-using-on-demand-Service-Tiles-for-Non-On-Demand-Usage-Only"> Creating an Empty Services Network when using on-demand Service Tiles for Non-On-Demand Usage Only </a></li>
-  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-full-disk-scaling-issue">Pivotal Cloud Foundry Redis full disk scaling issue</a></li>
-  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue">Pivotal Cloud Foundry Redis tile upgrade issue</a></li>
-  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-Deploy-Fails-to-Complete">Pivotal Cloud Foundry Redis Deploy Fails to Complete</a></li>
-  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-Instance-Alive-after-Successful-De-Provisioning">Pivotal Cloud Foundry Redis Instance Alive after Successful De-Provisioning</a></li>
+  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-full-disk-scaling-issue"><%= vars.product_full %> full disk scaling issue</a></li>
+  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-tile-upgrade-issue"><%= vars.product_short %> tile upgrade issue</a></li>
+  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-Deploy-Fails-to-Complete"><%= vars.product_short %> Deploy Fails to Complete</a></li>
+  <li><a href="https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Redis-Instance-Alive-after-Successful-De-Provisioning"><%= vars.product_short %> Instance Alive after Successful De-Provisioning</a></li>
   <li><a href="https://community.pivotal.io/s/article/PCF-Redis-Dedicated-Instance-Fails-to-Persist-to-Disk"><%= vars.product_full %> Dedicated Instance Fails to Persist to Disk</a></li>
   <li><a href="https://community.pivotal.io/s/article/67-Redis-error-when-saving-changes-after-a-back-up-to-AWS-S3-Error-Access-Denied-for-bucket-pcf-redos-backup-sgp-intra-test">Redis error when saving changes after a back to AWS S3: Error: Access Denied for bucket 'pcf-redos-backup-sgp-intra-test'</a></li>
   <li><a href="https://community.pivotal.io/s/article/48-For-service-settings-on-Redis-Tile-the-VM-options-checkbox-needs-to-be-checked-for-GCP-Environment"> For service settings on Redis Tile, the VM options checkbox needs to be checked for GCP Environment</a></li>

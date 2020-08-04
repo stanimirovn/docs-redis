@@ -1,16 +1,12 @@
-# Redis for Pivotal Platform Docs
+# Redis for VMware Tanzu Docs
 
 ## Where is the book repository?
-https://github.com/pivotal-cf/docs-book-redis
 
-The book repository uses these branches:
-
-* **Edge** builds from the **master** content branch are available on staging [here](https://docs-pcf-staging.cfapps.io/redis/2-n/). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=redis-edge).
-* **Master** builds from the published content branches in this repository (2.3, 2.2, 2.1, 2.0, 1.14, etc). Pipeline [here](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=redis).
+The book repo associated with this content repo is [**docs-book-redis**](https://github.com/pivotal-cf/docs-book-redis).
 
 ## Partials
 
-Cross-product partials for **Redis for Pivotal Platform** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-partials) repository.
+Cross-product partials for **Redis for VMware Tanzu** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-partials) repository.
 
 Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repository.
 
@@ -53,7 +49,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Style Sheet
 
-Use this section to specify spelling of special words for Redis for Pivotal Platform:
+Use this section to specify spelling of special words for Redis for VMware Tanzu:
 
 + on-demand plan
 + shared-VM plan

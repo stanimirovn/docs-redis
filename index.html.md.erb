@@ -1,22 +1,18 @@
 ---
-title: Redis for Pivotal Platform
+title: Redis for VMware Tanzu
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
 
-<%= partial vars.path_to_partials + '/branding-change' %>
-
-<%= partial vars.path_to_partials + '/pcf-name-change' %>
-
 This is documentation for <%= vars.product_full %>.
-You can download the <%= vars.product_short %> tile from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+You can download the <%= vars.product_short %> tile from [<%= vars.product_network %>](https://network.pivotal.io/products/p-redis).
 
 This documentation:
 
 + Describes features and architecture of <%= vars.product_short %>.
-+ Instructs the <%= vars.platform_name %> operator on how to install, configure, maintain, and backup <%= vars.product_short %>.
-+ Instructs the app developer on how to choose a service plan, create and delete
++ Instructs operators on how to install, configure, maintain, and backup <%= vars.product_short %>.
++ Instructs app developers on how to choose a service plan, create and delete
 Redis service instances, and bind an app.
 
 ##<a id="snapshot"></a> Product Snapshot
@@ -30,7 +26,7 @@ Redis service instances, and bind an app.
     </tr>
     <tr>
         <td>Release date</td>
-        <td>MMMM DD, 2020</td>
+        <td>June 24, 2020</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -56,28 +52,27 @@ Redis service instances, and bind an app.
 
 ##<a id="about-redis"></a> About Redis
 
-<strong><em>Redis</em></strong> is an easy to use, high speed key-value store that can be used as a database, cache, and message broker.
-It supports a range of data structures including strings, lists, hashes, sets, bitmaps, hyperloglogs, and geospatial indexes.
-It is easy to install and configure and is popular with engineers as a straightforward NoSQL data store.
+<strong><em>Redis</em></strong> is an easy-to-use, high-speed key-value store that can be used as a database, cache, and message broker.
+It supports a range of data structures including strings, lists, hashes, sets, bitmaps, HyperLogLogs, and geospatial indexes.
+It is easy to install and configure and is popular with engineers as a straightforward NoSQL datastore.
 It is used for everything from a quick way to store data for development and testing through to enterprise-scale apps like Twitter.
 
 ## <a id="about"></a> About <%= vars.product_short %>
 
 <%= partial vars.path_to_partials + '/redis/service-offerings', :locals => {
-  :redis_name => "<strong><em>" + vars.product_short + "</em></strong>",
-  :platform => vars.platform_name} %>
+  :redis_name => "<strong><em>" + vars.product_short + "</em></strong>"} %>
 
 ### <a id="erc"></a> Is <%= vars.product_short %> right for your enterprise?
 
-For information on recommended use cases, and the enterprise-readiness of <%= vars.product_short %>, see [Is <%= vars.product_short %> right for your enterprise?](./erc.html).
+For information about recommended use cases, and the enterprise-readiness of <%= vars.product_short %>, see [Is <%= vars.product_short %> right for your enterprise?](./erc.html).
 
 ### <a id="upgrading"></a> Upgrading to the Latest Version
 
-For information on how to upgrade and the supported upgrade paths, see [Upgrading <%= vars.product_full %>](./upgrade.html).
+For information about how to upgrade and the supported upgrade paths, see [Upgrading <%= vars.product_full %>](./upgrade.html).
 
 ##<a id="more-info"></a> More Information
 
-The following table lists where you can find topics related to the information on this page:
+The following table lists where you can find topics related to the information about this page:
 
 | For more information about&hellip; | See&hellip; |
 |----------------------------|-------------|
@@ -85,18 +80,18 @@ The following table lists where you can find topics related to the information o
 |How to upgrade <%= vars.product_short %>|<a href="upgrade.html">Upgrading <%= vars.product_full %></a>|
 |How to use Redis |<a href="http://redis.io/documentation">Redis Documentation</a>|
 
-##<a id="other-services"></a> <%= vars.product_short %> and Other <%= vars.platform_name %> Services
+##<a id="other-services"></a> <%= vars.product_short %> and Other Services
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 <%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
   :service_name => vars.product_short,
-  :rabbit => "RabbitMQ for Pivotal Platform",
-  :redis => "Redis for Pivotal Platform",
-  :mysql => "MySQL for Pivotal Platform",
-  :cloud_cache => "Pivotal Cloud Cache (PCC)",
-  :gemfire => "Pivotal GemFire"
+  :rabbit => "RabbitMQ for VMware Tanzu [VMs]",
+  :redis => vars.product_short,
+  :mysql => "MySQL for VMware Tanzu",
+  :cloud_cache => "VMware Tanzu GemFire [VMs]",
+  :gemfire => "VMware GemFire"
 } %>
 
 ##<a id="feedback"></a> Feedback
 
-Please provide any bugs, feature requests, or questions to [the <%= vars.platform_name %> Feedback list](mailto:"pivotal-cf-feedback@pivotal.io").
+Please provide any issues, feature requests, or questions to [the Feedback list](mailto:"pivotal-cf-feedback@pivotal.io").

@@ -5,13 +5,13 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-This topic is for <%= vars.platform_name %> operators.
+This topic is for <%= vars.app_runtime_full %> operators.
 It introduces some best practices, but does not provide details about operation.
 
 
 ## <a id="Best Practice"></a>Best Practices
 
-Pivotal recommends that operators follow these guidelines:
+VMware recommends that operators follow these guidelines:
 
 * **Resource Allocation**---Work with app developers to anticipate memory requirements and to configure VM sizes.
     Instances of the Shared-VM service have identical VM sizes.
@@ -24,16 +24,16 @@ Pivotal recommends that operators follow these guidelines:
     See [Configure Syslog Output](./installing.html#syslog). In particular, set
     up alerts on critical logs, such as service backups so that you are alerted
     if a backup fails. For examples of critical logs for service backups, see
-    <a href="https://docs.pivotal.io/svc-sdk/service-backup/18-1/#troubleshooting">Service Backups for <%= vars.platform_name %></a>.
+    <a href="https://docs.pivotal.io/svc-sdk/service-backup/18-1/#troubleshooting">Troubleshooting</a> in the Service Backup documentation.
 * **Monitoring**---Set up a monitoring dashboard for metrics to track the health of the installation.
 * **Backing Up Data**---When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
     Validate the backed-up data with a test restore.
-    See [Configuring Automated Backups](./auto-backup.html) and also [Manually Backing Up and Restoring Redis for Pivotal Cloud Foundry](https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry) in the Pivotal Support knowledge base.
+    See [Configuring Automated Backups](./auto-backup.html) and also [Manually Backing Up and Restoring <%= vars.product_old %>](https://community.pivotal.io/s/article/Manually-Backing-Up-and-Restoring-Redis-for-Pivotal-Cloud-Foundry) in the VMware Tanzu Support knowledge base.
 * **Using**---Instances of the On-Demand service run on dedicated VMs.
     Apps in production should have an on-demand instance to prevent performance
     issues caused by sharing an instance.
     The Shared-VM service shares a VM across many instances.
-    Pivotal recommends that you only use the Shared-VM service for development
+    VMware recommends that you only use the Shared-VM service for development
     and testing, but not in production environments.
     For more information about the plans, see the [On-Demand Service Offering](./architecture.html)
     and the [Shared-VM Service Offering](./architecture-pp.html).
@@ -62,7 +62,7 @@ These errands run whether or not there has been a configuration change in the <%
   <tr>
     <td><strong>Broker Registrar</strong></td>
     <td><code>broker-registrar</code></td>
-    <td>Registers the cf-redis-broker with <%= vars.platform_name %> to offer the <code>p-redis</code> service,
+    <td>Registers the cf-redis-broker with <%= vars.app_runtime_abbr %> to offer the <code>p-redis</code> service,
       that is, the shared-VM plan.</td>
   </tr>
   <tr>
@@ -74,7 +74,7 @@ These errands run whether or not there has been a configuration change in the <%
   <tr>
     <td><strong>Register On-Demand Broker</strong></td>
     <td><code>register-broker</code></td>
-    <td>Registers the on-demand Redis broker with <%= vars.platform_name %> to offer the <code>p.redis</code> service (on-demand plans).</td>
+    <td>Registers the on-demand Redis broker with <%= vars.app_runtime_abbr %> to offer the <code>p.redis</code> service (on-demand plans).</td>
   </tr>
   <tr>
     <td><strong>On-Demand Smoke Tests</strong></td>
@@ -139,7 +139,7 @@ The following pre-delete errands are run by default when the <%= vars.product_sh
 
 ### <a id="turning-off"></a> Turning off Post-Deploy Errands
 
-Pivotal recommends that you run the post-deploy errands at any trigger of **Apply Changes**.
+VMware recommends that you run the post-deploy errands at any trigger of **Apply Changes**.
 However, this practice can extend the duration of applying changes by several minutes every time.
 This section helps you decide when it is safe to skip some post-deploy errands.
 
@@ -169,7 +169,7 @@ Then it might not be necessary to run all of the <%= vars.product_short %> tile'
 - Not necessary to run if the change only involves other tiles except BOSH Director.
 
 <p class="note">
-Pivotal <a href="./upgrade.html#network-upgrades">recommends</a> against changing the BOSH Director's network configuration
+VMware <a href="./upgrade.html#network-upgrades">recommends</a> against changing the BOSH Director's network configuration
 in a way that changes the ranges where the <%= vars.product_short %> tile deploys VMs.
 </p>
 

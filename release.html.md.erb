@@ -1,13 +1,9 @@
 ---
-title: Redis for Pivotal Platform Release Notes
+title: Redis for VMware Tanzu Release Notes
 owner: London Services
 ---
 
 <strong><%= modified_date %></strong>
-
-<%= partial vars.path_to_partials + '/branding-change' %>
-
-<%= partial vars.path_to_partials + '/pcf-name-change' %>
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
@@ -19,11 +15,20 @@ owner: London Services
 
 New features and changes in this release:
 
-1) Operators can select TLS versions for On-Demand Service Instances when TLS is enabled. After selecting a TLS version,
- we would recommend generating a new service key to reflect the updated TLS versions and rebinding the service instance
- with the new service key. Before doing this, ensure that you have followed the steps in Preparing for TLS and Network
- configuration.
-2) Operators can install only Healthwatch 1.8 and above to be used with the redis tile.
+- **Operators can specify which TLS versions to make Redis TLS connections when TLS is enabled:**
+This feature allows control of the versions of TLS that Redis connections support.
+VMware does not recommend using TLS v1.0, but it is an option for apps that only support this protocol.
+For more information, see [Configure On-Demand Service Settings](./installing.html#on-demand-config).
+
+- **Operators see an error when trying to install an incompatible Healthwatch version:**
+Operators can only install Healthwatch v1.8 and later with the Redis tile. If the operator tries to
+install a previous Healthwatch version, the operator sees an error.
+
+- **Operators can enable telemetry to help improve the product:**
+The telemetry program enables VMware to collect data from customer installations to improve the
+enterprise experience. Collecting data at scale enables VMware to identify patterns and alert you to
+warning signals in your installation.
+For more information, see [Pivotal Telemetry](https://tanzu.vmware.com/legal/telemetry).
 
 ### Resolved Issues
 
@@ -44,11 +49,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>621.74</td>
+    <td>621.76</td>
 </tr>
 <tr>
-    <td><%= vars.platform_name %></td>
-    <td>2.9 and 2.10</td>
+    <td><%= vars.ops_manager %></td>
+    <td>2.9</td>
 </tr>
 <tr>
     <td>shared-redis-release</td>

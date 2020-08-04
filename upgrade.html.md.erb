@@ -1,5 +1,5 @@
 ---
-title: Upgrading Redis for Pivotal Platform
+title: Upgrading Redis for VMware Tanzu
 owner: London Services
 ---
 
@@ -25,7 +25,7 @@ For information about the upgrade paths for each released version, see
 
 To upgrade to the latest version of <%= vars.product_short %>:
 
-1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/p-redis).
+1. Download the latest version of the product from [<%= vars.product_network %>](https://network.pivotal.io/products/p-redis).
 
 1. Upload the new `.pivotal` file to <%= vars.ops_manager %>.
 
@@ -38,8 +38,21 @@ To upgrade to the latest version of <%= vars.product_short %>:
     <p class="note"> <strong>Note:</strong>
       In most cases, enabling TLS does not noticeably reduce performance. Performance impact depends on the health of resources, such as network infrastructure and application architecture.
     </p>
-  1. In the Redis for Pivotal Platform tile, select **On-Demand Service Settings**.
+  1. In the <%= vars.product_short %> tile, select **On-Demand Service Settings**.
   1. Under **Enable TLS**, select **Optional**.
+  1. Enable the checkbox next to each TLS version you want to support.
+  VMware recommends supporting TLS v1.1 and onwards. VMware does not recommend supporting TLS v1.0
+  because it is less secure than later versions, but it is an option for apps that only support this
+  protocol.
+    <p class="note">
+      <strong>Note:</strong> After selecting a TLS version, VMware recommends generating a new service
+      key and then rebinding the service instance with the new service key.
+      This makes the service key's <code>tls_versions</code> field reflect the new TLS version, which 
+      can help developers who use the service key to see the supported TLS version.
+      To create a new service key, follow the steps in <a href="./appdevs.html#check-availability-tls">Check Availability</a>.
+      To rebind the instance, follow the steps in <a href="./appdevs.html#existing-apps">Bind Existing Apps with TLS</a>.
+    </p>
+
   1. Click **Save**.
 
 1. (Optional) Enable developers to upgrade service instances individually. For instructions, see
@@ -48,7 +61,7 @@ When this is feature is not enabled, the `upgrade-all-service-instances` errand 
 after each upgrade.
 For more information, see [Upgrading All Service Instances](#all-instances) below.
 
-1. Go to the Ops Manager **Installation Dashboard**. Click **Review Pending Changes** and **Apply Changes**.
+1. Go to the <%= vars.ops_manager %> **Installation Dashboard**. Click **Review Pending Changes** and **Apply Changes**.
 
 ### <a id="individual-upgrades"></a> Enable Individual Service Instance Upgrades
 
@@ -76,7 +89,7 @@ If not, click **Apply changes** to run the `upgrade-all-service instances` erran
 
 1. Select **Off** for the **Upgrade All On-Demand Service Instances** errand:
 
-    <img src="./images/upgrade-all-disabled.png">
+    <img src="./images/upgrade-all-disabled.png"><%# Images require alt text. %>
 
 1. Click **Save**.
 
@@ -112,22 +125,23 @@ Upgrading to a newer version of the product does not cause any loss of data or c
 A redeploy causes downtime for the <%= vars.product_short %> tile.
 This section clarifies what events trigger a redeploy.
 
-#### <a id="opsman"></a> <%= vars.ops_manager %> Changes
+#### <a id="opsman"></a> Changes in <%= vars.ops_manager %>
 
-In <%= vars.ops_manager %>, any field that changes the manifest causes a redeploy of the <%= vars.product_short %> tile.
+In <%= vars.ops_manager %>, any field that changes the manifest causes a redeploy
+of the <%= vars.product_short %> tile.
 
-#### <a id="pas"></a> <%= vars.app_runtime_full %> Changes
+#### <a id="pas"></a> Changes in <%= vars.app_runtime_full %>
 
 In the <%= vars.app_runtime_full %> tile, changes to any of the following properties can trigger downtime:
 <ul>
   <li><code>$runtime.system\_domain</code>---Runtime System Domain</li>
-  <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in PAS</li>
+  <li><code>..cf.ha\_proxy.skip\_cert\_verify.value</code>---Disable SSL certificate verification for this environment in <%= vars.app_runtime_abbr %></li>
   <li><code>$runtime.apps\_domain</code>---Runtime Apps Domain </li>
-  <li><code>..cf.nats.ips</code>---NATS Resource Config </li>
+  <li><code>..cf.nats.ips</code>---NATS Resource Config</li>
   <li><code>$self.service\_network</code>---Service Networks in <%= vars.ops_manager %></li>
 </ul>
 
-When the operator applies any of the above changes to PAS, downtime is triggered for:
+When the operator applies any of the above changes to <%= vars.app_runtime_abbr %>, downtime is triggered for:
 
 * The Redis on-demand broker
 
@@ -156,7 +170,7 @@ To enable BOSH HotSwaps:
 
 1. Ensure all service bindings use BOSH DNS.
 To do so, tell developers to unbind, bind, and restage any apps created while
-Redis for PCF v1.14 or earlier was installed.
+<%= vars.product_old %> v1.14 or earlier was installed.
 For instructions, see the solution in [Apps Fail to Connect to the Service Instance](./troubleshoot-instances.html#connect-fails).
   <p class="note"><strong>Note:</strong>
     You must do this before enabling BOSH HotSwaps.
@@ -180,7 +194,7 @@ click **Assign AZs and Networks** in the <%= vars.product_short %> tile configur
 
 You can also change the network by altering the CIDR in the BOSH Director tile.
 
-Pivotal discourages changing the network that a pre-existing shared-VM deployment works with.
+VMware discourages changing the network that a pre-existing shared-VM deployment works with.
 
 If the network is changed, app bindings for existing shared-VM instances might stop working.
 
@@ -196,7 +210,7 @@ If you change the service network, you must unbind and rebind existing apps to t
 
 New on-demand service instances are placed into the new service network,
 but existing on-demand service instances are not moved.
-If you need to move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
+To move the data in on-demand Redis instances to a new service network, you must create a new instance, migrate the data manually, and delete the old instance.
 
 Similarly, changing the availability zone (AZ) for an on-demand plan only applies to new on-demand instances
 and does not alter existing instances.
