@@ -23,7 +23,10 @@ This release has the following fix:
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following known issue:
+
+<%= partial vars.path_to_partials + 'redis/ki-rotating-certs' %>
+
 
 ### Compatibility
 
@@ -98,10 +101,13 @@ correctly when upgrading from <%= vars.product_old %> v2.2.
 
 ### Known Issues
 
-This release has the following known issue:
+This release has the following known issues:
 
 * Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
 expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
+
+<%= partial vars.path_to_partials + 'redis/ki-rotating-certs' %>
+
 
 ### Compatibility
 
@@ -172,6 +178,8 @@ This release has the following issues:
 * The **CF Service Access** settings in the **On-Demand Plans** pane do not migrate when upgrading from <%= vars.product_old %> v2.2.
 * Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
 expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
+<%= partial vars.path_to_partials + 'redis/ki-rotating-certs' %>
+
 
 ### Compatibility
 
@@ -266,6 +274,7 @@ This release has the following issues:
 expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 * Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
 expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
+<%= partial vars.path_to_partials + 'redis/ki-rotating-certs' %>
 
 
 ### Compatibility
