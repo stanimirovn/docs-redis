@@ -9,7 +9,7 @@ owner: London Services
 
 ## <a id="2-4-1"></a> v2.4.1
 
-**Release Date: 08 20, 2020**
+**Release Date: August 20, 2020**
 
 ### Features
 
@@ -21,8 +21,8 @@ VMware does not recommend using TLS v1.0, but it is an option for apps that only
 For more information, see [Configure On-Demand Service Settings](./installing.html#on-demand-config).
 
 - **Operators see an error when trying to install an incompatible Healthwatch version:**
-Operators can only install Healthwatch v1.8 and later with the Redis tile. If the operator tries to
-install a previous Healthwatch version, the operator sees an error.
+Operators can only install Healthwatch v1.8 and later with the <%= vars.product_short %> tile.
+If the operator tries to install a previous Healthwatch version, the operator sees an error.
 
 - **Operators can enable telemetry to help improve the product:**
 The telemetry program enables VMware to collect data from customer installations to improve the
@@ -34,9 +34,11 @@ For more information, see [Pivotal Telemetry](https://tanzu.vmware.com/legal/tel
 
 This release has the following fix:
 
-* Fixed an issue with the cert rotation.
-There was an issue with cert rotation in 2.2.11 version specifically which did not rotate the redis certs.
-This issue has been fixed as part of this release.
+* **Rotating the Services TLS CA certificate no longer causes app downtime:**
+  In Redis for PCF v2.2 and Redis for Pivotal Platform v2.3, following the
+  [Rotating the Services TLS CA and Its Leaf Certificates](https://docs.pivotal.io/platform/2-10/security/pcf-infrastructure/services_tls_ca_rotate.html) procedure can cause downtime for apps bound
+  to the Redis service.
+  This issue does not occur in <%= vars.product_short %>.
 
 ### Compatibility
 
