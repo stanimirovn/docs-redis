@@ -22,7 +22,7 @@ The smoke tests perform the following for each available service plan:
 
 ## <a id="security-groups"></a> Security Groups
 
-Smoke tests create a new [app security group](https://docs.pivotal.io/platform/application-service/concepts/asg.html) for the CF Redis Example App (`redis-smoke-tests-sg`)
+Smoke tests create a new [app security group](https://docs.pivotal.io/application-service/concepts/asg.html) for the CF Redis Example App (`redis-smoke-tests-sg`)
 and delete it after the tests finish. This security group has the following rules:
 
 ```
@@ -66,7 +66,7 @@ in case of upgrades or scheduled downtimes.
 
 ## <a id="troubleshooting"></a> Troubleshooting
 
-If errors occur while the smoke tests run, they are summarised at the end of the errand log output.
+If errors occur while the smoke tests run, they are summarized at the end of the errand log output.
 Detailed logs can be found where the failure occurs.
 Some common failures are listed below.
 
