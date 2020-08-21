@@ -11,6 +11,80 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="2-2-12"></a> v2.2.12
+
+**Release Date: August 31, 2020**
+
+### Resolved Issues
+
+This release has the following fix:
+
+Rotating the Services TLS CA certificate no longer causes app downtime:
+In Redis for PCF v2.2 and Redis for Pivotal Platform v2.3, following the
+Rotating the Services TLS CA and Its Leaf Certificates procedure can cause
+downtime for apps bound to the Redis service. This issue does not occur in
+Redis for Tanzu Application Service.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+  <tr>
+    <th>Component</th>
+    <th>Version</th>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.platform_name %><sup></sup></td>
+    <td>2.7.x, 2.8.x and 2.10.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.platform_old %><sup></sup></td>
+    <td>2.5.x, 2.6.x and 2.10.x</td>
+  </tr>
+  <tr>
+    <td>shared-redis-release</td>
+    <td>437.0.15</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.206.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+  <tr>
+    <td>service-backup</td>
+    <td>18.3.5</td>
+  </tr>
+  <tr>
+    <td>syslog</td>
+    <td>11.6.1</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.8</td>
+  </tr>
+  <tr>
+    <td>Redis OSS</td>
+    <td>5.0.7</td>
+  </tr>
+
+</table>
+
 ## <a id="2-2-11"></a> v2.2.11
 
 **Release Date: April 23, 2020**
