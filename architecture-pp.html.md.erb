@@ -110,7 +110,7 @@ You cannot set `maxclients` above 10,000 and you cannot configure shared plans t
 The shared-vm plan cannot:
 
 * Scale beyond a single VM
-* Run the commands `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`, `SHUTDOWN`, `BGREWRITEAOF`, `SLAVEOF`, `DEBUG`, or `SYNC`
+* Run the commands `CONFIG`, `MONITOR`, `SAVE`, `BGSAVE`, `SHUTDOWN`, `BGREWRITEAOF`, `REPLICAOF`, `SLAVEOF`, `DEBUG`, or `SYNC`
 * Constrain CPU or disk usage
 * Manage "noisy neighbor" problems, which makes it unsuitable for production apps
 
