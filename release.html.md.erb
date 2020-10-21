@@ -27,7 +27,13 @@ This release has the following fix:
 
 ### Known Issues
 
-An issue with the On-demand-broker and TLS verification may cause service creation to fail when using an external UAA: the `upgrade-all-service-instances` errand may fail on the TLS handshake, and therefore the service creation.
+This release has the following issue:
+
+* **Service creation can fail with using an external UAA:**
+  An issue with the Redis on-demand service broker and TLS verification
+  means service creation can fail on the TLS handshake.
+  This has been observed as the `upgrade-all-service-instances` errand failing,
+  particularly when a separate internal load balancer is present.
 
 ### Compatibility
 
