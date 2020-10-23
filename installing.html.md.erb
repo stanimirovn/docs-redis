@@ -664,16 +664,10 @@ To configure syslog forwarding:
 
 <%= partial(vars.path_to_partials + '/ops-manager/syslog_bosh', :locals => { :syslog_context => vars.product_short }) %>
 
-## <a id="stemcell"></a>Update Stemcell
+## <a id="stemcell"></a> Verify the Stemcell
 
-If required, do the following to update the stemcell for <%= vars.product_short %>:
-
-1. Download the stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial).
-1. From the <%= vars.ops_manager %> Installation Dashboard, click **Stemcell Library**.
-1. Click **Import Stemcell**, and then select the stemcell you downloaded from Pivotal Network.
-
-    <br>![Stemcell Library](stemcell-library-xenial.png)
-1. Click **Save**.
+To verify that you have the correct stemcell, follow the procedure in
+[Importing and Managing Stemcells](https://docs.pivotal.io/ops-manager/opsguide/managing-stemcells.html).
 
 ## <a id="apply"></a> Apply Changes from Your Configuration
 
