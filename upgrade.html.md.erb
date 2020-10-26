@@ -9,7 +9,7 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
 
 ##<a id="upgrading"></a> Compatible Upgrade Paths
 
-<%= partial vars.path_to_partials + '/upgrade-planner' %>
+<%= partial  '/upgrade-planner' %>
 
 ## <a id="upgrades"></a>Upgrade Redis for PCF
 
@@ -20,7 +20,7 @@ This section contains the upgrade procedure and upgrade paths for Redis for PCF.
   Developers might also need to configure other frameworks and languages to use the TLS port as well.<br><br>
   For more information, see <a href='./appdevs.html'>Using TLS</a>.
 </p>
-<%= partial vars.path_to_partials + '/redis/warning-disabling-tls' %>
+<%= partial  '/redis/warning-disabling-tls' %>
 This product enables a reliable upgrade experience between versions of the product
 deployed through <%= vars.ops_manager %>.
 
@@ -175,6 +175,6 @@ and does not alter existing instances.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial vars.path_to_partials + '/services/release-policy', :locals => {
+<%= partial  '/services/release-policy', :locals => {
   :os_name => "Redis"
 } %>

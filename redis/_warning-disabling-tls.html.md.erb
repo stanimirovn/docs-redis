@@ -1,0 +1,5 @@
+<p class="note warning">
+  <strong>Warning:</strong>
+  After TLS has been enabled for the on-demand Redis service, disabling TLS causes downtime and service outage for all apps that connect to Redis through TLS.<br>
+  If you disable TLS, you must unbind all apps bound to on-demand instances from the TLS port, rebind to the non-TLS port and then re-stage to resume service access.
+</p>

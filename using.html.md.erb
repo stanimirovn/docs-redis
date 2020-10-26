@@ -18,7 +18,7 @@ and the [Shared-VM Service Offering](./architecture-pp.html).
 
 <!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
 
-<%= partial vars.path_to_partials + "/services/developer-prereqs" %>
+<%= partial  "/services/developer-prereqs" %>
 
 
 ## <a id="process"></a>Use Redis for PCF in a PCF app
@@ -377,7 +377,7 @@ or use [SETEX](https://redis.io/commands/setex) to set key value and expiry at t
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial vars.path_to_partials + '/services/log-cache-cli-plugin',
+<%= partial  '/services/log-cache-cli-plugin',
 :locals => {:service_name => "Redis for PCF"} %>
 
 ## <a id="sharing"></a>Sharing a Redis Instance with Another Space

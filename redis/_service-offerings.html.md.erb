@@ -1,0 +1,22 @@
+<%= redis_name %> packages Redis for easy deployment and operability.
+
+There are two service offerings:
+
+* **On-Demand Service**---Provides a dedicated VM running a Redis instance.
+  The operator can configure up to three plans with different configurations,
+  memory sizes, and quotas
+  App developers can provision an instance for any of the On-Demand plans offered
+  and configure certain Redis settings.
+
+* **Shared-VM Service**---Provides support for a number of Redis instances running
+  in a single VM.
+  It is designed for testing and development purposes only, **do not use the
+  Shared-VM service in production environments**.
+  The Shared-VM instances are pre-provisioned by the operator with a fixed number
+  of instances and memory size.
+  App developers can then use one of these pre-provisioned instances.
+
+For more information on the plans, see:
+
+* [On-Demand Service Offering](./architecture.html)
+* [Shared-VM Service Offering](./architecture-pp.html)

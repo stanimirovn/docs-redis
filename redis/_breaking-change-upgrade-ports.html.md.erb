@@ -1,0 +1,7 @@
+<div class="note breaking"><strong>Breaking change</strong>:
+  During the upgrade from <%= vars.product_old %> v2.0, on-demand service instances change
+  their listen port from <code>12345</code> to <code>8080</code> to be consistent with other services.
+  Before you upgrade from v2.0, your application security groups must allow access to ports <code>12345</code> and <code>8080</code>,
+  or your on-demand instances will fail.
+  For upgrade instructions, see
+  <a href="upgrade.html#upgrades">Upgrade <%= vars.product_old %></a> in <em>Upgrading <%= vars.product_old %></em>.</div>
