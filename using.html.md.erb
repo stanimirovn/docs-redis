@@ -163,13 +163,29 @@ To create a service instance of the <%= vars.product_short %>  on-demand plan us
 1. From within Apps Manager, select **Marketplace** from the left navigation menu.
 
 1. Select **Redis On-Demand** from the displayed tiles in the Marketplace.
-  ![marketplace](appsman_marketplace_od.png)<%# Images require alt text that describes the image in detail. %>
+  ![Screenshot of the Marketplace in Apps Manager.
+  At the top of the page is a search bar.
+  Below this is a list of services available in the marketplace.
+  The service named 'Redis On-Demand' has been highlighted with a red box.](appsman_marketplace_od.png)<%# Images require alt text that describes the image in detail. %>
 
 1. Click on the appropriate **Select this plan** button to select the required **Redis Service Plan**.
-  ![marketplace_predis](predis_marketplace.png)<%# Images require alt text that describes the image in detail. %>
+  ![Screenshot of the On-Demand Redis service in Apps Manager.
+  The header contains a description of the on-demand Redis service.
+  Below the header on the left of the screenshot a service plan cache-large.
+  Below the header on the right of the screenshot is the service plan name cache-large
+  followed by a description of the plan.
+  Below this is the button for Select this Plan.](predis_marketplace.png)<%# Images require alt text that describes the image in detail. %>
 
 1. In the **Instance Name** field, enter a name that will identify this specific Redis service instance.
-  ![info_predis](predis_info.png)<%# Images require alt text that describes the image in detail. %>
+  ![Screenshot of the On-Demand Redis service in Apps Manager.
+  The header contains a description of the on-demand Redis service.
+  Below the header on the left of the screenshot is the service plan name cache-large
+  followed by a description of the plan.
+  Below the header on the right of the screenshot is a section labeled Configure Instance.
+  This section has a field for Instance Name, a dropdown for Add to Space, and
+  a dropdown for Bind to App.
+  Below these fields, there is a Show Advanced Options button.
+  At the bottom of the Configure Instance section is a Cancel and an Add button.](predis_info.png)<%# Images require alt text that describes the image in detail. %>
 
 1. From the **Add to Space** dropdown, select the space where you or other users will deploy the apps that will bind to the service.
 1. Click the **Add** button.
@@ -181,13 +197,29 @@ To create a service instance of the <%= vars.product_short %> shared-VM plan usi
 1. From within Apps Manager, select **Marketplace** from the left navigation menu.
 
 1. Select **Redis** from the displayed tiles in the Marketplace.
-![marketplace](appsman_marketplace_shared.png)<%# Images require alt text that describes the image in detail. %>
+![Screenshot of the Marketplace in Apps Manager.
+At the top of the page is a search bar.
+Below this is a list of services available in the marketplace.
+The service named 'Redis' has been highlighted with a red box.](appsman_marketplace_shared.png)<%# Images require alt text that describes the image in detail. %>
 
 1. Click on the appropriate **Select this plan** button to select the required **Redis Service Plan**.
-![marketplace_p-redis](p-redis_marketplace.png)<%# Images require alt text that describes the image in detail. %>
+![Screenshot of the Redis service in Apps Manager.
+The header contains a description of the Redis service.
+Below the header on the left of the screenshot a service plan shared-vm.
+Below the header on the right of the screenshot is the service plan name shared-vm
+followed by a description of the plan.
+Below this is the button for Select this Plan.](p-redis_marketplace.png)<%# Images require alt text that describes the image in detail. %>
 
 1. In the **Instance Name** field, enter a name that will identify this specific Redis service instance.
-![info_p-redis](p-redis-info.png)<%# Images require alt text that describes the image in detail. %>
+![Screenshot of a shared VM Redis plan pane in Apps Manager.
+The header contains a description of the Redis service.
+Below the header on the left of the screenshot is the service plan name shared-vm
+followed by a description of the plan.
+Below the header on the right of the screenshot is a section labeled Configure Instance.
+This section has a field for Instance Name, a dropdown for Add to Space, and
+a dropdown for Bind to App.
+Below these fields, there is a Show Advanced Options button.
+At the bottom of the Configure Instance section is a Cancel and an Add button.](p-redis-info.png)
 
 1. From the **Add to Space** dropdown, select the space where you or other users will deploy the apps that will bind to the service.
 1. Click the **Add** button.
@@ -336,9 +368,29 @@ Server error, status code: 502, error code: 10001, message: Service broker error
 You can customize an instance in two ways:
 
 * While creating the instance, after you select the plan, click **advanced settings**.<br><br>
-  ![am-create](am-create.png)<%# Images require alt text that describes the image in detail. %>
+  ![Screenshot of an on-demand Redis plan pane in Apps Manager.
+  The header contains a description of the Redis service.
+  Below the header on the left of the screenshot, there is the service plan name cache-large
+  followed by a description of the plan.
+  On the right of the screenshot, there is a section labeled Configure Instance.
+  This section has a field for Instance Name, a dropdown for Add to Space,
+  a dropdown for Bind to App, and two additional fields under the label Add Parameter.
+  To the right of the Add Parameter fields, there is a plus sign for adding more parameter fields.
+  Below these fields, there is a Hide Advanced Options button.
+  At the bottom of the Configure Instance section, there is a Cancel and an Add button.](am-create.png)
+
 * After creating the instance, navigate to the instance Settings page.<br><br>
-  ![am_arbitrary_params](am_arbitrary_params.png)<%# Images require alt text that describes the image in detail. %>
+  ![Screenshot of an example on-demand Redis service instance pane in Apps Manager.
+  At the top of the pane there are tabs labeled Overview, Plan, and Settings.
+  The Settings tab is selected. There is a Service Instance Name field with the
+  buttons Update and Cancel next to it.
+  Below this, there are pairs of Configure Instance fields for adding the name
+  and value of parameters.
+  To the right of the Configure Instance fields there are plus and minus buttons
+  for adding and removing pairs of parameter fields.
+  There are Update and Cancel buttons below the Configure Instance fields.
+  At the bottom of the pane there is a Delete Service Instance button.](am_arbitrary_params.png)
+
 
 In either of the above cases, do the following:
 
@@ -348,7 +400,14 @@ In either of the above cases, do the following:
 If the update is unsuccessful, Apps Manager displays an error with a description of what went wrong.
 The following screenshot is an example of an error caused by a missing hyphen in the `volatile-lru` setting.
 
-![am-error](am-error.png)<%# Images require alt text that describes the image in detail. %>
+![Screenshot of an on-demand Redis plan pane in Apps Manager.
+Across the top of the screenshot is a red banner containing the error message:
+'Service broker error: Invalid value "volatilelru" specified for maxmemory policy.'
+Below the error message is the header with the service description.
+Below the header on the left of the screenshot is the service plan name cache-large
+followed by a description of the plan.
+Below the header on the right of the screenshot is the Configure Instance section and its
+associated fields, with the error message printed again at the top of the section.](am-error.png)
 
 ## <a id="call"></a>Retrieve the Password for a Redis Service Instance
 
@@ -529,7 +588,17 @@ re-push your app for the app changes to take effect. For example:
 To delete a service instance:
 
 1. In the service instance Settings page, click **Delete Service Instance**.
-    <br><br>![am_settings](am_settings.png)<%# Images require alt text that describes the image in detail. %>
+    <br><br>
+    ![Screenshot of an example on-demand Redis service instance pane in Apps Manager.
+    At the top of the pane there are tabs labeled Overview, Plan, and Settings.
+    The Settings tab is selected. Below the tabs there is a Service Instance Name
+    field with Update and Cancel buttons next to it.
+    Below this, there is a pair of Configure Instance fields for adding the name
+    and value of parameters.
+    To the right of the Configure Instance fields there is a plus button for adding
+    more pairs of parameter fields.
+    There are Update and Cancel buttons below the Configure Instance fields.
+    At the bottom of the pane there is the Delete Service Instance button.](am_settings.png)
 
 1. If you had apps that were bound to this service, you might need to restage or re-push your app for the app changes to take effect. For example:
 
