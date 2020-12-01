@@ -22,7 +22,20 @@ This plan is **not** suitable for production purposes.
 This diagram shows the architecture of the service broker and shared-VM plans
 and how the user's app binds to a Redis instance.
 
-![Architecture Diagram](legacy-arch.png)<%# Images require alt text that describes the image in detail. %>
+![The service broker is shown with six shared-VM plan instances. A user's app points to one of the shared VM plan instances. See below for a detailed image description.](legacy-arch.png)
+
+The Redis service broker points to a shared-VM plan instance, which was created by running `cf create-service`.
+For more information about this command, see [Create a <%= vars.product_short %> Service Instance](using.html#create) in _Using <%= vars.product_full %>_.
+
+The service broker VM contains the shared-VM plan instances.
+Six shared-VM plan instances are shown.
+These are provisioned when created by the app developer.
+The maximum number is specified by the operator.
+
+Each shared instance has its own Redis server, with credentials stored in the VCAP_SERVICES environment variable.
+
+The user's app is shown pointing to a shared-VM plan instance with an arrow labeled _binding_.
+For information about binding, see [Bind a Service Instance to Your App](using.html#bind) in _Using <%= vars.product_full %>_.
 
 ## <a id="config2"></a> Settings for Shared-VM Service Plans
 
@@ -111,4 +124,56 @@ The shared-vm plan cannot:
 
 Below is the lifecycle of <%= vars.product_short %>, from an operator installing the tile, to an app developer using the service, to an operator deleting the tile.
 
-![Lifecycle Diagram](Redis_timeline_legacy.png)<%# Images require alt text that describes the image in detail. %>
+![Three columns are shown, labeled 'Operator', 'Redis', and 'App Developer'. See below for a detailed image description.](Redis_timeline_legacy.png)
+
+The following workflow is in the Operator column:
+
+- Configure:
+  - VM size
+  - Number of shared instances
+  - syslog forwarding
+  - Backup destination
+  - Metrics interval
+  - Click **Save**
+
+The following workflow is in the Redis column:
+
+- Install Redis
+  - Create service broker VM
+  - Broker registers as available in marketplace
+  - Run smoke tests
+  - Service broker ready
+
+The App Developer runs the following command:
+
+<pre class="terminal">$ cf create-service p-redis shared-vm mysharedinstance</pre>
+
+In the Redis column:
+
+- If the maximum number of instances has not been reached, memory is allocated and a shared-VM Redis instance is created
+
+The App Developer runs the following command:
+
+<pre class="terminal">$ cf bind-service my-application mysharedinstance</pre>
+
+In the Redis column:
+
+- Redis credentials are stored in the app's VCAP_SERVICES environment variable and the app can talk directly to the Redis server inside the service instance
+
+The App Developer runs the following command:
+
+<pre class="terminal">$ cf delete-service mysharedinstance</pre>
+
+In the Redis column:
+
+- The service instance is deprovisioned and the memory in the service broker is freed
+
+In the Operator column:
+
+- Delete Redis
+  - Click **Apply Changes**
+
+In the Redis column:
+
+- Service broker and all provisioned instances are deleted
+- Broker deregistrar errand runs `cf purge-service`
