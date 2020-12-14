@@ -16,10 +16,17 @@ For similar information for the Shared-VM plans, see [Shared-VM Service Offering
 This diagram shows the architecture of the service broker and on-demand plans
 and how the user's app binds to a Redis instance.
 
-![The p.redis service broker manages the on-demand service plan instances.
+![The service broker is shown with three cache plan instances. Three user apps are shown, each pointing to a cache plan instance with an arrow labeled 'binding'. See below for a detailed image description.](on-demand-arch.png)
+
+The Redis service broker points to a cache plan instance, which was created by running `cf create-service`.
+For more information about this command, see [Create a <%= vars.product_short %> Service Instance](using.html#create) in _Using <%= vars.product_full %>_.
+
+The Redis service broker manages the on-demand service plan instances.
 The operator uses <%= vars.ops_manager %> to configure the plans.
-App-developers can create instances of each plan on-demand up to a set quota, and bind their apps to these instances.
-The operator specifies the per-plan and global quotas.](on-demand-arch.png)
+The diagram above shows three different users' apps, each one bound to a separate cache plan instance.
+
+The operator specifies the per-plan and global quotas.
+App developers can create instances of each plan on demand up to a set quota, and bind their apps to these instances.
 
 ## <a id="tls"></a> TLS in <%= vars.product_short %>
 
@@ -47,12 +54,13 @@ Other apps might require further configuration to make use of the correct port.
 
 The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Optional**.
 
-![The bound app can connect to the Redis service on the on-demand Redis service
+![From an app that is bound to a Redis instance, a green arrow labeled 'Secure traffic (TLS)' points to the TLS Proxy within the On-Demand Redis Service Instance. Inside the service instance, a red arrow labeled 'Unsecured traffic' points from TLS Proxy to Redis, and another red arrow with the same label points from the app directly to Redis.](tls_optional.png)
+
+The bound app can connect to the Redis service on the on-demand Redis service
 instance VM through a TLS proxy or connect directly.
 The TLS proxy and Redis are both on the Redis service instance.
 The traffic is secure from the app to the TLS proxy.
-When on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
-
+When on the service instance, the traffic from the TLS proxy to Redis is unsecured.
 
 ### <a id="tls-optional"></a> TLS Set to Not Configured
 
@@ -61,9 +69,10 @@ the communication with service instances remains unchanged from <%= vars.product
 
 The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Not Configured**.
 
-![The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
-The traffic on this connection is unsecured.](tls_disabled.png)
+![From an app that is bound to a Redis instance, a red arrow labeled 'Unsecured traffic' points from the app directly to Redis.](tls_disabled.png)
 
+The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
+The traffic on this connection is unsecured.
 
 ## <a id="on-demand"></a> On-Demand Service Plans
 
@@ -147,4 +156,63 @@ Limitations for the on-demand service include:
 
 Here is the lifecycle of <%= vars.product_short %>, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
-![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)<%# Images require alt text that describes the image in detail. %>
+![Three columns are shown, labeled 'Operator', 'Redis', and 'App Developer'. See below for a detailed image description.](Redis_timeline_demand.png)
+
+The following workflow is in the Operator column:
+
+- Enable and configure plans:
+  - VM type
+  - Disk size
+  - Availability Zone (AZ)
+  - Plan quota
+  - Global quota
+  - Syslog forwarding
+  - Metrics interval
+  - Backup destination
+  - Metrics interval
+  - Redis config
+  - Click **Save**
+
+- Install Redis
+  - Click **Apply changes**
+
+The following workflow is in the Redis column:
+
+- Create service broker VM
+- Broker registers the plans as available in marketplace
+- Run smoke tests
+- Service broker ready
+
+The App Developer runs the following command:
+
+<pre class="terminal">$ cf create-service p-redis cache-small mycacheinstance</pre>
+
+In the Redis column:
+
+- If the global and plan quota for instances has not been reached, a new Redis instance is created with the plan's specifications
+
+The App Developer runs the following command:
+
+<pre class="terminal">$ cf bind-service my-application mycacheinstance</pre>
+
+In the Redis column:
+
+- Redis credentials are stored in the app's VCAP_SERVICES environment variable and the app can talk directly to the Redis server inside the service instance
+
+The App Developer runs the following command:
+
+<pre class="terminal">$ cf delete-service mycacheinstance</pre>
+
+In the Redis column:
+
+- The service instance data is flushed and the total instances available within the plan is increased by one
+
+In the Operator column:
+
+- Delete Redis
+  - Click **Apply Changes**
+
+In the Redis column:
+
+- Service broker and all provisioned instances are deleted
+- Delete-all-service-instances and then deregister the broker
