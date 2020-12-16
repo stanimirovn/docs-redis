@@ -39,7 +39,7 @@ For guidance on ports and ranges used in the Redis service, see [Select Networks
 
 To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
-![AZ Assignment Diagram](AZ-assignment.png)<%# Images require alt text that describes the image in detail. %>
+![The Redis tile in Ops Manager. The 'Assign AZs and Networks' pane is active. See the next section for information about configuring this pane.](AZ-assignment.png)
 
 ### <a id="az-config"></a>Assign AZs
 
@@ -217,7 +217,7 @@ The following ports and ranges are used in <%= vars.product_short %>:
 To configure settings that apply across the whole on-demand service offering:
 
 1. In the <%= vars.product_short %> tile, select **On-Demand Service Settings**.
-![settings](redis-odservice-settings.png)<%# Images require alt text that describes the image in detail. %>
+![The Redis tile in Ops Manager. The 'On-Demand Service Settings' pane is active. See the next steps for information about configuring this pane.](redis-odservice-settings.png)
 [Click here to view a larger version of this image.](./images/redis-odservice-settings.png)
 
 1. Enter the **Maximum service instances across all on-demand plans**.
@@ -255,7 +255,15 @@ The upgrade fails if any canaries fail to upgrade. <br><br>
 You can limit canaries by number and by org and space.
 To use all service instances in an org and space as canaries,
 set the number of canaries to zero. This upgrades all service instances in the selected org and space first.<br><br>
-  ![canary-options](canary-options.png)<%# Images require alt text that describes the image in detail. %>
+  ![A flowchart that describes canary options. See below for a detailed description.](canary-options.png)
+  The flowchart above has the following information:
+    - Is the org and space specified?
+        - **Yes**: Is the number of canaries specified?
+          - **Yes**: The number of canaries is limited by org and space.
+          - **No**: All canaries from the org and space.
+        - **No**: Is the number of canaries specified?
+          - **Yes**: The number of canaries is chosen non-deterministically.
+          - **No**: No canaries.
   <p class="note"><strong>Note:</strong>
     If you specify that canaries should be limited to an org and space that has
     no service instances, the upgrade fails.
@@ -306,10 +314,10 @@ The configuration of resources varies depending on your IaaS.
 To add and configure each on-demand service plan:
 
 1. In the <%= vars.product_short %> tile, select **On-Demand Plans**.
-  ![on demand config](on-demand-config.png)<%# Images require alt text that describes the image in detail. %> <a id="ondemandconfig"></a>
+  ![The Redis tile in Ops Manager. The 'On-Demand Plans' pane is active.](on-demand-config.png) <a id="ondemandconfig"></a>
 
 1. Click **Add** to add an on-demand plan.
-  ![on demand plan config](on-demand-plan-config.png)<%# Images require alt text that describes the image in detail. %> <a id="ondemandplanconfig"></a>
+  ![The Redis tile in Ops Manager. The 'On-Demand Plans' pane is active. See the next step for information about configuring this pane.](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
   [Click here to view a larger version of this image.](./images/on-demand-plan-config.png)
 1. Configure the settings in the table below for your on-demand plans and then click **Save**.
 <%# Should you not reduce the the VMs or disk after you have saved settings or while you are configuring for the first time? %>
@@ -496,7 +504,7 @@ and delete each plan by clicking the trash can icon next to the plan name.
 To configure shared-VM service plans:
 
 1.  In the <%= vars.product_short %> tile, select **Shared-VM Plan**.
-![shared vm config](shared-vm-config.png)<%# Images require alt text that describes the image in detail. %>
+![The Redis tile in Ops Manager. The 'Shared-VM Plan' pane is active. See the next step for information about configuring this pane.](shared-vm-config.png)
 
 1.  Configure these fields:
       * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance.
@@ -533,7 +541,7 @@ To configure the limits in these fields:
   + Decrease the number of instances in **Redis Service Instance Limit** in the **Shared-VM Plan** tab.
   + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
 
-    <img src="./images/redis-broker-resource.png"><%# Images require alt text that describes the image in detail. %>
+    <img src="./images/redis-broker-resource.png" alt="The Redis tile in Ops Manager. The 'Resource Config' pane is active. See below for information about configuring this pane.">
 
   Here are some examples for setting these limits:
 
