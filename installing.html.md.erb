@@ -319,10 +319,12 @@ To add and configure each on-demand service plan:
 
 1. In the <%= vars.product_short %> tile, select **On-Demand Plans**.
   ![The Redis tile in Ops Manager. The 'On-Demand Plans' pane is active.](on-demand-config.png) <a id="ondemandconfig"></a>
-
+  <a href="./images/on-demand-config.png" target="_blank" aria-hidden="true">
+    Click here to view a larger version of this image</a>
 1. Click **Add** to add an on-demand plan.
   ![The Redis tile in Ops Manager. The 'On-Demand Plans' pane is active. See the next step for information about configuring this pane.](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
-  [Click here to view a larger version of this image.](./images/on-demand-plan-config.png)
+  <a href="./images/on-demand-plan-config.png" target="_blank" aria-hidden="true">
+    Click here to view a larger version of this image</a>
 1. Configure the settings in the table below for your on-demand plans and then click **Save**.
 <%# Should you not reduce the the VMs or disk after you have saved settings or while you are configuring for the first time? %>
   <p class="warning note"><strong>Warning:</strong> Do not downsize the VMs
@@ -590,7 +592,6 @@ To configure resources for the shared-VM plans, click the **Resource Config** se
 The following are the default resource and IP requirements for <%= vars.product_short %> when using the shared-VM plans:
 <table border="1" class="nice">
   <tr>
-    <th>Product</th>
     <th>Resource</th>
     <th>Instances</th>
     <th>CPU</th>
@@ -601,7 +602,6 @@ The following are the default resource and IP requirements for <%= vars.product_
     <th>Dynamic IP</th>
   </tr>
   <tr>
-    <td>Redis</td>
     <td>Redis Broker</td>
     <td>1</td>
     <td>2</td>
@@ -612,7 +612,6 @@ The following are the default resource and IP requirements for <%= vars.product_
     <td>0</td>
   </tr>
   <tr>
-    <td>Redis</td>
     <td>Broker Registrar</td>
     <td>1</td>
     <td>1</td>
@@ -623,7 +622,6 @@ The following are the default resource and IP requirements for <%= vars.product_
     <td>1</td>
   </tr>
   <tr>
-    <td>Redis</td>
     <td>Broker De-Registrar</td>
     <td>1</td>
     <td>1</td>
@@ -634,7 +632,6 @@ The following are the default resource and IP requirements for <%= vars.product_
     <td>1</td>
   </tr>
   <tr>
-    <td>Redis</td>
     <td>Compilation</td>
     <td>2</td>
     <td>2</td>
