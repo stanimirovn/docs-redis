@@ -19,12 +19,17 @@ This plan is **not** suitable for production purposes.
 
 ## <a id="diagram2"></a>Architecture Diagram for Shared Plans
 
-This diagram shows the architecture of the service broker and shared-VM plans
+The p-redis service broker manages the shared-vm plan service instances.
+
+The diagram below shows the architecture of the service broker and shared-VM plans
 and how the user's app binds to a Redis instance.
 
-![The service broker is shown with six shared-VM plan instances. A user's app points to one of the shared VM plan instances. See below for a detailed image description.](legacy-arch.png)
+![The service broker is shown with six shared-VM plan instances.
+A user's app points to one of the shared VM plan instances.
+See below for a detailed image description.](legacy-arch.png)
 
-The Redis service broker points to a shared-VM plan instance, which was created by running `cf create-service`.
+The diagram above shows the p-redis service broker pointing to a shared-VM plan instance,
+which was created by running `cf create-service`.
 For more information about this command, see [Create a <%= vars.product_short %> Service Instance](using.html#create) in _Using <%= vars.product_full %>_.
 
 The service broker VM contains the shared-VM plan instances.
@@ -32,9 +37,11 @@ Six shared-VM plan instances are shown.
 These are provisioned when created by the app developer.
 The maximum number is specified by the operator.
 
-Each shared instance has its own Redis server, with credentials stored in the VCAP_SERVICES environment variable.
+Each shared instance has its own Redis server, with credentials stored in the
+`VCAP_SERVICES` environment variable.
 
-The user's app is shown pointing to a shared-VM plan instance with an arrow labeled _binding_.
+The user's app is bound to a shared-VM plan instance, shown above by an arrow labeled
+_binding_ pointing from the app to a shared-VM plan instance.
 For information about binding, see [Bind a Service Instance to Your App](using.html#bind) in _Using <%= vars.product_full %>_.
 
 ## <a id="config2"></a> Settings for Shared-VM Service Plans
@@ -124,11 +131,14 @@ The shared-vm plan cannot:
 
 Below is the lifecycle of <%= vars.product_short %>, from an operator installing the tile, to an app developer using the service, to an operator deleting the tile.
 
-![Three columns are shown, labeled 'Operator', 'Redis', and 'App Developer'. See below for a detailed image description.](Redis_timeline_legacy.png)
+![Three columns are shown, labeled 'Operator', 'Redis', and 'App Developer'.
+The workflows in this image are described in detail below.](Redis_timeline_legacy.png)
 
-The following workflow is in the Operator column:
+### <a id ="install"></a> Installation
 
-- Configure:
+Operators do the following to install <%= vars.product_short %>:
+
+1. Configure:
   - VM size
   - Number of shared instances
   - Syslog forwarding
@@ -136,44 +146,73 @@ The following workflow is in the Operator column:
   - Metrics interval
   - Click **Save**
 
-The following workflow is in the Redis column:
+1. Install Redis
+  - Click **Apply changes**
 
-- Install Redis
-  - Create service broker VM
-  - Broker registers as available in marketplace
-  - Run smoke tests
-  - Service broker ready
+After the operator clicks **Apply Changes**, <%= vars.product_short %> does the following:
 
-The App Developer runs the following command:
+1. Create service broker VM
+1. Broker registers as available in marketplace
+1. Run smoke tests
+1. Service broker ready
+
+### <a id ="use"></a> Using <%= vars.product_short %>
+
+After operators have installed <%= vars.product_short %>, developers can
+create service instances, bind and unbind the service instances to apps, and
+delete service instances.
+These operations are described below.
+
+#### <a id ="create-service"></a> Create Service
+
+When a developer runs the `cf create-service` command, for example:
 
 <pre class="terminal">$ cf create-service p-redis shared-vm mysharedinstance</pre>
 
-In the Redis column:
+<%= vars.product_short %> does the following:
 
-- If the maximum number of instances has not been reached, memory is allocated and a shared-VM Redis instance is created
+- If the maximum number of instances has not been reached, memory is allocated
+and a shared-VM Redis instance is created
 
-The App Developer runs the following command:
+#### <a id ="bind-service"></a> Bind Service
+
+When a developer runs the `cf bind-service` command, for example:
 
 <pre class="terminal">$ cf bind-service my-application mysharedinstance</pre>
 
-In the Redis column:
+<%= vars.product_short %> does the following:
 
-- Redis credentials are stored in the app's VCAP_SERVICES environment variable and the app can talk directly to the Redis server inside the service instance
+- Redis credentials are stored in the app's `VCAP_SERVICES` environment variable
+and the app can talk directly to the Redis server inside the service instance
 
-The App Developer runs the following command:
+#### <a id ="unbind-service"></a> Unbind Service
+
+When a developer runs the `cf unbind-service` command, for example:
+
+<pre class="terminal">$ cf unbind-service my-application mysharedinstance</pre>
+
+<%= vars.product_short %> does the following:
+
+- Redis credentials are removed from the app's `VCAP_SERVICES` environment variable
+
+#### <a id ="delete-service"></a> Delete Service
+
+When a developer runs the `cf delete-service` command, for example:
 
 <pre class="terminal">$ cf delete-service mysharedinstance</pre>
 
-In the Redis column:
+<%= vars.product_short %> does the following:
 
 - The service instance is deprovisioned and the memory in the service broker is freed
 
-In the Operator column:
+### <a id ="delete"></a> Deletion
 
-- Delete Redis
+Operators do the following to delete <%= vars.product_short %>:
+
+1. Delete Redis
   - Click **Apply Changes**
 
-In the Redis column:
+After the operator clicks **Apply Changes**, <%= vars.product_short %> does the following:
 
-- Service broker and all provisioned instances are deleted
-- Broker deregistrar errand runs `cf purge-service`
+1. Service broker and all provisioned instances are deleted
+1. Broker deregistrar errand runs `cf purge-service`

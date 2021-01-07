@@ -13,20 +13,29 @@ For similar information for the Shared-VM plans, see [Shared-VM Service Offering
 
 ## <a id="diagram1"></a> Architecture of the On-Demand Plan
 
-This diagram shows the architecture of the service broker and on-demand plans
+The p.redis service broker manages the on-demand service plan instances.
+
+The diagram below shows the architecture of the service broker and on-demand plans
 and how the user's app binds to a Redis instance.
 
-![The service broker is shown with three cache plan instances. Three user apps are shown, each pointing to a cache plan instance with an arrow labeled 'binding'. See below for a detailed image description.](on-demand-arch.png)
+![The service broker is shown with three cache plan instances.
+Three user apps are shown, each pointing to a cache plan instance with an arrow labeled 'binding'.
+See below for a detailed image description.](on-demand-arch.png)
 
-The Redis service broker points to a cache plan instance, which was created by running `cf create-service`.
+Operators configure plans in <%= vars.ops_manager %>, and they can set global and per-plan quotas
+for the maximum number of instances.
+
+Developers can create instances of each plan when needed, until a quota is reached,
+and bind their apps to the instances.
+The diagram above shows the p.redis service broker pointing to a cache plan instance,
+which was created by running `cf create-service`.
 For more information about this command, see [Create a <%= vars.product_short %> Service Instance](using.html#create) in _Using <%= vars.product_full %>_.
 
-The Redis service broker manages the on-demand service plan instances.
-The operator uses <%= vars.ops_manager %> to configure the plans.
-The diagram above shows three different users' apps, each one bound to a separate cache plan instance.
+The diagram shows three different users' apps, each one bound to a separate cache plan instance.
+Each instance has its own VM.
+The line below the final instance shows that the quota has been reached, and
+developers cannot create more instances.
 
-The operator specifies the per-plan and global quotas.
-App developers can create instances of each plan on demand up to a set quota, and bind their apps to these instances.
 
 ## <a id="tls"></a> TLS in <%= vars.product_short %>
 
@@ -54,7 +63,10 @@ Other apps might require further configuration to make use of the correct port.
 
 The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Optional**.
 
-![From an app that is bound to a Redis instance, a green arrow labeled 'Secure traffic (TLS)' points to the TLS Proxy within the On-Demand Redis Service Instance. Inside the service instance, a red arrow labeled 'Unsecured traffic' points from TLS Proxy to Redis, and another red arrow with the same label points from the app directly to Redis.](tls_optional.png)
+![From an app that is bound to a Redis instance, a green arrow labeled 'Secure traffic (TLS)'
+points to the TLS Proxy within the On-Demand Redis Service Instance.
+Inside the service instance, a red arrow labeled 'Unsecured traffic' points from TLS Proxy to Redis.
+A second red arrow labeled 'Unsecured traffic' points from the app directly to Redis.](tls_optional.png)
 
 The bound app can connect to the Redis service on the on-demand Redis service
 instance VM through a TLS proxy or connect directly.
@@ -69,7 +81,8 @@ the communication with service instances remains unchanged from <%= vars.product
 
 The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Not Configured**.
 
-![From an app that is bound to a Redis instance, a red arrow labeled 'Unsecured traffic' points from the app directly to Redis.](tls_disabled.png)
+![From an app that is bound to a Redis instance, a red arrow labeled 'Unsecured traffic'
+points from the app directly to Redis.](tls_disabled.png)
 
 The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
 The traffic on this connection is unsecured.
@@ -154,13 +167,17 @@ Limitations for the on-demand service include:
 
 ## <a id ="lifecycle"></a>Lifecycle for On-Demand Service Plan
 
-Here is the lifecycle of <%= vars.product_short %>, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
+Here is the lifecycle of <%= vars.product_short %>, from an operator installing
+the tile through an app developer using the service then an operator deleting the tile.
 
-![Three columns are shown, labeled 'Operator', 'Redis', and 'App Developer'. See below for a detailed image description.](Redis_timeline_demand.png)
+![Three columns are shown, labeled 'Operator', 'Redis', and 'App Developer'.
+The workflows in this image are described in detail below.](Redis_timeline_demand.png)
 
-The following workflow is in the Operator column:
+### <a id ="install"></a> Installation
 
-- Enable and configure plans:
+Operators do the following to install <%= vars.product_short %>:
+
+1. Enable and configure plans:
   - VM type
   - Disk size
   - Availability Zone (AZ)
@@ -173,46 +190,76 @@ The following workflow is in the Operator column:
   - Redis config
   - Click **Save**
 
-- Install Redis
+1. Install Redis
   - Click **Apply changes**
 
-The following workflow is in the Redis column:
+After the operator clicks **Apply Changes**, <%= vars.product_short %> does
+the following:
 
-- Create service broker VM
-- Broker registers the plans as available in marketplace
-- Run smoke tests
-- Service broker ready
+1. Create service broker VM
+1. Broker registers the plans as available in marketplace
+1. Run smoke tests
+1. Service broker ready
 
-The App Developer runs the following command:
+### <a id ="use"></a> Using <%= vars.product_short %>
+
+After operators have installed <%= vars.product_short %>, developers can
+create service instances, bind and unbind the service instances to apps, and
+delete service instances.
+These operations are described below.
+
+#### <a id ="create-service"></a> Create Service
+
+When a developer runs the `cf create-service` command, for example:
 
 <pre class="terminal">$ cf create-service p-redis cache-small mycacheinstance</pre>
 
-In the Redis column:
+<%= vars.product_short %> does the following:
 
-- If the global and plan quota for instances has not been reached, a new Redis instance is created with the plan's specifications
+- If the global and plan quota for instances has not been reached, a new Redis instance
+is created with the plan's specifications
 
-The App Developer runs the following command:
+#### <a id ="bind-service"></a> Bind Service
+
+When a developer runs the `cf bind-service` command, for example:
 
 <pre class="terminal">$ cf bind-service my-application mycacheinstance</pre>
 
-In the Redis column:
+<%= vars.product_short %> does the following:
 
-- Redis credentials are stored in the app's VCAP_SERVICES environment variable and the app can talk directly to the Redis server inside the service instance
+- Redis credentials are stored in the app's `VCAP_SERVICES` environment variable and
+the app can communicate directly with the Redis server inside the service instance
 
-The App Developer runs the following command:
+#### <a id ="unbind-service"></a> Unbind Service
+
+When a developer runs the `cf unbind-service` command, for example:
+
+<pre class="terminal">$ cf unbind-service my-application mycacheinstance</pre>
+
+<%= vars.product_short %> does the following:
+
+- Redis credentials are removed from the app's `VCAP_SERVICES` environment variable
+
+#### <a id ="delete-service"></a> Delete Service
+
+When a developer runs the `cf delete-service` command, for example:
 
 <pre class="terminal">$ cf delete-service mycacheinstance</pre>
 
-In the Redis column:
+<%= vars.product_short %> does the following:
 
-- The service instance data is flushed and the total instances available within the plan is increased by one
+- The service instance data is flushed and the total instances available within the
+plan is increased by one
 
-In the Operator column:
+### <a id ="delete"></a> Deletion
 
-- Delete Redis
+Operators do the following to delete <%= vars.product_short %>:
+
+1. Delete Redis:
   - Click **Apply Changes**
 
-In the Redis column:
+After the operator clicks **Apply Changes**, <%= vars.product_short %> does
+the following:
 
-- Service broker and all provisioned instances are deleted
-- Delete-all-service-instances and then deregister the broker
+1. Service broker and all provisioned instances are deleted
+1. Delete-all-service-instances and then deregister the broker

@@ -39,7 +39,8 @@ For guidance on ports and ranges used in the Redis service, see [Select Networks
 
 To assign AZs and networks, click the **Assign AZs and Networks** settings tab.
 
-![The Redis tile in Ops Manager. The 'Assign AZs and Networks' pane is active. See the next section for information about configuring this pane.](AZ-assignment.png)
+![The Redis tile in Ops Manager. The 'Assign AZs and Networks' pane is active.
+See the next section for information about configuring this pane.](AZ-assignment.png)
 
 ### <a id="az-config"></a>Assign AZs
 
@@ -217,8 +218,10 @@ The following ports and ranges are used in <%= vars.product_short %>:
 To configure settings that apply across the whole on-demand service offering:
 
 1. In the <%= vars.product_short %> tile, select **On-Demand Service Settings**.
-![The Redis tile in Ops Manager. The 'On-Demand Service Settings' pane is active. See the next steps for information about configuring this pane.](redis-odservice-settings.png)
-[Click here to view a larger version of this image.](./images/redis-odservice-settings.png)
+![The Redis tile in Ops Manager. The 'On-Demand Service Settings' pane is active.
+See the next steps for information about configuring this pane.](redis-odservice-settings.png)
+<a href="./images/redis-odservice-settings.png" target="_blank" aria-hidden="true">
+  Click here to view a larger version of this image</a>
 
 1. Enter the **Maximum service instances across all on-demand plans**.
    The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.<br />
@@ -264,15 +267,16 @@ set the number of canaries to zero. This upgrades all service instances in the s
         - **No**: Is the number of canaries specified?
           - **Yes**: The number of canaries is chosen non-deterministically.
           - **No**: No canaries.
-  <p class="note"><strong>Note:</strong>
-    If you specify that canaries should be limited to an org and space that has
-    no service instances, the upgrade fails.
-  </p>
-  <p class="note"><strong>Note:</strong>
-    Canary upgrades comply with the Maximum Parallel Upgrades settings.
-    If you specify three canaries and a Maximum Parallel Upgrades of two,
-    then two canaries upgrade, followed by the third.
-  </p>
+
+    <p class="note"><strong>Note:</strong>
+      If you specify that canaries should be limited to an org and space that has
+      no service instances, the upgrade fails.
+    </p>
+    <p class="note"><strong>Note:</strong>
+      Canary upgrades comply with the Maximum Parallel Upgrades settings.
+      If you specify three canaries and a Maximum Parallel Upgrades of two,
+      then two canaries upgrade, followed by the third.
+    </p>
 For information about this feature, see `canaries` in
 [Upgrade All Service Instances](https://docs.pivotal.io/svc-sdk/odb/operating.html#upgrade-all-instances)
 in the On-Demand Services SDK documentation.
@@ -507,9 +511,9 @@ To configure shared-VM service plans:
 ![The Redis tile in Ops Manager. The 'Shared-VM Plan' pane is active. See the next step for information about configuring this pane.](shared-vm-config.png)
 
 1.  Configure these fields:
-      * **Redis Instance Memory Limit**---Maximum memory used by a shared-VM instance.
-      * **Redis Service Instance Limit**---Maximum number of shared-VM instances.
-      * **Lua Scripting**---Enable or disable Lua Scripting as needed.
+      * **Redis Instance Memory Limit**---Enter the maximum memory used by a shared-VM instance, for example 512&nbsp;MB.
+      * **Redis Service Instance Limit**---Enter the maximum number of shared-VM instances.
+      * **Lua Scripting**---Enable or disable Lua Scripting as needed using this checkbox.
       VMware recommends that Lua Scripting is disabled unless developers need it to be enabled.
 
  	Memory and instance limits depend on the total system memory of your Redis broker VM and require some
@@ -536,46 +540,47 @@ To configure the limits in these fields:
 1. Estimate the combined maximum memory that all your Redis shared-VM instances can use.
 
 1. If your estimate is higher than 45% of the Redis broker VM's total system memory, do any of the following:
+    + Decrease the **Redis Instance Memory Limit** in the **Shared-VM Plan** tab.
+    + Decrease the number of instances in **Redis Service Instance Limit** in the **Shared-VM Plan** tab.
+    + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
+    <img src="./images/redis-broker-resource.png" alt="The Redis tile in Ops Manager.
+    The 'Resource Config' pane is active. See below for information about configuring this pane.">
+    <a href="/images/redis-broker-resource.png" target="_blank" aria-hidden="true">
+      Click here to view a larger version of this image</a>
 
-  + Decrease the **Redis Instance Memory Limit** in the **Shared-VM Plan** tab.
-  + Decrease the number of instances in **Redis Service Instance Limit** in the **Shared-VM Plan** tab.
-  + Increase the RAM for the Redis Broker in the **Resource Config** tab as shown below.
+    Here are some examples for setting these limits:
 
-    <img src="./images/redis-broker-resource.png" alt="The Redis tile in Ops Manager. The 'Resource Config' pane is active. See below for information about configuring this pane.">
+    <table border="1" class="nice">
+        <tr>
+          <th>Redis Broker VM Total Memory</th>
+          <th>Redis Instance Memory Limit</th>
+          <th>Redis Service Instance Limit</th>
+        </tr>
+        <tr>
+          <td>16&nbsp;GB</td>
+          <td>512&nbsp;MB</td>
+          <td>14</td>
+        </tr>
+        <tr>
+          <td>16&nbsp;GB</td>
+          <td>256&nbsp;MB</td>
+          <td>28</td>
+        </tr>
+        <tr>
+          <td>64&nbsp;GB</td>
+          <td>512&nbsp;MB</td>
+          <td>56</td>
+        </tr>
+    </table>
 
-  Here are some examples for setting these limits:
-
-  <table border="1" class="nice">
-      <tr>
-        <th>Redis Broker VM Total Memory</th>
-        <th>Redis Instance Memory Limit</th>
-        <th>Redis Service Instance Limit</th>
-      </tr>
-      <tr>
-        <td>16&nbsp;GB</td>
-        <td>512&nbsp;MB</td>
-        <td>14</td>
-      </tr>
-      <tr>
-        <td>16&nbsp;GB</td>
-        <td>256&nbsp;MB</td>
-        <td>28</td>
-      </tr>
-      <tr>
-        <td>64&nbsp;GB</td>
-        <td>512&nbsp;MB</td>
-        <td>56</td>
-      </tr>
-  </table>
-
-  <p class="note"><strong>Note:</strong> You can configure a larger
-    <strong>Redis Service Instance Limit</strong>, if you are confident that the
-    majority of the deployed instances do not use a large amount of their allocated memory,
-    for example in development or test environments.<br><br>
-    However, this practice is not supported and can cause your server to run out of memory,
-    preventing users from writing any more data to any Redis shared-VM instance.
-    Do not use shared-VM instances in production environments.
-  </p>
+    <p class="note"><strong>Note:</strong> You can configure a larger
+      <strong>Redis Service Instance Limit</strong>, if you are confident that the
+      majority of the deployed instances do not use a large amount of their allocated memory,
+      for example in development or test environments.<br><br>
+      However, this practice is not supported and can cause your server to run out of memory,
+      preventing users from writing any more data to any Redis shared-VM instance.
+      Do not use shared-VM instances in production environments.
+    </p>
 
 
 ### <a id="resources"></a>Configure Resources for Shared-VM Plans
