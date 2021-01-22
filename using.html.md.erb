@@ -10,7 +10,7 @@ owner: London Services
 You can find an example app has to help you get started with <%= vars.product_short %>.
 Download the example app by clicking [this link](https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip).
 
-For recommendations regarding <%= vars.product_short %> service plans and memory allocation,
+For recommendations regarding <%= vars.product_short %> plans and memory allocation,
 see the [On-Demand Service Offering](./architecture.html)
 and the [Shared-VM Service Offering](./architecture-pp.html).
 
@@ -29,13 +29,13 @@ To use <%= vars.product_short %> in an app:
 
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log in to the org and space that contains the app.
 
-1. Make sure an instance of the <%= vars.product_short %> service exists in the same space as the app.<br><br>
+1. Make sure a <%= vars.product_short %> service instance exists in the same space as the app.<br><br>
    - If the space does not already have a <%= vars.product_short %> instance, [create](#create) one.<br>
    - If the space already has a <%= vars.product_short %> instance, you can [bind](#bind) your app to the existing instance or create a new instance to bind to your app.
 
 2. [Bind](#bind) the app to the <%= vars.product_short %> service instance, to enable the app to use Redis.
 
-## <a id='marketplace'></a>Confirm <%= vars.product_short %> Service Availability
+## <a id='marketplace'></a>Confirm Service Availability
 
 For an app to use a service, the following two things must be true:
 
@@ -44,7 +44,7 @@ For an app to use a service, the following two things must be true:
 
 You can confirm both of these using the cf CLI as follows:
 
-1. To find out if a <%= vars.product_short %> service is available in the Marketplace:
+1. To find out if a Redis service is available in the Marketplace:
     1. Run:
 
         ```
@@ -84,7 +84,7 @@ You can confirm both of these using the cf CLI as follows:
 You can [bind](#bind) your app to an existing instance or [create](#create) a new instance to bind to your app.
 
 
-## <a id='create'></a>Create a <%= vars.product_short %> Service Instance
+## <a id='create'></a>Create a Service Instance
 
 To use a service you must create a service instance of a plan that is available in the Marketplace.
 To do so, you can use either the cf CLI or Apps Manager.

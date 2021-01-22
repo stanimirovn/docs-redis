@@ -34,13 +34,13 @@ Redis can be used in many different ways, including:
 
 The <%= vars.product_short %> team maintains a monthly Service Level Objective (SLO) of 99.95%
 uptime for the <%= vars.product_short %> offering on Pivotal Web Services.
-This is provided as a benchmark. SLOs for separate offerings of the <%= vars.product_short %>
-service vary based on variables such as infrastructure, networking, and
+This is provided as a benchmark. SLOs for separate offerings of <%= vars.product_short %>
+vary based on variables such as infrastructure, networking, and
 relevant policies around security upgrades.
 
 ## <a id="offerings"></a> Service Offerings
 
-For descriptions of the <%= vars.product_short %> service offerings, see:
+For descriptions of the service offerings for <%= vars.product_short %>, see:
 
 * [On-Demand Service Offering](./architecture.html)
 * [Shared-VM Service Offering](./architecture-pp.html)
@@ -54,7 +54,7 @@ Review the following table to determine if <%= vars.product_short %> has the fea
   <tr><th colspan=2>Resilience</th><th>More Information</th></tr>
   <tr>
     <td>Availability</td>
-    <td>All <%= vars.product_short %> services are single VMs without clustering capabilities.
+    <td>All service offerings of <%= vars.product_short %> are single VMs without clustering capabilities.
         This means that planned maintenance jobs (e.g., upgrades) can result in 2–10 minutes of downtime,
         depending on the nature of the upgrade.
         Unplanned downtime (e.g., VM failure) also affects the Redis service.<br>
