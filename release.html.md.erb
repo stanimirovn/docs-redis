@@ -7,48 +7,30 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="2-4-1"></a> v2.4.1
+## <a id="2-4-2"></a> v2.4.2
 
-**Release Date: August 20, 2020**
+**Release Date: May 7, 2021**
 
 ### Features
 
 New features and changes in this release:
 
-- **Operators can specify which TLS versions to make Redis TLS connections when TLS is enabled:**
-This feature allows control of the versions of TLS that Redis connections support.
-VMware does not recommend using TLS v1.0, but it is an option for apps that only support this protocol.
-For more information, see [Configure On-Demand Service Settings](./installing.html#on-demand-config).
+- Secure service bindings is now configured from the Redis Tile UI rather than the TAS property.
 
-- **Operators see an error when trying to install an incompatible Healthwatch version:**
-Operators can only install Healthwatch v1.8 and later with the <%= vars.product_short %> tile.
-If the operator tries to install a previous Healthwatch version, the operator sees an error.
-
-- **Operators can enable telemetry to help improve the product:**
-The telemetry program enables VMware to collect data from customer installations to improve the
-enterprise experience. Collecting data at scale enables VMware to identify patterns and alert you to
-warning signals in your installation.
-For more information, see [Pivotal Telemetry](https://tanzu.vmware.com/legal/telemetry).
+- Upgraded Redis OSS component to v5.0.10
 
 ### Resolved Issues
 
 This release has the following fix:
 
-* **Rotating the Services TLS CA certificate no longer causes app downtime:**
-  In Redis for PCF v2.2 and Redis for Pivotal Platform v2.3, following the
-  [Rotating the Services TLS CA and Its Leaf Certificates](https://docs.pivotal.io/platform/2-10/security/pcf-infrastructure/services_tls_ca_rotate.html) procedure can cause downtime for apps bound
-  to the Redis service.
+* **Upgraded the on-demand-service-broker to v0.41.0:**
+  In on-demand-service-broker v0.40.0, running the upgrade-all-service-instances may fail when tls was enforced
   This issue does not occur in <%= vars.product_short %>.
 
-### Known Issues
+* The error **"Unable to remove Healthwatch from a foundation due to 'Product Redis depends on Pivotal Healthwatch'"** has been fixed.
+  In v2.4.1, healthwatch was a required dependency, which may prevent uninstallation of Healthwatch.
+  The [issue](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US) does not occur in <%= vars.product_short %>.
 
-This release has the following issue:
-
-* **Service creation can fail when using an external UAA:**
-  An issue with the Redis on-demand service broker and TLS verification
-  means that service creation might fail on the TLS handshake.
-  This has been observed as the `upgrade-all-service-instances` errand failing,
-  particularly when a separate internal load balancer is present.
 
 ### Compatibility
 
@@ -61,7 +43,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>621.76</td>
+    <td>621.90</td>
 </tr>
 <tr>
     <td><%= vars.app_runtime_full %></td>
@@ -69,15 +51,15 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>shared-redis-release</td>
-    <td>437.0.15</td>
+    <td>437.0.18</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>0.40.0</td>
+    <td>0.41.0</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>0.203.0</td>
+    <td>0.213.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
@@ -89,15 +71,15 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>6.1.0</td>
+    <td>6.2.0</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>1.1.8</td>
+    <td>1.1.9</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
-    <td>5.0.7</td>
+    <td>5.0.10</td>
 </tr>
 
 </table>
