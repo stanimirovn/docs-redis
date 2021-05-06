@@ -7,6 +7,84 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="2-4-2"></a> v2.4.2
+
+**Release Date: May 7, 2021**
+
+### Features
+
+New features and changes in this release:
+
+- **Secure service bindings are configured from the UI:**
+  For information, see ADD LINK to doc where this is described.
+
+- **Redis OSS:** Updated to v5.0.10
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* **The upgrade-all-service-instances errand no longer fails when TLS is enforced:**
+  This issue was fixed by updating the on-demand-service-broker component to v0.41.0.
+
+* **Healthwatch is no longer a required dependency for Redis for Tanzu Application Service:**
+  In v2.4.1, Healthwatch was a required dependency.
+  Attempting to remove Healthwatch from the foundation resulted in an error message,
+  "Product Redis depends on Pivotal Healthwatch".
+  
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>621.90</td>
+</tr>
+<tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.9, 2.10, and 2.11</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>437.0.18</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.41.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.213.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>2.0.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.5</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>6.2.0</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.10</td>
+</tr>
+
+</table>
+
 ## <a id="2-4-1"></a> v2.4.1
 
 **Release Date: August 20, 2020**
@@ -42,13 +120,21 @@ This release has the following fix:
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * **Service creation can fail when using an external UAA:**
   An issue with the Redis on-demand service broker and TLS verification
   means that service creation might fail on the TLS handshake.
   This has been observed as the `upgrade-all-service-instances` errand failing,
   particularly when a separate internal load balancer is present.
+
+* **Healthwatch is a required dependency for Redis for Tanzu Application Service:**
+  If you try to remove Healthwatch from Ops Manager where Redis for Tanzu Application Service
+  is also installed, the error message, "Product Redis depends on Pivotal Healthwatch" appears.
+  For more information about this issue,
+  see [Unable to remove Healthwatch from a foundation due to "Product Redis depends on Pivotal Healthwatch" error](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US)
+  in the Knowledge Base.
+  
 
 ### Compatibility
 
