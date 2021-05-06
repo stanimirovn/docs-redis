@@ -15,22 +15,23 @@ owner: London Services
 
 New features and changes in this release:
 
-- Secure service bindings is now configured from the Redis Tile UI rather than the TAS property.
+- **Secure service bindings are configured from the UI:**
+  For information, see ADD LINK to doc where this is described.
 
-- Upgraded Redis OSS component to v5.0.10
+- **Redis OSS:** Updated to v5.0.10
 
 ### Resolved Issues
 
-This release has the following fix:
+This release has the following fixes:
 
-* **Upgraded the on-demand-service-broker to v0.41.0:**
-  In on-demand-service-broker v0.40.0, running the upgrade-all-service-instances may fail when tls was enforced
-  This issue does not occur in <%= vars.product_short %>.
+* **The upgrade-all-service-instances errand no longer fails when TLS is enforced:**
+  This issue was fixed by updating the on-demand-service-broker component to v0.41.0.
 
-* The error **"Unable to remove Healthwatch from a foundation due to 'Product Redis depends on Pivotal Healthwatch'"** has been fixed.
-  In v2.4.1, healthwatch was a required dependency, which may prevent uninstallation of Healthwatch.
-  The [issue](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US) does not occur in <%= vars.product_short %>.
-
+* **Healthwatch is no longer a required dependency for Redis for Tanzu Application Service:**
+  In v2.4.1, Healthwatch was a required dependency.
+  Attempting to remove Healthwatch from the foundation resulted in an error message,
+  "Product Redis depends on Pivotal Healthwatch".
+  
 
 ### Compatibility
 
@@ -80,6 +81,109 @@ The following components are compatible with this release:
 <tr>
     <td>Redis OSS</td>
     <td>5.0.10</td>
+</tr>
+
+</table>
+
+## <a id="2-4-1"></a> v2.4.1
+
+**Release Date: August 20, 2020**
+
+### Features
+
+New features and changes in this release:
+
+- **Operators can specify which TLS versions to make Redis TLS connections when TLS is enabled:**
+This feature allows control of the versions of TLS that Redis connections support.
+VMware does not recommend using TLS v1.0, but it is an option for apps that only support this protocol.
+For more information, see [Configure On-Demand Service Settings](./installing.html#on-demand-config).
+
+- **Operators see an error when trying to install an incompatible Healthwatch version:**
+Operators can only install Healthwatch v1.8 and later with the <%= vars.product_short %> tile.
+If the operator tries to install a previous Healthwatch version, the operator sees an error.
+
+- **Operators can enable telemetry to help improve the product:**
+The telemetry program enables VMware to collect data from customer installations to improve the
+enterprise experience. Collecting data at scale enables VMware to identify patterns and alert you to
+warning signals in your installation.
+For more information, see [Pivotal Telemetry](https://tanzu.vmware.com/legal/telemetry).
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **Rotating the Services TLS CA certificate no longer causes app downtime:**
+  In Redis for PCF v2.2 and Redis for Pivotal Platform v2.3, following the
+  [Rotating the Services TLS CA and Its Leaf Certificates](https://docs.pivotal.io/platform/2-10/security/pcf-infrastructure/services_tls_ca_rotate.html) procedure can cause downtime for apps bound
+  to the Redis service.
+  This issue does not occur in <%= vars.product_short %>.
+
+### Known Issues
+
+This release has the following issues:
+
+* **Service creation can fail when using an external UAA:**
+  An issue with the Redis on-demand service broker and TLS verification
+  means that service creation might fail on the TLS handshake.
+  This has been observed as the `upgrade-all-service-instances` errand failing,
+  particularly when a separate internal load balancer is present.
+
+* **Healthwatch is a required dependency for Redis for Tanzu Application Service:**
+  If you try to remove Healthwatch from Ops Manager where Redis for Tanzu Application Service
+  is also installed, the error message, "Product Redis depends on Pivotal Healthwatch" appears.
+  For more information about this issue,
+  see [Unable to remove Healthwatch from a foundation due to "Product Redis depends on Pivotal Healthwatch" error](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US)
+  in the Knowledge Base.
+  
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>621.76</td>
+</tr>
+<tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.9, 2.10, and 2.11</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>437.0.15</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.203.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>2.0.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.5</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>6.1.0</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.8</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.7</td>
 </tr>
 
 </table>
