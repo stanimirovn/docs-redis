@@ -16,6 +16,78 @@ owner: London Services
 <%= partial vars.path_to_partials + '/services/services-lts-notice', :locals => {
   :eogs_date => "April 2022"} %>
 
+## <a id="2-3-5"></a>v2.3.5
+
+**Release Date: May 7, 2021**
+
+### Features
+
+New features and changes in this release:
+
+- **Secure service bindings are configured from the UI:**
+  For information, see ADD LINK to doc where this is described.
+
+- **Redis OSS:** Updated to v5.0.10
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* **The upgrade-all-service-instances errand no longer fails when TLS is enforced:**
+  This issue was fixed by updating the on-demand-service-broker component to v0.41.1.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+  <tr>
+    <th>Component</th>
+    <th>Version</th>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td>VMware Tanzu Application Service for VMs</td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, and 2.11.x</td>
+  </tr>
+  <tr>
+    <td>shared-redis-release</td>
+    <td>437.0.18</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.41.1</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.213.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>2.0.13</td>
+  </tr>
+  <tr>
+    <td>service-backup</td>
+    <td>18.3.5</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>6.2.0</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>Redis OSS</td>
+    <td>5.0.10</td>
+  </tr>
+
+</table>
+
 ## <a id="2-3-4"></a>v2.3.4
 
 **Release Date: August 31, 2020**
