@@ -281,6 +281,14 @@ This reduces downtime during upgrades.
 For how this feature works, see
 <a href="https://bosh.io/docs/changing-deployment-vm-strategy/">Changing VM Update Strategy</a> in the BOSH documentation.
 
+8. (Optional) Select **Yes** to enable **On Demand - Secure Service Instance Credentials with Runtime CredHub**.
+
+     <p class="note">
+   <strong>Note:</strong> If you select **Yes**, you must also follow the steps in
+           <a href="#secure-credentials">Enable Secure Service Instance Credentials
+           for On-Demand Redis</a> below.
+    </p>
+
 1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to on-demand service instances. TLS support is optional in new installations by default. If TLS is configured in <%= vars.product_short %> v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
 <p class="note">
   <strong>Note:</strong>
@@ -394,14 +402,20 @@ To add and configure each on-demand service plan:
     </table>
 
 
-### <a id="secure-credentials"></a>(Optional) Enable Secure Service Instance Credentials for On-Demand Redis
+### <a id="secure-credentials"></a> Enable Secure Service Instance Credentials for On-Demand Redis
+
+If you enabled **On Demand - Secure Service Instance Credentials with Runtime CredHub**
+in step 8 of [Configure On-Demand Service Settings](#on-demand-config) above,
+you must follow this procedure.
 
 To secure your on-demand binding credentials in runtime [CredHub](https://docs.pivotal.io/platform/credhub/)
 instead of the Cloud Controller database (CCDB):
 
-1. Configure the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile to support securing service
-instance credentials in runtime CredHub.
-See [Step 1: Configure the <%= vars.app_runtime_abbr %>Tile](https://docs.pivotal.io/pivotalcf/opsguide/secure-si-creds.html#pas-config).
+1. On the **CredHub** pane of <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+   select **Secure service instance credentials**.
+
+    For instructions, see [Configure CredHub](https://docs.pivotal.io/application-service/2-11/operating/configure-pas.html#credhub)
+in _Configuring TAS for VMs_.
 
 1. After deploying the tile, notify developers that they must unbind and rebind
 existing service instances to secure their credentials with CredHub.
