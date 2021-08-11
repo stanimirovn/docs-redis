@@ -7,6 +7,87 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="2-4-2"></a> v2.4.3
+
+**Release Date: September 1, 2021**
+
+### Features
+
+New features and changes in this release:
+
+* **None
+
+### Resolved Issues
+
+This release has the following fixes:
+* **Bump service-backups dependency to address log message due to an unused component:** 
+  This error may present itself in logs as: `{"error":"Get /v2/info: unsupported protocol scheme "\""}}`.
+* **Back-ups of shared-redis plans are working as intended:**
+  This issue did *not* affect on-demand plans. It only affected backups of shared-redis plans on new deploys of Redis tile.
+  In earlier releases, backups were configured via a shared statefile.json that was created by Redis tile. 
+  This dependency on the statefile.json was removed from v<INSERT_VERSION_HERE>.
+  However, some codepaths within shared-redis backups still depended on the existence of the statefile, meaning that installs of Redis tile 
+  that had produced this file and later been updgraded, would carry over the file and work as expected, however, newer installs of Redis tile would fail.
+  This error may present itself in logs as: `{"message": "ServiceBackup.WithIdentifier.Perform backup completed with error", "error": "exit Status 3"}` 
+
+### Known Issues 
+
+There are no known issues for this release.
+
+### Compatibility
+
+### <TODO_UPDATE_THIS_COMPATIBILITY_LIST>
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>621.90</td>
+</tr>
+<tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.9, 2.10, and 2.11</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>437.0.18</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.41.0</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.213.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>2.0.13</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.3.5</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>6.2.0</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.10</td>
+</tr>
+
+</table>
+
 ## <a id="2-4-2"></a> v2.4.2
 
 **Release Date: May 10, 2021**
