@@ -15,20 +15,19 @@ owner: London Services
 
 This release has the following fixes:
 
-* **Update bpm release to address:** "Bump runc to 1.0.0-rc95 to address
-  [CVE-2021-30465](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465)".
-* **Update service-backups dependency to address log entry due to an unused component:**
+* **Update bpm release to address:** Updated runc to v1.0.0-rc95 to address
+  [CVE-2021-30465](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465)
+* **Update service-backups dependency to address log entry due to an unused component:**<br>
   This error might present itself in logs as: `{"error":"Get /v2/info: unsupported protocol scheme "\""}}`.
 * **Back-ups of shared-redis plans are working as intended:**
-  This issue did *not* affect on-demand plans. It only affected backups of shared-redis plans on new deploys
-  of the <%= vars.product_short %> tile.
-  In earlier releases, backups were configured through a shared statefile.json created by the
-  <%= vars.product_short %> tile.
-  This dependency on the statefile.json was removed from v<INSERT_VERSION_HERE>.
-  However, some codepaths within shared-redis backups still depended on the existence of the statefile.
-  This meant that installations of the <%= vars.product_short %> tile that produced this file and were later
-  upgraded would carry over the file.
-  In most cases it would work, however, newer installations of the <%= vars.product_short %> tile would fail.
+  This issue did not affect on-demand plans. It only affected backups of shared-redis plans on new
+  deployments of the <%= vars.product_short %> tile.<br><br>
+  In earlier releases, backups were configured through a shared `statefile.json` created by the
+  <%= vars.product_short %> tile. This dependency on `statefile.json` was removed from v<INSERT_VERSION_HERE>.<br><br>
+  However, some code paths within shared-redis backups still depended on the existence of the
+  statefile. This meant that installations of the <%= vars.product_short %> tile that produced this
+  file, and were later upgraded, carried over the file.<br><br>
+  In most cases it worked, however, newer installations of the <%= vars.product_short %> tile failed.
   This error might present itself in logs as:
   `{"message": "ServiceBackup.WithIdentifier.Perform backup completed with error", "error": "exit Status 3"}`
 
@@ -101,7 +100,7 @@ New features and changes in this release:
 - **Secure service bindings are configured from the UI:**
   In earlier releases, secure service bindings for Redis were always stored in CredHub if
   secure instance credentials were enabled in <%= vars.app_runtime_full %>.
-  Now, <%= vars.product_short %> operators can disable this functionality for Redis service instances.<br>
+  Now, <%= vars.product_short %> operators can deactivate this functionality for Redis service instances.<br>
   For information, see step 8 of [Configure On-Demand Service Settings](installing.html#on-demand-config)
   of _Installing Redis for VMware Tanzu Application Service_.
 
@@ -114,7 +113,7 @@ This release has the following fixes:
 * **The upgrade-all-service-instances errand no longer fails when TLS is enforced:**
   This issue was fixed by updating the on-demand-service-broker component to v0.41.0.
 
-* **Healthwatch is no longer a required dependency for Redis for Tanzu Application Service:**
+* **Healthwatch is no longer a required dependency for <%= vars.product_short %>:**
   In v2.4.1, Healthwatch was a required dependency.
   Attempting to remove Healthwatch from the foundation resulted in an error message,
   "Product Redis depends on Pivotal Healthwatch".
@@ -185,7 +184,7 @@ New features and changes in this release:
 
 - **Operators can specify which TLS versions to make Redis TLS connections when TLS is enabled:**
 This feature allows control of the versions of TLS that Redis connections support.
-VMware does not recommend using TLS v1.0, but it is an option for apps that only support this protocol.
+VMware discourages using TLS v1.0, but it is an option for apps that only support this protocol.
 For more information, see [Configure On-Demand Service Settings](./installing.html#on-demand-config).
 
 - **Operators see an error when trying to install an incompatible Healthwatch version:**
@@ -218,11 +217,11 @@ This release has the following issues:
   This has been observed as the `upgrade-all-service-instances` errand failing,
   particularly when a separate internal load balancer is present.
 
-* **Healthwatch is a required dependency for Redis for Tanzu Application Service:**
-  If you try to remove Healthwatch from Ops Manager where Redis for Tanzu Application Service
+* **Healthwatch is a required dependency for <%= vars.product_full %>:**
+  If you try to remove Healthwatch from <%= vars.ops_manager %> where <%= vars.product_full %>
   is also installed, the error message, "Product Redis depends on Pivotal Healthwatch" appears.
   For more information about this issue,
-  see [Unable to remove Healthwatch from a foundation due to "Product Redis depends on Pivotal Healthwatch" error](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US)
+  see the [VMware Tanzu Support documentation](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US)
   in the Knowledge Base.
 
 
