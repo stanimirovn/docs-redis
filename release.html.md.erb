@@ -24,20 +24,19 @@ owner: London Services
 
 This release has the following fixes:
 
-* **Update bpm release to address:** "Bump runc to 1.0.0-rc95 to address
-  [CVE-2021-30465](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465)".
-* **Update service-backups dependency to address log entry due to an unused component:**
+* **Update bpm release to address:** Updated runc to v1.0.0-rc95 to address
+  [CVE-2021-30465](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465)
+* **Update service-backups dependency to address log entry due to an unused component:**<br>
   This error might present itself in logs as: `{"error":"Get /v2/info: unsupported protocol scheme "\""}}`.
 * **Back-ups of shared-redis plans are working as intended:**
-  This issue did *not* affect on-demand plans. It only affected backups of shared-redis plans on new deploys
-  of the <%= vars.product_short %> tile.
-  In earlier releases, backups were configured through a shared statefile.json created by the
-  <%= vars.product_short %> tile.
-  This dependency on the statefile.json was removed from v<INSERT_VERSION_HERE>.
-  However, some codepaths within shared-redis backups still depended on the existence of the statefile.
-  This meant that installations of the <%= vars.product_short %> tile that produced this file and were later
-  upgraded would carry over the file.
-  In most cases it would work, however, newer installations of the <%= vars.product_short %> tile would fail.
+  This issue did not affect on-demand plans. It only affected backups of shared-redis plans on new
+  deployments of the <%= vars.product_short %> tile.<br><br>
+  In earlier releases, backups were configured through a shared `statefile.json` created by the
+  <%= vars.product_short %> tile. This dependency on `statefile.json` was removed from v<INSERT_VERSION_HERE>.<br><br>
+  However, some code paths within shared-redis backups still depended on the existence of the
+  statefile. This meant that installations of the <%= vars.product_short %> tile that produced this
+  file, and were later upgraded, carried over the file.<br><br>
+  In most cases it worked, however, newer installations of the <%= vars.product_short %> tile failed.
   This error might present itself in logs as:
   `{"message": "ServiceBackup.WithIdentifier.Perform backup completed with error", "error": "exit Status 3"}`
 
@@ -344,16 +343,12 @@ correctly when upgrading from <%= vars.product_old %> v2.2.
 
 ### Known Issues
 
-<<<<<<< HEAD
 This release has the following known issues:
 
 * Configuring Redis services to use a static password results in the error `secrets map doesn't consist of
 expected key`. This is because of an issue with the handling of static passwords in the `requirepass` property.
 
 <%= partial vars.path_to_partials + '/redis/ki-rotating-certs' %>
-=======
-### Known Issues
->>>>>>> eadc757... [#179195714] Tweaks to PR #455
 
 
 ### Compatibility
