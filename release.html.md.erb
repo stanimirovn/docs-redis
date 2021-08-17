@@ -40,7 +40,7 @@ In the following <%= vars.product_short %> versions, backups were configured thr
     * v2.0.6
 
 This is not true for later <%= vars.product_short %> versions. However, backups of shared-redis
-plans for these later versions still depended on the existence of that `statefile.json` file.
+plans for these later versions still depended on the existence of that `statefile.json` file.<br>
 This meant installations of <%= vars.product_short %> that had created this file, and later been upgraded, persisted the file and worked as expected. Meanwhile, newer installations of
 <%= vars.product_short %> failed to backup shared-redis instances.<br><br>
 This error sometimes appeared in logs as:
