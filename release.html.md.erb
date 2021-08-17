@@ -32,11 +32,13 @@ This error sometimes appeared in logs as: `{"error":"Get /v2/info: unsupported p
 This issue did not affect on-demand plans. It only affected backups of shared-redis plans on newer
 deployments of the <%= vars.product_short %> tile.<br><br>
 In the following <%= vars.product_short %> versions, backups were configured through a persistent `statefile.json` created by the <%= vars.product_short %> tile:
+
     * v2.2.2
     * v2.2.1
     * v2.2.0
     * v2.1.4
     * v2.0.6
+
 This is not true for later <%= vars.product_short %> versions. However, backups of shared-redis
 plans for these later versions still depended on the existence of that `statefile.json` file.
 This meant installations of <%= vars.product_short %> that had created this file, and later been upgraded, persisted the file and worked as expected. Meanwhile, newer installations of
