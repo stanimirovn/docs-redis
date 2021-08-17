@@ -11,14 +11,19 @@ owner: London Services
 
 **Release Date: August 17, 2021**
 
+### Security Fixes
+
+This release includes the following security fix:
+
+* **runc:** Updated to v1.10-rc95 to address [CVE-2021-30465](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465).
+
 ### Resolved Issues
 
 This release has the following fixes:
 
-* **Update bpm release to address:** Updated runc to v1.0.0-rc95 to address
-[CVE-2021-30465](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465)
-* **Update service-backups dependency to address log entry due to an unused component:**<br>
+* **A log error related to an unused component no longer appears:**<br>
 This error sometimes appeared in logs as: `{"error":"Get /v2/info: unsupported protocol scheme "\""}}`.
+
 * **Backups of shared-redis plans are working as intended:**
 This issue did not affect on-demand plans. It only affected backups of shared-redis plans on newer
 deployments of the <%= vars.product_short %> tile.<br><br>
@@ -31,7 +36,7 @@ In the following <%= vars.product_short %> versions, backups were configured thr
     * v2.1.4
     * v2.0.6
 
-This is not true for later <%= vars.product_short %> versions. However, backups of shared-redis
+    This is not true for later <%= vars.product_short %> versions. However, backups of shared-redis
 plans for these later versions still depended on the existence of that `statefile.json` file.<br>
 This meant installations of <%= vars.product_short %> that had created this file, and later been upgraded, persisted the file and worked as expected. Meanwhile, newer installations of
 <%= vars.product_short %> failed to backup shared-redis instances.<br><br>
