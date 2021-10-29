@@ -368,5 +368,3 @@ public static ConfigureRedisAction configureRedisAction() {
 However, disabling the configuration means that Redis cannot send namespace notifications.
 This functionality is critical for apps that require `SessionDestroyedEvent` to be fired to clean up resources,
 such as for WebSocket apps to ensure open WebSockets are closed when the `HttpSession` expires.
-
-If you want a workaround for this use case, send email to [redis-feedback](mailto:"redis–feedback@pivotal.io").
