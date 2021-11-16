@@ -1,0 +1,122 @@
+---
+title: Using Config API
+owner: London Services
+---
+
+This topic describes how to
+
+## <a id='overview'></a> Overview
+
+Describe the feature and give a nice example
+
+## <a id='prerequisites'></a> Prerequisites
+
+Before you [task], you must have/do [prerequisite].
+See [Link]().
+
+## Use the Config API to Query for Redis Configuration Parameters
+
+To query Redis configuration parameters:
+
+1. Select “Enable config API” checkbox on the On Demand Service Settings.
+
+    
+
+<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+
+![alt_text](images/image1.png "image_tooltip")
+
+
+
+    Config API should be available at port 8080 on the redis service instance. \
+
+
+2. Once changes are applied you can query the config API from a cf app.
+
+3. Get the hostname of the service-instance using
+
+    “cf env &lt;app_name>”
+
+
+    
+
+<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+
+![alt_text](images/image2.png "image_tooltip")
+
+
+4. Query any redis config parameters using below command.
+
+    “cf ssh &lt;app_name> -c "curl &lt;host_name>:8080/config/&lt;config_parameter_name>" 2>/dev/null”
+
+<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+
+![alt_text](images/image3.png "image_tooltip")
+
+
+
+    Except for the credentials (like requirepass, masterauth, masteruser), below are some of the config parameters you can query.
+
+
+    daemonize 
+
+
+    port 
+
+
+    # Logging
+
+
+    logfile 
+
+
+    syslog-enabled 
+
+
+    syslog-ident 
+
+
+    syslog-facility 
+
+
+    # Persistence
+
+
+    dbfilename 
+
+
+    dir 
+
+
+    appendonly 
+
+
+    appendfilename 
+
+
+    # Arbitrary Parameters
+
+
+    maxmemory-policy 
+
+
+    slowlog-log-slower-than 
+
+
+    slowlog-max-len  
+
+
+    # Plan Properties:
+
+
+    timeout
+
+
+    tcp-keepalive 
+
+
+    maxclients
+
