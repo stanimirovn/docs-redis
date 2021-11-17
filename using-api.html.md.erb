@@ -3,107 +3,93 @@ title: Using the Config API
 owner: London Services
 ---
 
-This topic describes how to
+This topic describes how to use the Config API feature for Redis for VMware Tanzu Application Service on-demand service instance.
 
 ## <a id='overview'></a> Overview
 
-Describe the feature and give a nice example
+Config API adds an endpoint to service instances for querying Redis configuration parameters. An HTTP GET request to `<service_instance_bosh_url>:8080/config/<parameter>` will return the setting's value.
 
 ## <a id='prerequisites'></a> Prerequisites
 
-Before you [task], you must have/do [prerequisite].
-See [Link]().
+Before you can use the Config API, you must enable the Config API option.
+See [Configure On-Demand Service Settings](installing.html#on-demand-config).
 
 ## Use the Config API to Query for Redis Configuration Parameters
 
 To query Redis configuration parameters:
 
-1. Select “Enable config API” checkbox on the On Demand Service Settings.
+1. Once enabled Config API should be available at port 8080 on the redis service instance, now you can query it from a cf app.
 
-[//]: # ( Add a description of the image in alt text and put the screenshot in the images directory of the repo ![alt_text](images/image1.png "image_tooltip") )
+2. Get the hostname of the service-instance.
 
+   ```
+   cf env <app-name>
+   ```
 
+   <pre class="terminal">
+   $ cf env redis-example-app
+   Getting env variables for app redis-example-app in org system / space pivotal-services as admin...
+   OK
 
-    Config API should be available at port 8080 on the redis service instance. \
+   System-Provided:
+   {
+   "VCAP_SERVICES": {
+      "p.redis": [
+         {
+            "binding_guid": "1d93f665-bb9e-493d-9c23-ea577f22a6d1",
+            "binding_name": null,
+            "credentials": {
+               "host": "q-s0.redis-instance.pictonblue-services-subnet.service-instance-30708f54-d8be-45f7-80a6-e587337233aa.bosh", "password": "5ft5I2aXZE7eXS1gjEB5DS7Izz859d",
+               "port": 6379,
+               "tls_port": 16379,
+               "tls_versions": [
+                  "tlsv1.2",
+                  "tlsv1.3"
+               ]
+            },
+         ...
+         }
+      ]
+   }
+   </pre>
 
+3. Query any redis config parameters using command below.
 
-2. Once changes are applied you can query the config API from a cf app.
+   ```
+   cf ssh <app_name> -c "curl <host_name>:8080/config/<config_parameter_name>" 2>/dev/null
+   ```
 
-3. Get the hostname of the service-instance using
+   <pre class="terminal">
+   $ cf ssh redis-example-app \
+      -c "curl q-s0.redis-instance.pictonblue-services-subnet.service-instance-30708f54-d8be-45f7-80a6-e587337233aa.bosh:8080/config/port" 2>/dev/null
+   6379
+   </pre>
 
-    “cf env &lt;app_name>”
+   Except for the credentials (like `requirepass`, `masterauth`, `masteruser`), below are some configuration parameters you can query.
 
-[//]: # ( ![alt_text]  (images/image2.png "image_tooltip") )
+   ```
+   daemonize
+   port
 
+   # Logging
+   logfile
+   syslog-enabled
+   syslog-ident
+   syslog-facility
 
-4. Query any redis config parameters using below command.
+   # Persistence
+   dbfilename
+   dir
+   appendonly
+   appendfilename
 
-    “cf ssh &lt;app_name> -c "curl &lt;host_name>:8080/config/&lt;config_parameter_name>" 2>/dev/null”
+   # Arbitrary Parameters
+   maxmemory-policy
+   slowlog-log-slower-than
+   slowlog-max-len
 
-
-[//]: # ( ![alt_text] (images/image3.png "image_tooltip") )
-
-
-
-    Except for the credentials (like requirepass, masterauth, masteruser), below are some of the config parameters you can query.
-
-
-    daemonize 
-
-
-    port 
-
-
-    # Logging
-
-
-    logfile 
-
-
-    syslog-enabled 
-
-
-    syslog-ident 
-
-
-    syslog-facility 
-
-
-    # Persistence
-
-
-    dbfilename 
-
-
-    dir 
-
-
-    appendonly 
-
-
-    appendfilename 
-
-
-    # Arbitrary Parameters
-
-
-    maxmemory-policy 
-
-
-    slowlog-log-slower-than 
-
-
-    slowlog-max-len  
-
-
-    # Plan Properties:
-
-
-    timeout
-
-
-    tcp-keepalive 
-
-
-    maxclients
-
+   # Plan Properties
+   timeout
+   tcp-keepalive
+   maxclients
+   ```
