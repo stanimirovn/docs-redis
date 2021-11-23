@@ -307,7 +307,6 @@ to each TLS version you want to support.
 VMware recommends supporting TLS v1.1 and later. VMware does not recommend supporting TLS v1.0
 because it is less secure than later versions, but it is an option for apps that only support this
 protocol.
-
 <p class="note">
   <strong>Note:</strong> After selecting a TLS version, VMware recommends generating a new service
   key and then rebinding the service instance with the new service key.
@@ -317,8 +316,9 @@ protocol.
   To rebind the instance, follow the steps in <a href="./appdevs.html#existing-apps">Bind Existing Apps with TLS</a>.
 </p>
 
-1. (Optional) Select the **Enable Config API** checkbox if you want to enable **Config API**. This adds an endpoint to service instances for querying Redis configuration parameters.
-For more information about this feature, see [Using the Config API](using-api.html#overview)
+1. (Optional) To add an endpoint to service instances for developers to query Redis
+configuration parameters, select the **Enable Config API** checkbox.
+For more information, see [Using the Config API](using-api.html).
 
 ## <a id="on-demand-plan-config"></a>Configure On-Demand Plan Settings
 

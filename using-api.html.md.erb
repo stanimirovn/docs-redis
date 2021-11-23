@@ -3,37 +3,45 @@ title: Using the Config API
 owner: London Services
 ---
 
-This topic describes how to use the Config API feature for Redis for VMware Tanzu Application Service on-demand service instance.
+This topic describes how to use the Config API feature for <%= vars.product_full %>
+on-demand service instances.
 
 ## <a id='overview'></a> Overview
 
-Config API adds an endpoint to service instances for querying Redis configuration parameters. An HTTP GET request to `<service_instance_bosh_url>:8080/config/<parameter>` will return the setting's value.
+Config API adds an endpoint to service instances for querying Redis configuration parameters.
+An HTTP GET request to `SERVICE-INSTANCE-BOSH-URL:8080/config/CONFIG-PARAMETER-NAME`
+returns the value of a setting.
 
 ## <a id='prerequisites'></a> Prerequisites
 
-Before you can use the Config API, you must enable the Config API option.
+Before you can use the Config API, you must select the **Enable Config API**
+checkbox in the <%= vars.product_short %> tile.
 See [Configure On-Demand Service Settings](installing.html#on-demand-config).
 
-## Use the Config API to Query for Redis Configuration Parameters
+## <a id='using'></a> Use the Config API to Query Redis Configuration Parameters
+
+After enabled, the Config API is available at port 8080 on the Redis service instance.
+You can query it from a Cloud Foundry app.
 
 To query Redis configuration parameters:
 
-1. Once enabled Config API should be available at port 8080 on the redis service instance, now you can query it from a cf app.
+1. Get the hostname of the service instance by running:
 
-2. Get the hostname of the service-instance.
+    ```
+    cf env APP-NAME
+    ```
 
-   ```
-   cf env <app-name>
-   ```
+    For example:
 
-   <pre class="terminal">
-   $ cf env redis-example-app
-   Getting env variables for app redis-example-app in org system / space pivotal-services as admin...
-   OK
+    <pre class="terminal">
+    $ cf env redis-example-app
 
-   System-Provided:
-   {
-   "VCAP_SERVICES": {
+    Getting env variables for app redis-example-app in org system / space pivotal-services as admin...
+    OK
+
+    System-Provided:
+    {
+    "VCAP_SERVICES": {
       "p.redis": [
          {
             "binding_guid": "1d93f665-bb9e-493d-9c23-ea577f22a6d1",
@@ -50,46 +58,71 @@ To query Redis configuration parameters:
          ...
          }
       ]
-   }
-   </pre>
+    }
+    </pre>
 
-3. Query any redis config parameters using command below.
+1. Query the Redis configuration parameter by running:
 
-   ```
-   cf ssh <app_name> -c "curl <host_name>:8080/config/<config_parameter_name>" 2>/dev/null
-   ```
+    ```
+    cf ssh APP-NAME -c "curl HOST-NAME:8080/config/CONFIG-PARAMETER-NAME" 2>/dev/null
+    ```
 
-   <pre class="terminal">
-   $ cf ssh redis-example-app \
+    Where:
+    - `APP-NAME`
+    - `HOST-NAME`
+    - `CONFIG-PARAMETER-NAME`
+
+    For example:
+
+    <pre class="terminal">
+    $ cf ssh redis-example-app \
       -c "curl q-s0.redis-instance.pictonblue-services-subnet.service-instance-30708f54-d8be-45f7-80a6-e587337233aa.bosh:8080/config/port" 2>/dev/null
-   6379
-   </pre>
 
-   Except for the credentials (like `requirepass`, `masterauth`, `masteruser`), below are some configuration parameters you can query.
+    6379
+    </pre>
 
-   ```
-   daemonize
-   port
+## <a id='parameters'></a> Parameters You Can Query
 
-   # Logging
-   logfile
-   syslog-enabled
-   syslog-ident
-   syslog-facility
+Except for the credentials such as `requirepass`, `masterauth`, or `masteruser`,
+the following are some configuration parameters you can query.
 
-   # Persistence
-   dbfilename
-   dir
-   appendonly
-   appendfilename
+### <a id='logging-parameters'></a> Logging
 
-   # Arbitrary Parameters
-   maxmemory-policy
-   slowlog-log-slower-than
-   slowlog-max-len
+You can query the following logging parameters:
 
-   # Plan Properties
-   timeout
-   tcp-keepalive
-   maxclients
-   ```
+- logfile
+- syslog-enabled
+- syslog-facility
+- syslog-ident
+
+### <a id='persistence-parameters'></a> Persistence
+
+You can query the following persistence parameters:
+
+- appendfilename
+- appendonly
+- dbfilename
+- dir
+
+### <a id='arbitrary-parameters'></a> Arbitrary Parameters
+
+You can query the following arbitrary parameters:
+
+- maxmemory-policy
+- slowlog-log-slower-than
+- slowlog-max-len
+
+### <a id='plan-properties'></a> Plan Properties
+
+You can query the following plan properties:
+
+- maxclients
+- tcp-keepalive
+- timeout
+
+### <a id='other'></a> Other Parameters
+
+You can query the following parameters:
+
+- daemonize
+- port
