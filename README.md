@@ -24,6 +24,7 @@ Always make changes you want carried forward in the master branch. This includes
 
 ### Live Branches In Production (Public)
 
+* **3.0**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/3-0/) and production (https://docs.pivotal.io/redis/3-0/)
 * **2.4**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-4/) and production (https://docs.pivotal.io/redis/2-4/)
 * **2.3**: Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-3/) and production (https://docs.pivotal.io/redis/2-3/)
 * **2.2**: This branch is no longer in use because this version is EOGS. Live docs at staging (https://docs-pcf-staging.cfapps.io/redis/2-2/) and production (https://docs.pivotal.io/redis/2-2/)
