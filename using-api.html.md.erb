@@ -83,8 +83,15 @@ To query Redis configuration parameters:
 
 ## <a id='parameters'></a> Parameters You Can Query
 
-Except for the credentials such as `requirepass`, `masterauth`, or `masteruser`,
-the following are some configuration parameters you can query.
+You can query any parameters except for credentials such as `requirepass`, `masterauth`, or `masteruser`.
+The following are some configuration parameters you can query.
+
+### <a id='redis'></a> Redis Properties
+
+You can query the following Redis properties:
+
+- daemonize
+- port
 
 ### <a id='logging-parameters'></a> Logging
 
@@ -119,10 +126,3 @@ You can query the following plan properties:
 - maxclients
 - tcp-keepalive
 - timeout
-
-### <a id='other'></a> Other Parameters
-
-You can query the following parameters:
-
-- daemonize
-- port
