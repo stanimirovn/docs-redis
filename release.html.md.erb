@@ -16,14 +16,16 @@ owner: London Services
 New features and changes in this release:
 
 - **TLS Enforced:**
-  When TLS is enabled, operators may choose to enforce it for client connections. Connections without TLS will be rejected.
+  Operators may now choose to enforce TLS for client connections for ALL service instances. When this option is selected, connections without TLS will be rejected.
   For more information, see [On-Demand Service Settings](./installing.html#on-demand-config)
 
-- **Tags:**
-  Operators may provide a list of key-value pairs for tagging service instance VMs and disks. For more information, see [On-Demand Service Settings](./installing.html#on-demand-config)
+- **Custom Tags:**
+  There is a new field in the tile **On-Demand Service Settings** page for tags that apply to the Cloud Provider. The accepted format depends on the underlying Cloud Provider. For example, Google Cloud Platform does not allow uppercase characters.
+  For more information, see [On-Demand Service Settings](./installing.html#on-demand-config)
 
 - **Paid Plan:**
-  Operators may indicate that a service plan is paid. For more information, see [On-Demand Plan Settings](./installing.html#on-demand-plan-config).
+  Operators may now indicate if a service plan is free or paid. The plan is marked with an asterisk in the cf marketplace list and labeled "paid" in the "free or paid" column when individual plans are listed. This feature defaults to "free".
+  For more information, see [On-Demand Plan Settings](./installing.html#on-demand-plan-config).
 
 
 ### Known Issues
