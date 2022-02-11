@@ -223,6 +223,8 @@ See the next steps for information about configuring this pane.](redis-odservice
 <a href="./images/redis-odservice-settings.png" target="_blank" aria-hidden="true">
   Click here to view a larger version of this image</a>
 
+<%# TODO: Update image for on-demand-service settings (new tags field)  %>
+
 1. Enter the **Maximum service instances across all on-demand plans**.
    The maximum number of instances you set for all your on-demand plans combined cannot exceed this number.<br />
    For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
@@ -295,15 +297,28 @@ For how this feature works, see
     </p>
 
 1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to on-demand service instances. TLS support is optional in new installations by default. If TLS is configured in <%= vars.product_short %> v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
+<%= partial vars.path_to_partials + '/redis/warning-disabling-tls' %>
+
+1. (Optional) If you selected the **Optional** option under **Enable TLS**, enable the checkbox next
+to each TLS version you want to support.
 <p class="note">
   <strong>Note:</strong>
   Selecting <strong>TLS optional</strong> does not enforce the use of TLS. After deploying the tile, notify developers that they must unbind, bind, and restage existing service instances to ensure Spring and Steeltoe apps use TLS.
   Further configuration might be needed for other frameworks and languages to ensure use of the TLS port.
 </p>
-<%= partial vars.path_to_partials + '/redis/warning-disabling-tls' %>
 
-1. (Optional) If you selected the **Optional** option under **Enable TLS**, enable the checkbox next
-to each TLS version you want to support.
+1. (Optional) If you selected the **Enforced** option under **Enable TLS**, enable the checkbox next
+to each TLS version you want to support. The **Enforced** option requires TLS to be enabled.
+<p class="note breaking">
+  <strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing
+  service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong>
+  errand are applied. Any apps not using TLS are no longer able to communicate with their service
+  instances. Such apps require a new binding and must be configured to communicate with their
+  <%= vars.product_short %> service instance through TLS.
+</p>
+
+1. (Optional) If you selected the **Optional** or **Enforced** option under **Enable TLS** then select the TLS versions to support.
+TLS v1.3 and TLS v1.2 are enabled by default.
 VMware recommends supporting TLS v1.1 and later. VMware does not recommend supporting TLS v1.0
 because it is less secure than later versions, but it is an option for apps that only support this
 protocol.
@@ -320,6 +335,10 @@ protocol.
 configuration parameters, select the **Enable Config API** checkbox.
 For more information, see [Using the Config API](using-api.html).
 
+1. (Optional) Use the **Tags** field to enter a comma separated list of key-value pairs for tagging service instance VMs and disks.
+The accepted format depends on the underlying Cloud Provider. For example, Google Cloud Platform does not allow uppercase characters.
+
+
 ## <a id="on-demand-plan-config"></a>Configure On-Demand Plan Settings
 
 You can configure multiple on-demand plans with memory and disk sizes suited to different use cases.
@@ -331,6 +350,7 @@ To add and configure each on-demand service plan:
   ![The Redis tile in Ops Manager. The 'On-Demand Plans' pane is active.](on-demand-config.png) <a id="ondemandconfig"></a>
   <a href="./images/on-demand-config.png" target="_blank" aria-hidden="true">
     Click here to view a larger version of this image</a>
+<%# TODO: Update the plan image to include the paid plan checkbox %>
 1. Click **Add** to add an on-demand plan.
   ![The Redis tile in Ops Manager. The 'On-Demand Plans' pane is active. See the next step for information about configuring this pane.](on-demand-plan-config.png) <a id="ondemandplanconfig"></a>
   <a href="./images/on-demand-plan-config.png" target="_blank" aria-hidden="true">
@@ -423,6 +443,12 @@ To add and configure each on-demand service plan:
       <td>Disabled</td>
       <td>VMware recommends keeping Lua scripting disabled unless developers are running apps that require Lua scripting, such as .Net Steeltoe apps.<br>
       Verify that your apps are using a language that does not require Lua scripting.</td>
+    </tr>
+    <tr>
+      <td><strong>Paid Plan</strong></td>
+      <td>Disabled</td>
+      <td>Check this box to indicate that this service plan is paid. The plan is marked with an asterisk in the cf marketplace list and labeled paid in the free or paid column
+      when individual plans are listed.</td>
     </tr>
     </table>
 
