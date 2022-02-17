@@ -8,41 +8,31 @@ owner: London Services
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
 ## <a id="3-1-0"></a> v3.1.0
-
-**Release Date: XXXX XX, YYYY**
-
-### Security Fixes
-This release includes the following security fixes:
-
-- <%# Fix code link %>
-
-- <%# Fix code link %>
+**Release Date: March 03, 2022**
 
 ### Features
 
 New features and changes in this release:
 
-- **<%# Feature lead-in %>:**
-<%# Feature description with link to more information in docs %>
+- **TLS Enforced:**
+  Operators may now choose to enforce TLS for client connections for ALL service instances. When this option is selected, connections without TLS will be rejected.
+  For more information, see [On-Demand Service Settings](./installing.html#on-demand-config)
 
-- **<%# Feature lead-in %>:**
-<%# Feature description with link to more information in docs %>
+- **Custom Tags:**
+  There is a new field in the tile **On-Demand Service Settings** page for tags that apply to the Cloud Provider. The accepted format depends on the underlying Cloud Provider. For example, Google Cloud Platform does not allow uppercase characters.
+  For more information, see [On-Demand Service Settings](./installing.html#on-demand-config)
 
-### Resolved Issues
-This release has the following fix:
+- **Paid Plan:**
+  Operators may now indicate if a service plan is free or paid. The plan is marked with an asterisk in the cf marketplace list and labeled "paid" in the "free or paid" column when individual plans are listed. This feature defaults to "free".
+  For more information, see [On-Demand Plan Settings](./installing.html#on-demand-plan-config).
 
-- **<%# Resolved issue lead-in %>:**
-<%# Resolved issue description %>
 
 ### Known Issues
 
-Known issues in this release:
+There are no known issues for this release.
 
-- **<%# KI lead-in %>:**
-<%# KI description %>
 
 ### Compatibility
-
 The following components are compatible with this release:
 
 <table border="1" class="nice">
@@ -52,7 +42,7 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>Stemcell</td>
-    <td>621.171</td>
+    <td>621.208</td>
 </tr>
 <tr>
     <td><%= vars.app_runtime_full %></td>
@@ -60,19 +50,19 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>shared-redis-release</td>
-    <td>437.0.26</td>
+    <td>437.0.27</td>
 </tr>
 <tr>
     <td>on-demand-service-broker</td>
-    <td>0.42.3</td>
+    <td>0.42.4</td>
 </tr>
 <tr>
     <td>routing</td>
-    <td>0.226.0</td>
+    <td>0.229.0</td>
 </tr>
 <tr>
     <td>service-metrics</td>
-    <td>2.0.14</td>
+    <td>2.0.15</td>
 </tr>
 <tr>
     <td>service-backup</td>
@@ -80,11 +70,11 @@ The following components are compatible with this release:
 </tr>
 <tr>
     <td>loggregator-agent</td>
-    <td>6.3.4</td>
+    <td>6.3.8</td>
 </tr>
 <tr>
     <td>bpm</td>
-    <td>1.1.15</td>
+    <td>1.1.16</td>
 </tr>
 <tr>
     <td>Redis OSS</td>
