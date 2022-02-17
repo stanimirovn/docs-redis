@@ -297,7 +297,7 @@ For how this feature works, see
 1. (Optional) Select the **Not Configured** option under **Enable TLS** if you do not want to allow TLS connections to on-demand service instances. TLS support is optional in new installations by default. If TLS is configured in <%= vars.product_short %> v2.2, follow the procedures in <a href="./preparing-tls.html">Preparing for TLS</a> before enabling TLS.
 <%= partial vars.path_to_partials + '/redis/warning-disabling-tls' %>
 
-1. (Optional) If you selected the **Optional** option under **Enable TLS**, enable the checkbox next
+1. (Optional) If you selected the **Optional** option under **Enable TLS**, select the check box next
 to each TLS version you want to support.
 <p class="note">
   <strong>Note:</strong>
@@ -333,8 +333,9 @@ protocol.
 configuration parameters, select the **Enable Config API** checkbox.
 For more information, see [Using the Config API](using-api.html).
 
-1. (Optional) Use the **Tags** field to enter a comma separated list of key-value pairs for tagging service instance VMs and disks.
-The accepted format depends on the underlying Cloud Provider. For example, Google Cloud Platform does not allow uppercase characters.
+1. (Optional) In the **Tags** field, write a comma-separated list of key-value pairs for tagging
+service-instance VMs. Ensure the list is in a style that the underlying cloud provider accepts.
+For example, Google Cloud Platform (GCP) does not permit uppercase characters.
 
 
 ## <a id="on-demand-plan-config"></a>Configure On-Demand Plan Settings
@@ -444,8 +445,9 @@ To add and configure each on-demand service plan:
     <tr>
       <td><strong>Paid Plan</strong></td>
       <td>Disabled</td>
-      <td>Check this box to indicate that this service plan is paid. The plan is marked with an asterisk in the cf marketplace list and labeled paid in the free or paid column
-      when individual plans are listed.</td>
+      <td>Select this check box to indicate that this service plan is paid.
+        The plan is marked with an asterisk in the <code>cf marketplace</code> list and labeled
+        "paid" in the "free or paid" column when individual plans are listed.</td>
     </tr>
     </table>
 
