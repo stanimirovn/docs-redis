@@ -22,7 +22,11 @@ New feature in this release:
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following issues:
+
+* **Errand Shared-VM Broker Register for <%= vars.product_full %> fails with Ruby Buildpack 1.8.50:**
+  The errand Shared-VM Broker Register fails to push the test application with Ruby Buildpack 1.8.50. The issue has been
+  identified within the `.bundle` directory and a `BUNDLED_WITH` on the `Gemfile.lock` messing the test application start up.
 
 ### Compatibility
 
