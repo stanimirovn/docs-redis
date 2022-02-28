@@ -13,12 +13,12 @@ owner: London Services
 
 ### Resolved Issues
 
-This release has the following fixes:
+This release has the following fix:
 
-* **Errand Shared-VM Broker Register for <%= vars.product_full %> no longer fails with Ruby Buildpack 1.8.50:**<br>
-  This error appeared when the test application was pushed with the Ruby Buildpack version 1.8.50 when running the Shared-VM Broker Register errand.
-  The issue was fixed by deleting the `.bundle` directory and the `BUNDLE_WITH` version specification on the test application's `Gemfile.lock` file.
-
+* **The Shared-VM Broker Registrar errand no longer fails with Ruby Buildpack v1.8.50:**
+The errand now succeeds when pushing the test app with the Ruby Buildpack v1.8.50.
+This was resolved by deleting the `.bundle` directory and the `BUNDLED_WITH` version
+specification from the `Gemfile.lock` file on the test app.
 
 ### Known Issues
 
