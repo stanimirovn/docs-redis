@@ -7,6 +7,74 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="3-0-1"></a> v3.0.1
+
+**Release Date: March 09, 2022**
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* **Errand Shared-VM Broker Register for <%= vars.product_full %> no longer fails with Ruby Buildpack 1.8.50:**<br>
+  This error appeared when the test application was pushed with the Ruby Buildpack version 1.8.50 when running the Shared-VM Broker Register errand.
+  The issue was fixed by deleting the `.bundle` directory and the `BUNDLE_WITH` version specification on the test application's `Gemfile.lock` file.
+
+### Known Issues
+
+There are no known issues for this release.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>621.208</td>
+</tr>
+<tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.11 and 2.12</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>437.0.27</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.42.4</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.229.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>2.0.15</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>6.3.8</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.16</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>6.2.6</td>
+</tr>
+
+</table>
+
 ## <a id="3-0-0"></a> v3.0.0
 
 **Release Date: November 30, 2021**
