@@ -670,18 +670,26 @@ You can disable shared-VM plans by doing the following while configuring the Red
 
 1. Ensure at least one on-demand plan is active.
 
-1. Configure the following tabs:
-* **Shared-VM Plan**:<br>
-    1. Set **Redis Service Instance Limit** to 0.<br>
-    1. Click **Save**.<br><br>
-* **Errands**:<br>
-    1. Set **Broker Registrar** to Off.<br>
-    1. Set **Smoke Tests** to Off.<br>
-    1. Set **Broker Deregistrar** to Off.<br>
-    1. Leave all four on-demand errands On. <br>
-    1. Click **Save**.<br><br>
-* **Resource Config**:<br>
-    1. For **VM Type** and **Persistent Disk Type**, leave the configurations as they are or increase the sizes. It is not possible to decrease the sizes.
+1. Click the **Shared-VM** tab.
+
+1. Set **Redis Service Instance Limit** to 0.
+
+1. Click **Save**.
+
+1. Click the **Errands** tab and configure the settings as follows:
+
+    1. Set **Broker Registrar** to Off.
+    1. Set **Smoke Tests** to Off.
+    1. Set **Broker Deregistrar** to Off.
+    1. Leave all four on-demand errands On.
+
+1. Click **Save**.
+
+1. Click the **Resource Config** tab.
+
+1. For **VM Type** and **Persistent Disk Type**, leave the configurations as they are or increase the sizes. It is not possible to decrease the sizes.
+
+1. Click **Save** if you changed the sizes.
 
 ## <a id="syslog"></a>Configure Syslog Forwarding
 
