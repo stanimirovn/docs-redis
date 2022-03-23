@@ -164,246 +164,477 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 + [Failed to Set Credentials in Runtime CredHub](#credhub-error)
 + [Service Outage after Disabling TLS](#disabling-tls)
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'corrupt-aof',
-    description: 'AOF File Corrupted, Cannot Start Redis Instance' ,
-    symptom: ' One or more VMs might fail to start the redis server during pre-start with the error message
-    logged in syslog:
+<a name="corrupt-aof"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
     <br>
-    <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
-    For more information about remote syslog forwarding,
-    see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.',
-    cause: 'In cases of hard crashes, for example, due to power loss or VM termination without
-    running drain scripts, your AOF file might become corrupted.
-    The error log printed out by Redis provides a clear means of recovery.',
-    solution: '<strong>Solution for Shared-VM instances:</strong><br><br>
-    <ol>
-      <li>SSH into your <code>cf-redis-broker</code> instance.</li>
-      <li>Navigate to the directory where your AOF file is stored.
-        This is usually
-        <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
-        <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
-      </li>
-      <li>Run the following command:
-         <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
-      </li>
-      <li>To SSH out of the <code>cf-redis-broker</code> instance and restart, run the following command:
-         <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
-      </li>
-    </ol>
+    AOF File Corrupted, Cannot Start Redis Instance
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      One or more VMs might fail to start the Redis server during pre-start with the error message
+      logged in syslog:
+      <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
+      For more information about remote syslog forwarding,
+      see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      In cases of hard crashes, for example, due to power loss or VM termination without
+      running drain scripts, your AOF file might become corrupted.
+      The error log printed out by Redis provides a clear means of recovery.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      <strong>Solution for Shared-VM instances:</strong><br><br>
+      <ol>
+        <li>SSH into your <code>cf-redis-broker</code> instance.</li>
+        <li>
+          Navigate to the directory where your AOF file is stored.
+          This is usually
+          <code>/var/vcap/store/cf-redis-broker/redis-data/SERVICE-INSTANCE-GUID/</code>, where
+          <code>SERVICE-INSTANCE-GUID</code> is the GUID for the affected service instance.
+        </li>
+        <li>
+          Run the following command:
+          <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+        </li>
+        <li>
+          To SSH out of the <code>cf-redis-broker</code> instance and restart, run the following command:
+          <pre class="terminal">bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+        </li>
+      </ol>
 
-    <strong>Solution for On-Demand-VM instances:</strong><br><br>
-    <ol>
-      <li>SSH into your affected service instance.</li>
-      <li>Navigate to the directory where your AOF file is stored.
-        This is usually <code>/var/vcap/store/redis/</code>.</li>
-      <li>Run:
-        <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
-      </li>
-      <li>SSH out of the service instance and restart it by running:
-         <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
-      </li>
-    </ol>'
-} %>
+      <strong>Solution for On-Demand-VM instances:</strong><br><br>
+      <ol>
+        <li>SSH into your affected service instance.</li>
+        <li>
+          Navigate to the directory where your AOF file is stored.
+          This is usually <code>/var/vcap/store/redis/</code>.
+        </li>
+        <li>
+          Run:
+          <pre class="terminal">/var/vcap/packages/redis/redis-check-aof appendonly.aof --fix</pre>
+        </li>
+        <li>
+          SSH out of the service instance and restart it by running:
+          <pre class="terminal">bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
+        </li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'disk-size',
-    description: 'Saving Error' ,
-    symptom: 'One of the following error messages is logged in syslog:<br>
-    <pre class="terminal">Background saving error</pre>
-    <pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
-    For more information about remote syslog forwarding,
-    see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.' ,
-    cause: 'This might be logged when the configured disk size is too small,
-    or if the Redis AOF uses all the disk space.' ,
-    solution: 'To prevent this error, do the following:<br><br>
-    <ol>
-      <li>Ensure the disk is configured to at least 2.5x the VM memory for the on-demand broker and
-        3.5x the VM memory for cf-redis-broker.</li>
-      <li>Check if the AOF is using too much disk space by doing the following:
-        <ol>
-          <li>BOSH SSH into the affected service instance VM.</li>
-          <li>Run <code>cd /var/vcap/store/redis; ls -la</code> to list the size of each file.</li>
-        </ol>
-      </li>
-    </ol>'
-} %>
+<a name="disk-size"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Saving Error
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      One of the following error messages is logged in syslog:<br>
+      <pre class="terminal">Background saving error</pre>
+      <pre class="terminal">Failed opening the RDB file dump.rdb (in server root dir /var/vcap/store/redis) for saving: No space left on device</pre>
+      For more information about remote syslog forwarding,
+      see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      This might be logged when the configured disk size is too small,
+      or if the Redis AOF uses all the disk space.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      To prevent this error, do the following:<br><br>
+      <ol>
+        <li>
+          Ensure the disk is configured to at least 2.5x the VM memory for the
+          on-demand broker and 3.5x the VM memory for cf-redis-broker.
+        </li>
+        <li>
+          Check if the AOF is using too much disk space by doing the following:
+          <ol>
+            <li>BOSH SSH into the affected service instance VM.</li>
+            <li>
+              List the size of each file by running:
+              <pre class="terminal">cd /var/vcap/store/redis; ls -la</pre>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'backup-errors' ,
-    description: 'Failed Backup' ,
-    symptom: 'The following error message is logged:<br>
-    <pre class="terminal">Backup has failed. Redis must be running for a backup to run</pre>',
-    cause: 'This is logged if a backup is initiated against a Redis server that is down.',
-    solution: 'Ensure that the Redis server being backed up is running.
-    To do this, run <code>bosh restart</code> against the affected service instance VM.'
-} %>
+<a name="backup-errors"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Failed Backup
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      The following error message is logged:<br>
+      <pre class="terminal">Backup has failed. Redis must be running for a backup to run</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>This is logged if a backup is initiated against a Redis server that is down.</td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      Ensure that the Redis server being backed up is running.
+      To do this, run <code>bosh restart</code> against the affected service instance VM.
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'orphaned-bosh',
-    description: 'Orphaned Instances: BOSH Director Cannot See Your Instances' ,
-    symptom: 'When you run <code>cf curl /v2/service_instances</code>,
-        some service instances are visible that are not visible to the BOSH Director.
-        These orphaned instances can create issues.
-        For example, they might hold on to a static IP address, causing IP conflicts.',
-    cause: 'Orphaned instances can occur in the following situations:<br><br>
-    <ul>
-      <li>Both ' + vars.app_runtime_abbr + ' and BOSH maintain state.
-        Orphaned instances can occur if the ' + vars.app_runtime_abbr + ' state is out of sync with BOSH.
-        For example, the deployments or VMs have been de-provisioned by BOSH but
-        the call to update the ' + vars.app_runtime_abbr + ' state failed.</li>
-      <li>If a call to de-provision a service instance was made directly to BOSH
-        rather than through the cf CLI.</li>
-    </ul>',
-    solution: 'You can solve this issue by doing one of the following:<br><br>
-    <ul>
-      <li>
-        <strong>If this is the first occurrence:</strong> VMware recommends that you purge
-        instances by running
-        <code>cf purge-service-instance SERVICE-INSTANCE</code>.
-      </li>
-      <li>
-        <strong>If this is a repeated occurrence:</strong> Contact
-        <a href="https://support.pivotal.io/"> VMware Tanzu Support</a>
-        for further help, and include the following:
-        <ul>
-          <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
-          <li>The deployment manifest of failed instances, hiding private information like passwords</li>
-          <li>Any recent logs that you can recover from the failed service instance</li>
-        </ul>
-      </li>
-    </ul>'
-} %>
+<a name="orphaned-bosh"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Orphaned Instances: BOSH Director Cannot See Your Instances
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      When you run <code>cf curl /v2/service_instances</code>,
+      some service instances are visible that are not visible to the BOSH Director.
+      These orphaned instances can create issues.
+      For example, they might hold on to a static IP address, causing IP conflicts.
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      Orphaned instances can occur in the following situations:<br><br>
+      <ul>
+        <li>
+          Both <%= vars.app_runtime_abbr %> and BOSH maintain state.
+          Orphaned instances can occur if the <%= vars.app_runtime_abbr %> state is out of sync with BOSH.
+          For example, the deployments or VMs have been de-provisioned by BOSH but
+          the call to update the <%= vars.app_runtime_abbr %> state failed.
+        </li>
+        <li>
+          If a call to de-provision a service instance was made directly to BOSH
+          rather than through the cf CLI.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      You can solve this issue by doing one of the following:<br><br>
+      <ul>
+        <li>
+          <strong>If this is the first occurrence:</strong> VMware recommends that you purge
+          instances by running:
+          <pre class="terminal">cf purge-service-instance SERVICE-INSTANCE</pre>.
+        </li>
+        <li>
+          <strong>If this is a repeated occurrence:</strong> Contact
+          <a href="https://support.pivotal.io/"> VMware Tanzu Support</a>
+          for further help, and include the following:
+          <ul>
+            <li>A snippet of your <code>broker.log</code> around the time of the incident</li>
+            <li>The deployment manifest of failed instances, hiding private information like passwords</li>
+            <li>Any recent logs that you can recover from the failed service instance</li>
+          </ul>
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'orphaned-pcf',
-    description: 'Orphaned Instances: The Deployment Cannot See Your Instances',
-    symptom: 'the deployment cannot see your broker or service instances.
-    These instances exist but cannot receive communication.',
-    cause: 'If you run <code>cf purge-service-instances</code> while your service instance
-    or broker still exists, your service instance becomes orphaned.',
-    solution: 'If the deployment lost the details of your instances,
-    but BOSH still has the deployment details,
-    you can solve this issue by backing up the data on your service instance and
-    creating a new service. <br><br>
-    To back up your data and create a new service instance:<br><br>
-    <ol>
-      <li>Retrieve your orphaned service instance GUID by running:
-        <pre>bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
-        Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
-      </li>
+<a name="orphaned-pcf"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Orphaned Instances: The Deployment Cannot See Your Instances
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      The deployment cannot see your broker or service instances.
+      These instances exist, but cannot receive communication.
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      If you run <code>cf purge-service-instances</code> while your service instance
+      or broker still exists, your service instance becomes orphaned.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      If the deployment lost the details of your instances,
+      but BOSH still has the deployment details,
+      you can solve this issue by backing up the data on your service instance and
+      creating a new service. <br><br>
+      To back up your data and create a new service instance:<br><br>
+      <ol>
+        <li>
+          Retrieve your orphaned service instance GUID by running:
+          <pre class="terminal">bosh -d MY-DEPLOYMENT run-errand orphan-deployments</pre>
+          Where <code>MY-DEPLOYMENT</code> is the name of your deployment.
+        </li>
 
-      <li>SSH into your orphaned service instance by running:
-        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
-        Where:
-        <ul>
-          <li><code>MY-ENV</code> is the name of your environment.</li>
-          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
-          <li><code>VM-NAME/GUID</code> is the name of your service instance and guid that you obtained
-            in step 1.</li>
-        </ul>
-      </li>
+        <li>
+          SSH into your orphaned service instance by running:
+          <pre class="terminal">bosh -e MY-ENV -d MY-DEPLOYMENT ssh VM-NAME/GUID</pre>
+          Where:
+          <ul>
+            <li><code>MY-ENV</code> is the name of your environment.</li>
+            <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+            <li><code>VM-NAME/GUID</code> is the name of your service instance
+              and GUID that you obtained in step 1.</li>
+          </ul>
+        </li>
 
-      <li>Create an new RDB file by running:
-        <pre>/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
-        This creates a new RDB file in <code>/var/vcap/store/redis-backup</code>.
-      </li>
+        <li>
+          Create an new RDB file by running:
+          <pre class="terminal">/var/vcap/jobs/redis-backups/bin/backup --snapshot</pre>
+          This creates a new RDB file in <code>/var/vcap/store/redis-backup</code>.
+        </li>
 
-      <li>Push the RDB file to your backup location by running:
-        <pre>/var/vcap/jobs/service-backup/bin/manual-backup</pre>
-        For information about backup locations,
-        see <a href="./auto-backup.html">Configuring Automated Service Backups</a>.
-      </li>
+        <li>
+          Push the RDB file to your backup location by running:
+          <pre class="terminal">/var/vcap/jobs/service-backup/bin/manual-backup</pre>
+          For information about backup locations,
+          see <a href="./auto-backup.html">Configuring Automated Service Backups</a>.
+        </li>
 
-      <li>Create a new service instance with the same configuration of the database you backed up.</li>
+        <li>Create a new service instance with the same configuration of the database you backed up.</li>
 
-      <li>Retrieve your new service instance GUID, by running:
-        <pre>bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
-        <ul>
-          <li><code>MY-ENV</code> is the name of your environment.</li>
-          <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
-        </ul>
-      </li>
+        <li>
+          Retrieve your new service instance GUID, by running:
+          <pre class="terminal">bosh -e MY-ENV -d MY-DEPLOYMENT vms</pre>
+          Where:
+          <ul>
+            <li><code>MY-ENV</code> is the name of your environment.</li>
+            <li><code>MY-DEPLOYMENT</code> is the name of your deployment.</li>
+          </ul>
+        </li>
 
-      <li> SSH into your new service instance by
-        repeating step 2 above with the GUID that you retrieved in step 6.</li>
+        <li>
+          SSH into your new service instance by repeating step 2 above with the
+          GUID that you retrieved in step 6.
+        </li>
 
-      <li> Create a new directory in new service instance by running:
-        <pre>mkdir /var/vcap/store/MY-BACKUPS</pre>
-      </li>
+        <li>
+          Create a new directory in new service instance by running:
+          <pre class="terminal">mkdir /var/vcap/store/MY-BACKUPS</pre>
+        </li>
 
-      <li> Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer
-        it to the new instance.
-         Replace <code>MY-BACKUPS</code> with the name of your backups directory.
-      </li>
+        <li>
+          Save the RDB file in <code>/var/vcap/store/MY-BACKUPS/</code> to transfer
+          it to the new instance.
+          Replace <code>MY-BACKUPS</code> with the name of your backups directory.
+        </li>
 
-      <li>Verify the RDB file has not been corrupted by running:
-        <pre>md5sum RDB-FILE</pre>
-        Where <code>RDB-FILE</code> is the path to your RDB file.
-      </li>
+        <li>
+          Verify the RDB file has not been corrupted by running:
+          <pre class="terminal">md5sum RDB-FILE</pre>
+          Where <code>RDB-FILE</code> is the path to your RDB file.
+        </li>
 
-      <li>Restore your data by running:
-        <pre>sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
-        Where <code>RDB-FILE</code> is the path to your RDB file.
-      </li>
-    </ol>'
-} %>
+        <li>
+          Restore your data by running:
+          <pre class="terminal">sudo /var/vcap/jobs/redis-backups/bin/restore --sourceRDB RDB-FILE</pre>
+          Where <code>RDB-FILE</code> is the path to your RDB file.
+        </li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
+<a name="credhub-error"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Failed to Set Credentials in Runtime CredHub
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      If developers report errors such as:
+      <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      Your service instances might not be running the latest version of <%= vars.product_short %>.
+      You might experience compatibility issues with CredHub if your service
+      instances are running <%= vars.product_short %> v1.14.3 or earlier.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      <ol>
+        <li>
+          Ensure you have the latest patch version of <%= vars.product_short %> installed.
+          For more information about the latest patch, see the
+          <a href="./release.html"><%= vars.product_full %> Release Notes</a>.
+        </li>
+        <li>
+          Run the <code>upgrade-all-service-instances</code> errand to ensure all service
+          instances are running the latest service offering.
+          For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.
+          <p class="note">
+            <strong>Note:</strong> Running this errand causes a short period of downtime.
+          </p>
+        </li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'credhub-error',
-    description: 'Failed to Set Credentials in Runtime CredHub' ,
-    symptom: 'If developers report errors such as: <pre class="terminal">error: failed to set credentials in credential store: The request includes an unrecognized parameter &#39;mode&#39;. Please update or remove this parameter and retry your request. error for user: There was a problem completing your request. Please contact your operations team providing the following information: service: p.redis, service-instance-guid: , broker-request-id: , operation: bind</pre>',
-    cause: 'Your service instances might not be running the latest version of ' + vars.product_short + '. You might experience compatibility issues with CredHub if your service instances
-    are running ' + vars.product_short + ' v1.14.3 or earlier.',
-    solution: '<ol>
-      <li>Ensure you have the latest patch version of ' + vars.product_short + ' installed.
-      For more information about the latest patch, see <a href="./release.html">' + vars.product_full + ' Release Notes</a>.</li>
-      <li>Run the <code>upgrade-all-service-instances</code> errand to ensure all service
-        instances are running the latest service offering.
-         For how to run the errand, see <a href="#upgrade-all">Upgrade All Service Instances</a>.</li>
-    </ol>
-
-    <p class="note"><strong>Note: </strong>
-      Running this errand causes a short period of downtime.
-    </p>'
-} %>
-
-
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'disabling-tls',
-    description: 'Service Outage after Disabling TLS' ,
-    symptom: 'After disabling TLS, apps that require on-demand Redis service instances become unresponsive.',
-    cause: 'When TLS is first enabled, all on-demand service instances are re-created with two ports.
-    Every new or re-created app receives the new credentials.
-    Spring and Steeltoe apps are configured for enabled TLS by default, but other
-    languages and frameworks require further configuration. <br><br>
-
-    When TLS is disabled, the TLS port is removed from all on-demand instances.
-    This prevents the apps from connecting to the instance.',
-    solution: '
-    <p>First, consider enabling TLS.
-      The compliance body that oversees your apps might require TLS to be enabled.
-      Also, switching between enabled and disabled TLS incurs downtime.</p>
-    <p>To enable TLS, follow these steps:</p>
-    <ol>
-      <li>In your ' + vars.ops_manager + ' home page, select the <strong>Redis</strong> tile.</li>
-      <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
-      <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
-      <li>Click <strong>Save</strong>.</li>
-      <li>Navigate back to the '+ vars.ops_manager + ' home page and click
-        <strong>Review Pending Changes</strong>.</li>
-      <li>Ensure the Recreate All On-Demand Service Instances errand is enabled under the
-        Redis section and then click <strong>Apply Changes</strong>.</li>
-    </ol>
-    <p>To continue with TLS disabled, follow these steps:</p>
-    <ol>
-      <li>Unbind, bind, and re-stage every app that was affected by disabling TLS.
-        For more information, see <a href="./appdevs.html">Introduction for App Developers</a>.
-        This makes Spring and Steeltoe apps default to non-TLS configuration.</li>
-      <li>Manually configure any other relevant languages and frameworks to work with TLS disabled.</li>
-    </ol>'
-} %>
+<a name="disabling-tls"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Service Outage after Disabling TLS
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>After disabling TLS, apps that require on-demand Redis service instances become unresponsive.</td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      When TLS is first enabled, all on-demand service instances are re-created with two ports.
+      Every new or re-created app receives the new credentials.
+      Spring and Steeltoe apps are configured for enabled TLS by default, but other
+      languages and frameworks require further configuration.
+      <br><br>
+      When TLS is disabled, the TLS port is removed from all on-demand instances.
+      This prevents the apps from connecting to the instance.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      <p>
+        First, consider enabling TLS.
+        The compliance body that oversees your apps might require TLS to be enabled.
+        Also, switching between enabled and disabled TLS incurs downtime.
+      </p>
+      <p>To enable TLS, follow these steps:</p>
+      <ol>
+        <li>In your <%= vars.ops_manager %> home page, select the <strong>Redis</strong> tile.</li>
+        <li>Navigate to <strong>On-Demand Service Settings.</strong></li>
+        <li>On the <strong>Enable TLS</strong> section, ensure it is set to <strong>Optional</strong>.</li>
+        <li>Click <strong>Save</strong>.</li>
+        <li>
+          Navigate back to the <%= vars.ops_manager %> home page and click
+          <strong>Review Pending Changes</strong>.
+        </li>
+        <li>
+          Ensure the Recreate All On-Demand Service Instances errand is enabled under the
+          Redis section and then click <strong>Apply Changes</strong>.
+        </li>
+      </ol>
+      <p>To continue with TLS disabled, follow these steps:</p>
+      <ol>
+        <li>
+          Unbind, bind, and re-stage every app that was affected by disabling TLS.
+          For more information, see <a href="./appdevs.html">Introduction for App Developers</a>.
+          This makes Spring and Steeltoe apps default to non-TLS configuration.
+        </li>
+        <li>Manually configure any other relevant languages and frameworks to work with TLS disabled.</li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
 ## <a id="components"></a> Troubleshoot Components
 
