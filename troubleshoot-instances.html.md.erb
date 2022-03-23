@@ -18,29 +18,64 @@ The following errors occur in multiple services:
 - [Apps Fail to Connect to the Service Instance](#connect-fails)
 - [No Metrics from Log Cache](#no-metrics)
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'connect-fails',
-    description: 'Apps Fail to Connect to the Service Instance',
-    symptom: 'Apps fail to connect to the Redis service instance.',
-    cause: '<p>The Redis on-demand service broker now binds apps to service instances using BOSH DNS.
+<a name="connect-fails"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Apps Fail to Connect to the Service Instance
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>Apps fail to connect to the Redis service instance.</td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      <p>
+        The Redis on-demand service broker now binds apps to service instances using BOSH DNS.
         Service bindings return the DNS address instead of the IP address.
         If an operator enables the BOSH HotSwaps feature, any apps with service bindings that
-        do not use BOSH DNS will fail to connect to the Redis service instance.</p>
-        <p>For more information, see <a href="./upgrade.html#bosh-hotswaps">Enable BOSH HotSwaps to Reduce Downtime</a>.</p>
-        <p>For more information about service bindings, see
-        <a href="https://docs.cloudfoundry.org/devguide/services/application-binding.html">Service Bindings</a> in the Cloud Foundry documentation.</p>',
-    solution: '<p>Convert service instance bindings to use BOSH DNS.
-                To do so, unbind, rebind, and restage all apps that were bound to a service
-                instance using an IP address as follows:</p>
-                <ul>
-                    <li>Unbind the app:
-                    <pre>cf unbind-service APP-NAME SERVICE-INSTANCE-NAME</pre></li>
-                    <li>Rebind the app:
-                    <pre>cf bind-service APP-NAME SERVICE-INSTANCE-NAME</pre></li>
-                    <li>Restage the app:
-                    <pre>cf restage APP-NAME</pre></li>
-                </ul>'
-} %>
+        do not use BOSH DNS will fail to connect to the Redis service instance.
+      </p>
+      <p>For more information, see <a href="./upgrade.html#bosh-hotswaps">Enable BOSH HotSwaps to Reduce Downtime</a>.</p>
+      <p>
+        For more information about service bindings, see
+        <a href="https://docs.cloudfoundry.org/devguide/services/application-binding.html">Service Bindings</a> in the Cloud Foundry documentation.
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      <p>
+        Convert service instance bindings to use BOSH DNS.
+        To do so, unbind, rebind, and restage all apps that were bound to a service
+        instance using an IP address as follows:
+      </p>
+      <ul>
+        <li>Unbind the app:
+          <pre class="terminal">cf unbind-service APP-NAME SERVICE-INSTANCE-NAME</pre>
+        </li>
+        <li>Rebind the app:
+          <pre class="terminal">cf bind-service APP-NAME SERVICE-INSTANCE-NAME</pre>
+        </li>
+        <li>Restage the app:
+          <pre class="terminal">cf restage APP-NAME</pre>
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
@@ -55,61 +90,166 @@ The following errors are specific to <%= vars.product_short %>:
 - [Error When Running the Save Command](#err-save-command)
 - [Unknown Command Error](#err-unknown-command)
 
-
 <p class="note"><strong>Note:</strong>
   Certain errors are returned to the Redis
   client instead of being recorded in the logs. The Redis protocol represents
   errors as simple strings beginning with a <code>-</code> character.
 </p>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'max-clients',
-    description: 'Maximum Number of Clients Reached',
-    symptom: '<p>You receive the following error:</p>
-<pre class="terminal">-ERR max number of clients reached</pre>',
-    cause: 'This is usually caused by apps opening multiple client connections to Redis.',
-    solution: 'Share or pool Redis connections within an app. ' + vars.product_short + ' configures
-    Redis to accept 10000 client connections.
-    This can be confirmed by running the `INFO` command using the Redis CLI.'
-} %>
+<a name="max-clients"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Maximum Number of Clients Reached
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      <p>You receive the following error:</p>
+      <pre class="terminal">-ERR max number of clients reached</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>This is usually caused by apps opening multiple client connections to Redis.</td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      Share or pool Redis connections within an app. <%= vars.product_short %> configures
+      Redis to accept 10000 client connections.
+      This can be confirmed by running the <code>INFO</code> command using the Redis CLI.
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'maxmemory',
-    description: 'Maxmemory Limit Reached',
-    symptom: "<p>You receive the following error:</p>
-<pre class='terminal'>-OOM command not allowed when used memory > 'maxmemory'.</pre>",
-    cause: 'This occurs when the Redis server has reached its <code>maxmemory</code> limit.',
-    solution: '<p>Consider changing your maxmemory-policy.
-You can update this using the <code>cf update-service</code> parameters.
-For how to do this, see <a href="using.html#custom">Customize an On-Demand
-Service Instance</a>.</p>'
-} %>
+<a name="maxmemory"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Maxmemory Limit Reached
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      <p>You receive the following error:</p>
+      <pre class='terminal'>-OOM command not allowed when used memory > 'maxmemory'.</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>This occurs when the Redis server has reached its <code>maxmemory</code> limit.</td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      <p>
+        Consider changing your maxmemory-policy.
+        You can update this using the <code>cf update-service</code> parameters.
+        For how to do this, see <a href="using.html#custom">Customize an On-Demand Service Instance</a>.
+      </p>
+    </td>
+  </tr>
+</table>
 
+<a name="err-save-command"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Error When Running the Save Command
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      <p>
+        You receive the following error message when running <code>redis-cli SAVE</code>
+        or issuing the save command using another Redis client:
+      </p>
+      <pre class="terminal">-ERR</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>This might occur when the Redis server's disk is full.</td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      A more informative message might be logged in the syslog.
+      For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.
+    </td>
+  </tr>
+</table>
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'err-save-command',
-    description: 'Error When Running the Save Command',
-    symptom: '<p>You receive the following error message when running
-    <code>redis-cli SAVE</code> or issuing
-the save command using another Redis client:</p>
-<pre class="terminal">-ERR</pre>',
-    cause: "This might occur when the Redis server's disk is full.",
-    solution: 'A more informative message might be logged in the syslog.
-For more information, see <a href="./troubleshooting.html#syslog-errors">Syslog Errors</a>.'
-} %>
-
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'err-unknown-command',
-    description: 'Unknown Command Error',
-    symptom: '<p>You receive the following error message when running `redis-cli COMMAND` or issuing
-a command using another Redis client:</p>
-<pre class="terminal">-ERR unknown command</pre>',
-    cause: 'For security reasons, certain commands such as <code>CONFIG</code>,
-<code>SAVE</code>, <code>BGSAVE</code> and <code>ACL</code>
-are not available by default.',
-    solution: 'Talk to your operator about the availability of the command.'
-} %>
-
+<a name="err-unknown-command"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Unknown Command Error
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
+      <p>
+        You receive the following error message when running <code>redis-cli COMMAND</code> or issuing
+        a command using another Redis client:
+      </p>
+      <pre class="terminal">-ERR unknown command</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      For security reasons, certain commands such as <code>CONFIG</code>,
+      <code>SAVE</code>, <code>BGSAVE</code> and <code>ACL</code>
+      are not available by default.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>Talk to your operator about the availability of the command.</td>
+  </tr>
+</table>
 
 
 ## <a id="techniques"></a> Techniques for Troubleshooting
