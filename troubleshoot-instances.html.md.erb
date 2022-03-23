@@ -18,33 +18,63 @@ The following errors occur in multiple services:
 - [Apps Fail to Connect to the Service Instance](#connect-fails)
 - [No Metrics from Log Cache](#no-metrics)
 
-
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'connect-fails',
-    description: 'Apps Fail to Connect to the Service Instance',
-    symptom: 'Apps fail to connect to the Redis service instance.',
-    cause: '<p>The Redis on-demand service broker now binds apps to service instances using BOSH DNS.
-        Service bindings return the DNS address instead of the IP address.
-        If an operator enables the BOSH HotSwaps feature, any apps with service bindings that
-        do not use BOSH DNS will fail to connect to the Redis service instance.</p>
-        <p>For more information, see <a href="./upgrade.html#bosh-hotswaps">Enable BOSH HotSwaps to Reduce Downtime</a>.</p>
-        <p>For more information about service bindings, see
-        <a href="https://docs.cloudfoundry.org/devguide/services/application-binding.html">Service Bindings</a> in the Cloud Foundry documentation.</p>',
-    solution: '<p>Convert service instance bindings to use BOSH DNS.
-                To do so, unbind, rebind, and restage all apps that were bound to a service
-                instance using an IP address as follows:</p>
-                <ul>
-                    <li>Unbind the app:
-                    <pre>cf unbind-service APP-NAME SERVICE-INSTANCE-NAME</pre></li>
-                    <li>Rebind the app:
-                    <pre>cf bind-service APP-NAME SERVICE-INSTANCE-NAME</pre></li>
-                    <li>Restage the app:
-                    <pre>cf restage APP-NAME</pre></li>
-                </ul>'
-} %>
+<a name="connect-fails"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Apps Fail to Connect to the Service Instance
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>Apps fail to connect to the Redis service instance.</td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      <p>
+        The Redis on-demand service broker now binds apps to service instances using BOSH DNS.
+      </p>
+      <p>For more information, see <a href="./upgrade.html#bosh-hotswaps">Enable BOSH HotSwaps to Reduce Downtime</a>.</p>
+      <p>
+        For more information about service bindings, see
+        <a href="https://docs.cloudfoundry.org/devguide/services/application-binding.html">Service Bindings</a> in the Cloud Foundry documentation.
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      <p>
+        Convert service instance bindings to use BOSH DNS.
+        To do so, unbind, rebind, and restage all apps that were bound to a service
+        instance using an IP address as follows:
+      </p>
+      <ul>
+        <li>Unbind the app:
+          <pre class="terminal">cf unbind-service APP-NAME SERVICE-INSTANCE-NAME</pre>
+        </li>
+        <li>Rebind the app:
+          <pre class="terminal">cf bind-service APP-NAME SERVICE-INSTANCE-NAME</pre>
+        </li>
+        <li>Restage the app:
+          <pre class="terminal">cf restage APP-NAME</pre>
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
 
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-no-metrics' %>
 
@@ -56,7 +86,6 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
 - [Maxmemory Limit Reached](#maxmemory)
 - [Error When Running the Save Command](#err-save-command)
 - [Unknown Command Error](#err-unknown-command)
-
 
 <p class="note"><strong>Note:</strong>
   Certain errors are returned to the Redis

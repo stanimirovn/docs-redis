@@ -164,11 +164,17 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 + [Failed to Set Credentials in Runtime CredHub](#credhub-error)
 + [Service Outage after Disabling TLS](#disabling-tls)
 
-<%= partial vars.path_to_partials + '/troubleshoot-template', locals: {
-    id: 'corrupt-aof',
-    description: 'AOF File Corrupted, Cannot Start Redis Instance' ,
-    symptom: ' One or more VMs might fail to start the redis server during pre-start with the error message
-    logged in syslog:
+<a name="corrupt-aof"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
     <br>
     <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
     For more information about remote syslog forwarding,
