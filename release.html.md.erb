@@ -16,6 +16,73 @@ owner: London Services
 <%= partial vars.path_to_partials + '/services/services-lts-notice', :locals => {
   :eogs_date => "April 2024"} %>
 
+## <a id="2-3-7"></a>v2.3.7
+
+**Release Date: March 7, 2022**
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **The Shared-VM Broker Registrar errand no longer fails with Ruby Buildpack v1.8.50:**
+  The errand now succeeds when pushing the test app with Ruby Buildpack v1.8.50.
+  This was resolved by deleting the `.bundle` directory and the `BUNDLED_WITH` version
+  specification from the `Gemfile.lock` file on the test app.
+
+### Known Issues
+
+There are no known issues for this release.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+  <tr>
+    <th>Component</th>
+    <th>Version</th>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td>VMware Tanzu Application Service for VMs</td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, and 2.11.x</td>
+  </tr>
+  <tr>
+    <td>shared-redis-release</td>
+    <td>437.0.29</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.42.4</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.231.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>2.0.15</td>
+  </tr>
+  <tr>
+    <td>service-backup</td>
+    <td>18.4.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>6.3.11</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.16</td>
+  </tr>
+  <tr>
+    <td>Redis OSS</td>
+    <td>5.0.14</td>
+  </tr>
+</table>
 
 ## <a id="2-3-7"></a>v2.3.7
 
