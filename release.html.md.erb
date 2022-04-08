@@ -11,18 +11,21 @@ owner: London Services
 
 **Release Date: April 25, 2022**
 
-### Resolved Issues
-
-This release has the following fix:
-
-* **Starting app test timeout:**
-  There was a timeout for smoke tests hence the app couldn't start properly and it would show a general error for the user. This issue has been fixed.
-
 ### Security Fixes
 
 This release includes the following security fix:
 
-* **runc:** Updated nginx from 1.16.x to 1.21.x to address [CVE-2021-23017](https://nvd.nist.gov/vuln/detail/CVE-2021-23017).
+* **runc:** Updated nginx from v1.16.x to v1.21.x to address [CVE-2021-23017](https://nvd.nist.gov/vuln/detail/CVE-2021-23017).
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **The test app no longer fails to start:** The timeout for smoke tests has been increased so that the test app can start without an error.
+
+### Known Issues
+
+There are no known issues for this release.
 
 ### Compatibility
 The following components are compatible with this release:
@@ -104,7 +107,10 @@ New features and changes in this release:
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following issue:
+
+* **The test app fails to start:** The timeout for smoke tests can cause the test app to fail to start.
+The user receives a general error.
 
 
 ### Compatibility
