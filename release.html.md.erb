@@ -11,18 +11,21 @@ owner: London Services
 
 **Release Date: April 22, 2022**
 
-### Resolved Issues
-
-This release has the following fix:
-
-* **Starting app test timeout:**
-  There was a timeout for smoke tests hence the app couldn't start properly and it would show a general error for the user. This issue has been fixed.
-
 ### Security Fixes
 
 This release includes the following security fix:
 
-* **runc:** Updated nginx from 1.16.x to 1.21.x to address [CVE-2021-23017](https://nvd.nist.gov/vuln/detail/CVE-2021-23017).
+* **runc:** Updated nginx from v1.16.x to v1.21.x to address [CVE-2021-23017](https://nvd.nist.gov/vuln/detail/CVE-2021-23017).
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **The test app no longer fails to start:** The timeout for smoke tests has been increased so that the test app can now start without an error.
+
+### Known Issues
+
+There are no known issues for this release.
 
 ### Compatibility
 
@@ -82,7 +85,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release has the following fixes:
+This release has the following fix:
 
 * **Errand Shared-VM Broker Register for <%= vars.product_full %> no longer fails with Ruby Buildpack 1.8.50:**<br>
   This error appeared when the test application was pushed with the Ruby Buildpack version 1.8.50 when running the Shared-VM Broker Register errand.
@@ -90,7 +93,9 @@ This release has the following fixes:
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following issue:
+
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start. The user receives a general error.
 
 ### Compatibility
 
@@ -166,7 +171,9 @@ New features and changes in this release:
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following issue:
+
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start. The user receives a general error.
 
 ### Compatibility
 
