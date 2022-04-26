@@ -7,6 +7,78 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="2-4-6"></a> v2.4.6
+
+**Release Date: April 25, 2022**
+
+### Security Fixes
+
+This release includes the following security fix:
+
+* **runc:** Updated nginx from v1.16.x to v1.21.x to address [CVE-2021-23017](https://nvd.nist.gov/vuln/detail/CVE-2021-23017).
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **The test app no longer fails to start:** The timeout for smoke tests has been increased so that the test app can now start without an error.
+
+### Known Issues
+
+There are no known issues for this release.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table border="1" class="nice">
+<tr>
+    <th>Component</th>
+    <th>Version</th>
+</tr>
+<tr>
+    <td>Stemcell</td>
+    <td>621.90</td>
+</tr>
+<tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.10, 2.11 and 2.12</td>
+</tr>
+<tr>
+    <td>shared-redis-release</td>
+    <td>437.0.29</td>
+</tr>
+<tr>
+    <td>on-demand-service-broker</td>
+    <td>0.42.4</td>
+</tr>
+<tr>
+    <td>routing</td>
+    <td>0.231.0</td>
+</tr>
+<tr>
+    <td>service-metrics</td>
+    <td>2.0.15</td>
+</tr>
+<tr>
+    <td>service-backup</td>
+    <td>18.4.0</td>
+</tr>
+<tr>
+    <td>loggregator-agent</td>
+    <td>6.3.11</td>
+</tr>
+<tr>
+    <td>bpm</td>
+    <td>1.1.15</td>
+</tr>
+<tr>
+    <td>Redis OSS</td>
+    <td>5.0.14</td>
+</tr>
+
+</table>
+
 ## <a id="2-4-5"></a> v2.4.5
 
 **Release Date: March 2, 2022**
@@ -22,7 +94,10 @@ specification from the `Gemfile.lock` file on the test app.
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following issue:
+
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start.
+The user receives a general error.
 
 ### Compatibility
 
@@ -91,12 +166,15 @@ New feature in this release:
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 * **The Shared-VM Broker Registrar errand fails with Ruby Buildpack v1.8.50:**
 The errand fails to push the test app with Ruby Buildpack v1.8.50.
 This issue is caused by the `.bundle` directory and the `BUNDLED_WITH` version
 specification in the `Gemfile.lock` file on the test app.
+
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start.
+The user receives a general error.
 
 ### Compatibility
 
@@ -188,7 +266,10 @@ This error sometimes appeared in logs as:
 
 ### Known Issues
 
-There are no known issues for this release.
+This release has the following issue:
+
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start.
+The user receives a general error.
 
 ### Compatibility
 
@@ -270,6 +351,9 @@ This release has the following fixes:
   In v2.4.1, Healthwatch was a required dependency.
   Attempting to remove Healthwatch from the foundation resulted in an error message,
   "Product Redis depends on Pivotal Healthwatch".
+
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start.
+The user receives a general error.
 
 ### Known Issues
 
@@ -377,6 +461,8 @@ This release has the following issues:
   see the [VMware Tanzu Support documentation](https://community.pivotal.io/s/article/Unable-to-remove-Healthwatch-from-a-foundation-due-to-Product-Redis-depends-on-Pivotal-Healthwatch?language=en_US)
   in the Knowledge Base.
 
+* **The test app fails to start:** The timeout for smoke tests causes the test app to fail to start.
+The user receives a general error.
 
 ### Compatibility
 
