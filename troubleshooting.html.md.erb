@@ -176,13 +176,30 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
   <tr>
   <th colspan="2" style="text-align: left;">
     <br>
-    <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
-    For more information about remote syslog forwarding,
-    see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.',
-    cause: 'In cases of hard crashes, for example, due to power loss or VM termination without
-    running drain scripts, your AOF file might become corrupted.
-    The error log printed out by Redis provides a clear means of recovery.',
-    solution: '<strong>Solution for Shared-VM instances:</strong><br><br>
+    AOF File Corrupted, Cannot Start Redis Instance
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+  <th>Symptom</th>
+    <td>
+      <pre class="terminal">[ErrorLog-TimeStamp] # Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix `filename`</pre>
+      For more information about remote syslog forwarding,
+      see <a href="installing.html#syslog">Configure Syslog Forwarding</a>.
+    </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>
+      In cases of hard crashes, for example, due to power loss or VM termination without
+      running drain scripts, your AOF file might become corrupted.
+      The error log printed out by Redis provides a clear means of recovery.
+    </td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      Solution for Shared-VM instances<br><br>
     <ol>
       <li>SSH into your <code>cf-redis-broker</code> instance.</li>
       <li>Navigate to the directory where your AOF file is stored.
@@ -197,7 +214,10 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
          <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
       </li>
     </ol>
-
+    </td>
+  </tr>
+  <tr>
+    <td>
     <strong>Solution for On-Demand-VM instances:</strong><br><br>
     <ol>
       <li>SSH into your affected service instance.</li>
@@ -209,8 +229,10 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
       <li>SSH out of the service instance and restart it by running:
          <pre>bosh restart INSTANCE-GROUP/INSTANCE-ID</pre>
       </li>
-    </ol>'
-} %>
+    </ol>
+    </td>
+  </tr>
+</table>
 
 <a name="disk-size"></a>
 <table class="nice">
