@@ -19,7 +19,7 @@ and how the user's app binds to a Redis instance.
 ![The p.redis service broker manages the on-demand service plan instances.
 The operator uses <%= vars.ops_manager_full %> to configure the plans.
 App-developers can create instances of each plan on-demand up to a set quota, and bind their apps to these instances.
-The operator specifies the per-plan and global quotas.](on-demand-arch.png)
+The operator specifies the per-plan and global quotas.](images/on-demand-arch.png)
 
 ## <a id="tls"></a> TLS in <%= vars.product_short %>
 
@@ -51,7 +51,7 @@ The diagram below shows how apps communicate with on-demand Redis instances when
 instance VM through a TLS proxy or connect directly.
 The TLS proxy and Redis are both on the Redis service instance.
 The traffic is secure from the app to the TLS proxy.
-Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](tls_optional.png)
+Once on the service instance, the traffic from the TLS proxy to Redis is unsecured.](images/tls_optional.png)
 
 
 ### <a id="tls-optional"></a> TLS Set to Not Configured
@@ -62,7 +62,7 @@ the communication with service instances remains unchanged from <%= vars.product
 The diagram below shows how apps communicate with on-demand Redis instances when you set TLS to **Not Configured**.
 
 ![The bound app connects directly to the Redis service on the on-demand Redis service instance VM.
-The traffic on this connection is unsecured.](tls_disabled.png)
+The traffic on this connection is unsecured.](images/tls_disabled.png)
 
 
 ## <a id="on-demand"></a> On-Demand Service Plans
@@ -147,4 +147,4 @@ Limitations for the on-demand service include:
 
 Here is the lifecycle of <%= vars.product_short %>, from an operator installing the tile through an app developer using the service then an operator deleting the tile.
 
-![On-Demand Lifecycle Diagram](Redis_timeline_demand.png)
+![On-Demand Lifecycle Diagram](images/Redis_timeline_demand.png)
